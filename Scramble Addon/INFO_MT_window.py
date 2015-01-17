@@ -19,6 +19,49 @@ class ToggleJapaneseInterface(bpy.types.Operator):
 		return {'FINISHED'}
 
 ################
+# パイメニュー #
+################
+
+class SelectModePieOperator(bpy.types.Operator):
+	bl_idname = "wm.select_mode_pie_operator"
+	bl_label = "メッシュ選択モード"
+	bl_description = "メッシュの選択のパイメニューです"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.wm.call_menu_pie(name=SelectModePie.bl_idname)
+		return {'FINISHED'}
+class SelectModePie(bpy.types.Menu):
+	bl_idname = "INFO_PIE_select_mode"
+	bl_label = "メッシュ選択モード"
+	bl_description = "メッシュの選択のパイメニューです"
+	
+	def draw(self, context):
+		self.layout.menu_pie().operator("mesh.select_mode", text="頂点", icon='VERTEXSEL').type = 'VERT'
+		self.layout.menu_pie().operator("mesh.select_mode", text="辺", icon='EDGESEL').type = 'EDGE'
+		self.layout.menu_pie().operator("mesh.select_mode", text="面", icon='FACESEL').type = 'FACE'
+
+################
+# サブメニュー #
+################
+
+class PieMenu(bpy.types.Menu):
+	bl_idname = "INFO_MT_window_pie"
+	bl_label = "ショートカット登録用パイメニュー"
+	bl_description = "ショートカット登録用のパイメニュー群です"
+	
+	def draw(self, context):
+		self.layout.menu(PieMeshMenu.bl_idname, icon="PLUGIN")
+
+class PieMeshMenu(bpy.types.Menu):
+	bl_idname = "INFO_MT_window_pie_mesh"
+	bl_label = "メッシュ"
+	bl_description = "メッシュ関係のパイメニューです"
+	
+	def draw(self, context):
+		self.layout.operator(SelectModePieOperator.bl_idname, icon="PLUGIN")
+
+################
 # メニュー追加 #
 ################
 
@@ -26,3 +69,5 @@ class ToggleJapaneseInterface(bpy.types.Operator):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(ToggleJapaneseInterface.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.menu(PieMenu.bl_idname, icon="PLUGIN")
