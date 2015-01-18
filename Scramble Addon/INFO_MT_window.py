@@ -23,7 +23,7 @@ class ToggleJapaneseInterface(bpy.types.Operator):
 ################
 
 class SelectModePieOperator(bpy.types.Operator):
-	bl_idname = "wm.select_mode_pie_operator"
+	bl_idname = "mesh.select_mode_pie_operator"
 	bl_label = "メッシュ選択モード"
 	bl_description = "メッシュの選択のパイメニューです"
 	bl_options = {'REGISTER', 'UNDO'}
@@ -38,8 +38,8 @@ class SelectModePie(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator("mesh.select_mode", text="頂点", icon='VERTEXSEL').type = 'VERT'
-		self.layout.menu_pie().operator("mesh.select_mode", text="辺", icon='EDGESEL').type = 'EDGE'
 		self.layout.menu_pie().operator("mesh.select_mode", text="面", icon='FACESEL').type = 'FACE'
+		self.layout.menu_pie().operator("mesh.select_mode", text="辺", icon='EDGESEL').type = 'EDGE'
 
 ################
 # サブメニュー #
