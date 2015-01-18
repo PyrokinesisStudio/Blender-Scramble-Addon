@@ -303,6 +303,7 @@ class UVMenu(bpy.types.Menu):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(DeleteUnmassage.bl_idname, icon="PLUGIN")
+	self.layout.separator()
 	self.layout.menu(ModifierMenu.bl_idname, icon="PLUGIN")
 	self.layout.menu(BooleanMenu.bl_idname, icon="PLUGIN")
 	self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
