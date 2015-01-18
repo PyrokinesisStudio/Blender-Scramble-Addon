@@ -56,7 +56,7 @@ class PieMenu(bpy.types.Menu):
 class PieMeshMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie_mesh"
 	bl_label = "メッシュ"
-	bl_description = "メッシュ関係のパイメニューです"
+	bl_description = "メッシュ関係のパイメニューです(エディトモードで登録して下さい)"
 	
 	def draw(self, context):
 		self.layout.operator(SelectModePieOperator.bl_idname, icon="PLUGIN")

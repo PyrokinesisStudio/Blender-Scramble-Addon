@@ -20,6 +20,60 @@ class DeleteUnmassage(bpy.types.Operator):
 		bpy.ops.object.delete(use_global=self.use_global)
 		return {'FINISHED'}
 
+############################
+# オペレーター(ブーリアン) #
+############################
+
+class AddBoolean(bpy.types.Operator):
+	bl_idname = "object.add_boolean"
+	bl_label = "ブーリアンを追加"
+	bl_description = "アクティブオブジェクトにその他選択オブジェクトのブーリアンを追加"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		("INTERSECT", "交差", "", 1),
+		("UNION", "統合", "", 2),
+		("DIFFERENCE", "差分", "", 3),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="演算")
+	
+	def execute(self, context):
+		activeObj = context.active_object
+		for obj in context.selected_objects:
+			if (obj.type == "MESH" and activeObj.name != obj.name):
+				modi = activeObj.modifiers.new("Boolean", "BOOLEAN")
+				modi.object = obj
+				modi.operation = self.mode
+				obj.draw_type = "BOUNDS"
+		return {'FINISHED'}
+
+class ApplyBoolean(bpy.types.Operator):
+	bl_idname = "object.apply_boolean"
+	bl_label = "ブーリアンを適用"
+	bl_description = "アクティブオブジェクトにその他選択オブジェクトのブーリアンを適用"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		("INTERSECT", "交差", "", 1),
+		("UNION", "統合", "", 2),
+		("DIFFERENCE", "差分", "", 3),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="演算")
+	
+	def execute(self, context):
+		activeObj = context.active_object
+		for obj in context.selected_objects:
+			if (obj.type == "MESH" and activeObj.name != obj.name):
+				modi = activeObj.modifiers.new("Boolean", "BOOLEAN")
+				modi.object = obj
+				modi.operation = self.mode
+				bpy.ops.object.modifier_apply (modifier=modi.name)
+				bpy.ops.object.select_all(action='DESELECT')
+				obj.select = True
+				bpy.ops.object.delete()
+				activeObj.select = True
+		return {'FINISHED'}
+
 ####################
 # オペレーター(UV) #
 ####################
@@ -193,12 +247,26 @@ class AddSubsurf(bpy.types.Operator):
 				modi.show_only_control_edges = self.show_only_control_edges
 		return {'FINISHED'}
 
-##########################
-# サブメニュー(Modifier) #
-##########################
+################
+# サブメニュー #
+################
+
+class BooleanMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_object_boolean"
+	bl_label = "ブーリアン"
+	bl_description = "ブーリアン関係の操作です"
+	
+	def draw(self, context):
+		self.layout.operator(AddBoolean.bl_idname, icon="PLUGIN", text="ブーリアン追加 (交差)").mode = "INTERSECT"
+		self.layout.operator(AddBoolean.bl_idname, icon="PLUGIN", text="ブーリアン追加 (統合)").mode = "UNION"
+		self.layout.operator(AddBoolean.bl_idname, icon="PLUGIN", text="ブーリアン追加 (差分)").mode = "DIFFERENCE"
+		self.layout.separator()
+		self.layout.operator(ApplyBoolean.bl_idname, icon="PLUGIN", text="ブーリアン適用 (交差)").mode = "INTERSECT"
+		self.layout.operator(ApplyBoolean.bl_idname, icon="PLUGIN", text="ブーリアン適用 (統合)").mode = "UNION"
+		self.layout.operator(ApplyBoolean.bl_idname, icon="PLUGIN", text="ブーリアン適用 (差分)").mode = "DIFFERENCE"
 
 class SubsurfMenu(bpy.types.Menu):
-	bl_idname = "object.subsurf_menu"
+	bl_idname = "VIEW3D_MT_object_subsurf"
 	bl_label = "サブサーフ関係"
 	bl_description = "サブサーフェイス関係の操作です"
 	
@@ -211,7 +279,7 @@ class SubsurfMenu(bpy.types.Menu):
 		self.layout.operator(SetSubsurfOptimalDisplay.bl_idname, icon="PLUGIN")
 
 class ModifierMenu(bpy.types.Menu):
-	bl_idname = "object.modifier_menu"
+	bl_idname = "VIEW3D_MT_object_modifier"
 	bl_label = "モディファイア関係"
 	bl_description = "モディファイア関係の操作です"
 	
@@ -219,7 +287,7 @@ class ModifierMenu(bpy.types.Menu):
 		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
 
 class UVMenu(bpy.types.Menu):
-	bl_idname = "VIEW3D_MT_object_uv_saidenka"
+	bl_idname = "VIEW3D_MT_object_uv"
 	bl_label = "UV関係"
 	bl_description = "UV関係の操作です"
 	
@@ -236,4 +304,5 @@ def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(DeleteUnmassage.bl_idname, icon="PLUGIN")
 	self.layout.menu(ModifierMenu.bl_idname, icon="PLUGIN")
+	self.layout.menu(BooleanMenu.bl_idname, icon="PLUGIN")
 	self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
