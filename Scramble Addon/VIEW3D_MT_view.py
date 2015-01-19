@@ -34,7 +34,8 @@ class LayerGroupMenu(bpy.types.Menu):
 			for group in obj.users_group:
 				if (not group in groups):
 					groups.append(group)
-		print(groups)
+		self.layout.operator(ApplyLayerGroup.bl_idname, icon="PLUGIN", text="グループ無所属").group = ""
+		self.layout.separator()
 		for group in groups:
 			self.layout.operator(ApplyLayerGroup.bl_idname, icon="PLUGIN", text=group.name).group = group.name
 
@@ -51,12 +52,18 @@ class ApplyLayerGroup(bpy.types.Operator):
 			for l1 in obj.layers:
 				for l2 in context.scene.layers:
 					if (l1 and l2):
-						for group in obj.users_group:
-							if (group.name == self.group):
-								obj.hide = False
-								break
+						if (self.group != ""):
+							for group in obj.users_group:
+								if (group.name == self.group):
+									obj.hide = False
+									break
+							else:
+								obj.hide = True
 						else:
-							obj.hide = True
+							if (len(obj.users_group) == 0):
+								obj.hide = False
+							else:
+								obj.hide = True
 		return {'FINISHED'}
 
 ################
