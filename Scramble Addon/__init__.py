@@ -37,6 +37,7 @@ if "bpy" in locals():
 	imp.reload(VIEW3D_MT_armature_specials)
 	imp.reload(IMAGE_MT_view)
 	imp.reload(INFO_MT_window)
+	imp.reload(VIEW3D_MT_view_align)
 else:
 	from . import INFO_MT_file
 	from . import INFO_MT_file_external_data
@@ -62,6 +63,7 @@ else:
 	from . import VIEW3D_MT_armature_specials
 	from . import IMAGE_MT_view
 	from . import INFO_MT_window
+	from . import VIEW3D_MT_view_align
 import bpy
 
 class temp(bpy.types.Operator):
@@ -94,6 +96,7 @@ def register():
 	bpy.types.VIEW3D_MT_armature_specials.append(VIEW3D_MT_armature_specials.menu)
 	bpy.types.IMAGE_MT_view.append(IMAGE_MT_view.menu)
 	bpy.types.INFO_MT_window.append(INFO_MT_window.menu)
+	bpy.types.VIEW3D_MT_view_align.append(VIEW3D_MT_view_align.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -122,6 +125,7 @@ def unregister():
 	bpy.types.VIEW3D_MT_armature_specials.remove(VIEW3D_MT_armature_specials.menu)
 	bpy.types.IMAGE_MT_view.remove(IMAGE_MT_view.menu)
 	bpy.types.INFO_MT_window.remove(INFO_MT_window.menu)
+	bpy.types.VIEW3D_MT_view_align.remove(VIEW3D_MT_view_align.menu)
 
 # メイン関数
 if __name__ == "__main__":
