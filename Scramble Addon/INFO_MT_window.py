@@ -61,6 +61,29 @@ class SetObjectMode(bpy.types.Operator):
 				self.report(type={"WARNING"}, message=context.active_object.name+" はその対話モードに入る事が出来ません")
 		return {'FINISHED'}
 
+class SubdivisionSetPieOperator(bpy.types.Operator):
+	bl_idname = "object.subdivision_set_pie_operator"
+	bl_label = "サブサーフ設定"
+	bl_description = "サブサーフのレベルを設定するパイメニューです"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.wm.call_menu_pie(name=SubdivisionSetPie.bl_idname)
+		return {'FINISHED'}
+class SubdivisionSetPie(bpy.types.Menu):
+	bl_idname = "INFO_PIE_subdivision_set"
+	bl_label = "サブサーフ設定"
+	bl_description = "サブサーフのレベルを設定するパイメニューです"
+	
+	def draw(self, context):
+		self.layout.menu_pie().operator("object.subdivision_set", text="レベル:2", icon="MOD_SUBSURF").level = 2
+		self.layout.menu_pie().operator("object.subdivision_set", text="レベル:6", icon="MOD_SUBSURF").level = 6
+		self.layout.menu_pie().operator("object.subdivision_set", text="レベル:0", icon="MOD_SUBSURF").level = 0
+		self.layout.menu_pie().operator("object.subdivision_set", text="レベル:4", icon="MOD_SUBSURF").level = 4
+		self.layout.menu_pie().operator("object.subdivision_set", text="レベル:3", icon="MOD_SUBSURF").level = 3
+		self.layout.menu_pie().operator("object.subdivision_set", text="レベル:5", icon="MOD_SUBSURF").level = 5
+		self.layout.menu_pie().operator("object.subdivision_set", text="レベル:1", icon="MOD_SUBSURF").level = 1
+
 class SelectModePieOperator(bpy.types.Operator):
 	bl_idname = "mesh.select_mode_pie_operator"
 	bl_label = "メッシュ選択モード"
@@ -100,6 +123,7 @@ class PieObjectMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.operator(ObjectModePieOperator.bl_idname, icon="PLUGIN")
+		self.layout.operator(SubdivisionSetPieOperator.bl_idname, icon="PLUGIN")
 
 class PieMeshMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie_mesh"
