@@ -22,6 +22,45 @@ class ToggleJapaneseInterface(bpy.types.Operator):
 # パイメニュー #
 ################
 
+class ObjectModePieOperator(bpy.types.Operator):
+	bl_idname = "object.object_mode_pie_operator"
+	bl_label = "オブジェクト対話モード"
+	bl_description = "オブジェクト対話モードのパイメニューです"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.wm.call_menu_pie(name=ObjectModePie.bl_idname)
+		return {'FINISHED'}
+class ObjectModePie(bpy.types.Menu):
+	bl_idname = "INFO_PIE_object_mode"
+	bl_label = "オブジェクト対話モード"
+	bl_description = "オブジェクト対話モードのパイメニューです"
+	
+	def draw(self, context):
+		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="ポーズ", icon="POSE_HLT").mode = "POSE"
+		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="スカルプト", icon="SCULPTMODE_HLT").mode = "SCULPT"
+		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="ウェイトペイント", icon="WPAINT_HLT").mode = "WEIGHT_PAINT"
+		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="オブジェクト", icon="OBJECT_DATAMODE").mode = "OBJECT"
+		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="パーティクル編集", icon="PARTICLEMODE").mode = "PARTICLE_EDIT"
+		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="編集", icon="EDITMODE_HLT").mode = "EDIT"
+		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="テクスチャペイント", icon="TPAINT_HLT").mode = "TEXTURE_PAINT"
+		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="頂点ペイント", icon="VPAINT_HLT").mode = "VERTEX_PAINT"
+class SetObjectMode(bpy.types.Operator):
+	bl_idname = "object.set_object_mode"
+	bl_label = "オブジェクト対話モードを設定"
+	bl_description = "オブジェクトの対話モードを設定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	mode = bpy.props.StringProperty(name="対話モード", default="OBJECT")
+	
+	def execute(self, context):
+		if (context.active_object):
+			try:
+				bpy.ops.object.mode_set(mode=self.mode)
+			except TypeError:
+				self.report(type={"WARNING"}, message=context.active_object.name+" はその対話モードに入る事が出来ません")
+		return {'FINISHED'}
+
 class SelectModePieOperator(bpy.types.Operator):
 	bl_idname = "mesh.select_mode_pie_operator"
 	bl_label = "メッシュ選択モード"
@@ -51,7 +90,16 @@ class PieMenu(bpy.types.Menu):
 	bl_description = "ショートカット登録用のパイメニュー群です"
 	
 	def draw(self, context):
+		self.layout.menu(PieObjectMenu.bl_idname, icon="PLUGIN")
 		self.layout.menu(PieMeshMenu.bl_idname, icon="PLUGIN")
+
+class PieObjectMenu(bpy.types.Menu):
+	bl_idname = "INFO_MT_window_pie_object"
+	bl_label = "オブジェクト"
+	bl_description = "オブジェクト関係のパイメニューです(オブジェクトモードで登録して下さい)"
+	
+	def draw(self, context):
+		self.layout.operator(ObjectModePieOperator.bl_idname, icon="PLUGIN")
 
 class PieMeshMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie_mesh"
