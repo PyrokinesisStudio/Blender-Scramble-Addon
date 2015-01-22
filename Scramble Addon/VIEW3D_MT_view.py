@@ -1,5 +1,40 @@
 import bpy
 
+################
+# パイメニュー #
+################
+
+class PieMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_view_pie"
+	bl_label = "パイメニュー"
+	bl_description = "3Dビュー関係のパイメニューです"
+	
+	def draw(self, context):
+		self.layout.operator(ViewNumpadPieOperator.bl_idname, icon="PLUGIN")
+
+class ViewNumpadPieOperator(bpy.types.Operator):
+	bl_idname = "view3d.view_numpad_pie_operator"
+	bl_label = "プリセットビュー"
+	bl_description = "プリセットビュー(テンキー1,3,7とか)のパイメニューです"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.wm.call_menu_pie(name=ViewNumpadPiePie.bl_idname)
+		return {'FINISHED'}
+class ViewNumpadPiePie(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_view_pie_view_numpad"
+	bl_label = "プリセットビュー"
+	bl_description = "プリセットビュー(テンキー1,3,7とか)のパイメニューです"
+	
+	def draw(self, context):
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="左").type = "LEFT"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="右").type = "RIGHT"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="下").type = "BOTTOM"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="上").type = "TOP"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="後").type = "BACK"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="カメラ").type = "CAMERA"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="前").type = "FRONT"
+
 ########################
 # グループレイヤー関係 #
 ########################
@@ -95,3 +130,5 @@ def menu(self, context):
 	self.layout.operator(ResetCursor.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(ShowLayerGroupMenu.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.menu(PieMenu.bl_idname, icon="PLUGIN")
