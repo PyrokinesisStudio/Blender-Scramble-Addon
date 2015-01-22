@@ -319,8 +319,8 @@ class PieMenu(bpy.types.Menu):
 	bl_description = "オブジェクト操作に関するパイメニューです"
 	
 	def draw(self, context):
-		self.layout.operator(SubdivisionSetPieOperator.bl_idname, icon="PLUGIN")
 		self.layout.operator(ObjectModePieOperator.bl_idname, icon="PLUGIN")
+		self.layout.operator(SubdivisionSetPieOperator.bl_idname, icon="PLUGIN")
 
 class BooleanMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_boolean"

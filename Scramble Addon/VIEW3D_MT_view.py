@@ -11,6 +11,7 @@ class PieMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.operator(ViewNumpadPieOperator.bl_idname, icon="PLUGIN")
+		self.layout.operator(ViewportShadePieOperator.bl_idname, icon="PLUGIN")
 
 class ViewNumpadPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.view_numpad_pie_operator"
@@ -34,6 +35,39 @@ class ViewNumpadPiePie(bpy.types.Menu):
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="後").type = "BACK"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="カメラ").type = "CAMERA"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="前").type = "FRONT"
+
+class ViewportShadePieOperator(bpy.types.Operator):
+	bl_idname = "view3d.viewport_shade_pie_operator"
+	bl_label = "シェーディング切り替え"
+	bl_description = "シェーディング切り替えパイメニューです"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.wm.call_menu_pie(name=ViewportShadePie.bl_idname)
+		return {'FINISHED'}
+class ViewportShadePie(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_view_pie_viewport_shade"
+	bl_label = "シェーディング切り替え"
+	bl_description = "シェーディング切り替えパイメニューです"
+	
+	def draw(self, context):
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="バウンディングボックス", icon="BBOX").mode = "BOUNDBOX"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="レンダー", icon="SMOOTH").mode = "RENDERED"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="ソリッド", icon="SOLID").mode = "SOLID"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="テクスチャ", icon="POTATO").mode = "TEXTURED"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="ワイヤーフレーム", icon="WIRE").mode = "WIREFRAME"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="マテリアル", icon="MATERIAL").mode = "MATERIAL"
+class SetViewportShade(bpy.types.Operator):
+	bl_idname = "view3d.set_viewport_shade"
+	bl_label = "シェーディング切り替え"
+	bl_description = "シェーディングを切り替えます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	mode = bpy.props.StringProperty(name="シェーディング", default="SOLID")
+	
+	def execute(self, context):
+		context.space_data.viewport_shade = self.mode
+		return {'FINISHED'}
 
 ########################
 # グループレイヤー関係 #
