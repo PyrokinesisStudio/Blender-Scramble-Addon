@@ -28,13 +28,13 @@ class ViewNumpadPiePie(bpy.types.Menu):
 	bl_description = "プリセットビュー(テンキー1,3,7とか)のパイメニューです"
 	
 	def draw(self, context):
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="左").type = "LEFT"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="右").type = "RIGHT"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="下").type = "BOTTOM"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="上").type = "TOP"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="後").type = "BACK"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="カメラ").type = "CAMERA"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="前").type = "FRONT"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="左", icon="TRIA_LEFT").type = "LEFT"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="右", icon="TRIA_RIGHT").type = "RIGHT"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="下", icon="TRIA_DOWN").type = "BOTTOM"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="上", icon="TRIA_UP").type = "TOP"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="後", icon="BBOX").type = "BACK"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="カメラ", icon="CAMERA_DATA").type = "CAMERA"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="前", icon="SOLID").type = "FRONT"
 
 class ViewportShadePieOperator(bpy.types.Operator):
 	bl_idname = "view3d.viewport_shade_pie_operator"
