@@ -123,9 +123,9 @@ class CreateWeightCopyMesh(bpy.types.Operator):
 					meObj.vertex_groups[bone.name].add([i], 1.0, "REPLACE")
 					i += 1
 				
-				bpy.ops.object.mode_set(mode="EDIT")
-				bpy.ops.mesh.extrude_region_move(TRANSFORM_OT_translate={"value":(0, 0, 0)})
-				bpy.ops.object.mode_set(mode="OBJECT")
+				#bpy.ops.object.mode_set(mode="EDIT")
+				#bpy.ops.mesh.extrude_region_move(TRANSFORM_OT_translate={"value":(0, 0, 0.01)})
+				#bpy.ops.object.mode_set(mode="OBJECT")
 			else:
 				self.report(type={"ERROR"}, message="ポーズモードで実行してください")
 		else:
