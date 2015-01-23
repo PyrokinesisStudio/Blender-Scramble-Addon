@@ -155,6 +155,18 @@ class ResetCursor(bpy.types.Operator):
 			bpy.ops.view3d.view_center_cursor()
 		return {'FINISHED'}
 
+class ResetView(bpy.types.Operator):
+	bl_idname = "view3d.reset_view"
+	bl_label = "視点を中心に"
+	bl_description = "3Dビューの視点を座標の中心に移動します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		co = context.space_data.cursor_location[:]
+		bpy.ops.view3d.view_center_cursor()
+		context.space_data.cursor_location = co
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -162,6 +174,7 @@ class ResetCursor(bpy.types.Operator):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
+	self.layout.operator(ResetView.bl_idname, icon="PLUGIN")
 	self.layout.operator(ResetCursor.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(ShowLayerGroupMenu.bl_idname, icon="PLUGIN")
