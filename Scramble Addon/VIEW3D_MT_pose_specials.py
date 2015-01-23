@@ -71,6 +71,63 @@ class CreateCustomShape(bpy.types.Operator):
 			self.report(type={"ERROR"}, message="アクティブオブジェクトがアーマチュアではありません")
 		return {'FINISHED'}
 
+class CreateWeightCopyMesh(bpy.types.Operator):
+	bl_idname = "pose.create_weight_copy_mesh"
+	bl_label = "選択ボーンのウェイトコピー用メッシュを作成"
+	bl_description = "選択中のボーンのウェイトコピーで使用するメッシュを作成します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	name =  bpy.props.StringProperty(name="作成するオブジェクト名", default="ウェイトコピー用オブジェクト")
+	items = [
+		("TAIL", "末尾", "", 1),
+		("HEAD", "根本", "", 2),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="ウェイトの位置")
+	
+	def execute(self, context):
+		obj = bpy.context.active_object
+		if (obj.type == "ARMATURE"):
+			if (obj.mode == "POSE"):
+				bpy.ops.object.mode_set(mode="OBJECT")
+				bones = []
+				for bone in obj.data.bones:
+					if(bone.select and not bone.hide):
+						bones.append(bone)
+				me = bpy.data.meshes.new(self.name)
+				verts = []
+				edges = []
+				for bone in bones:
+					co = bone.tail_local
+					if (self.mode == "HEAD"):
+						co = bone.head_local
+					verts.append(co)
+					i = 0
+					for b in bones:
+						if (bone.parent):
+							if (bone.parent.name == b.name):
+								edges.append((len(verts)-1, i))
+								break
+						i += 1
+				me.from_pydata(verts, edges, [])
+				me.update()
+				meObj = bpy.data.objects.new(self.name, me)
+				meObj.data = me
+				context.scene.objects.link(meObj)
+				bpy.ops.object.select_all(action="DESELECT")
+				meObj.select = True
+				context.scene.objects.active = meObj
+				
+				i = 0
+				for bone in bones:
+					meObj.vertex_groups.new(bone.name)
+					meObj.vertex_groups[bone.name].add([i], 1.0, "REPLACE")
+					i += 1
+			else:
+				self.report(type={"ERROR"}, message="ポーズモードで実行してください")
+		else:
+			self.report(type={"ERROR"}, message="アクティブオブジェクトがアーマチュアではありません")
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -79,3 +136,5 @@ class CreateCustomShape(bpy.types.Operator):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(CreateCustomShape.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.operator(CreateWeightCopyMesh.bl_idname, icon="PLUGIN")
