@@ -35,6 +35,7 @@ class ViewNumpadPiePie(bpy.types.Menu):
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="後", icon="BBOX").type = "BACK"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="カメラ", icon="CAMERA_DATA").type = "CAMERA"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="前", icon="SOLID").type = "FRONT"
+		self.layout.menu_pie().operator("view3d.view_persportho", text="透視投影/平行投影", icon="BORDERMOVE")
 
 class ViewportShadePieOperator(bpy.types.Operator):
 	bl_idname = "view3d.viewport_shade_pie_operator"
