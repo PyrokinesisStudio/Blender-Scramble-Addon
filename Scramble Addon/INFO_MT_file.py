@@ -1,4 +1,5 @@
 import bpy
+import mathutils
 import os.path
 
 ################
@@ -98,7 +99,7 @@ class AllSetMaterialColorRamp(bpy.types.Operator):
 	bl_description = "アクティブなマテリアルのカラーランプ設定を他の全マテリアル(選択オブジェクトのみも可)にコピーします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOnlySelected = bpy.props.BoolProperty(name="選択オブジェクトのマテリアルのみ", default=False)
+	isOnlySelected = bpy.props.BoolProperty(name="選択オブジェクトのみ", default=False)
 	
 	def execute(self, context):
 		activeMat = context.active_object.active_material
@@ -139,7 +140,7 @@ class AllSetMaterialFreestyleColor(bpy.types.Operator):
 	bl_description = "アクティブなマテリアルのFreeStyleの色設定を他の全マテリアル(選択オブジェクトのみも可)にコピーします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOnlySelected = bpy.props.BoolProperty(name="選択オブジェクトのマテリアルのみ", default=False)
+	isOnlySelected = bpy.props.BoolProperty(name="選択オブジェクトのみ", default=False)
 	isColor = bpy.props.BoolProperty(name="色", default=True)
 	isAlpha = bpy.props.BoolProperty(name="アルファ", default=True)
 	
@@ -166,6 +167,44 @@ class AllSetMaterialFreestyleColor(bpy.types.Operator):
 				if (self.isAlpha):
 					col[3] = activeMat.line_color[3]
 				mat.line_color = tuple(col)
+		return {'FINISHED'}
+
+class AllSetMaterialFreestyleColorByDiffuse(bpy.types.Operator):
+	bl_idname = "material.all_set_material_freestyle_color_by_diffuse"
+	bl_label = "全マテリアルのFreeStyle色をディフューズ色に"
+	bl_description = "全マテリアル(選択オブジェクトのみも可)のFreeStyleライン色をそのマテリアルのディフューズ色+ブレンドした色に置換します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	isOnlySelected = bpy.props.BoolProperty(name="選択オブジェクトのみ", default=False)
+	blendColor = bpy.props.FloatVectorProperty(name="ブレンド色", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype="COLOR")
+	items = [
+		("MIX", "ミックス", "", 1),
+		("MULTI", "乗算", "", 2),
+		("SCREEN", "スクリーン", "", 3),
+		]
+	blendMode = bpy.props.EnumProperty(items=items, name="ブレンドモード")
+	blendValue = bpy.props.FloatProperty(name="ブレンド強度", default=0.5, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
+	
+	def execute(self, context):
+		mats = []
+		if (self.isOnlySelected):
+			for obj in context.selected_objects:
+				for mslot in obj.material_slots:
+					if (mslot.material):
+						mats.append(mslot.material)
+		else:
+			mats = bpy.data.materials
+		for mat in mats:
+			c = (mat.diffuse_color[0], mat.diffuse_color[1], mat.diffuse_color[2], mat.line_color[3])
+			b = self.blendColor
+			v = self.blendValue
+			if (self.blendMode == "MIX"):
+				c = ( (c[0]*(1-v))+(b[0]*v), (c[1]*(1-v))+(b[1]*v), (c[2]*(1-v))+(b[2]*v), c[3] )
+			if (self.blendMode == "MULTI"):
+				c = ( (c[0]*(1-v))+((c[0]*b[0])*v), (c[1]*(1-v))+((c[1]*b[1])*v), (c[2]*(1-v))+((c[2]*b[2])*v), c[3] )
+			if (self.blendMode == "SCREEN"):
+				c = ( (c[0]*(1-v))+(1-((1-c[0])*(1-b[0]))*v), (c[1]*(1-v))+(1-((1-c[1])*(1-b[1]))*v), (c[2]*(1-v))+(1-((1-c[2])*(1-b[2]))*v), c[3] )
+			mat.line_color = c
 		return {'FINISHED'}
 
 ############################
@@ -297,6 +336,7 @@ class EntireProcessMaterialMenu(bpy.types.Menu):
 		self.layout.operator(AllSetMaterialReceiveTransparent.bl_idname, icon="PLUGIN")
 		self.layout.operator(AllSetMaterialColorRamp.bl_idname, icon="PLUGIN")
 		self.layout.operator(AllSetMaterialFreestyleColor.bl_idname, icon="PLUGIN")
+		self.layout.operator(AllSetMaterialFreestyleColorByDiffuse.bl_idname, icon="PLUGIN")
 
 class EntireProcessTextureMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_texture"
