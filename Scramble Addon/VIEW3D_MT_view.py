@@ -20,9 +20,9 @@ class ViewNumpadPieOperator(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
-		bpy.ops.wm.call_menu_pie(name=ViewNumpadPiePie.bl_idname)
+		bpy.ops.wm.call_menu_pie(name=ViewNumpadPie.bl_idname)
 		return {'FINISHED'}
-class ViewNumpadPiePie(bpy.types.Menu):
+class ViewNumpadPie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_view_pie_view_numpad"
 	bl_label = "プリセットビュー"
 	bl_description = "プリセットビュー(テンキー1,3,7とか)のパイメニューです"
