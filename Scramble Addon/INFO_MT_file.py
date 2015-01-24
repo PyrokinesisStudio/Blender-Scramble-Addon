@@ -133,6 +133,41 @@ class AllSetMaterialColorRamp(bpy.types.Operator):
 				mat.diffuse_ramp_factor = activeMat.diffuse_ramp_factor
 		return {'FINISHED'}
 
+class AllSetMaterialFreestyleColor(bpy.types.Operator):
+	bl_idname = "material.all_set_material_freestyle_color"
+	bl_label = "アクティブマテリアルのFreeStyle色を他にコピー"
+	bl_description = "アクティブなマテリアルのFreeStyleの色設定を他の全マテリアル(選択オブジェクトのみも可)にコピーします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	isOnlySelected = bpy.props.BoolProperty(name="選択オブジェクトのマテリアルのみ", default=False)
+	isColor = bpy.props.BoolProperty(name="色", default=True)
+	isAlpha = bpy.props.BoolProperty(name="アルファ", default=True)
+	
+	def execute(self, context):
+		activeMat = context.active_object.active_material
+		if (not activeMat):
+			self.report(type={"ERROR"}, message="アクティブマテリアルがありません")
+			return {"CANCELLED"}
+		mats = []
+		if (self.isOnlySelected):
+			for obj in context.selected_objects:
+				for mslot in obj.material_slots:
+					if (mslot.material):
+						mats.append(mslot.material)
+		else:
+			mats = bpy.data.materials
+		for mat in mats:
+			if (mat.name != activeMat.name):
+				col = list(mat.line_color[:])
+				if (self.isColor):
+					col[0] = activeMat.line_color[0]
+					col[1] = activeMat.line_color[1]
+					col[2] = activeMat.line_color[2]
+				if (self.isAlpha):
+					col[3] = activeMat.line_color[3]
+				mat.line_color = tuple(col)
+		return {'FINISHED'}
+
 ############################
 # オペレーター(テクスチャ) #
 ############################
@@ -261,6 +296,7 @@ class EntireProcessMaterialMenu(bpy.types.Menu):
 	def draw(self, context):
 		self.layout.operator(AllSetMaterialReceiveTransparent.bl_idname, icon="PLUGIN")
 		self.layout.operator(AllSetMaterialColorRamp.bl_idname, icon="PLUGIN")
+		self.layout.operator(AllSetMaterialFreestyleColor.bl_idname, icon="PLUGIN")
 
 class EntireProcessTextureMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_texture"
