@@ -4,6 +4,24 @@ import bpy
 # パイメニュー #
 ################
 
+class CopyPieOperator(bpy.types.Operator):
+	bl_idname = "object.copy_pie_operator"
+	bl_label = "コピー"
+	bl_description = "オブジェクトに関するコピーのパイメニューです"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.wm.call_menu_pie(name=CopyPie.bl_idname)
+		return {'FINISHED'}
+class CopyPie(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_object_pie_copy"
+	bl_label = "コピー"
+	bl_description = "オブジェクトに関するコピーのパイメニューです"
+	
+	def draw(self, context):
+		self.layout.menu_pie().operator("view3d.copybuffer", icon="COPY_ID")
+		self.layout.menu_pie().operator(CopyObjectName.bl_idname, icon="MONKEY")
+
 class ObjectModePieOperator(bpy.types.Operator):
 	bl_idname = "object.object_mode_pie_operator"
 	bl_label = "オブジェクト対話モード"
@@ -80,6 +98,16 @@ class DeleteUnmassage(bpy.types.Operator):
 	
 	def execute(self, context):
 		bpy.ops.object.delete(use_global=self.use_global)
+		return {'FINISHED'}
+
+class CopyObjectName(bpy.types.Operator):
+	bl_idname = "object.copy_object_name"
+	bl_label = "オブジェクト名をクリップボードにコピー"
+	bl_description = "アクティブなオブジェクトの名前をクリップボードにコピーします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		context.window_manager.clipboard = context.active_object.name
 		return {'FINISHED'}
 
 ############################
@@ -319,6 +347,7 @@ class PieMenu(bpy.types.Menu):
 	bl_description = "オブジェクト操作に関するパイメニューです"
 	
 	def draw(self, context):
+		self.layout.operator(CopyPieOperator.bl_idname, icon="PLUGIN")
 		self.layout.operator(ObjectModePieOperator.bl_idname, icon="PLUGIN")
 		self.layout.operator(SubdivisionSetPieOperator.bl_idname, icon="PLUGIN")
 
@@ -367,6 +396,15 @@ class UVMenu(bpy.types.Menu):
 		self.layout.operator(RenameUV.bl_idname, icon="PLUGIN")
 		self.layout.operator(DeleteEmptyUV.bl_idname, icon="PLUGIN")
 
+class ShortcutMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_object_shortcut"
+	bl_label = "ショートカット登録用"
+	bl_description = "ショートカットに登録すると便利そうな機能群です"
+	
+	def draw(self, context):
+		self.layout.operator(CopyObjectName.bl_idname, icon="PLUGIN")
+		self.layout.operator(DeleteUnmassage.bl_idname, icon="PLUGIN")
+
 ################
 # メニュー追加 #
 ################
@@ -374,7 +412,7 @@ class UVMenu(bpy.types.Menu):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
-	self.layout.operator(DeleteUnmassage.bl_idname, icon="PLUGIN")
+	self.layout.menu(ShortcutMenu.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.menu(ModifierMenu.bl_idname, icon="PLUGIN")
 	self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
