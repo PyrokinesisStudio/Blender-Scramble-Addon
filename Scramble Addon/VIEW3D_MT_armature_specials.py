@@ -97,6 +97,7 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
+	self.layout.prop(context.object.data, "use_mirror_x", icon="PLUGIN", text="X軸ミラー編集")
 	self.layout.operator(CreateMirror.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(RenameBoneRegularExpression.bl_idname, icon="PLUGIN")
