@@ -5,6 +5,66 @@ import re
 # オペレーター #
 ################
 
+class CreateMirror(bpy.types.Operator):
+	bl_idname = "armature.create_mirror"
+	bl_label = "選択ボーンをミラーリング"
+	bl_description = "選択中のボーンを任意の軸でミラーリングします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		("X", "X軸", "", 1),
+		("Y", "Y軸", "", 2),
+		("Z", "Z軸", "", 3),
+		]
+	axis = bpy.props.EnumProperty(items=items, name="軸")
+	
+	def execute(self, context):
+		obj = context.active_object
+		if (obj.type == "ARMATURE"):
+			if (obj.mode == "EDIT"):
+				preCursorCo = context.space_data.cursor_location[:]
+				prePivotPoint = context.space_data.pivot_point
+				preUseMirror = context.object.data.use_mirror_x
+				
+				context.space_data.cursor_location = (0, 0, 0)
+				context.space_data.pivot_point = 'CURSOR'
+				context.object.data.use_mirror_x = True
+				
+				selectedBones = context.selected_bones
+				bpy.ops.armature.duplicate()
+				if (self.axis == "X"):
+					axis = (True, False, False)
+				if (self.axis == "Y"):
+					axis = (False, True, False)
+				if (self.axis == "Z"):
+					axis = (False, False, True)
+				bpy.ops.transform.mirror(constraint_axis=axis)
+				bpy.ops.armature.flip_names()
+				newBones = []
+				for bone in context.selected_bones:
+					newBones.append(bone)
+				bpy.ops.armature.select_all(action='DESELECT')
+				for bone in selectedBones:
+					bone.select = True
+					bone.select_head = True
+					bone.select_tail = True
+				bpy.ops.transform.transform(mode='BONE_ROLL', value=(0, 0, 0, 0))
+				
+				#bpy.ops.armature.select_all(action='DESELECT')
+				#for bone in newBones:
+				#	bone.select = True
+				#	bone.select_head = True
+				#	bone.select_tail = True
+				
+				context.space_data.cursor_location = preCursorCo[:]
+				context.space_data.pivot_point = prePivotPoint
+				context.object.data.use_mirror_x = preUseMirror
+			else:
+				self.report(type={"ERROR"}, message="エディトモードで実行してください")
+		else:
+			self.report(type={"ERROR"}, message="アーマチュアオブジェクトではありません")
+		return {'FINISHED'}
+
 class RenameBoneRegularExpression(bpy.types.Operator):
 	bl_idname = "armature.rename_bone_regular_expression"
 	bl_label = "ボーンを正規表現で置換"
@@ -36,5 +96,7 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.separator()
+	self.layout.operator(CreateMirror.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(RenameBoneRegularExpression.bl_idname, icon="PLUGIN")
