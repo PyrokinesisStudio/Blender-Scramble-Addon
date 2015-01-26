@@ -67,8 +67,8 @@ class CreateMirror(bpy.types.Operator):
 
 class RenameBoneRegularExpression(bpy.types.Operator):
 	bl_idname = "armature.rename_bone_regular_expression"
-	bl_label = "ボーンを正規表現で置換"
-	bl_description = "(選択中の)ボーンを正規表現に一致する部分で置換します"
+	bl_label = "ボーン名を正規表現で置換"
+	bl_description = "(選択中の)ボーン名を正規表現に一致する部分で置換します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isAll = bpy.props.BoolProperty(name="非選択も含め全て", default=False)

@@ -8,6 +8,16 @@ import bpy
 # オペレーター #
 ################
 
+class DeleteUnmassage(bpy.types.Operator):
+	bl_idname = "armature.delete_unmassage"
+	bl_label = "確認無しでボーンを削除"
+	bl_description = "ボーンを確認無しで削除します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.armature.delete()
+		return {'FINISHED'}
+
 class Move3DCursor(bpy.types.Operator):
 	bl_idname = "armature.move_3d_cursor"
 	bl_label = "ボーンをそのまま3Dカーソルの位置へ"
@@ -34,5 +44,7 @@ class Move3DCursor(bpy.types.Operator):
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.separator()
+	self.layout.operator(DeleteUnmassage.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(Move3DCursor.bl_idname, icon="PLUGIN")
