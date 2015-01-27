@@ -111,6 +111,13 @@ class SimplifyRenderMenu(bpy.types.Menu):
 	def draw(self, context):
 		self.layout.prop(context.scene.render, "use_simplify", icon="PLUGIN")
 		self.layout.separator()
+		self.layout.prop(context.scene.render, "simplify_subdivision", icon="PLUGIN")
+		self.layout.prop(context.scene.render, "simplify_shadow_samples", icon="PLUGIN")
+		self.layout.prop(context.scene.render, "simplify_child_particles", icon="PLUGIN")
+		self.layout.prop(context.scene.render, "simplify_ao_sss", icon="PLUGIN")
+		self.layout.prop(context.scene.render, "use_simplify_triangulate", icon="PLUGIN")
+		self.layout.separator()
+		
 		i = self.layout.operator(SetSimplify.bl_idname, icon="PLUGIN")
 		i.use = context.scene.render.use_simplify
 		i.subdivision = context.scene.render.simplify_subdivision
