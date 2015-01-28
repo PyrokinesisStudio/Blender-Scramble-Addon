@@ -40,6 +40,7 @@ if "bpy" in locals():
 	imp.reload(VIEW3D_MT_view_align)
 	imp.reload(VIEW3D_MT_edit_mesh)
 	imp.reload(VIEW3D_MT_edit_mesh_delete)
+	imp.reload(NODE_MT_node)
 else:
 	from . import INFO_MT_file
 	from . import INFO_MT_file_external_data
@@ -68,6 +69,7 @@ else:
 	from . import VIEW3D_MT_view_align
 	from . import VIEW3D_MT_edit_mesh
 	from . import VIEW3D_MT_edit_mesh_delete
+	from . import NODE_MT_node
 import bpy
 
 class temp(bpy.types.Operator):
@@ -103,6 +105,7 @@ def register():
 	bpy.types.VIEW3D_MT_view_align.append(VIEW3D_MT_view_align.menu)
 	bpy.types.VIEW3D_MT_edit_mesh.append(VIEW3D_MT_edit_mesh.menu)
 	bpy.types.VIEW3D_MT_edit_mesh_delete.append(VIEW3D_MT_edit_mesh_delete.menu)
+	bpy.types.NODE_MT_node.append(NODE_MT_node.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -134,6 +137,7 @@ def unregister():
 	bpy.types.VIEW3D_MT_view_align.remove(VIEW3D_MT_view_align.menu)
 	bpy.types.VIEW3D_MT_edit_mesh.remove(VIEW3D_MT_edit_mesh.menu)
 	bpy.types.VIEW3D_MT_edit_mesh_delete.remove(VIEW3D_MT_edit_mesh_delete.menu)
+	bpy.types.NODE_MT_node.remove(NODE_MT_node.menu)
 
 # メイン関数
 if __name__ == "__main__":

@@ -111,7 +111,11 @@ class AllSetMaterialColorRamp(bpy.types.Operator):
 			for obj in context.selected_objects:
 				for mslot in obj.material_slots:
 					if (mslot.material):
-						mats.append(mslot.material)
+						for mat in mats:
+							if (mat.name == mslot.material.name):
+								break
+						else:
+							mats.append(mslot.material)
 		else:
 			mats = bpy.data.materials
 		for mat in mats:
@@ -154,7 +158,11 @@ class AllSetMaterialFreestyleColor(bpy.types.Operator):
 			for obj in context.selected_objects:
 				for mslot in obj.material_slots:
 					if (mslot.material):
-						mats.append(mslot.material)
+						for mat in mats:
+							if (mat.name == mslot.material.name):
+								break
+						else:
+							mats.append(mslot.material)
 		else:
 			mats = bpy.data.materials
 		for mat in mats:
@@ -191,7 +199,11 @@ class AllSetMaterialFreestyleColorByDiffuse(bpy.types.Operator):
 			for obj in context.selected_objects:
 				for mslot in obj.material_slots:
 					if (mslot.material):
-						mats.append(mslot.material)
+						for mat in mats:
+							if (mat.name == mslot.material.name):
+								break
+						else:
+							mats.append(mslot.material)
 		else:
 			mats = bpy.data.materials
 		for mat in mats:
