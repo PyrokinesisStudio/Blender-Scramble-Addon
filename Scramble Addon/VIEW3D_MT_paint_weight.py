@@ -1,9 +1,5 @@
 import bpy
 
-##############
-# その他関数 #
-##############
-
 ################
 # オペレーター #
 ################
@@ -14,22 +10,22 @@ class MargeSelectedVertexGroup(bpy.types.Operator):
 	bl_description = "選択中のボーンと同じ頂点グループのウェイトを統合した新規頂点グループを作成します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isReplace = bpy.props.BoolProperty(name="アクティブを置換", default=True)
+	isNewVertGroup = bpy.props.BoolProperty(name="新頂点グループ作成", default=False)
 	ext = bpy.props.StringProperty(name="新頂点グループ名の末尾", default="...等の合成")
 	
 	def execute(self, context):
 		obj = context.active_object
 		me = obj.data
-		if (self.isReplace):
-			newVg = obj.vertex_groups[context.active_pose_bone.name]
-		else:
+		if (self.isNewVertGroup):
 			newVg = obj.vertex_groups.new(name=context.active_pose_bone.name+self.ext)
+		else:
+			newVg = obj.vertex_groups[context.active_pose_bone.name]
 		boneNames = []
 		for bone in context.selected_pose_bones:
 			boneNames.append(bone.name)
 		for vert in me.vertices:
 			for vg in vert.groups:
-				if (not self.isReplace or newVg.name != obj.vertex_groups[vg.group].name):
+				if (self.isNewVertGroup or newVg.name != obj.vertex_groups[vg.group].name):
 					if (obj.vertex_groups[vg.group].name in boneNames):
 						newVg.add([vert.index], vg.weight, 'ADD')
 		bpy.ops.object.mode_set(mode="OBJECT")
