@@ -6,8 +6,8 @@ import bpy
 
 class MargeSelectedVertexGroup(bpy.types.Operator):
 	bl_idname = "mesh.marge_selected_vertex_group"
-	bl_label = "ウェイトの合成"
-	bl_description = "選択中のボーンと同じ頂点グループのウェイトを統合した新規頂点グループを作成します"
+	bl_label = "ウェイト同士の合成"
+	bl_description = "選択中のボーンと同じ頂点グループのウェイトを合成します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isNewVertGroup = bpy.props.BoolProperty(name="新頂点グループ作成", default=False)
@@ -31,6 +31,28 @@ class MargeSelectedVertexGroup(bpy.types.Operator):
 		bpy.ops.object.mode_set(mode="OBJECT")
 		bpy.ops.object.mode_set(mode="WEIGHT_PAINT")
 		obj.vertex_groups.active_index = newVg.index
+		return {'FINISHED'}
+
+class RemoveSelectedVertexGroup(bpy.types.Operator):
+	bl_idname = "mesh.remove_selected_vertex_group"
+	bl_label = "ウェイト同士の減算"
+	bl_description = "選択中のボーンと同じ頂点グループのウェイトを減算します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		obj = context.active_object
+		me = obj.data
+		newVg = obj.vertex_groups[context.active_pose_bone.name]
+		boneNames = []
+		for bone in context.selected_pose_bones:
+			boneNames.append(bone.name)
+		for vert in me.vertices:
+			for vg in vert.groups:
+				if (newVg.name != obj.vertex_groups[vg.group].name):
+					if (obj.vertex_groups[vg.group].name in boneNames):
+						newVg.add([vert.index], vg.weight, 'SUBTRACT')
+		bpy.ops.object.mode_set(mode="OBJECT")
+		bpy.ops.object.mode_set(mode="WEIGHT_PAINT")
 		return {'FINISHED'}
 
 class VertexGroupAverageAll(bpy.types.Operator):
@@ -72,5 +94,6 @@ class VertexGroupAverageAll(bpy.types.Operator):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(MargeSelectedVertexGroup.bl_idname, icon="PLUGIN")
+	self.layout.operator(RemoveSelectedVertexGroup.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(VertexGroupAverageAll.bl_idname, icon="PLUGIN")
