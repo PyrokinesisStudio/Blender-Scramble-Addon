@@ -8,6 +8,30 @@ import bpy
 # オペレーター #
 ################
 
+class MargeSelectedVertexGroup(bpy.types.Operator):
+	bl_idname = "mesh.marge_selected_vertex_group"
+	bl_label = "選択ボーンウェイトを合計した新頂点グループを生成"
+	bl_description = "選択中のボーンと同じ頂点グループのウェイトを統合した新規頂点グループを作成します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	ext = bpy.props.StringProperty(name="頂点グループ名の末尾", default="...等の合成")
+	
+	def execute(self, context):
+		obj = context.active_object
+		me = obj.data
+		newVg = obj.vertex_groups.new(name=context.active_pose_bone.name+self.ext)
+		boneNames = []
+		for bone in context.selected_pose_bones:
+			boneNames.append(bone.name)
+		for vert in me.vertices:
+			for vg in vert.groups:
+				if (obj.vertex_groups[vg.group].name in boneNames):
+					newVg.add([vert.index], vg.weight, 'ADD')
+		bpy.ops.object.mode_set(mode="OBJECT")
+		bpy.ops.object.mode_set(mode="WEIGHT_PAINT")
+		obj.vertex_groups.active_index = len(obj.vertex_groups) -1
+		return {'FINISHED'}
+
 class VertexGroupAverageAll(bpy.types.Operator):
 	bl_idname = "mesh.vertex_group_average_all"
 	bl_label = "全頂点の平均ウェイトで塗り潰す"
@@ -47,3 +71,4 @@ class VertexGroupAverageAll(bpy.types.Operator):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(VertexGroupAverageAll.bl_idname, icon="PLUGIN")
+	self.layout.operator(MargeSelectedVertexGroup.bl_idname, icon="PLUGIN")

@@ -11,13 +11,6 @@ class CreateMirror(bpy.types.Operator):
 	bl_description = "選択中のボーンを任意の軸でミラーリングします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	items = [
-		("X", "X軸", "", 1),
-		("Y", "Y軸", "", 2),
-		("Z", "Z軸", "", 3),
-		]
-	axis = bpy.props.EnumProperty(items=items, name="軸")
-	
 	def execute(self, context):
 		obj = context.active_object
 		if (obj.type == "ARMATURE"):
@@ -31,13 +24,9 @@ class CreateMirror(bpy.types.Operator):
 				context.object.data.use_mirror_x = True
 				
 				selectedBones = context.selected_bones
+				bpy.ops.armature.autoside_names(type='XAXIS')
 				bpy.ops.armature.duplicate()
-				if (self.axis == "X"):
-					axis = (True, False, False)
-				if (self.axis == "Y"):
-					axis = (False, True, False)
-				if (self.axis == "Z"):
-					axis = (False, False, True)
+				axis = (True, False, False)
 				bpy.ops.transform.mirror(constraint_axis=axis)
 				bpy.ops.armature.flip_names()
 				newBones = []
