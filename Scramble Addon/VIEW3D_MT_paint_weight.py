@@ -5,7 +5,7 @@ import bpy
 ################
 
 class MargeSelectedVertexGroup(bpy.types.Operator):
-	bl_idname = "mesh.marge_selected_vertex_group"
+	bl_idname = "paint.marge_selected_vertex_group"
 	bl_label = "ウェイト同士の合成"
 	bl_description = "選択中のボーンと同じ頂点グループのウェイトを合成します"
 	bl_options = {'REGISTER', 'UNDO'}
@@ -34,7 +34,7 @@ class MargeSelectedVertexGroup(bpy.types.Operator):
 		return {'FINISHED'}
 
 class RemoveSelectedVertexGroup(bpy.types.Operator):
-	bl_idname = "mesh.remove_selected_vertex_group"
+	bl_idname = "paint.remove_selected_vertex_group"
 	bl_label = "ウェイト同士の減算"
 	bl_description = "選択中のボーンと同じ頂点グループのウェイトを減算します"
 	bl_options = {'REGISTER', 'UNDO'}

@@ -1,9 +1,5 @@
 import bpy
 
-##############
-# その他関数 #
-##############
-
 ################
 # オペレーター #
 ################
@@ -18,18 +14,6 @@ class SetRenderResolutionPercentage(bpy.types.Operator):
 	
 	def execute(self, context):
 		context.scene.render.resolution_percentage = self.size
-		return {'FINISHED'}
-
-class SetAOSamples(bpy.types.Operator):
-	bl_idname = "world.set_ao_samples"
-	bl_label = "AOのサンプリング"
-	bl_description = "AO(アンビエントオクルージョン)のサンプリング数を設定します"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	samples = bpy.props.IntProperty(name="サンプル数", default=10, min=1, soft_min=1, step=1)
-	
-	def execute(self, context):
-		context.scene.world.light_settings.samples = self.samples
 		return {'FINISHED'}
 
 ########################
@@ -89,20 +73,6 @@ class RenderResolutionPercentageMenu(bpy.types.Menu):
 		self.layout.operator(SetRenderResolutionPercentage.bl_idname, text="200% ("+str(int(x*2.0))+"x"+str(int(y*2.0))+")", icon="PLUGIN").size = 200
 		self.layout.operator(SetRenderResolutionPercentage.bl_idname, text="300% ("+str(int(x*3.0))+"x"+str(int(y*3.0))+")", icon="PLUGIN").size = 300
 
-class AOSamplesMenu(bpy.types.Menu):
-	bl_idname = "INFO_MT_render_ao_samples"
-	bl_label = "AOのサンプル数"
-	bl_description = "AOのサンプル数を設定します"
-	
-	def draw(self, context):
-		self.layout.operator(SetAOSamples.bl_idname, text="1", icon="PLUGIN").samples = 1
-		self.layout.operator(SetAOSamples.bl_idname, text="2", icon="PLUGIN").samples = 2
-		self.layout.operator(SetAOSamples.bl_idname, text="4", icon="PLUGIN").samples = 4
-		self.layout.operator(SetAOSamples.bl_idname, text="8", icon="PLUGIN").samples = 8
-		self.layout.operator(SetAOSamples.bl_idname, text="16", icon="PLUGIN").samples = 16
-		self.layout.operator(SetAOSamples.bl_idname, text="32", icon="PLUGIN").samples = 32
-		self.layout.operator(SetAOSamples.bl_idname, text="64", icon="PLUGIN").samples = 64
-
 class SimplifyRenderMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_simplify"
 	bl_label = "レンダーの簡略化"
@@ -130,5 +100,5 @@ class SimplifyRenderMenu(bpy.types.Menu):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.menu(RenderResolutionPercentageMenu.bl_idname, icon="PLUGIN")
-	self.layout.menu(AOSamplesMenu.bl_idname, icon="PLUGIN")
+	self.layout.prop(context.scene.world.light_settings, "samples", text="AOサンプル数", icon="PLUGIN")
 	self.layout.menu(SimplifyRenderMenu.bl_idname, icon="PLUGIN")
