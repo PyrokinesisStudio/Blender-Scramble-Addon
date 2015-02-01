@@ -39,12 +39,6 @@ class CreateMirror(bpy.types.Operator):
 					bone.select_tail = True
 				bpy.ops.transform.transform(mode='BONE_ROLL', value=(0, 0, 0, 0))
 				
-				#bpy.ops.armature.select_all(action='DESELECT')
-				#for bone in newBones:
-				#	bone.select = True
-				#	bone.select_head = True
-				#	bone.select_tail = True
-				
 				context.space_data.cursor_location = preCursorCo[:]
 				context.space_data.pivot_point = prePivotPoint
 				context.object.data.use_mirror_x = preUseMirror
@@ -94,6 +88,49 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 			self.report(type={"ERROR"}, message="アーマチュアオブジェクトではありません")
 		return {'FINISHED'}
 
+class RenameOppositeBone(bpy.types.Operator):
+	bl_idname = "armature.rename_opposite_bone"
+	bl_label = "反対位置にあるボーンをリネーム"
+	bl_description = "選択中ボーンのX軸反対側の位置にあるボーンを「○.R ○.L」のように対にします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	threshold = bpy.props.FloatProperty(name="位置のしきい値", default=0.00001, min=0, soft_min=0, step=0.001, precision=5)
+	
+	def execute(self, context):
+		obj = context.active_object
+		if (obj.type == "ARMATURE"):
+			if (obj.mode == "EDIT"):
+				arm = obj.data
+				bpy.ops.armature.autoside_names(type='XAXIS')
+				selectedBones = context.selected_bones[:]
+				bpy.ops.armature.select_all(action='DESELECT')
+				bpy.ops.object.mode_set(mode='OBJECT')
+				threshold = self.threshold
+				for bone in selectedBones:
+					bone = arm.bones[bone.name]
+					head = (-bone.head_local[0], bone.head_local[1], bone.head_local[2])
+					tail = (-bone.tail_local[0], bone.tail_local[1], bone.tail_local[2])
+					for b in arm.bones:
+						if ( (head[0]-threshold) <= b.head_local[0] <= (head[0]+threshold)):
+							if ( (head[1]-threshold) <= b.head_local[1] <= (head[1]+threshold)):
+								if ( (head[2]-threshold) <= b.head_local[2] <= (head[2]+threshold)):
+									if ( (tail[0]-threshold) <= b.tail_local[0] <= (tail[0]+threshold)):
+										if ( (tail[1]-threshold) <= b.tail_local[1] <= (tail[1]+threshold)):
+											if ( (tail[2]-threshold) <= b.tail_local[2] <= (tail[2]+threshold)):
+												b.name = bone.name
+												b.select = True
+												b.select_head = True
+												b.select_tail = True
+												break
+				bpy.ops.object.mode_set(mode='EDIT')
+				bpy.ops.armature.flip_names()
+			else:
+				self.report(type={"ERROR"}, message="エディトモードで実行してください")
+		else:
+			self.report(type={"ERROR"}, message="アーマチュアオブジェクトではありません")
+		return {'FINISHED'}
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -103,6 +140,7 @@ def menu(self, context):
 	self.layout.separator()
 	self.layout.prop(context.object.data, "use_mirror_x", icon="PLUGIN", text="X軸ミラー編集")
 	self.layout.operator(CreateMirror.bl_idname, icon="PLUGIN")
+	self.layout.operator(RenameOppositeBone.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")
 	self.layout.operator(RenameBoneRegularExpression.bl_idname, icon="PLUGIN")
