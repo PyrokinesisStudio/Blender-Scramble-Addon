@@ -139,6 +139,8 @@ class CreateWeightCopyMesh(bpy.types.Operator):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
+	self.layout.prop_menu_enum(context.object.data, "pose_position", icon="PLUGIN")
+	self.layout.separator()
 	self.layout.operator(CreateCustomShape.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(CreateWeightCopyMesh.bl_idname, icon="PLUGIN")
