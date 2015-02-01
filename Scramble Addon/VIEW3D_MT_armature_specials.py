@@ -54,6 +54,21 @@ class CreateMirror(bpy.types.Operator):
 			self.report(type={"ERROR"}, message="アーマチュアオブジェクトではありません")
 		return {'FINISHED'}
 
+class CopyBoneName(bpy.types.Operator):
+	bl_idname = "armature.copy_bone_name"
+	bl_label = "ボーン名をクリップボードにコピー"
+	bl_description = "アクティブボーンの名前をクリップボードにコピーします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	isObject = bpy.props.BoolProperty(name="オブジェクト名も", default=False)
+	
+	def execute(self, context):
+		if (self.isObject):
+			context.window_manager.clipboard = context.active_object.name + ":" + context.active_bone.name
+		else:
+			context.window_manager.clipboard = context.active_bone.name
+		return {'FINISHED'}
+
 class RenameBoneRegularExpression(bpy.types.Operator):
 	bl_idname = "armature.rename_bone_regular_expression"
 	bl_label = "ボーン名を正規表現で置換"
@@ -89,4 +104,5 @@ def menu(self, context):
 	self.layout.prop(context.object.data, "use_mirror_x", icon="PLUGIN", text="X軸ミラー編集")
 	self.layout.operator(CreateMirror.bl_idname, icon="PLUGIN")
 	self.layout.separator()
+	self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")
 	self.layout.operator(RenameBoneRegularExpression.bl_idname, icon="PLUGIN")
