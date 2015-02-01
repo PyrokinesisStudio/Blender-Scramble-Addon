@@ -132,12 +132,29 @@ class CreateWeightCopyMesh(bpy.types.Operator):
 			self.report(type={"ERROR"}, message="アクティブオブジェクトがアーマチュアではありません")
 		return {'FINISHED'}
 
+class CopyBoneName(bpy.types.Operator):
+	bl_idname = "pose.copy_bone_name"
+	bl_label = "ボーン名をクリップボードにコピー"
+	bl_description = "アクティブボーンの名前をクリップボードにコピーします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	isObject = bpy.props.BoolProperty(name="オブジェクト名も", default=False)
+	
+	def execute(self, context):
+		if (self.isObject):
+			context.window_manager.clipboard = context.active_object.name + ":" + context.active_pose_bone.name
+		else:
+			context.window_manager.clipboard = context.active_pose_bone.name
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.separator()
+	self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.prop_menu_enum(context.object.data, "pose_position", icon="PLUGIN")
 	self.layout.separator()
