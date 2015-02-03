@@ -147,6 +147,62 @@ class CopyBoneName(bpy.types.Operator):
 			context.window_manager.clipboard = context.active_pose_bone.name
 		return {'FINISHED'}
 
+class SplineGreasePencil(bpy.types.Operator):
+	bl_idname = "pose.spline_grease_pencil"
+	bl_label = "チェーン状ボーンをグリースペンシルに沿わせる"
+	bl_description = "チェーンの様に繋がった選択ボーンをグリースペンシルに沿わせてポーズを付けます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	isRootReset = bpy.props.BoolProperty(name="根本を元の位置に", default=False)
+	
+	def execute(self, context):
+		activeObj = context.active_object
+		i = 0
+		for bone in context.selected_pose_bones:
+			for bone2 in context.selected_pose_bones:
+				if (bone.parent):
+					if (bone.parent.name == bone2.name):
+						i += 1
+						break
+		if (i+1 < len(context.selected_pose_bones)):
+			self.report(type={"ERROR"}, message="チェーン状に繋がったボーン群を選択して実行して下さい")
+			return {'CANCELLED'}
+		bpy.ops.object.mode_set(mode='OBJECT')
+		bpy.ops.gpencil.convert(type='CURVE', use_timing_data=True)
+		for obj in context.selectable_objects:
+			if ("GP_Layer" in obj.name):
+				curveObj = obj
+		bpy.ops.object.mode_set(mode='POSE')
+		tails = []
+		for bone in context.selected_pose_bones:
+			if (len(bone.children) == 0):
+				const = bone.constraints.new("SPLINE_IK")
+				const.target = curveObj
+				const.use_curve_radius = False
+				const.use_y_stretch = False
+				const.chain_count = len(context.selected_pose_bones)
+				tails.append((bone, const))
+			for child in bone.children:
+				for bone2 in context.selected_pose_bones:
+					if (child.name == bone2.name):
+						break
+				else:
+					const = bone.constraints.new("SPLINE_IK")
+					const.target = curveObj
+					const.use_curve_radius = False
+					const.use_y_stretch = False
+					const.chain_count = len(context.selected_pose_bones)
+					tails.append((bone, const))
+					break
+		bpy.ops.pose.visual_transform_apply()
+		for bone, const in tails:
+			bone.constraints.remove(const)
+		bpy.ops.pose.scale_clear()
+		context.scene.objects.unlink(curveObj)
+		if (self.isRootReset):
+			bpy.ops.pose.loc_clear()
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -161,3 +217,5 @@ def menu(self, context):
 	self.layout.operator(CreateCustomShape.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(CreateWeightCopyMesh.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.operator(SplineGreasePencil.bl_idname, icon="PLUGIN")
