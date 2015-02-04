@@ -52,9 +52,10 @@ class AddOppositeVertexGroups(bpy.types.Operator):
 										newName = re.sub(r'^[lL][eE][fF][tT]', r'Right', vg.name)
 										if (oldName == newName):
 											newName = re.sub(r'^[rR][iI][gG][hH][tT]', r'Left', vg.name)
-				try:
-					obj.vertex_groups[newName]
-				except KeyError:
+				for v in vgs:
+					if (newName.lower() == v.name.lower()):
+						break
+				else:
 					obj.vertex_groups.new(newName)
 		return {'FINISHED'}
 
