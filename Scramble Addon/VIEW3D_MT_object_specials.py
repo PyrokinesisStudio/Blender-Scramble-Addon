@@ -75,6 +75,7 @@ class CreateRopeMesh(bpy.types.Operator):
 	vertices = bpy.props.IntProperty(name="頂点数", default=32, min=3, soft_min=3, step=1)
 	radius = bpy.props.FloatProperty(name="半径", default=0.1, step=1, precision=3)
 	number_cuts = bpy.props.IntProperty(name="分割数", default=32, min=1, soft_min=1, step=1)
+	resolution_u = bpy.props.IntProperty(name="カーブの解像度", default=64, min=1, soft_min=1, step=1)
 	
 	def execute(self, context):
 		activeObj = context.active_object
@@ -94,7 +95,11 @@ class CreateRopeMesh(bpy.types.Operator):
 		modi.object = activeObj
 		activeObj.data.use_stretch = True
 		activeObj.data.use_deform_bounds = True
+		activeObj.data.resolution_u = self.resolution_u
 		bpy.ops.object.modifier_apply(apply_as='DATA', modifier=modi.name)
+		
+		activeObj.data.use_stretch = pre_use_stretch
+		activeObj.data.use_deform_bounds = pre_use_deform_bounds
 		return {'FINISHED'}
 
 ################
