@@ -66,6 +66,37 @@ class AddVertexColorSelectedObject(bpy.types.Operator):
 					data.color = self.color
 		return {'FINISHED'}
 
+class CreateRopeMesh(bpy.types.Operator):
+	bl_idname = "object.create_rope_mesh"
+	bl_label = "カーブからロープ状のメッシュを作成"
+	bl_description = "アクティブなカーブオブジェクトに沿ったロープや蛇のようなメッシュを新規作成します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	vertices = bpy.props.IntProperty(name="頂点数", default=32, min=3, soft_min=3, step=1)
+	radius = bpy.props.FloatProperty(name="半径", default=0.1, step=1, precision=3)
+	number_cuts = bpy.props.IntProperty(name="分割数", default=32, min=1, soft_min=1, step=1)
+	
+	def execute(self, context):
+		activeObj = context.active_object
+		pre_use_stretch = activeObj.data.use_stretch
+		pre_use_deform_bounds = activeObj.data.use_deform_bounds
+		
+		bpy.ops.mesh.primitive_cylinder_add(vertices=self.vertices, radius=self.radius, depth=1, end_fill_type='NOTHING', view_align=False, enter_editmode=True, location=(0, 0, 0), rotation=(0, 1.5708, 0))
+		bpy.ops.mesh.select_all(action='DESELECT')
+		context.tool_settings.mesh_select_mode = [False, True, False]
+		bpy.ops.mesh.select_non_manifold()
+		bpy.ops.mesh.select_all(action='INVERT')
+		bpy.ops.mesh.subdivide(number_cuts=self.number_cuts, smoothness=0)
+		bpy.ops.object.mode_set(mode='OBJECT')
+		
+		meshObj = context.active_object
+		modi = meshObj.modifiers.new("temp", 'CURVE')
+		modi.object = activeObj
+		activeObj.data.use_stretch = True
+		activeObj.data.use_deform_bounds = True
+		bpy.ops.object.modifier_apply(apply_as='DATA', modifier=modi.name)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -78,3 +109,7 @@ def menu(self, context):
 	self.layout.operator(EqualizeObjectNameAndDataName.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(AddVertexColorSelectedObject.bl_idname, icon="PLUGIN")
+	if (context.active_object):
+		if (context.active_object.type == "CURVE"):
+			self.layout.separator()
+			self.layout.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
