@@ -18,6 +18,7 @@ class SelectSeamEdge(bpy.types.Operator):
 		bm = bmesh.new()
 		bm.from_mesh(me)
 		uv_lay = bm.loops.layers.uv.active
+		use_uv_select_sync = context.scene.tool_settings.use_uv_select_sync
 		verts = []
 		for face in bm.faces:
 			for loop in face.loops:
@@ -29,11 +30,14 @@ class SelectSeamEdge(bpy.types.Operator):
 		for face in bm.faces:
 			for loop in face.loops:
 				uv = loop[uv_lay].uv
-				index = loop.vert.index
+				vert = loop.vert
+				index = vert.index
 				data = (uv, index)
 				for co, i in verts:
 					if (co != uv and i == index):
 						loop[uv_lay].select = True
+						if (use_uv_select_sync):
+							vert.select = True
 						break
 		bm.to_mesh(me)
 		bm.free()
