@@ -22,18 +22,18 @@ class SelectSeamEdge(bpy.types.Operator):
 		for face in bm.faces:
 			for loop in face.loops:
 				uv = loop[uv_lay].uv
-				vert = loop.vert
-				data = (uv, vert.index)
-				verts.append(data)
+				index = loop.vert.index
+				data = (uv, index)
+				if (not data in verts):
+					verts.append(data)
 		for face in bm.faces:
 			for loop in face.loops:
 				uv = loop[uv_lay].uv
-				vert = loop.vert
-				data = (uv, vert.index)
-				for co, index in verts:
-					if (co != uv and vert.index == index):
+				index = loop.vert.index
+				data = (uv, index)
+				for co, i in verts:
+					if (co != uv and i == index):
 						loop[uv_lay].select = True
-						loop[uv_lay].select_edge = True
 						break
 		bm.to_mesh(me)
 		bm.free()
