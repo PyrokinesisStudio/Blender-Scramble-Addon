@@ -215,7 +215,6 @@ def menu(self, context):
 	self.layout.prop_menu_enum(context.object.data, "pose_position", icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(CreateCustomShape.bl_idname, icon="PLUGIN")
-	self.layout.separator()
 	self.layout.operator(CreateWeightCopyMesh.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(SplineGreasePencil.bl_idname, icon="PLUGIN")

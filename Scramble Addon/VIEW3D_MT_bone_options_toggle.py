@@ -9,7 +9,7 @@ import bpy
 ################
 
 class SetBoneNames(bpy.types.Operator):
-	bl_idname = "armature.set_bone_names"
+	bl_idname = "pose.set_bone_names"
 	bl_label = "ボーン名をまとめて設定"
 	bl_description = "選択中のボーンの名前をまとめて設定します"
 	bl_options = {'REGISTER', 'UNDO'}
@@ -28,7 +28,7 @@ class SetBoneNames(bpy.types.Operator):
 		return {'FINISHED'}
 
 class SetCurvedBones(bpy.types.Operator):
-	bl_idname = "armature.set_curved_bones"
+	bl_idname = "pose.set_curved_bones"
 	bl_label = "カーブボーンをまとめて設定"
 	bl_description = "選択中のボーンのカーブボーン設定をします"
 	bl_options = {'REGISTER', 'UNDO'}
@@ -47,7 +47,7 @@ class SetCurvedBones(bpy.types.Operator):
 		return {'FINISHED'}
 
 class SetBoneRoll(bpy.types.Operator):
-	bl_idname = "armature.set_bone_roll"
+	bl_idname = "pose.set_bone_roll"
 	bl_label = "ロールをまとめて設定"
 	bl_description = "選択中のボーンのロールを設定します"
 	bl_options = {'REGISTER', 'UNDO'}
@@ -60,9 +60,9 @@ class SetBoneRoll(bpy.types.Operator):
 		return {'FINISHED'}
 
 class LinkIKSetting(bpy.types.Operator):
-	bl_idname = "armature.link_ik_setting"
-	bl_label = "アクティブボーンのIK設定をリンク"
-	bl_description = "アクティブなボーンのIK設定(非コンストレイント)を他の選択ボーンにリンク(コピー)します"
+	bl_idname = "pose.link_ik_setting"
+	bl_label = "アクティブのIK設定(回転制限等)をコピー"
+	bl_description = "アクティブなボーンのIK設定(回転制限など)を他の選択ボーンにコピーします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isX = bpy.props.BoolProperty(name="X軸の設定", default=True)
@@ -96,6 +96,68 @@ class LinkIKSetting(bpy.types.Operator):
 					bone.ik_stretch = activeBone.ik_stretch
 		return {'FINISHED'}
 
+class SetIKPoleTarget(bpy.types.Operator):
+	bl_idname = "pose.set_ik_pole_target"
+	bl_label = "IKのポールターゲットを設定"
+	bl_description = "アクティブなボーンのIKのポールターゲットを第二選択ボーンに設定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		activeObj = context.active_object
+		activeBone = context.active_pose_bone
+		if (len(context.selected_pose_bones) != 2):
+			self.report(type={"ERROR"}, message="ボーンを二つ選択して実行してください")
+			return {"CANCELLED"}
+		for bone in context.selected_pose_bones:
+			if (activeBone.name != bone.name):
+				ik = None
+				for const in activeBone.constraints:
+					if (const.type == "IK"):
+						ik = const
+				if (ik == None):
+					self.report(type={"ERROR"}, message="アクティブボーンにIKコンストレイントがありません")
+					return {"CANCELLED"}
+				ik.pole_target = activeObj
+				ik.pole_subtarget = bone.name
+		return {'FINISHED'}
+
+class SetIKChainLength(bpy.types.Operator):
+	bl_idname = "pose.set_ik_chain_length"
+	bl_label = "IKのチェーンの長さを設定"
+	bl_description = "アクティブなボーンのIKのチェーンの長さを第二選択ボーンへの長さへと設定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		activeBone = context.active_pose_bone
+		if (len(context.selected_pose_bones) != 2):
+			self.report(type={"ERROR"}, message="ボーンを二つ選択して実行してください")
+			return {"CANCELLED"}
+		targetBone = None
+		for bone in context.selected_pose_bones:
+			if (activeBone.name != bone.name):
+				targetBone = bone
+		tempBone = activeBone
+		i = 0
+		while True:
+			if (tempBone.parent):
+				if (tempBone.name == targetBone.name):
+					i += 1
+					break
+				tempBone = tempBone.parent
+				i += 1
+			else:
+				i = 0
+				break
+		if (i == 0):
+			self.report(type={"ERROR"}, message="上手くチェーン数を取得出来ませんでした")
+			return {"CANCELLED"}
+		ik = None
+		for const in activeBone.constraints:
+			if (const.type == "IK"):
+				ik = const
+		ik.chain_count = i
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -107,4 +169,6 @@ def menu(self, context):
 	self.layout.operator(SetBoneRoll.bl_idname, icon="PLUGIN")
 	self.layout.operator(SetCurvedBones.bl_idname, icon="PLUGIN")
 	self.layout.separator()
+	self.layout.operator(SetIKPoleTarget.bl_idname, icon="PLUGIN")
+	self.layout.operator(SetIKChainLength.bl_idname, icon="PLUGIN")
 	self.layout.operator(LinkIKSetting.bl_idname, icon="PLUGIN")
