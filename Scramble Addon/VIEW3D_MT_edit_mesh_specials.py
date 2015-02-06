@@ -58,12 +58,23 @@ class ApplySolidify(bpy.types.Operator):
 		bpy.ops.object.mode_set(mode='EDIT')
 		return {'FINISHED'}
 
+class SelectTopShape(bpy.types.Operator):
+	bl_idname = "mesh.select_top_shape"
+	bl_label = "一番上のシェイプを選択"
+	bl_description = "リストの一番上にあるシェイプキーを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		context.active_object.active_shape_key_index = 0
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.operator(SelectTopShape.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.prop(context.object.data, "use_mirror_x", icon="PLUGIN", text="X軸ミラー編集")
 	self.layout.separator()
