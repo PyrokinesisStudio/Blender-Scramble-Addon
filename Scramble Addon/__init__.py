@@ -43,6 +43,7 @@ if "bpy" in locals():
 	imp.reload(NODE_MT_node)
 	imp.reload(VIEW3D_MT_edit_mesh_specials)
 	imp.reload(IMAGE_MT_select)
+	imp.reload(TEXTURE_MT_specials)
 else:
 	from . import INFO_MT_file
 	from . import INFO_MT_file_external_data
@@ -74,6 +75,7 @@ else:
 	from . import NODE_MT_node
 	from . import VIEW3D_MT_edit_mesh_specials
 	from . import IMAGE_MT_select
+	from . import TEXTURE_MT_specials
 import bpy
 
 class temp(bpy.types.Operator):
@@ -112,6 +114,7 @@ def register():
 	bpy.types.NODE_MT_node.append(NODE_MT_node.menu)
 	bpy.types.VIEW3D_MT_edit_mesh_specials.append(VIEW3D_MT_edit_mesh_specials.menu)
 	bpy.types.IMAGE_MT_select.append(IMAGE_MT_select.menu)
+	bpy.types.TEXTURE_MT_specials.append(TEXTURE_MT_specials.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -146,6 +149,7 @@ def unregister():
 	bpy.types.NODE_MT_node.remove(NODE_MT_node.menu)
 	bpy.types.VIEW3D_MT_edit_mesh_specials.remove(VIEW3D_MT_edit_mesh_specials.menu)
 	bpy.types.IMAGE_MT_select.remove(IMAGE_MT_select.menu)
+	bpy.types.TEXTURE_MT_specials.remove(TEXTURE_MT_specials.menu)
 
 # メイン関数
 if __name__ == "__main__":
