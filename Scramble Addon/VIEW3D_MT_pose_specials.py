@@ -1,8 +1,5 @@
 import bpy
-
-##############
-# その他関数 #
-##############
+import re
 
 ################
 # オペレーター #
@@ -203,6 +200,31 @@ class SplineGreasePencil(bpy.types.Operator):
 			bpy.ops.pose.loc_clear()
 		return {'FINISHED'}
 
+class RenameBoneRegularExpression(bpy.types.Operator):
+	bl_idname = "pose.rename_bone_regular_expression"
+	bl_label = "ボーン名を正規表現で置換"
+	bl_description = "(選択中の)ボーン名を正規表現に一致する部分で置換します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	isAll = bpy.props.BoolProperty(name="非選択も含め全て", default=False)
+	pattern = bpy.props.StringProperty(name="置換前(正規表現)", default="^")
+	repl = bpy.props.StringProperty(name="置換後", default="@")
+	
+	def execute(self, context):
+		obj = context.active_object
+		if (obj.type == "ARMATURE"):
+			if (obj.mode == "POSE"):
+				bones = context.selected_pose_bones
+				if (self.isAll):
+					bones = obj.pose.bones
+				for bone in bones:
+					bone.name = re.sub(self.pattern, self.repl, bone.name)
+			else:
+				self.report(type={"ERROR"}, message="ポーズモードで実行してください")
+		else:
+			self.report(type={"ERROR"}, message="アーマチュアオブジェクトではありません")
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -211,6 +233,7 @@ class SplineGreasePencil(bpy.types.Operator):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")
+	self.layout.operator(RenameBoneRegularExpression.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.prop_menu_enum(context.object.data, "pose_position", icon="PLUGIN")
 	self.layout.separator()
