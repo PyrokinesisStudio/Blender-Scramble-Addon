@@ -68,6 +68,41 @@ class SelectTopShape(bpy.types.Operator):
 		context.active_object.active_shape_key_index = 0
 		return {'FINISHED'}
 
+class ToggleShowCage(bpy.types.Operator):
+	bl_idname = "mesh.toggle_show_cage"
+	bl_label = "編集ケージへのモディファイア適用を切り替え"
+	bl_description = "編集中のメッシュケージにモディファイアを適用するかを切り替えます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		activeObj = context.active_object
+		nowMode = 0
+		for modi in activeObj.modifiers:
+			if (modi.show_in_editmode and nowMode <= 0):
+				nowMode = 1
+			if (modi.show_on_cage and nowMode <= 1):
+				nowMode = 2
+		newMode = nowMode + 1
+		if (newMode >= 3):
+			newMode = 0
+		for modi in activeObj.modifiers:
+			if (newMode == 0):
+				modi.show_in_editmode = False
+				modi.show_on_cage = False
+			if (newMode == 1):
+				modi.show_in_editmode = True
+				modi.show_on_cage = False
+			if (newMode == 2):
+				modi.show_in_editmode = True
+				modi.show_on_cage = True
+		if (newMode == 0):
+			self.report(type={'INFO'}, message="ケージの表示/適応を両方オフにしました")
+		if (newMode == 1):
+			self.report(type={'INFO'}, message="ケージの表示のみオンにしました")
+		if (newMode == 2):
+			self.report(type={'INFO'}, message="ケージの表示/適応を両方オンにしました")
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -77,6 +112,7 @@ def menu(self, context):
 	self.layout.operator(SelectTopShape.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.prop(context.object.data, "use_mirror_x", icon="PLUGIN", text="X軸ミラー編集")
+	self.layout.operator(ToggleShowCage.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(PaintSelectedVertexColor.bl_idname, icon="PLUGIN")
 	self.layout.separator()
