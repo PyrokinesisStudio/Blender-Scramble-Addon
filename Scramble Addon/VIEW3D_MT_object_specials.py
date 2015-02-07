@@ -72,10 +72,10 @@ class CreateRopeMesh(bpy.types.Operator):
 	bl_description = "アクティブなカーブオブジェクトに沿ったロープや蛇のようなメッシュを新規作成します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	vertices = bpy.props.IntProperty(name="頂点数", default=32, min=3, soft_min=3, step=1)
-	radius = bpy.props.FloatProperty(name="半径", default=0.1, step=1, precision=3)
-	number_cuts = bpy.props.IntProperty(name="分割数", default=32, min=1, soft_min=1, step=1)
-	resolution_u = bpy.props.IntProperty(name="カーブの解像度", default=64, min=1, soft_min=1, step=1)
+	vertices = bpy.props.IntProperty(name="頂点数", default=32, min=3, soft_min=3, max=999, soft_max=999, step=1)
+	radius = bpy.props.FloatProperty(name="半径", default=0.1, step=1, precision=3, min=0, soft_min=0, max=99, soft_max=99)
+	number_cuts = bpy.props.IntProperty(name="分割数", default=32, min=2, soft_min=2, max=999, soft_max=999, step=1)
+	resolution_u = bpy.props.IntProperty(name="カーブの解像度", default=64, min=1, soft_min=1, max=999, soft_max=999, step=1)
 	
 	def execute(self, context):
 		activeObj = context.active_object
