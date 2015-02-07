@@ -314,6 +314,65 @@ class AllRenameImageFileName(bpy.types.Operator):
 			except: pass
 		return {'FINISHED'}
 
+########################
+# オペレーター(シーン) #
+########################
+
+class AllSetPhysicsFrames(bpy.types.Operator):
+	bl_idname = "scene.all_set_physics_frames"
+	bl_label = "物理演算の開始/終了フレームを一括設定"
+	bl_description = "物理演算などの開始/終了フレームを設定する部分にレンダリング開始/終了フレーム数を割り当てます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	startOffset = bpy.props.IntProperty(name="開始オフセット", default=0, step=1)
+	endOffset = bpy.props.IntProperty(name="開始オフセット", default=0, step=1)
+	
+	isRigidBody = bpy.props.BoolProperty(name="剛体", default=True)
+	isCloth = bpy.props.BoolProperty(name="布(クロス)", default=True)
+	isSoftBody = bpy.props.BoolProperty(name="ソフトボディ", default=True)
+	isFluid = bpy.props.BoolProperty(name="流体", default=True)
+	isDynamicPaint = bpy.props.BoolProperty(name="ダイナミックペイント", default=True)
+	
+	isParticle = bpy.props.BoolProperty(name="パーティクル", default=False)
+	
+	def execute(self, context):
+		start = context.scene.frame_start + self.startOffset
+		end = context.scene.frame_end + self.endOffset
+		if (self.isRigidBody):
+			context.scene.rigidbody_world.point_cache.frame_start = start
+			context.scene.rigidbody_world.point_cache.frame_end = end
+		if (self.isFluid):
+			for obj in bpy.data.objects:
+				for modi in obj.modifiers:
+					if (modi.type == 'FLUID_SIMULATION'):
+						modi.settings.start_time = (1.0 / context.scene.render.fps) * start
+						modi.settings.end_time = (1.0 / context.scene.render.fps) * end
+		if (self.isSoftBody):
+			for obj in bpy.data.objects:
+				for modi in obj.modifiers:
+					if (modi.type == 'SOFT_BODY'):
+						modi.point_cache.frame_start = start
+						modi.point_cache.frame_end = end
+		if (self.isDynamicPaint):
+			for obj in bpy.data.objects:
+				for modi in obj.modifiers:
+					if (modi.type == 'DYNAMIC_PAINT'):
+						for surface in modi.canvas_settings.canvas_surfaces:
+							surface.frame_start = start
+							surface.frame_end = end
+		if (self.isCloth):
+			for obj in bpy.data.objects:
+				for modi in obj.modifiers:
+					if (modi.type == 'CLOTH'):
+						modi.point_cache.frame_start = start
+						modi.point_cache.frame_end = end
+		
+		if (self.isParticle):
+			for particle in bpy.data.particles:
+				particle.frame_start = start
+				particle.frame_end = end
+		return {'FINISHED'}
+
 ##########################
 # サブメニュー(Modifier) #
 ##########################
@@ -328,6 +387,7 @@ class EntireProcessMenu(bpy.types.Menu):
 		self.layout.menu(EntireProcessMaterialMenu.bl_idname, icon="PLUGIN")
 		self.layout.menu(EntireProcessTextureMenu.bl_idname, icon="PLUGIN")
 		self.layout.menu(EntireProcessImageMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(EntireProcessSceneMenu.bl_idname, icon="PLUGIN")
 
 class EntireProcessObjectMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_object"
@@ -367,6 +427,14 @@ class EntireProcessImageMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.operator(AllRenameImageFileName.bl_idname, icon="PLUGIN")
+
+class EntireProcessSceneMenu(bpy.types.Menu):
+	bl_idname = "INFO_MT_entire_process_scene"
+	bl_label = "シーン"
+	bl_description = "シーン関係のデータを一括処理する機能群です"
+	
+	def draw(self, context):
+		self.layout.operator(AllSetPhysicsFrames.bl_idname, icon="PLUGIN")
 
 ################
 # メニュー追加 #
