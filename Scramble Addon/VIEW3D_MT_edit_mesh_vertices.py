@@ -36,6 +36,29 @@ class SeparateSelectedEX(bpy.types.Operator):
 		bpy.ops.mesh.select_all(action='SELECT')
 		return {'FINISHED'}
 
+class DuplicateNewParts(bpy.types.Operator):
+	bl_idname = "mesh.duplicate_new_parts"
+	bl_label = "選択部を複製/新オブジェクトに"
+	bl_description = "選択部分を複製・分離し新オブジェクトにしてからエディトモードに入ります"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		objs = []
+		for obj in context.selectable_objects:
+			objs.append(obj.name)
+		bpy.ops.mesh.duplicate()
+		bpy.ops.mesh.separate(type='SELECTED')
+		bpy.ops.object.mode_set(mode='OBJECT')
+		bpy.ops.object.select_all(action='DESELECT')
+		for obj in context.selectable_objects:
+			if (not obj.name in objs):
+				obj.select = True
+				context.scene.objects.active = obj
+				break
+		bpy.ops.object.mode_set(mode='EDIT')
+		bpy.ops.mesh.select_all(action='SELECT')
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -56,3 +79,5 @@ class SeparateEXMenu(bpy.types.Menu):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(CellMenuSeparateEX.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.operator(DuplicateNewParts.bl_idname, icon="PLUGIN")
