@@ -1,3 +1,6 @@
+# アドオンを読み込む時に最初にこのファイルが読み込まれます
+
+# アドオン情報
 bl_info = {
 	"name" : "Scramble Addon",
 	"author" : "さいでんか(saidenka)",
@@ -11,6 +14,7 @@ bl_info = {
 	"category" : "3D View"
 }
 
+# サブスクリプト群をインポート
 if "bpy" in locals():
 	import imp
 	imp.reload(IMAGE_MT_image)
@@ -84,6 +88,7 @@ else:
 	from . import VIEW3D_MT_edit_mesh_vertices
 import bpy
 
+# ダミーオペレーター
 class temp(bpy.types.Operator):
 	pass
 

@@ -1,3 +1,5 @@
+# 3Dビュー > アーマチュア編集モード > 「W」キー
+
 import bpy
 import re
 

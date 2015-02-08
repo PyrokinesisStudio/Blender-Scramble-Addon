@@ -1,3 +1,5 @@
+# 3Dビュー > ポーズモード > 「W」キー
+
 import bpy
 import re
 

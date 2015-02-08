@@ -1,3 +1,5 @@
+# UV/画像エディター > 「選択」メニュー
+
 import bpy
 import bmesh
 

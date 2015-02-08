@@ -1,3 +1,5 @@
+# 情報 > 「ファイル」メニュー
+
 import bpy
 import mathutils
 import os.path
