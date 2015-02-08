@@ -75,6 +75,7 @@ class SeparateEXMenu(bpy.types.Menu):
 		self.layout.operator("mesh.separate", text="マテリアルで").type = 'MATERIAL'
 		self.layout.operator("mesh.separate", text="構造的に分離したパーツで").type = 'LOOSE'
 
+
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
