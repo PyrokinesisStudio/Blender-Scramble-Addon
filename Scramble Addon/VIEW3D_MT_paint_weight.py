@@ -23,6 +23,9 @@ class MargeSelectedVertexGroup(bpy.types.Operator):
 		else:
 			newVg = obj.vertex_groups[context.active_pose_bone.name]
 		boneNames = []
+		if (not context.selected_pose_bones or len(context.selected_pose_bones) < 2):
+			self.report(type={"ERROR"}, message="ボーンを2つ以上選択してから実行して下さい")
+			return {"CANCELLED"}
 		for bone in context.selected_pose_bones:
 			boneNames.append(bone.name)
 		for vert in me.vertices:
@@ -46,6 +49,9 @@ class RemoveSelectedVertexGroup(bpy.types.Operator):
 		me = obj.data
 		newVg = obj.vertex_groups[context.active_pose_bone.name]
 		boneNames = []
+		if (not context.selected_pose_bones or len(context.selected_pose_bones) < 2):
+			self.report(type={"ERROR"}, message="ボーンを2つ以上選択してから実行して下さい")
+			return {"CANCELLED"}
 		for bone in context.selected_pose_bones:
 			boneNames.append(bone.name)
 		for vert in me.vertices:
