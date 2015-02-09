@@ -6,11 +6,11 @@ bl_info = {
 	"author" : "さいでんか(saidenka)",
 	"version" : (0,1),
 	"blender" : (2, 7),
-	"location" : "色々",
+	"location" : "様々なメニューの末尾",
 	"description" : "さいでんか制作の拡張機能群の詰め合わせ",
 	"warning" : "",
-	"wiki_url" : "",
-	"tracker_url" : "",
+	"wiki_url" : "http://github.com/saidenka/Blender-Scramble-Addon",
+	"tracker_url" : "http://github.com/saidenka/Blender-Scramble-Addon/issues",
 	"category" : "3D View"
 }
 
