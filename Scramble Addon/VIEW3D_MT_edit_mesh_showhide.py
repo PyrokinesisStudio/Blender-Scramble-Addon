@@ -38,6 +38,25 @@ class InvertHide(bpy.types.Operator):
 			self.report(type={"ERROR"}, message="メッシュオブジェクトがアクティブな状態で実行してください")
 		return {'FINISHED'}
 
+class HideVertexOnly(bpy.types.Operator):
+	bl_idname = "mesh.hide_vertex_only"
+	bl_label = "頂点のみを隠す"
+	bl_description = "選択状態の頂点のみを隠して固定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		obj = context.active_object
+		if (obj.type == "MESH"):
+			bpy.ops.object.mode_set(mode="OBJECT")
+			me = obj.data
+			for vert in me.vertices:
+				if (vert.select):
+					vert.hide = True
+			bpy.ops.object.mode_set(mode="EDIT")
+		else:
+			self.report(type={"ERROR"}, message="メッシュオブジェクトがアクティブな状態で実行してください")
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -46,3 +65,5 @@ class InvertHide(bpy.types.Operator):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(InvertHide.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.operator(HideVertexOnly.bl_idname, icon="PLUGIN")
