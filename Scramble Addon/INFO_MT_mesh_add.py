@@ -16,7 +16,7 @@ class AddSphereOnlySquare(bpy.types.Operator):
 	radius = bpy.props.FloatProperty(name="半径(大体)", default=1.0, step=10, precision=3)
 	view_align = bpy.props.BoolProperty(name="視点に揃える", default=False)
 	location = bpy.props.FloatVectorProperty(name="位置", default=(0.0, 0.0, 0.0), step=10, precision=3, subtype='XYZ')
-	rotation = bpy.props.IntVectorProperty(name="回転", default=(0, 0, 0), step=1, subtype='ROTATION')
+	rotation = bpy.props.IntVectorProperty(name="回転", default=(0, 0, 0), step=1, subtype='XYZ')
 	enter_editmode = False
 	
 	def execute(self, context):
