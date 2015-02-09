@@ -31,6 +31,7 @@ class UpdateScrambleAddon(bpy.types.Operator):
 					uzf.write(zf.read(f))
 					uzf.close()
 		zf.close()
+		self.report(type={"INFO"}, message="アドオンを更新しました、Blenderを再起動して下さい")
 		return {'FINISHED'}
 
 ################
