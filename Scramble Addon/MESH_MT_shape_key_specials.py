@@ -2,10 +2,6 @@
 
 import bpy
 
-##############
-# その他関数 #
-##############
-
 ################
 # オペレーター #
 ################
@@ -72,12 +68,34 @@ class InsertKeyframeAllShapes(bpy.types.Operator):
 		    shape.keyframe_insert(data_path="value")
 		return {'FINISHED'}
 
+class ShapeKeyMoveTop(bpy.types.Operator):
+	bl_idname = "mesh.shape_key_move_top"
+	bl_label = "選択シェイプを最上部に"
+	bl_description = "アクティブなシェイプをリストの一番上へ移動させます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.object.shape_key_move(type='TOP')
+		return {'FINISHED'}
+class ShapeKeyMoveBottom(bpy.types.Operator):
+	bl_idname = "mesh.shape_key_move_bottom"
+	bl_label = "選択シェイプを最下部に"
+	bl_description = "アクティブなシェイプをリストの一番下へ移動させます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.object.shape_key_move(type='BOTTOM')
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.separator()
+	self.layout.operator(ShapeKeyMoveTop.bl_idname, icon="PLUGIN")
+	self.layout.operator(ShapeKeyMoveBottom.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(CopyShape.bl_idname, icon="PLUGIN")
 	self.layout.separator()
