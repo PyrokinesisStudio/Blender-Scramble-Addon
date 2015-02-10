@@ -3,10 +3,28 @@
 import bpy
 import mathutils
 import os.path
+import os, sys
+import subprocess
 
 ################
 # オペレーター #
 ################
+
+class RestartBlender(bpy.types.Operator):
+	bl_idname = "wm.restart_blender"
+	bl_label = "再起動"
+	bl_description = "Blenderを再起動します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		addonDir = os.path.dirname(__file__)
+		try:
+			subprocess.call([addonDir + "\\RunExe.exe", sys.argv[0]])
+			bpy.ops.wm.quit_blender()
+		except FileNotFoundError:
+			self.report(type={"ERROR"}, message="必要なファイルが足りません、アドオンをインストールし直してみて下さい")
+			return {"CANCELLED"}
+		return {'FINISHED'}
 
 ##############################
 # オペレーター(オブジェクト) #
@@ -126,7 +144,6 @@ class AllSetMaterialColorRamp(bpy.types.Operator):
 				mat.diffuse_ramp.color_mode = activeMat.diffuse_ramp.color_mode
 				mat.diffuse_ramp.hue_interpolation = activeMat.diffuse_ramp.hue_interpolation
 				mat.diffuse_ramp.interpolation = activeMat.diffuse_ramp.interpolation
-				#mat.diffuse_ramp.evaluate = activeMat.diffuse_ramp.evaluate
 				for i in range(len(activeMat.diffuse_ramp.elements)):
 					if (len(mat.diffuse_ramp.elements) < i+1):
 						color = mat.diffuse_ramp.elements.new(color.position)
@@ -444,6 +461,7 @@ class EntireProcessSceneMenu(bpy.types.Menu):
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.operator(RestartBlender.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.separator()
 	self.layout.separator()
