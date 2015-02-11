@@ -16,7 +16,13 @@ class RenameTextureFileName(bpy.types.Operator):
 	
 	def execute(self, context):
 		tex = context.active_object.active_material.active_texture
+		if (not tex):
+			self.report(type={"ERROR"}, message="画像/動画テクスチャで実行してください")
+			return {"CANCELLED"}
 		if (tex.type == "IMAGE"):
+			if (not tex.image):
+				self.report(type={"ERROR"}, message="画像が指定されていません")
+				return {"CANCELLED"}
 			name = tex.image.filepath_raw[2:].split("\\")[-1]
 			if (not self.isExt):
 				name, ext = os.path.splitext(name)
