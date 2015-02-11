@@ -34,11 +34,25 @@ class RenameTextureFileName(bpy.types.Operator):
 			return {"CANCELLED"}
 		return {'FINISHED'}
 
+class RemoveAllTextureSlots(bpy.types.Operator):
+	bl_idname = "texture.remove_all_texture_slots"
+	bl_label = "テクスチャスロットを全て空に"
+	bl_description = "アクティブなマテリアルの全てのテクスチャスロットを空にします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		slots = context.active_object.active_material.texture_slots[:]
+		for i in range(len(slots)):
+			context.active_object.active_material.texture_slots.clear(i)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.separator()
+	self.layout.operator(RemoveAllTextureSlots.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(RenameTextureFileName.bl_idname, icon="PLUGIN")
