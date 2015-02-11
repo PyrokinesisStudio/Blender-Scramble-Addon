@@ -40,6 +40,22 @@ class RemoveNoAssignMaterial(bpy.types.Operator):
 		context.scene.objects.active = preActiveObj
 		return {'FINISHED'}
 
+class RemoveAll(bpy.types.Operator):
+	bl_idname = "material.remove_all"
+	bl_label = "マテリアル全削除"
+	bl_description = "このオブジェクトのマテリアルを全て削除します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		activeObj = context.active_object
+		if (activeObj.type == "MESH"):
+			while True:
+				if (0 < len(activeObj.material_slots)):
+					bpy.ops.object.material_slot_remove()
+				else:
+					break
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -47,4 +63,5 @@ class RemoveNoAssignMaterial(bpy.types.Operator):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
+	self.layout.operator(RemoveAll.bl_idname, icon="PLUGIN")
 	self.layout.operator(RemoveNoAssignMaterial.bl_idname, icon="PLUGIN")
