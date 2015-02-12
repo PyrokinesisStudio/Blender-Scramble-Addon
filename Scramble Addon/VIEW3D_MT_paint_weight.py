@@ -69,6 +69,8 @@ class VertexGroupAverageAll(bpy.types.Operator):
 	bl_description = "全てのウェイトの平均で、全ての頂点を塗り潰します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	strength = bpy.props.FloatProperty(name="強度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
+	
 	def execute(self, context):
 		obj = context.active_object
 		if (obj.type == "MESH"):
@@ -88,7 +90,15 @@ class VertexGroupAverageAll(bpy.types.Operator):
 				vg_average[-1] /= vertCount
 			i = 0
 			for vg in obj.vertex_groups:
-				vg.add(range(vertCount), vg_average[i], "REPLACE")
+				for vert in obj.data.vertices:
+					for g in vert.groups:
+						if (obj.vertex_groups[g.group] == vg):
+							w = g.weight
+							break
+					else:
+						w = 0
+					w = (vg_average[i] * self.strength) + (w * (1-self.strength))
+					vg.add([vert.index], w, "REPLACE")
 				i += 1
 		bpy.ops.object.mode_set(mode="OBJECT")
 		bpy.ops.object.mode_set(mode="WEIGHT_PAINT")
