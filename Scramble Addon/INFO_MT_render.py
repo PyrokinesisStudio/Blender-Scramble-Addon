@@ -12,7 +12,7 @@ class SetRenderResolutionPercentage(bpy.types.Operator):
 	bl_description = "設定解像度の何パーセントの大きさでレンダリングするか設定します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	size = bpy.props.IntProperty(name="レンダリングサイズ(%)", default=100, min=1, max=100, soft_min=1, soft_max=100, step=1)
+	size = bpy.props.IntProperty(name="レンダリングサイズ(%)", default=100, min=1, max=1000, soft_min=1, soft_max=1000, step=1)
 	
 	def execute(self, context):
 		context.scene.render.resolution_percentage = self.size
