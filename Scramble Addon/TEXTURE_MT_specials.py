@@ -54,11 +54,14 @@ class SlotMoveTop(bpy.types.Operator):
 	
 	def execute(self, context):
 		preTop = context.active_object.active_material.texture_slots[0]
+		i = 0
 		while True:
 			if (preTop != context.active_object.active_material.texture_slots[0]):
 				break
 			preTop = context.active_object.active_material.texture_slots[0]
 			bpy.ops.texture.slot_move(type='UP')
+			if (100 <= i): break
+			i += 1
 		return {'FINISHED'}
 class SlotMoveBottom(bpy.types.Operator):
 	bl_idname = "texture.slot_move_bottom"
@@ -71,11 +74,14 @@ class SlotMoveBottom(bpy.types.Operator):
 			if (context.active_object.active_material.texture_slots[i]):
 				slotIndex = i
 		preBottom = context.active_object.active_material.texture_slots[slotIndex]
+		i = 0
 		while True:
 			if (preBottom != context.active_object.active_material.texture_slots[slotIndex]):
 				break
 			preBottom = context.active_object.active_material.texture_slots[slotIndex]
 			bpy.ops.texture.slot_move(type='DOWN')
+			if (100 <= i): break
+			i += 1
 		return {'FINISHED'}
 
 ################
