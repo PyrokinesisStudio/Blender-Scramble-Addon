@@ -113,6 +113,34 @@ class MoveMaterialSlot(bpy.types.Operator):
 				poly.material_index = sourceIndex
 		return {'FINISHED'}
 
+class MoveMaterialSlotTop(bpy.types.Operator):
+	bl_idname = "material.move_material_slot_top"
+	bl_label = "スロットを一番上へ"
+	bl_description = "アクティブなマテリアルスロットを一番上に移動させます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		activeObj = context.active_object
+		for i in range(activeObj.active_material_index):
+			bpy.ops.material.move_material_slot(mode='UP')
+		return {'FINISHED'}
+class MoveMaterialSlotBottom(bpy.types.Operator):
+	bl_idname = "material.move_material_slot_bottom"
+	bl_label = "スロットを一番下へ"
+	bl_description = "アクティブなマテリアルスロットを一番下に移動させます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		activeObj = context.active_object
+		i = 0
+		for slot in activeObj.material_slots:
+			if (slot.material):
+				lastSlotIndex = i
+			i += 1
+		for i in range(lastSlotIndex - activeObj.active_material_index):
+			bpy.ops.material.move_material_slot(mode='DOWN')
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -122,6 +150,9 @@ def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(MoveMaterialSlot.bl_idname, icon="PLUGIN", text="上へ").mode = 'UP'
 	self.layout.operator(MoveMaterialSlot.bl_idname, icon="PLUGIN", text="下へ").mode = 'DOWN'
+	self.layout.separator()
+	self.layout.operator(MoveMaterialSlotTop.bl_idname, icon="PLUGIN")
+	self.layout.operator(MoveMaterialSlotBottom.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(RemoveAllMaterialSlot.bl_idname, icon="PLUGIN")
 	self.layout.operator(RemoveEmptyMaterialSlot.bl_idname, icon="PLUGIN")
