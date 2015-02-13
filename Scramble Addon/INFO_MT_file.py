@@ -17,7 +17,8 @@ class RestartBlender(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
-		subprocess.Popen(sys.argv[0], shell=True)
+		py = os.path.dirname(__file__) + "\\console_toggle.py"
+		subprocess.Popen('"'+sys.argv[0]+'" -P "'+py+'"')
 		bpy.ops.wm.quit_blender()
 		return {'FINISHED'}
 
