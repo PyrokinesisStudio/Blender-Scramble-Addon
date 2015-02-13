@@ -17,7 +17,6 @@ class RestartBlender(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
-		addonDir = os.path.dirname(__file__)
 		subprocess.Popen(sys.argv[0], shell=True)
 		bpy.ops.wm.quit_blender()
 		return {'FINISHED'}
