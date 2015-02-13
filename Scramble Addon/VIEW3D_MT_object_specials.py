@@ -100,6 +100,17 @@ class CreateRopeMesh(bpy.types.Operator):
 		activeObj.data.use_deform_bounds = pre_use_deform_bounds
 		return {'FINISHED'}
 
+class VertexGroupTransferWeightObjmode(bpy.types.Operator):
+	bl_idname = "object.vertex_group_transfer_weight_objmode"
+	bl_label = "ウェイト転送"
+	bl_description = "他の選択中のメッシュからアクティブにウェイトペイントを転送します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.object.vertex_group_remove(all=True)
+		bpy.ops.object.vertex_group_transfer_weight()
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -116,3 +127,5 @@ def menu(self, context):
 		if (context.active_object.type == "CURVE"):
 			self.layout.separator()
 			self.layout.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.operator(VertexGroupTransferWeightObjmode.bl_idname, icon="PLUGIN")
