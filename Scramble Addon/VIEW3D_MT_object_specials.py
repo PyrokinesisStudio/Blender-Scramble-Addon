@@ -106,8 +106,11 @@ class VertexGroupTransferWeightObjmode(bpy.types.Operator):
 	bl_description = "他の選択中のメッシュからアクティブにウェイトペイントを転送します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	isDeleteWeights = bpy.props.BoolProperty(name="ウェイト全削除してから", default=False)
+	
 	def execute(self, context):
-		bpy.ops.object.vertex_group_remove(all=True)
+		if (self.isDeleteWeights):
+			bpy.ops.object.vertex_group_remove(all=True)
 		bpy.ops.object.vertex_group_transfer_weight()
 		return {'FINISHED'}
 
