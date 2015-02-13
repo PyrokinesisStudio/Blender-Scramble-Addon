@@ -18,12 +18,8 @@ class RestartBlender(bpy.types.Operator):
 	
 	def execute(self, context):
 		addonDir = os.path.dirname(__file__)
-		try:
-			subprocess.call([addonDir + "\\RunExe.exe", sys.argv[0]])
-			bpy.ops.wm.quit_blender()
-		except FileNotFoundError:
-			self.report(type={"ERROR"}, message="必要なファイルが足りません、アドオンをインストールし直してみて下さい")
-			return {"CANCELLED"}
+		subprocess.Popen(sys.argv[0], shell=True)
+		bpy.ops.wm.quit_blender()
 		return {'FINISHED'}
 
 ##############################
