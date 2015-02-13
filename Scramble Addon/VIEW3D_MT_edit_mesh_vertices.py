@@ -73,6 +73,7 @@ class SeparateEXMenu(bpy.types.Menu):
 	def draw(self, context):
 		self.layout.operator("mesh.separate", text="選択物").type = 'SELECTED'
 		self.layout.operator(SeparateSelectedEX.bl_idname, icon="PLUGIN")
+		self.layout.operator(DuplicateNewParts.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator("mesh.separate", text="マテリアルで").type = 'MATERIAL'
 		self.layout.operator("mesh.separate", text="構造的に分離したパーツで").type = 'LOOSE'
