@@ -1,6 +1,6 @@
 # 3Dビュー > オブジェクトモード > 「W」キー
 
-import bpy
+import bpy, bmesh
 import re
 
 ################
@@ -114,6 +114,49 @@ class VertexGroupTransferWeightObjmode(bpy.types.Operator):
 		bpy.ops.object.vertex_group_transfer_weight()
 		return {'FINISHED'}
 
+class AddGreasePencilPathMetaballs(bpy.types.Operator):
+	bl_idname = "object.add_grease_pencil_path_metaballs"
+	bl_label = "グリースペンシルにメタボール配置"
+	bl_description = "アクティブなグリースペンシルに沿ってメタボールを配置します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	dissolve_verts_count = bpy.props.IntProperty(name="密度", default=50, min=2, max=1000, soft_min=2, soft_max=1000, step=1)
+	radius = bpy.props.FloatProperty(name="メタボールサイズ", default=0.05, min=0, max=1, soft_min=0, soft_max=1, step=0.1, precision=3)
+	resolution = bpy.props.FloatProperty(name="メタボール解像度", default=0.05, min=0.001, max=1, soft_min=0.001, soft_max=1, step=0.1, precision=3)
+	
+	def execute(self, context):
+		if (not context.scene.grease_pencil.layers.active):
+			self.report(type={"ERROR"}, message="グリースペンシルレイヤーが存在しません")
+			return {"CANCELLED"}
+		pre_selectable_objects = context.selectable_objects
+		bpy.ops.gpencil.convert(type='CURVE', use_normalize_weights=False, use_link_strokes=False, use_timing_data=True)
+		for obj in context.selectable_objects:
+			if (not obj in pre_selectable_objects):
+				curveObj = obj
+				break
+		bpy.ops.object.select_all(action='DESELECT')
+		curveObj.select = True
+		context.scene.objects.active = curveObj
+		bpy.ops.object.convert(target='MESH', keep_original=False)
+		pathObj = context.scene.objects.active
+		for vert in pathObj.data.vertices:
+			if (vert.index % self.dissolve_verts_count == 0):
+				vert.select = False
+			else:
+				vert.select = True
+		bpy.ops.object.mode_set(mode='EDIT')
+		bpy.ops.mesh.dissolve_verts()
+		bpy.ops.object.mode_set(mode='OBJECT')
+		metas = []
+		for vert in pathObj.data.vertices:
+			bpy.ops.object.metaball_add(type='BALL', radius=self.radius, view_align=False, enter_editmode=False, location=vert.co)
+			metas.append(context.scene.objects.active)
+			metas[-1].data.resolution = self.resolution
+		for obj in metas:
+			obj.select = True
+		context.scene.objects.unlink(pathObj)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -132,3 +175,6 @@ def menu(self, context):
 			self.layout.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(VertexGroupTransferWeightObjmode.bl_idname, icon="PLUGIN")
+	if (context.scene.grease_pencil.layers.active):
+		self.layout.separator()
+		self.layout.operator(AddGreasePencilPathMetaballs.bl_idname, icon="PLUGIN")
