@@ -48,6 +48,28 @@ class AddSphereOnlySquare(bpy.types.Operator):
 			bpy.ops.object.mode_set(mode="EDIT")
 		return {'FINISHED'}
 
+class AddVertexOnlyObject(bpy.types.Operator):
+	bl_idname = "mesh.add_vertex_only_object"
+	bl_label = "頂点のみ"
+	bl_description = "1頂点のみのメッシュオブジェクトを3Dカーソルの位置に追加します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		if (context.mode != 'OBJECT'):
+			bpy.ops.object.mode_set(mode="OBJECT")
+		me = bpy.data.meshes.new("Vertex")
+		me.from_pydata([(0, 0, 0)], [], [])
+		me.update()
+		obj = bpy.data.objects.new("Vertex", me)
+		obj.data = me
+		bpy.context.scene.objects.link(obj)
+		bpy.ops.object.select_all(action='DESELECT')
+		obj.select = True
+		bpy.context.scene.objects.active = obj
+		obj.location = context.space_data.cursor_location[:]
+		bpy.ops.object.mode_set(mode="EDIT")
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -55,4 +77,5 @@ class AddSphereOnlySquare(bpy.types.Operator):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
+	self.layout.operator(AddVertexOnlyObject.bl_idname, icon="PLUGIN")
 	self.layout.operator(AddSphereOnlySquare.bl_idname, icon="PLUGIN").location = context.space_data.cursor_location
