@@ -14,48 +14,49 @@ class CreateOrientationTwoVertex(bpy.types.Operator):
 	
 	def execute(self, context):
 		obj = context.active_object
-		if (obj.type == "MESH"):
-			cursorCo = context.space_data.cursor_location[:]
-			bpy.ops.object.mode_set(mode='OBJECT')
-			me = obj.data
-			verts = []
-			for vert in me.vertices:
-				if (vert.select):
-					verts.append(vert.index)
-			if (len(verts) != 2):
-				self.report(type={"ERROR"}, message="2つのみ頂点を選択して実行して下さい")
-				return {'CANCELLED'}
-			me.vertices[verts[0]].select = False
-			bpy.ops.object.mode_set(mode='EDIT')
-			bpy.ops.view3d.snap_cursor_to_selected()
-			bpy.ops.object.mode_set(mode='OBJECT')
-			bpy.ops.object.empty_add()
-			oneObj = context.active_object
-			context.scene.objects.active = obj
-			me.vertices[verts[0]].select = True
-			me.vertices[verts[1]].select = False
-			bpy.ops.object.mode_set(mode='EDIT')
-			bpy.ops.view3d.snap_cursor_to_selected()
-			bpy.ops.object.mode_set(mode='OBJECT')
-			bpy.ops.object.empty_add()
-			twoObj = context.active_object
-			const = twoObj.constraints.new("DAMPED_TRACK")
-			const.target = oneObj
-			bpy.ops.object.visual_transform_apply()
-			twoObj.name = "2頂点の向き"
-			bpy.ops.transform.create_orientation(use=True)
-			bpy.ops.object.select_all(action='DESELECT')
-			oneObj.select = True
-			twoObj.select = True
-			bpy.ops.object.delete()
-			obj.select = True
-			context.scene.objects.active = obj
-			me.vertices[verts[0]].select = True
-			me.vertices[verts[1]].select = True
-			context.space_data.cursor_location = cursorCo[:]
-			bpy.ops.object.mode_set(mode='EDIT')
-		else:
+		if (obj.type != "MESH"):
 			self.report(type={"ERROR"}, message="メッシュオブジェクトで実行して下さい")
+		cursorCo = context.space_data.cursor_location[:]
+		bpy.ops.object.mode_set(mode='OBJECT')
+		me = obj.data
+		verts = []
+		for vert in me.vertices:
+			if (vert.select):
+				verts.append(vert.index)
+		if (len(verts) != 2):
+			self.report(type={"ERROR"}, message="2つのみ頂点を選択して実行して下さい")
+			return {'CANCELLED'}
+		me.vertices[verts[0]].select = False
+		bpy.ops.object.mode_set(mode='EDIT')
+		bpy.ops.view3d.snap_cursor_to_selected()
+		bpy.ops.object.mode_set(mode='OBJECT')
+		bpy.ops.object.empty_add()
+		oneObj = context.active_object
+		context.scene.objects.active = obj
+		bpy.ops.object.mode_set(mode='EDIT')
+		bpy.ops.mesh.select_all(action='DESELECT')
+		bpy.ops.object.mode_set(mode='OBJECT')
+		me.vertices[verts[0]].select = True
+		bpy.ops.object.mode_set(mode='EDIT')
+		bpy.ops.view3d.snap_cursor_to_selected()
+		bpy.ops.object.mode_set(mode='OBJECT')
+		bpy.ops.object.empty_add()
+		twoObj = context.active_object
+		const = twoObj.constraints.new("DAMPED_TRACK")
+		const.target = oneObj
+		bpy.ops.object.visual_transform_apply()
+		twoObj.name = "2頂点の向き"
+		bpy.ops.transform.create_orientation(use=True)
+		bpy.ops.object.select_all(action='DESELECT')
+		oneObj.select = True
+		twoObj.select = True
+		bpy.ops.object.delete()
+		obj.select = True
+		context.scene.objects.active = obj
+		me.vertices[verts[0]].select = True
+		me.vertices[verts[1]].select = True
+		context.space_data.cursor_location = cursorCo[:]
+		bpy.ops.object.mode_set(mode='EDIT')
 		return {'FINISHED'}
 
 ################
