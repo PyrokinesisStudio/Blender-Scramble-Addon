@@ -80,6 +80,27 @@ class SelectVertexGroupsBottom(bpy.types.Operator):
 		context.active_object.vertex_groups.active_index = len(context.active_object.vertex_groups) - 1
 		return {'FINISHED'}
 
+class MoveVertexGroupTop(bpy.types.Operator):
+	bl_idname = "mesh.move_vertex_group_top"
+	bl_label = "最上段へ"
+	bl_description = "アクティブな頂点グループを一番上へ移動させます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		for i in range(context.active_object.vertex_groups.active_index):
+			bpy.ops.object.vertex_group_move(direction='UP')
+		return {'FINISHED'}
+class MoveVertexGroupBottom(bpy.types.Operator):
+	bl_idname = "mesh.move_vertex_group_bottom"
+	bl_label = "最下段へ"
+	bl_description = "アクティブな頂点グループを一番下へ移動させます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		for i in range(len(context.active_object.vertex_groups) - context.active_object.vertex_groups.active_index - 1):
+			bpy.ops.object.vertex_group_move(direction='DOWN')
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -89,6 +110,9 @@ def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(SelectVertexGroupsTop.bl_idname, icon="PLUGIN")
 	self.layout.operator(SelectVertexGroupsBottom.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.operator(MoveVertexGroupTop.bl_idname, icon="PLUGIN")
+	self.layout.operator(MoveVertexGroupBottom.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(RemoveEmptyVertexGroups.bl_idname, icon="PLUGIN")
 	self.layout.separator()
