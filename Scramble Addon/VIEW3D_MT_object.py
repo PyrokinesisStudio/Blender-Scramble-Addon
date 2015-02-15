@@ -112,6 +112,23 @@ class CopyObjectName(bpy.types.Operator):
 		context.window_manager.clipboard = context.active_object.name
 		return {'FINISHED'}
 
+################################
+# オペレーター(モディファイア) #
+################################
+
+class DeleteAllModifiers(bpy.types.Operator):
+	bl_idname = "object.delete_all_modifiers"
+	bl_label = "全モディファイア削除"
+	bl_description = "選択オブジェクトの全てのモディファイアを削除します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		for obj in context.selected_objects:
+			modifiers = obj.modifiers[:]
+			for modi in modifiers:
+				obj.modifiers.remove(modi)
+		return {'FINISHED'}
+
 ############################
 # オペレーター(ブーリアン) #
 ############################
@@ -386,6 +403,8 @@ class ModifierMenu(bpy.types.Menu):
 	bl_description = "モディファイア関係の操作です"
 	
 	def draw(self, context):
+		self.layout.operator(DeleteAllModifiers.bl_idname, icon="PLUGIN")
+		self.layout.separator()
 		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
 		self.layout.menu(BooleanMenu.bl_idname, icon="PLUGIN")
 
