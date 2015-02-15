@@ -57,12 +57,32 @@ class HideVertexOnly(bpy.types.Operator):
 			self.report(type={"ERROR"}, message="メッシュオブジェクトがアクティブな状態で実行してください")
 		return {'FINISHED'}
 
+class HideParts(bpy.types.Operator):
+	bl_idname = "mesh.hide_parts"
+	bl_label = "選択しているパーツを隠す"
+	bl_description = "1頂点以上を選択しているメッシュパーツを隠します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	unselected = bpy.props.BoolProperty(name="非選択部", default=False)
+	
+	def execute(self, context):
+		isSelecteds = []
+		for vert in context.active_object.data.vertices:
+			isSelecteds.append(vert.select)
+		bpy.ops.mesh.select_linked(limit=False)
+		bpy.ops.mesh.hide(unselected=self.unselected)
+		bpy.ops.mesh.select_all(action='DESELECT')
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.separator()
+	self.layout.operator(HideParts.bl_idname, icon="PLUGIN", text="選択しているパーツを隠す").unselected = False
+	self.layout.operator(HideParts.bl_idname, icon="PLUGIN", text="選択していないパーツを隠す").unselected = True
 	self.layout.separator()
 	self.layout.operator(InvertHide.bl_idname, icon="PLUGIN")
 	self.layout.separator()
