@@ -65,7 +65,26 @@ class InsertKeyframeAllShapes(bpy.types.Operator):
 	
 	def execute(self, context):
 		for shape in context.active_object.data.shape_keys.key_blocks:
-		    shape.keyframe_insert(data_path="value")
+			shape.keyframe_insert(data_path="value")
+		return {'FINISHED'}
+
+class SelectShapeTop(bpy.types.Operator):
+	bl_idname = "object.select_shape_top"
+	bl_label = "最上段を選択"
+	bl_description = "一番上のシェイプキーを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		context.active_object.active_shape_key_index = 0
+		return {'FINISHED'}
+class SelectShapeBottom(bpy.types.Operator):
+	bl_idname = "object.select_shape_bottom"
+	bl_label = "最下段を選択"
+	bl_description = "一番下のシェイプキーを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		context.active_object.active_shape_key_index = len(context.active_object.data.shape_keys.key_blocks) - 1
 		return {'FINISHED'}
 
 ################
@@ -74,6 +93,9 @@ class InsertKeyframeAllShapes(bpy.types.Operator):
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.separator()
+	self.layout.operator(SelectShapeTop.bl_idname, icon="PLUGIN")
+	self.layout.operator(SelectShapeBottom.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(CopyShape.bl_idname, icon="PLUGIN")
 	self.layout.separator()
