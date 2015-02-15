@@ -61,12 +61,34 @@ class AddOppositeVertexGroups(bpy.types.Operator):
 					obj.vertex_groups.new(newName)
 		return {'FINISHED'}
 
+class SelectVertexGroupsTop(bpy.types.Operator):
+	bl_idname = "mesh.select_vertex_groups_top"
+	bl_label = "一番上を選択"
+	bl_description = "頂点グループの一番上の項目を選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		context.active_object.vertex_groups.active_index = 0
+		return {'FINISHED'}
+class SelectVertexGroupsBottom(bpy.types.Operator):
+	bl_idname = "mesh.select_vertex_groups_bottom"
+	bl_label = "一番下を選択"
+	bl_description = "頂点グループの一番下の項目を選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		context.active_object.vertex_groups.active_index = len(context.active_object.vertex_groups) - 1
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.separator()
+	self.layout.operator(SelectVertexGroupsTop.bl_idname, icon="PLUGIN")
+	self.layout.operator(SelectVertexGroupsBottom.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(RemoveEmptyVertexGroups.bl_idname, icon="PLUGIN")
 	self.layout.separator()
