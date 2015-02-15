@@ -30,7 +30,7 @@ class CopyShape(bpy.types.Operator):
 class ShowShapeBlockName(bpy.types.Operator):
 	bl_idname = "mesh.show_shape_block_name"
 	bl_label = "シェイプブロック名を調べる"
-	bl_description = "シェイプブロックの名前を表示する為だけに作られたオペレーターです"
+	bl_description = "シェイプブロックの名前を表示し、クリップボードにコピーします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -39,6 +39,7 @@ class ShowShapeBlockName(bpy.types.Operator):
 			shape_keys = obj.data.shape_keys
 			if (shape_keys != None):
 				self.report(type={"INFO"}, message="シェイプキーブロップ名は「"+shape_keys.name+"」です")
+				context.window_manager.clipboard = shape_keys.name
 			else:
 				self.report(type={"ERROR"}, message="シェイプキーが存在しません")
 		else:
