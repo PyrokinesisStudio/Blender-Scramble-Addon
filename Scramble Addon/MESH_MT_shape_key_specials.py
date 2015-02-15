@@ -21,6 +21,10 @@ class CopyShape(bpy.types.Operator):
 				keys[key.name] = key.value
 				key.value = 0
 			obj.active_shape_key.value = 1
+			relativeKey = obj.active_shape_key.relative_key
+			while relativeKey != relativeKey.relative_key:
+				relativeKey.value = 1
+				relativeKey = relativeKey.relative_key
 			obj.shape_key_add(name=obj.active_shape_key.name, from_mix=True)
 			obj.active_shape_key_index = len(me.shape_keys.key_blocks) - 1
 			for k, v in keys.items():
