@@ -297,14 +297,14 @@ class FixEmptyTextureUVLayer(bpy.types.Operator):
 				me = obj.data
 				if (len(me.uv_layers) > 0):
 					uv = me.uv_layers.active
-				for mslot in obj.material_slots:
-					mat = mslot.material
-					if (mat):
-						for tslot in mat.texture_slots:
-							if (tslot != None):
-								if (tslot.texture_coords == "UV"):
-									if(tslot.uv_layer == ""):
-										tslot.uv_layer = uv.name
+					for mslot in obj.material_slots:
+						mat = mslot.material
+						if (mat):
+							for tslot in mat.texture_slots:
+								if (tslot != None):
+									if (tslot.texture_coords == "UV"):
+										if(tslot.uv_layer == ""):
+											tslot.uv_layer = uv.name
 		return {'FINISHED'}
 
 ######################
