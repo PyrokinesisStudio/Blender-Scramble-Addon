@@ -23,7 +23,7 @@ class AreaTypePieOperator(bpy.types.Operator):
 	def execute(self, context):
 		bpy.ops.wm.call_menu_pie(name=AreaTypePie.bl_idname)
 		return {'FINISHED'}
-class AreaTypePie(bpy.types.Menu):
+class AreaTypePie(bpy.types.Menu): #
 	bl_idname = "INFO_MT_window_pie_area_type"
 	bl_label = "エディタータイプ"
 	bl_description = "エディタータイプ変更のパイメニューです"
@@ -62,7 +62,7 @@ class AreaTypePieOther(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Pythonコンソール", icon="CONSOLE").type = "CONSOLE"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="情報", icon="INFO").type = "INFO"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="ユーザー設定", icon="PREFERENCES").type = "USER_PREFERENCES"
-class SetAreaType(bpy.types.Operator):
+class SetAreaType(bpy.types.Operator): #
 	bl_idname = "wm.set_area_type"
 	bl_label = "エディタータイプ変更"
 	bl_description = "エディタータイプを変更します"

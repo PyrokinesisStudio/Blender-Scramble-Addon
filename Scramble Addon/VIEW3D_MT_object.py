@@ -47,7 +47,7 @@ class ObjectModePie(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="編集", icon="EDITMODE_HLT").mode = "EDIT"
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="テクスチャペイント", icon="TPAINT_HLT").mode = "TEXTURE_PAINT"
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="頂点ペイント", icon="VPAINT_HLT").mode = "VERTEX_PAINT"
-class SetObjectMode(bpy.types.Operator):
+class SetObjectMode(bpy.types.Operator): #
 	bl_idname = "object.set_object_mode"
 	bl_label = "オブジェクト対話モードを設定"
 	bl_description = "オブジェクトの対話モードを設定します"

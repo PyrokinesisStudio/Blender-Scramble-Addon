@@ -72,7 +72,7 @@ class SelectModePieOperator(bpy.types.Operator):
 	def execute(self, context):
 		bpy.ops.wm.call_menu_pie(name=SelectModePie.bl_idname)
 		return {'FINISHED'}
-class SelectModePie(bpy.types.Menu):
+class SelectModePie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_edit_mesh_pie_select_mode"
 	bl_label = "メッシュ選択モード"
 	bl_description = "メッシュの選択のパイメニューです"
@@ -94,7 +94,7 @@ class ProportionalPieOperator(bpy.types.Operator):
 		else:
 			context.scene.tool_settings.proportional_edit = "DISABLED"
 		return {'FINISHED'}
-class ProportionalPie(bpy.types.Menu):
+class ProportionalPie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_edit_mesh_pie_proportional"
 	bl_label = "プロポーショナル編集"
 	bl_description = "プロポーショナル編集のパイメニューです"
@@ -103,7 +103,7 @@ class ProportionalPie(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetProportionalEdit.bl_idname, text="有効化", icon="PROP_ON").mode = "ENABLED"
 		self.layout.menu_pie().operator(SetProportionalEdit.bl_idname, text="投影(2D)", icon="PROP_ON").mode = "PROJECTED"
 		self.layout.menu_pie().operator(SetProportionalEdit.bl_idname, text="接続", icon="PROP_CON").mode = "CONNECTED"
-class SetProportionalEdit(bpy.types.Operator):
+class SetProportionalEdit(bpy.types.Operator): #
 	bl_idname = "mesh.set_proportional_edit"
 	bl_label = "プロポーショナル編集のモードを設定"
 	bl_description = "プロポーショナル編集のモードを設定します"

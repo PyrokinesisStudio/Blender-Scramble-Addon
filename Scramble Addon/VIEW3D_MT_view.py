@@ -24,7 +24,7 @@ class ViewNumpadPieOperator(bpy.types.Operator):
 	def execute(self, context):
 		bpy.ops.wm.call_menu_pie(name=ViewNumpadPie.bl_idname)
 		return {'FINISHED'}
-class ViewNumpadPie(bpy.types.Menu):
+class ViewNumpadPie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_view_pie_view_numpad"
 	bl_label = "プリセットビュー"
 	bl_description = "プリセットビュー(テンキー1,3,7とか)のパイメニューです"
@@ -48,7 +48,7 @@ class ViewportShadePieOperator(bpy.types.Operator):
 	def execute(self, context):
 		bpy.ops.wm.call_menu_pie(name=ViewportShadePie.bl_idname)
 		return {'FINISHED'}
-class ViewportShadePie(bpy.types.Menu):
+class ViewportShadePie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_view_pie_viewport_shade"
 	bl_label = "シェーディング切り替え"
 	bl_description = "シェーディング切り替えパイメニューです"
@@ -60,7 +60,7 @@ class ViewportShadePie(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="テクスチャ", icon="POTATO").mode = "TEXTURED"
 		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="ワイヤーフレーム", icon="WIRE").mode = "WIREFRAME"
 		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="マテリアル", icon="MATERIAL").mode = "MATERIAL"
-class SetViewportShade(bpy.types.Operator):
+class SetViewportShade(bpy.types.Operator): #
 	bl_idname = "view3d.set_viewport_shade"
 	bl_label = "シェーディング切り替え"
 	bl_description = "シェーディングを切り替えます"
@@ -111,7 +111,7 @@ class LayerGroupMenu(bpy.types.Menu):
 		for group in groups:
 			self.layout.operator(ApplyLayerGroup.bl_idname, icon="PLUGIN", text=group.name).group = group.name
 
-class ApplyLayerGroup(bpy.types.Operator):
+class ApplyLayerGroup(bpy.types.Operator): #
 	bl_idname = "view3d.apply_layer_group"
 	bl_label = "グループで表示/非表示を切り替え実行"
 	bl_description = "所属しているグループで表示/非表示を切り替えます"
