@@ -6,6 +6,27 @@ import bpy
 # オペレーター #
 ################
 
+class RenameImageFileName(bpy.types.Operator):
+	bl_idname = "image.rename_image_file_name"
+	bl_label = "画像名を使用するファイル名に"
+	bl_description = "アクティブな画像の名前を、使用している外部画像のファイル名にします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	isExt = bpy.props.BoolProperty(name="拡張子も含む", default=True)
+	
+	def invoke(self, context, event):
+		wm = context.window_manager
+		return wm.invoke_props_dialog(self)
+	def execute(self, context):
+		img = context.edit_image
+		name = img.filepath_raw[2:].split("\\")[-1]
+		if (not self.isExt):
+			name, ext = os.path.splitext(name)
+		try:
+			img.name = name
+		except: pass
+		return {'FINISHED'}
+
 class AllRenameImageFileName(bpy.types.Operator):
 	bl_idname = "image.all_rename_image_file_name"
 	bl_label = "全ての画像名を使用するファイル名に"
@@ -46,6 +67,8 @@ class ReloadAllImage(bpy.types.Operator):
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.separator()
+	self.layout.operator(RenameImageFileName.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(AllRenameImageFileName.bl_idname, icon="PLUGIN")
 	self.layout.operator(ReloadAllImage.bl_idname, icon="PLUGIN")
