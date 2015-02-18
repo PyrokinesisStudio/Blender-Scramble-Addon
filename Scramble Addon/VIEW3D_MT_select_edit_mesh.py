@@ -39,7 +39,7 @@ class SelectAxisLimit(bpy.types.Operator):
 class SelectAxisOver(bpy.types.Operator):
 	bl_idname = "mesh.select_axis_over"
 	bl_label = "右半分を選択"
-	bl_description = "メッシュの左半分を選択します(その他設定も有)"
+	bl_description = "メッシュの右半分を選択します(その他設定も有)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
