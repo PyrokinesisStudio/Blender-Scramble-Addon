@@ -61,12 +61,34 @@ class ReloadAllImage(bpy.types.Operator):
 					pass
 		return {'FINISHED'}
 
+class FillColor(bpy.types.Operator):
+	bl_idname = "image.fill_color"
+	bl_label = "指定色で塗り潰し"
+	bl_description = "アクティブな画像を指定した色で全て塗り潰します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	color = bpy.props.FloatVectorProperty(name="色", description="塗り潰す色", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
+	alpha = bpy.props.FloatProperty(name="透明度", description="透明度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
+	
+	def invoke(self, context, event):
+		wm = context.window_manager
+		return wm.invoke_props_dialog(self)
+	def execute(self, context):
+		img = context.edit_image
+		img.generated_color[0] = self.color[0]
+		img.generated_color[1] = self.color[1]
+		img.generated_color[2] = self.color[2]
+		img.generated_color[3] = self.alpha
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.separator()
+	self.layout.operator(FillColor.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(RenameImageFileName.bl_idname, icon="PLUGIN")
 	self.layout.separator()
