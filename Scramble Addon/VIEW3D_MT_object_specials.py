@@ -120,7 +120,7 @@ class AddGreasePencilPathMetaballs(bpy.types.Operator):
 	bl_description = "アクティブなグリースペンシルに沿ってメタボールを配置します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	dissolve_verts_count = bpy.props.IntProperty(name="密度", default=50, min=2, max=1000, soft_min=2, soft_max=1000, step=1)
+	dissolve_verts_count = bpy.props.IntProperty(name="密度", default=3, min=1, max=100, soft_min=1, soft_max=100, step=1)
 	radius = bpy.props.FloatProperty(name="メタボールサイズ", default=0.05, min=0, max=1, soft_min=0, soft_max=1, step=0.1, precision=3)
 	resolution = bpy.props.FloatProperty(name="メタボール解像度", default=0.05, min=0.001, max=1, soft_min=0.001, soft_max=1, step=0.1, precision=3)
 	
@@ -137,6 +137,7 @@ class AddGreasePencilPathMetaballs(bpy.types.Operator):
 		bpy.ops.object.select_all(action='DESELECT')
 		curveObj.select = True
 		context.scene.objects.active = curveObj
+		curveObj.data.resolution_u = 1
 		bpy.ops.object.convert(target='MESH', keep_original=False)
 		pathObj = context.scene.objects.active
 		for vert in pathObj.data.vertices:
