@@ -106,12 +106,19 @@ class VertexGroupTransferWeightObjmode(bpy.types.Operator):
 	bl_description = "他の選択中のメッシュからアクティブにウェイトペイントを転送します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isDeleteWeights = bpy.props.BoolProperty(name="ウェイト全削除してから", default=False)
+	isDeleteWeights = bpy.props.BoolProperty(name="ウェイト全削除してから", default=True)
+	items = [
+		('WT_BY_INDEX', "頂点のインデックス番号", "", 1),
+		('WT_BY_NEAREST_VERTEX', "最近接頂点", "", 2),
+		('WT_BY_NEAREST_FACE', "最近接面", "", 3),
+		('WT_BY_NEAREST_VERTEX_IN_FACE', "面内の最近接頂点", "", 4),
+		]
+	method = bpy.props.EnumProperty(items=items, name="方式", default="WT_BY_NEAREST_VERTEX")
 	
 	def execute(self, context):
 		if (self.isDeleteWeights):
 			bpy.ops.object.vertex_group_remove(all=True)
-		bpy.ops.object.vertex_group_transfer_weight()
+		bpy.ops.object.vertex_group_transfer_weight(group_select_mode='WT_REPLACE_ALL_VERTEX_GROUPS', method=self.method, replace_mode='WT_REPLACE_ALL_WEIGHTS')
 		return {'FINISHED'}
 
 class AddGreasePencilPathMetaballs(bpy.types.Operator):
