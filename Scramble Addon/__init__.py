@@ -52,6 +52,7 @@ if "bpy" in locals():
 	imp.reload(VIEW3D_MT_select_edit_armature)
 	imp.reload(VIEW3D_MT_edit_mesh_vertices)
 	imp.reload(INFO_MT_help)
+	imp.reload(DOPESHEET_MT_key)
 else:
 	from . import IMAGE_MT_image
 	from . import IMAGE_MT_select
@@ -88,6 +89,7 @@ else:
 	from . import VIEW3D_MT_select_edit_armature
 	from . import VIEW3D_MT_edit_mesh_vertices
 	from . import INFO_MT_help
+	from . import DOPESHEET_MT_key
 import bpy
 
 # ダミーオペレーター
@@ -132,6 +134,7 @@ def register():
 	bpy.types.VIEW3D_MT_select_edit_armature.append(VIEW3D_MT_select_edit_armature.menu)
 	bpy.types.VIEW3D_MT_edit_mesh_vertices.append(VIEW3D_MT_edit_mesh_vertices.menu)
 	bpy.types.INFO_MT_help.append(INFO_MT_help.menu)
+	bpy.types.DOPESHEET_MT_key.append(DOPESHEET_MT_key.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -171,6 +174,7 @@ def unregister():
 	bpy.types.VIEW3D_MT_select_edit_armature.remove(VIEW3D_MT_select_edit_armature.menu)
 	bpy.types.VIEW3D_MT_edit_mesh_vertices.remove(VIEW3D_MT_edit_mesh_vertices.menu)
 	bpy.types.INFO_MT_help.remove(INFO_MT_help.menu)
+	bpy.types.DOPESHEET_MT_key.remove(DOPESHEET_MT_key.menu)
 
 # メイン関数
 if __name__ == "__main__":
