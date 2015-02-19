@@ -136,6 +136,28 @@ class AllResetHideSelect(bpy.types.Operator):
 				obj.select = not self.reverse
 		return {'FINISHED'}
 
+class SyncRenderHide(bpy.types.Operator):
+	bl_idname = "object.sync_render_hide"
+	bl_label = "レンダリングするかを「表示/非表示」に同期"
+	bl_description = "現在のレイヤー内のオブジェクトをレンダリングするかどうかを表示/非表示の状態と同期します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	isAll = bpy.props.BoolProperty(name="全オブジェクト", default=False)
+	
+	def execute(self, context):
+		objs = []
+		for obj in bpy.data.objects:
+			if (self.isAll):
+				objs.append(obj)
+			else:
+				for i in range(len(context.scene.layers)):
+					if (context.scene.layers[i] and obj.layers[i]):
+						objs.append(obj)
+						break
+		for obj in objs:
+			obj.hide_render = obj.hide
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -153,3 +175,5 @@ def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(AllResetRenderHide.bl_idname, icon="PLUGIN")
 	self.layout.operator(AllResetHideSelect.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.operator(SyncRenderHide.bl_idname, icon="PLUGIN")
