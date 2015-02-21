@@ -72,12 +72,16 @@ class ShowShortcutHtml(bpy.types.Operator):
 				cfgsData = []
 				for cfg in cfgs:
 					cfgStr = ""
+					color = ["0", "0", "0"]
 					if (cfg.shift):
 						cfgStr = cfgStr + " Shift"
+						color[2] = "6"
 					if (cfg.ctrl):
 						cfgStr = cfgStr + " Ctrl"
+						color[1] = "6"
 					if (cfg.alt):
 						cfgStr = cfgStr + " Alt"
+						color[0] = "6"
 					if (cfg.oskey):
 						cfgStr = cfgStr + " OS"
 					if (cfg.key_modifier != 'NONE'):
@@ -102,8 +106,8 @@ class ShowShortcutHtml(bpy.types.Operator):
 						cfgStr = cfgStr + cfg.propvalue
 					if (not cfg.active):
 						cfgStr = "<s>" + cfgStr + "</s>"
-					#title = title + "　" + cfgStr + "<br>"
-					cfgsData.append(["　" + cfgStr + "<br>", modifierKeyStr])
+					cfgStr = "　<font size='2' color='#" +color[0]+color[1]+color[2]+ "'>" + cfgStr + "</font><br>"
+					cfgsData.append([cfgStr, modifierKeyStr])
 				cfgsData = sorted(cfgsData, key=lambda i: len(i[1]))
 				alreadys = []
 				for i in cfgsData:
