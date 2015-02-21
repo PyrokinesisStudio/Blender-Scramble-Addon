@@ -69,6 +69,7 @@ class ShowShortcutHtml(bpy.types.Operator):
 			title = "<b>【 " +data["key_name"]+ " 】</b><br><br>"
 			for mapName, cfgs in data["configs"].items():
 				title = title + "<b>[" + mapName + "]</b><br>"
+				cfgsData = []
 				for cfg in cfgs:
 					cfgStr = ""
 					if (cfg.shift):
@@ -85,6 +86,7 @@ class ShowShortcutHtml(bpy.types.Operator):
 						cfgStr = "(+" + cfgStr[1:] + ")　"
 					if (cfg.any):
 						cfgStr = "(常に)　"
+					modifierKeyStr = cfgStr
 					if (cfg.name):
 						if (cfg.idname == "wm.call_menu"):
 							cfgStr = cfgStr + "メニュー「" + cfg.properties.name + "」の呼び出し"
@@ -100,9 +102,15 @@ class ShowShortcutHtml(bpy.types.Operator):
 						cfgStr = cfgStr + cfg.propvalue
 					if (not cfg.active):
 						cfgStr = "<s>" + cfgStr + "</s>"
-					title = title + "　" + cfgStr + "<br>"
-				#title = title + "<br>"
-			areaStrings = areaStrings+'<area href="#" title="' +title+ '" shape="' +data["shape"]+ '" coords="' +data["coords"]+ '">\n'
+					#title = title + "　" + cfgStr + "<br>"
+					cfgsData.append(["　" + cfgStr + "<br>", modifierKeyStr])
+				cfgsData = sorted(cfgsData, key=lambda i: len(i[1]))
+				alreadys = []
+				for i in cfgsData:
+					if (i[0] not in alreadys):
+						title = title + i[0]
+						alreadys.append(i[0])
+			areaStrings = areaStrings+ '<area href="#" title="' +title+ '" shape="' +data["shape"]+ '" coords="' +data["coords"]+ '">\n'
 			print(areaStrings)
 		file = open(addonDir + "\\ShortcutHtmlTemplate.html", "r")
 		template = file.read()
