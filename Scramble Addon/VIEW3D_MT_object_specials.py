@@ -165,6 +165,40 @@ class AddGreasePencilPathMetaballs(bpy.types.Operator):
 		context.scene.objects.unlink(pathObj)
 		return {'FINISHED'}
 
+class CreateVertexToMetaball(bpy.types.Operator):
+	bl_idname = "object.create_vertex_to_metaball"
+	bl_label = "頂点にメタボールをフック"
+	bl_description = "選択中のメッシュオブジェクトの頂点部分に新規メタボールを張り付かせます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	name = bpy.props.StringProperty(name="メタボール名", default="Mball")
+	size = bpy.props.FloatProperty(name="サイズ", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=1, precision=3)
+	isUseVg = bpy.props.BoolProperty(name="頂点グループを大きさに", default=False)
+	
+	def execute(self, context):
+		for obj in context.selected_objects:
+			if (obj.type == 'MESH'):
+				me = obj.data
+				metas = []
+				active_vg_index = obj.vertex_groups.active_index
+				for i in range(len(me.vertices)):
+					multi = 1.0
+					if (self.isUseVg):
+						for element in me.vertices[i].groups:
+							if (element.group == active_vg_index):
+								multi = element.weight
+								break
+					bpy.ops.object.metaball_add(type='BALL', radius=self.size * multi, location=(0, 0, 0))
+					metas.append(context.active_object)
+					metas[-1].name = self.name
+					metas[-1].parent = obj
+					metas[-1].parent_type = 'VERTEX'
+					metas[-1].parent_vertices = (i, 0, 0)
+				bpy.ops.object.select_all(action='DESELECT')
+				for meta in metas:
+					meta.select = True
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -183,6 +217,7 @@ def menu(self, context):
 			self.layout.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(VertexGroupTransferWeightObjmode.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")
 	if (context.scene.grease_pencil.layers.active):
-		self.layout.separator()
 		self.layout.operator(AddGreasePencilPathMetaballs.bl_idname, icon="PLUGIN")
