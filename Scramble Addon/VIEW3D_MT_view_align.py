@@ -46,6 +46,23 @@ class ResetView(bpy.types.Operator):
 		context.space_data.cursor_location = co
 		return {'FINISHED'}
 
+class SelectAndView(bpy.types.Operator):
+	bl_idname = "view3d.select_and_view"
+	bl_label = "選択+視点の中心に"
+	bl_description = "マウス下の物を選択し、それを視点の中心にします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	mouse_loc = bpy.props.IntVectorProperty(name="マウス位置", size=2)
+	
+	def execute(self, context):
+		bpy.ops.view3d.select(location=self.mouse_loc)
+		bpy.ops.view3d.view_selected()
+		return {'FINISHED'}
+	def invoke(self, context, event):
+		self.mouse_loc[0] = event.mouse_region_x
+		self.mouse_loc[1] = event.mouse_region_y
+		return self.execute(context)
+
 ################
 # メニュー追加 #
 ################
@@ -56,3 +73,4 @@ def menu(self, context):
 	self.layout.operator(ResetView.bl_idname, icon="PLUGIN")
 	self.layout.operator(ResetCursor.bl_idname, icon="PLUGIN")
 	self.layout.operator(ViewSelectedEX.bl_idname, icon="PLUGIN")
+	self.layout.operator(SelectAndView.bl_idname, icon="PLUGIN")
