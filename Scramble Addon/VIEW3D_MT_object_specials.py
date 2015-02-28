@@ -196,9 +196,13 @@ class CreateVertexToMetaball(bpy.types.Operator):
 					metas[-1].parent = obj
 					metas[-1].parent_type = 'VERTEX'
 					metas[-1].parent_vertices = (i, 0, 0)
+					context.scene.objects.unlink(metas[-1])
 				bpy.ops.object.select_all(action='DESELECT')
 				for meta in metas:
+					context.scene.objects.link(meta)
 					meta.select = True
+				context.scene.update()
+				context.scene.objects[re.sub(r'\.\d+$', '', metas[0].name)].data.resolution = context.scene.objects[re.sub(r'\.\d+$', '', metas[0].name)].data.resolution
 		return {'FINISHED'}
 
 ################
