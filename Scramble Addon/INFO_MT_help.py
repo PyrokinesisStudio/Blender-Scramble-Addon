@@ -3,6 +3,7 @@
 import bpy
 import zipfile, urllib.request, os, sys
 import csv
+import collections
 
 ################
 # オペレーター #
@@ -43,7 +44,7 @@ class ShowShortcutHtml(bpy.types.Operator):
 	
 	def execute(self, context):
 		addonDir = os.path.dirname(__file__)
-		keyDatas = {}
+		keyDatas = collections.OrderedDict()
 		with open(addonDir + "\\ShortcutHtmlKeysData.csv", 'r') as f:
 			reader = csv.reader(f)
 			for row in reader:
@@ -53,7 +54,7 @@ class ShowShortcutHtml(bpy.types.Operator):
 				keyDatas[name]["key_code"] = row[1]
 				keyDatas[name]["shape"] = row[2]
 				keyDatas[name]["coords"] = row[3]
-				keyDatas[name]["configs"] = {}
+				keyDatas[name]["configs"] = collections.OrderedDict()
 		for kc in context.window_manager.keyconfigs:
 			for km in kc.keymaps:
 				for kmi in km.keymap_items:
@@ -115,7 +116,6 @@ class ShowShortcutHtml(bpy.types.Operator):
 						title = title + i[0]
 						alreadys.append(i[0])
 			areaStrings = areaStrings+ '<area href="#" title="' +title+ '" shape="' +data["shape"]+ '" coords="' +data["coords"]+ '">\n'
-			print(areaStrings)
 		file = open(addonDir + "\\ShortcutHtmlTemplate.html", "r")
 		template = file.read()
 		file.close()
