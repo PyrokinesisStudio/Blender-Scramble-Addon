@@ -173,6 +173,7 @@ class CreateVertexToMetaball(bpy.types.Operator):
 	
 	name = bpy.props.StringProperty(name="メタボール名", default="Mball")
 	size = bpy.props.FloatProperty(name="サイズ", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=1, precision=3)
+	resolution = bpy.props.FloatProperty(name="解像度倍率", default=1.5, min=0.001, max=10, soft_min=0.001, soft_max=10, step=10, precision=3)
 	isUseVg = bpy.props.BoolProperty(name="頂点グループを大きさに", default=False)
 	
 	def execute(self, context):
@@ -191,6 +192,7 @@ class CreateVertexToMetaball(bpy.types.Operator):
 					bpy.ops.object.metaball_add(type='BALL', radius=self.size * multi, location=(0, 0, 0))
 					metas.append(context.active_object)
 					metas[-1].name = self.name
+					metas[-1].data.resolution = metas[-1].data.resolution * self.resolution
 					metas[-1].parent = obj
 					metas[-1].parent_type = 'VERTEX'
 					metas[-1].parent_vertices = (i, 0, 0)
