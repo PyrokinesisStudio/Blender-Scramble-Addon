@@ -49,18 +49,20 @@ class ResetView(bpy.types.Operator):
 class SelectAndView(bpy.types.Operator):
 	bl_idname = "view3d.select_and_view"
 	bl_label = "選択+視点の中心に"
-	bl_description = "マウス下の物を選択し、それを視点の中心にします"
+	bl_description = "マウス下の物を選択し視点の中心にします (Shiftを押しながらで追加選択)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	mouse_loc = bpy.props.IntVectorProperty(name="マウス位置", size=2)
+	isExtend = bpy.props.BoolProperty(name="追加選択", default=False)
 	
 	def execute(self, context):
-		bpy.ops.view3d.select(location=self.mouse_loc)
+		bpy.ops.view3d.select(location=self.mouse_loc, extend=self.isExtend)
 		bpy.ops.view3d.view_selected()
 		return {'FINISHED'}
 	def invoke(self, context, event):
 		self.mouse_loc[0] = event.mouse_region_x
 		self.mouse_loc[1] = event.mouse_region_y
+		self.isExtend = event.shift
 		return self.execute(context)
 
 ################
