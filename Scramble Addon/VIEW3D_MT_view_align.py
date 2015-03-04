@@ -10,7 +10,7 @@ class ViewSelectedEX(bpy.types.Operator):
 	bl_idname = "view3d.view_selected_ex"
 	bl_label = "選択部分を表示 (非ズーム)"
 	bl_description = "選択中の物に3D視点の中心を合わせます(ズームはしません)"
-	bl_options = {'REGISTER', 'UNDO'}
+	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
 		smooth_view = context.user_preferences.view.smooth_view
@@ -19,6 +19,7 @@ class ViewSelectedEX(bpy.types.Operator):
 		bpy.ops.view3d.view_selected()
 		context.region_data.view_distance = view_distance
 		context.user_preferences.view.smooth_view = smooth_view
+		context.region_data.update()
 		return {'FINISHED'}
 
 class ResetCursor(bpy.types.Operator):
@@ -51,7 +52,7 @@ class SelectAndView(bpy.types.Operator):
 	bl_idname = "view3d.select_and_view"
 	bl_label = "選択+視点の中心に"
 	bl_description = "マウス下の物を選択し視点の中心にします (Shiftを押しながらで追加選択)"
-	bl_options = {'REGISTER', 'UNDO'}
+	bl_options = {'REGISTER'}
 	
 	items = [
 		("view_selected_ex", "ズームしない", "", 1),
