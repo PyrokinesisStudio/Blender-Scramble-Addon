@@ -54,12 +54,20 @@ class SelectAndView(bpy.types.Operator):
 	bl_description = "マウス下の物を選択し視点の中心にします (Shiftを押しながらで追加選択)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	items = [
+		("view_selected_ex", "ズームしない", "", 1),
+		("view_selected", "ズームする", "", 2),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="視点変更方法")
 	mouse_loc = bpy.props.IntVectorProperty(name="マウス位置", size=2)
 	isExtend = bpy.props.BoolProperty(name="追加選択", default=False)
 	
 	def execute(self, context):
 		bpy.ops.view3d.select(location=self.mouse_loc, extend=self.isExtend)
-		bpy.ops.view3d.view_selected()
+		if (self.mode == "view_selected_ex"):
+			bpy.ops.view3d.view_selected_ex()
+		else:
+			bpy.ops.view3d.view_selected()
 		return {'FINISHED'}
 	def invoke(self, context, event):
 		self.mouse_loc[0] = event.mouse_region_x
