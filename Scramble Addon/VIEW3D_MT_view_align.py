@@ -43,9 +43,8 @@ class ResetView(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
-		co = context.space_data.cursor_location[:]
-		bpy.ops.view3d.view_center_cursor()
-		context.space_data.cursor_location = co
+		context.region_data.view_location = (0.0, 0.0, 0.0)
+		context.region_data.update()
 		return {'FINISHED'}
 
 class SelectAndView(bpy.types.Operator):
@@ -82,7 +81,7 @@ class SelectAndView(bpy.types.Operator):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
-	self.layout.operator(ResetView.bl_idname, icon="PLUGIN")
 	self.layout.operator(ResetCursor.bl_idname, icon="PLUGIN")
+	self.layout.operator(ResetView.bl_idname, icon="PLUGIN")
 	self.layout.operator(ViewSelectedEX.bl_idname, icon="PLUGIN")
 	self.layout.operator(SelectAndView.bl_idname, icon="PLUGIN")
