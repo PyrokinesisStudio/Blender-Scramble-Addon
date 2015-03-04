@@ -8,15 +8,17 @@ import bpy
 
 class ViewSelectedEX(bpy.types.Operator):
 	bl_idname = "view3d.view_selected_ex"
-	bl_label = "選択部分を視点の中心に"
+	bl_label = "選択部分を表示 (非ズーム)"
 	bl_description = "選択中の物に3D視点の中心を合わせます(ズームはしません)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
-		co = bpy.context.space_data.cursor_location[:]
-		bpy.ops.view3d.snap_cursor_to_selected()
-		bpy.ops.view3d.view_center_cursor()
-		bpy.context.space_data.cursor_location = co
+		smooth_view = context.user_preferences.view.smooth_view
+		context.user_preferences.view.smooth_view = 0
+		view_distance = context.region_data.view_distance
+		bpy.ops.view3d.view_selected()
+		context.region_data.view_distance = view_distance
+		context.user_preferences.view.smooth_view = smooth_view
 		return {'FINISHED'}
 
 class ResetCursor(bpy.types.Operator):
