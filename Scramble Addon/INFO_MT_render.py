@@ -18,6 +18,18 @@ class SetRenderResolutionPercentage(bpy.types.Operator):
 		context.scene.render.resolution_percentage = self.size
 		return {'FINISHED'}
 
+class SetRenderSlot(bpy.types.Operator):
+	bl_idname = "render.set_render_slot"
+	bl_label = "レンダースロットを設定"
+	bl_description = "レンダリング結果を保存するスロットを設定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	slot = bpy.props.IntProperty(name="スロット", default=1, min=0, max=100, soft_min=0, soft_max=100, step=1)
+	
+	def execute(self, context):
+		bpy.data.images["Render Result"].render_slots.active_index = self.slot
+		return {'FINISHED'}
+
 ########################
 # オペレーター(簡略化) #
 ########################
@@ -98,9 +110,20 @@ class SimplifyRenderMenu(bpy.types.Menu):
 		i.aoAndSss = context.scene.render.simplify_ao_sss
 		i.triangulate = context.scene.render.use_simplify_triangulate
 
+class SlotsRenderMenu(bpy.types.Menu):
+	bl_idname = "INFO_MT_render_slots"
+	bl_label = "レンダースロット"
+	bl_description = "レンダリング結果を保存するスロットを変更します"
+	
+	def draw(self, context):
+		for i in range(len(bpy.data.images["Render Result"].render_slots)):
+			self.layout.operator(SetRenderSlot.bl_idname, text="スロット"+str(i+1)).slot = i
+
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
-	self.layout.menu(RenderResolutionPercentageMenu.bl_idname, icon="PLUGIN")
+	if (bpy.data.images.find("Render Result") != -1):
+		self.layout.menu(SlotsRenderMenu.bl_idname, text="レンダースロット (現在:スロット"+str(bpy.data.images["Render Result"].render_slots.active_index+1)+")", icon="PLUGIN")
+	self.layout.menu(RenderResolutionPercentageMenu.bl_idname, text="レンダリングサイズ (現在:"+str(context.scene.render.resolution_percentage)+"%)", icon="PLUGIN")
 	self.layout.prop(context.scene.world.light_settings, "samples", text="AOサンプル数", icon="PLUGIN")
 	self.layout.menu(SimplifyRenderMenu.bl_idname, icon="PLUGIN")
