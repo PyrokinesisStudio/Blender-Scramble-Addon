@@ -165,6 +165,7 @@ class ApplyLayerGroup(bpy.types.Operator): #
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
+	self.layout.prop(context.user_preferences.view, "use_rotate_around_active", icon="PLUGIN")
 	self.layout.operator(LocalViewEx.bl_idname, icon="PLUGIN")
 	self.layout.operator(ShowLayerGroupMenu.bl_idname, icon="PLUGIN")
 	self.layout.separator()
