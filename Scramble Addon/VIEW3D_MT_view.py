@@ -3,6 +3,26 @@
 import bpy
 
 ################
+# オペレーター #
+################
+
+class LocalViewEx(bpy.types.Operator):
+	bl_idname = "view3d.local_view_ex"
+	bl_label = "グローバルビュー/ローカルビュー(非ズーム)"
+	bl_description = "選択したオブジェクトのみを表示し、視点の中央に配置します(ズームはしません)"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		smooth_view = context.user_preferences.view.smooth_view
+		context.user_preferences.view.smooth_view = 0
+		view_distance = context.region_data.view_distance
+		bpy.ops.view3d.localview()
+		context.region_data.view_distance = view_distance
+		context.user_preferences.view.smooth_view = smooth_view
+		context.region_data.update()
+		return {'FINISHED'}
+
+################
 # パイメニュー #
 ################
 
@@ -145,6 +165,7 @@ class ApplyLayerGroup(bpy.types.Operator): #
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
+	self.layout.operator(LocalViewEx.bl_idname, icon="PLUGIN")
 	self.layout.operator(ShowLayerGroupMenu.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.menu(PieMenu.bl_idname, icon="PLUGIN")
