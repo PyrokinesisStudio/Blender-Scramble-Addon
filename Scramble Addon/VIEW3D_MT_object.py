@@ -51,7 +51,7 @@ class SetObjectMode(bpy.types.Operator): #
 	bl_idname = "object.set_object_mode"
 	bl_label = "オブジェクト対話モードを設定"
 	bl_description = "オブジェクトの対話モードを設定します"
-	bl_options = {'REGISTER', 'UNDO'}
+	bl_options = {'REGISTER'}
 	
 	mode = bpy.props.StringProperty(name="対話モード", default="OBJECT")
 	
@@ -61,6 +61,8 @@ class SetObjectMode(bpy.types.Operator): #
 				bpy.ops.object.mode_set(mode=self.mode)
 			except TypeError:
 				self.report(type={"WARNING"}, message=context.active_object.name+" はその対話モードに入る事が出来ません")
+		else:
+			self.report(type={"WARNING"}, message="アクティブなオブジェクトがありません")
 		return {'FINISHED'}
 
 class SubdivisionSetPieOperator(bpy.types.Operator):

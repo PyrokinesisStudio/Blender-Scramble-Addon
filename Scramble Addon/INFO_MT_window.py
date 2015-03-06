@@ -66,7 +66,7 @@ class SetAreaType(bpy.types.Operator): #
 	bl_idname = "wm.set_area_type"
 	bl_label = "エディタータイプ変更"
 	bl_description = "エディタータイプを変更します"
-	bl_options = {'REGISTER', 'UNDO'}
+	bl_options = {'REGISTER'}
 	
 	type = bpy.props.StringProperty(name="エリアタイプ")
 	
