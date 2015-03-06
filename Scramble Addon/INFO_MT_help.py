@@ -94,13 +94,15 @@ class ShowShortcutHtml(bpy.types.Operator):
 					modifierKeyStr = cfgStr
 					if (cfg.name):
 						if (cfg.idname == "wm.call_menu"):
-							cfgStr = cfgStr + "メニュー「" + cfg.properties.name + "」の呼び出し"
+							cfgStr = cfgStr + "「" + cfg.properties.name + "」メニューの呼び出し"
 						elif (cfg.idname == "wm.context_set_enum"):
 							cfgStr = cfgStr + "「" + cfg.properties.data_path + "」を「" + cfg.properties.value + "」に変更"
 						elif (cfg.idname == "wm.context_toggle"):
 							cfgStr = cfgStr + "「" + cfg.properties.data_path + "」の切り替え"
 						elif (cfg.idname == "wm.context_toggle_enum"):
 							cfgStr = cfgStr + "「" + cfg.properties.data_path + "」を「" + cfg.properties.value_1 + "」と「" + cfg.properties.value_2 + "」に切り替え"
+						elif (cfg.idname == "wm.context_menu_enum"):
+							cfgStr = cfgStr + "「" + cfg.properties.data_path + "」メニューの呼び出し"
 						else:
 							cfgStr = cfgStr + cfg.name
 					else:
