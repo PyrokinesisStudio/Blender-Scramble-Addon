@@ -75,10 +75,15 @@ class FillColor(bpy.types.Operator):
 		return wm.invoke_props_dialog(self)
 	def execute(self, context):
 		img = context.edit_image
-		img.generated_color[0] = self.color[0]
-		img.generated_color[1] = self.color[1]
-		img.generated_color[2] = self.color[2]
-		img.generated_color[3] = self.alpha
+		pixel = list(self.color[:])
+		if (4 <= img.channels):
+			pixel.append(self.alpha)
+		pixels = []
+		for i in range(img.size[0] * img.size[1]):
+			pixels.extend(pixel)
+		img.pixels=pixels
+		img.update()
+		context.area.tag_redraw()
 		return {'FINISHED'}
 
 ################
