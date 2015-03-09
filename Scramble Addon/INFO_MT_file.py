@@ -42,7 +42,7 @@ class RecoverLatestAutoSave(bpy.types.Operator):
 			else:
 				lastFile = path
 				lastTime = os.stat(path).st_mtime
-		bpy.ops.wm.open_mainfile(filepath=lastFile)
+		bpy.ops.wm.recover_auto_save(filepath=lastFile)
 		self.report(type={"INFO"}, message="最新の自動保存ファイルを読み込みました")
 		return {'FINISHED'}
 
