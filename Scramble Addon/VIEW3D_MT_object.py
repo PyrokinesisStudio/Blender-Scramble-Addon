@@ -435,9 +435,8 @@ class ShortcutMenu(bpy.types.Menu):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
-	self.layout.menu(ShortcutMenu.bl_idname, icon="PLUGIN")
-	self.layout.separator()
 	self.layout.menu(ModifierMenu.bl_idname, icon="PLUGIN")
 	self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
 	self.layout.separator()
+	self.layout.menu(ShortcutMenu.bl_idname, icon="PLUGIN")
 	self.layout.menu(PieMenu.bl_idname, icon="PLUGIN")

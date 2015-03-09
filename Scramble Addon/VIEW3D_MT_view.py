@@ -22,6 +22,53 @@ class LocalViewEx(bpy.types.Operator):
 		context.region_data.update()
 		return {'FINISHED'}
 
+class TogglePanelsA(bpy.types.Operator):
+	bl_idname = "view3d.toggle_panels_a"
+	bl_label = "パネル表示切り替え(モードA)"
+	bl_description = "プロパティ/ツールシェルフの「両方表示」/「両方非表示」をトグルします"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		toolW = 0
+		uiW = 0
+		for region in context.area.regions:
+			if (region.type == 'TOOLS'):
+				toolW = region.width
+			if (region.type == 'UI'):
+				uiW = region.width
+		if (1 < toolW or 1 < uiW):
+			if (1 < toolW):
+				bpy.ops.view3d.toolshelf()
+			if (1 < uiW):
+				bpy.ops.view3d.properties()
+		else:
+			bpy.ops.view3d.toolshelf()
+			bpy.ops.view3d.properties()
+		return {'FINISHED'}
+
+class TogglePanelsB(bpy.types.Operator):
+	bl_idname = "view3d.toggle_panels_b"
+	bl_label = "パネル表示切り替え(モードB)"
+	bl_description = "「パネル両方非表示」→「ツールシェルフのみ表示」→「プロパティのみ表示」→「パネル両方表示」のトグル"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		toolW = 0
+		uiW = 0
+		for region in context.area.regions:
+			if (region.type == 'TOOLS'):
+				toolW = region.width
+			if (region.type == 'UI'):
+				uiW = region.width
+		if (toolW <= 1 and uiW <= 1):
+			bpy.ops.view3d.toolshelf()
+		elif (toolW <= 1 and 1 < uiW):
+			bpy.ops.view3d.toolshelf()
+		else:
+			bpy.ops.view3d.toolshelf()
+			bpy.ops.view3d.properties()
+		return {'FINISHED'}
+
 ################
 # パイメニュー #
 ################
@@ -159,6 +206,21 @@ class ApplyLayerGroup(bpy.types.Operator): #
 		return {'FINISHED'}
 
 ################
+# サブメニュー #
+################
+
+class ShortcutsMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_view_shortcuts"
+	bl_label = "ショートカット登録用"
+	bl_description = "ショートカットに登録すると便利かもしれない機能群です"
+	
+	def draw(self, context):
+		self.layout.operator(LocalViewEx.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(TogglePanelsA.bl_idname, icon="PLUGIN")
+		self.layout.operator(TogglePanelsB.bl_idname, icon="PLUGIN")
+
+################
 # メニュー追加 #
 ################
 
@@ -166,7 +228,7 @@ class ApplyLayerGroup(bpy.types.Operator): #
 def menu(self, context):
 	self.layout.separator()
 	self.layout.prop(context.user_preferences.view, "use_rotate_around_active", icon="PLUGIN")
-	self.layout.operator(LocalViewEx.bl_idname, icon="PLUGIN")
 	self.layout.operator(ShowLayerGroupMenu.bl_idname, icon="PLUGIN")
 	self.layout.separator()
+	self.layout.menu(ShortcutsMenu.bl_idname, icon="PLUGIN")
 	self.layout.menu(PieMenu.bl_idname, icon="PLUGIN")
