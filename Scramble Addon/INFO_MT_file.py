@@ -5,6 +5,7 @@ import mathutils
 import os.path
 import os, sys
 import subprocess
+import fnmatch
 
 ################
 # オペレーター #
@@ -20,6 +21,29 @@ class RestartBlender(bpy.types.Operator):
 		py = os.path.dirname(__file__) + "\\console_toggle.py"
 		subprocess.Popen('"'+sys.argv[0]+'" -P "'+py+'"')
 		bpy.ops.wm.quit_blender()
+		return {'FINISHED'}
+
+class RecoverLatestAutoSave(bpy.types.Operator):
+	bl_idname = "wm.recover_latest_auto_save"
+	bl_label = "最新の自動保存の読み込み"
+	bl_description = "復元するために自動的に保存したファイルの最新ファイルを開きます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		tempPath = context.user_preferences.filepaths.temporary_directory
+		lastFile = None
+		for fileName in fnmatch.filter(os.listdir(tempPath), "*.blend"):
+			path = os.path.join(tempPath, fileName)
+			if (lastFile):
+				mtime = os.stat(path).st_mtime
+				if (lastTime < mtime and fileName != "quit.blend"):
+					lastFile = path
+					lastTime = mtime
+			else:
+				lastFile = path
+				lastTime = os.stat(path).st_mtime
+		bpy.ops.wm.open_mainfile(filepath=lastFile)
+		self.report(type={"INFO"}, message="最新の自動保存ファイルを読み込みました")
 		return {'FINISHED'}
 
 ##############################
@@ -460,5 +484,7 @@ def menu(self, context):
 	self.layout.operator(RestartBlender.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.separator()
+	self.layout.separator()
+	self.layout.operator(RecoverLatestAutoSave.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.menu(EntireProcessMenu.bl_idname, icon="PLUGIN")
