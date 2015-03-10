@@ -85,6 +85,8 @@ class SnapMesh3DCursor(bpy.types.Operator):
 	
 	def execute(self, context):
 		preGp = context.scene.grease_pencil
+		preGpSource = context.scene.tool_settings.grease_pencil_source
+		context.scene.tool_settings.grease_pencil_source = 'SCENE'
 		if (preGp):
 			tempGp = preGp
 		else:
@@ -99,6 +101,7 @@ class SnapMesh3DCursor(bpy.types.Operator):
 		bpy.context.space_data.cursor_location = tempLayer.frames[-1].strokes[-1].points[0].co
 		tempGp.layers.remove(tempLayer)
 		context.scene.grease_pencil = preGp
+		context.scene.tool_settings.grease_pencil_source = preGpSource
 		return {'FINISHED'}
 	def invoke(self, context, event):
 		self.mouse_co[0] = event.mouse_region_x
