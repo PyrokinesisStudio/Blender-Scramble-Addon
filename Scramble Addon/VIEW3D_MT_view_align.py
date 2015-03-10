@@ -75,6 +75,36 @@ class SelectAndView(bpy.types.Operator):
 		self.isExtend = event.shift
 		return self.execute(context)
 
+class SnapMesh3DCursor(bpy.types.Operator):
+	bl_idname = "view3d.snap_mesh_3d_cursor"
+	bl_label = "メッシュに3Dカーソルをスナップ"
+	bl_description = "マウス下のメッシュ面上に3Dカーソルを移動させます(ショートカットに登録してお使い下さい)"
+	bl_options = {'REGISTER'}
+	
+	mouse_co = bpy.props.IntVectorProperty(name="マウス位置", size=2)
+	
+	def execute(self, context):
+		preGp = context.scene.grease_pencil
+		if (preGp):
+			tempGp = preGp
+		else:
+			try:
+				tempGp = bpy.data.grease_pencil["temp"]
+			except KeyError:
+				tempGp = bpy.data.grease_pencil.new("temp")
+		context.scene.grease_pencil = tempGp
+		tempLayer = tempGp.layers.new("temp", set_active=True)
+		tempGp.draw_mode = 'SURFACE'
+		bpy.ops.gpencil.draw(mode='DRAW_POLY', stroke=[{"name":"", "pen_flip":False, "is_start":True, "location":(0, 0, 0),"mouse":self.mouse_co, "pressure":1, "time":0, "size":0}, {"name":"", "pen_flip":False, "is_start":True, "location":(0, 0, 0),"mouse":(0, 0), "pressure":1, "time":0, "size":0}])
+		bpy.context.space_data.cursor_location = tempLayer.frames[-1].strokes[-1].points[0].co
+		tempGp.layers.remove(tempLayer)
+		context.scene.grease_pencil = preGp
+		return {'FINISHED'}
+	def invoke(self, context, event):
+		self.mouse_co[0] = event.mouse_region_x
+		self.mouse_co[1] = event.mouse_region_y
+		return self.execute(context)
+
 ################
 # メニュー追加 #
 ################
@@ -83,6 +113,8 @@ class SelectAndView(bpy.types.Operator):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(ResetCursor.bl_idname, icon="PLUGIN")
+	self.layout.operator(SnapMesh3DCursor.bl_idname, icon="PLUGIN")
+	self.layout.separator()
 	self.layout.operator(ResetView.bl_idname, icon="PLUGIN")
 	self.layout.operator(ViewSelectedEX.bl_idname, icon="PLUGIN")
 	self.layout.operator(SelectAndView.bl_idname, icon="PLUGIN")
