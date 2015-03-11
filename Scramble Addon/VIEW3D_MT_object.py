@@ -88,6 +88,38 @@ class SubdivisionSetPie(bpy.types.Menu):
 		self.layout.menu_pie().operator("object.subdivision_set", text="レベル:5", icon="MOD_SUBSURF").level = 5
 		self.layout.menu_pie().operator("object.subdivision_set", text="レベル:1", icon="MOD_SUBSURF").level = 1
 
+class DrawTypePieOperator(bpy.types.Operator):
+	bl_idname = "object.draw_type_pie_operator"
+	bl_label = "最高描画タイプ"
+	bl_description = "最高描画タイプを設定するパイメニューです"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.wm.call_menu_pie(name=DrawTypePie.bl_idname)
+		return {'FINISHED'}
+class DrawTypePie(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_object_pie_draw_type"
+	bl_label = "最高描画タイプ"
+	bl_description = "最高描画タイプを設定するパイメニューです"
+	
+	def draw(self, context):
+		self.layout.menu_pie().operator(SetDrawType.bl_idname, text="バウンド", icon="BBOX").type = "BOUNDS"
+		self.layout.menu_pie().operator(SetDrawType.bl_idname, text="ワイヤーフレーム", icon="WIRE").type = "WIRE"
+		self.layout.menu_pie().operator(SetDrawType.bl_idname, text="ソリッド", icon="SOLID").type = "SOLID"
+		self.layout.menu_pie().operator(SetDrawType.bl_idname, text="テクスチャ", icon="POTATO").type = "TEXTURED"
+class SetDrawType(bpy.types.Operator): #
+	bl_idname = "object.set_draw_type"
+	bl_label = "最高描画タイプ設定"
+	bl_description = "最高描画タイプを設定します"
+	bl_options = {'REGISTER'}
+	
+	type = bpy.props.StringProperty(name="描画タイプ", default="OBJECT")
+	
+	def execute(self, context):
+		for obj in context.selected_objects:
+			obj.draw_type = self.type
+		return {'FINISHED'}
+
 ################
 # オペレーター #
 ################
@@ -371,6 +403,7 @@ class PieMenu(bpy.types.Menu):
 		self.layout.operator(CopyPieOperator.bl_idname, icon="PLUGIN")
 		self.layout.operator(ObjectModePieOperator.bl_idname, icon="PLUGIN")
 		self.layout.operator(SubdivisionSetPieOperator.bl_idname, icon="PLUGIN")
+		self.layout.operator(DrawTypePieOperator.bl_idname, icon="PLUGIN")
 
 class BooleanMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_boolean"
