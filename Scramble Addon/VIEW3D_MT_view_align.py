@@ -13,6 +13,7 @@ class ViewSelectedEX(bpy.types.Operator):
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
+		pre_view_location = context.region_data.view_location[:]
 		smooth_view = context.user_preferences.view.smooth_view
 		context.user_preferences.view.smooth_view = 0
 		view_distance = context.region_data.view_distance
@@ -20,6 +21,12 @@ class ViewSelectedEX(bpy.types.Operator):
 		context.region_data.view_distance = view_distance
 		context.user_preferences.view.smooth_view = smooth_view
 		context.region_data.update()
+		new_view_location = context.region_data.view_location[:]
+		context.region_data.view_location = pre_view_location[:]
+		pre_cursor_location = bpy.context.space_data.cursor_location[:]
+		bpy.context.space_data.cursor_location = new_view_location[:]
+		bpy.ops.view3d.view_center_cursor()
+		bpy.context.space_data.cursor_location = pre_cursor_location[:]
 		return {'FINISHED'}
 
 class ResetCursor(bpy.types.Operator):
