@@ -205,6 +205,30 @@ class CreateVertexToMetaball(bpy.types.Operator):
 				context.scene.objects[re.sub(r'\.\d+$', '', metas[0].name)].data.resolution = self.resolution
 		return {'FINISHED'}
 
+class ToggleSmooth(bpy.types.Operator):
+	bl_idname = "object.toggle_smooth"
+	bl_label = "スムーズ/フラットを切り替え"
+	bl_description = "選択中のメッシュオブジェクトのスムーズ/フラット状態を切り替えます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		activeObj = context.active_object
+		if (activeObj.type == 'MESH'):
+			me = activeObj.data
+			is_smoothed = False
+			if (1 <= len(me.polygons)):
+				if (me.polygons[0].use_smooth):
+					is_smoothed = True
+			for obj in context.selected_objects:
+				if (is_smoothed):
+					bpy.ops.object.shade_flat()
+				else:
+					bpy.ops.object.shade_smooth()
+		else:
+			self.report(type={"ERROR"}, message=メッシュオブジェクトをアクティブにしてから実行して下さい)
+			return {'CANCELLED'}
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -216,6 +240,7 @@ def menu(self, context):
 	self.layout.operator(RenameObjectRegularExpression.bl_idname, icon="PLUGIN")
 	self.layout.operator(EqualizeObjectNameAndDataName.bl_idname, icon="PLUGIN")
 	self.layout.separator()
+	self.layout.operator(ToggleSmooth.bl_idname, icon="PLUGIN")
 	self.layout.operator(AddVertexColorSelectedObject.bl_idname, icon="PLUGIN")
 	if (context.active_object):
 		if (context.active_object.type == "CURVE"):
