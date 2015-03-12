@@ -122,7 +122,6 @@ class ToggleMirrorModifier(bpy.types.Operator):
 	merge_threshold = bpy.props.FloatProperty(name="結合距離", default=0.001, min=0, max=1, soft_min=0, soft_max=1, step=0.01, precision=6)
 	
 	def execute(self, context):
-		print("aa")
 		activeObj = context.active_object
 		is_mirrored = False
 		for mod in activeObj.modifiers:
