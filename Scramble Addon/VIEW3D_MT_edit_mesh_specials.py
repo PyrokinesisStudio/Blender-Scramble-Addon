@@ -105,6 +105,54 @@ class ToggleShowCage(bpy.types.Operator):
 			self.report(type={'INFO'}, message="ケージの表示/適応を両方オンにしました")
 		return {'FINISHED'}
 
+class ToggleMirrorModifier(bpy.types.Operator):
+	bl_idname = "mesh.toggle_mirror_modifier"
+	bl_label = "ミラーモディファイアを切り替え"
+	bl_description = "ミラーモディファイアが無ければ追加、有れば削除します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	use_x = bpy.props.BoolProperty(name="X軸", default=True)
+	use_y = bpy.props.BoolProperty(name="Y軸", default=False)
+	use_z = bpy.props.BoolProperty(name="Z軸", default=False)
+	use_mirror_merge = bpy.props.BoolProperty(name="結合", default=True)
+	use_clip = bpy.props.BoolProperty(name="クリッピング", default=False)
+	use_mirror_vertex_groups = bpy.props.BoolProperty(name="頂点グループミラー", default=False)
+	use_mirror_u = bpy.props.BoolProperty(name="テクスチャUミラー", default=False)
+	use_mirror_v = bpy.props.BoolProperty(name="テクスチャVミラー", default=False)
+	merge_threshold = bpy.props.FloatProperty(name="結合距離", default=0.001, min=0, max=1, soft_min=0, soft_max=1, step=0.01, precision=6)
+	
+	def execute(self, context):
+		print("aa")
+		activeObj = context.active_object
+		is_mirrored = False
+		for mod in activeObj.modifiers:
+			if (mod.type == 'MIRROR'):
+				is_mirrored = True
+				break
+		if (is_mirrored):
+			for mod in activeObj.modifiers:
+				if (mod.type == 'MIRROR'):
+					activeObj.modifiers.remove(mod)
+		else:
+			new_mod = activeObj.modifiers.new("Mirror", 'MIRROR')
+			new_mod.use_x = self.use_x
+			new_mod.use_y = self.use_y
+			new_mod.use_z = self.use_z
+			new_mod.use_mirror_merge = self.use_mirror_merge
+			new_mod.use_clip = self.use_clip
+			new_mod.use_mirror_vertex_groups = self.use_mirror_vertex_groups
+			new_mod.use_mirror_u = self.use_mirror_u
+			new_mod.use_mirror_v = self.use_mirror_v
+			new_mod.merge_threshold = self.merge_threshold
+		return {'FINISHED'}
+	def invoke(self, context, event):
+		activeObj = context.active_object
+		for mod in activeObj.modifiers:
+			if (mod.type == 'MIRROR'):
+				self.execute(context)
+				return {'RUNNING_MODAL'}
+		return context.window_manager.invoke_props_dialog(self)
+
 ################
 # メニュー追加 #
 ################
@@ -114,6 +162,7 @@ def menu(self, context):
 	self.layout.operator(SelectTopShape.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.prop(context.object.data, "use_mirror_x", icon="PLUGIN", text="X軸ミラー編集")
+	self.layout.operator(ToggleMirrorModifier.bl_idname, icon="PLUGIN")
 	self.layout.operator(ToggleShowCage.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(PaintSelectedVertexColor.bl_idname, icon="PLUGIN")
