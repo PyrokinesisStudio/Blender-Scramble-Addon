@@ -46,13 +46,15 @@ class ResetCursor(bpy.types.Operator):
 
 class ResetView(bpy.types.Operator):
 	bl_idname = "view3d.reset_view"
-	bl_label = "視点を中心に"
+	bl_label = "視点をXYZ=0に"
 	bl_description = "3Dビューの視点を座標の中心に移動します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
-		context.region_data.view_location = (0.0, 0.0, 0.0)
-		context.region_data.update()
+		pre_cursor_location = context.space_data.cursor_location[:]
+		context.space_data.cursor_location = (0.0, 0.0, 0.0)
+		bpy.ops.view3d.view_center_cursor()
+		context.space_data.cursor_location = pre_cursor_location[:]
 		return {'FINISHED'}
 
 class SelectAndView(bpy.types.Operator):
