@@ -151,6 +151,16 @@ class SnapMeshView(bpy.types.Operator):
 		self.mouse_co[1] = event.mouse_region_y
 		return self.execute(context)
 
+class Move3DCursorToViewLocation(bpy.types.Operator):
+	bl_idname = "view3d.move_3d_cursor_to_view_location"
+	bl_label = "視点位置に3Dカーソル移動"
+	bl_description = "視点の中心位置に3Dカーソルを移動させます"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		bpy.context.space_data.cursor_location = context.region_data.view_location[:]
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -160,6 +170,7 @@ def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(ResetCursor.bl_idname, icon="PLUGIN")
 	self.layout.operator(SnapMesh3DCursor.bl_idname, icon="PLUGIN")
+	self.layout.operator(Move3DCursorToViewLocation.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(ResetView.bl_idname, icon="PLUGIN")
 	self.layout.operator(ViewSelectedEX.bl_idname, icon="PLUGIN")
