@@ -153,6 +153,7 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	unapply_subsurf = bpy.props.BoolProperty(name="サブサーフ除く", default=True)
+	unapply_mirror = bpy.props.BoolProperty(name="ミラー除く", default=False)
 	
 	def execute(self, context):
 		pre_active_object = context.active_object
@@ -160,6 +161,8 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 			context.scene.objects.active = obj
 			for mod in obj.modifiers[:]:
 				if (self.unapply_subsurf and mod.type == 'SUBSURF'):
+					continue
+				if (self.unapply_mirror and mod.type == 'MIRROR'):
 					continue
 				bpy.ops.object.modifier_apply(apply_as='DATA', modifier=mod.name)
 		context.scene.objects.active = pre_active_object
