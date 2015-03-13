@@ -146,6 +146,26 @@ class CopyObjectName(bpy.types.Operator):
 		context.window_manager.clipboard = context.active_object.name
 		return {'FINISHED'}
 
+class ApplyModifiersAndJoin(bpy.types.Operator):
+	bl_idname = "object.apply_modifiers_and_join"
+	bl_label = "モディファイア適用+統合"
+	bl_description = "オブジェクトのモディファイアを全適用してから統合します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	unapply_subsurf = bpy.props.BoolProperty(name="サブサーフ除く", default=True)
+	
+	def execute(self, context):
+		pre_active_object = context.active_object
+		for obj in context.selected_objects:
+			context.scene.objects.active = obj
+			for mod in obj.modifiers[:]:
+				if (self.unapply_subsurf and mod.type == 'SUBSURF'):
+					continue
+				bpy.ops.object.modifier_apply(apply_as='DATA', modifier=mod.name)
+		context.scene.objects.active = pre_active_object
+		bpy.ops.object.join()
+		return {'FINISHED'}
+
 ################################
 # オペレーター(モディファイア) #
 ################################
@@ -460,6 +480,7 @@ class ShortcutMenu(bpy.types.Menu):
 	def draw(self, context):
 		self.layout.operator(CopyObjectName.bl_idname, icon="PLUGIN")
 		self.layout.operator(DeleteUnmassage.bl_idname, icon="PLUGIN")
+		self.layout.operator(ApplyModifiersAndJoin.bl_idname, icon="PLUGIN")
 
 ################
 # メニュー追加 #
