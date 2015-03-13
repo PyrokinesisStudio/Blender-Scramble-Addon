@@ -55,6 +55,7 @@ if "bpy" in locals():
 	imp.reload(DOPESHEET_MT_key)
 	imp.reload(VIEW3D_MT_select_object)
 	imp.reload(VIEW3D_MT_object_apply)
+	imp.reload(VIEW3D_MT_view_align_selected)
 else:
 	from . import IMAGE_MT_image
 	from . import IMAGE_MT_select
@@ -94,6 +95,7 @@ else:
 	from . import DOPESHEET_MT_key
 	from . import VIEW3D_MT_select_object
 	from . import VIEW3D_MT_object_apply
+	from . import VIEW3D_MT_view_align_selected
 import bpy
 
 # ダミーオペレーター
@@ -141,6 +143,7 @@ def register():
 	bpy.types.DOPESHEET_MT_key.append(DOPESHEET_MT_key.menu)
 	bpy.types.VIEW3D_MT_select_object.append(VIEW3D_MT_select_object.menu)
 	bpy.types.VIEW3D_MT_object_apply.append(VIEW3D_MT_object_apply.menu)
+	bpy.types.VIEW3D_MT_view_align_selected.append(VIEW3D_MT_view_align_selected.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -183,6 +186,7 @@ def unregister():
 	bpy.types.DOPESHEET_MT_key.remove(DOPESHEET_MT_key.menu)
 	bpy.types.VIEW3D_MT_select_object.remove(VIEW3D_MT_select_object.menu)
 	bpy.types.VIEW3D_MT_object_apply.remove(VIEW3D_MT_object_apply.menu)
+	bpy.types.VIEW3D_MT_view_align_selected.remove(VIEW3D_MT_view_align_selected.menu)
 
 # メイン関数
 if __name__ == "__main__":
