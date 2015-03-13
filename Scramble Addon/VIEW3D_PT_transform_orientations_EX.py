@@ -13,6 +13,8 @@ class CreateOrientationTwoVertex(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
+		pre_mesh_select_mode = context.tool_settings.mesh_select_mode[:]
+		context.tool_settings.mesh_select_mode = (True, False, False)
 		obj = context.active_object
 		if (obj.type != "MESH"):
 			self.report(type={"ERROR"}, message="メッシュオブジェクトで実行して下さい")
@@ -58,6 +60,7 @@ class CreateOrientationTwoVertex(bpy.types.Operator):
 		me.vertices[verts[1]].select = True
 		context.space_data.cursor_location = cursorCo[:]
 		bpy.ops.object.mode_set(mode='EDIT')
+		context.tool_settings.mesh_select_mode = pre_mesh_select_mode[:]
 		return {'FINISHED'}
 
 ##########
