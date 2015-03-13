@@ -26,6 +26,7 @@ class Viewnumpad7AlignEX(bpy.types.Operator):
 					break
 		if (view_rotation.x < 0):
 			bpy.ops.view3d.view_roll(angle=3.14159, type='ROLLANGLE')
+		context.user_preferences.view.smooth_view = pre_smooth_view
 		return {'FINISHED'}
 
 ################
