@@ -59,6 +59,8 @@ class ReloadAllImage(bpy.types.Operator):
 					img.update()
 				except RuntimeError:
 					pass
+		for area in context.screen.areas:
+			area.tag_redraw()
 		return {'FINISHED'}
 
 class FillColor(bpy.types.Operator):
