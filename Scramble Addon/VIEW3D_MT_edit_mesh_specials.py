@@ -120,6 +120,7 @@ class ToggleMirrorModifier(bpy.types.Operator):
 	use_mirror_u = bpy.props.BoolProperty(name="テクスチャUミラー", default=False)
 	use_mirror_v = bpy.props.BoolProperty(name="テクスチャVミラー", default=False)
 	merge_threshold = bpy.props.FloatProperty(name="結合距離", default=0.001, min=0, max=1, soft_min=0, soft_max=1, step=0.01, precision=6)
+	is_top = bpy.props.BoolProperty(name="一番上に追加", default=True)
 	
 	def execute(self, context):
 		activeObj = context.active_object
@@ -143,6 +144,9 @@ class ToggleMirrorModifier(bpy.types.Operator):
 			new_mod.use_mirror_u = self.use_mirror_u
 			new_mod.use_mirror_v = self.use_mirror_v
 			new_mod.merge_threshold = self.merge_threshold
+			if (self.is_top):
+				for i in range(len(activeObj.modifiers)):
+					bpy.ops.object.modifier_move_up(modifier=new_mod.name)
 		return {'FINISHED'}
 	def invoke(self, context, event):
 		activeObj = context.active_object
