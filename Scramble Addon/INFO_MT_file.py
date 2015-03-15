@@ -481,10 +481,10 @@ class EntireProcessSceneMenu(bpy.types.Menu):
 
 # メニューを登録する関数
 def menu(self, context):
+	self.layout.separator()
 	self.layout.operator(RestartBlender.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.separator()
-	self.layout.separator()
 	self.layout.operator(RecoverLatestAutoSave.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.separator()
 	self.layout.separator()
 	self.layout.menu(EntireProcessMenu.bl_idname, icon="PLUGIN")

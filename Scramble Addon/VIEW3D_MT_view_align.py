@@ -31,7 +31,7 @@ class ViewSelectedEX(bpy.types.Operator):
 
 class ResetView(bpy.types.Operator):
 	bl_idname = "view3d.reset_view"
-	bl_label = "視点をXYZ=0に"
+	bl_label = "視点を原点に"
 	bl_description = "3Dビューの視点を座標の中心に移動します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
