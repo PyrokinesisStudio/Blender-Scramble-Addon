@@ -56,6 +56,7 @@ if "bpy" in locals():
 	imp.reload(VIEW3D_MT_select_object)
 	imp.reload(VIEW3D_MT_object_apply)
 	imp.reload(VIEW3D_MT_view_align_selected)
+	imp.reload(VIEW3D_MT_snap)
 	
 	#imp.reload(VIEW3D_PT_transform_orientations_EX)
 else:
@@ -98,6 +99,7 @@ else:
 	from . import VIEW3D_MT_select_object
 	from . import VIEW3D_MT_object_apply
 	from . import VIEW3D_MT_view_align_selected
+	from . import VIEW3D_MT_snap
 	
 	#from . import VIEW3D_PT_transform_orientations_EX
 import bpy
@@ -148,6 +150,7 @@ def register():
 	bpy.types.VIEW3D_MT_select_object.append(VIEW3D_MT_select_object.menu)
 	bpy.types.VIEW3D_MT_object_apply.append(VIEW3D_MT_object_apply.menu)
 	bpy.types.VIEW3D_MT_view_align_selected.append(VIEW3D_MT_view_align_selected.menu)
+	bpy.types.VIEW3D_MT_snap.append(VIEW3D_MT_snap.menu)
 	
 	#VIEW3D_PT_transform_orientations_EX.register()
 
@@ -193,6 +196,7 @@ def unregister():
 	bpy.types.VIEW3D_MT_select_object.remove(VIEW3D_MT_select_object.menu)
 	bpy.types.VIEW3D_MT_object_apply.remove(VIEW3D_MT_object_apply.menu)
 	bpy.types.VIEW3D_MT_view_align_selected.remove(VIEW3D_MT_view_align_selected.menu)
+	bpy.types.VIEW3D_MT_snap.remove(VIEW3D_MT_snap.menu)
 	
 	#VIEW3D_PT_transform_orientations_EX.unregister()
 
