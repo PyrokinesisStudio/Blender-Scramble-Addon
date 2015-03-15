@@ -112,14 +112,9 @@ class ReverseView(bpy.types.Operator):
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
-		pre_rotation_angle = context.user_preferences.view.rotation_angle
-		pre_smooth_view = context.user_preferences.view.smooth_view
-		context.user_preferences.view.rotation_angle = 90
-		context.user_preferences.view.smooth_view = 0
-		for i in range(2):
-			bpy.ops.view3d.view_orbit(type='ORBITLEFT')
-		context.user_preferences.view.rotation_angle = pre_rotation_angle
-		context.user_preferences.view.smooth_view = pre_smooth_view
+		view_rotation = context.region_data.view_rotation.copy().to_euler()
+		view_rotation.rotate_axis('Y', 3.1415926535)
+		context.region_data.view_rotation = view_rotation.copy().to_quaternion()
 		return {'FINISHED'}
 
 ################
