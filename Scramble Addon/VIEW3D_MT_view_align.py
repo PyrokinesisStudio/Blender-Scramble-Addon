@@ -105,6 +105,23 @@ class SnapMeshView(bpy.types.Operator):
 		self.mouse_co[1] = event.mouse_region_y
 		return self.execute(context)
 
+class ReverseView(bpy.types.Operator):
+	bl_idname = "view3d.reverse_view"
+	bl_label = "ビューの反対側に"
+	bl_description = "現在のビューの逆側へ回りこみます"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		pre_rotation_angle = context.user_preferences.view.rotation_angle
+		pre_smooth_view = context.user_preferences.view.smooth_view
+		context.user_preferences.view.rotation_angle = 90
+		context.user_preferences.view.smooth_view = 0
+		for i in range(2):
+			bpy.ops.view3d.view_orbit(type='ORBITLEFT')
+		context.user_preferences.view.rotation_angle = pre_rotation_angle
+		context.user_preferences.view.smooth_view = pre_smooth_view
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -116,3 +133,4 @@ def menu(self, context):
 	self.layout.operator(ViewSelectedEX.bl_idname, icon="PLUGIN")
 	self.layout.operator(SelectAndView.bl_idname, icon="PLUGIN")
 	self.layout.operator(SnapMeshView.bl_idname, icon="PLUGIN")
+	self.layout.operator(ReverseView.bl_idname, icon="PLUGIN")
