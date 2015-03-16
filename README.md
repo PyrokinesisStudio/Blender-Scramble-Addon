@@ -73,6 +73,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 外部ファイルを参照している画像データを全て読み込み直します
   
 * 情報 > 「ヘルプ」メニュー
+    * .blendファイルをこのバージョンに関連付け
+        * .blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
     * Blender-Scramble-Addonを更新
         * Blender-Scramble-Addonをダウンロード・更新を済ませます
     * ショートカット一覧をブラウザで閲覧

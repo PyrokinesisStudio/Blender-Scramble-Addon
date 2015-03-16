@@ -4,10 +4,22 @@ import bpy
 import zipfile, urllib.request, os, sys
 import csv
 import collections
+import winreg
 
 ################
 # オペレーター #
 ################
+
+class RegisterBlendFile(bpy.types.Operator):
+	bl_idname = "system.register_blend_file"
+	bl_label = ".blendファイルをこのバージョンに関連付け"
+	bl_description = ".blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\blend_auto_file\shell\open\command", winreg.REG_SZ, '"'+sys.argv[0]+'" "%1"')
+		self.report(type={"INFO"}, message=".blendファイルをこの実行ファイルに関連付けました")
+		return {'FINISHED'}
 
 class UpdateScrambleAddon(bpy.types.Operator):
 	bl_idname = "script.update_scramble_addon"
@@ -137,4 +149,5 @@ def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
 	self.layout.separator()
+	self.layout.operator(RegisterBlendFile.bl_idname, icon="PLUGIN")
 	self.layout.operator(UpdateScrambleAddon.bl_idname, icon="PLUGIN")
