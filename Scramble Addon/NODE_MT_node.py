@@ -60,6 +60,9 @@ class CopyAllMaterialNode(bpy.types.Operator):
 		return {'FINISHED'}
 	
 	def invoke(self, context, event):
+		if (context.space_data.tree_type != 'ShaderNodeTree'):
+			self.report(type={"ERROR"}, message="シェーダーノードで実行して下さい")
+			return {"CANCELLED"}
 		wm = context.window_manager
 		return wm.invoke_props_dialog(self)
 
