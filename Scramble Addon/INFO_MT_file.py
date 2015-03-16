@@ -377,7 +377,7 @@ class AllSetPhysicsFrames(bpy.types.Operator):
 	def execute(self, context):
 		start = context.scene.frame_start + self.startOffset
 		end = context.scene.frame_end + self.endOffset
-		if (self.isRigidBody):
+		if (self.isRigidBody and context.scene.rigidbody_world):
 			context.scene.rigidbody_world.point_cache.frame_start = start
 			context.scene.rigidbody_world.point_cache.frame_end = end
 		if (self.isFluid):
