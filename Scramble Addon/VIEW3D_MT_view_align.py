@@ -117,6 +117,17 @@ class ReverseView(bpy.types.Operator):
 		context.region_data.view_rotation = view_rotation.copy().to_quaternion()
 		return {'FINISHED'}
 
+class ResetViewAndCursor(bpy.types.Operator):
+	bl_idname = "view3d.reset_view_and_cursor"
+	bl_label = "視点と3Dカーソルを原点に"
+	bl_description = "視点と3Dカーソルの位置を原点(XYZ=0.0)に移動させます"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		bpy.context.space_data.cursor_location = (0, 0, 0)
+		bpy.ops.view3d.view_center_cursor()
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -125,7 +136,10 @@ class ReverseView(bpy.types.Operator):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(ResetView.bl_idname, icon="PLUGIN")
+	self.layout.operator(ResetViewAndCursor.bl_idname, icon="PLUGIN")
+	self.layout.separator()
 	self.layout.operator(ViewSelectedEX.bl_idname, icon="PLUGIN")
 	self.layout.operator(SelectAndView.bl_idname, icon="PLUGIN")
+	self.layout.separator()
 	self.layout.operator(SnapMeshView.bl_idname, icon="PLUGIN")
 	self.layout.operator(ReverseView.bl_idname, icon="PLUGIN")
