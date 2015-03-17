@@ -239,20 +239,46 @@ class ToggleSmooth(bpy.types.Operator):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
-	self.layout.operator(CopyObjectName.bl_idname, icon="PLUGIN")
-	self.layout.operator(RenameObjectRegularExpression.bl_idname, icon="PLUGIN")
-	self.layout.operator(EqualizeObjectNameAndDataName.bl_idname, icon="PLUGIN")
+	column = self.layout.column()
+	column.operator(CopyObjectName.bl_idname, icon="PLUGIN")
+	column.operator(RenameObjectRegularExpression.bl_idname, icon="PLUGIN")
+	column.operator(EqualizeObjectNameAndDataName.bl_idname, icon="PLUGIN")
+	if (len(context.selected_objects) <= 0):
+		column.enabled = False
 	self.layout.separator()
-	self.layout.operator(ToggleSmooth.bl_idname, icon="PLUGIN")
-	self.layout.operator(AddVertexColorSelectedObject.bl_idname, icon="PLUGIN")
+	column = self.layout.column()
+	column.operator(ToggleSmooth.bl_idname, icon="PLUGIN")
+	column.operator(AddVertexColorSelectedObject.bl_idname, icon="PLUGIN")
+	column.enabled = False
+	for obj in context.selected_objects:
+		if (obj.type == 'MESH'):
+			column.enabled = True
+	self.layout.separator()
+	column = self.layout.column()
+	column.operator(VertexGroupTransferWeightObjmode.bl_idname, text="ウェイト転送 (頂点)", icon="PLUGIN").method = 'WT_BY_NEAREST_VERTEX'
+	column.operator(VertexGroupTransferWeightObjmode.bl_idname, text="ウェイト転送 (面)", icon="PLUGIN").method = 'WT_BY_NEAREST_FACE'
+	column.enabled = False
+	if (context.active_object.type == 'MESH'):
+		i = 0
+		for obj in context.selected_objects:
+			if (obj.type == 'MESH'):
+				i += 1
+		if (2 <= i):
+			column.enabled = True
+	self.layout.separator()
+	column = self.layout.column()
+	column.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
+	column.enabled = False
 	if (context.active_object):
 		if (context.active_object.type == "CURVE"):
-			self.layout.separator()
-			self.layout.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(VertexGroupTransferWeightObjmode.bl_idname, text="ウェイト転送 (頂点)", icon="PLUGIN").method = 'WT_BY_NEAREST_VERTEX'
-	self.layout.operator(VertexGroupTransferWeightObjmode.bl_idname, text="ウェイト転送 (面)", icon="PLUGIN").method = 'WT_BY_NEAREST_FACE'
-	self.layout.separator()
-	self.layout.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")
-	if (context.scene.grease_pencil.layers.active):
-		self.layout.operator(AddGreasePencilPathMetaballs.bl_idname, icon="PLUGIN")
+			column.enabled = True
+	column = self.layout.column()
+	column.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")
+	column.enabled = False
+	for obj in context.selected_objects:
+		if (obj.type == 'MESH'):
+			column.enabled = True
+	column = self.layout.column()
+	column.operator(AddGreasePencilPathMetaballs.bl_idname, icon="PLUGIN")
+	if (not context.gpencil_data):
+		column.enabled = False
