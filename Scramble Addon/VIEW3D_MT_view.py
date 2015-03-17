@@ -13,13 +13,18 @@ class LocalViewEx(bpy.types.Operator):
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
-		smooth_view = context.user_preferences.view.smooth_view
+		pre_smooth_view = context.user_preferences.view.smooth_view
 		context.user_preferences.view.smooth_view = 0
-		view_distance = context.region_data.view_distance
+		pre_view_distance = context.region_data.view_distance
+		pre_view_location = context.region_data.view_location.copy()
+		pre_view_rotation = context.region_data.view_rotation.copy()
+		pre_cursor_location = context.space_data.cursor_location.copy()
 		bpy.ops.view3d.localview()
-		context.region_data.view_distance = view_distance
-		context.user_preferences.view.smooth_view = smooth_view
-		context.region_data.update()
+		context.space_data.cursor_location = pre_cursor_location
+		context.region_data.view_distance = pre_view_distance
+		context.region_data.view_location = pre_view_location
+		context.region_data.view_rotation = pre_view_rotation
+		context.user_preferences.view.smooth_view = pre_smooth_view
 		return {'FINISHED'}
 
 class TogglePanelsA(bpy.types.Operator):
