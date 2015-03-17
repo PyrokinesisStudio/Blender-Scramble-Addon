@@ -117,7 +117,10 @@ class VertexGroupTransferWeightObjmode(bpy.types.Operator):
 	
 	def execute(self, context):
 		if (self.isDeleteWeights):
-			bpy.ops.object.vertex_group_remove(all=True)
+			try:
+				bpy.ops.object.vertex_group_remove(all=True)
+			except RuntimeError:
+				pass
 		bpy.ops.object.vertex_group_transfer_weight(group_select_mode='WT_REPLACE_ALL_VERTEX_GROUPS', method=self.method, replace_mode='WT_REPLACE_ALL_WEIGHTS')
 		return {'FINISHED'}
 
@@ -247,7 +250,8 @@ def menu(self, context):
 			self.layout.separator()
 			self.layout.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
 	self.layout.separator()
-	self.layout.operator(VertexGroupTransferWeightObjmode.bl_idname, icon="PLUGIN")
+	self.layout.operator(VertexGroupTransferWeightObjmode.bl_idname, text="ウェイト転送 (頂点)", icon="PLUGIN").method = 'WT_BY_NEAREST_VERTEX'
+	self.layout.operator(VertexGroupTransferWeightObjmode.bl_idname, text="ウェイト転送 (面)", icon="PLUGIN").method = 'WT_BY_NEAREST_FACE'
 	self.layout.separator()
 	self.layout.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")
 	if (context.scene.grease_pencil.layers.active):
