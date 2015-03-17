@@ -68,6 +68,7 @@ class AddVertexOnlyObject(bpy.types.Operator):
 		bpy.context.scene.objects.active = obj
 		obj.location = context.space_data.cursor_location[:]
 		bpy.ops.object.mode_set(mode="EDIT")
+		context.tool_settings.mesh_select_mode = (True, False, False)
 		return {'FINISHED'}
 
 ################

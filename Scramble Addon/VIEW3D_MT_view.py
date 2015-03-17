@@ -25,7 +25,7 @@ class LocalViewEx(bpy.types.Operator):
 		context.region_data.view_location = pre_view_location
 		context.region_data.view_rotation = pre_view_rotation
 		context.user_preferences.view.smooth_view = pre_smooth_view
-		bpy.ops.view3d.view_selected_ex()
+		#bpy.ops.view3d.view_selected_ex()
 		return {'FINISHED'}
 
 class TogglePanelsA(bpy.types.Operator):
