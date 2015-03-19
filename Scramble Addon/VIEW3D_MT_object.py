@@ -416,6 +416,26 @@ class AddSubsurf(bpy.types.Operator):
 				modi.show_only_control_edges = self.show_only_control_edges
 		return {'FINISHED'}
 
+##############################
+# オペレーター(アーマチュア) #
+##############################
+
+class SetArmatureDeformPreserveVolume(bpy.types.Operator):
+	bl_idname = "object.set_armature_deform_preserve_volume"
+	bl_label = "アーマチュアの「体積を維持」をまとめて設定"
+	bl_description = "選択したオブジェクトのアーマチュアモディファイアの「体積を維持」をまとめてオン/オフします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	use_deform_preserve_volume =  bpy.props.BoolProperty(name="「体積を維持」を使用", default=True)
+	
+	def execute(self, context):
+		for obj in context.selected_objects:
+			if (obj.type == "MESH"):
+				for mod in obj.modifiers:
+					if (mod.type == 'ARMATURE'):
+						mod.use_deform_preserve_volume = self.use_deform_preserve_volume
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -431,9 +451,17 @@ class PieMenu(bpy.types.Menu):
 		self.layout.operator(SubdivisionSetPieOperator.bl_idname, icon="PLUGIN")
 		self.layout.operator(DrawTypePieOperator.bl_idname, icon="PLUGIN")
 
+class ArmatureMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_object_armature"
+	bl_label = "アーマチュア関係"
+	bl_description = "アーマチュア関係の操作です"
+	
+	def draw(self, context):
+		self.layout.operator(SetArmatureDeformPreserveVolume.bl_idname, icon="PLUGIN")
+
 class BooleanMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_boolean"
-	bl_label = "ブーリアン"
+	bl_label = "ブーリアン関係"
 	bl_description = "ブーリアン関係の操作です"
 	
 	def draw(self, context):
@@ -467,6 +495,7 @@ class ModifierMenu(bpy.types.Menu):
 		self.layout.operator(DeleteAllModifiers.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(ArmatureMenu.bl_idname, icon="PLUGIN")
 		self.layout.menu(BooleanMenu.bl_idname, icon="PLUGIN")
 
 class UVMenu(bpy.types.Menu):
