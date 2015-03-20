@@ -9,7 +9,7 @@ import re
 
 class CreateCustomShape(bpy.types.Operator):
 	bl_idname = "pose.create_custom_shape"
-	bl_label = "選択ボーンのカスタムシェイプを作成"
+	bl_label = "カスタムシェイプを作成"
 	bl_description = "選択中のボーンのカスタムシェイプオブジェクトを作成します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -66,13 +66,15 @@ class CreateCustomShape(bpy.types.Operator):
 					obj.hide = True
 			else:
 				self.report(type={"ERROR"}, message="ポーズモードで実行してください")
+				return {'CANCELLED'}
 		else:
 			self.report(type={"ERROR"}, message="アクティブオブジェクトがアーマチュアではありません")
+			return {'CANCELLED'}
 		return {'FINISHED'}
 
 class CreateWeightCopyMesh(bpy.types.Operator):
 	bl_idname = "pose.create_weight_copy_mesh"
-	bl_label = "選択ボーンのウェイトコピー用メッシュを作成"
+	bl_label = "ウェイトコピー用メッシュを作成"
 	bl_description = "選択中のボーンのウェイトコピーで使用するメッシュを作成します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -127,8 +129,10 @@ class CreateWeightCopyMesh(bpy.types.Operator):
 				#bpy.ops.object.mode_set(mode="OBJECT")
 			else:
 				self.report(type={"ERROR"}, message="ポーズモードで実行してください")
+				return {'CANCELLED'}
 		else:
 			self.report(type={"ERROR"}, message="アクティブオブジェクトがアーマチュアではありません")
+			return {'CANCELLED'}
 		return {'FINISHED'}
 
 class CopyBoneName(bpy.types.Operator):
@@ -223,8 +227,71 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 					bone.name = re.sub(self.pattern, self.repl, bone.name)
 			else:
 				self.report(type={"ERROR"}, message="ポーズモードで実行してください")
+				return {'CANCELLED'}
 		else:
 			self.report(type={"ERROR"}, message="アーマチュアオブジェクトではありません")
+			return {'CANCELLED'}
+		return {'FINISHED'}
+
+class SetSlowParentBone(bpy.types.Operator):
+	bl_idname = "pose.set_slow_parent_bone"
+	bl_label = "スローペアレントを設定"
+	bl_description = "選択中のボーンにスローペアレントを設定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('DAMPED_TRACK', "減衰トラック", "", 1),
+		('IK', "IK", "", 2),
+		('STRETCH_TO', "ストレッチ", "", 3),
+		('COPY_LOCATION', "位置コピー", "", 4),
+		]
+	constraint = bpy.props.EnumProperty(items=items, name="コンストレイント")
+	radius = bpy.props.FloatProperty(name="エンプティの大きさ", default=0.5, min=0.01, max=10, soft_min=0.01, soft_max=10, step=10, precision=3)
+	slow_parent_offset = bpy.props.FloatProperty(name="スローペアレントの強度", default=5, min=0, max=100, soft_min=0, soft_max=100, step=50, precision=3)
+	is_use_driver = bpy.props.BoolProperty(name="ボーンにドライバを追加", default=True)
+	
+	def execute(self, context):
+		pre_cursor_location = context.space_data.cursor_location[:]
+		pre_active_pose_bone = context.active_pose_bone
+		obj = context.active_object
+		arm = obj.data
+		bones = context.selected_pose_bones[:]
+		for bone in bones:
+			if (not bone.parent):
+				self.report(type={'WARNING'}, message="ボーン「"+bone.name+"」には親がありません、スルーします")
+				continue
+			if (self.constraint == 'COPY_LOCATION'):
+				context.space_data.cursor_location = obj.matrix_world * arm.bones[bone.name].head_local
+			else:
+				context.space_data.cursor_location = obj.matrix_world * arm.bones[bone.name].tail_local
+			bpy.ops.object.mode_set(mode='OBJECT')
+			bpy.ops.object.empty_add(type='PLAIN_AXES', radius=self.radius)
+			empty_obj = context.active_object
+			empty_obj.name = bone.name+" slow parent"
+			obj.select = True
+			context.scene.objects.active = obj
+			bpy.ops.object.mode_set(mode='POSE')
+			pre_parent_select = arm.bones[bone.parent.name].select
+			arm.bones.active = arm.bones[bone.parent.name]
+			bpy.ops.object.parent_set(type='BONE')
+			arm.bones[bone.parent.name].select = pre_parent_select
+			arm.bones.active = arm.bones[bone.name]
+			empty_obj.use_slow_parent = True
+			empty_obj.slow_parent_offset = self.slow_parent_offset
+			const = bone.constraints.new(self.constraint)
+			const.target = empty_obj
+			if (self.constraint == 'IK'):
+				const.chain_count = 1
+			empty_obj.select = False
+			if (self.is_use_driver):
+				bone["SlowParentOffset"] = self.slow_parent_offset
+				fcurve = empty_obj.driver_add('slow_parent_offset')
+				fcurve.driver.type = 'AVERAGE'
+				variable = fcurve.driver.variables.new()
+				variable.targets[0].id = obj
+				variable.targets[0].data_path = 'pose.bones["'+bone.name+'"]["SlowParentOffset"]'
+		arm.bones.active = arm.bones[pre_active_pose_bone.name]
+		context.space_data.cursor_location = pre_cursor_location[:]
 		return {'FINISHED'}
 
 ################
@@ -241,5 +308,6 @@ def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(CreateCustomShape.bl_idname, icon="PLUGIN")
 	self.layout.operator(CreateWeightCopyMesh.bl_idname, icon="PLUGIN")
+	self.layout.operator(SetSlowParentBone.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(SplineGreasePencil.bl_idname, icon="PLUGIN")
