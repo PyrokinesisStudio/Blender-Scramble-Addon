@@ -228,7 +228,7 @@ class ToggleSmooth(bpy.types.Operator):
 				else:
 					bpy.ops.object.shade_smooth()
 		else:
-			self.report(type={"ERROR"}, message=メッシュオブジェクトをアクティブにしてから実行して下さい)
+			self.report(type={"ERROR"}, message="メッシュオブジェクトをアクティブにしてから実行して下さい")
 			return {'CANCELLED'}
 		return {'FINISHED'}
 
@@ -255,8 +255,13 @@ def menu(self, context):
 			column.enabled = True
 	self.layout.separator()
 	column = self.layout.column()
-	column.operator(VertexGroupTransferWeightObjmode.bl_idname, text="ウェイト転送 (頂点)", icon="PLUGIN").method = 'WT_BY_NEAREST_VERTEX'
-	column.operator(VertexGroupTransferWeightObjmode.bl_idname, text="ウェイト転送 (面)", icon="PLUGIN").method = 'WT_BY_NEAREST_FACE'
+	operator = column.operator('object.data_transfer', text="メッシュデータの転送 (頂点グループ用)", icon="PLUGIN")
+	operator.use_reverse_transfer = True
+	operator.data_type = 'VGROUP_WEIGHTS'
+	operator.use_create = True
+	operator.vert_mapping = 'POLYINTERP_NEAREST'
+	operator.layers_select_src = 'ALL'
+	operator.layers_select_dst = 'NAME'
 	column.enabled = False
 	if (context.active_object.type == 'MESH'):
 		i = 0
