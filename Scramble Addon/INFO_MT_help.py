@@ -352,6 +352,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	
 	def execute(self, context):
 		context.window_manager.keyconfigs.default.keymaps[self.key_map].keymap_items.new(self.command, self.type, 'PRESS', False, self.shift, self.ctrl, self.alt)
+		self.report(type={"INFO"}, message="ショートカットを登録しました、必要であれば「ユーザー設定の保存」をしてください")
 		return {'FINISHED'}
 	def invoke(self, context, event):
 		bpy.ops.info.reports_display_update()
