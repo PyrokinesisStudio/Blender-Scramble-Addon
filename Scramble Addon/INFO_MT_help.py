@@ -357,10 +357,11 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	def invoke(self, context, event):
 		bpy.ops.info.reports_display_update()
 		pre_clipboard = context.window_manager.clipboard
-		bpy.ops.info.select_pick()
-		bpy.ops.info.select_all_toggle()
-		bpy.ops.info.select_all_toggle()
-		bpy.ops.info.report_copy()
+		for i in range(10):
+			bpy.ops.info.select_all_toggle()
+			bpy.ops.info.report_copy()
+			if (context.window_manager.clipboard != ""):
+				break
 		bpy.ops.info.select_all_toggle()
 		commands = context.window_manager.clipboard.split("\n")
 		context.window_manager.clipboard = pre_clipboard
