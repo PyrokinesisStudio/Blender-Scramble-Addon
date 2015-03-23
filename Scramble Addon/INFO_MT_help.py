@@ -285,7 +285,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('GRLESS', "\\", "", 55),
 		('ESC', "Escキー", "", 56),
 		('TAB', "Tabキー", "", 57),
-		('RET', "Retキー", "", 58),
+		('RET', "エンターキー", "", 58),
 		('SPACE', "Spaceキー", "", 59),
 		('BACK_SPACE', "BackSpaceキー", "", 60),
 		('DEL', "Deleteキー", "", 61),
