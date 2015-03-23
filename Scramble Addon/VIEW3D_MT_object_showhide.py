@@ -80,84 +80,6 @@ class HideExceptType(bpy.types.Operator):
 				obj.hide = True
 		return {'FINISHED'}
 
-class SetRenderHide(bpy.types.Operator):
-	bl_idname = "object.set_render_hide"
-	bl_label = "選択物をレンダリングしない"
-	bl_description = "選択中のオブジェクトをレンダリングしない設定にします(逆も可)"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	reverse = bpy.props.BoolProperty(name="レンダリングしない", default=True)
-	
-	def execute(self, context):
-		for obj in context.selected_objects:
-			obj.hide_render = self.reverse
-		return {'FINISHED'}
-
-class SetHideSelect(bpy.types.Operator):
-	bl_idname = "object.set_hide_select"
-	bl_label = "選択物を選択不可に"
-	bl_description = "選択中のオブジェクトを選択出来なくします"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	reverse = bpy.props.BoolProperty(name="選択不可に", default=True)
-	
-	def execute(self, context):
-		for obj in context.selected_objects:
-			obj.hide_select = self.reverse
-			if (self.reverse):
-				obj.select = not self.reverse
-		return {'FINISHED'}
-
-class AllResetRenderHide(bpy.types.Operator):
-	bl_idname = "object.all_reset_render_hide"
-	bl_label = "全オブジェクトの非レンダリングを解除"
-	bl_description = "全てのオブジェクトのレンダリングしない設定を解除します(逆も可)"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	reverse = bpy.props.BoolProperty(name="レンダリングしない", default=False)
-	
-	def execute(self, context):
-		for obj in bpy.data.objects:
-			obj.hide_render = self.reverse
-		return {'FINISHED'}
-
-class AllResetHideSelect(bpy.types.Operator):
-	bl_idname = "object.all_reset_hide_select"
-	bl_label = "全オブジェクトの選択不可を解除"
-	bl_description = "全てのオブジェクトの選択不可設定を解除します(逆も可)"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	reverse = bpy.props.BoolProperty(name="選択不可に", default=False)
-	
-	def execute(self, context):
-		for obj in bpy.data.objects:
-			obj.hide_select = self.reverse
-			if (self.reverse):
-				obj.select = not self.reverse
-		return {'FINISHED'}
-
-class SyncRenderHide(bpy.types.Operator):
-	bl_idname = "object.sync_render_hide"
-	bl_label = "レンダリングするかを「表示/非表示」に同期"
-	bl_description = "現在のレイヤー内のオブジェクトをレンダリングするかどうかを表示/非表示の状態と同期します"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	isAll = bpy.props.BoolProperty(name="全オブジェクト", default=False)
-	
-	def execute(self, context):
-		objs = []
-		for obj in bpy.data.objects:
-			if (self.isAll):
-				objs.append(obj)
-			else:
-				for i in range(len(context.scene.layers)):
-					if (context.scene.layers[i] and obj.layers[i]):
-						objs.append(obj)
-						break
-		for obj in objs:
-			obj.hide_render = obj.hide
-		return {'FINISHED'}
-
 ################
 # メニュー追加 #
 ################
@@ -169,11 +91,3 @@ def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(HideOnlyType.bl_idname, icon="PLUGIN")
 	self.layout.operator(HideExceptType.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(SetRenderHide.bl_idname, icon="PLUGIN")
-	self.layout.operator(SetHideSelect.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(AllResetRenderHide.bl_idname, icon="PLUGIN")
-	self.layout.operator(AllResetHideSelect.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(SyncRenderHide.bl_idname, icon="PLUGIN")
