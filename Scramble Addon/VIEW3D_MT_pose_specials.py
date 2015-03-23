@@ -294,6 +294,74 @@ class SetSlowParentBone(bpy.types.Operator):
 		context.space_data.cursor_location = pre_cursor_location[:]
 		return {'FINISHED'}
 
+class RenameBoneNameEnd(bpy.types.Operator):
+	bl_idname = "pose.rename_bone_name_end"
+	bl_label = "ボーン名の ○.R => ○_R を相互変換"
+	bl_description = "ボーン名の ○.R => ○_R を相互変換します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	reverse = bpy.props.BoolProperty(name="○.R => ○_R", default=False)
+	
+	def execute(self, context):
+		if (not context.selected_pose_bones):
+			self.report(type={"ERROR"}, message="ポーズモードでボーンを選択して実行して下さい")
+			return {"CANCELLED"}
+		rename_count = 0
+		for bone in context.selected_pose_bones:
+			pre_name = bone.name
+			if (not self.reverse):
+				bone.name = re.sub(r'_L$', '.L', bone.name)
+				bone.name = re.sub(r'_l$', '.l', bone.name)
+				if (pre_name != bone.name):
+					continue
+				bone.name = re.sub(r'_R$', '.R', bone.name)
+				bone.name = re.sub(r'_r$', '.r', bone.name)
+			else:
+				bone.name = re.sub(r'\.L$', '_L', bone.name)
+				bone.name = re.sub(r'\.l$', '_l', bone.name)
+				if (pre_name != bone.name):
+					continue
+				bone.name = re.sub(r'\.R$', '_R', bone.name)
+				bone.name = re.sub(r'\.r$', '_r', bone.name)
+			if (pre_name != bone.name):
+				rename_count += 1
+		for area in context.screen.areas:
+			area.tag_redraw()
+		self.report(type={"INFO"}, message="ボーン名の変換が終了しました、"+str(rename_count)+"個変換しました")
+		return {'FINISHED'}
+
+class RenameBoneNameEndJapanese(bpy.types.Operator):
+	bl_idname = "pose.rename_bone_name_end_japanese"
+	bl_label = "ボーン名の ○.R => 右○ を相互変換"
+	bl_description = "ボーン名の ○.R => 右○ を相互変換します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	reverse = bpy.props.BoolProperty(name="○.R => 右○", default=False)
+	
+	def execute(self, context):
+		if (not context.selected_pose_bones):
+			self.report(type={"ERROR"}, message="ポーズモードでボーンを選択して実行して下さい")
+			return {"CANCELLED"}
+		rename_count = 0
+		for bone in context.selected_pose_bones:
+			pre_name = bone.name
+			if (not self.reverse):
+				if (re.search(r"[\._][rR]$", bone.name)):
+					bone.name = "右" + bone.name[:-2]
+				if (re.search(r"[\._][lL]$", bone.name)):
+					bone.name = "左" + bone.name[:-2]
+			else:
+				if (re.search(r"^右", bone.name)):
+					bone.name = bone.name[1:] + "_R"
+				if (re.search(r"^左", bone.name)):
+					bone.name = bone.name[1:] + "_L"
+			if (pre_name != bone.name):
+				rename_count += 1
+		for area in context.screen.areas:
+			area.tag_redraw()
+		self.report(type={"INFO"}, message="ボーン名の変換が終了しました、"+str(rename_count)+"個変換しました")
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -303,6 +371,12 @@ def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")
 	self.layout.operator(RenameBoneRegularExpression.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.operator(RenameBoneNameEnd.bl_idname, text="ボーン名置換「XXX_R => XXX.R」", icon="PLUGIN").reverse = False
+	self.layout.operator(RenameBoneNameEnd.bl_idname, text="ボーン名置換「XXX.R => XXX_R」", icon="PLUGIN").reverse = True
+	self.layout.separator()
+	self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="ボーン名置換「XXX_R => 右XXX」", icon="PLUGIN").reverse = False
+	self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="ボーン名置換「右XXX => XXX_R」", icon="PLUGIN").reverse = True
 	self.layout.separator()
 	self.layout.prop_menu_enum(context.object.data, "pose_position", icon="PLUGIN")
 	self.layout.separator()
