@@ -296,11 +296,11 @@ class SetSlowParentBone(bpy.types.Operator):
 
 class RenameBoneNameEnd(bpy.types.Operator):
 	bl_idname = "pose.rename_bone_name_end"
-	bl_label = "ボーン名の ○.R => ○_R を相互変換"
-	bl_description = "ボーン名の ○.R => ○_R を相互変換します"
+	bl_label = "ボーン名の XXX.R => XXX_R を相互変換"
+	bl_description = "ボーン名の XXX.R => XXX_R を相互変換します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	reverse = bpy.props.BoolProperty(name="○.R => ○_R", default=False)
+	reverse = bpy.props.BoolProperty(name="XXX.R => XXX_R", default=False)
 	
 	def execute(self, context):
 		if (not context.selected_pose_bones):
@@ -332,11 +332,11 @@ class RenameBoneNameEnd(bpy.types.Operator):
 
 class RenameBoneNameEndJapanese(bpy.types.Operator):
 	bl_idname = "pose.rename_bone_name_end_japanese"
-	bl_label = "ボーン名の ○.R => 右○ を相互変換"
-	bl_description = "ボーン名の ○.R => 右○ を相互変換します"
+	bl_label = "ボーン名の XXX.R => 右XXX を相互変換"
+	bl_description = "ボーン名の XXX.R => 右XXX を相互変換します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	reverse = bpy.props.BoolProperty(name="○.R => 右○", default=False)
+	reverse = bpy.props.BoolProperty(name="XXX.R => 右XXX", default=False)
 	
 	def execute(self, context):
 		if (not context.selected_pose_bones):
