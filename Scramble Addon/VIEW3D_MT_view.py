@@ -208,10 +208,19 @@ class LayerPie(bpy.types.Menu):
 		operator = row.operator("view3d.layers", text="20", icon=self.GetIcon(19))
 		operator.nr, operator.extend, operator.toggle = 20, False, True
 	def GetIcon(self, layer):
+		isIn = False
 		for obj in bpy.data.objects:
 			if (obj.layers[layer]):
+				isIn = True
+				break
+		if (bpy.context.scene.layers[layer]):
+			if (isIn):
 				return "RADIOBUT_ON"
-		return "RADIOBUT_OFF"
+			return "RADIOBUT_OFF"
+		else:
+			if (isIn):
+				return "DOT"
+			return "BLANK1"
 
 ########################
 # グループレイヤー関係 #
