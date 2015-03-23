@@ -87,6 +87,7 @@ class PieMenu(bpy.types.Menu):
 	def draw(self, context):
 		self.layout.operator(ViewNumpadPieOperator.bl_idname, icon="PLUGIN")
 		self.layout.operator(ViewportShadePieOperator.bl_idname, icon="PLUGIN")
+		self.layout.operator(LayerPieOperator.bl_idname, text="レイヤー", icon="PLUGIN")
 
 class ViewNumpadPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.view_numpad_pie_operator"
@@ -144,6 +145,67 @@ class SetViewportShade(bpy.types.Operator): #
 	def execute(self, context):
 		context.space_data.viewport_shade = self.mode
 		return {'FINISHED'}
+
+class LayerPieOperator(bpy.types.Operator):
+	bl_idname = "view3d.layer_pie_operator"
+	bl_label = "レイヤーのパイメニュー"
+	bl_description = "レイヤー表示切り替えのパイメニューです (+Shiftで表示拡張)"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.wm.call_menu_pie(name=LayerPie.bl_idname)
+		return {'FINISHED'}
+class LayerPie(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_object_pie_layer"
+	bl_label = "レイヤーのパイメニュー"
+	bl_description = "レイヤー表示切り替えのパイメニューです"
+	
+	def draw(self, context):
+		column = self.layout.column()
+		row = column.row()
+		operator = row.operator("view3d.layers", text="01")
+		operator.nr, operator.extend, operator.toggle = 1, False, True
+		operator = row.operator("view3d.layers", text="02")
+		operator.nr, operator.extend, operator.toggle = 2, False, True
+		operator = row.operator("view3d.layers", text="03")
+		operator.nr, operator.extend, operator.toggle = 3, False, True
+		operator = row.operator("view3d.layers", text="04")
+		operator.nr, operator.extend, operator.toggle = 4, False, True
+		operator = row.operator("view3d.layers", text="05")
+		operator.nr, operator.extend, operator.toggle = 5, False, True
+		row.separator()
+		operator = row.operator("view3d.layers", text="06")
+		operator.nr, operator.extend, operator.toggle = 6, False, True
+		operator = row.operator("view3d.layers", text="07")
+		operator.nr, operator.extend, operator.toggle = 7, False, True
+		operator = row.operator("view3d.layers", text="08")
+		operator.nr, operator.extend, operator.toggle = 8, False, True
+		operator = row.operator("view3d.layers", text="09")
+		operator.nr, operator.extend, operator.toggle = 9, False, True
+		operator = row.operator("view3d.layers", text="10")
+		operator.nr, operator.extend, operator.toggle = 10, False, True
+		row = column.row()
+		operator = row.operator("view3d.layers", text="11")
+		operator.nr, operator.extend, operator.toggle = 11, False, True
+		operator = row.operator("view3d.layers", text="12")
+		operator.nr, operator.extend, operator.toggle = 12, False, True
+		operator = row.operator("view3d.layers", text="13")
+		operator.nr, operator.extend, operator.toggle = 13, False, True
+		operator = row.operator("view3d.layers", text="14")
+		operator.nr, operator.extend, operator.toggle = 14, False, True
+		operator = row.operator("view3d.layers", text="15")
+		operator.nr, operator.extend, operator.toggle = 15, False, True
+		row.separator()
+		operator = row.operator("view3d.layers", text="16")
+		operator.nr, operator.extend, operator.toggle = 16, False, True
+		operator = row.operator("view3d.layers", text="17")
+		operator.nr, operator.extend, operator.toggle = 17, False, True
+		operator = row.operator("view3d.layers", text="18")
+		operator.nr, operator.extend, operator.toggle = 18, False, True
+		operator = row.operator("view3d.layers", text="19")
+		operator.nr, operator.extend, operator.toggle = 19, False, True
+		operator = row.operator("view3d.layers", text="20")
+		operator.nr, operator.extend, operator.toggle = 20, False, True
 
 ########################
 # グループレイヤー関係 #
