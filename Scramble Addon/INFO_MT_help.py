@@ -147,6 +147,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	bl_options = {'REGISTER'}
 	
 	command = bpy.props.StringProperty(name="登録コマンド(変更不可)")
+	sub_command = bpy.props.StringProperty(name="サブコマンド(変更不可)")
 	items = [
 		('Window', "Window", "", 1),
 		('Screen', "Screen", "", 2),
@@ -351,7 +352,10 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	alt = bpy.props.BoolProperty(name="Altを修飾キーに", default=False)
 	
 	def execute(self, context):
-		context.window_manager.keyconfigs.default.keymaps[self.key_map].keymap_items.new(self.command, self.type, 'PRESS', False, self.shift, self.ctrl, self.alt)
+		keymap_item = context.window_manager.keyconfigs.default.keymaps[self.key_map].keymap_items.new(self.command, self.type, 'PRESS', False, self.shift, self.ctrl, self.alt)
+		for command in self.sub_command.split(","):
+			name, value = command.split(":")
+			keymap_item.properties[name] = value
 		self.report(type={"INFO"}, message="ショートカットを登録しました、必要であれば「ユーザー設定の保存」をしてください")
 		return {'FINISHED'}
 	def invoke(self, context, event):
@@ -377,6 +381,10 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 				#options = re.search(r"\((.*)\)$", command).groups()[0]
 				#properties = options.split(",")
 				break
+			elif (re.search(r"^bpy\.context\.", command)):
+				if (re.search(r"True$", command) or re.search(r"False$", command)):
+					self.command = 'wm.context_toggle'
+					self.sub_command = 'data_path:'+re.search(r"^bpy\.context\.([^ ]+)", command).groups()[0]
 		return context.window_manager.invoke_props_dialog(self)
 
 
