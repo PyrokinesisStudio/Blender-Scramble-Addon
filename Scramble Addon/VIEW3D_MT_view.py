@@ -161,51 +161,57 @@ class LayerPie(bpy.types.Menu):
 	bl_description = "レイヤー表示切り替えのパイメニューです"
 	
 	def draw(self, context):
-		column = self.layout.column()
+		box = self.layout.box()
+		column = box.column()
 		row = column.row()
-		operator = row.operator("view3d.layers", text="01")
+		operator = row.operator("view3d.layers", text="01", icon=self.GetIcon(0))
 		operator.nr, operator.extend, operator.toggle = 1, False, True
-		operator = row.operator("view3d.layers", text="02")
+		operator = row.operator("view3d.layers", text="02", icon=self.GetIcon(1))
 		operator.nr, operator.extend, operator.toggle = 2, False, True
-		operator = row.operator("view3d.layers", text="03")
+		operator = row.operator("view3d.layers", text="03", icon=self.GetIcon(2))
 		operator.nr, operator.extend, operator.toggle = 3, False, True
-		operator = row.operator("view3d.layers", text="04")
+		operator = row.operator("view3d.layers", text="04", icon=self.GetIcon(3))
 		operator.nr, operator.extend, operator.toggle = 4, False, True
-		operator = row.operator("view3d.layers", text="05")
+		operator = row.operator("view3d.layers", text="05", icon=self.GetIcon(4))
 		operator.nr, operator.extend, operator.toggle = 5, False, True
 		row.separator()
-		operator = row.operator("view3d.layers", text="06")
+		operator = row.operator("view3d.layers", text="06", icon=self.GetIcon(5))
 		operator.nr, operator.extend, operator.toggle = 6, False, True
-		operator = row.operator("view3d.layers", text="07")
+		operator = row.operator("view3d.layers", text="07", icon=self.GetIcon(6))
 		operator.nr, operator.extend, operator.toggle = 7, False, True
-		operator = row.operator("view3d.layers", text="08")
+		operator = row.operator("view3d.layers", text="08", icon=self.GetIcon(7))
 		operator.nr, operator.extend, operator.toggle = 8, False, True
-		operator = row.operator("view3d.layers", text="09")
+		operator = row.operator("view3d.layers", text="09", icon=self.GetIcon(8))
 		operator.nr, operator.extend, operator.toggle = 9, False, True
-		operator = row.operator("view3d.layers", text="10")
+		operator = row.operator("view3d.layers", text="10", icon=self.GetIcon(9))
 		operator.nr, operator.extend, operator.toggle = 10, False, True
 		row = column.row()
-		operator = row.operator("view3d.layers", text="11")
+		operator = row.operator("view3d.layers", text="11", icon=self.GetIcon(10))
 		operator.nr, operator.extend, operator.toggle = 11, False, True
-		operator = row.operator("view3d.layers", text="12")
+		operator = row.operator("view3d.layers", text="12", icon=self.GetIcon(11))
 		operator.nr, operator.extend, operator.toggle = 12, False, True
-		operator = row.operator("view3d.layers", text="13")
+		operator = row.operator("view3d.layers", text="13", icon=self.GetIcon(12))
 		operator.nr, operator.extend, operator.toggle = 13, False, True
-		operator = row.operator("view3d.layers", text="14")
+		operator = row.operator("view3d.layers", text="14", icon=self.GetIcon(13))
 		operator.nr, operator.extend, operator.toggle = 14, False, True
-		operator = row.operator("view3d.layers", text="15")
+		operator = row.operator("view3d.layers", text="15", icon=self.GetIcon(14))
 		operator.nr, operator.extend, operator.toggle = 15, False, True
 		row.separator()
-		operator = row.operator("view3d.layers", text="16")
+		operator = row.operator("view3d.layers", text="16", icon=self.GetIcon(15))
 		operator.nr, operator.extend, operator.toggle = 16, False, True
-		operator = row.operator("view3d.layers", text="17")
+		operator = row.operator("view3d.layers", text="17", icon=self.GetIcon(16))
 		operator.nr, operator.extend, operator.toggle = 17, False, True
-		operator = row.operator("view3d.layers", text="18")
+		operator = row.operator("view3d.layers", text="18", icon=self.GetIcon(17))
 		operator.nr, operator.extend, operator.toggle = 18, False, True
-		operator = row.operator("view3d.layers", text="19")
+		operator = row.operator("view3d.layers", text="19", icon=self.GetIcon(18))
 		operator.nr, operator.extend, operator.toggle = 19, False, True
-		operator = row.operator("view3d.layers", text="20")
+		operator = row.operator("view3d.layers", text="20", icon=self.GetIcon(19))
 		operator.nr, operator.extend, operator.toggle = 20, False, True
+	def GetIcon(self, layer):
+		for obj in bpy.data.objects:
+			if (obj.layers[layer]):
+				return "RADIOBUT_ON"
+		return "RADIOBUT_OFF"
 
 ########################
 # グループレイヤー関係 #

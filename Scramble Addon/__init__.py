@@ -104,9 +104,11 @@ else:
 	#from . import VIEW3D_PT_transform_orientations_EX
 import bpy
 
+"""
 # ダミーオペレーター
-#class temp(bpy.types.Operator):
-#	pass
+class temp(bpy.types.Operator):
+	pass
+"""
 
 # プラグインをインストールしたときの処理
 def register():
