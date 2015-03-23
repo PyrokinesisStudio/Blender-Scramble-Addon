@@ -225,8 +225,10 @@ class ToggleSmooth(bpy.types.Operator):
 			for obj in context.selected_objects:
 				if (is_smoothed):
 					bpy.ops.object.shade_flat()
+					self.report(type={"INFO"}, message="メッシュオブジェクトをフラットにしました")
 				else:
 					bpy.ops.object.shade_smooth()
+					self.report(type={"INFO"}, message="メッシュオブジェクトをスムーズにしました")
 		else:
 			self.report(type={"ERROR"}, message="メッシュオブジェクトをアクティブにしてから実行して下さい")
 			return {'CANCELLED'}
