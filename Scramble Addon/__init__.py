@@ -105,8 +105,8 @@ else:
 import bpy
 
 # ダミーオペレーター
-class temp(bpy.types.Operator):
-	pass
+#class temp(bpy.types.Operator):
+#	pass
 
 # プラグインをインストールしたときの処理
 def register():

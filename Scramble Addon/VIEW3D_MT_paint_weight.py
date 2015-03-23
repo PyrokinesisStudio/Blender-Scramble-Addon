@@ -148,7 +148,6 @@ class ApplyDynamicPaint(bpy.types.Operator):
 			me = activeObj.data
 			for vert in me.vertices:
 				for vg in vert.groups:
-					print(activeObj.vertex_groups[vg.group].name, dpVg.name)
 					if (activeObj.vertex_groups[vg.group].name == dpVg.name):
 						preActiveVg.add([vert.index], vg.weight, self.mode)
 						break
