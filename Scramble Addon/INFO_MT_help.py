@@ -385,6 +385,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 				if (re.search(r"True$", command) or re.search(r"False$", command)):
 					self.command = 'wm.context_toggle'
 					self.sub_command = 'data_path:'+re.search(r"^bpy\.context\.([^ ]+)", command).groups()[0]
+				break
 		return context.window_manager.invoke_props_dialog(self)
 
 
