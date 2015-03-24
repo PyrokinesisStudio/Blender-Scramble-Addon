@@ -355,10 +355,17 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		keymap_item = context.window_manager.keyconfigs.default.keymaps[self.key_map].keymap_items.new(self.command, self.type, 'PRESS', False, self.shift, self.ctrl, self.alt)
 		for command in self.sub_command.split(","):
 			name, value = command.split(":")
-			keymap_item.properties[name] = value
+			if (re.search(r"^\d+$", value)):
+				keymap_item.properties[name] = int(value)
+			elif (re.search(r"^[+-]?(\d*\.\d+|\d+\.?\d*)([eE][+-]?\d+|)\Z$", value)):
+				keymap_item.properties[name] = float(value)
+			else:
+				keymap_item.properties[name] = value
 		self.report(type={"INFO"}, message="ショートカットを登録しました、必要であれば「ユーザー設定の保存」をしてください")
 		return {'FINISHED'}
 	def invoke(self, context, event):
+		for area in context.screen.areas:
+			area.tag_redraw()
 		bpy.ops.info.reports_display_update()
 		pre_clipboard = context.window_manager.clipboard
 		for i in range(50):
@@ -385,14 +392,22 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 				if (re.search(r"True$", command) or re.search(r"False$", command)):
 					self.command = 'wm.context_toggle'
 					self.sub_command = 'data_path:'+re.search(r"^bpy\.context\.([^ ]+)", command).groups()[0]
-					break
 				elif (re.search(r" = '[^']+'$", command)):
 					self.command = 'wm.context_set_enum'
 					self.sub_command = 'data_path:'+re.search(r"^bpy\.context\.([^ ]+)", command).groups()[0]
 					self.sub_command = self.sub_command+","+'value:'+re.search(r" = '([^']+)'$", command).groups()[0]
+				elif (re.search(r" = \d+$", command)):
+					self.command = 'wm.context_set_int'
+					self.sub_command = 'data_path:'+re.search(r"^bpy\.context\.([^ ]+)", command).groups()[0]
+					self.sub_command = self.sub_command+","+'value:'+re.search(r" = (\d+)$", command).groups()[0]
+				elif (re.search(r' = [+-]?(\d*\.\d+|\d+\.?\d*)([eE][+-]?\d+|)\Z$', command)):
+					self.command = 'wm.context_set_float'
+					self.sub_command = 'data_path:'+re.search(r"^bpy\.context\.([^ ]+)", command).groups()[0]
+					self.sub_command = self.sub_command+","+'value:'+re.search(r' = [+-]?(\d*\.\d+|\d+\.?\d*)([eE][+-]?\d+|)\Z$', command).groups()[0]
 				else:
 					self.report(type={'ERROR'}, message="対応していないタイプのコマンドです")
 					return {'CANCELLED'}
+				break
 		return context.window_manager.invoke_props_dialog(self)
 
 
