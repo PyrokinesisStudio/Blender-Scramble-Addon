@@ -189,6 +189,23 @@ class DeleteAllModifiers(bpy.types.Operator):
 				obj.modifiers.remove(modi)
 		return {'FINISHED'}
 
+class ToggleApplyModifiersView(bpy.types.Operator):
+	bl_idname = "object.toggle_apply_modifiers_view"
+	bl_label = "ビューへのモディファイア適用を切り替え"
+	bl_description = "選択オブジェクトの全てのモディファイアのビューへの適用を切り替えます"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		is_apply = True
+		for mod in context.active_object.modifiers:
+			if (mod.show_viewport):
+				is_apply = False
+				break
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				mod.show_viewport = is_apply
+		return {'FINISHED'}
+
 ############################
 # オペレーター(ブーリアン) #
 ############################
@@ -492,6 +509,7 @@ class ModifierMenu(bpy.types.Menu):
 	bl_description = "モディファイア関係の操作です"
 	
 	def draw(self, context):
+		self.layout.operator(ToggleApplyModifiersView.bl_idname, icon="PLUGIN")
 		self.layout.operator(DeleteAllModifiers.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
