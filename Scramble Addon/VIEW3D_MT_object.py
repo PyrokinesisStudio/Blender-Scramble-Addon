@@ -204,6 +204,10 @@ class ToggleApplyModifiersView(bpy.types.Operator):
 		for obj in context.selected_objects:
 			for mod in obj.modifiers:
 				mod.show_viewport = is_apply
+		if is_apply:
+			self.report(type={"INFO"}, message="ビューにモディファイアを適用しました")
+		else:
+			self.report(type={"INFO"}, message="ビューへのモディファイア適用を解除しました")
 		return {'FINISHED'}
 
 ############################
