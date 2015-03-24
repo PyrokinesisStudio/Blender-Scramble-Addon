@@ -361,7 +361,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	def invoke(self, context, event):
 		bpy.ops.info.reports_display_update()
 		pre_clipboard = context.window_manager.clipboard
-		for i in range(10):
+		for i in range(50):
 			bpy.ops.info.select_all_toggle()
 			bpy.ops.info.report_copy()
 			if (context.window_manager.clipboard != ""):
@@ -385,7 +385,14 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 				if (re.search(r"True$", command) or re.search(r"False$", command)):
 					self.command = 'wm.context_toggle'
 					self.sub_command = 'data_path:'+re.search(r"^bpy\.context\.([^ ]+)", command).groups()[0]
-				break
+					break
+				elif (re.search(r" = '[^']+'$", command)):
+					self.command = 'wm.context_set_enum'
+					self.sub_command = 'data_path:'+re.search(r"^bpy\.context\.([^ ]+)", command).groups()[0]
+					self.sub_command = self.sub_command+","+'value:'+re.search(r" = '([^']+)'$", command).groups()[0]
+				else:
+					self.report(type={'ERROR'}, message="対応していないタイプのコマンドです")
+					return {'CANCELLED'}
 		return context.window_manager.invoke_props_dialog(self)
 
 
