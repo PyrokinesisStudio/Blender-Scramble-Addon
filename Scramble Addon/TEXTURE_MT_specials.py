@@ -15,7 +15,7 @@ class RenameTextureFileName(bpy.types.Operator):
 	isExt = bpy.props.BoolProperty(name="拡張子も含む", default=True)
 	
 	def execute(self, context):
-		tex = context.active_object.active_material.active_texture
+		tex = context.texture
 		if (not tex):
 			self.report(type={"ERROR"}, message="画像/動画テクスチャで実行してください")
 			return {"CANCELLED"}
