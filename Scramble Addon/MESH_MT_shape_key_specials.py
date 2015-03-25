@@ -92,6 +92,20 @@ class SelectShapeBottom(bpy.types.Operator):
 		context.active_object.active_shape_key_index = len(context.active_object.data.shape_keys.key_blocks) - 1
 		return {'FINISHED'}
 
+class ShapeKeyApplyRemoveAll(bpy.types.Operator):
+	bl_idname = "object.shape_key_apply_remove_all"
+	bl_label = "現在の形状を保持して全シェイプ削除"
+	bl_description = "現在のメッシュの形状を保持しながら全シェイプキーを削除します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.object.shape_key_add(from_mix=True)
+		bpy.ops.object.shape_key_move(type='DOWN')
+		bpy.ops.object.mode_set(mode='EDIT', toggle=False)
+		bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
+		bpy.ops.object.shape_key_remove(all=True)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -103,6 +117,7 @@ def menu(self, context):
 	self.layout.operator(SelectShapeBottom.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(CopyShape.bl_idname, icon="PLUGIN")
+	self.layout.operator(ShapeKeyApplyRemoveAll.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(InsertKeyframeAllShapes.bl_idname, icon="PLUGIN")
 	self.layout.separator()
