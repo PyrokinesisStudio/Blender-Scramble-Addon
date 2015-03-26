@@ -149,7 +149,7 @@ class SetViewportShade(bpy.types.Operator): #
 class LayerPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.layer_pie_operator"
 	bl_label = "レイヤーのパイメニュー"
-	bl_description = "レイヤー表示切り替えのパイメニューです (+Shiftで表示拡張)"
+	bl_description = "レイヤー表示切り替えのパイメニューです"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -164,63 +164,127 @@ class LayerPie(bpy.types.Menu):
 		box = self.layout.box()
 		column = box.column()
 		row = column.row()
-		operator = row.operator("view3d.layers", text="01", icon=self.GetIcon(0))
-		operator.nr, operator.extend, operator.toggle = 1, False, True
-		operator = row.operator("view3d.layers", text="02", icon=self.GetIcon(1))
-		operator.nr, operator.extend, operator.toggle = 2, False, True
-		operator = row.operator("view3d.layers", text="03", icon=self.GetIcon(2))
-		operator.nr, operator.extend, operator.toggle = 3, False, True
-		operator = row.operator("view3d.layers", text="04", icon=self.GetIcon(3))
-		operator.nr, operator.extend, operator.toggle = 4, False, True
-		operator = row.operator("view3d.layers", text="05", icon=self.GetIcon(4))
-		operator.nr, operator.extend, operator.toggle = 5, False, True
-		row.separator()
-		operator = row.operator("view3d.layers", text="06", icon=self.GetIcon(5))
-		operator.nr, operator.extend, operator.toggle = 6, False, True
-		operator = row.operator("view3d.layers", text="07", icon=self.GetIcon(6))
-		operator.nr, operator.extend, operator.toggle = 7, False, True
-		operator = row.operator("view3d.layers", text="08", icon=self.GetIcon(7))
-		operator.nr, operator.extend, operator.toggle = 8, False, True
-		operator = row.operator("view3d.layers", text="09", icon=self.GetIcon(8))
-		operator.nr, operator.extend, operator.toggle = 9, False, True
-		operator = row.operator("view3d.layers", text="10", icon=self.GetIcon(9))
-		operator.nr, operator.extend, operator.toggle = 10, False, True
+		row.label(text="切り替えるレイヤーを選択して下さい (+Shiftで追加選択 +Ctrlで半選択 +Altで半選択解除)", icon='PLUGIN')
 		row = column.row()
-		operator = row.operator("view3d.layers", text="11", icon=self.GetIcon(10))
-		operator.nr, operator.extend, operator.toggle = 11, False, True
-		operator = row.operator("view3d.layers", text="12", icon=self.GetIcon(11))
-		operator.nr, operator.extend, operator.toggle = 12, False, True
-		operator = row.operator("view3d.layers", text="13", icon=self.GetIcon(12))
-		operator.nr, operator.extend, operator.toggle = 13, False, True
-		operator = row.operator("view3d.layers", text="14", icon=self.GetIcon(13))
-		operator.nr, operator.extend, operator.toggle = 14, False, True
-		operator = row.operator("view3d.layers", text="15", icon=self.GetIcon(14))
-		operator.nr, operator.extend, operator.toggle = 15, False, True
+		operator = row.operator(LayerPieRun.bl_idname, text="01", icon=self.GetIcon(0))
+		operator.nr = 1
+		operator = row.operator(LayerPieRun.bl_idname, text="02", icon=self.GetIcon(1))
+		operator.nr = 2
+		operator = row.operator(LayerPieRun.bl_idname, text="03", icon=self.GetIcon(2))
+		operator.nr = 3
+		operator = row.operator(LayerPieRun.bl_idname, text="04", icon=self.GetIcon(3))
+		operator.nr = 4
+		operator = row.operator(LayerPieRun.bl_idname, text="05", icon=self.GetIcon(4))
+		operator.nr = 5
 		row.separator()
-		operator = row.operator("view3d.layers", text="16", icon=self.GetIcon(15))
-		operator.nr, operator.extend, operator.toggle = 16, False, True
-		operator = row.operator("view3d.layers", text="17", icon=self.GetIcon(16))
-		operator.nr, operator.extend, operator.toggle = 17, False, True
-		operator = row.operator("view3d.layers", text="18", icon=self.GetIcon(17))
-		operator.nr, operator.extend, operator.toggle = 18, False, True
-		operator = row.operator("view3d.layers", text="19", icon=self.GetIcon(18))
-		operator.nr, operator.extend, operator.toggle = 19, False, True
-		operator = row.operator("view3d.layers", text="20", icon=self.GetIcon(19))
-		operator.nr, operator.extend, operator.toggle = 20, False, True
+		operator = row.operator(LayerPieRun.bl_idname, text="06", icon=self.GetIcon(5))
+		operator.nr = 6
+		operator = row.operator(LayerPieRun.bl_idname, text="07", icon=self.GetIcon(6))
+		operator.nr = 7
+		operator = row.operator(LayerPieRun.bl_idname, text="08", icon=self.GetIcon(7))
+		operator.nr = 8
+		operator = row.operator(LayerPieRun.bl_idname, text="09", icon=self.GetIcon(8))
+		operator.nr = 9
+		operator = row.operator(LayerPieRun.bl_idname, text="10", icon=self.GetIcon(9))
+		operator.nr = 10
+		row = column.row()
+		operator = row.operator(LayerPieRun.bl_idname, text="11", icon=self.GetIcon(10))
+		operator.nr = 11
+		operator = row.operator(LayerPieRun.bl_idname, text="12", icon=self.GetIcon(11))
+		operator.nr = 12
+		operator = row.operator(LayerPieRun.bl_idname, text="13", icon=self.GetIcon(12))
+		operator.nr = 13
+		operator = row.operator(LayerPieRun.bl_idname, text="14", icon=self.GetIcon(13))
+		operator.nr = 14
+		operator = row.operator(LayerPieRun.bl_idname, text="15", icon=self.GetIcon(14))
+		operator.nr = 15
+		row.separator()
+		operator = row.operator(LayerPieRun.bl_idname, text="16", icon=self.GetIcon(15))
+		operator.nr = 16
+		operator = row.operator(LayerPieRun.bl_idname, text="17", icon=self.GetIcon(16))
+		operator.nr = 17
+		operator = row.operator(LayerPieRun.bl_idname, text="18", icon=self.GetIcon(17))
+		operator.nr = 18
+		operator = row.operator(LayerPieRun.bl_idname, text="19", icon=self.GetIcon(18))
+		operator.nr = 19
+		operator = row.operator(LayerPieRun.bl_idname, text="20", icon=self.GetIcon(19))
+		operator.nr = 20
 	def GetIcon(self, layer):
 		isIn = False
+		isHalf = False
+		objs = []
 		for obj in bpy.data.objects:
 			if (obj.layers[layer]):
 				isIn = True
-				break
+				objs.append(obj)
+		if (objs):
+			for obj in objs:
+				if (obj.draw_type != 'WIRE'):
+					break
+			else:
+				isHalf = True
 		if (bpy.context.scene.layers[layer]):
+			if (isHalf):
+				return 'WIRE'
 			if (isIn):
-				return "RADIOBUT_ON"
-			return "RADIOBUT_OFF"
+				return 'RADIOBUT_ON'
+			return 'RADIOBUT_OFF'
 		else:
+			if (isHalf):
+				return 'SOLID'
 			if (isIn):
-				return "DOT"
-			return "BLANK1"
+				return 'DOT'
+			return 'BLANK1'
+class LayerPieRun(bpy.types.Operator): #
+	bl_idname = "view3d.layer_pie_run"
+	bl_label = "レイヤーのパイメニュー"
+	bl_description = "レイヤーを切り替えます (+Shiftで追加選択 +Ctrlで半選択 +Altで半選択解除)"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	nr = bpy.props.IntProperty(name="レイヤー番号")
+	extend = bpy.props.BoolProperty(name="選択拡張", default=False)
+	half = bpy.props.BoolProperty(name="半選択", default=False)
+	unhalf = bpy.props.BoolProperty(name="半選択解除", default=False)
+	
+	def execute(self, context):
+		nr = self.nr - 1
+		if (self.half):
+			context.scene.layers[nr] = True
+			for obj in context.blend_data.objects:
+				if (obj.layers[nr]):
+					obj.show_all_edges = True
+					obj.draw_type = 'WIRE'
+		elif (self.unhalf):
+			context.scene.layers[nr] = False
+			for obj in context.blend_data.objects:
+				if (obj.layers[nr]):
+					obj.draw_type = 'TEXTURED'
+		elif (self.extend):
+			context.scene.layers[nr] = not context.scene.layers[nr]
+		else:
+			context.scene.layers[nr] = not context.scene.layers[nr]
+			for i in range(len(context.scene.layers)):
+				if (nr != i):
+					context.scene.layers[i] = False
+		return {'FINISHED'}
+	def invoke(self, context, event):
+		if (event.ctrl):
+			self.extend = False
+			self.half = True
+			self.unhalf = False
+		elif (event.shift):
+			self.extend = True
+			self.half = False
+			self.unhalf = False
+		elif (event.alt):
+			self.extend = False
+			self.half = False
+			self.unhalf = True
+		else:
+			self.extend = False
+			self.half = False
+			self.unhalf = False
+		return self.execute(context)
 
 ########################
 # グループレイヤー関係 #
