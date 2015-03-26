@@ -354,6 +354,8 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	def execute(self, context):
 		keymap_item = context.window_manager.keyconfigs.default.keymaps[self.key_map].keymap_items.new(self.command, self.type, 'PRESS', False, self.shift, self.ctrl, self.alt)
 		for command in self.sub_command.split(","):
+			if (not command):
+				continue
 			name, value = command.split(":")
 			if (re.search(r"^\d+$", value)):
 				keymap_item.properties[name] = int(value)
