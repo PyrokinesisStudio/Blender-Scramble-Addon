@@ -53,8 +53,11 @@ class SaveMainfileUnmassage(bpy.types.Operator):
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
-		bpy.ops.wm.save_mainfile()
-		self.report(type={"INFO"}, message=bpy.path.basename(bpy.data.filepath)+" を保存しました")
+		if (bpy.data.filepath != ""):
+			bpy.ops.wm.save_mainfile()
+			self.report(type={"INFO"}, message=bpy.path.basename(bpy.data.filepath)+" を保存しました")
+		else:
+			self.report(type={"ERROR"}, message="先に「名前をつけて保存」して下さい")
 		return {'FINISHED'}
 
 ##############################
