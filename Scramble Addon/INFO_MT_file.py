@@ -46,6 +46,17 @@ class RecoverLatestAutoSave(bpy.types.Operator):
 		self.report(type={"INFO"}, message="最新の自動保存ファイルを読み込みました")
 		return {'FINISHED'}
 
+class SaveMainfileUnmassage(bpy.types.Operator):
+	bl_idname = "wm.save_mainfile_unmassage"
+	bl_label = "確認せずに上書き保存"
+	bl_description = "確認メッセージを表示せずに上書き保存します"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		bpy.ops.wm.save_mainfile()
+		self.report(type={"INFO"}, message=bpy.path.basename(bpy.data.filepath)+" を保存しました")
+		return {'FINISHED'}
+
 ##############################
 # オペレーター(オブジェクト) #
 ##############################
@@ -482,8 +493,10 @@ class EntireProcessSceneMenu(bpy.types.Menu):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
-	self.layout.operator(RestartBlender.bl_idname, icon="PLUGIN")
+	self.layout.operator(SaveMainfileUnmassage.bl_idname, icon="PLUGIN")
 	self.layout.operator(RecoverLatestAutoSave.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.operator(RestartBlender.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.separator()
 	self.layout.separator()
