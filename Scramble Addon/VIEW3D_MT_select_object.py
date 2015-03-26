@@ -26,6 +26,26 @@ class SelectGroupedMaterial(bpy.types.Operator):
 					obj.select = True
 		return {'FINISHED'}
 
+class SelectGroupedSubsurfLevel(bpy.types.Operator):
+	bl_idname = "object.select_grouped_subsurf_level"
+	bl_label = "同じサブサーフレベルのオブジェクトを選択"
+	bl_description = "アクティブなオブジェクトのサブサーフレベルが同じ可視オブジェクトを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		def GetSubsurfLevel(obj):
+			level = 0
+			for mod in obj.modifiers:
+				if (mod.type == 'SUBSURF'):
+					level += mod.levels
+			return level
+		active_subsurf_level = GetSubsurfLevel(context.active_object)
+		active_type = context.active_object.type
+		for obj in context.selectable_objects:
+			if (GetSubsurfLevel(obj) == active_subsurf_level and active_type == obj.type):
+				obj.select= True
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -50,6 +70,7 @@ class SelectGroupedEX(bpy.types.Menu):
 		self.layout.operator("object.select_grouped", text="ランプタイプ").type = 'LAMP_TYPE'
 		self.layout.separator()
 		self.layout.operator(SelectGroupedMaterial.bl_idname, text="マテリアル", icon="PLUGIN")
+		self.layout.operator(SelectGroupedSubsurfLevel.bl_idname, text="サブサーフレベル", icon="PLUGIN")
 
 ################
 # メニュー追加 #
