@@ -255,7 +255,7 @@ class LayerPieRun(bpy.types.Operator): #
 					obj.show_all_edges = True
 					obj.draw_type = 'WIRE'
 		elif (self.unhalf):
-			context.scene.layers[nr] = True
+			context.scene.layers[nr] = False
 			for obj in context.blend_data.objects:
 				if (obj.layers[nr]):
 					obj.draw_type = 'TEXTURED'
