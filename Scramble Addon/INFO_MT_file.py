@@ -414,9 +414,10 @@ class AllSetPhysicsFrames(bpy.types.Operator):
 			for obj in bpy.data.objects:
 				for modi in obj.modifiers:
 					if (modi.type == 'DYNAMIC_PAINT'):
-						for surface in modi.canvas_settings.canvas_surfaces:
-							surface.frame_start = start
-							surface.frame_end = end
+						if (modi.canvas_settings):
+							for surface in modi.canvas_settings.canvas_surfaces:
+								surface.frame_start = start
+								surface.frame_end = end
 		if (self.isCloth):
 			for obj in bpy.data.objects:
 				for modi in obj.modifiers:
