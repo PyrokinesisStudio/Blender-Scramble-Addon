@@ -310,12 +310,16 @@ class AllRenameTextureFileName(bpy.types.Operator):
 	def execute(self, context):
 		for tex in  bpy.data.textures:
 			if (tex.type == "IMAGE"):
-				name = tex.image.filepath_raw[2:].split("\\")[-1]
-				if (not self.isExt):
-					name, ext = os.path.splitext(name)
-				try:
-					tex.name = name
-				except: pass
+				if (not tex.image):
+					self.report(type={'WARNING'}, message=tex.name+"の画像が指定されていません")
+					continue
+				if (tex.image.filepath_raw != ""):
+					name = bpy.path.basename(tex.image.filepath_raw)
+					if (not self.isExt):
+						name, ext = os.path.splitext(name)
+					try:
+						tex.name = name
+					except: pass
 		return {'FINISHED'}
 
 class FixEmptyTextureUVLayer(bpy.types.Operator):
@@ -359,7 +363,7 @@ class AllRenameImageFileName(bpy.types.Operator):
 	
 	def execute(self, context):
 		for img in  bpy.data.images:
-			name = img.filepath_raw[2:].split("\\")[-1]
+			name = bpy.path.basename(img.filepath_raw)
 			if (not self.isExt):
 				name, ext = os.path.splitext(name)
 			try:

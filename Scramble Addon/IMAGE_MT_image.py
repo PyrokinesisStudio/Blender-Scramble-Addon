@@ -1,6 +1,7 @@
 # UV/画像エディター > 「画像」メニュー
 
 import bpy
+import os
 
 ################
 # オペレーター #
@@ -19,7 +20,7 @@ class RenameImageFileName(bpy.types.Operator):
 		return wm.invoke_props_dialog(self)
 	def execute(self, context):
 		img = context.edit_image
-		name = img.filepath_raw[2:].split("\\")[-1]
+		name = bpy.path.basename(img.filepath_raw)
 		if (not self.isExt):
 			name, ext = os.path.splitext(name)
 		try:
@@ -37,7 +38,7 @@ class AllRenameImageFileName(bpy.types.Operator):
 	
 	def execute(self, context):
 		for img in  bpy.data.images:
-			name = img.filepath_raw[2:].split("\\")[-1]
+			name = bpy.path.basename(img.filepath_raw)
 			if (not self.isExt):
 				name, ext = os.path.splitext(name)
 			try:
