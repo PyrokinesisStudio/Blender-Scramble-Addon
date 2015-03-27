@@ -89,6 +89,28 @@ class FillColor(bpy.types.Operator):
 		context.area.tag_redraw()
 		return {'FINISHED'}
 
+class RenameImageFile(bpy.types.Operator):
+	bl_idname = "image.rename_image_file"
+	bl_label = "画像ファイル名を変更"
+	bl_description = "アクティブな画像のファイル名を変更します"
+	bl_options = {'REGISTER'}
+	
+	new_name = bpy.props.StringProperty(name="新しいファイル名")
+	
+	def invoke(self, context, event):
+		self.new_name = bpy.path.basename(context.edit_image.filepath_raw)
+		if (self.new_name == ""):
+			self.report(type={"ERROR"}, message="この画像には外部ファイルが存在しません")
+			return {"CANCELLED"}
+		return context.window_manager.invoke_props_dialog(self)
+	def execute(self, context):
+		pre_filepath = context.edit_image.filepath_raw
+		dir = os.path.dirname(context.edit_image.filepath_raw)
+		bpy.ops.image.save_as(filepath=os.path.join(dir, self.new_name))
+		context.edit_image.name = self.new_name
+		os.remove(pre_filepath)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -98,6 +120,7 @@ def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(FillColor.bl_idname, icon="PLUGIN")
 	self.layout.separator()
+	self.layout.operator(RenameImageFile.bl_idname, icon="PLUGIN")
 	self.layout.operator(RenameImageFileName.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(AllRenameImageFileName.bl_idname, icon="PLUGIN")
