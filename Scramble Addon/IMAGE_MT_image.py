@@ -105,10 +105,14 @@ class RenameImageFile(bpy.types.Operator):
 		return context.window_manager.invoke_props_dialog(self)
 	def execute(self, context):
 		pre_filepath = context.edit_image.filepath_raw
-		dir = os.path.dirname(context.edit_image.filepath_raw)
+		dir = os.path.dirname(bpy.path.abspath(context.edit_image.filepath_raw))
+		name = bpy.path.basename(context.edit_image.filepath_raw)
+		if (self.new_name == name):
+			self.report(type={"ERROR"}, message="画像ファイル名が元と同じです")
+			return {"CANCELLED"}
 		bpy.ops.image.save_as(filepath=os.path.join(dir, self.new_name))
 		context.edit_image.name = self.new_name
-		os.remove(pre_filepath)
+		os.remove(bpy.path.abspath(pre_filepath))
 		return {'FINISHED'}
 
 ################
