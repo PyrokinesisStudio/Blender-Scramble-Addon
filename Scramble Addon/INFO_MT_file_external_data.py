@@ -36,8 +36,9 @@ class ResaveAllImage(bpy.types.Operator):
 			self.report(type={"ERROR"}, message="blendファイルを保存してから実行して下さい")
 			return {'CANCELLED'}
 		for img in context.blend_data.images:
-			img.pack()
-			img.unpack()
+			if (img.filepath != ""):
+				img.pack()
+				img.unpack()
 		self.report(type={"INFO"}, message="texturesフォルダに保存し直しました")
 		return {'FINISHED'}
 
