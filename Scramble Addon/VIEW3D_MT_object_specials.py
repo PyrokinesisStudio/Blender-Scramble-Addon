@@ -365,6 +365,8 @@ def menu(self, context):
 				i += 1
 		if (2 <= i):
 			column.enabled = True
+	column = self.layout.column()
+	column.operator('mesh.vertex_group_average_all', icon="PLUGIN")
 	self.layout.separator()
 	column = self.layout.column()
 	column.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")

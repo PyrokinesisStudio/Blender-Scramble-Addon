@@ -72,6 +72,7 @@ class VertexGroupAverageAll(bpy.types.Operator):
 	strength = bpy.props.FloatProperty(name="強度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
 	
 	def execute(self, context):
+		pre_mode = context.mode
 		obj = context.active_object
 		if (obj.type == "MESH"):
 			vgs = []
@@ -101,7 +102,7 @@ class VertexGroupAverageAll(bpy.types.Operator):
 					vg.add([vert.index], w, "REPLACE")
 				i += 1
 		bpy.ops.object.mode_set(mode="OBJECT")
-		bpy.ops.object.mode_set(mode="WEIGHT_PAINT")
+		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
 class ApplyDynamicPaint(bpy.types.Operator):
