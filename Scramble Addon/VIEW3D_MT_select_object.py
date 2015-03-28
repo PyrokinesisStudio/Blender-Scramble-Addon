@@ -1,10 +1,26 @@
 # 3Dビュー > オブジェクトモード > 「選択」メニュー
 
 import bpy
+import re
 
 ################
 # オペレーター #
 ################
+
+class SelectGroupedName(bpy.types.Operator):
+	bl_idname = "object.select_grouped_name"
+	bl_label = "同じ名前のオブジェクトを選択"
+	bl_description = "アクティブなオブジェクトと同じ名前 (X X.001 X.002など) の可視オブジェクトを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		name_base = context.active_object.name
+		if (re.search(r'\.\d+$', name_base)):
+			name_base = re.search(r'^(.*)\.\d+$', name_base).groups()[0]
+		for obj in context.selectable_objects:
+			if (re.search('^'+name_base+r'\.\d+$', obj.name) or name_base == obj.name):
+				obj.select = True
+		return {'FINISHED'}
 
 class SelectGroupedMaterial(bpy.types.Operator):
 	bl_idname = "object.select_grouped_material"
@@ -88,6 +104,7 @@ class SelectGroupedEX(bpy.types.Menu):
 		self.layout.operator("object.select_grouped", text="キーイングセット").type = 'KEYINGSET'
 		self.layout.operator("object.select_grouped", text="ランプタイプ").type = 'LAMP_TYPE'
 		self.layout.separator()
+		self.layout.operator(SelectGroupedName.bl_idname, text="オブジェクト名", icon="PLUGIN")
 		self.layout.operator(SelectGroupedMaterial.bl_idname, text="マテリアル", icon="PLUGIN")
 		self.layout.operator(SelectGroupedModifiers.bl_idname, text="モディファイア", icon="PLUGIN")
 		self.layout.operator(SelectGroupedSubsurfLevel.bl_idname, text="サブサーフレベル", icon="PLUGIN")
