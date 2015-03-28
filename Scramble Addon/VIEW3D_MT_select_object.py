@@ -81,6 +81,32 @@ class SelectGroupedSubsurfLevel(bpy.types.Operator):
 				obj.select= True
 		return {'FINISHED'}
 
+class SelectGroupedArmatureTarget(bpy.types.Operator):
+	bl_idname = "object.select_grouped_armature_target"
+	bl_label = "同じアーマチュアで変形しているオブジェクトを選択"
+	bl_description = "アクティブなオブジェクトと同じアーマチュアで変形している可視オブジェクトを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		def GetArmatureTarget(obj):
+			target = []
+			for mod in obj.modifiers:
+				if (mod.type == 'ARMATURE'):
+					if (mod.object):
+						target.append(mod.object.name)
+					else:
+						target.append("")
+			return set(target)
+		active_armature_targets = GetArmatureTarget(context.active_object)
+		if (len(active_armature_targets) == 0):
+			self.report(type={"ERROR"}, message="アクティブオブジェクトにアーマチュアモディファイアがありません")
+			return {"CANCELLED"}
+		active_type = context.active_object.type
+		for obj in context.selectable_objects:
+			if (len(GetArmatureTarget(obj).intersection(active_armature_targets)) == len(active_armature_targets) and active_type == obj.type):
+				obj.select= True
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -108,6 +134,7 @@ class SelectGroupedEX(bpy.types.Menu):
 		self.layout.operator(SelectGroupedMaterial.bl_idname, text="マテリアル", icon="PLUGIN")
 		self.layout.operator(SelectGroupedModifiers.bl_idname, text="モディファイア", icon="PLUGIN")
 		self.layout.operator(SelectGroupedSubsurfLevel.bl_idname, text="サブサーフレベル", icon="PLUGIN")
+		self.layout.operator(SelectGroupedArmatureTarget.bl_idname, text="同アーマチュア変形", icon="PLUGIN")
 
 ################
 # メニュー追加 #
