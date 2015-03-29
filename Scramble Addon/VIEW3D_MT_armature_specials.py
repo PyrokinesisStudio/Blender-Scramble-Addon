@@ -25,7 +25,7 @@ class CreateMirror(bpy.types.Operator):
 				context.space_data.pivot_point = 'CURSOR'
 				context.object.data.use_mirror_x = True
 				
-				selectedBones = context.selected_bones
+				selectedBones = context.selected_bones[:]
 				bpy.ops.armature.autoside_names(type='XAXIS')
 				bpy.ops.armature.duplicate()
 				axis = (True, False, False)
@@ -33,13 +33,22 @@ class CreateMirror(bpy.types.Operator):
 				bpy.ops.armature.flip_names()
 				newBones = []
 				for bone in context.selected_bones:
-					newBones.append(bone)
+					for pre in selectedBones:
+						if (bone.name == pre.name):
+							break
+					else:
+						newBones.append(bone)
 				bpy.ops.armature.select_all(action='DESELECT')
 				for bone in selectedBones:
 					bone.select = True
 					bone.select_head = True
 					bone.select_tail = True
 				bpy.ops.transform.transform(mode='BONE_ROLL', value=(0, 0, 0, 0))
+				bpy.ops.armature.select_all(action='DESELECT')
+				for bone in newBones:
+					bone.select = True
+					bone.select_head = True
+					bone.select_tail = True
 				
 				context.space_data.cursor_location = preCursorCo[:]
 				context.space_data.pivot_point = prePivotPoint
