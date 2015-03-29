@@ -19,7 +19,7 @@ class RestartBlender(bpy.types.Operator):
 	
 	def execute(self, context):
 		py = os.path.join(os.path.dirname(__file__), "console_toggle.py")
-		subprocess.Popen('"'+sys.argv[0]+'" -P "'+py+'"')
+		subprocess.Popen([sys.argv[0],'-P', py])
 		bpy.ops.wm.quit_blender()
 		return {'FINISHED'}
 

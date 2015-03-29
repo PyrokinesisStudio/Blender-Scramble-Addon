@@ -4,6 +4,7 @@ import bpy
 import zipfile, urllib.request, os, sys, re
 import csv
 import collections
+import subprocess
 import winreg
 
 ################
@@ -76,7 +77,7 @@ class ShowShortcutHtml(bpy.types.Operator):
 	def execute(self, context):
 		addonDir = os.path.dirname(__file__)
 		keyDatas = collections.OrderedDict()
-		with open(addonDir + "\\ShortcutHtmlKeysData.csv", 'r') as f:
+		with open(os.path.join(addonDir, "ShortcutHtmlKeysData.csv"), 'r') as f:
 			reader = csv.reader(f)
 			for row in reader:
 				name = row[1]
