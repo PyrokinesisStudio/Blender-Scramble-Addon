@@ -362,6 +362,22 @@ class RenameBoneNameEndJapanese(bpy.types.Operator):
 		self.report(type={"INFO"}, message="ボーン名の変換が終了しました、"+str(rename_count)+"個変換しました")
 		return {'FINISHED'}
 
+class TogglePosePosition(bpy.types.Operator):
+	bl_idname = "pose.toggle_pose_position"
+	bl_label = "ポーズ位置を切り替え"
+	bl_description = "アーマチュアのポーズ位置/レスト位置を切り替えます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		if (context.object.type != 'ARMATURE'):
+			self.report(type={"ERROR"}, message="アーマチュアで実行して下さい")
+			return {"CANCELLED"}
+		if (context.object.data.pose_position == 'POSE'):
+			context.object.data.pose_position = 'REST'
+		else:
+			context.object.data.pose_position = 'POSE'
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -378,7 +394,10 @@ def menu(self, context):
 	self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="ボーン名置換「XXX_R => 右XXX」", icon="PLUGIN").reverse = False
 	self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="ボーン名置換「右XXX => XXX_R」", icon="PLUGIN").reverse = True
 	self.layout.separator()
-	self.layout.prop_menu_enum(context.object.data, "pose_position", icon="PLUGIN")
+	text = "ポーズ位置を切り替え (現在：レスト位置)"
+	if (context.object.data.pose_position == 'POSE'):
+		text = "ポーズ位置を切り替え (現在：ポーズ位置)"
+	self.layout.operator(TogglePosePosition.bl_idname, text=text, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(CreateCustomShape.bl_idname, icon="PLUGIN")
 	self.layout.operator(CreateWeightCopyMesh.bl_idname, icon="PLUGIN")
