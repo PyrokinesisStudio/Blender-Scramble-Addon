@@ -407,8 +407,10 @@ class CopyConstraintsMirror(bpy.types.Operator):
 			try:
 				mirror_bone = context.active_object.pose.bones[GetMirrorBoneName(bone.name)]
 			except KeyError:
+				self.report(type={"WARNING"}, message=bone.name+"の対になるボーンが存在しないので無視します")
 				continue
 			if (bone.name == mirror_bone.name):
+				self.report(type={"WARNING"}, message=bone.name+"はミラーに対応した名前ではありません、無視します")
 				continue
 			for const in mirror_bone.constraints[:]:
 				mirror_bone.constraints.remove(const)
