@@ -378,6 +378,58 @@ class TogglePosePosition(bpy.types.Operator):
 			context.object.data.pose_position = 'POSE'
 		return {'FINISHED'}
 
+class CopyConstraintsMirror(bpy.types.Operator):
+	bl_idname = "pose.copy_constraints_mirror"
+	bl_label = "対のボーンにコンストレイントをコピー"
+	bl_description = "「X.L」なら「X.R」、「X.R」なら「X.L」の名前のボーンへとコンストレイントをコピーします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		def GetMirrorBoneName(name):
+			new_name = re.sub(r'([\._])L$', r"\1R", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])l$', r"\1r", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])R$', r"\1L", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])r$', r"\1l", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])L([\._]\d+)$', r"\1R\2", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])l([\._]\d+)$', r"\1r\2", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])R([\._]\d+)$', r"\1L\2", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])r([\._]\d+)$', r"\1l\2", name)
+			if (new_name != name): return new_name
+			return name
+		for bone in context.selected_pose_bones:
+			try:
+				mirror_bone = context.active_object.pose.bones[GetMirrorBoneName(bone.name)]
+			except KeyError:
+				continue
+			if (bone.name == mirror_bone.name):
+				continue
+			for const in mirror_bone.constraints[:]:
+				mirror_bone.constraints.remove(const)
+			for const in bone.constraints[:]:
+				new_const = mirror_bone.constraints.new(const.type)
+				for value_name in dir(new_const):
+					if (value_name[0] != '_'):
+						try:
+							new_const.__setattr__(value_name, const.__getattribute__(value_name))
+						except AttributeError:
+							continue
+				try:
+					new_const.subtarget
+				except AttributeError:
+					continue
+				new_const.subtarget = GetMirrorBoneName(new_const.subtarget)
+		pre_mode = context.mode
+		bpy.ops.object.mode_set(mode='EDIT')
+		bpy.ops.object.mode_set(mode=pre_mode)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -387,6 +439,8 @@ def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")
 	self.layout.operator(RenameBoneRegularExpression.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.operator(CopyConstraintsMirror.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(RenameBoneNameEnd.bl_idname, text="ボーン名置換「XXX_R => XXX.R」", icon="PLUGIN").reverse = False
 	self.layout.operator(RenameBoneNameEnd.bl_idname, text="ボーン名置換「XXX.R => XXX_R」", icon="PLUGIN").reverse = True
