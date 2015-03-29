@@ -60,6 +60,70 @@ class SaveMainfileUnmassage(bpy.types.Operator):
 			self.report(type={"ERROR"}, message="先に「名前をつけて保存」して下さい")
 		return {'FINISHED'}
 
+class OpenRecentFiles(bpy.types.Operator):
+	bl_idname = "wm.open_recent_files"
+	bl_label = "「最近使ったファイル」をテキストで開く"
+	bl_description = "「最近使ったファイル」をBlenderのテキストエディタで開きます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		path = os.path.join(bpy.utils.user_resource('CONFIG'), "recent-files.txt")
+		pre_texts = context.blend_data.texts[:]
+		bpy.ops.text.open(filepath=path)
+		for text in context.blend_data.texts[:]:
+			for pre in pre_texts:
+				if (text.name == pre.name):
+					break
+			else:
+				new_text = text
+				break
+		max_area = 0
+		target_area = None
+		for area in context.screen.areas:
+			if (area.type == 'TEXT_EDITOR'):
+				target_area = area
+				break
+			if (max_area < area.height * area.width):
+				max_area = area.height * area.width
+				target_area = area
+		target_area.type = 'TEXT_EDITOR'
+		for space in target_area.spaces:
+			if (space.type == 'TEXT_EDITOR'):
+				space.text = new_text
+		return {'FINISHED'}
+
+class OpenBookmarkText(bpy.types.Operator):
+	bl_idname = "wm.open_bookmark_text"
+	bl_label = "「ブックマーク」をテキストで開く"
+	bl_description = "ファイルブラウザのブックマークをBlenderのテキストエディタで開きます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		path = os.path.join(bpy.utils.user_resource('CONFIG'), "bookmarks.txt")
+		pre_texts = context.blend_data.texts[:]
+		bpy.ops.text.open(filepath=path)
+		for text in context.blend_data.texts[:]:
+			for pre in pre_texts:
+				if (text.name == pre.name):
+					break
+			else:
+				new_text = text
+				break
+		max_area = 0
+		target_area = None
+		for area in context.screen.areas:
+			if (area.type == 'TEXT_EDITOR'):
+				target_area = area
+				break
+			if (max_area < area.height * area.width):
+				max_area = area.height * area.width
+				target_area = area
+		target_area.type = 'TEXT_EDITOR'
+		for space in target_area.spaces:
+			if (space.type == 'TEXT_EDITOR'):
+				space.text = new_text
+		return {'FINISHED'}
+
 ##############################
 # オペレーター(オブジェクト) #
 ##############################
@@ -501,11 +565,14 @@ class EntireProcessSceneMenu(bpy.types.Menu):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
+	self.layout.operator(RestartBlender.bl_idname, icon="PLUGIN")
+	self.layout.separator()
 	self.layout.operator(SaveMainfileUnmassage.bl_idname, icon="PLUGIN")
 	self.layout.operator(RecoverLatestAutoSave.bl_idname, icon="PLUGIN")
 	self.layout.separator()
-	self.layout.operator(RestartBlender.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.separator()
+	self.layout.operator(OpenRecentFiles.bl_idname, icon="PLUGIN")
+	self.layout.operator(OpenBookmarkText.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.menu(EntireProcessMenu.bl_idname, icon="PLUGIN")
