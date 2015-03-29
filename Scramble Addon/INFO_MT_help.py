@@ -17,8 +17,27 @@ class RegisterBlendFile(bpy.types.Operator):
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
+		winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\.blend", winreg.REG_SZ, 'blend_auto_file')
 		winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\blend_auto_file\shell\open\command", winreg.REG_SZ, '"'+sys.argv[0]+'" "%1"')
 		self.report(type={"INFO"}, message=".blendファイルをこの実行ファイルに関連付けました")
+		return {'FINISHED'}
+
+class RegisterBlendBackupFiles(bpy.types.Operator):
+	bl_idname = "system.register_blend_backup_files"
+	bl_label = "バックアップをこのバージョンに関連付け"
+	bl_description = ".blend1 .blend2 などのバックアップファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)"
+	bl_options = {'REGISTER'}
+	
+	max = bpy.props.IntProperty(name=".blend1～.blendN まで", default=10, min=1, max=1000, soft_min=1, soft_max=1000)
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	def execute(self, context):
+		winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\blend1_auto_file\shell\open\command", winreg.REG_SZ, '"'+sys.argv[0]+'" "%1"')
+		for i in range(self.max):
+			i += 1
+			winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\.blend"+str(i), winreg.REG_SZ, 'blend1_auto_file')
+		self.report(type={"INFO"}, message="バックアップファイルをこの実行ファイルに関連付けました")
 		return {'FINISHED'}
 
 class UpdateScrambleAddon(bpy.types.Operator):
@@ -424,4 +443,6 @@ def menu(self, context):
 	self.layout.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(RegisterBlendFile.bl_idname, icon="PLUGIN")
+	self.layout.operator(RegisterBlendBackupFiles.bl_idname, icon="PLUGIN")
+	self.layout.separator()
 	self.layout.operator(UpdateScrambleAddon.bl_idname, icon="PLUGIN")

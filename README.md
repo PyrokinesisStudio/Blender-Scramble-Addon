@@ -81,6 +81,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **情報 > 「ヘルプ」メニュー**
     * **.blendファイルをこのバージョンに関連付け**
         * .blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
+    * **バックアップをこのバージョンに関連付け**
+        * .blend1 .blend2 などのバックアップファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
     * **Blender-Scramble-Addonを更新**
         * Blender-Scramble-Addonをダウンロード・更新を済ませます
     * **ショートカット一覧をブラウザで閲覧**
