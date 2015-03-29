@@ -61,7 +61,7 @@ class UpdateScrambleAddon(bpy.types.Operator):
 				pass
 			else:
 				if ("Blender-Scramble-Addon-master/Scramble Addon/" in f):
-					uzf = open(addonDir +"\\"+ os.path.basename(f), 'wb')
+					uzf = open(os.path.join(addonDir, os.path.basename(f)), 'wb')
 					uzf.write(zf.read(f))
 					uzf.close()
 		zf.close()
