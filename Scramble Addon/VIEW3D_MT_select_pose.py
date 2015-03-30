@@ -1,10 +1,28 @@
 # 3Dビュー > ポーズモード > 「選択」メニュー
 
 import bpy
+import re
 
 ################
 # オペレーター #
 ################
+
+class SelectSerialNumberNameBone(bpy.types.Operator):
+	bl_idname = "pose.select_serial_number_name_bone"
+	bl_label = "連番の付いたボーンを選択"
+	bl_description = "X.001 のように番号の付いた名前のボーンを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		obj = context.active_object
+		if (obj.type != 'ARMATURE'):
+			self.report(type={"ERROR"}, message="アーマチュアオブジェクトで実行して下さい")
+			return {"CANCELLED"}
+		arm = obj.data
+		for bone in context.visible_pose_bones[:]:
+			if (re.search(r'\.\d+$', bone.name)):
+				arm.bones[bone.name].select = True
+		return {'FINISHED'}
 
 class SelectSameConstraintBone(bpy.types.Operator):
 	bl_idname = "pose.select_same_constraint_bone"
@@ -30,10 +48,28 @@ class SelectSameConstraintBone(bpy.types.Operator):
 		return {'FINISHED'}
 
 ################
+# サブメニュー #
+################
+
+class SelectGroupedMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_select_pose_grouped"
+	bl_label = "関係で選択 (拡張)"
+	bl_description = "同じプロパティでまとめた可視ボーンをすべて選択する機能のメニューです"
+	
+	def draw(self, context):
+		self.layout.operator('pose.select_grouped', text="レイヤー", icon="PLUGIN").type = 'LAYER'
+		self.layout.operator('pose.select_grouped', text="グループ", icon="PLUGIN").type = 'GROUP'
+		self.layout.operator('pose.select_grouped', text="キーイングセット", icon="PLUGIN").type = 'KEYINGSET'
+		self.layout.separator()
+		self.layout.operator(SelectSameConstraintBone.bl_idname, icon="PLUGIN")
+
+################
 # メニュー追加 #
 ################
 
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
-	self.layout.operator(SelectSameConstraintBone.bl_idname, icon="PLUGIN")
+	self.layout.operator(SelectSerialNumberNameBone.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.menu(SelectGroupedMenu.bl_idname, icon="PLUGIN")
