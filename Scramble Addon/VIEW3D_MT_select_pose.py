@@ -24,6 +24,56 @@ class SelectSerialNumberNameBone(bpy.types.Operator):
 				arm.bones[bone.name].select = True
 		return {'FINISHED'}
 
+class SelectMoveSymmetryNameBones(bpy.types.Operator):
+	bl_idname = "pose.select_move_symmetry_name_bones"
+	bl_label = "対称のボーンへ選択を移動"
+	bl_description = "X.Rを選択中ならX.Lへ選択を変更、X.LならX.Rへ"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		def GetMirrorBoneName(name):
+			new_name = re.sub(r'([\._])L$', r"\1R", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])l$', r"\1r", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])R$', r"\1L", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])r$', r"\1l", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])L([\._]\d+)$', r"\1R\2", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])l([\._]\d+)$', r"\1r\2", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])R([\._]\d+)$', r"\1L\2", name)
+			if (new_name != name): return new_name
+			new_name = re.sub(r'([\._])r([\._]\d+)$', r"\1l\2", name)
+			if (new_name != name): return new_name
+			return name
+		obj = context.active_object
+		if (obj.type != 'ARMATURE'):
+			self.report(type={"ERROR"}, message="アーマチュアオブジェクトで実行して下さい")
+			return {"CANCELLED"}
+		arm = obj.data
+		pre_selected_pose_bones = context.selected_pose_bones[:]
+		for bone in pre_selected_pose_bones[:]:
+			mirror_name = GetMirrorBoneName(bone.name)
+			if (mirror_name == bone.name):
+				self.report(type={"WARNING"}, message=bone.name+"はミラーに対応した名前ではありません、無視します")
+				continue
+			try:
+				arm.bones[mirror_name]
+			except KeyError:
+				self.report(type={"WARNING"}, message=bone.name+"の対になるボーンが存在しないので無視します")
+				continue
+			arm.bones[mirror_name].select = True
+		for bone in pre_selected_pose_bones[:]:
+			arm.bones[bone.name].select = False
+		try:
+			arm.bones.active = arm.bones[GetMirrorBoneName(arm.bones.active.name)]
+		except KeyError:
+			arm.bones.active = arm.bones[context.selected_pose_bones[0].name]
+		return {'FINISHED'}
+
 class SelectSameConstraintBone(bpy.types.Operator):
 	bl_idname = "pose.select_same_constraint_bone"
 	bl_label = "同じコンストレイントのボーンを選択"
@@ -69,8 +119,8 @@ class SelectSameNameBones(bpy.types.Operator):
 
 class SelectSymmetryNameBones(bpy.types.Operator):
 	bl_idname = "pose.select_symmetry_name_bones"
-	bl_label = "名前が対のボーンを選択"
-	bl_description = "X.Rを選択中ならX.Lも選択、X.LならX.Rも選択"
+	bl_label = "名前が対称のボーンを追加選択"
+	bl_description = "X.Rを選択中ならX.Lも追加選択、X.LならX.Rも選択"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -136,5 +186,6 @@ class SelectGroupedMenu(bpy.types.Menu):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(SelectSerialNumberNameBone.bl_idname, icon="PLUGIN")
+	self.layout.operator(SelectMoveSymmetryNameBones.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.menu(SelectGroupedMenu.bl_idname, icon="PLUGIN")
