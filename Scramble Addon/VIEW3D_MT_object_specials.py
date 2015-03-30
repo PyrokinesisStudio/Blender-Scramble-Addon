@@ -79,6 +79,7 @@ class CreateRopeMesh(bpy.types.Operator):
 		activeObj = context.active_object
 		pre_use_stretch = activeObj.data.use_stretch
 		pre_use_deform_bounds = activeObj.data.use_deform_bounds
+		bpy.ops.object.transform_apply_all()
 		
 		bpy.ops.mesh.primitive_cylinder_add(vertices=self.vertices, radius=self.radius, depth=1, end_fill_type='NOTHING', view_align=False, enter_editmode=True, location=(0, 0, 0), rotation=(0, 1.5708, 0))
 		bpy.ops.mesh.select_all(action='DESELECT')
