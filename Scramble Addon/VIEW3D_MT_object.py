@@ -133,6 +133,8 @@ class DeleteUnmassage(bpy.types.Operator):
 	use_global = bpy.props.BoolProperty(name="全体的に削除", default=False)
 	
 	def execute(self, context):
+		if (context.active_object):
+			self.report(type={"INFO"}, message=context.active_object.name+"などを削除しました")
 		bpy.ops.object.delete(use_global=self.use_global)
 		return {'FINISHED'}
 
