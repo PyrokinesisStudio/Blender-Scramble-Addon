@@ -47,6 +47,26 @@ class SelectSameConstraintBone(bpy.types.Operator):
 					context.active_object.data.bones[bone.name].select = True
 		return {'FINISHED'}
 
+class SelectSameNameBones(bpy.types.Operator):
+	bl_idname = "pose.select_same_name_bones"
+	bl_label = "同じ名前のボーンを選択"
+	bl_description = "X X.001 X.002 などのボーン名を同じ名前とみなして選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		obj = context.active_object
+		if (obj.type != 'ARMATURE'):
+			self.report(type={"ERROR"}, message="アーマチュアオブジェクトで実行して下さい")
+			return {"CANCELLED"}
+		arm = obj.data
+		name_base = context.active_pose_bone.name
+		if (re.search(r'\.\d+$', name_base)):
+			name_base = re.search(r'^(.*)\.\d+$', name_base).groups()[0]
+		for bone in context.visible_pose_bones[:]:
+			if (re.search('^'+name_base+r'\.\d+$', bone.name) or name_base == bone.name):
+				arm.bones[bone.name].select = True
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -61,7 +81,8 @@ class SelectGroupedMenu(bpy.types.Menu):
 		self.layout.operator('pose.select_grouped', text="グループ", icon="PLUGIN").type = 'GROUP'
 		self.layout.operator('pose.select_grouped', text="キーイングセット", icon="PLUGIN").type = 'KEYINGSET'
 		self.layout.separator()
-		self.layout.operator(SelectSameConstraintBone.bl_idname, icon="PLUGIN")
+		self.layout.operator(SelectSameNameBones.bl_idname, text="ボーン名", icon="PLUGIN")
+		self.layout.operator(SelectSameConstraintBone.bl_idname, text="コンストレイント", icon="PLUGIN")
 
 ################
 # メニュー追加 #
