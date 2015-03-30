@@ -178,6 +178,18 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 # オペレーター(モディファイア) #
 ################################
 
+class ApplyAllModifiers(bpy.types.Operator):
+	bl_idname = "object.apply_all_modifiers"
+	bl_label = "全モディファイア適用"
+	bl_description = "選択オブジェクトの全てのモディファイアを適用します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers[:]:
+				bpy.ops.object.modifier_apply(apply_as='DATA', modifier=mod.name)
+		return {'FINISHED'}
+
 class DeleteAllModifiers(bpy.types.Operator):
 	bl_idname = "object.delete_all_modifiers"
 	bl_label = "全モディファイア削除"
@@ -538,6 +550,7 @@ class ModifierMenu(bpy.types.Menu):
 	bl_description = "モディファイア関係の操作です"
 	
 	def draw(self, context):
+		self.layout.operator(ApplyAllModifiers.bl_idname, icon="PLUGIN")
 		self.layout.operator(DeleteAllModifiers.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(ToggleApplyModifiersView.bl_idname, icon="PLUGIN")
