@@ -210,6 +210,29 @@ class ToggleApplyModifiersView(bpy.types.Operator):
 			self.report(type={"INFO"}, message="ビューへのモディファイア適用を解除しました")
 		return {'FINISHED'}
 
+class SyncShowModifiers(bpy.types.Operator):
+	bl_idname = "object.sync_show_modifiers"
+	bl_label = "モディファイア使用を同期"
+	bl_description = "選択オブジェクトのレンダリング時/ビュー時のモディファイア使用を同期します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		("1", "レンダリング → ビュー", "", 1),
+		("0", "ビュー → レンダリング", "", 2),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="演算", default="0")
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	def execute(self, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				if (int(self.mode)):
+					mod.show_viewport = mod.show_render
+				else:
+					mod.show_render = mod.show_viewport
+		return {'FINISHED'}
+
 ############################
 # オペレーター(ブーリアン) #
 ############################
@@ -513,8 +536,10 @@ class ModifierMenu(bpy.types.Menu):
 	bl_description = "モディファイア関係の操作です"
 	
 	def draw(self, context):
-		self.layout.operator(ToggleApplyModifiersView.bl_idname, icon="PLUGIN")
 		self.layout.operator(DeleteAllModifiers.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(ToggleApplyModifiersView.bl_idname, icon="PLUGIN")
+		self.layout.operator(SyncShowModifiers.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
 		self.layout.menu(ArmatureMenu.bl_idname, icon="PLUGIN")
