@@ -366,6 +366,19 @@ class QuickCurveDeform(bpy.types.Operator):
 		curve.use_deform_bounds = pre_use_deform_bounds
 		return {'FINISHED'}
 
+class VertexGroupTransfer(bpy.types.Operator):
+	bl_idname = "object.vertex_group_transfer"
+	bl_label = "頂点グループの転送"
+	bl_description = "アクティブなメッシュに他の選択メッシュの頂点グループを転送します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		if (0 < len(context.active_object.vertex_groups)):
+			bpy.ops.object.vertex_group_remove(all=True)
+		bpy.ops.object.data_transfer(use_reverse_transfer=True, data_type='VGROUP_WEIGHTS', use_create=True, vert_mapping='POLYINTERP_NEAREST', layers_select_src = 'ALL', layers_select_dst = 'NAME')
+		bpy.ops.object.vertex_group_clean(group_select_mode='ALL', limit=0, keep_single=False)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -399,13 +412,7 @@ def menu(self, context):
 			column.enabled = True
 	self.layout.separator()
 	column = self.layout.column()
-	operator = column.operator('object.data_transfer', text="メッシュデータの転送 (頂点グループ用)", icon="PLUGIN")
-	operator.use_reverse_transfer = True
-	operator.data_type = 'VGROUP_WEIGHTS'
-	operator.use_create = True
-	operator.vert_mapping = 'POLYINTERP_NEAREST'
-	operator.layers_select_src = 'ALL'
-	operator.layers_select_dst = 'NAME'
+	operator = column.operator(VertexGroupTransfer.bl_idname, icon="PLUGIN")
 	column.enabled = False
 	if (context.active_object.type == 'MESH'):
 		i = 0
