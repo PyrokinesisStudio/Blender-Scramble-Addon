@@ -372,11 +372,18 @@ class VertexGroupTransfer(bpy.types.Operator):
 	bl_description = "アクティブなメッシュに他の選択メッシュの頂点グループを転送します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	vertex_group_remove_all = bpy.props.BoolProperty(name="最初に頂点グループ全削除", default=False)
+	vertex_group_clean = bpy.props.BoolProperty(name="頂点グループのクリーン", default=True)
+	vertex_group_delete = bpy.props.BoolProperty(name="割り当ての無い頂点グループ削除", default=False)
+	
 	def execute(self, context):
-		if (0 < len(context.active_object.vertex_groups)):
+		if (0 < len(context.active_object.vertex_groups) and self.vertex_group_remove_all):
 			bpy.ops.object.vertex_group_remove(all=True)
 		bpy.ops.object.data_transfer(use_reverse_transfer=True, data_type='VGROUP_WEIGHTS', use_create=True, vert_mapping='POLYINTERP_NEAREST', layers_select_src = 'ALL', layers_select_dst = 'NAME')
-		bpy.ops.object.vertex_group_clean(group_select_mode='ALL', limit=0, keep_single=False)
+		if (self.vertex_group_clean):
+			bpy.ops.object.vertex_group_clean(group_select_mode='ALL', limit=0, keep_single=False)
+		if (self.vertex_group_delete):
+			bpy.ops.mesh.remove_empty_vertex_groups()
 		return {'FINISHED'}
 
 ################
