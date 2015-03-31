@@ -107,13 +107,16 @@ class MoveVertexGroupBottom(bpy.types.Operator):
 
 # メニューを登録する関数
 def menu(self, context):
-	self.layout.separator()
-	self.layout.operator(SelectVertexGroupsTop.bl_idname, icon="PLUGIN")
-	self.layout.operator(SelectVertexGroupsBottom.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(MoveVertexGroupTop.bl_idname, icon="PLUGIN")
-	self.layout.operator(MoveVertexGroupBottom.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(RemoveEmptyVertexGroups.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(AddOppositeVertexGroups.bl_idname, icon="PLUGIN")
+	column = self.layout.column()
+	column.separator()
+	column.operator(SelectVertexGroupsTop.bl_idname, icon="PLUGIN")
+	column.operator(SelectVertexGroupsBottom.bl_idname, icon="PLUGIN")
+	column.separator()
+	column.operator(MoveVertexGroupTop.bl_idname, icon="PLUGIN")
+	column.operator(MoveVertexGroupBottom.bl_idname, icon="PLUGIN")
+	column.separator()
+	column.operator(RemoveEmptyVertexGroups.bl_idname, icon="PLUGIN")
+	column.separator()
+	column.operator(AddOppositeVertexGroups.bl_idname, icon="PLUGIN")
+	if (len(context.active_object.vertex_groups) <= 0):
+		column.enabled = False
