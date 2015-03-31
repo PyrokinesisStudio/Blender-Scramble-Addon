@@ -35,7 +35,7 @@ class CopyOtherUVMenu(bpy.types.Menu):
 class CopyOtherUV(bpy.types.Operator):
 	bl_idname = "uv.copy_other_uv"
 	bl_label = "他のUVからコピー"
-	bl_description = "アクティブなUV展開を他のUVからコピーしてきます"
+	bl_description = "選択部分のアクティブなUV展開を、他のUVからコピーしてきます"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	uv = bpy.props.StringProperty(name="コピー元UV")
@@ -48,10 +48,11 @@ class CopyOtherUV(bpy.types.Operator):
 		active_uv = me.uv_layers.active
 		source_uv = me.uv_layers[self.uv]
 		for i in range(len(active_uv.data)):
-			active_uv.data[i].pin_uv = source_uv.data[i].pin_uv
-			active_uv.data[i].select = source_uv.data[i].select
-			active_uv.data[i].select_edge = source_uv.data[i].select_edge
-			active_uv.data[i].uv = source_uv.data[i].uv
+			if (me.vertices[me.loops[i].vertex_index].select):
+				active_uv.data[i].pin_uv = source_uv.data[i].pin_uv
+				active_uv.data[i].select = source_uv.data[i].select
+				active_uv.data[i].select_edge = source_uv.data[i].select_edge
+				active_uv.data[i].uv = source_uv.data[i].uv
 		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
