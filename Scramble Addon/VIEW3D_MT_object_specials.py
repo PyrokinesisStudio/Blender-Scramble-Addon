@@ -318,6 +318,54 @@ class AllResetHideSelect(bpy.types.Operator):
 				obj.select = not self.reverse
 		return {'FINISHED'}
 
+class QuickCurveDeform(bpy.types.Operator):
+	bl_idname = "object.quick_curve_deform"
+	bl_label = "クイックカーブ変形"
+	bl_description = "すばやくカーブモディファイアを適用します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('POS_X', "+X", "", 1),
+		('POS_Y', "+Y", "", 2),
+		('POS_Z', "+Z", "", 3),
+		('NEG_X', "-X", "", 4),
+		('NEG_Y', "-Y", "", 5),
+		('NEG_Z', "-Z", "", 6),
+		]
+	deform_axis = bpy.props.EnumProperty(items=items, name="変形する軸")
+	
+	def execute(self, context):
+		mesh_obj = context.active_object
+		if (mesh_obj.type != 'MESH'):
+			self.report(type={"ERROR"}, message="メッシュオブジェクトがアクティブな状態で実行して下さい")
+			return {"CANCELLED"}
+		if (len(context.selected_objects) != 2):
+			self.report(type={"ERROR"}, message="メッシュ・カーブの2つのみ選択して実行して下さい")
+			return {"CANCELLED"}
+		for obj in context.selected_objects:
+			if (mesh_obj.name != obj.name):
+				if (obj.type == 'CURVE'):
+					curve_obj = obj
+					break
+		else:
+			self.report(type={"ERROR"}, message="カーブオブジェクトも選択状態で実行して下さい")
+			return {"CANCELLED"}
+		curve = curve_obj.data
+		pre_use_stretch = curve.use_stretch
+		pre_use_deform_bounds = curve.use_deform_bounds
+		curve.use_stretch = True
+		curve.use_deform_bounds = True
+		bpy.ops.object.transform_apply_all()
+		mod = mesh_obj.modifiers.new("temp", 'CURVE')
+		mod.object = curve_obj
+		mod.deform_axis = self.deform_axis
+		for i in range(len(mesh_obj.modifiers)):
+			bpy.ops.object.modifier_move_up(modifier=mod.name)
+		bpy.ops.object.modifier_apply(modifier=mod.name)
+		curve.use_stretch = pre_use_stretch
+		curve.use_deform_bounds = pre_use_deform_bounds
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -375,6 +423,9 @@ def menu(self, context):
 	if (context.active_object):
 		if (context.active_object.type == "CURVE"):
 			column.enabled = True
+	column = self.layout.column()
+	column.operator(QuickCurveDeform.bl_idname, icon="PLUGIN")
+	self.layout.separator()
 	column = self.layout.column()
 	column.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")
 	column.enabled = False
