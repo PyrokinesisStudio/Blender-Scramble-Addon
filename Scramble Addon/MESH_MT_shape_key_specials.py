@@ -112,14 +112,17 @@ class ShapeKeyApplyRemoveAll(bpy.types.Operator):
 
 # メニューを登録する関数
 def menu(self, context):
-	self.layout.separator()
-	self.layout.operator(SelectShapeTop.bl_idname, icon="PLUGIN")
-	self.layout.operator(SelectShapeBottom.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(CopyShape.bl_idname, icon="PLUGIN")
-	self.layout.operator(ShapeKeyApplyRemoveAll.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(InsertKeyframeAllShapes.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(ShowShapeBlockName.bl_idname, icon="PLUGIN")
-	self.layout.operator(RenameShapeBlockName.bl_idname, icon="PLUGIN")
+	column = self.layout.column()
+	column.separator()
+	column.operator(SelectShapeTop.bl_idname, icon="PLUGIN")
+	column.operator(SelectShapeBottom.bl_idname, icon="PLUGIN")
+	column.separator()
+	column.operator(CopyShape.bl_idname, icon="PLUGIN")
+	column.operator(ShapeKeyApplyRemoveAll.bl_idname, icon="PLUGIN")
+	column.separator()
+	column.operator(InsertKeyframeAllShapes.bl_idname, icon="PLUGIN")
+	column.separator()
+	column.operator(ShowShapeBlockName.bl_idname, icon="PLUGIN")
+	column.operator(RenameShapeBlockName.bl_idname, icon="PLUGIN")
+	if (not context.active_object.active_shape_key):
+		column.enabled = False
