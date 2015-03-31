@@ -57,8 +57,7 @@ if "bpy" in locals():
 	imp.reload(VIEW3D_MT_object_apply)
 	imp.reload(VIEW3D_MT_view_align_selected)
 	imp.reload(VIEW3D_MT_snap)
-	
-	#imp.reload(VIEW3D_PT_transform_orientations_EX)
+	imp.reload(VIEW3D_MT_uv_map)
 else:
 	from . import IMAGE_MT_image
 	from . import IMAGE_MT_select
@@ -100,8 +99,7 @@ else:
 	from . import VIEW3D_MT_object_apply
 	from . import VIEW3D_MT_view_align_selected
 	from . import VIEW3D_MT_snap
-	
-	#from . import VIEW3D_PT_transform_orientations_EX
+	from . import VIEW3D_MT_uv_map
 import bpy
 
 """
@@ -153,8 +151,7 @@ def register():
 	bpy.types.VIEW3D_MT_object_apply.append(VIEW3D_MT_object_apply.menu)
 	bpy.types.VIEW3D_MT_view_align_selected.append(VIEW3D_MT_view_align_selected.menu)
 	bpy.types.VIEW3D_MT_snap.append(VIEW3D_MT_snap.menu)
-	
-	#VIEW3D_PT_transform_orientations_EX.register()
+	bpy.types.VIEW3D_MT_uv_map.append(VIEW3D_MT_uv_map.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -199,8 +196,7 @@ def unregister():
 	bpy.types.VIEW3D_MT_object_apply.remove(VIEW3D_MT_object_apply.menu)
 	bpy.types.VIEW3D_MT_view_align_selected.remove(VIEW3D_MT_view_align_selected.menu)
 	bpy.types.VIEW3D_MT_snap.remove(VIEW3D_MT_snap.menu)
-	
-	#VIEW3D_PT_transform_orientations_EX.unregister()
+	bpy.types.VIEW3D_MT_uv_map.remove(VIEW3D_MT_uv_map.menu)
 
 # メイン関数
 if __name__ == "__main__":
