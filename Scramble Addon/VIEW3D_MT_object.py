@@ -247,6 +247,22 @@ class SyncShowModifiers(bpy.types.Operator):
 					mod.show_render = mod.show_viewport
 		return {'FINISHED'}
 
+class AllSetShowExpanded(bpy.types.Operator):
+	bl_idname = "wm.all_set_show_expanded"
+	bl_label = "モディファイアを全て展開/閉じる"
+	bl_description = "選択オブジェクトの全モディファイアを展開、もしくは閉じます"
+	bl_options = {'REGISTER'}
+	
+	is_close = bpy.props.BoolProperty(name="閉じる")
+	
+	def execute(self, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				mod.show_expanded = not self.is_close
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ############################
 # オペレーター(ブーリアン) #
 ############################
@@ -552,6 +568,9 @@ class ModifierMenu(bpy.types.Menu):
 	def draw(self, context):
 		self.layout.operator(ApplyAllModifiers.bl_idname, icon="PLUGIN")
 		self.layout.operator(DeleteAllModifiers.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(AllSetShowExpanded.bl_idname, text="モディファイアを全て展開", icon="PLUGIN").is_close = False
+		self.layout.operator(AllSetShowExpanded.bl_idname, text="モディファイアを全て閉じる", icon="PLUGIN").is_close = True
 		self.layout.separator()
 		self.layout.operator(ToggleApplyModifiersView.bl_idname, icon="PLUGIN")
 		self.layout.operator(SyncShowModifiers.bl_idname, icon="PLUGIN")
