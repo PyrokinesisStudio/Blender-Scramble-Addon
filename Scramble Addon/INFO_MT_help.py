@@ -166,8 +166,9 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	bl_description = "最後に実行したコマンドをショートカットに登録します"
 	bl_options = {'REGISTER'}
 	
-	command = bpy.props.StringProperty(name="登録コマンド(変更不可)")
-	sub_command = bpy.props.StringProperty(name="サブコマンド(変更不可)")
+	is_clipboard = bpy.props.BoolProperty(name="(変更不可)")
+	command = bpy.props.StringProperty(name="(変更不可)")
+	sub_command = bpy.props.StringProperty(name="(変更不可)")
 	items = [
 		('Window', "Window", "", 1),
 		('Screen', "Screen", "", 2),
@@ -386,26 +387,32 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		self.report(type={"INFO"}, message="ショートカットを登録しました、必要であれば「ユーザー設定の保存」をしてください")
 		return {'FINISHED'}
 	def invoke(self, context, event):
-		for area in context.screen.areas:
-			area.tag_redraw()
-		bpy.ops.info.reports_display_update()
-		pre_clipboard = context.window_manager.clipboard
-		for i in range(50):
+		if (not self.is_clipboard):
+			for area in context.screen.areas:
+				area.tag_redraw()
+			bpy.ops.info.reports_display_update()
+			pre_clipboard = context.window_manager.clipboard
+			for i in range(50):
+				bpy.ops.info.select_all_toggle()
+				bpy.ops.info.report_copy()
+				if (context.window_manager.clipboard != ""):
+					break
 			bpy.ops.info.select_all_toggle()
-			bpy.ops.info.report_copy()
-			if (context.window_manager.clipboard != ""):
-				break
-		bpy.ops.info.select_all_toggle()
-		commands = context.window_manager.clipboard.split("\n")
-		context.window_manager.clipboard = pre_clipboard
-		if (commands[-1] == ''):
-			commands = commands[:-1]
-		if (len(commands) <= 0):
-			self.report(type={'ERROR'}, message="最後に実行したコマンドが見つかりません")
-			return {'CANCELLED'}
-		commands.reverse()
+			commands = context.window_manager.clipboard.split("\n")
+			context.window_manager.clipboard = pre_clipboard
+			if (commands[-1] == ''):
+				commands = commands[:-1]
+			if (len(commands) <= 0):
+				self.report(type={'ERROR'}, message="最後に実行したコマンドが見つかりません")
+				return {'CANCELLED'}
+			commands.reverse()
+		else:
+			commands = [context.window_manager.clipboard]
 		for command in commands:
-			if (re.search(r"^bpy\.ops\.", command)):
+			if (re.search(r"^bpy\.ops\.wm\.call_menu", command)):
+				self.command = 'wm.call_menu'
+				self.sub_command = 'name:'+re.search(r'^bpy\.ops\.wm\.call_menu\(name\="([^"]+)"\)$', command).groups()[0]
+			elif (re.search(r"^bpy\.ops\.", command)):
 				self.command = re.search(r"^bpy\.ops\.([^\(]+)", command).groups()[0]
 				#options = re.search(r"\((.*)\)$", command).groups()[0]
 				#properties = options.split(",")
@@ -440,8 +447,10 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
-	self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, icon="PLUGIN")
 	self.layout.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
+	self.layout.separator()
+	self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="最後のコマンドをショートカットに登録", icon="PLUGIN").is_clipboard = False
+	self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="クリップボードのコマンドをショートカットに登録", icon="PLUGIN").is_clipboard = True
 	self.layout.separator()
 	self.layout.operator(RegisterBlendFile.bl_idname, icon="PLUGIN")
 	self.layout.operator(RegisterBlendBackupFiles.bl_idname, icon="PLUGIN")
