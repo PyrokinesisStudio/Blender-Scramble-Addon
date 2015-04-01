@@ -387,27 +387,25 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		self.report(type={"INFO"}, message="ショートカットを登録しました、必要であれば「ユーザー設定の保存」をしてください")
 		return {'FINISHED'}
 	def invoke(self, context, event):
+		pre_clipboard = context.window_manager.clipboard
 		if (not self.is_clipboard):
 			for area in context.screen.areas:
 				area.tag_redraw()
 			bpy.ops.info.reports_display_update()
-			pre_clipboard = context.window_manager.clipboard
 			for i in range(50):
 				bpy.ops.info.select_all_toggle()
 				bpy.ops.info.report_copy()
 				if (context.window_manager.clipboard != ""):
 					break
 			bpy.ops.info.select_all_toggle()
-			commands = context.window_manager.clipboard.split("\n")
-			context.window_manager.clipboard = pre_clipboard
-			if (commands[-1] == ''):
-				commands = commands[:-1]
-			if (len(commands) <= 0):
-				self.report(type={'ERROR'}, message="最後に実行したコマンドが見つかりません")
-				return {'CANCELLED'}
-			commands.reverse()
-		else:
-			commands = [context.window_manager.clipboard]
+		commands = context.window_manager.clipboard.split("\n")
+		context.window_manager.clipboard = pre_clipboard
+		if (commands[-1] == ''):
+			commands = commands[:-1]
+		if (len(commands) <= 0):
+			self.report(type={'ERROR'}, message="最後に実行したコマンドが見つかりません")
+			return {'CANCELLED'}
+		commands.reverse()
 		for command in commands:
 			if (re.search(r"^bpy\.ops\.wm\.call_menu", command)):
 				self.command = 'wm.call_menu'
