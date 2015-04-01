@@ -247,18 +247,29 @@ class SyncShowModifiers(bpy.types.Operator):
 					mod.show_render = mod.show_viewport
 		return {'FINISHED'}
 
-class AllSetShowExpanded(bpy.types.Operator):
-	bl_idname = "wm.all_set_show_expanded"
-	bl_label = "モディファイアを全て展開/閉じる"
-	bl_description = "選択オブジェクトの全モディファイアを展開、もしくは閉じます"
+class ToggleAllShowExpanded(bpy.types.Operator):
+	bl_idname = "wm.toggle_all_show_expanded"
+	bl_label = "全モディファイアの展開/閉じるを切り替え"
+	bl_description = "アクティブオブジェクトの全モディファイアを展開/閉じるを切り替え(トグル)します"
 	bl_options = {'REGISTER'}
 	
-	is_close = bpy.props.BoolProperty(name="閉じる")
-	
 	def execute(self, context):
-		for obj in context.selected_objects:
+		obj = context.active_object
+		if (len(obj.modifiers)):
+			vs = 0
 			for mod in obj.modifiers:
-				mod.show_expanded = not self.is_close
+				if (mod.show_expanded):
+					vs += 1
+				else:
+					vs -= 1
+			is_close = False
+			if (0 < vs):
+				is_close = True
+			for mod in obj.modifiers:
+				mod.show_expanded = not is_close
+		else:
+			self.report(type={'WARNING'}, message="モディファイアが1つもありません")
+			return {'CANCELLED'}
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
@@ -569,10 +580,8 @@ class ModifierMenu(bpy.types.Menu):
 		self.layout.operator(ApplyAllModifiers.bl_idname, icon="PLUGIN")
 		self.layout.operator(DeleteAllModifiers.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(AllSetShowExpanded.bl_idname, text="モディファイアを全て展開", icon="PLUGIN").is_close = False
-		self.layout.operator(AllSetShowExpanded.bl_idname, text="モディファイアを全て閉じる", icon="PLUGIN").is_close = True
-		self.layout.separator()
 		self.layout.operator(ToggleApplyModifiersView.bl_idname, icon="PLUGIN")
+		self.layout.operator(ToggleAllShowExpanded.bl_idname, icon="PLUGIN")
 		self.layout.operator(SyncShowModifiers.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
