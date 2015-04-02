@@ -72,7 +72,7 @@ class QuickShrinkwrap(bpy.types.Operator):
 		('PROJECT', "投影", "", 2),
 		('NEAREST_VERTEX', "最近接頂点", "", 3),
 		]
-	wrap_method = bpy.props.EnumProperty(items=items, name="演算")
+	wrap_method = bpy.props.EnumProperty(items=items, name="演算", default='PROJECT')
 	offset = bpy.props.FloatProperty(name="オフセット", default=0.0, min=-10, max=10, soft_min=-10, soft_max=10, step=1, precision=5)
 	
 	def execute(self, context):
@@ -101,10 +101,12 @@ class QuickShrinkwrap(bpy.types.Operator):
 			bpy.ops.object.modifier_move_up(modifier=new_mod.name)
 		new_mod.target = target_obj
 		new_mod.offset = self.offset
+		new_mod.vertex_group = new_vg.name
 		new_mod.wrap_method = self.wrap_method
 		if (self.wrap_method == 'PROJECT'):
 			new_mod.use_negative_direction = True
 		bpy.ops.object.modifier_apply(modifier=new_mod.name)
+		active_obj.vertex_groups.remove(new_vg)
 		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
