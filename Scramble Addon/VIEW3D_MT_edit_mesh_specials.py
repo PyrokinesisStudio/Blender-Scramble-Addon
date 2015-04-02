@@ -123,6 +123,58 @@ class ToggleMirrorModifier(bpy.types.Operator):
 				return {'RUNNING_MODAL'}
 		return context.window_manager.invoke_props_dialog(self)
 
+class SelectedVertexGroupAverage(bpy.types.Operator):
+	bl_idname = "mesh.selected_vertex_group_average"
+	bl_label = "選択頂点を平均ウェイトで塗り潰す"
+	bl_description = "選択頂点のウェイトの平均で、選択頂点を塗り潰します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	strength = bpy.props.FloatProperty(name="ミックス強度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	def execute(self, context):
+		obj = context.active_object
+		if (obj.type == "MESH"):
+			pre_mode = obj.mode
+			bpy.ops.object.mode_set(mode='OBJECT')
+			vert_groups = []
+			for vg in obj.vertex_groups:
+				vert_groups.append([])
+			selected_verts = []
+			for vert in obj.data.vertices:
+				if (vert.select):
+					selected_verts.append(vert)
+					for i in range(len(vert_groups)):
+						for vge in vert.groups:
+							if (i == vge.group):
+								vert_groups[vge.group].append(vge.weight)
+								break
+						else:
+							vert_groups[i].append(0)
+			vert_groups_average = []
+			for weights in vert_groups:
+				vert_groups_average.append(0)
+				for weight in weights:
+					vert_groups_average[-1] += weight
+				vert_groups_average[-1] /= len(weights)
+			i = 0
+			for vg in obj.vertex_groups:
+				for vert in selected_verts:
+					pre_weight = 0
+					for vge in vert.groups:
+						if (obj.vertex_groups[vge.group].name == vg.name):
+							pre_weight = vge.weight
+							break
+					weight = (vert_groups_average[i] * self.strength) + (pre_weight * (1 - self.strength))
+					vg.add([vert.index], weight, "REPLACE")
+				i += 1
+			bpy.ops.object.mode_set(mode=pre_mode)
+		else:
+			self.report(type={"ERROR"}, message="メッシュオブジェクトではありません")
+			return {'CANCELLED'}
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -135,4 +187,5 @@ def menu(self, context):
 	self.layout.operator(ToggleMirrorModifier.bl_idname, icon="PLUGIN")
 	self.layout.operator(ToggleShowCage.bl_idname, icon="PLUGIN")
 	self.layout.separator()
+	self.layout.operator(SelectedVertexGroupAverage.bl_idname, icon="PLUGIN")
 	self.layout.operator(PaintSelectedVertexColor.bl_idname, icon="PLUGIN")
