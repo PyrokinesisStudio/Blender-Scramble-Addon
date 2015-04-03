@@ -95,37 +95,37 @@ class ShowEmptyShortcuts(bpy.types.Operator):
 				key_strings.append(row[1])
 				key_binds[row[1]] = None
 		keyconfigs = context.window_manager.keyconfigs
+		permits = ['Window', 'Screen', '3D View Generic', '3D View', 'Frames', 'Object Non-modal']
+		if (context.mode == 'EDIT_MESH'):
+			permits.append('Mesh')
+		elif (context.mode == 'EDIT_CURVE'):
+			permits.append('Curve')
+		elif (context.mode == 'EDIT_SURFACE'):
+			permits.append('Curve')
+		elif (context.mode == 'EDIT_TEXT'):
+			permits.append('Font')
+		elif (context.mode == 'EDIT_ARMATURE'):
+			permits.append('Armature')
+		elif (context.mode == 'EDIT_METABALL'):
+			permits.append('Metaball')
+		elif (context.mode == 'EDIT_LATTICE'):
+			permits.append('Lattice')
+		elif (context.mode == 'POSE'):
+			permits.append('Pose')
+		elif (context.mode == 'SCULPT'):
+			permits.append('Sculpt')
+		elif (context.mode == 'PAINT_WEIGHT'):
+			permits.append('Weight Paint')
+		elif (context.mode == 'PAINT_VERTEX'):
+			permits.append('Vertex Paint')
+		elif (context.mode == 'PAINT_TEXTURE'):
+			permits.append('Image Paint')
+		elif (context.mode == 'PARTICLE'):
+			permits.append('Particle')
+		elif (context.mode == 'OBJECT'):
+			permits.append('Object Mode')
 		for keyconfig in (keyconfigs.user, keyconfigs.addon):
 			for keymap in keyconfig.keymaps:
-				permits = ['Window', 'Screen', '3D View Generic', '3D View', 'Frames', 'Object Non-modal']
-				if (context.mode == 'EDIT_MESH'):
-					permits.append('Mesh')
-				elif (context.mode == 'EDIT_CURVE'):
-					permits.append('Curve')
-				elif (context.mode == 'EDIT_SURFACE'):
-					permits.append('Curve')
-				elif (context.mode == 'EDIT_TEXT'):
-					permits.append('Font')
-				elif (context.mode == 'EDIT_ARMATURE'):
-					permits.append('Armature')
-				elif (context.mode == 'EDIT_METABALL'):
-					permits.append('Metaball')
-				elif (context.mode == 'EDIT_LATTICE'):
-					permits.append('Lattice')
-				elif (context.mode == 'POSE'):
-					permits.append('Pose')
-				elif (context.mode == 'SCULPT'):
-					permits.append('Sculpt')
-				elif (context.mode == 'PAINT_WEIGHT'):
-					permits.append('Weight Paint')
-				elif (context.mode == 'PAINT_VERTEX'):
-					permits.append('Vertex Paint')
-				elif (context.mode == 'PAINT_TEXTURE'):
-					permits.append('Image Paint')
-				elif (context.mode == 'PARTICLE'):
-					permits.append('Particle')
-				elif (context.mode == 'OBJECT'):
-					permits.append('Object Mode')
 				if (not keymap.name in permits):
 					continue
 				for item in keymap.keymap_items:
@@ -135,9 +135,10 @@ class ShowEmptyShortcuts(bpy.types.Operator):
 								key_binds[item.type] = item.idname
 							elif (item.any):
 								key_binds[item.type] = item.idname
+		self.report(type={'INFO'}, message = permits[-1]+"モードでは、以下の割り当てが空いています")
 		for key, value in key_binds.items():
 			if (not value):
-				self.report(type={'INFO'}, message=key_names[key]+" の割り当てが空いています")
+				self.report(type={'INFO'}, message = key_names[key]+" ")
 		return {'FINISHED'}
 
 ################
