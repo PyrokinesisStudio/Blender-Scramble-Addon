@@ -87,7 +87,8 @@ class ShowShortcutHtml(bpy.types.Operator):
 				keyDatas[name]["shape"] = row[2]
 				keyDatas[name]["coords"] = row[3]
 				keyDatas[name]["configs"] = collections.OrderedDict()
-		for kc in context.window_manager.keyconfigs:
+		keyconfigs = context.window_manager.keyconfigs
+		for kc in (keyconfigs.user, keyconfigs.addon):
 			for km in kc.keymaps:
 				for kmi in km.keymap_items:
 					if (kmi.type in keyDatas):
