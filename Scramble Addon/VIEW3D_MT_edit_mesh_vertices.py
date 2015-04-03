@@ -95,6 +95,10 @@ class QuickShrinkwrap(bpy.types.Operator):
 		for vert in active_obj.data.vertices:
 			if (vert.select):
 				selected_verts.append(vert.index)
+		if (len(selected_verts) <= 0):
+			bpy.ops.object.mode_set(mode=pre_mode)
+			self.report(type={'ERROR'}, message="1つ以上は頂点を選択して実行して下さい")
+			return {'CANCELLED'}
 		new_vg.add(selected_verts, 1.0, 'REPLACE')
 		new_mod = active_obj.modifiers.new("temp", 'SHRINKWRAP')
 		for i in range(len(active_obj.modifiers)):
