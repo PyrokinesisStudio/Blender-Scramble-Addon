@@ -1,6 +1,7 @@
 # 3Dビュー > メッシュ編集モード > 「X」キー
 
 import bpy
+import bmesh
 
 ################
 # オペレーター #
@@ -22,6 +23,25 @@ class DeleteBySelectMode(bpy.types.Operator):
 			bpy.ops.mesh.delete(type="FACE")
 		return {'FINISHED'}
 
+class DeleteHideVertex(bpy.types.Operator):
+	bl_idname = "mesh.delete_hide_vertex"
+	bl_label = "隠している頂点を削除"
+	bl_description = "隠している状態の頂点を全て削除します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		obj = context.active_object
+		if (obj.type != 'MESH'):
+			self.report(type={"ERROR"}, message="メッシュオブジェクトではありません")
+			return {"CANCELLED"}
+		me = obj.data
+		bm = bmesh.from_edit_mesh(me)
+		for vert in bm.verts[:]:
+			if (vert.hide):
+				bm.verts.remove(vert)
+		bmesh.update_edit_mesh(me)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -30,4 +50,5 @@ class DeleteBySelectMode(bpy.types.Operator):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.operator(DeleteBySelectMode.bl_idname, icon="PLUGIN")
+	self.layout.operator(DeleteHideVertex.bl_idname, icon="PLUGIN")
 	self.layout.operator('mesh.dissolve_mode')
