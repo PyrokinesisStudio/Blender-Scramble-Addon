@@ -50,7 +50,7 @@ class UpdateScrambleAddon(bpy.types.Operator):
 	def execute(self, context):
 		response = urllib.request.urlopen("https://github.com/saidenka/Blender-Scramble-Addon/archive/master.zip")
 		tempDir = bpy.app.tempdir
-		zipPath = tempDir + r"\Blender-Scramble-Addon-master.zip"
+		zipPath = os.path.join(tempDir, "Blender-Scramble-Addon-master.zip")
 		addonDir = os.path.dirname(__file__)
 		f = open(zipPath, "wb")
 		f.write(response.read())
@@ -60,7 +60,7 @@ class UpdateScrambleAddon(bpy.types.Operator):
 			if not os.path.basename(f):
 				pass
 			else:
-				if ("Blender-Scramble-Addon-master/Scramble Addon/" in f):
+				if ("Scramble Addon" in f):
 					uzf = open(os.path.join(addonDir, os.path.basename(f)), 'wb')
 					uzf.write(zf.read(f))
 					uzf.close()
