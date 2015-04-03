@@ -97,7 +97,7 @@ class ShowEmptyShortcuts(bpy.types.Operator):
 		keyconfigs = context.window_manager.keyconfigs
 		for keyconfig in (keyconfigs.user, keyconfigs.addon):
 			for keymap in keyconfig.keymaps:
-				permits = ['Window', 'Screen', '3D View Generic', '3D View', 'Frames']
+				permits = ['Window', 'Screen', '3D View Generic', '3D View', 'Frames', 'Object Non-modal']
 				if (context.mode == 'EDIT_MESH'):
 					permits.append('Mesh')
 				elif (context.mode == 'EDIT_CURVE'):
@@ -126,7 +126,6 @@ class ShowEmptyShortcuts(bpy.types.Operator):
 					permits.append('Particle')
 				elif (context.mode == 'OBJECT'):
 					permits.append('Object Mode')
-					permits.append('Object Non-modal')
 				if (not keymap.name in permits):
 					continue
 				for item in keymap.keymap_items:
