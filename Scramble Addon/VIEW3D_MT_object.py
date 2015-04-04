@@ -1,6 +1,6 @@
 # 3Dビュー > オブジェクトモード > 「オブジェクト」メニュー
 
-import bpy
+import bpy, bmesh
 
 ################
 # パイメニュー #
@@ -332,6 +332,27 @@ class ApplyBoolean(bpy.types.Operator):
 # オペレーター(UV) #
 ####################
 
+class DeleteSpecificNameUV(bpy.types.Operator):
+	bl_idname = "object.delete_specific_name_uv"
+	bl_label = "指定名のUVを削除"
+	bl_description = "指定した名前と同じ名のUVを、選択オブジェクトから削除します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	name =  bpy.props.StringProperty(name="削除するUV名", default="UV")
+	
+	def execute(self, context):
+		for obj in context.selected_objects:
+			if (obj.type != 'MESH'):
+				self.report(type={'WARNING'}, message=obj.name+" はメッシュオブジェクトではありません、無視します")
+				continue
+			me = obj.data
+			for uv in me.uv_textures:
+				if (uv.name == self.name):
+					me.uv_textures.remove(uv)
+		return {'FINISHED'}
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+
 class RenameUV(bpy.types.Operator):
 	bl_idname = "object.rename_uv"
 	bl_label = "UV名を変更"
@@ -597,6 +618,8 @@ class UVMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.operator(RenameUV.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(DeleteSpecificNameUV.bl_idname, icon="PLUGIN")
 		self.layout.operator(DeleteEmptyUV.bl_idname, icon="PLUGIN")
 
 class ShortcutMenu(bpy.types.Menu):
