@@ -72,7 +72,7 @@ class QuickShrinkwrap(bpy.types.Operator):
 		('PROJECT', "投影", "", 2),
 		('NEAREST_VERTEX', "最近接頂点", "", 3),
 		]
-	wrap_method = bpy.props.EnumProperty(items=items, name="演算", default='PROJECT')
+	wrap_method = bpy.props.EnumProperty(items=items, name="モード", default='PROJECT')
 	offset = bpy.props.FloatProperty(name="オフセット", default=0.0, min=-10, max=10, soft_min=-10, soft_max=10, step=1, precision=5)
 	
 	def execute(self, context):
