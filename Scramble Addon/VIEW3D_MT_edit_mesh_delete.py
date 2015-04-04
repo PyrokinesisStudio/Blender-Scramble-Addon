@@ -26,7 +26,7 @@ class DeleteBySelectMode(bpy.types.Operator):
 class DeleteHideMesh(bpy.types.Operator):
 	bl_idname = "mesh.delete_hide_mesh"
 	bl_label = "隠している部分を削除"
-	bl_description = "隠している状態の頂点を全て削除します"
+	bl_description = "隠している状態のメッシュを全て削除します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
