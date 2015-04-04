@@ -100,12 +100,8 @@ class MakeLinkUVNames(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="リンクすべきメッシュオブジェクトがありません")
 			return {'CANCELLED'}
 		for obj in target_objs:
-			bm = bmesh.new()
-			bm.from_mesh(obj.data)
 			for uv in active_obj.data.uv_layers:
-				bm.loops.layers.uv.new(uv.name)
-			bm.to_mesh(obj.data)
-			bm.free()
+				obj.data.uv_textures.new(uv.name)
 		return {'FINISHED'}
 
 ################
