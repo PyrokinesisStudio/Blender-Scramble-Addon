@@ -1,6 +1,6 @@
 # 3Dビュー > オブジェクトモード > 「Ctrl+L」キー
 
-import bpy
+import bpy, bmesh
 
 ################
 # オペレーター #
@@ -9,7 +9,7 @@ import bpy
 class MakeLinkObjectName(bpy.types.Operator):
 	bl_idname = "object.make_link_object_name"
 	bl_label = "オブジェクト名を同じに"
-	bl_description = "他の選択オブジェクトにアクティブオブジェクトの名前をリンクする"
+	bl_description = "他の選択オブジェクトにアクティブオブジェクトの名前をリンクします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -24,7 +24,7 @@ class MakeLinkObjectName(bpy.types.Operator):
 class MakeLinkLayer(bpy.types.Operator):
 	bl_idname = "object.make_link_layer"
 	bl_label = "レイヤーを同じに"
-	bl_description = "他の選択オブジェクトにアクティブオブジェクトのレイヤーをリンクする"
+	bl_description = "他の選択オブジェクトにアクティブオブジェクトのレイヤーをリンクします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -36,7 +36,7 @@ class MakeLinkLayer(bpy.types.Operator):
 class MakeLinkDisplaySetting(bpy.types.Operator):
 	bl_idname = "object.make_link_display_setting"
 	bl_label = "オブジェクトの表示設定を同じに"
-	bl_description = "オブジェクトの表示パネルの設定をコピーします"
+	bl_description = "他の選択オブジェクトにアクティブオブジェクトの表示パネルの設定をコピーします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isSameType = bpy.props.BoolProperty(name="同タイプのオブジェクトのみ", default=True)
@@ -81,6 +81,33 @@ class MakeLinkDisplaySetting(bpy.types.Operator):
 						obj.color = activeObj.color
 		return {'FINISHED'}
 
+class MakeLinkUVNames(bpy.types.Operator):
+	bl_idname = "object.make_link_uv_names"
+	bl_label = "空のUVマップをリンク"
+	bl_description = "他の選択オブジェクトにアクティブオブジェクトのUVを空にして追加します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		active_obj = context.active_object
+		if (active_obj.type != 'MESH'):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトはメッシュである必要があります")
+			return {'CANCELLED'}
+		target_objs = []
+		for obj in context.selected_objects:
+			if (obj.type == 'MESH' and active_obj.name != obj.name):
+				target_objs.append(obj)
+		if (len(target_objs) <= 0):
+			self.report(type={'ERROR'}, message="リンクすべきメッシュオブジェクトがありません")
+			return {'CANCELLED'}
+		for obj in target_objs:
+			bm = bmesh.new()
+			bm.from_mesh(obj.data)
+			for uv in active_obj.data.uv_layers:
+				bm.loops.layers.uv.new(uv.name)
+			bm.to_mesh(obj.data)
+			bm.free()
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -88,6 +115,7 @@ class MakeLinkDisplaySetting(bpy.types.Operator):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
-	self.layout.operator(MakeLinkObjectName.bl_idname, icon="PLUGIN")
-	self.layout.operator(MakeLinkLayer.bl_idname, icon="PLUGIN")
-	self.layout.operator(MakeLinkDisplaySetting.bl_idname, icon="PLUGIN")
+	self.layout.operator(MakeLinkObjectName.bl_idname, text="オブジェクト名", icon="PLUGIN")
+	self.layout.operator(MakeLinkLayer.bl_idname, text="レイヤー", icon="PLUGIN")
+	self.layout.operator(MakeLinkDisplaySetting.bl_idname, text="表示設定", icon="PLUGIN")
+	self.layout.operator(MakeLinkUVNames.bl_idname, text="空UV", icon="PLUGIN")
