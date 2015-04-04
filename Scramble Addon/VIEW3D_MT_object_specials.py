@@ -195,18 +195,20 @@ class CreateVertexToMetaball(bpy.types.Operator):
 								break
 					bpy.ops.object.metaball_add(type='BALL', radius=self.size * multi, location=(0, 0, 0))
 					metas.append(context.active_object)
+					context.scene.objects.unlink(metas[-1])
 					metas[-1].name = self.name
 					metas[-1].data.resolution = 10000
 					metas[-1].parent = obj
 					metas[-1].parent_type = 'VERTEX'
 					metas[-1].parent_vertices = (i, 0, 0)
-					#context.scene.objects.unlink(metas[-1])
 				bpy.ops.object.select_all(action='DESELECT')
 				for meta in metas:
-					#context.scene.objects.link(meta)
+					context.scene.objects.link(meta)
 					meta.select = True
-				context.scene.update()
-				context.scene.objects[re.sub(r'\.\d+$', '', metas[0].name)].data.resolution = self.resolution
+				#context.scene.update()
+				metas[-1].parent_type = metas[-1].parent_type
+				base_obj = context.scene.objects[re.sub(r'\.\d+$', '', metas[0].name)]
+				base_obj.data.resolution = self.resolution
 		return {'FINISHED'}
 
 class ToggleSmooth(bpy.types.Operator):
