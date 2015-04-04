@@ -366,9 +366,11 @@ class RenameUV(bpy.types.Operator):
 										self.report(type={"INFO"}, message="メッシュ「"+me2.name+"」のUV指定を修正しました")
 									except KeyError: pass
 		else:
-			self.report(type={"ERROR"}, message="メッシュオブジェクトではありません")
-			return {"CANCELLED"}
+			self.report(type={'ERROR'}, message="メッシュオブジェクトではありません")
+			return {'CANCELLED'}
 		return {'FINISHED'}
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
 
 class DeleteEmptyUV(bpy.types.Operator):
 	bl_idname = "object.delete_empty_uv"
