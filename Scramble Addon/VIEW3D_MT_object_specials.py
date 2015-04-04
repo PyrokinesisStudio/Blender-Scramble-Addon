@@ -381,7 +381,7 @@ class VertexGroupTransfer(bpy.types.Operator):
 	
 	vertex_group_remove_all = bpy.props.BoolProperty(name="最初に頂点グループ全削除", default=False)
 	vertex_group_clean = bpy.props.BoolProperty(name="頂点グループのクリーン", default=True)
-	vertex_group_delete = bpy.props.BoolProperty(name="割り当ての無い頂点グループ削除", default=False)
+	vertex_group_delete = bpy.props.BoolProperty(name="割り当ての無い頂点グループ削除", default=True)
 	
 	def execute(self, context):
 		if (0 < len(context.active_object.vertex_groups) and self.vertex_group_remove_all):

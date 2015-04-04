@@ -73,34 +73,34 @@ class VertexGroupAverageAll(bpy.types.Operator):
 	
 	def execute(self, context):
 		pre_mode = context.mode
-		obj = context.active_object
-		if (obj.type == "MESH"):
-			vgs = []
-			for i in range(len(obj.vertex_groups)):
-				vgs.append([])
-			vertCount = 0
-			for vert in obj.data.vertices:
-				for vg in vert.groups:
-					vgs[vg.group].append(vg.weight)
-				vertCount += 1
-			vg_average = []
-			for vg in vgs:
-				vg_average.append(0)
-				for w in vg:
-					vg_average[-1] += w
-				vg_average[-1] /= vertCount
-			i = 0
-			for vg in obj.vertex_groups:
+		for obj in context.selected_objects:
+			if (obj.type == "MESH"):
+				vgs = []
+				for i in range(len(obj.vertex_groups)):
+					vgs.append([])
+				vertCount = 0
 				for vert in obj.data.vertices:
-					for g in vert.groups:
-						if (obj.vertex_groups[g.group] == vg):
-							w = g.weight
-							break
-					else:
-						w = 0
-					w = (vg_average[i] * self.strength) + (w * (1-self.strength))
-					vg.add([vert.index], w, "REPLACE")
-				i += 1
+					for vg in vert.groups:
+						vgs[vg.group].append(vg.weight)
+					vertCount += 1
+				vg_average = []
+				for vg in vgs:
+					vg_average.append(0)
+					for w in vg:
+						vg_average[-1] += w
+					vg_average[-1] /= vertCount
+				i = 0
+				for vg in obj.vertex_groups:
+					for vert in obj.data.vertices:
+						for g in vert.groups:
+							if (obj.vertex_groups[g.group] == vg):
+								w = g.weight
+								break
+						else:
+							w = 0
+						w = (vg_average[i] * self.strength) + (w * (1-self.strength))
+						vg.add([vert.index], w, "REPLACE")
+					i += 1
 		bpy.ops.object.mode_set(mode="OBJECT")
 		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
