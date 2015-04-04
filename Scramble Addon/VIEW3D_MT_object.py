@@ -332,6 +332,28 @@ class ApplyBoolean(bpy.types.Operator):
 # オペレーター(UV) #
 ####################
 
+class RenameSpecificNameUV(bpy.types.Operator):
+	bl_idname = "object.rename_specific_name_uv"
+	bl_label = "UVをまとめてリネーム"
+	bl_description = "選択オブジェクト内の指定UVをまとめて改名します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	source_name =  bpy.props.StringProperty(name="リネームするUV名", default="過去のUV")
+	replace_name =  bpy.props.StringProperty(name="新しいUV名", default="新しいUV")
+	
+	def execute(self, context):
+		for obj in context.selected_objects:
+			if (obj.type != 'MESH'):
+				self.report(type={'WARNING'}, message=obj.name+" はメッシュオブジェクトではありません、無視します")
+				continue
+			me = obj.data
+			for uv in me.uv_textures[:]:
+				if (uv.name == self.source_name):
+					uv.name = self.replace_name
+		return {'FINISHED'}
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+
 class DeleteSpecificNameUV(bpy.types.Operator):
 	bl_idname = "object.delete_specific_name_uv"
 	bl_label = "指定名のUVを削除"
@@ -618,6 +640,7 @@ class UVMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.operator(RenameUV.bl_idname, icon="PLUGIN")
+		self.layout.operator(RenameSpecificNameUV.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(DeleteSpecificNameUV.bl_idname, icon="PLUGIN")
 		self.layout.operator(DeleteEmptyUV.bl_idname, icon="PLUGIN")
