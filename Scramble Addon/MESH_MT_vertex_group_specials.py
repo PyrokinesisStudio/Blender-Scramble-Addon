@@ -115,6 +115,14 @@ def menu(self, context):
 	column.operator(MoveVertexGroupTop.bl_idname, icon="PLUGIN")
 	column.operator(MoveVertexGroupBottom.bl_idname, icon="PLUGIN")
 	column.separator()
+	operator = column.operator('object.vertex_group_normalize_all', icon="PLUGIN")
+	operator.group_select_mode = 'ALL'
+	operator.lock_active = False
+	operator = column.operator('object.vertex_group_clean', icon="PLUGIN")
+	operator.group_select_mode = 'ALL'
+	operator.limit = 0
+	operator.keep_single = False
+	column.separator()
 	column.operator(RemoveEmptyVertexGroups.bl_idname, icon="PLUGIN")
 	column.separator()
 	column.operator(AddOppositeVertexGroups.bl_idname, icon="PLUGIN")
