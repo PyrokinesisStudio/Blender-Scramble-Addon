@@ -177,7 +177,7 @@ class CreateVertexToMetaball(bpy.types.Operator):
 	
 	name = bpy.props.StringProperty(name="メタボール名", default="Mball")
 	size = bpy.props.FloatProperty(name="サイズ", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=1, precision=3)
-	resolution = bpy.props.FloatProperty(name="解像度", default=0.05, min=0.001, max=10, soft_min=0.001, soft_max=10, step=0.5, precision=3)
+	resolution = bpy.props.FloatProperty(name="解像度", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=0.5, precision=3)
 	isUseVg = bpy.props.BoolProperty(name="頂点グループを大きさに", default=False)
 	
 	def execute(self, context):
@@ -193,11 +193,14 @@ class CreateVertexToMetaball(bpy.types.Operator):
 							if (element.group == active_vg_index):
 								multi = element.weight
 								break
-					bpy.ops.object.metaball_add(type='BALL', radius=self.size * multi, location=(0, 0, 0))
-					metas.append(context.active_object)
-					context.scene.objects.unlink(metas[-1])
+					meta = bpy.data.metaballs.new(self.name)
+					metas.append( bpy.data.objects.new(self.name, meta) )
+					meta.elements.new()
+					meta.update_method = 'NEVER'
+					meta.resolution = self.resolution
 					metas[-1].name = self.name
-					metas[-1].data.resolution = 10000
+					size = self.size * multi
+					metas[-1].scale = (size, size, size)
 					metas[-1].parent = obj
 					metas[-1].parent_type = 'VERTEX'
 					metas[-1].parent_vertices = (i, 0, 0)
@@ -205,10 +208,12 @@ class CreateVertexToMetaball(bpy.types.Operator):
 				for meta in metas:
 					context.scene.objects.link(meta)
 					meta.select = True
-				#context.scene.update()
+				bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
 				metas[-1].parent_type = metas[-1].parent_type
-				base_obj = context.scene.objects[re.sub(r'\.\d+$', '', metas[0].name)]
-				base_obj.data.resolution = self.resolution
+				base_obj = metas[0] #context.scene.objects[re.sub(r'\.\d+$', '', metas[0].name)]
+				context.scene.objects.active = base_obj
+				base_obj.data.update_method = 'UPDATE_ALWAYS'
+				#context.scene.update()
 		return {'FINISHED'}
 
 class ToggleSmooth(bpy.types.Operator):
