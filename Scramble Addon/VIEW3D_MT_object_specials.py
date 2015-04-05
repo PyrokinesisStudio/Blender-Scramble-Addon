@@ -393,6 +393,74 @@ class VertexGroupTransfer(bpy.types.Operator):
 			bpy.ops.mesh.remove_empty_vertex_groups()
 		return {'FINISHED'}
 
+class CreateSolidifyEdge(bpy.types.Operator):
+	bl_idname = "object.create_solidify_edge"
+	bl_label = "厚み付けモディファイアで輪郭線生成"
+	bl_description = "選択オブジェクトに「厚み付けモディファイア」による輪郭描画を追加します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	use_render = bpy.props.BoolProperty(name="レンダリングにも適用", default=False)
+	thickness = bpy.props.FloatProperty(name="輪郭線の厚さ", default=0.01, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
+	color = bpy.props.FloatVectorProperty(name="線の色", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
+	use_rim = bpy.props.BoolProperty(name="ふちに面を張る", default=False)
+	
+	def execute(self, context):
+		pre_active_obj = context.active_object
+		selected_objs = []
+		for obj in context.selected_objects:
+			if (obj.type == 'MESH'):
+				selected_objs.append(obj)
+			else:
+				self.report(type={'INFO'}, message=obj.name+"はメッシュオブジェクトではないので無視します")
+		if (len(selected_objs) <= 0):
+			self.report(type={'ERROR'}, message="1つ以上のメッシュオブジェクトを選択した状態で実行して下さい")
+			return {'CANCELLED'}
+		for obj in selected_objs:
+			pre_mtls = []
+			for i in obj.material_slots:
+				if (i.material):
+					pre_mtls.append(i)
+			if (len(pre_mtls) <= 0):
+				self.report(type={'WARNING'}, message=obj.name+"にマテリアルが割り当てられていないので無視します")
+				continue
+			context.scene.objects.active = obj
+			
+			mtl = bpy.data.materials.new(obj.name+"の輪郭線")
+			mtl.use_shadeless = True
+			mtl.diffuse_color = self.color
+			mtl.use_nodes = True
+			mtl.use_transparency = True
+			
+			for n in mtl.node_tree.nodes:
+				if (n.bl_idname == 'ShaderNodeMaterial'):
+					n.material = mtl
+			node = mtl.node_tree.nodes.new('ShaderNodeGeometry')
+			link_input = node.outputs[8]
+			for n in mtl.node_tree.nodes:
+				if (n.bl_idname == 'ShaderNodeOutput'):
+					link_output = n.inputs[1]
+			mtl.node_tree.links.new(link_input, link_output)
+			
+			slot_index = len(obj.material_slots)
+			bpy.ops.object.material_slot_add()
+			slot = obj.material_slots[-1]
+			slot.material = mtl
+			
+			mod = obj.modifiers.new("輪郭線", 'SOLIDIFY')
+			mod.use_flip_normals = True
+			if (not self.use_rim):
+				mod.use_rim = False
+			mod.material_offset = slot_index
+			mod.material_offset_rim = slot_index
+			mod.offset = 1
+			mod.thickness = self.thickness
+			if (not self.use_render):
+				mod.show_render = False
+		context.scene.objects.active = pre_active_obj
+		return {'FINISHED'}
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+
 ################
 # メニュー追加 #
 ################
@@ -446,6 +514,7 @@ def menu(self, context):
 			column.enabled = True
 	column = self.layout.column()
 	column.operator(QuickCurveDeform.bl_idname, icon="PLUGIN")
+	column.operator(CreateSolidifyEdge.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	column = self.layout.column()
 	column.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")
