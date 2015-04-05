@@ -104,6 +104,38 @@ class MakeLinkUVNames(bpy.types.Operator):
 				obj.data.uv_textures.new(uv.name)
 		return {'FINISHED'}
 
+class MakeLinkArmaturePose(bpy.types.Operator):
+	bl_idname = "object.make_link_armature_pose"
+	bl_label = "アーマチュアの動きをリンク"
+	bl_description = "コンストレイントによって、他の選択アーマチュアにアクティブアーマチュアの動きを真似させます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		active_obj = context.active_object
+		if (active_obj.type != 'ARMATURE'):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトはアーマチュアである必要があります")
+			return {'CANCELLED'}
+		target_objs = []
+		for obj in context.selected_objects:
+			if (obj.type == 'ARMATURE' and active_obj.name != obj.name):
+				target_objs.append(obj)
+		if (len(target_objs) <= 0):
+			self.report(type={'ERROR'}, message="真似させるアーマチュアオブジェクトがありません")
+			return {'CANCELLED'}
+		for obj in target_objs:
+			for bone in obj.pose.bones:
+				try:
+					active_obj.pose.bones[bone.name].constraints
+				except KeyError:
+					continue
+				consts = bone.constraints
+				for const in consts[:]:
+					consts.remove(const)
+				const = consts.new('COPY_TRANSFORMS')
+				const.target = active_obj
+				const.subtarget = bone.name
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -115,3 +147,4 @@ def menu(self, context):
 	self.layout.operator(MakeLinkLayer.bl_idname, text="レイヤー", icon="PLUGIN")
 	self.layout.operator(MakeLinkDisplaySetting.bl_idname, text="表示設定", icon="PLUGIN")
 	self.layout.operator(MakeLinkUVNames.bl_idname, text="空UV", icon="PLUGIN")
+	self.layout.operator(MakeLinkArmaturePose.bl_idname, text="アーマチュアの動き", icon="PLUGIN")
