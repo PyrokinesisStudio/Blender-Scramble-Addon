@@ -1,7 +1,7 @@
 # 3Dビュー > オブジェクトモード > 「W」キー
 
-import bpy, bmesh
-import re
+import bpy, bmesh, mathutils
+import re, random
 
 ################
 # オペレーター #
@@ -461,6 +461,48 @@ class CreateSolidifyEdge(bpy.types.Operator):
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
 
+class ApplyObjectColor(bpy.types.Operator):
+	bl_idname = "object.apply_object_color"
+	bl_label = "オブジェクトカラー有効 + 色設定"
+	bl_description = "選択オブジェクトのオブジェクトカラーを有効にし、色を設定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	color = bpy.props.FloatVectorProperty(name="カラー", default=(0, 0, 0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
+	use_random = bpy.props.BoolProperty(name="ランダムな色を使う", default=True)
+	
+	def execute(self, context):
+		for obj in context.selected_objects:
+			if (self.use_random):
+				col = mathutils.Color((0.0, 0.0, 1.0))
+				col.s = 1.0
+				col.v = 1.0
+				col.h = random.random()
+				obj.color = (col.r, col.g, col.b, 1)
+			else:
+				obj.color = (self.color[0], self.color[1], self.color[2], 1)
+			for slot in obj.material_slots:
+				if (slot.material):
+					slot.material.use_object_color = True
+		return {'FINISHED'}
+
+class ClearObjectColor(bpy.types.Operator):
+	bl_idname = "object.clear_object_color"
+	bl_label = "オブジェクトカラー無効 + 色設定"
+	bl_description = "選択オブジェクトのオブジェクトカラーを無効にし、色を設定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	set_color = bpy.props.BoolProperty(name="色を設定する", default=False)
+	color = bpy.props.FloatVectorProperty(name="カラー", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
+	
+	def execute(self, context):
+		for obj in context.selected_objects:
+			if (self.set_color):
+				obj.color = (self.color[0], self.color[1], self.color[2], 1)
+			for slot in obj.material_slots:
+				if (slot.material):
+					slot.material.use_object_color = False
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -505,6 +547,16 @@ class ObjectNameMenu(bpy.types.Menu):
 		if (len(context.selected_objects) <= 0):
 			column.enabled = False
 
+class ObjectColorMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_object_specials_object_color"
+	bl_label = "オブジェクトカラー"
+	bl_description = "オブジェクトカラー関係のメニューです"
+	
+	def draw(self, context):
+		column = self.layout.column()
+		column.operator(ApplyObjectColor.bl_idname, icon="PLUGIN")
+		column.operator(ClearObjectColor.bl_idname, icon="PLUGIN")
+
 ################
 # メニュー追加 #
 ################
@@ -516,6 +568,7 @@ def menu(self, context):
 	self.layout.menu(HideSelectMenu.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.menu(ObjectNameMenu.bl_idname, icon="PLUGIN")
+	self.layout.menu(ObjectColorMenu.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	column = self.layout.column()
 	column.operator(ToggleSmooth.bl_idname, icon="PLUGIN")

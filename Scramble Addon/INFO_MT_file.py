@@ -272,6 +272,32 @@ class AllSetMaterialFreestyleColorByDiffuse(bpy.types.Operator):
 			mat.line_color = c
 		return {'FINISHED'}
 
+class AllSetMaterialObjectColor(bpy.types.Operator):
+	bl_idname = "material.all_set_material_object_color"
+	bl_label = "全マテリアルのオブジェクトカラーを有効に"
+	bl_description = "全マテリアルのオブジェクトカラーの設定をオンもしくはオフにします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	use_object_color = bpy.props.BoolProperty(name="オン/オフ", default=True)
+	only_selected = bpy.props.BoolProperty(name="選択オブジェクトのみ", default=False)
+	
+	def execute(self, context):
+		mats = []
+		if (self.only_selected):
+			for obj in context.selected_objects:
+				for slot in obj.material_slots:
+					if (slot.material):
+						for mat in mats:
+							if (mat.name == mslot.material.name):
+								break
+						else:
+							mats.append(slot.material)
+		else:
+			mats = bpy.data.materials[:]
+		for mat in mats:
+			mat.use_object_color = self.use_object_color
+		return {'FINISHED'}
+
 ############################
 # オペレーター(テクスチャ) #
 ############################
@@ -467,6 +493,7 @@ class EntireProcessMaterialMenu(bpy.types.Menu):
 		self.layout.operator(AllSetMaterialColorRamp.bl_idname, icon="PLUGIN")
 		self.layout.operator(AllSetMaterialFreestyleColor.bl_idname, icon="PLUGIN")
 		self.layout.operator(AllSetMaterialFreestyleColorByDiffuse.bl_idname, icon="PLUGIN")
+		self.layout.operator(AllSetMaterialObjectColor.bl_idname, icon="PLUGIN")
 
 class EntireProcessTextureMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_texture"
