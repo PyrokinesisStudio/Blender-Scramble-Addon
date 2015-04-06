@@ -375,7 +375,6 @@ class ShortcutsMenu(bpy.types.Menu):
 def menu(self, context):
 	self.layout.separator()
 	self.layout.prop(context.user_preferences.view, "use_rotate_around_active", icon="PLUGIN")
-	self.layout.operator(ShowLayerGroupMenu.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.menu(ShortcutsMenu.bl_idname, icon="PLUGIN")
 	self.layout.menu(PieMenu.bl_idname, icon="PLUGIN")
