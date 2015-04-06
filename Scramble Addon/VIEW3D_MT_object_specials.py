@@ -462,28 +462,60 @@ class CreateSolidifyEdge(bpy.types.Operator):
 		return context.window_manager.invoke_props_dialog(self)
 
 ################
+# サブメニュー #
+################
+
+class RenderHideMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_object_specials_render_hide"
+	bl_label = "レンダリング制限"
+	bl_description = "オブジェクトのレンダリング制限関係のメニューです"
+	
+	def draw(self, context):
+		column = self.layout.column()
+		column.operator(SetRenderHide.bl_idname, text="選択物のレンダリングを制限", icon="PLUGIN").reverse = True
+		column.operator('object.isolate_type_render')
+		column.separator()
+		column.operator(SetRenderHide.bl_idname, text="選択物のレンダリングを許可", icon="PLUGIN").reverse = False
+		column.operator('object.hide_render_clear_all')
+		column.separator()
+		column.operator(SyncRenderHide.bl_idname, icon="PLUGIN")
+
+class HideSelectMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_object_specials_hide_select"
+	bl_label = "選択制限"
+	bl_description = "オブジェクトの選択制限関係のメニューです"
+	
+	def draw(self, context):
+		column = self.layout.column()
+		column.operator(SetHideSelect.bl_idname, text="選択物の選択を制限", icon="PLUGIN").reverse = True
+		column.operator(SetUnselectHideSelect.bl_idname, icon="PLUGIN").reverse = True
+		column.separator()
+		column.operator(AllResetHideSelect.bl_idname, icon="PLUGIN").reverse = False
+
+class ObjectNameMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_object_specials_object_name"
+	bl_label = "オブジェクト名"
+	bl_description = "オブジェクト名関係のメニューです"
+	
+	def draw(self, context):
+		column = self.layout.column()
+		column.operator(CopyObjectName.bl_idname, icon="PLUGIN")
+		column.operator(RenameObjectRegularExpression.bl_idname, icon="PLUGIN")
+		column.operator(EqualizeObjectNameAndDataName.bl_idname, icon="PLUGIN")
+		if (len(context.selected_objects) <= 0):
+			column.enabled = False
+
+################
 # メニュー追加 #
 ################
 
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
-	column = self.layout.column()
-	column.operator(SetRenderHide.bl_idname, text="選択物のレンダリングを制限", icon="PLUGIN").reverse = True
-	column.operator(SetRenderHide.bl_idname, text="選択物のレンダリングを許可", icon="PLUGIN").reverse = False
-	column.operator(SyncRenderHide.bl_idname, icon="PLUGIN")
+	self.layout.menu(RenderHideMenu.bl_idname, icon="PLUGIN")
+	self.layout.menu(HideSelectMenu.bl_idname, icon="PLUGIN")
 	self.layout.separator()
-	column = self.layout.column()
-	column.operator(SetHideSelect.bl_idname, text="選択物の選択を制限", icon="PLUGIN").reverse = True
-	column.operator(SetUnselectHideSelect.bl_idname, icon="PLUGIN").reverse = True
-	column.operator(AllResetHideSelect.bl_idname, icon="PLUGIN").reverse = False
-	self.layout.separator()
-	column = self.layout.column()
-	column.operator(CopyObjectName.bl_idname, icon="PLUGIN")
-	column.operator(RenameObjectRegularExpression.bl_idname, icon="PLUGIN")
-	column.operator(EqualizeObjectNameAndDataName.bl_idname, icon="PLUGIN")
-	if (len(context.selected_objects) <= 0):
-		column.enabled = False
+	self.layout.menu(ObjectNameMenu.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	column = self.layout.column()
 	column.operator(ToggleSmooth.bl_idname, icon="PLUGIN")
