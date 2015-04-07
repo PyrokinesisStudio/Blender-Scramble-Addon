@@ -123,12 +123,12 @@ class MakeLinkArmaturePose(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="真似させるアーマチュアオブジェクトがありません")
 			return {'CANCELLED'}
 		for obj in target_objs:
-			for bone in obj.pose.bones:
+			for bone in active_obj.pose.bones:
 				try:
-					active_obj.pose.bones[bone.name].constraints
+					target_bone = obj.pose.bones[bone.name]
 				except KeyError:
 					continue
-				consts = bone.constraints
+				consts = target_bone.constraints
 				for const in consts[:]:
 					consts.remove(const)
 				const = consts.new('COPY_TRANSFORMS')
