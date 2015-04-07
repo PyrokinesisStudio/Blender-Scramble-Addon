@@ -432,6 +432,40 @@ class CopyConstraintsMirror(bpy.types.Operator):
 		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
+class RemoveBoneNameSerialNumbers(bpy.types.Operator):
+	bl_idname = "pose.remove_bone_name_serial_numbers"
+	bl_label = "ボーン名の連番を削除"
+	bl_description = "「X.001」など、連番の付いたボーン名から数字を取り除くのを試みます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		for bone in context.selected_pose_bones:
+			bone.name = re.sub(r'\.\d+$', "", bone.name)
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
+################
+# サブメニュー #
+################
+
+class BoneNameMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_pose_specials_bone_name"
+	bl_label = "ボーン名"
+	bl_description = "ボーン名に関する機能のメニューです"
+	
+	def draw(self, context):
+		self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")
+		self.layout.operator(RenameBoneRegularExpression.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(RemoveBoneNameSerialNumbers.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(RenameBoneNameEnd.bl_idname, text="ボーン名置換「XXX_R => XXX.R」", icon="PLUGIN").reverse = False
+		self.layout.operator(RenameBoneNameEnd.bl_idname, text="ボーン名置換「XXX.R => XXX_R」", icon="PLUGIN").reverse = True
+		self.layout.separator()
+		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="ボーン名置換「XXX_R => 右XXX」", icon="PLUGIN").reverse = False
+		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="ボーン名置換「右XXX => XXX_R」", icon="PLUGIN").reverse = True
+
 ################
 # メニュー追加 #
 ################
@@ -439,16 +473,9 @@ class CopyConstraintsMirror(bpy.types.Operator):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
-	self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")
-	self.layout.operator(RenameBoneRegularExpression.bl_idname, icon="PLUGIN")
+	self.layout.menu(BoneNameMenu.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(CopyConstraintsMirror.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(RenameBoneNameEnd.bl_idname, text="ボーン名置換「XXX_R => XXX.R」", icon="PLUGIN").reverse = False
-	self.layout.operator(RenameBoneNameEnd.bl_idname, text="ボーン名置換「XXX.R => XXX_R」", icon="PLUGIN").reverse = True
-	self.layout.separator()
-	self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="ボーン名置換「XXX_R => 右XXX」", icon="PLUGIN").reverse = False
-	self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="ボーン名置換「右XXX => XXX_R」", icon="PLUGIN").reverse = True
 	self.layout.separator()
 	text = "ポーズ位置を切り替え (現在：レスト位置)"
 	if (context.object.data.pose_position == 'POSE'):
