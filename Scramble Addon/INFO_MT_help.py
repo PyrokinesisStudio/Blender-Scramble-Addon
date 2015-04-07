@@ -438,6 +438,31 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 				break
 		return context.window_manager.invoke_props_dialog(self)
 
+################
+# サブメニュー #
+################
+
+class ShortcutsMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_help_shortcuts"
+	bl_label = "ショートカット関係"
+	bl_description = "ショートカット関係のメニューです"
+	
+	def draw(self, context):
+		column = self.layout.column()
+		column.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
+		column.separator()
+		column.operator(RegisterLastCommandKeyconfig.bl_idname, text="最後のコマンドをショートカットに登録", icon="PLUGIN").is_clipboard = False
+		column.operator(RegisterLastCommandKeyconfig.bl_idname, text="クリップボードのコマンドをショートカットに登録", icon="PLUGIN").is_clipboard = True
+
+class AssociateMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_help_associate"
+	bl_label = "関連付け関係"
+	bl_description = "関連付け関係のメニューです (WindowsOSのみ)"
+	
+	def draw(self, context):
+		column = self.layout.column()
+		column.operator(RegisterBlendFile.bl_idname, icon="PLUGIN")
+		column.operator(RegisterBlendBackupFiles.bl_idname, icon="PLUGIN")
 
 ################
 # メニュー追加 #
@@ -446,12 +471,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 # メニューを登録する関数
 def menu(self, context):
 	self.layout.separator()
-	self.layout.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="最後のコマンドをショートカットに登録", icon="PLUGIN").is_clipboard = False
-	self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="クリップボードのコマンドをショートカットに登録", icon="PLUGIN").is_clipboard = True
-	self.layout.separator()
-	self.layout.operator(RegisterBlendFile.bl_idname, icon="PLUGIN")
-	self.layout.operator(RegisterBlendBackupFiles.bl_idname, icon="PLUGIN")
+	self.layout.menu(ShortcutsMenu.bl_idname, icon="PLUGIN")
+	self.layout.menu(AssociateMenu.bl_idname, icon="PLUGIN")
 	self.layout.separator()
 	self.layout.operator(UpdateScrambleAddon.bl_idname, icon="PLUGIN")
