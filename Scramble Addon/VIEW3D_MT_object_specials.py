@@ -533,6 +533,8 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 	
 	bone_length = bpy.props.FloatProperty(name="ボーンの長さ", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
 	add_edge = bpy.props.BoolProperty(name="辺にもボーンを追加", default=True)
+	vert_bone_name = bpy.props.StringProperty(name="頂点部分のボーン名", default="頂点")
+	edge_bone_name = bpy.props.StringProperty(name="辺部分のボーン名", default="辺")
 	
 	def execute(self, context):
 		pre_active_obj = context.active_object
@@ -547,13 +549,13 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 			bpy.ops.object.mode_set(mode='EDIT')
 			bone_names = []
 			for vert in obj.data.vertices:
-				bone = arm.edit_bones.new("頂点"+str(vert.index))
+				bone = arm.edit_bones.new(self.vert_bone_name+str(vert.index))
 				bone.head = obj.matrix_world * vert.co
 				bone.tail = bone.head + (obj.matrix_world * vert.normal * self.bone_length)
 				bone_names.append(bone.name)
 			bpy.ops.object.mode_set(mode='OBJECT')
 			for vert, name in zip(obj.data.vertices, bone_names):
-				vg = obj.vertex_groups.new("頂点"+str(vert.index))
+				vg = obj.vertex_groups.new(name)
 				vg.add([vert.index], 1.0, 'REPLACE')
 				const = arm_obj.pose.bones[name].constraints.new('COPY_LOCATION')
 				const.target = obj
@@ -564,7 +566,7 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 				for edge in obj.data.edges:
 					vert0 = obj.data.vertices[edge.vertices[0]]
 					vert1 = obj.data.vertices[edge.vertices[1]]
-					bone = arm.edit_bones.new("辺"+str(edge.index))
+					bone = arm.edit_bones.new(self.edge_bone_name+str(edge.index))
 					bone.head = obj.matrix_world * vert0.co
 					bone.tail = obj.matrix_world * vert1.co
 					bone.layers = (False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False)
@@ -574,10 +576,10 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 				for edge, name in zip(obj.data.edges, edge_bone_names):
 					const = arm_obj.pose.bones[name].constraints.new('COPY_LOCATION')
 					const.target = arm_obj
-					const.subtarget = "頂点" + str(edge.vertices[0])
+					const.subtarget = self.vert_bone_name + str(edge.vertices[0])
 					const = arm_obj.pose.bones[name].constraints.new('STRETCH_TO')
 					const.target = arm_obj
-					const.subtarget = "頂点" + str(edge.vertices[1])
+					const.subtarget = self.vert_bone_name + str(edge.vertices[1])
 		context.scene.objects.active = pre_active_obj
 		bpy.ops.object.mode_set(mode='EDIT')
 		bpy.ops.object.mode_set(mode='OBJECT')
