@@ -101,6 +101,30 @@ class MoveVertexGroupBottom(bpy.types.Operator):
 			bpy.ops.object.vertex_group_move(direction='DOWN')
 		return {'FINISHED'}
 
+class RemoveSpecifiedStringVertexGroups(bpy.types.Operator):
+	bl_idname = "mesh.remove_specified_string_vertex_groups"
+	bl_label = "特定文字列が含まれる頂点グループ削除"
+	bl_description = "指定した文字列が名前に含まれている頂点グループを全て削除します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	string = bpy.props.StringProperty(name="削除する名前の一部", default="")
+	
+	def execute(self, context):
+		obj = context.active_object
+		count = 0
+		if (obj.type == "MESH"):
+			for vg in obj.vertex_groups[:]:
+				if (self.string in vg.name):
+					obj.vertex_groups.remove(vg)
+					count += 1
+			self.report(type={'INFO'}, message=str(count)+"個の頂点グループを削除しました")
+		else:
+			self.report(type={'ERROR'}, message="メッシュオブジェクトで実行して下さい")
+			return {'CANCELLED'}
+		return {'FINISHED'}
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+
 ################
 # メニュー追加 #
 ################
@@ -123,6 +147,7 @@ def menu(self, context):
 	operator.limit = 0
 	operator.keep_single = False
 	column.separator()
+	column.operator(RemoveSpecifiedStringVertexGroups.bl_idname, icon="PLUGIN")
 	column.operator(RemoveEmptyVertexGroups.bl_idname, icon="PLUGIN")
 	column.separator()
 	column.operator(AddOppositeVertexGroups.bl_idname, icon="PLUGIN")
