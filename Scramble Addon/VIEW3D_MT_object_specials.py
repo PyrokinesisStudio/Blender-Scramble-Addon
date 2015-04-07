@@ -384,9 +384,31 @@ class VertexGroupTransfer(bpy.types.Operator):
 	vertex_group_delete = bpy.props.BoolProperty(name="割り当ての無い頂点グループ削除", default=True)
 	
 	def execute(self, context):
+		if (context.active_object.type != 'MESH'):
+			self.report(type={'ERROR'}, message="メッシュオブジェクトがアクティブな状態で実行して下さい")
+			return {'CANCELLED'}
+		source_objs = []
+		for obj in context.selected_objects:
+			if (obj.type == 'MESH' and context.active_object.name != obj.name):
+				source_objs.append(obj)
+		if (len(source_objs) <= 0):
+			self.report(type={'ERROR'}, message="メッシュオブジェクトを2つ以上選択した状態で実行して下さい")
+			return {'CANCELLED'}
 		if (0 < len(context.active_object.vertex_groups) and self.vertex_group_remove_all):
 			bpy.ops.object.vertex_group_remove(all=True)
-		bpy.ops.object.data_transfer(use_reverse_transfer=True, data_type='VGROUP_WEIGHTS', use_create=True, vert_mapping='POLYINTERP_NEAREST', layers_select_src = 'ALL', layers_select_dst = 'NAME')
+		me = context.active_object.data
+		vert_mapping = 'NEAREST'
+		for obj in source_objs:
+			if (len(obj.data.polygons) <= 0):
+				for obj2 in source_objs:
+					if (len(obj.data.edges) <= 0):
+						break
+				else:
+					vert_mapping = 'EDGEINTERP_NEAREST'
+				break
+		else:
+			vert_mapping = 'POLYINTERP_NEAREST'
+		bpy.ops.object.data_transfer(use_reverse_transfer=True, data_type='VGROUP_WEIGHTS', use_create=True, vert_mapping=vert_mapping, layers_select_src = 'ALL', layers_select_dst = 'NAME')
 		if (self.vertex_group_clean):
 			bpy.ops.object.vertex_group_clean(group_select_mode='ALL', limit=0, keep_single=False)
 		if (self.vertex_group_delete):
