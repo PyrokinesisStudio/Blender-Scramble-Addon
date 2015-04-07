@@ -525,6 +525,64 @@ class ClearObjectColor(bpy.types.Operator):
 					slot.material.use_object_color = False
 		return {'FINISHED'}
 
+class CreateMeshImitateArmature(bpy.types.Operator):
+	bl_idname = "object.create_mesh_imitate_armature"
+	bl_label = "メッシュの変形を真似するアーマチュアを作成"
+	bl_description = "アクティブメッシュオブジェクトの変形に追従するアーマチュアを新規作成します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	bone_length = bpy.props.FloatProperty(name="ボーンの長さ", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
+	add_edge = bpy.props.BoolProperty(name="辺にもボーンを追加", default=True)
+	
+	def execute(self, context):
+		pre_active_obj = context.active_object
+		for obj in context.selected_objects:
+			if (obj.type != 'MESH'):
+				self.report(type={'INFO'}, message=obj.name+"はメッシュオブジェクトではないので無視します")
+				continue
+			arm = bpy.data.armatures.new(obj.name+"の真似をするアーマチュア")
+			arm_obj = bpy.data.objects.new(obj.name+"の真似をするアーマチュア", arm)
+			context.scene.objects.link(arm_obj)
+			context.scene.objects.active = arm_obj
+			bpy.ops.object.mode_set(mode='EDIT')
+			bone_names = []
+			for vert in obj.data.vertices:
+				bone = arm.edit_bones.new("頂点"+str(vert.index))
+				bone.head = obj.matrix_world * vert.co
+				bone.tail = bone.head + (obj.matrix_world * vert.normal * self.bone_length)
+				bone_names.append(bone.name)
+			bpy.ops.object.mode_set(mode='OBJECT')
+			for vert, name in zip(obj.data.vertices, bone_names):
+				vg = obj.vertex_groups.new("頂点"+str(vert.index))
+				vg.add([vert.index], 1.0, 'REPLACE')
+				const = arm_obj.pose.bones[name].constraints.new('COPY_LOCATION')
+				const.target = obj
+				const.subtarget = vg.name
+			if (self.add_edge):
+				edge_bone_names = []
+				bpy.ops.object.mode_set(mode='EDIT')
+				for edge in obj.data.edges:
+					vert0 = obj.data.vertices[edge.vertices[0]]
+					vert1 = obj.data.vertices[edge.vertices[1]]
+					bone = arm.edit_bones.new("辺"+str(edge.index))
+					bone.head = obj.matrix_world * vert0.co
+					bone.tail = obj.matrix_world * vert1.co
+					bone.layers = (False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False)
+					edge_bone_names.append(bone.name)
+				bpy.ops.object.mode_set(mode='OBJECT')
+				arm.layers[1] = True
+				for edge, name in zip(obj.data.edges, edge_bone_names):
+					const = arm_obj.pose.bones[name].constraints.new('COPY_LOCATION')
+					const.target = arm_obj
+					const.subtarget = "頂点" + str(edge.vertices[0])
+					const = arm_obj.pose.bones[name].constraints.new('STRETCH_TO')
+					const.target = arm_obj
+					const.subtarget = "頂点" + str(edge.vertices[1])
+		context.scene.objects.active = pre_active_obj
+		bpy.ops.object.mode_set(mode='EDIT')
+		bpy.ops.object.mode_set(mode='OBJECT')
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -633,3 +691,9 @@ def menu(self, context):
 	column.operator(AddGreasePencilPathMetaballs.bl_idname, icon="PLUGIN")
 	if (not context.gpencil_data):
 		column.enabled = False
+	self.layout.separator()
+	column = self.layout.column()
+	column.operator(CreateMeshImitateArmature.bl_idname, icon="PLUGIN")
+	for obj in context.selected_objects:
+		if (obj.type == 'MESH'):
+			column.enabled = True
