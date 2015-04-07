@@ -102,11 +102,47 @@ else:
 	from . import VIEW3D_MT_uv_map
 import bpy
 
-"""
-# ダミーオペレーター
-class temp(bpy.types.Operator):
-	pass
-"""
+# アドオン設定
+class AddonPreferences(bpy.types.AddonPreferences):
+	bl_idname = __name__
+	
+	is_enables = bpy.props.StringProperty(name="メニューのオン/オフ")
+	
+	def draw(self, context):
+		layout = self.layout
+		layout.prop(self, 'is_enables')
+
+# 追加メニューの有効/無効
+class ToggleMenuEnable(bpy.types.Operator):
+	bl_idname = "wm.toggle_menu_enable"
+	bl_label = "追加項目のオン/オフ"
+	bl_description = "ScrambleAddonによる追加メニューを有効/無効に切り替えます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	id = bpy.props.StringProperty()
+	
+	def execute(self, context):
+		recovery = ""
+		is_on = False
+		for string in context.user_preferences.addons["Scramble Addon"].preferences.is_enables.split(','):
+			splited = string.split(':')
+			if (len(splited) != 2):
+				continue
+			id = splited[0]
+			value = splited[1]
+			if (id == self.id):
+				if (value == "0"):
+					value = "1"
+				else:
+					value = "0"
+				is_on = True
+			recovery = recovery + id + ":" + value + ","
+		if (not is_on):
+			recovery = recovery + self.id + ":" + "0" + ","
+		if (recovery[-1] == ","):
+			recovery = recovery[:-1]
+		context.user_preferences.addons["Scramble Addon"].preferences.is_enables = recovery
+		return {'FINISHED'}
 
 # プラグインをインストールしたときの処理
 def register():

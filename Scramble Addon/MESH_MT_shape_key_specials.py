@@ -110,19 +110,37 @@ class ShapeKeyApplyRemoveAll(bpy.types.Operator):
 # メニュー追加 #
 ################
 
+# メニューのオン/オフの判定
+def IsMenuEnable(self_id):
+	for string in bpy.context.user_preferences.addons["Scramble Addon"].preferences.is_enables.split(','):
+		splited = string.split(':')
+		if (len(splited) != 2):
+			continue
+		id = splited[0]
+		value = splited[1]
+		if (id == self_id):
+			if (value == "0"):
+				return False
+			else:
+				return True
+	return True
+
 # メニューを登録する関数
 def menu(self, context):
-	column = self.layout.column()
-	column.separator()
-	column.operator(SelectShapeTop.bl_idname, icon="PLUGIN")
-	column.operator(SelectShapeBottom.bl_idname, icon="PLUGIN")
-	column.separator()
-	column.operator(CopyShape.bl_idname, icon="PLUGIN")
-	column.operator(ShapeKeyApplyRemoveAll.bl_idname, icon="PLUGIN")
-	column.separator()
-	column.operator(InsertKeyframeAllShapes.bl_idname, icon="PLUGIN")
-	column.separator()
-	column.operator(ShowShapeBlockName.bl_idname, icon="PLUGIN")
-	column.operator(RenameShapeBlockName.bl_idname, icon="PLUGIN")
-	if (not context.active_object.active_shape_key):
-		column.enabled = False
+	if (IsMenuEnable(__name__.split('.')[-1])):
+		column = self.layout.column()
+		column.separator()
+		column.operator(SelectShapeTop.bl_idname, icon="PLUGIN")
+		column.operator(SelectShapeBottom.bl_idname, icon="PLUGIN")
+		column.separator()
+		column.operator(CopyShape.bl_idname, icon="PLUGIN")
+		column.operator(ShapeKeyApplyRemoveAll.bl_idname, icon="PLUGIN")
+		column.separator()
+		column.operator(InsertKeyframeAllShapes.bl_idname, icon="PLUGIN")
+		column.separator()
+		column.operator(ShowShapeBlockName.bl_idname, icon="PLUGIN")
+		column.operator(RenameShapeBlockName.bl_idname, icon="PLUGIN")
+		if (not context.active_object.active_shape_key):
+			column.enabled = False
+	self.layout.separator()
+	self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

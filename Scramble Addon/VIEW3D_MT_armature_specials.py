@@ -146,12 +146,30 @@ class RenameOppositeBone(bpy.types.Operator):
 # メニュー追加 #
 ################
 
+# メニューのオン/オフの判定
+def IsMenuEnable(self_id):
+	for string in bpy.context.user_preferences.addons["Scramble Addon"].preferences.is_enables.split(','):
+		splited = string.split(':')
+		if (len(splited) != 2):
+			continue
+		id = splited[0]
+		value = splited[1]
+		if (id == self_id):
+			if (value == "0"):
+				return False
+			else:
+				return True
+	return True
+
 # メニューを登録する関数
 def menu(self, context):
+	if (IsMenuEnable(__name__.split('.')[-1])):
+		self.layout.separator()
+		self.layout.prop(context.object.data, "use_mirror_x", icon="PLUGIN", text="X軸ミラー編集")
+		self.layout.operator(CreateMirror.bl_idname, icon="PLUGIN")
+		self.layout.operator(RenameOppositeBone.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")
+		self.layout.operator(RenameBoneRegularExpression.bl_idname, icon="PLUGIN")
 	self.layout.separator()
-	self.layout.prop(context.object.data, "use_mirror_x", icon="PLUGIN", text="X軸ミラー編集")
-	self.layout.operator(CreateMirror.bl_idname, icon="PLUGIN")
-	self.layout.operator(RenameOppositeBone.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")
-	self.layout.operator(RenameBoneRegularExpression.bl_idname, icon="PLUGIN")
+	self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

@@ -145,15 +145,33 @@ class MoveMaterialSlotBottom(bpy.types.Operator):
 # メニュー追加 #
 ################
 
+# メニューのオン/オフの判定
+def IsMenuEnable(self_id):
+	for string in bpy.context.user_preferences.addons["Scramble Addon"].preferences.is_enables.split(','):
+		splited = string.split(':')
+		if (len(splited) != 2):
+			continue
+		id = splited[0]
+		value = splited[1]
+		if (id == self_id):
+			if (value == "0"):
+				return False
+			else:
+				return True
+	return True
+
 # メニューを登録する関数
 def menu(self, context):
+	if (IsMenuEnable(__name__.split('.')[-1])):
+		self.layout.separator()
+		self.layout.operator(MoveMaterialSlot.bl_idname, icon="PLUGIN", text="上へ").mode = 'UP'
+		self.layout.operator(MoveMaterialSlot.bl_idname, icon="PLUGIN", text="下へ").mode = 'DOWN'
+		self.layout.separator()
+		self.layout.operator(MoveMaterialSlotTop.bl_idname, icon="PLUGIN")
+		self.layout.operator(MoveMaterialSlotBottom.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(RemoveAllMaterialSlot.bl_idname, icon="PLUGIN")
+		self.layout.operator(RemoveEmptyMaterialSlot.bl_idname, icon="PLUGIN")
+		self.layout.operator(RemoveNoAssignMaterial.bl_idname, icon="PLUGIN")
 	self.layout.separator()
-	self.layout.operator(MoveMaterialSlot.bl_idname, icon="PLUGIN", text="上へ").mode = 'UP'
-	self.layout.operator(MoveMaterialSlot.bl_idname, icon="PLUGIN", text="下へ").mode = 'DOWN'
-	self.layout.separator()
-	self.layout.operator(MoveMaterialSlotTop.bl_idname, icon="PLUGIN")
-	self.layout.operator(MoveMaterialSlotBottom.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.operator(RemoveAllMaterialSlot.bl_idname, icon="PLUGIN")
-	self.layout.operator(RemoveEmptyMaterialSlot.bl_idname, icon="PLUGIN")
-	self.layout.operator(RemoveNoAssignMaterial.bl_idname, icon="PLUGIN")
+	self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

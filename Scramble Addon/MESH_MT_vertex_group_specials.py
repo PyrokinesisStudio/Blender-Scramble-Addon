@@ -129,27 +129,45 @@ class RemoveSpecifiedStringVertexGroups(bpy.types.Operator):
 # メニュー追加 #
 ################
 
+# メニューのオン/オフの判定
+def IsMenuEnable(self_id):
+	for string in bpy.context.user_preferences.addons["Scramble Addon"].preferences.is_enables.split(','):
+		splited = string.split(':')
+		if (len(splited) != 2):
+			continue
+		id = splited[0]
+		value = splited[1]
+		if (id == self_id):
+			if (value == "0"):
+				return False
+			else:
+				return True
+	return True
+
 # メニューを登録する関数
 def menu(self, context):
-	column = self.layout.column()
-	column.separator()
-	column.operator(SelectVertexGroupsTop.bl_idname, icon="PLUGIN")
-	column.operator(SelectVertexGroupsBottom.bl_idname, icon="PLUGIN")
-	column.separator()
-	column.operator(MoveVertexGroupTop.bl_idname, icon="PLUGIN")
-	column.operator(MoveVertexGroupBottom.bl_idname, icon="PLUGIN")
-	column.separator()
-	operator = column.operator('object.vertex_group_normalize_all', icon="PLUGIN")
-	operator.group_select_mode = 'ALL'
-	operator.lock_active = False
-	operator = column.operator('object.vertex_group_clean', icon="PLUGIN")
-	operator.group_select_mode = 'ALL'
-	operator.limit = 0
-	operator.keep_single = False
-	column.separator()
-	column.operator(RemoveSpecifiedStringVertexGroups.bl_idname, icon="PLUGIN")
-	column.operator(RemoveEmptyVertexGroups.bl_idname, icon="PLUGIN")
-	column.separator()
-	column.operator(AddOppositeVertexGroups.bl_idname, icon="PLUGIN")
-	if (len(context.active_object.vertex_groups) <= 0):
-		column.enabled = False
+	if (IsMenuEnable(__name__.split('.')[-1])):
+		column = self.layout.column()
+		column.separator()
+		column.operator(SelectVertexGroupsTop.bl_idname, icon="PLUGIN")
+		column.operator(SelectVertexGroupsBottom.bl_idname, icon="PLUGIN")
+		column.separator()
+		column.operator(MoveVertexGroupTop.bl_idname, icon="PLUGIN")
+		column.operator(MoveVertexGroupBottom.bl_idname, icon="PLUGIN")
+		column.separator()
+		operator = column.operator('object.vertex_group_normalize_all', icon="PLUGIN")
+		operator.group_select_mode = 'ALL'
+		operator.lock_active = False
+		operator = column.operator('object.vertex_group_clean', icon="PLUGIN")
+		operator.group_select_mode = 'ALL'
+		operator.limit = 0
+		operator.keep_single = False
+		column.separator()
+		column.operator(RemoveSpecifiedStringVertexGroups.bl_idname, icon="PLUGIN")
+		column.operator(RemoveEmptyVertexGroups.bl_idname, icon="PLUGIN")
+		column.separator()
+		column.operator(AddOppositeVertexGroups.bl_idname, icon="PLUGIN")
+		if (len(context.active_object.vertex_groups) <= 0):
+			column.enabled = False
+	self.layout.separator()
+	self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

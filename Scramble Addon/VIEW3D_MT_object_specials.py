@@ -1127,62 +1127,80 @@ class UVMenu(bpy.types.Menu):
 # メニュー追加 #
 ################
 
+# メニューのオン/オフの判定
+def IsMenuEnable(self_id):
+	for string in bpy.context.user_preferences.addons["Scramble Addon"].preferences.is_enables.split(','):
+		splited = string.split(':')
+		if (len(splited) != 2):
+			continue
+		id = splited[0]
+		value = splited[1]
+		if (id == self_id):
+			if (value == "0"):
+				return False
+			else:
+				return True
+	return True
+
 # メニューを登録する関数
 def menu(self, context):
-	self.layout.separator()
-	self.layout.menu(RenderHideMenu.bl_idname, icon="PLUGIN")
-	self.layout.menu(HideSelectMenu.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.menu(ObjectNameMenu.bl_idname, icon="PLUGIN")
-	self.layout.menu(ObjectColorMenu.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
-	self.layout.menu(ModifierMenu.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	column = self.layout.column()
-	column.operator(ToggleSmooth.bl_idname, icon="PLUGIN")
-	column.operator(AddVertexColorSelectedObject.bl_idname, icon="PLUGIN")
-	column.enabled = False
-	for obj in context.selected_objects:
-		if (obj.type == 'MESH'):
-			column.enabled = True
-	self.layout.separator()
-	column = self.layout.column()
-	operator = column.operator(VertexGroupTransfer.bl_idname, icon="PLUGIN")
-	column.enabled = False
-	if (context.active_object.type == 'MESH'):
-		i = 0
+	if (IsMenuEnable(__name__.split('.')[-1])):
+		self.layout.separator()
+		self.layout.menu(RenderHideMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(HideSelectMenu.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.menu(ObjectNameMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(ObjectColorMenu.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(ModifierMenu.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		column = self.layout.column()
+		column.operator(ToggleSmooth.bl_idname, icon="PLUGIN")
+		column.operator(AddVertexColorSelectedObject.bl_idname, icon="PLUGIN")
+		column.enabled = False
 		for obj in context.selected_objects:
 			if (obj.type == 'MESH'):
-				i += 1
-		if (2 <= i):
-			column.enabled = True
-	column = self.layout.column()
-	column.operator('mesh.vertex_group_average_all', icon="PLUGIN")
-	self.layout.separator()
-	column = self.layout.column()
-	column.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
-	column.enabled = False
-	if (context.active_object):
-		if (context.active_object.type == "CURVE"):
-			column.enabled = True
-	column = self.layout.column()
-	column.operator(QuickCurveDeform.bl_idname, icon="PLUGIN")
-	column.operator(CreateSolidifyEdge.bl_idname, icon="PLUGIN")
-	self.layout.separator()
-	column = self.layout.column()
-	column.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")
-	column.enabled = False
-	for obj in context.selected_objects:
-		if (obj.type == 'MESH'):
-			column.enabled = True
-	column = self.layout.column()
-	column.operator(AddGreasePencilPathMetaballs.bl_idname, icon="PLUGIN")
-	if (not context.gpencil_data):
+				column.enabled = True
+		self.layout.separator()
+		column = self.layout.column()
+		operator = column.operator(VertexGroupTransfer.bl_idname, icon="PLUGIN")
 		column.enabled = False
+		if (context.active_object.type == 'MESH'):
+			i = 0
+			for obj in context.selected_objects:
+				if (obj.type == 'MESH'):
+					i += 1
+			if (2 <= i):
+				column.enabled = True
+		column = self.layout.column()
+		column.operator('mesh.vertex_group_average_all', icon="PLUGIN")
+		self.layout.separator()
+		column = self.layout.column()
+		column.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
+		column.enabled = False
+		if (context.active_object):
+			if (context.active_object.type == "CURVE"):
+				column.enabled = True
+		column = self.layout.column()
+		column.operator(QuickCurveDeform.bl_idname, icon="PLUGIN")
+		column.operator(CreateSolidifyEdge.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		column = self.layout.column()
+		column.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")
+		column.enabled = False
+		for obj in context.selected_objects:
+			if (obj.type == 'MESH'):
+				column.enabled = True
+		column = self.layout.column()
+		column.operator(AddGreasePencilPathMetaballs.bl_idname, icon="PLUGIN")
+		if (not context.gpencil_data):
+			column.enabled = False
+		self.layout.separator()
+		column = self.layout.column()
+		column.operator(CreateMeshImitateArmature.bl_idname, icon="PLUGIN")
+		for obj in context.selected_objects:
+			if (obj.type == 'MESH'):
+				column.enabled = True
 	self.layout.separator()
-	column = self.layout.column()
-	column.operator(CreateMeshImitateArmature.bl_idname, icon="PLUGIN")
-	for obj in context.selected_objects:
-		if (obj.type == 'MESH'):
-			column.enabled = True
+	self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
