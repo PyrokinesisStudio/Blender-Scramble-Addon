@@ -77,18 +77,11 @@ class AddVertexOnlyObject(bpy.types.Operator):
 
 # メニューのオン/オフの判定
 def IsMenuEnable(self_id):
-	for string in bpy.context.user_preferences.addons["Scramble Addon"].preferences.is_enables.split(','):
-		splited = string.split(':')
-		if (len(splited) != 2):
-			continue
-		id = splited[0]
-		value = splited[1]
+	for id in bpy.context.user_preferences.addons["Scramble Addon"].preferences.disabled_menu.split(','):
 		if (id == self_id):
-			if (value == "0"):
-				return False
-			else:
-				return True
-	return True
+			return False
+	else:
+		return True
 
 # メニューを登録する関数
 def menu(self, context):
@@ -96,5 +89,6 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.operator(AddVertexOnlyObject.bl_idname, icon="PLUGIN")
 		self.layout.operator(AddSphereOnlySquare.bl_idname, icon="PLUGIN").location = context.space_data.cursor_location
-	self.layout.separator()
-	self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
+	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
+		self.layout.separator()
+		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

@@ -106,11 +106,13 @@ import bpy
 class AddonPreferences(bpy.types.AddonPreferences):
 	bl_idname = __name__
 	
-	is_enables = bpy.props.StringProperty(name="メニューのオン/オフ")
+	disabled_menu = bpy.props.StringProperty(name="無効なメニュー", default="")
+	use_disabled_menu = bpy.props.BoolProperty(name="「追加項目のオン/オフ」の非表示", default=True)
 	
 	def draw(self, context):
 		layout = self.layout
-		layout.prop(self, 'is_enables')
+		layout.prop(self, 'disabled_menu')
+		layout.prop(self, 'use_disabled_menu')
 
 # 追加メニューの有効/無効
 class ToggleMenuEnable(bpy.types.Operator):
@@ -124,24 +126,19 @@ class ToggleMenuEnable(bpy.types.Operator):
 	def execute(self, context):
 		recovery = ""
 		is_on = False
-		for string in context.user_preferences.addons["Scramble Addon"].preferences.is_enables.split(','):
-			splited = string.split(':')
-			if (len(splited) != 2):
+		for id in context.user_preferences.addons["Scramble Addon"].preferences.disabled_menu.split(','):
+			if (id == ""):
 				continue
-			id = splited[0]
-			value = splited[1]
 			if (id == self.id):
-				if (value == "0"):
-					value = "1"
-				else:
-					value = "0"
 				is_on = True
-			recovery = recovery + id + ":" + value + ","
+			else:
+				recovery = recovery + id + ","
 		if (not is_on):
-			recovery = recovery + self.id + ":" + "0" + ","
-		if (recovery[-1] == ","):
-			recovery = recovery[:-1]
-		context.user_preferences.addons["Scramble Addon"].preferences.is_enables = recovery
+			recovery = recovery + self.id + ","
+		if (recovery != ""):
+			if (recovery[-1] == ","):
+				recovery = recovery[:-1]
+		context.user_preferences.addons["Scramble Addon"].preferences.disabled_menu = recovery
 		return {'FINISHED'}
 
 # プラグインをインストールしたときの処理

@@ -438,6 +438,16 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 				break
 		return context.window_manager.invoke_props_dialog(self)
 
+class ToggleDisabledMenu(bpy.types.Operator):
+	bl_idname = "wm.toggle_disabled_menu"
+	bl_label = "「追加項目のオン/オフ」の非表示"
+	bl_description = "ScrambleAddonによるメニューの末尾の「追加項目のオン/オフ」ボタンの表示/非表示を切り替えます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu = not context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -470,18 +480,11 @@ class AssociateMenu(bpy.types.Menu):
 
 # メニューのオン/オフの判定
 def IsMenuEnable(self_id):
-	for string in bpy.context.user_preferences.addons["Scramble Addon"].preferences.is_enables.split(','):
-		splited = string.split(':')
-		if (len(splited) != 2):
-			continue
-		id = splited[0]
-		value = splited[1]
+	for id in bpy.context.user_preferences.addons["Scramble Addon"].preferences.disabled_menu.split(','):
 		if (id == self_id):
-			if (value == "0"):
-				return False
-			else:
-				return True
-	return True
+			return False
+	else:
+		return True
 
 # メニューを登録する関数
 def menu(self, context):
@@ -492,4 +495,6 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.operator(UpdateScrambleAddon.bl_idname, icon="PLUGIN")
 	self.layout.separator()
-	self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
+	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
+		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
+	self.layout.operator(ToggleDisabledMenu.bl_idname, icon='CANCEL')
