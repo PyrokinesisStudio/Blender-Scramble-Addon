@@ -1058,7 +1058,7 @@ class ObjectColorMenu(bpy.types.Menu):
 		column.operator(ClearObjectColor.bl_idname, icon="PLUGIN")
 
 class ModifierMenu(bpy.types.Menu):
-	bl_idname = "VIEW3D_MT_object_modifier"
+	bl_idname = "VIEW3D_MT_object_specials_modifier"
 	bl_label = "モディファイア関係"
 	bl_description = "モディファイア関係の操作です"
 	
@@ -1077,7 +1077,7 @@ class ModifierMenu(bpy.types.Menu):
 		self.layout.menu(BooleanMenu.bl_idname, icon="PLUGIN")
 
 class ArmatureMenu(bpy.types.Menu):
-	bl_idname = "VIEW3D_MT_object_armature"
+	bl_idname = "VIEW3D_MT_object_specials_armature"
 	bl_label = "アーマチュア関係"
 	bl_description = "アーマチュア関係の操作です"
 	
@@ -1085,7 +1085,7 @@ class ArmatureMenu(bpy.types.Menu):
 		self.layout.operator(SetArmatureDeformPreserveVolume.bl_idname, icon="PLUGIN")
 
 class BooleanMenu(bpy.types.Menu):
-	bl_idname = "VIEW3D_MT_object_boolean"
+	bl_idname = "VIEW3D_MT_object_specials_boolean"
 	bl_label = "ブーリアン関係"
 	bl_description = "ブーリアン関係の操作です"
 	
@@ -1099,7 +1099,7 @@ class BooleanMenu(bpy.types.Menu):
 		self.layout.operator(ApplyBoolean.bl_idname, icon="PLUGIN", text="ブーリアン適用 (差分)").mode = "DIFFERENCE"
 
 class SubsurfMenu(bpy.types.Menu):
-	bl_idname = "VIEW3D_MT_object_subsurf"
+	bl_idname = "VIEW3D_MT_object_specials_subsurf"
 	bl_label = "サブサーフ関係"
 	bl_description = "サブサーフェイス関係の操作です"
 	
@@ -1112,7 +1112,7 @@ class SubsurfMenu(bpy.types.Menu):
 		self.layout.operator(SetSubsurfOptimalDisplay.bl_idname, icon="PLUGIN")
 
 class UVMenu(bpy.types.Menu):
-	bl_idname = "VIEW3D_MT_object_uv"
+	bl_idname = "VIEW3D_MT_object_specials_uv"
 	bl_label = "UV関係"
 	bl_description = "UV関係の操作です"
 	
@@ -1122,6 +1122,39 @@ class UVMenu(bpy.types.Menu):
 		self.layout.separator()
 		self.layout.operator(DeleteSpecificNameUV.bl_idname, icon="PLUGIN")
 		self.layout.operator(DeleteEmptyUV.bl_idname, icon="PLUGIN")
+
+class SpecialsMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_object_specials_specials"
+	bl_label = "特殊処理"
+	bl_description = "特殊な処理をする操作のメニューです"
+	
+	def draw(self, context):
+		column = self.layout.column()
+		column.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
+		column.enabled = False
+		if (context.active_object):
+			if (context.active_object.type == "CURVE"):
+				column.enabled = True
+		column = self.layout.column()
+		column.operator(QuickCurveDeform.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		column = self.layout.column()
+		column.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")
+		column.enabled = False
+		for obj in context.selected_objects:
+			if (obj.type == 'MESH'):
+				column.enabled = True
+		column = self.layout.column()
+		column.operator(AddGreasePencilPathMetaballs.bl_idname, icon="PLUGIN")
+		if (not context.gpencil_data):
+			column.enabled = False
+		self.layout.separator()
+		column = self.layout.column()
+		column.operator(CreateMeshImitateArmature.bl_idname, icon="PLUGIN")
+		column.operator(CreateSolidifyEdge.bl_idname, icon="PLUGIN")
+		for obj in context.selected_objects:
+			if (obj.type == 'MESH'):
+				column.enabled = True
 
 ################
 # メニュー追加 #
@@ -1169,32 +1202,7 @@ def menu(self, context):
 		column = self.layout.column()
 		column.operator('mesh.vertex_group_average_all', icon="PLUGIN")
 		self.layout.separator()
-		column = self.layout.column()
-		column.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
-		column.enabled = False
-		if (context.active_object):
-			if (context.active_object.type == "CURVE"):
-				column.enabled = True
-		column = self.layout.column()
-		column.operator(QuickCurveDeform.bl_idname, icon="PLUGIN")
-		column.operator(CreateSolidifyEdge.bl_idname, icon="PLUGIN")
-		self.layout.separator()
-		column = self.layout.column()
-		column.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")
-		column.enabled = False
-		for obj in context.selected_objects:
-			if (obj.type == 'MESH'):
-				column.enabled = True
-		column = self.layout.column()
-		column.operator(AddGreasePencilPathMetaballs.bl_idname, icon="PLUGIN")
-		if (not context.gpencil_data):
-			column.enabled = False
-		self.layout.separator()
-		column = self.layout.column()
-		column.operator(CreateMeshImitateArmature.bl_idname, icon="PLUGIN")
-		for obj in context.selected_objects:
-			if (obj.type == 'MESH'):
-				column.enabled = True
+		self.layout.menu(SpecialsMenu.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
