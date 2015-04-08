@@ -440,7 +440,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 
 class ToggleDisabledMenu(bpy.types.Operator):
 	bl_idname = "wm.toggle_disabled_menu"
-	bl_label = "「追加項目のオン/オフ」の非表示"
+	bl_label = "「追加項目のオン/オフ」の表示切り替え"
 	bl_description = "ScrambleAddonによるメニューの末尾の「追加項目のオン/オフ」ボタンの表示/非表示を切り替えます"
 	bl_options = {'REGISTER', 'UNDO'}
 	
