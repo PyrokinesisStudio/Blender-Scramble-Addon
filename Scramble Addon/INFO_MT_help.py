@@ -452,6 +452,70 @@ class ToggleDisabledMenu(bpy.types.Operator):
 		context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu = not context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu
 		return {'FINISHED'}
 
+class ShowEmptyShortcuts(bpy.types.Operator):
+	bl_idname = "view3d.show_empty_shortcuts"
+	bl_label = "割り当ての無いショートカット一覧"
+	bl_description = "現在の編集モードでの割り当ての無いキーを「情報」エリアに表示します"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		addonDir = os.path.dirname(__file__)
+		key_names = collections.OrderedDict()
+		key_strings = []
+		key_binds = collections.OrderedDict()
+		with open(os.path.join(addonDir, "KeysList.csv"), 'r') as f:
+			reader = csv.reader(f)
+			for row in reader:
+				key_names[row[1]] = row[0]
+				key_strings.append(row[1])
+				key_binds[row[1]] = None
+		keyconfigs = context.window_manager.keyconfigs
+		permits = ['Window', 'Screen', '3D View Generic', '3D View', 'Frames', 'Object Non-modal']
+		if (context.mode == 'EDIT_MESH'):
+			permits.append('Mesh')
+		elif (context.mode == 'EDIT_CURVE'):
+			permits.append('Curve')
+		elif (context.mode == 'EDIT_SURFACE'):
+			permits.append('Curve')
+		elif (context.mode == 'EDIT_TEXT'):
+			permits.append('Font')
+		elif (context.mode == 'EDIT_ARMATURE'):
+			permits.append('Armature')
+		elif (context.mode == 'EDIT_METABALL'):
+			permits.append('Metaball')
+		elif (context.mode == 'EDIT_LATTICE'):
+			permits.append('Lattice')
+		elif (context.mode == 'POSE'):
+			permits.append('Pose')
+		elif (context.mode == 'SCULPT'):
+			permits.append('Sculpt')
+		elif (context.mode == 'PAINT_WEIGHT'):
+			permits.append('Weight Paint')
+		elif (context.mode == 'PAINT_VERTEX'):
+			permits.append('Vertex Paint')
+		elif (context.mode == 'PAINT_TEXTURE'):
+			permits.append('Image Paint')
+		elif (context.mode == 'PARTICLE'):
+			permits.append('Particle')
+		elif (context.mode == 'OBJECT'):
+			permits.append('Object Mode')
+		for keyconfig in (keyconfigs.user, keyconfigs.addon):
+			for keymap in keyconfig.keymaps:
+				if (not keymap.name in permits):
+					continue
+				for item in keymap.keymap_items:
+					if (item.type in key_strings):
+						if (item.active):
+							if (not item.shift and not item.ctrl and not item.alt and not item.oskey and item.key_modifier == 'NONE'):
+								key_binds[item.type] = item.idname
+							elif (item.any):
+								key_binds[item.type] = item.idname
+		self.report(type={'INFO'}, message = permits[-1]+"モードでは、以下の割り当てが空いています")
+		for key, value in key_binds.items():
+			if (not value):
+				self.report(type={'INFO'}, message = key_names[key]+" ")
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -464,6 +528,7 @@ class ShortcutsMenu(bpy.types.Menu):
 	def draw(self, context):
 		column = self.layout.column()
 		column.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
+		column.operator(ShowEmptyShortcuts.bl_idname, icon="PLUGIN")
 		column.separator()
 		column.operator(RegisterLastCommandKeyconfig.bl_idname, text="最後のコマンドをショートカットに登録", icon="PLUGIN").is_clipboard = False
 		column.operator(RegisterLastCommandKeyconfig.bl_idname, text="クリップボードのコマンドをショートカットに登録", icon="PLUGIN").is_clipboard = True
