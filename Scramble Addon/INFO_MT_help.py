@@ -411,6 +411,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 			if (re.search(r"^bpy\.ops\.wm\.call_menu", command)):
 				self.command = 'wm.call_menu'
 				self.sub_command = 'name:'+re.search(r'^bpy\.ops\.wm\.call_menu\(name\="([^"]+)"\)$', command).groups()[0]
+				break
 			elif (re.search(r"^bpy\.ops\.", command)):
 				self.command = re.search(r"^bpy\.ops\.([^\(]+)", command).groups()[0]
 				#options = re.search(r"\((.*)\)$", command).groups()[0]
@@ -436,6 +437,9 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 					self.report(type={'ERROR'}, message="対応していないタイプのコマンドです")
 					return {'CANCELLED'}
 				break
+		else:
+			self.report(type={'ERROR'}, message="登録出来るコマンドが見つかりませんでした")
+			return {'CANCELLED'}
 		return context.window_manager.invoke_props_dialog(self)
 
 class ToggleDisabledMenu(bpy.types.Operator):
