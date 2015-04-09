@@ -76,29 +76,31 @@ class CreateRopeMesh(bpy.types.Operator):
 	resolution_u = bpy.props.IntProperty(name="カーブの解像度", default=64, min=1, soft_min=1, max=999, soft_max=999, step=1)
 	
 	def execute(self, context):
-		activeObj = context.active_object
-		pre_use_stretch = activeObj.data.use_stretch
-		pre_use_deform_bounds = activeObj.data.use_deform_bounds
-		bpy.ops.object.transform_apply_all()
-		
-		bpy.ops.mesh.primitive_cylinder_add(vertices=self.vertices, radius=self.radius, depth=1, end_fill_type='NOTHING', view_align=False, enter_editmode=True, location=(0, 0, 0), rotation=(0, 1.5708, 0))
-		bpy.ops.mesh.select_all(action='DESELECT')
-		context.tool_settings.mesh_select_mode = [False, True, False]
-		bpy.ops.mesh.select_non_manifold()
-		bpy.ops.mesh.select_all(action='INVERT')
-		bpy.ops.mesh.subdivide(number_cuts=self.number_cuts, smoothness=0)
-		bpy.ops.object.mode_set(mode='OBJECT')
-		
-		meshObj = context.active_object
-		modi = meshObj.modifiers.new("temp", 'CURVE')
-		modi.object = activeObj
-		activeObj.data.use_stretch = True
-		activeObj.data.use_deform_bounds = True
-		activeObj.data.resolution_u = self.resolution_u
-		bpy.ops.object.modifier_apply(apply_as='DATA', modifier=modi.name)
-		
-		activeObj.data.use_stretch = pre_use_stretch
-		activeObj.data.use_deform_bounds = pre_use_deform_bounds
+		for obj in context.selected_objects:
+			activeObj = obj
+			context.scene.objects.active = obj
+			pre_use_stretch = activeObj.data.use_stretch
+			pre_use_deform_bounds = activeObj.data.use_deform_bounds
+			bpy.ops.object.transform_apply_all()
+			
+			bpy.ops.mesh.primitive_cylinder_add(vertices=self.vertices, radius=self.radius, depth=1, end_fill_type='NOTHING', view_align=False, enter_editmode=True, location=(0, 0, 0), rotation=(0, 1.5708, 0))
+			bpy.ops.mesh.select_all(action='DESELECT')
+			context.tool_settings.mesh_select_mode = [False, True, False]
+			bpy.ops.mesh.select_non_manifold()
+			bpy.ops.mesh.select_all(action='INVERT')
+			bpy.ops.mesh.subdivide(number_cuts=self.number_cuts, smoothness=0)
+			bpy.ops.object.mode_set(mode='OBJECT')
+			
+			meshObj = context.active_object
+			modi = meshObj.modifiers.new("temp", 'CURVE')
+			modi.object = activeObj
+			activeObj.data.use_stretch = True
+			activeObj.data.use_deform_bounds = True
+			activeObj.data.resolution_u = self.resolution_u
+			bpy.ops.object.modifier_apply(apply_as='DATA', modifier=modi.name)
+			
+			activeObj.data.use_stretch = pre_use_stretch
+			activeObj.data.use_deform_bounds = pre_use_deform_bounds
 		return {'FINISHED'}
 
 class VertexGroupTransferWeightObjmode(bpy.types.Operator):
