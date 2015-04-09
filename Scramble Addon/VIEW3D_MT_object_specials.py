@@ -585,6 +585,53 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 		bpy.ops.object.mode_set(mode='OBJECT')
 		return {'FINISHED'}
 
+class CreateVertexGroupsArmature(bpy.types.Operator):
+	bl_idname = "object.create_vertex_groups_armature"
+	bl_label = "頂点グループがある頂点位置にボーン作成"
+	bl_description = "選択オブジェクトの頂点グループが割り当てられている頂点位置に、その頂点グループ名のボーンを作成します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	armature_name = bpy.props.StringProperty(name="アーマチュア名", default="Armature")
+	use_vertex_group_name = bpy.props.BoolProperty(name="ボーン名を頂点グループ名に", default=True)
+	bone_length = bpy.props.FloatProperty(name="ボーンの長さ", default=0.5, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
+	
+	def execute(self, context):
+		pre_active_obj = context.active_object
+		if (not pre_active_obj):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			return {'CANCELLED'}
+		pre_mode = pre_active_obj.mode
+		for obj in context.selected_objects:
+			if (obj.type != 'MESH'):
+				self.report(type={'INFO'}, message=obj.name+"はメッシュオブジェクトではありません、無視します")
+				continue
+			if (len(obj.vertex_groups) <= 0):
+				self.report(type={'INFO'}, message=obj.name+"には頂点グループがありません、無視します")
+				continue
+			arm = bpy.data.armatures.new(self.armature_name)
+			arm_obj = bpy.data.objects.new(self.armature_name, arm)
+			bpy.context.scene.objects.link(arm_obj)
+			arm_obj.select = True
+			bpy.context.scene.objects.active = arm_obj
+			me = obj.data
+			bpy.ops.object.mode_set(mode='EDIT')
+			for vert in me.vertices:
+				for vg in vert.groups:
+					if (0.0 < vg.weight):
+						if (self.use_vertex_group_name):
+							bone_name = obj.vertex_groups[vg.group].name
+						else:
+							bone_name = "Bone"
+						bone = arm.edit_bones.new(bone_name)
+						vert_co = obj.matrix_world * vert.co
+						vert_no = obj.matrix_world.to_quaternion() * vert.normal * self.bone_length
+						bone.head = vert_co
+						bone.tail = vert_co + vert_no
+			bpy.ops.object.mode_set(mode='OBJECT')
+		bpy.context.scene.objects.active = pre_active_obj
+		bpy.ops.object.mode_set(mode=pre_mode)
+		return {'FINISHED'}
+
 ################################
 # オペレーター(モディファイア) #
 ################################
@@ -1151,6 +1198,9 @@ class SpecialsMenu(bpy.types.Menu):
 		self.layout.separator()
 		column = self.layout.column()
 		column.operator(CreateMeshImitateArmature.bl_idname, icon="PLUGIN")
+		column.operator(CreateVertexGroupsArmature.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		column = self.layout.column()
 		column.operator(CreateSolidifyEdge.bl_idname, icon="PLUGIN")
 		for obj in context.selected_objects:
 			if (obj.type == 'MESH'):
