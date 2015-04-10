@@ -135,7 +135,7 @@ class SlotsRenderMenu(bpy.types.Menu):
 
 class ShadeingMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_shadeing"
-	bl_label = "シェーディング"
+	bl_label = "使用シェーディング"
 	bl_description = "シェーディングのオン/オフをします"
 	
 	def draw(self, context):
