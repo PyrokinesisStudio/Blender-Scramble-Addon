@@ -52,6 +52,36 @@ class ToggleThreadsMode(bpy.types.Operator):
 		else:
 			return self.execute(context)
 
+class SetAllSubsurfRenderLevels(bpy.types.Operator):
+	bl_idname = "render.set_all_subsurf_render_levels"
+	bl_label = "レンダリング時のサブサーフレベルをまとめて設定"
+	bl_description = "レンダリング時に適用するサブサーフの細分化レベルをまとめて設定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('ABSOLUTE', "絶対値", "", 1),
+		('RELATIVE', "相対値", "", 2),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="設定モード")
+	levels = bpy.props.IntProperty(name="細分化レベル", default=2, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
+	
+	def execute(self, context):
+		for obj in bpy.data.objects:
+			if (obj.type != 'MESH'):
+				continue
+			for mod in obj.modifiers:
+				if (mod.type == 'SUBSURF'):
+					if (self.mode == 'ABSOLUTE'):
+						mod.render_levels = self.levels
+					elif (self.mode == 'RELATIVE'):
+						mod.render_levels += self.levels
+					else:
+						self.report(type={'ERROR'}, message="設定値が不正です")
+						return {'CANCELLED'}
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -115,6 +145,32 @@ class ShadeingMenu(bpy.types.Menu):
 		self.layout.prop(context.scene.render, 'use_envmaps', icon="PLUGIN")
 		self.layout.prop(context.scene.render, 'use_raytrace', icon="PLUGIN")
 
+class SubsurfMenu(bpy.types.Menu):
+	bl_idname = "INFO_MT_render_subsurf"
+	bl_label = "全サブサーフ細分化レベル"
+	bl_description = "全オブジェクトのサブサーフ細分化レベルをまとめて設定します"
+	
+	def draw(self, context):
+		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="細分化 + 1", icon="PLUGIN")
+		operator.mode = 'RELATIVE'
+		operator.levels = 1
+		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="細分化 - 1", icon="PLUGIN")
+		operator.mode = 'RELATIVE'
+		operator.levels = -1
+		self.layout.separator()
+		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="細分化 = 0", icon="PLUGIN")
+		operator.mode = 'ABSOLUTE'
+		operator.levels = 0
+		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="細分化 = 1", icon="PLUGIN")
+		operator.mode = 'ABSOLUTE'
+		operator.levels = 1
+		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="細分化 = 2", icon="PLUGIN")
+		operator.mode = 'ABSOLUTE'
+		operator.levels = 2
+		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="細分化 = 3", icon="PLUGIN")
+		operator.mode = 'ABSOLUTE'
+		operator.levels = 3
+
 ################
 # メニュー追加 #
 ################
@@ -133,9 +189,10 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.prop(context.scene.render, 'resolution_x', text="解像度 X", icon="PLUGIN")
 		self.layout.prop(context.scene.render, 'resolution_y', text="解像度 Y", icon="PLUGIN")
+		self.layout.menu(RenderResolutionPercentageMenu.bl_idname, text="レンダリングサイズ (現在:"+str(context.scene.render.resolution_percentage)+"%)", icon="PLUGIN")
 		if (bpy.data.images.find("Render Result") != -1):
 			self.layout.menu(SlotsRenderMenu.bl_idname, text="レンダースロット (現在:スロット"+str(bpy.data.images["Render Result"].render_slots.active_index+1)+")", icon="PLUGIN")
-		self.layout.menu(RenderResolutionPercentageMenu.bl_idname, text="レンダリングサイズ (現在:"+str(context.scene.render.resolution_percentage)+"%)", icon="PLUGIN")
+		self.layout.prop_menu_enum(context.scene.render.image_settings, 'file_format', text="ファイルフォーマット", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.prop(context.scene, 'frame_start', text="開始フレーム", icon="PLUGIN")
 		self.layout.prop(context.scene, 'frame_end', text="最終フレーム", icon="PLUGIN")
@@ -143,21 +200,20 @@ def menu(self, context):
 		self.layout.prop(context.scene.render, 'fps', text="FPS", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.prop(context.scene.render, 'use_antialiasing', text="アンチエイリアス使用", icon="PLUGIN")
-		self.layout.prop_menu_enum(context.scene.render, 'antialiasing_samples', text="アンチエイリアス サンプル数", icon="PLUGIN")
+		self.layout.prop(context.scene.world.light_settings, 'use_ambient_occlusion', text="AOを使用", icon="PLUGIN")
+		self.layout.prop(context.scene.render, 'use_freestyle', text="FreeStyleの使用", icon="PLUGIN")
 		self.layout.menu(ShadeingMenu.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.prop(context.scene.world.light_settings, 'use_ambient_occlusion', text="AOを使用", icon="PLUGIN")
-		self.layout.prop(context.scene.world.light_settings, 'samples', text="AOサンプル数", icon="PLUGIN")
-		self.layout.separator()
-		self.layout.prop(context.scene.render, 'use_freestyle', text="FreeStyleの使用", icon="PLUGIN")
-		self.layout.separator()
-		self.layout.prop_menu_enum(context.scene.render.image_settings, 'file_format', text="ファイルフォーマット", icon="PLUGIN")
 		text = ToggleThreadsMode.bl_label
 		if (context.scene.render.threads_mode == 'AUTO'):
 			text = text + " (現在 自動検知)"
 		else:
 			text = text + " (現在 定値：" + str(context.scene.render.threads) + ")"
 		self.layout.operator(ToggleThreadsMode.bl_idname, text=text, icon="PLUGIN")
+		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
+		self.layout.prop_menu_enum(context.scene.render, 'antialiasing_samples', text="アンチエイリアス サンプル数", icon="PLUGIN")
+		self.layout.prop(context.scene.world.light_settings, 'samples', text="AOサンプル数", icon="PLUGIN")
+		self.layout.separator()
 		self.layout.menu(SimplifyRenderMenu.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
