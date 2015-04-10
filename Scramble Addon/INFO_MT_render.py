@@ -30,37 +30,30 @@ class SetRenderSlot(bpy.types.Operator):
 		bpy.data.images["Render Result"].render_slots.active_index = self.slot
 		return {'FINISHED'}
 
-########################
-# オペレーター(簡略化) #
-########################
-
-class SetSimplify(bpy.types.Operator):
-	bl_idname = "world.set_simplify"
-	bl_label = "レンダー簡略化の設定"
-	bl_description = "レンダリングの簡略化の設定を行います(本来はシーンタブから行います)"
+class ToggleThreadsMode(bpy.types.Operator):
+	bl_idname = "render.toggle_threads_mode"
+	bl_label = "スレッド数を切り替え"
+	bl_description = "レンダリングに使用するCPUのスレッド数を切り替えます"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	use = bpy.props.BoolProperty(name="簡略化を使う", default=True)
-	subdivision = bpy.props.IntProperty(name="最大再分割数", default=6, min=0, max=6, soft_min=0, soft_max=6, step=1)
-	shadowSamples = bpy.props.IntProperty(name="最大シャドウサンプル", default=16, min=0, max=16, soft_min=0, soft_max=16, step=1)
-	childParticles = bpy.props.FloatProperty(name="子パーティクルの割合", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
-	aoAndSss = bpy.props.FloatProperty(name="AOとSSSの割合", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
-	triangulate = bpy.props.BoolProperty(name="四角形の三角形化をスキップ", default=False)
+	threads = bpy.props.IntProperty(name="スレッド数", default=1, min=1, max=16, soft_min=1, soft_max=16, step=1)
 	
 	def execute(self, context):
-		context.scene.render.use_simplify = self.use
-		context.scene.render.simplify_subdivision = self.subdivision
-		context.scene.render.simplify_shadow_samples = self.shadowSamples
-		context.scene.render.simplify_child_particles = self.childParticles
-		context.scene.render.simplify_ao_sss = self.aoAndSss
-		context.scene.render.use_simplify_triangulate = self.triangulate
+		if (context.scene.render.threads_mode == 'AUTO'):
+			context.scene.render.threads_mode = 'FIXED'
+			context.scene.render.threads = self.threads
+		else:
+			context.scene.render.threads_mode = 'AUTO'
 		return {'FINISHED'}
 	def invoke(self, context, event):
-		wm = context.window_manager
-		return wm.invoke_props_dialog(self)
+		if (context.scene.render.threads_mode == 'AUTO'):
+			self.threads = context.scene.render.threads
+			return context.window_manager.invoke_props_dialog(self)
+		else:
+			return self.execute(context)
 
 ################
-# メニュー追加 #
+# サブメニュー #
 ################
 
 class RenderResolutionPercentageMenu(bpy.types.Menu):
@@ -100,15 +93,6 @@ class SimplifyRenderMenu(bpy.types.Menu):
 		self.layout.prop(context.scene.render, "simplify_child_particles", icon="PLUGIN")
 		self.layout.prop(context.scene.render, "simplify_ao_sss", icon="PLUGIN")
 		self.layout.prop(context.scene.render, "use_simplify_triangulate", icon="PLUGIN")
-		self.layout.separator()
-		
-		i = self.layout.operator(SetSimplify.bl_idname, icon="PLUGIN")
-		i.use = context.scene.render.use_simplify
-		i.subdivision = context.scene.render.simplify_subdivision
-		i.shadowSamples = context.scene.render.simplify_shadow_samples
-		i.childParticles = context.scene.render.simplify_child_particles
-		i.aoAndSss = context.scene.render.simplify_ao_sss
-		i.triangulate = context.scene.render.use_simplify_triangulate
 
 class SlotsRenderMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_slots"
@@ -118,6 +102,22 @@ class SlotsRenderMenu(bpy.types.Menu):
 	def draw(self, context):
 		for i in range(len(bpy.data.images["Render Result"].render_slots)):
 			self.layout.operator(SetRenderSlot.bl_idname, text="スロット"+str(i+1)).slot = i
+
+class ShadeingMenu(bpy.types.Menu):
+	bl_idname = "INFO_MT_render_shadeing"
+	bl_label = "シェーディング"
+	bl_description = "シェーディングのオン/オフをします"
+	
+	def draw(self, context):
+		self.layout.prop(context.scene.render, 'use_textures', icon="PLUGIN")
+		self.layout.prop(context.scene.render, 'use_shadows', icon="PLUGIN")
+		self.layout.prop(context.scene.render, 'use_sss', icon="PLUGIN")
+		self.layout.prop(context.scene.render, 'use_envmaps', icon="PLUGIN")
+		self.layout.prop(context.scene.render, 'use_raytrace', icon="PLUGIN")
+
+################
+# メニュー追加 #
+################
 
 # メニューのオン/オフの判定
 def IsMenuEnable(self_id):
@@ -131,10 +131,33 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
+		self.layout.prop(context.scene.render, 'resolution_x', text="解像度 X", icon="PLUGIN")
+		self.layout.prop(context.scene.render, 'resolution_y', text="解像度 Y", icon="PLUGIN")
 		if (bpy.data.images.find("Render Result") != -1):
 			self.layout.menu(SlotsRenderMenu.bl_idname, text="レンダースロット (現在:スロット"+str(bpy.data.images["Render Result"].render_slots.active_index+1)+")", icon="PLUGIN")
 		self.layout.menu(RenderResolutionPercentageMenu.bl_idname, text="レンダリングサイズ (現在:"+str(context.scene.render.resolution_percentage)+"%)", icon="PLUGIN")
-		self.layout.prop(context.scene.world.light_settings, "samples", text="AOサンプル数", icon="PLUGIN")
+		self.layout.separator()
+		self.layout.prop(context.scene, 'frame_start', text="開始フレーム", icon="PLUGIN")
+		self.layout.prop(context.scene, 'frame_end', text="最終フレーム", icon="PLUGIN")
+		self.layout.prop(context.scene, 'frame_step', text="フレームステップ", icon="PLUGIN")
+		self.layout.prop(context.scene.render, 'fps', text="FPS", icon="PLUGIN")
+		self.layout.separator()
+		self.layout.prop(context.scene.render, 'use_antialiasing', text="アンチエイリアス使用", icon="PLUGIN")
+		self.layout.prop_menu_enum(context.scene.render, 'antialiasing_samples', text="アンチエイリアス サンプル数", icon="PLUGIN")
+		self.layout.menu(ShadeingMenu.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.prop(context.scene.world.light_settings, 'use_ambient_occlusion', text="AOを使用", icon="PLUGIN")
+		self.layout.prop(context.scene.world.light_settings, 'samples', text="AOサンプル数", icon="PLUGIN")
+		self.layout.separator()
+		self.layout.prop(context.scene.render, 'use_freestyle', text="FreeStyleの使用", icon="PLUGIN")
+		self.layout.separator()
+		self.layout.prop_menu_enum(context.scene.render.image_settings, 'file_format', text="ファイルフォーマット", icon="PLUGIN")
+		text = ToggleThreadsMode.bl_label
+		if (context.scene.render.threads_mode == 'AUTO'):
+			text = text + " (現在 自動検知)"
+		else:
+			text = text + " (現在 定値：" + str(context.scene.render.threads) + ")"
+		self.layout.operator(ToggleThreadsMode.bl_idname, text=text, icon="PLUGIN")
 		self.layout.menu(SimplifyRenderMenu.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
