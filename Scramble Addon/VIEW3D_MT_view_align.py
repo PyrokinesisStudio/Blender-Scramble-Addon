@@ -128,6 +128,40 @@ class ResetViewAndCursor(bpy.types.Operator):
 		bpy.ops.view3d.view_center_cursor()
 		return {'FINISHED'}
 
+class SnapMeshViewAndCursor(bpy.types.Operator):
+	bl_idname = "view3d.snap_mesh_view_and_cursor"
+	bl_label = "メッシュに視点と3Dカーソルをスナップ"
+	bl_description = "マウス下のメッシュ面上に視点と3Dカーソルを移動させます (ショートカットに登録してお使い下さい)"
+	bl_options = {'REGISTER'}
+	
+	mouse_co = bpy.props.IntVectorProperty(name="マウス位置", size=2)
+	
+	def execute(self, context):
+		preGp = context.scene.grease_pencil
+		preGpSource = context.scene.tool_settings.grease_pencil_source
+		context.scene.tool_settings.grease_pencil_source = 'SCENE'
+		if (preGp):
+			tempGp = preGp
+		else:
+			try:
+				tempGp = bpy.data.grease_pencil["temp"]
+			except KeyError:
+				tempGp = bpy.data.grease_pencil.new("temp")
+		context.scene.grease_pencil = tempGp
+		tempLayer = tempGp.layers.new("temp", set_active=True)
+		tempGp.draw_mode = 'SURFACE'
+		bpy.ops.gpencil.draw(mode='DRAW_POLY', stroke=[{"name":"", "pen_flip":False, "is_start":True, "location":(0, 0, 0),"mouse":self.mouse_co, "pressure":1, "time":0, "size":0}, {"name":"", "pen_flip":False, "is_start":True, "location":(0, 0, 0),"mouse":(0, 0), "pressure":1, "time":0, "size":0}])
+		bpy.context.space_data.cursor_location = tempLayer.frames[-1].strokes[-1].points[0].co
+		bpy.ops.view3d.view_center_cursor()
+		tempGp.layers.remove(tempLayer)
+		context.scene.grease_pencil = preGp
+		context.scene.tool_settings.grease_pencil_source = preGpSource
+		return {'FINISHED'}
+	def invoke(self, context, event):
+		self.mouse_co[0] = event.mouse_region_x
+		self.mouse_co[1] = event.mouse_region_y
+		return self.execute(context)
+
 ################
 # メニュー追加 #
 ################
@@ -151,6 +185,7 @@ def menu(self, context):
 		self.layout.operator(SelectAndView.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(SnapMeshView.bl_idname, icon="PLUGIN")
+		self.layout.operator(SnapMeshViewAndCursor.bl_idname, icon="PLUGIN")
 		self.layout.operator(ReverseView.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
