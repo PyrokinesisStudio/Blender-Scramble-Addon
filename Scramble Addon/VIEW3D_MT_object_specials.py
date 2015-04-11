@@ -534,6 +534,7 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	bone_length = bpy.props.FloatProperty(name="ボーンの長さ", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
+	use_normal = bpy.props.BoolProperty(name="法線に合わせて回転", default=True)
 	add_edge = bpy.props.BoolProperty(name="辺にもボーンを追加", default=False)
 	vert_bone_name = bpy.props.StringProperty(name="頂点部分のボーン名", default="頂点")
 	edge_bone_name = bpy.props.StringProperty(name="辺部分のボーン名", default="辺")
@@ -562,6 +563,18 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 				const = arm_obj.pose.bones[name].constraints.new('COPY_LOCATION')
 				const.target = obj
 				const.subtarget = vg.name
+				if (self.use_normal):
+					const_rot = arm_obj.pose.bones[name].constraints.new('COPY_ROTATION')
+					const_rot.target = obj
+					const_rot.subtarget = vg.name
+			context.scene.objects.active = obj
+			bpy.ops.object.mode_set(mode='EDIT')
+			bpy.ops.object.mode_set(mode='OBJECT')
+			context.scene.objects.active = arm_obj
+			if (self.use_normal):
+				bpy.ops.object.mode_set(mode='POSE')
+				bpy.ops.pose.armature_apply()
+				bpy.ops.object.mode_set(mode='OBJECT')
 			if (self.add_edge):
 				edge_bone_names = []
 				bpy.ops.object.mode_set(mode='EDIT')
@@ -572,13 +585,11 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 					bone.head = obj.matrix_world * vert0.co
 					bone.tail = obj.matrix_world * vert1.co
 					bone.layers = (False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False)
+					bone.parent = arm.edit_bones[self.vert_bone_name + str(vert0.index)]
 					edge_bone_names.append(bone.name)
 				bpy.ops.object.mode_set(mode='OBJECT')
 				arm.layers[1] = True
 				for edge, name in zip(obj.data.edges, edge_bone_names):
-					const = arm_obj.pose.bones[name].constraints.new('COPY_LOCATION')
-					const.target = arm_obj
-					const.subtarget = self.vert_bone_name + str(edge.vertices[0])
 					const = arm_obj.pose.bones[name].constraints.new('STRETCH_TO')
 					const.target = arm_obj
 					const.subtarget = self.vert_bone_name + str(edge.vertices[1])
