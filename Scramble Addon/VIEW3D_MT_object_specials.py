@@ -534,7 +534,7 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	bone_length = bpy.props.FloatProperty(name="ボーンの長さ", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
-	use_normal = bpy.props.BoolProperty(name="法線に合わせて回転", default=True)
+	use_normal = bpy.props.BoolProperty(name="法線に合わせて回転", default=False)
 	add_edge = bpy.props.BoolProperty(name="辺にもボーンを追加", default=False)
 	vert_bone_name = bpy.props.StringProperty(name="頂点部分のボーン名", default="頂点")
 	edge_bone_name = bpy.props.StringProperty(name="辺部分のボーン名", default="辺")
