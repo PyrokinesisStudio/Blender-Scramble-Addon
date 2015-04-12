@@ -38,7 +38,8 @@ class CreanAndDelete(bpy.types.Operator):
 						except IndexError:
 							next_point = now_point
 						if (now_point == pre_point == next_point):
-							delete_points.append(fcurve.keyframe_points[i])
+							if (fcurve.keyframe_points[i].handle_left[1] == fcurve.keyframe_points[i].handle_right[1]):
+								delete_points.append(fcurve.keyframe_points[i])
 					for point in delete_points:
 						fcurve.keyframe_points.remove(point)
 					if (len(fcurve.keyframe_points) <= 1):
