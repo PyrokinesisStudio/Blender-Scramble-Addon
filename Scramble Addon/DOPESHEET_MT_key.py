@@ -23,8 +23,10 @@ class CreanEX(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	keep_fcurves = bpy.props.BoolProperty(name="キーを1つは残す", default=False)
+	threshold = bpy.props.FloatProperty(name="しきい値", default=0.00001, min=0, max=1, soft_min=0, soft_max=1, step=0.001, precision=5)
 	
 	def execute(self, context):
+		threshold = self.threshold
 		for action in bpy.data.actions[:]:
 			for fcurve in action.fcurves[:]:
 				if (not fcurve.modifiers):
@@ -39,9 +41,12 @@ class CreanEX(bpy.types.Operator):
 							next_point = fcurve.keyframe_points[i+1].co[1]
 						except IndexError:
 							next_point = now_point
-						if (now_point == pre_point == next_point):
-							if (fcurve.keyframe_points[i].handle_left[1] == fcurve.keyframe_points[i].handle_right[1]):
-								delete_points.append(fcurve.keyframe_points[i])
+						if (now_point-threshold <= pre_point <= now_point+threshold):
+							if (pre_point-threshold <= next_point <= pre_point+threshold):
+								handle_left = fcurve.keyframe_points[i].handle_left[1]
+								handle_right = fcurve.keyframe_points[i].handle_right[1]
+								if (handle_left-threshold <= handle_right <= handle_left+threshold):
+									delete_points.append(fcurve.keyframe_points[i])
 					for point in delete_points:
 						if (self.keep_fcurves and len(fcurve.keyframe_points) <= 1):
 							break
