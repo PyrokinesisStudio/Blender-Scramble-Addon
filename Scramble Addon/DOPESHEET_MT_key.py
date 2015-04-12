@@ -22,6 +22,8 @@ class CreanEX(bpy.types.Operator):
 	bl_description = "全てのアクションの重複したキーフレームを削除します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	keep_fcurves = bpy.props.BoolProperty(name="キーを1つは残す", default=False)
+	
 	def execute(self, context):
 		for action in bpy.data.actions[:]:
 			for fcurve in action.fcurves[:]:
@@ -41,12 +43,16 @@ class CreanEX(bpy.types.Operator):
 							if (fcurve.keyframe_points[i].handle_left[1] == fcurve.keyframe_points[i].handle_right[1]):
 								delete_points.append(fcurve.keyframe_points[i])
 					for point in delete_points:
+						if (self.keep_fcurves and len(fcurve.keyframe_points) <= 1):
+							break
 						fcurve.keyframe_points.remove(point)
-					if (len(fcurve.keyframe_points) <= 1):
+					if (len(fcurve.keyframe_points) <= 1 and not self.keep_fcurves):
 						action.fcurves.remove(fcurve)
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
 
 ################
 # メニュー追加 #
