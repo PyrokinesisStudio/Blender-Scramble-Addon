@@ -71,6 +71,8 @@ class InsertKeyframeAllShapes(bpy.types.Operator):
 	def execute(self, context):
 		for shape in context.active_object.data.shape_keys.key_blocks:
 			shape.keyframe_insert(data_path="value")
+		for area in context.screen.areas:
+			area.tag_redraw()
 		return {'FINISHED'}
 
 class SelectShapeTop(bpy.types.Operator):
