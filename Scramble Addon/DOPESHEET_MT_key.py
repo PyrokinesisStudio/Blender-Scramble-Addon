@@ -16,10 +16,10 @@ class DeleteUnmessage(bpy.types.Operator):
 		bpy.ops.action.delete()
 		return {'FINISHED'}
 
-class CreanAndDelete(bpy.types.Operator):
-	bl_idname = "action.crean_and_delete"
-	bl_label = "キーフレームを掃除+削除"
-	bl_description = "重複したキーフレームを削除、その上でキーフレームが1つ以下の場合はそれも削除します"
+class CreanEX(bpy.types.Operator):
+	bl_idname = "action.crean_ex"
+	bl_label = "全キーフレームを大掃除"
+	bl_description = "全てのアクションの重複したキーフレームを削除します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -65,7 +65,8 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
 		self.layout.operator(DeleteUnmessage.bl_idname, icon="PLUGIN")
-		self.layout.operator(CreanAndDelete.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(CreanEX.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
