@@ -1,7 +1,7 @@
 # 3Dビュー > ポーズモード > 「W」キー
 
 import bpy
-import re
+import re, math
 
 ################
 # オペレーター #
@@ -445,6 +445,182 @@ class RemoveBoneNameSerialNumbers(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class SetRigidBodyBone(bpy.types.Operator):
+	bl_idname = "pose.set_rigid_body_bone"
+	bl_label = "物理演算を設定"
+	bl_description = "選択中の繋がったボーン群に、RigidBodyによる物理演算を設定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	shape_size = bpy.props.FloatProperty(name="シェイプサイズ", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
+	shape_level = bpy.props.IntProperty(name="シェイプの細分化", default=3, min=1, max=6, soft_min=1, soft_max=6)
+	constraints_size = bpy.props.FloatProperty(name="剛体コンストレイントサイズ", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
+	items = [
+		('PLAIN_AXES', "十字", "", 1),
+		('ARROWS', "座標軸", "", 2),
+		('SINGLE_ARROW', "矢印", "", 3),
+		('CIRCLE', "円", "", 4),
+		('CUBE', "立方体", "", 5),
+		('SPHERE', "球", "", 6),
+		('CONE', "円錐", "", 7),
+		('IMAGE', "画像", "", 8),
+		]
+	empty_draw_type = bpy.props.EnumProperty(items=items, name="剛体コンストレイント表示", default='SPHERE')
+	rot_limit = bpy.props.FloatProperty(name="回転制限", default=90, min=0, max=360, soft_min=0, soft_max=360, step=1, precision=3)
+	
+	def execute(self, context):
+		pre_active_obj = context.active_object
+		if (not pre_active_obj):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			return {'CANCELLED'}
+		if (pre_active_obj.type != 'ARMATURE'):
+			self.report(type={'ERROR'}, message="アーマチュアオブジェクトで実行して下さい")
+			return {'CANCELLED'}
+		pre_mode = pre_active_obj.mode
+		if (pre_mode != 'POSE'):
+			self.report(type={'ERROR'}, message="ポーズモードで実行して下さい")
+			return {'CANCELLED'}
+		pre_cursor_location = context.space_data.cursor_location[:]
+		arm_obj = pre_active_obj
+		arm = arm_obj.data
+		bone_names = []
+		for bone in context.selected_pose_bones:
+			bone_names.append(bone.name)
+		no_parent_count = 0
+		no_parent_bone = None
+		base_bone = None
+		bones = []
+		for bone in context.selected_pose_bones:
+			if (bone.parent):
+				if (not bone.parent.name in bone_names):
+					no_parent_bone = bone
+					base_bone = bone.parent
+					no_parent_count += 1
+			else:
+				no_parent_bone = bone
+				no_parent_count += 1
+			bones.append(bone)
+		if (no_parent_count != 1):
+			self.report(type={'ERROR'}, message="一連の繋がったボーンを選択して実行して下さい")
+			return {'CANCELLED'}
+		bpy.ops.object.mode_set(mode='OBJECT')
+		base_obj = None
+		bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=self.shape_level, size=1, view_align=False, enter_editmode=False, location=(0, 0, 0), rotation=(0, 0, 0))
+		obj = context.active_object
+		bpy.ops.rigidbody.object_add()
+		obj.rigid_body.enabled = False
+		obj.rigid_body.kinematic = True
+		const = obj.constraints.new('COPY_TRANSFORMS')
+		const.target = arm_obj
+		if (base_bone):
+			const.subtarget = base_bone.name
+		const.head_tail = 0.5
+		bpy.ops.object.select_all(action='DESELECT')
+		obj.select = True
+		bpy.ops.object.visual_transform_apply()
+		obj.constraints.remove(const)
+		if (base_bone):
+			bone = arm.bones[base_bone.name]
+			obj.scale.y = (bone.head_local - bone.tail_local).length * 0.5
+			obj.scale.x, obj.scale.z = self.shape_size, self.shape_size
+		else:
+			obj.scale.x, obj.scale.y, obj.scale.z = self.shape_size, self.shape_size, self.shape_size
+		bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+		obj.draw_type = 'WIRE'
+		arm_obj.select = True
+		context.scene.objects.active = arm_obj
+		if (base_bone):
+			arm.bones.active = arm.bones[bone.name]
+			bpy.ops.object.mode_set(mode='POSE')
+			bpy.ops.object.parent_set(type='BONE')
+		else:
+			bpy.ops.object.parent_set(type='OBJECT', keep_transform=True)
+		bpy.ops.object.mode_set(mode='OBJECT')
+		base_obj = obj
+		pairs = []
+		for bone in bones:
+			bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=self.shape_level, size=1, view_align=False, enter_editmode=False, location=(0, 0, 0), rotation=(0, 0, 0))
+			obj = context.active_object
+			const = obj.constraints.new('COPY_TRANSFORMS')
+			const.target = arm_obj
+			const.subtarget = bone.name
+			const.head_tail = 0.5
+			bpy.ops.object.select_all(action='DESELECT')
+			obj.select = True
+			bpy.ops.object.visual_transform_apply()
+			obj.constraints.remove(const)
+			bone = arm.bones[bone.name]
+			obj.scale.y = (bone.head_local - bone.tail_local).length * 0.5
+			obj.scale.x, obj.scale.z = self.shape_size, self.shape_size
+			bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+			obj.draw_type = 'WIRE'
+			const = arm_obj.pose.bones[bone.name].constraints.new('DAMPED_TRACK')
+			const.target = obj
+			obj.name = "剛体"
+			shape = obj
+			bpy.ops.rigidbody.object_add()
+			
+			bpy.ops.object.empty_add(type=self.empty_draw_type, radius=1, view_align=False, location=(0, 0, 0))
+			obj = context.active_object
+			const = obj.constraints.new('COPY_TRANSFORMS')
+			const.target = arm_obj
+			const.subtarget = bone.name
+			bpy.ops.object.select_all(action='DESELECT')
+			obj.select = True
+			bpy.ops.object.visual_transform_apply()
+			obj.constraints.remove(const)
+			obj.scale = (self.constraints_size, self.constraints_size, self.constraints_size)
+			bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+			obj.name = "剛体コンストレイント"
+			
+			bpy.ops.rigidbody.constraint_add()
+			obj.rigid_body_constraint.type = 'GENERIC'
+			obj.rigid_body_constraint.use_limit_lin_x = True
+			obj.rigid_body_constraint.limit_lin_x_lower = 0
+			obj.rigid_body_constraint.limit_lin_x_upper = 0
+			obj.rigid_body_constraint.use_limit_lin_y = True
+			obj.rigid_body_constraint.limit_lin_y_lower = 0
+			obj.rigid_body_constraint.limit_lin_y_upper = 0
+			obj.rigid_body_constraint.use_limit_lin_z = True
+			obj.rigid_body_constraint.limit_lin_z_lower = 0
+			obj.rigid_body_constraint.limit_lin_z_upper = 0
+			
+			bpy.context.object.rigid_body_constraint.use_limit_ang_x = True
+			bpy.context.object.rigid_body_constraint.limit_ang_x_lower = math.radians(self.rot_limit) * -1
+			bpy.context.object.rigid_body_constraint.limit_ang_x_upper = math.radians(self.rot_limit)
+			bpy.context.object.rigid_body_constraint.use_limit_ang_y = True
+			bpy.context.object.rigid_body_constraint.limit_ang_y_lower = 0
+			bpy.context.object.rigid_body_constraint.limit_ang_y_upper = 0
+			bpy.context.object.rigid_body_constraint.use_limit_ang_z = True
+			bpy.context.object.rigid_body_constraint.limit_ang_z_lower = math.radians(self.rot_limit) * -1
+			bpy.context.object.rigid_body_constraint.limit_ang_z_upper = math.radians(self.rot_limit)
+			
+			pairs.append((bone, shape, obj))
+		for bone, shape, const in pairs:
+			const.rigid_body_constraint.object1 = shape
+			
+			bpy.ops.object.select_all(action='DESELECT')
+			const.select = True
+			arm_obj.select = True
+			context.scene.objects.active = arm_obj
+			if (bone.parent.name in bone_names):
+				for a, b, c in pairs:
+					if (bone.parent.name == a.name):
+						const.rigid_body_constraint.object2 = b
+						arm.bones.active = arm.bones[bone.parent.name]
+						break
+			else:
+				const.rigid_body_constraint.object2 = base_obj
+				arm.bones.active = arm.bones[base_bone.name]
+			bpy.ops.object.mode_set(mode='POSE')
+			bpy.ops.object.parent_set(type='BONE')
+			bpy.ops.object.mode_set(mode='OBJECT')
+		bpy.ops.object.mode_set(mode='OBJECT')
+		bpy.ops.object.select_all(action='DESELECT')
+		pre_active_obj.select = True
+		context.scene.objects.active = pre_active_obj
+		bpy.ops.object.mode_set(mode=pre_mode)
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -465,6 +641,19 @@ class BoneNameMenu(bpy.types.Menu):
 		self.layout.separator()
 		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="ボーン名置換「XXX_R => 右XXX」", icon="PLUGIN").reverse = False
 		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="ボーン名置換「右XXX => XXX_R」", icon="PLUGIN").reverse = True
+
+class SpecialsMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_pose_specials_specials"
+	bl_label = "特殊処理"
+	bl_description = "特殊な処理に関する機能のメニューです"
+	
+	def draw(self, context):
+		self.layout.operator(SplineGreasePencil.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(CreateCustomShape.bl_idname, icon="PLUGIN")
+		self.layout.operator(CreateWeightCopyMesh.bl_idname, icon="PLUGIN")
+		self.layout.operator(SetSlowParentBone.bl_idname, icon="PLUGIN")
+		self.layout.operator(SetRigidBodyBone.bl_idname, icon="PLUGIN")
 
 ################
 # メニュー追加 #
@@ -491,11 +680,7 @@ def menu(self, context):
 			text = "ポーズ位置を切り替え (現在：ポーズ位置)"
 		self.layout.operator(TogglePosePosition.bl_idname, text=text, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(CreateCustomShape.bl_idname, icon="PLUGIN")
-		self.layout.operator(CreateWeightCopyMesh.bl_idname, icon="PLUGIN")
-		self.layout.operator(SetSlowParentBone.bl_idname, icon="PLUGIN")
-		self.layout.separator()
-		self.layout.operator(SplineGreasePencil.bl_idname, icon="PLUGIN")
+		self.layout.menu(SpecialsMenu.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
