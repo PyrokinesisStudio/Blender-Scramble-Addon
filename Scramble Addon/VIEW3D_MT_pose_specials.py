@@ -466,6 +466,8 @@ class SetRigidBodyBone(bpy.types.Operator):
 		]
 	empty_draw_type = bpy.props.EnumProperty(items=items, name="剛体コンストレイント表示", default='SPHERE')
 	rot_limit = bpy.props.FloatProperty(name="回転制限", default=90, min=0, max=360, soft_min=0, soft_max=360, step=1, precision=3)
+	linear_damping = bpy.props.FloatProperty(name="減衰：移動", default=0.04, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
+	angular_damping = bpy.props.FloatProperty(name="減衰：回転", default=0.1, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
 	
 	def execute(self, context):
 		pre_active_obj = context.active_object
@@ -509,6 +511,8 @@ class SetRigidBodyBone(bpy.types.Operator):
 		bpy.ops.rigidbody.object_add()
 		obj.rigid_body.enabled = False
 		obj.rigid_body.kinematic = True
+		obj.rigid_body.linear_damping = self.linear_damping
+		obj.rigid_body.angular_damping = self.angular_damping
 		const = obj.constraints.new('COPY_TRANSFORMS')
 		const.target = arm_obj
 		if (base_bone):
@@ -559,6 +563,9 @@ class SetRigidBodyBone(bpy.types.Operator):
 			obj.name = "剛体"
 			shape = obj
 			bpy.ops.rigidbody.object_add()
+			
+			shape.rigid_body.linear_damping = self.linear_damping
+			shape.rigid_body.angular_damping = self.angular_damping
 			
 			bpy.ops.object.empty_add(type=self.empty_draw_type, radius=1, view_align=False, location=(0, 0, 0))
 			obj = context.active_object
