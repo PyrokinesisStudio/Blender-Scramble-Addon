@@ -424,7 +424,7 @@ class CreateSolidifyEdge(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	use_render = bpy.props.BoolProperty(name="レンダリングにも適用", default=False)
-	thickness = bpy.props.FloatProperty(name="輪郭線の厚さ", default=0.01, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
+	thickness = bpy.props.FloatProperty(name="輪郭線の厚さ", default=0.01, min=0, max=1, soft_min=0, soft_max=1, step=0.1, precision=3)
 	color = bpy.props.FloatVectorProperty(name="線の色", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
 	use_rim = bpy.props.BoolProperty(name="ふちに面を張る", default=False)
 	
@@ -481,6 +481,7 @@ class CreateSolidifyEdge(bpy.types.Operator):
 			if (not self.use_render):
 				mod.show_render = False
 		context.scene.objects.active = pre_active_obj
+		context.space_data.show_backface_culling = True
 		return {'FINISHED'}
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
