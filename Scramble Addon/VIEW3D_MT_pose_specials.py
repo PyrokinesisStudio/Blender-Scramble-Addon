@@ -536,6 +536,7 @@ class SetRigidBodyBone(bpy.types.Operator):
 			bpy.ops.object.parent_set(type='OBJECT', keep_transform=True)
 		bpy.ops.object.mode_set(mode='OBJECT')
 		base_obj = obj
+		base_obj.name = "剛体基点"
 		pairs = []
 		for bone in bones:
 			bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=self.shape_level, size=1, view_align=False, enter_editmode=False, location=(0, 0, 0), rotation=(0, 0, 0))
@@ -611,9 +612,11 @@ class SetRigidBodyBone(bpy.types.Operator):
 			else:
 				const.rigid_body_constraint.object2 = base_obj
 				arm.bones.active = arm.bones[base_bone.name]
+			"""
 			bpy.ops.object.mode_set(mode='POSE')
 			bpy.ops.object.parent_set(type='BONE')
 			bpy.ops.object.mode_set(mode='OBJECT')
+			"""
 		bpy.ops.object.mode_set(mode='OBJECT')
 		bpy.ops.object.select_all(action='DESELECT')
 		pre_active_obj.select = True
