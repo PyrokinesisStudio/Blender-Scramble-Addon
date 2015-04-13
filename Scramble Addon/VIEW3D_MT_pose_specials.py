@@ -603,15 +603,17 @@ class SetRigidBodyBone(bpy.types.Operator):
 			const.select = True
 			arm_obj.select = True
 			context.scene.objects.active = arm_obj
-			if (bone.parent.name in bone_names):
-				for a, b, c in pairs:
-					if (bone.parent.name == a.name):
-						const.rigid_body_constraint.object2 = b
-						arm.bones.active = arm.bones[bone.parent.name]
-						break
+			if (bone.parent):
+				if (bone.parent.name in bone_names):
+					for a, b, c in pairs:
+						if (bone.parent.name == a.name):
+							const.rigid_body_constraint.object2 = b
+							arm.bones.active = arm.bones[bone.parent.name]
+							break
+				else:
+					const.rigid_body_constraint.object2 = base_obj
 			else:
 				const.rigid_body_constraint.object2 = base_obj
-				arm.bones.active = arm.bones[base_bone.name]
 			"""
 			bpy.ops.object.mode_set(mode='POSE')
 			bpy.ops.object.parent_set(type='BONE')
