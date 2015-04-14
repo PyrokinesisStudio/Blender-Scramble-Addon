@@ -633,6 +633,98 @@ class SetRigidBodyBone(bpy.types.Operator):
 		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
+class SetIKRotationLimitByPose(bpy.types.Operator):
+	bl_idname = "pose.set_ik_rotation_limit_by_pose"
+	bl_label = "現ポーズを回転制限に"
+	bl_description = "現在のボーンの回転状態を、IKやコンストレイントの回転制限へと設定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('IK', "IKの回転制限", "", 1),
+		('CONST', "コンストレイントの回転制限", "", 2),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="モード")
+	use_reverse = bpy.props.BoolProperty(name="制限の反転", default=True)
+	use_x = bpy.props.BoolProperty(name="X軸の制限", default=True)
+	use_y = bpy.props.BoolProperty(name="Y軸の制限", default=True)
+	use_z = bpy.props.BoolProperty(name="Z軸の制限", default=True)
+	is_clear_rot = bpy.props.BoolProperty(name="ポーズの回転をリセット", default=True)
+	
+	def execute(self, context):
+		pre_active_obj = context.active_object
+		if (not pre_active_obj):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			return {'CANCELLED'}
+		if (pre_active_obj.type != 'ARMATURE'):
+			self.report(type={'ERROR'}, message="アーマチュアオブジェクトで実行して下さい")
+			return {'CANCELLED'}
+		pre_mode = pre_active_obj.mode
+		if (pre_mode != 'POSE'):
+			self.report(type={'ERROR'}, message="ポーズモードで実行して下さい")
+			return {'CANCELLED'}
+		for bone in context.selected_pose_bones:
+			pre_rotation_mode = bone.rotation_mode
+			bone.rotation_mode = 'ZYX'
+			rot = bone.rotation_euler.copy()
+			bone.rotation_mode = pre_rotation_mode
+			print(rot)
+			if (self.mode == 'IK'):
+				bone.use_ik_limit_x = self.use_x
+				bone.use_ik_limit_y = self.use_y
+				bone.use_ik_limit_z = self.use_z
+				if (0 <= rot.x):
+					bone.ik_max_x = rot.x
+					if (self.use_reverse): bone.ik_min_x = -rot.x
+				else:
+					bone.ik_min_x = rot.x
+					if (self.use_reverse): bone.ik_max_x = -rot.x
+				if (0 <= rot.y):
+					bone.ik_max_y = rot.y
+					if (self.use_reverse): bone.ik_min_y = -rot.y
+				else:
+					bone.ik_min_y = rot.y
+					if (self.use_reverse): bone.ik_max_y = -rot.y
+				if (0 <= rot.z):
+					bone.ik_max_z = rot.z
+					if (self.use_reverse): bone.ik_min_z = -rot.z
+				else:
+					bone.ik_min_z = rot.z
+					if (self.use_reverse): bone.ik_max_z = -rot.z
+			elif (self.mode == 'CONST'):
+				rot_const = None
+				for const in bone.constraints:
+					if (const.type == 'LIMIT_ROTATION'):
+						rot_const = const
+				if (not rot_const):
+					rot_const = bone.constraints.new('LIMIT_ROTATION')
+				rot_const.owner_space = 'LOCAL'
+				rot_const.use_limit_x = self.use_x
+				rot_const.use_limit_y = self.use_y
+				rot_const.use_limit_z = self.use_z
+				if (0 <= rot.x):
+					bone.max_x = rot.x
+					if (self.use_reverse): bone.min_x = -rot.x
+				else:
+					bone.min_x = rot.x
+					if (self.use_reverse): bone.max_x = -rot.x
+				if (0 <= rot.y):
+					bone.max_y = rot.y
+					if (self.use_reverse): bone.min_y = -rot.y
+				else:
+					bone.min_y = rot.y
+					if (self.use_reverse): bone.max_y = -rot.y
+				if (0 <= rot.z):
+					bone.max_z = rot.z
+					if (self.use_reverse): bone.min_z = -rot.z
+				else:
+					bone.min_z = rot.z
+					if (self.use_reverse): bone.max_z = -rot.z
+		if (self.is_clear_rot):
+			bpy.ops.pose.rot_clear()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -666,6 +758,7 @@ class SpecialsMenu(bpy.types.Menu):
 		self.layout.operator(CreateWeightCopyMesh.bl_idname, icon="PLUGIN")
 		self.layout.operator(SetSlowParentBone.bl_idname, icon="PLUGIN")
 		self.layout.operator(SetRigidBodyBone.bl_idname, icon="PLUGIN")
+		self.layout.operator(SetIKRotationLimitByPose.bl_idname, icon="PLUGIN")
 
 ################
 # メニュー追加 #
