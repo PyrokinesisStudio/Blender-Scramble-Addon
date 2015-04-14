@@ -669,27 +669,30 @@ class SetIKRotationLimitByPose(bpy.types.Operator):
 			bone.rotation_mode = pre_rotation_mode
 			print(rot)
 			if (self.mode == 'IK'):
-				bone.use_ik_limit_x = self.use_x
-				bone.use_ik_limit_y = self.use_y
-				bone.use_ik_limit_z = self.use_z
-				if (0 <= rot.x):
-					bone.ik_max_x = rot.x
-					if (self.use_reverse): bone.ik_min_x = -rot.x
-				else:
-					bone.ik_min_x = rot.x
-					if (self.use_reverse): bone.ik_max_x = -rot.x
-				if (0 <= rot.y):
-					bone.ik_max_y = rot.y
-					if (self.use_reverse): bone.ik_min_y = -rot.y
-				else:
-					bone.ik_min_y = rot.y
-					if (self.use_reverse): bone.ik_max_y = -rot.y
-				if (0 <= rot.z):
-					bone.ik_max_z = rot.z
-					if (self.use_reverse): bone.ik_min_z = -rot.z
-				else:
-					bone.ik_min_z = rot.z
-					if (self.use_reverse): bone.ik_max_z = -rot.z
+				if (self.use_x):
+					bone.use_ik_limit_x = True
+					if (0 <= rot.x):
+						bone.ik_max_x = rot.x
+						if (self.use_reverse): bone.ik_min_x = -rot.x
+					else:
+						bone.ik_min_x = rot.x
+						if (self.use_reverse): bone.ik_max_x = -rot.x
+				if (self.use_y):
+					bone.use_ik_limit_y = True
+					if (0 <= rot.y):
+						bone.ik_max_y = rot.y
+						if (self.use_reverse): bone.ik_min_y = -rot.y
+					else:
+						bone.ik_min_y = rot.y
+						if (self.use_reverse): bone.ik_max_y = -rot.y
+				if (self.use_z):
+					bone.use_ik_limit_z = True
+					if (0 <= rot.z):
+						bone.ik_max_z = rot.z
+						if (self.use_reverse): bone.ik_min_z = -rot.z
+					else:
+						bone.ik_min_z = rot.z
+						if (self.use_reverse): bone.ik_max_z = -rot.z
 			elif (self.mode == 'CONST'):
 				rot_const = None
 				for const in bone.constraints:
@@ -698,27 +701,30 @@ class SetIKRotationLimitByPose(bpy.types.Operator):
 				if (not rot_const):
 					rot_const = bone.constraints.new('LIMIT_ROTATION')
 				rot_const.owner_space = 'LOCAL'
-				rot_const.use_limit_x = self.use_x
-				rot_const.use_limit_y = self.use_y
-				rot_const.use_limit_z = self.use_z
-				if (0 <= rot.x):
-					bone.max_x = rot.x
-					if (self.use_reverse): bone.min_x = -rot.x
-				else:
-					bone.min_x = rot.x
-					if (self.use_reverse): bone.max_x = -rot.x
-				if (0 <= rot.y):
-					bone.max_y = rot.y
-					if (self.use_reverse): bone.min_y = -rot.y
-				else:
-					bone.min_y = rot.y
-					if (self.use_reverse): bone.max_y = -rot.y
-				if (0 <= rot.z):
-					bone.max_z = rot.z
-					if (self.use_reverse): bone.min_z = -rot.z
-				else:
-					bone.min_z = rot.z
-					if (self.use_reverse): bone.max_z = -rot.z
+				if (self.use_x):
+					rot_const.use_limit_x = True
+					if (0 <= rot.x):
+						rot_const.max_x = rot.x
+						if (self.use_reverse): rot_const.min_x = -rot.x
+					else:
+						rot_const.min_x = rot.x
+						if (self.use_reverse): rot_const.max_x = -rot.x
+				if (self.use_y):
+					rot_const.use_limit_y = True
+					if (0 <= rot.y):
+						rot_const.max_y = rot.y
+						if (self.use_reverse): rot_const.min_y = -rot.y
+					else:
+						rot_const.min_y = rot.y
+						if (self.use_reverse): rot_const.max_y = -rot.y
+				if (self.use_z):
+					rot_const.use_limit_z = True
+					if (0 <= rot.z):
+						rot_const.max_z = rot.z
+						if (self.use_reverse): rot_const.min_z = -rot.z
+					else:
+						rot_const.min_z = rot.z
+						if (self.use_reverse): rot_const.max_z = -rot.z
 		if (self.is_clear_rot):
 			bpy.ops.pose.rot_clear()
 		for area in context.screen.areas:
