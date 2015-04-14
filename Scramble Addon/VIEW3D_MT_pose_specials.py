@@ -465,6 +465,7 @@ class SetRigidBodyBone(bpy.types.Operator):
 		('IMAGE', "画像", "", 8),
 		]
 	empty_draw_type = bpy.props.EnumProperty(items=items, name="剛体コンストレイント表示", default='SPHERE')
+	is_parent_shape = bpy.props.BoolProperty(name="剛体コンストレイントをシェイプに追尾", default=False)
 	rot_limit = bpy.props.FloatProperty(name="回転制限", default=90, min=0, max=360, soft_min=0, soft_max=360, step=1, precision=3)
 	linear_damping = bpy.props.FloatProperty(name="減衰：移動", default=0.04, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
 	angular_damping = bpy.props.FloatProperty(name="減衰：回転", default=0.1, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
@@ -621,11 +622,10 @@ class SetRigidBodyBone(bpy.types.Operator):
 					const.rigid_body_constraint.object2 = base_obj
 			else:
 				const.rigid_body_constraint.object2 = base_obj
-			"""
-			bpy.ops.object.mode_set(mode='POSE')
-			bpy.ops.object.parent_set(type='BONE')
-			bpy.ops.object.mode_set(mode='OBJECT')
-			"""
+			if (self.is_parent_shape):
+				bpy.ops.object.mode_set(mode='POSE')
+				bpy.ops.object.parent_set(type='BONE')
+				bpy.ops.object.mode_set(mode='OBJECT')
 		bpy.ops.object.mode_set(mode='OBJECT')
 		bpy.ops.object.select_all(action='DESELECT')
 		pre_active_obj.select = True
