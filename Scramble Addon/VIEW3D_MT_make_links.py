@@ -136,6 +136,56 @@ class MakeLinkArmaturePose(bpy.types.Operator):
 				const.subtarget = bone.name
 		return {'FINISHED'}
 
+class MakeLinkSoftbodySettings(bpy.types.Operator):
+	bl_idname = "object.make_link_softbody_settings"
+	bl_label = "ソフトボディの設定をリンク"
+	bl_description = "アクティブオブジェクトのソフトボディの設定を、他の選択オブジェクトにコピーします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		active_obj = context.active_object
+		if (not active_obj):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			return {'CANCELLED'}
+		active_softbody = None
+		for mod in active_obj.modifiers:
+			if (mod.type == 'SOFT_BODY'):
+				active_softbody = mod
+				break
+		else:
+			self.report(type={'ERROR'}, message="アクティブオブジェクトにソフトボディが設定されていません")
+			return {'CANCELLED'}
+		if (len(context.selected_objects) < 2):
+			self.report(type={'ERROR'}, message="2つ以上のオブジェクトを選択して実行して下さい")
+			return {'CANCELLED'}
+		target_objs = []
+		for obj in context.selected_objects:
+			if (active_obj.name != obj.name):
+				target_objs.append(obj)
+		for obj in target_objs:
+			target_softbody = None
+			for mod in obj.modifiers:
+				if (mod.type == 'SOFT_BODY'):
+					target_softbody = mod
+					break
+			else:
+				target_softbody = obj.modifiers.new("Softbody", 'SOFT_BODY')
+			for name in dir(active_softbody.settings):
+				if (name[0] != '_'):
+					try:
+						value = active_softbody.settings.__getattribute__(name)
+						target_softbody.settings.__setattr__(name, value)
+					except AttributeError:
+						pass
+			for name in dir(active_softbody.point_cache):
+				if (name[0] != '_'):
+					try:
+						value = active_softbody.point_cache.__getattribute__(name)
+						target_softbody.point_cache.__setattr__(name, value)
+					except AttributeError:
+						pass
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -157,6 +207,8 @@ def menu(self, context):
 		self.layout.operator(MakeLinkDisplaySetting.bl_idname, text="表示設定", icon="PLUGIN")
 		self.layout.operator(MakeLinkUVNames.bl_idname, text="空UV", icon="PLUGIN")
 		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="アーマチュアの動き", icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="ソフトボディ設定", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
