@@ -186,6 +186,56 @@ class MakeLinkSoftbodySettings(bpy.types.Operator):
 						pass
 		return {'FINISHED'}
 
+class MakeLinkClothSettings(bpy.types.Operator):
+	bl_idname = "object.make_link_cloth_settings"
+	bl_label = "クロスの設定をリンク"
+	bl_description = "アクティブオブジェクトのクロスシミュレーション設定を、他の選択オブジェクトにコピーします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		active_obj = context.active_object
+		if (not active_obj):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			return {'CANCELLED'}
+		active_cloth = None
+		for mod in active_obj.modifiers:
+			if (mod.type == 'CLOTH'):
+				active_cloth = mod
+				break
+		else:
+			self.report(type={'ERROR'}, message="アクティブオブジェクトにクロスが設定されていません")
+			return {'CANCELLED'}
+		if (len(context.selected_objects) < 2):
+			self.report(type={'ERROR'}, message="2つ以上のオブジェクトを選択して実行して下さい")
+			return {'CANCELLED'}
+		target_objs = []
+		for obj in context.selected_objects:
+			if (active_obj.name != obj.name):
+				target_objs.append(obj)
+		for obj in target_objs:
+			target_cloth = None
+			for mod in obj.modifiers:
+				if (mod.type == 'CLOTH'):
+					target_cloth = mod
+					break
+			else:
+				target_cloth = obj.modifiers.new("Cloth", 'CLOTH')
+			for name in dir(active_cloth.settings):
+				if (name[0] != '_'):
+					try:
+						value = active_cloth.settings.__getattribute__(name)
+						target_cloth.settings.__setattr__(name, value)
+					except AttributeError:
+						pass
+			for name in dir(active_cloth.point_cache):
+				if (name[0] != '_'):
+					try:
+						value = active_cloth.point_cache.__getattribute__(name)
+						target_cloth.point_cache.__setattr__(name, value)
+					except AttributeError:
+						pass
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -209,6 +259,7 @@ def menu(self, context):
 		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="アーマチュアの動き", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="ソフトボディ設定", icon="PLUGIN")
+		self.layout.operator(MakeLinkClothSettings.bl_idname, text="クロス設定", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
