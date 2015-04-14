@@ -773,6 +773,37 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 		bpy.ops.object.join()
 		return {'FINISHED'}
 
+class AutoRenameModifiers(bpy.types.Operator):
+	bl_idname = "object.auto_rename_modifiers"
+	bl_label = "モディファイア名を自動でリネーム"
+	bl_description = "選択オブジェクトのモディファイア名を参照先などの名前にリネームします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				try:
+					if (mod.subtarget):
+						mod.name = mod.subtarget
+					continue
+				except AttributeError: pass
+				try:
+					if (mod.target):
+						mod.name = mod.target.name
+					continue
+				except AttributeError: pass
+				try:
+					if (mod.object):
+						mod.name = mod.object.name
+					continue
+				except AttributeError: pass
+				try:
+					if (mod.vertex_group):
+						mod.name = mod.vertex_group
+					continue
+				except AttributeError: pass
+		return {'FINISHED'}
+
 ############################
 # オペレーター(ブーリアン) #
 ############################
@@ -1129,6 +1160,8 @@ class ModifierMenu(bpy.types.Menu):
 		self.layout.operator(ApplyModifiersAndJoin.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(DeleteAllModifiers.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(AutoRenameModifiers.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(ToggleApplyModifiersView.bl_idname, icon="PLUGIN")
 		self.layout.operator(ToggleAllShowExpanded.bl_idname, icon="PLUGIN")
