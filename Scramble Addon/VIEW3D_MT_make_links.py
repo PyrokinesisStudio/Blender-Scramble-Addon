@@ -255,11 +255,12 @@ def menu(self, context):
 		self.layout.operator(MakeLinkObjectName.bl_idname, text="オブジェクト名", icon="PLUGIN")
 		self.layout.operator(MakeLinkLayer.bl_idname, text="レイヤー", icon="PLUGIN")
 		self.layout.operator(MakeLinkDisplaySetting.bl_idname, text="表示設定", icon="PLUGIN")
-		self.layout.operator(MakeLinkUVNames.bl_idname, text="空UV", icon="PLUGIN")
-		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="アーマチュアの動き", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="ソフトボディ設定", icon="PLUGIN")
 		self.layout.operator(MakeLinkClothSettings.bl_idname, text="クロス設定", icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(MakeLinkUVNames.bl_idname, text="空UV", icon="PLUGIN")
+		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="アーマチュアの動き", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
