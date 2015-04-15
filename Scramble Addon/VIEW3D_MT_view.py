@@ -77,6 +77,29 @@ class TogglePanelsB(bpy.types.Operator):
 			bpy.ops.view3d.properties()
 		return {'FINISHED'}
 
+class TogglePanelsC(bpy.types.Operator):
+	bl_idname = "view3d.toggle_panels_c"
+	bl_label = "パネル表示切り替え(モードC)"
+	bl_description = "「パネル両方非表示」→「ツールシェルフのみ表示」→「プロパティのみ表示」... のトグル"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		toolW = 0
+		uiW = 0
+		for region in context.area.regions:
+			if (region.type == 'TOOLS'):
+				toolW = region.width
+			if (region.type == 'UI'):
+				uiW = region.width
+		if (toolW <= 1 and uiW <= 1):
+			bpy.ops.view3d.toolshelf()
+		elif (1 < toolW and uiW <= 1):
+			bpy.ops.view3d.toolshelf()
+			bpy.ops.view3d.properties()
+		else:
+			bpy.ops.view3d.properties()
+		return {'FINISHED'}
+
 ################
 # パイメニュー #
 ################
@@ -302,6 +325,7 @@ class ShortcutsMenu(bpy.types.Menu):
 		self.layout.separator()
 		self.layout.operator(TogglePanelsA.bl_idname, icon="PLUGIN")
 		self.layout.operator(TogglePanelsB.bl_idname, icon="PLUGIN")
+		self.layout.operator(TogglePanelsC.bl_idname, icon="PLUGIN")
 
 ################
 # メニュー追加 #
