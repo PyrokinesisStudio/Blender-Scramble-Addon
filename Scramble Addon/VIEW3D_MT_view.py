@@ -100,6 +100,21 @@ class TogglePanelsC(bpy.types.Operator):
 			bpy.ops.view3d.properties()
 		return {'FINISHED'}
 
+class ToggleViewportShadeA(bpy.types.Operator):
+	bl_idname = "view3d.toggle_viewport_shade_a"
+	bl_label = "シェーディング切り替え(モードA)"
+	bl_description = "シェーディングを 「ワイヤーフレーム」→「ソリッド」→「テクスチャ」... と切り替えていきます"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		if (context.space_data.viewport_shade == 'SOLID'):
+			context.space_data.viewport_shade = 'TEXTURED'
+		elif (context.space_data.viewport_shade == 'TEXTURED'):
+			context.space_data.viewport_shade = 'WIREFRAME'
+		else:
+			context.space_data.viewport_shade = 'SOLID'
+		return {'FINISHED'}
+
 ################
 # パイメニュー #
 ################
@@ -326,6 +341,8 @@ class ShortcutsMenu(bpy.types.Menu):
 		self.layout.operator(TogglePanelsA.bl_idname, icon="PLUGIN")
 		self.layout.operator(TogglePanelsB.bl_idname, icon="PLUGIN")
 		self.layout.operator(TogglePanelsC.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(ToggleViewportShadeA.bl_idname, icon="PLUGIN")
 
 ################
 # メニュー追加 #
