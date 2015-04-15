@@ -327,54 +327,6 @@ class AllResetHideSelect(bpy.types.Operator):
 				obj.select = not self.reverse
 		return {'FINISHED'}
 
-class QuickCurveDeform(bpy.types.Operator):
-	bl_idname = "object.quick_curve_deform"
-	bl_label = "クイックカーブ変形"
-	bl_description = "すばやくカーブモディファイアを適用します"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	items = [
-		('POS_X', "+X", "", 1),
-		('POS_Y', "+Y", "", 2),
-		('POS_Z', "+Z", "", 3),
-		('NEG_X', "-X", "", 4),
-		('NEG_Y', "-Y", "", 5),
-		('NEG_Z', "-Z", "", 6),
-		]
-	deform_axis = bpy.props.EnumProperty(items=items, name="変形する軸")
-	
-	def execute(self, context):
-		mesh_obj = context.active_object
-		if (mesh_obj.type != 'MESH'):
-			self.report(type={"ERROR"}, message="メッシュオブジェクトがアクティブな状態で実行して下さい")
-			return {"CANCELLED"}
-		if (len(context.selected_objects) != 2):
-			self.report(type={"ERROR"}, message="メッシュ・カーブの2つのみ選択して実行して下さい")
-			return {"CANCELLED"}
-		for obj in context.selected_objects:
-			if (mesh_obj.name != obj.name):
-				if (obj.type == 'CURVE'):
-					curve_obj = obj
-					break
-		else:
-			self.report(type={"ERROR"}, message="カーブオブジェクトも選択状態で実行して下さい")
-			return {"CANCELLED"}
-		curve = curve_obj.data
-		pre_use_stretch = curve.use_stretch
-		pre_use_deform_bounds = curve.use_deform_bounds
-		curve.use_stretch = True
-		curve.use_deform_bounds = True
-		bpy.ops.object.transform_apply_all()
-		mod = mesh_obj.modifiers.new("temp", 'CURVE')
-		mod.object = curve_obj
-		mod.deform_axis = self.deform_axis
-		for i in range(len(mesh_obj.modifiers)):
-			bpy.ops.object.modifier_move_up(modifier=mod.name)
-		bpy.ops.object.modifier_apply(modifier=mod.name)
-		curve.use_stretch = pre_use_stretch
-		curve.use_deform_bounds = pre_use_deform_bounds
-		return {'FINISHED'}
-
 class VertexGroupTransfer(bpy.types.Operator):
 	bl_idname = "object.vertex_group_transfer"
 	bl_label = "頂点グループの転送"
@@ -1096,6 +1048,60 @@ class SetArmatureDeformPreserveVolume(bpy.types.Operator):
 						mod.use_deform_preserve_volume = self.use_deform_preserve_volume
 		return {'FINISHED'}
 
+########################
+# オペレーター(カーブ) #
+########################
+
+class QuickCurveDeform(bpy.types.Operator):
+	bl_idname = "object.quick_curve_deform"
+	bl_label = "クイックカーブ変形"
+	bl_description = "すばやくカーブモディファイアを適用します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('POS_X', "+X", "", 1),
+		('POS_Y', "+Y", "", 2),
+		('POS_Z', "+Z", "", 3),
+		('NEG_X', "-X", "", 4),
+		('NEG_Y', "-Y", "", 5),
+		('NEG_Z', "-Z", "", 6),
+		]
+	deform_axis = bpy.props.EnumProperty(items=items, name="変形する軸")
+	is_apply = bpy.props.BoolProperty(name="モディファイア適用", default=True)
+	
+	def execute(self, context):
+		mesh_obj = context.active_object
+		if (mesh_obj.type != 'MESH'):
+			self.report(type={"ERROR"}, message="メッシュオブジェクトがアクティブな状態で実行して下さい")
+			return {"CANCELLED"}
+		if (len(context.selected_objects) != 2):
+			self.report(type={"ERROR"}, message="メッシュ・カーブの2つのみ選択して実行して下さい")
+			return {"CANCELLED"}
+		for obj in context.selected_objects:
+			if (mesh_obj.name != obj.name):
+				if (obj.type == 'CURVE'):
+					curve_obj = obj
+					break
+		else:
+			self.report(type={"ERROR"}, message="カーブオブジェクトも選択状態で実行して下さい")
+			return {"CANCELLED"}
+		curve = curve_obj.data
+		pre_use_stretch = curve.use_stretch
+		pre_use_deform_bounds = curve.use_deform_bounds
+		curve.use_stretch = True
+		curve.use_deform_bounds = True
+		bpy.ops.object.transform_apply_all()
+		mod = mesh_obj.modifiers.new("temp", 'CURVE')
+		mod.object = curve_obj
+		mod.deform_axis = self.deform_axis
+		for i in range(len(mesh_obj.modifiers)):
+			bpy.ops.object.modifier_move_up(modifier=mod.name)
+		if (self.is_apply):
+			bpy.ops.object.modifier_apply(modifier=mod.name)
+			curve.use_stretch = pre_use_stretch
+			curve.use_deform_bounds = pre_use_deform_bounds
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -1156,6 +1162,12 @@ class ModifierMenu(bpy.types.Menu):
 	bl_description = "モディファイア関係の操作です"
 	
 	def draw(self, context):
+		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(ArmatureMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(BooleanMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(CurveMenu.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.separator()
 		self.layout.operator(ApplyAllModifiers.bl_idname, icon="PLUGIN")
 		self.layout.operator(ApplyModifiersAndJoin.bl_idname, icon="PLUGIN")
 		self.layout.separator()
@@ -1166,10 +1178,6 @@ class ModifierMenu(bpy.types.Menu):
 		self.layout.operator(ToggleApplyModifiersView.bl_idname, icon="PLUGIN")
 		self.layout.operator(ToggleAllShowExpanded.bl_idname, icon="PLUGIN")
 		self.layout.operator(SyncShowModifiers.bl_idname, icon="PLUGIN")
-		self.layout.separator()
-		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
-		self.layout.menu(ArmatureMenu.bl_idname, icon="PLUGIN")
-		self.layout.menu(BooleanMenu.bl_idname, icon="PLUGIN")
 
 class ArmatureMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_armature"
@@ -1206,6 +1214,14 @@ class SubsurfMenu(bpy.types.Menu):
 		self.layout.operator(EqualizeSubsurfLevel.bl_idname, icon="PLUGIN")
 		self.layout.operator(SetSubsurfOptimalDisplay.bl_idname, icon="PLUGIN")
 
+class CurveMenu(bpy.types.Menu):
+	bl_idname = "view3d_mt_object_specials_curve"
+	bl_label = "カーブ関係"
+	bl_description = "カーブ関係の操作です"
+	
+	def draw(self, context):
+		self.layout.operator(QuickCurveDeform.bl_idname, icon="PLUGIN")
+
 class UVMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_uv"
 	bl_label = "UV関係"
@@ -1231,7 +1247,6 @@ class SpecialsMenu(bpy.types.Menu):
 			if (context.active_object.type == "CURVE"):
 				column.enabled = True
 		column = self.layout.column()
-		column.operator(QuickCurveDeform.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		column = self.layout.column()
 		column.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")
