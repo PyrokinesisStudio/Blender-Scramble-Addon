@@ -1102,6 +1102,79 @@ class QuickCurveDeform(bpy.types.Operator):
 			curve.use_deform_bounds = pre_use_deform_bounds
 		return {'FINISHED'}
 
+class QuickArrayAndCurveDeform(bpy.types.Operator):
+	bl_idname = "object.quick_array_and_curve_deform"
+	bl_label = "クイック配列複製+カーブ変形"
+	bl_description = "すばやく配列複製モディファイアとカーブモディファイアを適用します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('POS_X', "+X", "", 1),
+		('POS_Y', "+Y", "", 2),
+		('POS_Z', "+Z", "", 3),
+		('NEG_X', "-X", "", 4),
+		('NEG_Y', "-Y", "", 5),
+		('NEG_Z', "-Z", "", 6),
+		]
+	deform_axis = bpy.props.EnumProperty(items=items, name="変形する軸")
+	use_merge_vertices = bpy.props.BoolProperty(name="頂点結合", default=True)
+	is_apply = bpy.props.BoolProperty(name="モディファイア適用", default=True)
+	
+	def execute(self, context):
+		mesh_obj = context.active_object
+		if (mesh_obj.type != 'MESH'):
+			self.report(type={'ERROR'}, message="メッシュオブジェクトがアクティブな状態で実行して下さい")
+			return {'CANCELLED'}
+		if (len(context.selected_objects) != 2):
+			self.report(type={'ERROR'}, message="メッシュ・カーブの2つのみ選択して実行して下さい")
+			return {'CANCELLED'}
+		for obj in context.selected_objects:
+			if (mesh_obj.name != obj.name):
+				if (obj.type == 'CURVE'):
+					curve_obj = obj
+					break
+		else:
+			self.report(type={'ERROR'}, message="カーブオブジェクトも選択状態で実行して下さい")
+			return {'CANCELLED'}
+		curve = curve_obj.data
+		pre_use_stretch = curve.use_stretch
+		pre_use_deform_bounds = curve.use_deform_bounds
+		curve.use_stretch = True
+		curve.use_deform_bounds = True
+		bpy.ops.object.transform_apply_all()
+		
+		mod_array = mesh_obj.modifiers.new("Array", 'ARRAY')
+		mod_array.fit_type = 'FIT_CURVE'
+		mod_array.curve = curve_obj
+		mod_array.use_merge_vertices = self.use_merge_vertices
+		mod_array.use_merge_vertices_cap = self.use_merge_vertices
+		if (self.deform_axis == 'POS_Y'):
+			mod_array.relative_offset_displace = (0, 1, 0)
+		elif (self.deform_axis == 'POS_Z'):
+			mod_array.relative_offset_displace = (0, 0, 1)
+		elif (self.deform_axis == 'NEG_X'):
+			mod_array.relative_offset_displace = (-1, 0, 0)
+		elif (self.deform_axis == 'NEG_Y'):
+			mod_array.relative_offset_displace = (0, -1, 0)
+		elif (self.deform_axis == 'NEG_Z'):
+			mod_array.relative_offset_displace = (0, 0, -1)
+		
+		mod_curve = mesh_obj.modifiers.new("Curve", 'CURVE')
+		mod_curve.object = curve_obj
+		mod_curve.deform_axis = self.deform_axis
+		
+		for i in range(len(mesh_obj.modifiers)):
+			bpy.ops.object.modifier_move_up(modifier=mod_curve.name)
+		for i in range(len(mesh_obj.modifiers)):
+			bpy.ops.object.modifier_move_up(modifier=mod_array.name)
+		
+		if (self.is_apply):
+			bpy.ops.object.modifier_apply(modifier=mod_array.name)
+			bpy.ops.object.modifier_apply(modifier=mod_curve.name)
+			curve.use_stretch = pre_use_stretch
+			curve.use_deform_bounds = pre_use_deform_bounds
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -1221,6 +1294,7 @@ class CurveMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.operator(QuickCurveDeform.bl_idname, icon="PLUGIN")
+		self.layout.operator(QuickArrayAndCurveDeform.bl_idname, icon="PLUGIN")
 
 class UVMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_uv"
