@@ -118,17 +118,27 @@ class SelectBoundBoxSize(bpy.types.Operator):
 		('SMALL', "小さい物を選択", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="選択モード")
+	items = [
+		('MESH', "メッシュ", "", 1),
+		('CURVE', "カーブ", "", 2),
+		('SURFACE', "サーフェス", "", 3),
+		('META', "メタボール", "", 4),
+		('FONT', "テキスト", "", 5),
+		('ARMATURE', "アーマチュア", "", 6),
+		('LATTICE', "ラティス", "", 7),
+		('ALL', "全て", "", 8),
+		]
+	select_type = bpy.props.EnumProperty(items=items, name="選択タイプ", default='MESH')
 	threshold = bpy.props.FloatProperty(name="しきい値", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
-	select_type_limit = bpy.props.BoolProperty(name="ﾗｲﾄ/ｴﾝﾌﾟﾃｨ/ｶﾒﾗ/ｽﾋﾟｰｶｰを選択しない", default=True)
 	
 	def execute(self, context):
 		max_volume = -1
 		objs = []
 		for obj in context.visible_objects:
-			context.scene.update()
-			if (self.select_type_limit):
-				if (obj.type == 'CAMERA' or obj.type == 'LAMP' or obj.type == 'SPEAKER' or obj.type == 'EMPTY'):
+			if (self.select_type != 'ALL'):
+				if (obj.type != self.select_type):
 					continue
+			context.scene.update()
 			bound_box = obj.bound_box[:]
 			bound_box0 = mathutils.Vector(bound_box[0][:])
 			x = (bound_box0 - mathutils.Vector(bound_box[4][:])).length * obj.scale.x
