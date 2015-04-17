@@ -239,10 +239,10 @@ class SelectMesh(bpy.types.Menu):
 	bl_description = "可視メッシュオブジェクトを選択する機能のメニューです"
 	
 	def draw(self, context):
-		self.layout.operator(SelectMeshFaceOnly.bl_idname, icon="PLUGIN")
-		self.layout.operator(SelectMeshEdgeOnly.bl_idname, icon="PLUGIN")
-		self.layout.operator(SelectMeshVertexOnly.bl_idname, icon="PLUGIN")
-		self.layout.operator(SelectMeshNone.bl_idname, icon="PLUGIN")
+		self.layout.operator(SelectMeshFaceOnly.bl_idname, text="面あり", icon="PLUGIN")
+		self.layout.operator(SelectMeshEdgeOnly.bl_idname, text="辺のみ", icon="PLUGIN")
+		self.layout.operator(SelectMeshVertexOnly.bl_idname, text="頂点のみ", icon="PLUGIN")
+		self.layout.operator(SelectMeshNone.bl_idname, text="頂点すら無し", icon="PLUGIN")
 
 ################
 # メニュー追加 #
