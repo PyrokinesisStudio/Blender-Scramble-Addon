@@ -134,6 +134,8 @@ class SelectBoundBoxSize(bpy.types.Operator):
 	def execute(self, context):
 		context.scene.update()
 		max_volume = -1
+		min_volume = 999999999999999
+		min_obj = None
 		objs = []
 		for obj in context.visible_objects:
 			if (self.select_type != 'ALL'):
@@ -148,17 +150,22 @@ class SelectBoundBoxSize(bpy.types.Operator):
 			objs.append((obj, volume))
 			if (max_volume < volume):
 				max_volume = volume
+			if (volume < min_volume):
+				min_volume = volume
+				min_obj = obj
 		if (self.mode == 'LARGE'):
 			threshold_volume = max_volume * (1.0 - (self.threshold * 0.01))
 		elif (self.mode == 'SMALL'):
 			threshold_volume = max_volume * (self.threshold * 0.01)
 		for obj, volume in objs:
 			if (self.mode == 'LARGE'):
-				if (threshold_volume < volume):
+				if (threshold_volume <= volume):
 					obj.select = True
 			elif (self.mode == 'SMALL'):
 				if (volume <= threshold_volume):
 					obj.select = True
+		if (min_obj and self.mode == 'SMALL'):
+			min_obj.select = True
 		return {'FINISHED'}
 
 ##########################
