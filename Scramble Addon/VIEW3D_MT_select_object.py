@@ -122,19 +122,19 @@ class SelectBoundBoxSize(bpy.types.Operator):
 	select_type_limit = bpy.props.BoolProperty(name="ﾗｲﾄ/ｴﾝﾌﾟﾃｨ/ｶﾒﾗ/ｽﾋﾟｰｶｰを選択しない", default=True)
 	
 	def execute(self, context):
-		context.scene.update()
 		max_volume = -1
 		objs = []
 		for obj in context.visible_objects:
+			context.scene.update()
 			if (self.select_type_limit):
 				if (obj.type == 'CAMERA' or obj.type == 'LAMP' or obj.type == 'SPEAKER' or obj.type == 'EMPTY'):
 					continue
 			bound_box = obj.bound_box[:]
-			bound_box0 = mathutils.Vector(bound_box[0])
-			x = (bound_box0 - mathutils.Vector(bound_box[4])).length * obj.scale.x
-			y = (bound_box0 - mathutils.Vector(bound_box[3])).length * obj.scale.y
-			z = (bound_box0 - mathutils.Vector(bound_box[1])).length * obj.scale.z
-			volume = x * y * z
+			bound_box0 = mathutils.Vector(bound_box[0][:])
+			x = (bound_box0 - mathutils.Vector(bound_box[4][:])).length * obj.scale.x
+			y = (bound_box0 - mathutils.Vector(bound_box[3][:])).length * obj.scale.y
+			z = (bound_box0 - mathutils.Vector(bound_box[1][:])).length * obj.scale.z
+			volume = x + y + z
 			objs.append((obj, volume))
 			if (max_volume < volume):
 				max_volume = volume
