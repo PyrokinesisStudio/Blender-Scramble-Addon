@@ -144,6 +144,66 @@ class SelectBoundBoxSize(bpy.types.Operator):
 					obj.select = True
 		return {'FINISHED'}
 
+##########################
+# オペレーター(メッシュ) #
+##########################
+
+class SelectMeshFaceOnly(bpy.types.Operator):
+	bl_idname = "object.select_mesh_face_only"
+	bl_label = "面のあるメッシュを選択"
+	bl_description = "面が1つ以上あるメッシュを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		for obj in context.selectable_objects:
+			if (obj.type == 'MESH'):
+				me = obj.data
+				if (0 < len(me.polygons)):
+					obj.select = True
+		return {'FINISHED'}
+
+class SelectMeshEdgeOnly(bpy.types.Operator):
+	bl_idname = "object.select_mesh_edge_only"
+	bl_label = "辺のみのメッシュを選択"
+	bl_description = "面が無く、辺のみのメッシュを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		for obj in context.selectable_objects:
+			if (obj.type == 'MESH'):
+				me = obj.data
+				if (len(me.polygons) == 0 and 0 < len(me.edges)):
+					obj.select = True
+		return {'FINISHED'}
+
+class SelectMeshVertexOnly(bpy.types.Operator):
+	bl_idname = "object.select_mesh_vertex_only"
+	bl_label = "頂点のみのメッシュを選択"
+	bl_description = "面と辺が無く、頂点のみのメッシュを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		for obj in context.selectable_objects:
+			if (obj.type == 'MESH'):
+				me = obj.data
+				if (len(me.polygons) == 0 and len(me.edges) == 0 and 0 < len(me.vertices)):
+					obj.select = True
+		return {'FINISHED'}
+
+class SelectMeshNone(bpy.types.Operator):
+	bl_idname = "object.select_mesh_none"
+	bl_label = "頂点すら無いメッシュを選択"
+	bl_description = "面と辺と頂点が無い空のメッシュオブジェクトを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		for obj in context.selectable_objects:
+			if (obj.type == 'MESH'):
+				me = obj.data
+				if (len(me.polygons) == 0 and len(me.edges) == 0 and len(me.vertices) == 0):
+					obj.select = True
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -173,6 +233,17 @@ class SelectGroupedEX(bpy.types.Menu):
 		self.layout.operator(SelectGroupedSubsurfLevel.bl_idname, text="サブサーフレベル", icon="PLUGIN")
 		self.layout.operator(SelectGroupedArmatureTarget.bl_idname, text="同アーマチュア変形", icon="PLUGIN")
 
+class SelectMesh(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_select_object_mesh"
+	bl_label = "メッシュの特徴で選択"
+	bl_description = "可視メッシュオブジェクトを選択する機能のメニューです"
+	
+	def draw(self, context):
+		self.layout.operator(SelectMeshFaceOnly.bl_idname, icon="PLUGIN")
+		self.layout.operator(SelectMeshEdgeOnly.bl_idname, icon="PLUGIN")
+		self.layout.operator(SelectMeshVertexOnly.bl_idname, icon="PLUGIN")
+		self.layout.operator(SelectMeshNone.bl_idname, icon="PLUGIN")
+
 ################
 # メニュー追加 #
 ################
@@ -192,6 +263,7 @@ def menu(self, context):
 		self.layout.operator(SelectBoundBoxSize.bl_idname, text="小さなものを選択", icon="PLUGIN").mode = 'SMALL'
 		self.layout.operator(SelectBoundBoxSize.bl_idname, text="大きなものを選択", icon="PLUGIN").mode = 'LARGE'
 		self.layout.separator()
+		self.layout.menu(SelectMesh.bl_idname, icon="PLUGIN")
 		self.layout.menu(SelectGroupedEX.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
