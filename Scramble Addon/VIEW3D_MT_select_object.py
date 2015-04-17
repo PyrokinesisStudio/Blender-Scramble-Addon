@@ -129,7 +129,7 @@ class SelectBoundBoxSize(bpy.types.Operator):
 		('ALL', "全て", "", 8),
 		]
 	select_type = bpy.props.EnumProperty(items=items, name="選択タイプ", default='MESH')
-	threshold = bpy.props.FloatProperty(name="しきい値", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
+	threshold = bpy.props.FloatProperty(name="選択範囲", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
 	
 	def execute(self, context):
 		max_volume = -1
@@ -148,10 +148,13 @@ class SelectBoundBoxSize(bpy.types.Operator):
 			objs.append((obj, volume))
 			if (max_volume < volume):
 				max_volume = volume
-		threshold_volume = max_volume * (self.threshold * 0.01)
+		if (self.mode == 'LARGE'):
+			threshold_volume = max_volume * (1.0 - (self.threshold * 0.01))
+		elif (self.mode == 'SMALL'):
+			threshold_volume = max_volume * (self.threshold * 0.01)
 		for obj, volume in objs:
 			if (self.mode == 'LARGE'):
-				if (threshold_volume <= volume):
+				if (threshold_volume < volume):
 					obj.select = True
 			elif (self.mode == 'SMALL'):
 				if (volume <= threshold_volume):
