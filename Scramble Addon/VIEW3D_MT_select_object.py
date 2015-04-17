@@ -1,6 +1,6 @@
 # 3Dビュー > オブジェクトモード > 「選択」メニュー
 
-import bpy
+import bpy, mathutils
 import re
 
 ################
@@ -107,6 +107,43 @@ class SelectGroupedArmatureTarget(bpy.types.Operator):
 				obj.select= True
 		return {'FINISHED'}
 
+class SelectBoundBoxSize(bpy.types.Operator):
+	bl_idname = "object.select_bound_box_size"
+	bl_label = "サイズで比較してオブジェクトを選択"
+	bl_description = "最大オブジェクトに対して大きい、もしくは小さいオブジェクトを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('LARGE', "大きい物を選択", "", 1),
+		('SMALL', "小さい物を選択", "", 2),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="選択モード")
+	threshold = bpy.props.FloatProperty(name="しきい値", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
+	
+	def execute(self, context):
+		context.scene.update()
+		max_volume = -1
+		objs = []
+		for obj in context.visible_objects:
+			bound_box = obj.bound_box[:]
+			bound_box0 = mathutils.Vector(bound_box[0])
+			x = (bound_box0 - mathutils.Vector(bound_box[4])).length * obj.scale.x
+			y = (bound_box0 - mathutils.Vector(bound_box[3])).length * obj.scale.y
+			z = (bound_box0 - mathutils.Vector(bound_box[1])).length * obj.scale.z
+			volume = x * y * z
+			objs.append((obj, volume))
+			if (max_volume < volume):
+				max_volume = volume
+		threshold_volume = max_volume * (self.threshold * 0.01)
+		for obj, volume in objs:
+			if (self.mode == 'LARGE'):
+				if (threshold_volume <= volume):
+					obj.select = True
+			elif (self.mode == 'SMALL'):
+				if (volume <= threshold_volume):
+					obj.select = True
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -151,6 +188,9 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
+		self.layout.separator()
+		self.layout.operator(SelectBoundBoxSize.bl_idname, text="小さなものを選択", icon="PLUGIN").mode = 'SMALL'
+		self.layout.operator(SelectBoundBoxSize.bl_idname, text="大きなものを選択", icon="PLUGIN").mode = 'LARGE'
 		self.layout.separator()
 		self.layout.menu(SelectGroupedEX.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
