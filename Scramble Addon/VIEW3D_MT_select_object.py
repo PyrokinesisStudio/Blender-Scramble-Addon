@@ -132,13 +132,13 @@ class SelectBoundBoxSize(bpy.types.Operator):
 	threshold = bpy.props.FloatProperty(name="選択範囲", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
 	
 	def execute(self, context):
+		context.scene.update()
 		max_volume = -1
 		objs = []
 		for obj in context.visible_objects:
 			if (self.select_type != 'ALL'):
 				if (obj.type != self.select_type):
 					continue
-			context.scene.update()
 			bound_box = obj.bound_box[:]
 			bound_box0 = mathutils.Vector(bound_box[0][:])
 			x = (bound_box0 - mathutils.Vector(bound_box[4][:])).length * obj.scale.x
