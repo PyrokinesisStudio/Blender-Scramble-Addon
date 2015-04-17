@@ -119,12 +119,16 @@ class SelectBoundBoxSize(bpy.types.Operator):
 		]
 	mode = bpy.props.EnumProperty(items=items, name="選択モード")
 	threshold = bpy.props.FloatProperty(name="しきい値", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
+	select_type_limit = bpy.props.BoolProperty(name="ﾗｲﾄ/ｴﾝﾌﾟﾃｨ/ｶﾒﾗ/ｽﾋﾟｰｶｰを選択しない", default=True)
 	
 	def execute(self, context):
 		context.scene.update()
 		max_volume = -1
 		objs = []
 		for obj in context.visible_objects:
+			if (self.select_type_limit):
+				if (obj.type == 'CAMERA' or obj.type == 'LAMP' or obj.type == 'SPEAKER' or obj.type == 'EMPTY'):
+					continue
 			bound_box = obj.bound_box[:]
 			bound_box0 = mathutils.Vector(bound_box[0])
 			x = (bound_box0 - mathutils.Vector(bound_box[4])).length * obj.scale.x
