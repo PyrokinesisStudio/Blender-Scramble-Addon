@@ -7,6 +7,71 @@ import re
 # オペレーター #
 ################
 
+class SelectBoundBoxSize(bpy.types.Operator):
+	bl_idname = "object.select_bound_box_size"
+	bl_label = "サイズで比較してオブジェクトを選択"
+	bl_description = "最大オブジェクトに対して大きい、もしくは小さいオブジェクトを選択します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('LARGE', "大きい物を選択", "", 1),
+		('SMALL', "小さい物を選択", "", 2),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="選択モード")
+	items = [
+		('MESH', "メッシュ", "", 1),
+		('CURVE', "カーブ", "", 2),
+		('SURFACE', "サーフェス", "", 3),
+		('META', "メタボール", "", 4),
+		('FONT', "テキスト", "", 5),
+		('ARMATURE', "アーマチュア", "", 6),
+		('LATTICE', "ラティス", "", 7),
+		('ALL', "全て", "", 8),
+		]
+	select_type = bpy.props.EnumProperty(items=items, name="選択タイプ", default='MESH')
+	threshold = bpy.props.FloatProperty(name="選択範囲", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
+	
+	def execute(self, context):
+		context.scene.update()
+		max_volume = -1
+		min_volume = 999999999999999
+		min_obj = None
+		objs = []
+		for obj in context.visible_objects:
+			if (self.select_type != 'ALL'):
+				if (obj.type != self.select_type):
+					continue
+			bound_box = obj.bound_box[:]
+			bound_box0 = mathutils.Vector(bound_box[0][:])
+			x = (bound_box0 - mathutils.Vector(bound_box[4][:])).length * obj.scale.x
+			y = (bound_box0 - mathutils.Vector(bound_box[3][:])).length * obj.scale.y
+			z = (bound_box0 - mathutils.Vector(bound_box[1][:])).length * obj.scale.z
+			volume = x + y + z
+			objs.append((obj, volume))
+			if (max_volume < volume):
+				max_volume = volume
+			if (volume < min_volume):
+				min_volume = volume
+				min_obj = obj
+		if (self.mode == 'LARGE'):
+			threshold_volume = max_volume * (1.0 - (self.threshold * 0.01))
+		elif (self.mode == 'SMALL'):
+			threshold_volume = max_volume * (self.threshold * 0.01)
+		for obj, volume in objs:
+			if (self.mode == 'LARGE'):
+				if (threshold_volume <= volume):
+					obj.select = True
+			elif (self.mode == 'SMALL'):
+				if (volume <= threshold_volume):
+					obj.select = True
+		if (min_obj and self.mode == 'SMALL'):
+			min_obj.select = True
+		return {'FINISHED'}
+
+############################
+# オペレーター(関係で選択) #
+############################
+
 class SelectGroupedName(bpy.types.Operator):
 	bl_idname = "object.select_grouped_name"
 	bl_label = "同じ名前のオブジェクトを選択"
@@ -107,17 +172,18 @@ class SelectGroupedArmatureTarget(bpy.types.Operator):
 				obj.select= True
 		return {'FINISHED'}
 
-class SelectBoundBoxSize(bpy.types.Operator):
-	bl_idname = "object.select_bound_box_size"
+class SelectGroupedSizeThan(bpy.types.Operator):
+	bl_idname = "object.select_grouped_size_than"
 	bl_label = "サイズで比較してオブジェクトを選択"
-	bl_description = "最大オブジェクトに対して大きい、もしくは小さいオブジェクトを選択します"
+	bl_description = "アクティブオブジェクトより大きい、もしくは小さいオブジェクトを追加選択します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('LARGE', "大きい物を選択", "", 1),
-		('SMALL', "小さい物を選択", "", 2),
+		('LARGER', "より大きい物を選択", "", 1),
+		('SMALLER', "より小さい物を選択", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="選択モード")
+	select_same_size = bpy.props.BoolProperty(name="同じサイズも選択", default=True)
 	items = [
 		('MESH', "メッシュ", "", 1),
 		('CURVE', "カーブ", "", 2),
@@ -127,45 +193,49 @@ class SelectBoundBoxSize(bpy.types.Operator):
 		('ARMATURE', "アーマチュア", "", 6),
 		('LATTICE', "ラティス", "", 7),
 		('ALL', "全て", "", 8),
+		('SAME', "同じタイプ", "", 9),
 		]
-	select_type = bpy.props.EnumProperty(items=items, name="選択タイプ", default='MESH')
-	threshold = bpy.props.FloatProperty(name="選択範囲", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
+	select_type = bpy.props.EnumProperty(items=items, name="選択タイプ", default='SAME')
 	
 	def execute(self, context):
-		context.scene.update()
-		max_volume = -1
-		min_volume = 999999999999999
-		min_obj = None
-		objs = []
-		for obj in context.visible_objects:
-			if (self.select_type != 'ALL'):
-				if (obj.type != self.select_type):
-					continue
+		def GetSize(obj):
 			bound_box = obj.bound_box[:]
+			bound_box0 = mathutils.Vector(bound_box[0][:])
 			bound_box0 = mathutils.Vector(bound_box[0][:])
 			x = (bound_box0 - mathutils.Vector(bound_box[4][:])).length * obj.scale.x
 			y = (bound_box0 - mathutils.Vector(bound_box[3][:])).length * obj.scale.y
 			z = (bound_box0 - mathutils.Vector(bound_box[1][:])).length * obj.scale.z
-			volume = x + y + z
-			objs.append((obj, volume))
-			if (max_volume < volume):
-				max_volume = volume
-			if (volume < min_volume):
-				min_volume = volume
-				min_obj = obj
-		if (self.mode == 'LARGE'):
-			threshold_volume = max_volume * (1.0 - (self.threshold * 0.01))
-		elif (self.mode == 'SMALL'):
-			threshold_volume = max_volume * (self.threshold * 0.01)
-		for obj, volume in objs:
-			if (self.mode == 'LARGE'):
-				if (threshold_volume <= volume):
-					obj.select = True
-			elif (self.mode == 'SMALL'):
-				if (volume <= threshold_volume):
-					obj.select = True
-		if (min_obj and self.mode == 'SMALL'):
-			min_obj.select = True
+			return x + y + z
+		
+		active_obj = context.active_object
+		if (not active_obj):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			return {'CANCELLED'}
+		context.scene.update()
+		active_obj_size = GetSize(active_obj)
+		for obj in context.selectable_objects:
+			if (self.select_type != 'ALL'):
+				if (self.select_type == 'SAME'):
+					if (obj.type != active_obj.type):
+						continue
+				else:
+					if (obj.type != self.select_type):
+						continue
+			size = GetSize(obj)
+			if (self.mode == 'LARGER'):
+				if (self.select_same_size):
+					if (active_obj_size <= size):
+						obj.select = True
+				else:
+					if (active_obj_size < size):
+						obj.select = True
+			elif (self.mode == 'SMALLER'):
+				if (self.select_same_size):
+					if (size <= active_obj_size):
+						obj.select = True
+				else:
+					if (size < active_obj_size):
+						obj.select = True
 		return {'FINISHED'}
 
 ##########################
@@ -250,6 +320,9 @@ class SelectGroupedEX(bpy.types.Menu):
 		self.layout.operator("object.select_grouped", text="プロパティ").type = 'PROPERTIES'
 		self.layout.operator("object.select_grouped", text="キーイングセット").type = 'KEYINGSET'
 		self.layout.operator("object.select_grouped", text="ランプタイプ").type = 'LAMP_TYPE'
+		self.layout.separator()
+		self.layout.operator(SelectGroupedSizeThan.bl_idname, text="より大きい", icon="PLUGIN").mode = 'LARGER'
+		self.layout.operator(SelectGroupedSizeThan.bl_idname, text="より小さい", icon="PLUGIN").mode = 'SMALLER'
 		self.layout.separator()
 		self.layout.operator(SelectGroupedName.bl_idname, text="オブジェクト名", icon="PLUGIN")
 		self.layout.operator(SelectGroupedMaterial.bl_idname, text="マテリアル", icon="PLUGIN")
