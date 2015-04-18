@@ -196,6 +196,7 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 		('SAME', "同じタイプ", "", 9),
 		]
 	select_type = bpy.props.EnumProperty(items=items, name="選択タイプ", default='SAME')
+	size_multi = bpy.props.FloatProperty(name="基準サイズ オフセット", default=1.0, min=0, max=10, soft_min=0, soft_max=10, step=10, precision=3)
 	
 	def execute(self, context):
 		def GetSize(obj):
@@ -212,7 +213,7 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
 			return {'CANCELLED'}
 		context.scene.update()
-		active_obj_size = GetSize(active_obj)
+		active_obj_size = GetSize(active_obj) * self.size_multi
 		for obj in context.selectable_objects:
 			if (self.select_type != 'ALL'):
 				if (self.select_type == 'SAME'):
@@ -223,19 +224,14 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 						continue
 			size = GetSize(obj)
 			if (self.mode == 'LARGER'):
-				if (self.select_same_size):
-					if (active_obj_size <= size):
-						obj.select = True
-				else:
-					if (active_obj_size < size):
-						obj.select = True
+				if (active_obj_size < size):
+					obj.select = True
 			elif (self.mode == 'SMALLER'):
-				if (self.select_same_size):
-					if (size <= active_obj_size):
-						obj.select = True
-				else:
-					if (size < active_obj_size):
-						obj.select = True
+				if (size < active_obj_size):
+					obj.select = True
+			if (self.select_same_size):
+				if (active_obj_size == size):
+					obj.select = True
 		return {'FINISHED'}
 
 ##########################
