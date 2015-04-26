@@ -190,6 +190,29 @@ class SelectChildrenEnd(bpy.types.Operator):
 				b.select = True
 		return {'FINISHED'}
 
+class SelectParentEnd(bpy.types.Operator):
+	bl_idname = "pose.select_parent_end"
+	bl_label = "ボーンの根本まで選択"
+	bl_description = "選択ボーンの親 → 親ボーンの親...と最後まで選択していきます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		obj = context.active_object
+		if (not obj):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			return {'CANCELLED'}
+		if (obj.type != 'ARMATURE'):
+			self.report(type={'ERROR'}, message="アーマチュアオブジェクトで実行して下さい")
+			return {'CANCELLED'}
+		arm = obj.data
+		selected_bones = context.selected_pose_bones[:]
+		for bone in selected_bones:
+			target_bone = arm.bones[bone.name]
+			while target_bone.parent:
+				target_bone = target_bone.parent
+				target_bone.select = True
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -224,9 +247,11 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
+		self.layout.operator(SelectParentEnd.bl_idname, icon="PLUGIN")
+		self.layout.operator(SelectChildrenEnd.bl_idname, icon="PLUGIN")
+		self.layout.separator()
 		self.layout.operator(SelectSerialNumberNameBone.bl_idname, icon="PLUGIN")
 		self.layout.operator(SelectMoveSymmetryNameBones.bl_idname, icon="PLUGIN")
-		self.layout.operator(SelectChildrenEnd.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.menu(SelectGroupedMenu.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
