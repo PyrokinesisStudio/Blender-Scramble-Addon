@@ -1,5 +1,7 @@
 # アドオンを読み込む時に最初にこのファイルが読み込まれます
 
+import os, csv, codecs
+
 # アドオン情報
 bl_info = {
 	"name" : "Scramble Addon",
@@ -141,9 +143,26 @@ class ToggleMenuEnable(bpy.types.Operator):
 		context.user_preferences.addons["Scramble Addon"].preferences.disabled_menu = recovery
 		return {'FINISHED'}
 
+# 翻訳辞書の取得
+def GetTranslationDict():
+	dict = {'en':{}}
+	path = os.path.join(os.path.dirname(__file__), "TranslationDictionary.csv")
+	with codecs.open(path, 'r', 'utf-8') as f:
+		reader = csv.reader(f)
+		for row in reader:
+			#for context in bpy.app.translations.contexts:
+			dict['en'][(bpy.app.translations.contexts.default, row[0])] = row[1]
+			dict['en'][(bpy.app.translations.contexts.operator_default, row[0])] = row[1]
+	print(dict)
+	return dict
+
 # プラグインをインストールしたときの処理
 def register():
 	bpy.utils.register_module(__name__)
+	
+	translation_dict = GetTranslationDict()
+	bpy.app.translations.register(__name__, translation_dict)
+	
 	bpy.types.IMAGE_MT_image.append(IMAGE_MT_image.menu)
 	bpy.types.IMAGE_MT_select.append(IMAGE_MT_select.menu)
 	bpy.types.IMAGE_MT_view.append(IMAGE_MT_view.menu)
@@ -189,6 +208,9 @@ def register():
 # プラグインをアンインストールしたときの処理
 def unregister():
 	bpy.utils.unregister_module(__name__)
+	
+	bpy.app.translations.unregister(__name__)
+	
 	bpy.types.IMAGE_MT_image.remove(IMAGE_MT_image.menu)
 	bpy.types.IMAGE_MT_select.remove(IMAGE_MT_select.menu)
 	bpy.types.IMAGE_MT_view.remove(IMAGE_MT_view.menu)
