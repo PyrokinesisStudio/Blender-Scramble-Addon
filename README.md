@@ -1,6 +1,7 @@
 # Blender-Scramble-Addon
 Blenderのかゆいところに手が届くかもしれない機能が詰まったアドオンです。  
 (This add-on is packed with Blender useful features. English-speaking people should be on the English translation.)  
+![Translation](http://i.imgur.com/U1pO6Jh.jpg)  
 
 ## インストール (Installation)
 まず→の「Download ZIP」でZIPファイルをダウンロードし、解凍して下さい。  
