@@ -82,6 +82,27 @@ class SetAllSubsurfRenderLevels(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class SyncAllSubsurfRenderLevels(bpy.types.Operator):
+	bl_idname = "render.sync_all_subsurf_render_levels"
+	bl_label = "レンダリング時のサブサーフレベルをプレビュー値と同期"
+	bl_description = "全オブジェクトのレンダリング時に適用するサブサーフの細分化レベルを、プレビューでのレベルへと設定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	level_offset = bpy.props.IntProperty(name="細分化レベル オフセット", default=0, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
+	
+	def execute(self, context):
+		for obj in bpy.data.objects:
+			if (obj.type != 'MESH'):
+				continue
+			for mod in obj.modifiers:
+				if (mod.type == 'SUBSURF'):
+					mod.render_levels = mod.levels + self.level_offset
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+
 ################
 # サブメニュー #
 ################
@@ -170,6 +191,8 @@ class SubsurfMenu(bpy.types.Menu):
 		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="細分化 = 3", icon="PLUGIN")
 		operator.mode = 'ABSOLUTE'
 		operator.levels = 3
+		self.layout.separator()
+		self.layout.operator(SyncAllSubsurfRenderLevels.bl_idname, text="プレビュー値に同期", icon="PLUGIN")
 
 ################
 # メニュー追加 #
