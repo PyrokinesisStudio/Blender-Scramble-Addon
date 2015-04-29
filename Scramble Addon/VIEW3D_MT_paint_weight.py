@@ -1,6 +1,6 @@
 # 3Dビュー > ウェイトペイントモード > 「ウェイト」メニュー
 
-import bpy
+import bpy, bmesh
 
 ################
 # オペレーター #
@@ -159,6 +159,77 @@ class ApplyDynamicPaint(bpy.types.Operator):
 			obj.modifiers.remove(obj.modifiers[-1])
 		return {'FINISHED'}
 
+class BlurWeight(bpy.types.Operator):
+	bl_idname = "mesh.blur_weight"
+	bl_label = "頂点グループぼかし"
+	bl_description = "アクティブ、もしくは全ての頂点グループをぼかします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('ACTIVE', "アクティブのみ", "", 1),
+		('ALL', "全て", "", 2),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="対象", default='ACTIVE')
+	blur_count = bpy.props.IntProperty(name="繰り返し回数", default=10, min=1, max=100, soft_min=1, soft_max=100, step=1)
+	use_clean = bpy.props.BoolProperty(name="ウェイト0.0は削除", default=True)
+	
+	
+	def execute(self, context):
+		activeObj = context.active_object
+		if (not activeObj):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			return {'CANCELLED'}
+		if (activeObj.type != 'MESH'):
+			self.report(type={'ERROR'}, message="メッシュオブジェクトで実行して下さい")
+			return {'CANCELLED'}
+		pre_mode = activeObj.mode
+		bpy.ops.object.mode_set(mode='OBJECT')
+		me = activeObj.data
+		target_weights = []
+		if (self.mode == 'ACTIVE'):
+			target_weights.append(activeObj.vertex_groups.active)
+		elif (self.mode == 'ALL'):
+			for vg in activeObj.vertex_groups:
+				target_weights.append(vg)
+		for count in range(self.blur_count):
+			for vg in target_weights:
+				vg_index = vg.index
+				new_weights = []
+				bm = bmesh.new()
+				bm.from_mesh(me)
+				for vert in bm.verts:
+					for group in me.vertices[vert.index].groups:
+						if (group.group == vg_index):
+							my_weight = group.weight
+							break
+						else:
+							my_weight = 0.0
+					near_weights = []
+					for edge in vert.link_edges:
+						for v in edge.verts:
+							if (v.index != vert.index):
+								edges_vert = v
+								break
+						for group in me.vertices[edges_vert.index].groups:
+							if (group.group == vg_index):
+								near_weights.append(group.weight)
+								break
+							else:
+								near_weights.append(0.0)
+					near_weight_average = 0
+					for weight in near_weights:
+						near_weight_average += weight
+					near_weight_average /= len(near_weights)
+					new_weights.append( (my_weight*2 + near_weight_average) / 3 )
+				bm.to_mesh(me)
+				bm.free()
+				for vert, weight in zip(me.vertices, new_weights):
+					vg.add([vert.index], weight, 'REPLACE')
+					if (self.use_clean and weight <= 0.000001):
+						vg.remove([vert.index])
+		bpy.ops.object.mode_set(mode=pre_mode)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -177,6 +248,9 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.operator(MargeSelectedVertexGroup.bl_idname, icon="PLUGIN")
 		self.layout.operator(RemoveSelectedVertexGroup.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(BlurWeight.bl_idname, text="アクティブをぼかし", icon="PLUGIN").mode = 'ACTIVE'
+		self.layout.operator(BlurWeight.bl_idname, text="全てをぼかし", icon="PLUGIN").mode = 'ALL'
 		self.layout.separator()
 		self.layout.operator(VertexGroupAverageAll.bl_idname, icon="PLUGIN")
 		self.layout.separator()
