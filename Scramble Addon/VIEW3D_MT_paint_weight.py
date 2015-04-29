@@ -202,8 +202,8 @@ class BlurWeight(bpy.types.Operator):
 						if (group.group == vg_index):
 							my_weight = group.weight
 							break
-						else:
-							my_weight = 0.0
+					else:
+						my_weight = 0.0
 					near_weights = []
 					for edge in vert.link_edges:
 						for v in edge.verts:
@@ -214,12 +214,15 @@ class BlurWeight(bpy.types.Operator):
 							if (group.group == vg_index):
 								near_weights.append(group.weight)
 								break
-							else:
-								near_weights.append(0.0)
+						else:
+							near_weights.append(0.0)
 					near_weight_average = 0
 					for weight in near_weights:
 						near_weight_average += weight
-					near_weight_average /= len(near_weights)
+					try:
+						near_weight_average /= len(near_weights)
+					except ZeroDivisionError:
+						near_weight_average = 0.0
 					new_weights.append( (my_weight*2 + near_weight_average) / 3 )
 				bm.to_mesh(me)
 				bm.free()
