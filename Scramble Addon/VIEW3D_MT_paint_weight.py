@@ -191,12 +191,12 @@ class BlurWeight(bpy.types.Operator):
 		elif (self.mode == 'ALL'):
 			for vg in activeObj.vertex_groups:
 				target_weights.append(vg)
+		bm = bmesh.new()
+		bm.from_mesh(me)
 		for count in range(self.blur_count):
 			for vg in target_weights:
 				vg_index = vg.index
 				new_weights = []
-				bm = bmesh.new()
-				bm.from_mesh(me)
 				for vert in bm.verts:
 					for group in me.vertices[vert.index].groups:
 						if (group.group == vg_index):
@@ -224,12 +224,11 @@ class BlurWeight(bpy.types.Operator):
 					except ZeroDivisionError:
 						near_weight_average = 0.0
 					new_weights.append( (my_weight*2 + near_weight_average) / 3 )
-				bm.to_mesh(me)
-				bm.free()
 				for vert, weight in zip(me.vertices, new_weights):
 					vg.add([vert.index], weight, 'REPLACE')
 					if (self.use_clean and weight <= 0.000001):
 						vg.remove([vert.index])
+		bm.free()
 		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
