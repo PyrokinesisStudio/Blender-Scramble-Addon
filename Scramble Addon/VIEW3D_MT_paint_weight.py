@@ -225,9 +225,10 @@ class BlurWeight(bpy.types.Operator):
 						near_weight_average = 0.0
 					new_weights.append( (my_weight*2 + near_weight_average) / 3 )
 				for vert, weight in zip(me.vertices, new_weights):
-					vg.add([vert.index], weight, 'REPLACE')
 					if (self.use_clean and weight <= 0.000001):
 						vg.remove([vert.index])
+					else:
+						vg.add([vert.index], weight, 'REPLACE')
 		bm.free()
 		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
