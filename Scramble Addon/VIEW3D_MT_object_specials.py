@@ -599,6 +599,53 @@ class CreateVertexGroupsArmature(bpy.types.Operator):
 		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
+####################
+# オペレーター(親) #
+####################
+
+class ParentSetApplyModifiers(bpy.types.Operator):
+	bl_idname = "object.parent_set_apply_modifiers"
+	bl_label = "モディファイア適用してペアレント作成"
+	bl_description = "親オブジェクトのモディファイアを適用してから、親子関係を作成します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('VERTEX', "頂点", "", 1),
+		('VERTEX_TRI', "頂点(三角形)", "", 2),
+		]
+	type = bpy.props.EnumProperty(items=items, name="演算")
+	
+	def execute(self, context):
+		active_obj = context.active_object
+		if (not active_obj):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			return {'CANCELLED'}
+		if (active_obj.type != 'MESH'):
+			self.report(type={'ERROR'}, message="アクティブがメッシュオブジェクトではありません")
+			return {'CANCELLED'}
+		active_obj.select = False
+		bpy.ops.object.parent_clear(type='CLEAR_KEEP_TRANSFORM')
+		active_obj.select = True
+		old_me = active_obj.data
+		new_me = active_obj.to_mesh(context.scene, True, 'PREVIEW')
+		if (len(old_me.vertices) != len(new_me.vertices)):
+			self.report(type={'WARNING'}, message="モディファイア適用後に頂点数が変化してます、望んだ結果じゃないかもしれません")
+		active_obj.data = new_me
+		bpy.ops.object.parent_set(type=self.type)
+		active_obj.data = old_me
+		active_obj.select = False
+		bpy.ops.object.parent_clear(type='CLEAR_KEEP_TRANSFORM')
+		active_obj.select = True
+		enable_modifiers = []
+		for mod in active_obj.modifiers:
+			if (mod.show_viewport):
+				enable_modifiers.append(mod.name)
+				mod.show_viewport = False
+		bpy.ops.object.parent_set(type=self.type)
+		for name in enable_modifiers:
+			active_obj.modifiers[name].show_viewport = True
+		return {'FINISHED'}
+
 ################################
 # オペレーター(モディファイア) #
 ################################
@@ -1229,6 +1276,15 @@ class ObjectColorMenu(bpy.types.Menu):
 		column.operator(ApplyObjectColor.bl_idname, icon="PLUGIN")
 		column.operator(ClearObjectColor.bl_idname, icon="PLUGIN")
 
+class ParentMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_object_specials_parent"
+	bl_label = "親子関係"
+	bl_description = "親子関係のメニューです"
+	
+	def draw(self, context):
+		column = self.layout.column()
+		column.operator(ParentSetApplyModifiers.bl_idname, icon="PLUGIN", text="モディファイア適用 => +頂点(三角形)").type = 'VERTEX_TRI'
+
 class ModifierMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_modifier"
 	bl_label = "モディファイア関係"
@@ -1364,6 +1420,7 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.menu(ObjectNameMenu.bl_idname, icon="PLUGIN")
 		self.layout.menu(ObjectColorMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(ParentMenu.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
 		self.layout.menu(ModifierMenu.bl_idname, icon="PLUGIN")
