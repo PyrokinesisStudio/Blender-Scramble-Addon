@@ -153,7 +153,6 @@ def GetTranslationDict():
 			#for context in bpy.app.translations.contexts:
 			dict['en'][(bpy.app.translations.contexts.default, row[0])] = row[1]
 			dict['en'][(bpy.app.translations.contexts.operator_default, row[0])] = row[1]
-	print(dict)
 	return dict
 
 # プラグインをインストールしたときの処理
