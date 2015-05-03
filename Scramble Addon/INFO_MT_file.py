@@ -153,7 +153,7 @@ class AllSetMaterialReceiveTransparent(bpy.types.Operator):
 
 class AllSetMaterialColorRamp(bpy.types.Operator):
 	bl_idname = "material.all_set_material_color_ramp"
-	bl_label = "アクティブマテリアルのカラーランプ設定を他にコピー"
+	bl_label = "マテリアルのカラーランプ設定を他にコピー"
 	bl_description = "アクティブなマテリアルのカラーランプ設定を他の全マテリアル(選択オブジェクトのみも可)にコピーします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -331,7 +331,7 @@ class AllSetBumpMethod(bpy.types.Operator):
 
 class AllRenameTextureFileName(bpy.types.Operator):
 	bl_idname = "texture.all_rename_texture_file_name"
-	bl_label = "全てのテクスチャ名を使用する画像ファイル名に"
+	bl_label = "全テクスチャ名を使用する画像ファイル名に"
 	bl_description = "全てのテクスチャの名前を、使用している外部画像のファイル名にします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
