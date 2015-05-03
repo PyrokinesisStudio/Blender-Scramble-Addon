@@ -154,14 +154,14 @@ class ShowShortcutHtml(bpy.types.Operator):
 						title = title + i[0]
 						alreadys.append(i[0])
 			areaStrings = areaStrings+ '<area href="#" title="' +title+ '" shape="' +data["shape"]+ '" coords="' +data["coords"]+ '">\n'
-		file = open(os.path.join(addonDir, "ShortcutHtmlTemplate.html"), "r")
+		file = codecs.open(os.path.join(addonDir, "ShortcutHtmlTemplate.html"), 'r', 'utf-8')
 		template = file.read()
 		file.close()
 		template = template.replace("<!-- [AREAS] -->", areaStrings)
-		file = open(os.path.join(addonDir, "ShortcutHtmlTemp.html"), "w")
+		file = codecs.open(os.path.join(addonDir, "ShortcutHtmlTemp.html"), "w", 'utf-8')
 		file.write(template)
 		file.close()
-		os.system('"' + os.path.join(addonDir, "ShortcutHtmlTemp.html") + '"')
+		subprocess.Popen([os.path.join(addonDir, "ShortcutHtmlTemp.html")])
 		return {'FINISHED'}
 
 class RegisterLastCommandKeyconfig(bpy.types.Operator):
