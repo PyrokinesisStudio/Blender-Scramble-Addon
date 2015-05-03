@@ -2,7 +2,7 @@
 
 import bpy
 import zipfile, urllib.request, os, sys, re
-import csv
+import csv, codecs
 import collections
 import subprocess
 try:
@@ -80,7 +80,7 @@ class ShowShortcutHtml(bpy.types.Operator):
 	def execute(self, context):
 		addonDir = os.path.dirname(__file__)
 		keyDatas = collections.OrderedDict()
-		with open(os.path.join(addonDir, "ShortcutHtmlKeysData.csv"), 'r') as f:
+		with codecs.open(os.path.join(addonDir, "ShortcutHtmlKeysData.csv"), 'r', 'utf-8') as f:
 			reader = csv.reader(f)
 			for row in reader:
 				name = row[1]
