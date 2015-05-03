@@ -5,6 +5,7 @@ import zipfile, urllib.request, os, sys, re
 import csv, codecs
 import collections
 import subprocess
+import webbrowser
 try:
 	import winreg
 except:
@@ -161,7 +162,7 @@ class ShowShortcutHtml(bpy.types.Operator):
 		file = codecs.open(os.path.join(addonDir, "ShortcutHtmlTemp.html"), "w", 'utf-8')
 		file.write(template)
 		file.close()
-		subprocess.Popen([os.path.join(addonDir, "ShortcutHtmlTemp.html")])
+		webbrowser.open(os.path.join(addonDir, "ShortcutHtmlTemp.html"))
 		return {'FINISHED'}
 
 class RegisterLastCommandKeyconfig(bpy.types.Operator):
