@@ -31,7 +31,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 ## 機能一覧 (List of functions)
   
 * **ドープシート > 「キー」メニュー**
->* **(Dope sheet "menu"key")**
+*> **(Dope sheet "menu"key")**
     * **キーフレームを削除 (確認しない)**
     * **(Delete keyframes (not verified))**
         * 選択した全てのキーフレームを確認せずに削除します
