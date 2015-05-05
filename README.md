@@ -31,1009 +31,1009 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 ## 機能一覧 (List of functions)
   
 * **ドープシート > 「キー」メニュー**
-* **　(Dope sheet "menu"key")**
+* **―(Dope sheet "menu"key")**
     * **キーフレームを削除 (確認しない)**
-    * **　(Delete keyframes (not verified))**
+    * **―(Delete keyframes (not verified))**
         * 選択した全てのキーフレームを確認せずに削除します
-        * 　(Delete without checking for all selected keyframes)
+        * ―(Delete without checking for all selected keyframes)
     * **全キーフレームを大掃除**
-    * **　(Cleaning up all keyframes)**
+    * **―(Cleaning up all keyframes)**
         * 全てのアクションの重複したキーフレームを削除します
-        * 　(Remove the keyframe duplicates of all actions)
+        * ―(Remove the keyframe duplicates of all actions)
   
 * **UV/画像エディター > 「画像」メニュー**
-* **　(UV / image editor > image menu)**
+* **―(UV / image editor > image menu)**
     * **画像名を使用するファイル名に**
-    * **　(Using the name of the image file name)**
+    * **―(Using the name of the image file name)**
         * アクティブな画像の名前を、使用している外部画像のファイル名にします
-        * 　(External images are using the name of the active image file name)
+        * ―(External images are using the name of the active image file name)
     * **全ての画像名を使用するファイル名に**
-    * **　(In the file name to use for all image names)**
+    * **―(In the file name to use for all image names)**
         * 全ての画像の名前を、使用している外部画像のファイル名にします
-        * 　(The names of all images using external image file name)
+        * ―(The names of all images using external image file name)
     * **全ての画像を再読み込み**
-    * **　(Load all images)**
+    * **―(Load all images)**
         * 外部ファイルを参照している画像データを全て読み込み直します
-        * 　(Reloads all the image data referring to external file)
+        * ―(Reloads all the image data referring to external file)
     * **指定色で塗り潰し**
-    * **　(Fill with color)**
+    * **―(Fill with color)**
         * アクティブな画像を指定した色で全て塗り潰します
-        * 　(All fill in the color you specify the active image)
+        * ―(All fill in the color you specify the active image)
     * **画像ファイル名を変更**
-    * **　(Change the name of the image file)**
+    * **―(Change the name of the image file)**
         * アクティブな画像のファイル名を変更します
-        * 　(Change the file name of the active image)
+        * ―(Change the file name of the active image)
   
 * **UV/画像エディター > 「選択」メニュー**
-* **　(UV / image editor > select menu)**
+* **―(UV / image editor > select menu)**
     * **分離している頂点を選択**
-    * **　(Select the vertices are isolated)**
+    * **―(Select the vertices are isolated)**
         * シームによって分離している頂点を選択します
-        * 　(Select the vertex are separated by seams)
+        * ―(Select the vertex are separated by seams)
   
 * **UV/画像エディター > 「ビュー」メニュー**
-* **　(UV / image editor > View menu)**
+* **―(UV / image editor > View menu)**
     * **カーソルの位置をリセット**
-    * **　(Reset the position of the cursor)**
+    * **―(Reset the position of the cursor)**
         * 2Dカーソルの位置を左下に移動させます
-        * 　(2D cursor moves in the lower left)
+        * ―(2D cursor moves in the lower left)
   
 * **情報 > 「ファイル」メニュー**
-* **　(Information > file menu)**
+* **―(Information > file menu)**
     * **再起動**
-    * **　(Restart)**
+    * **―(Restart)**
         * Blenderを再起動します
-        * 　(Restart the Blender)
+        * ―(Restart the Blender)
     * **最新の自動保存の読み込み**
-    * **　(Load last AutoSave)**
+    * **―(Load last AutoSave)**
         * 復元するために自動的に保存したファイルの最新ファイルを開きます
-        * 　(Open the file automatically in order to restore the most recent file)
+        * ―(Open the file automatically in order to restore the most recent file)
     * **確認せずに上書き保存**
-    * **　(Save without prompting)**
+    * **―(Save without prompting)**
         * 確認メッセージを表示せずに上書き保存します
-        * 　(Save the changes without displaying the confirmation message)
+        * ―(Save the changes without displaying the confirmation message)
     * **全ての「すべての辺を表示」をオン**
-    * **　(All show all sides turn)**
+    * **―(All show all sides turn)**
         * 全てのオブジェクトの「すべての辺を表示」表示設定をオンにします(オフも可能)
-        * 　(Show all sides of all objects (can be off) turn the display settings)
+        * ―(Show all sides of all objects (can be off) turn the display settings)
     * **全ての最高描画タイプを一括設定**
-    * **　(All the best drawing type schemes)**
+    * **―(All the best drawing type schemes)**
         * 全てのオブジェクトの「最高描画タイプ」を一括で設定します
-        * 　("Best drawing types in the object of all sets at once)
+        * ―("Best drawing types in the object of all sets at once)
     * **全てのデータ名をオブジェクト名と同じにする**
-    * **　(All the data name to object name and same)**
+    * **―(All the data name to object name and same)**
         * 全てのオブジェクトのデータ(メッシュデータなど)の名前を、リンクしているオブジェクト名に置換します
-        * 　(Replaces object name linked to name all the object data (mesh data etc))
+        * ―(Replaces object name linked to name all the object data (mesh data etc))
     * **全てのマテリアルの「半透明影の受信」をオン**
-    * **　(On receiving the Semitransparent Shadow material of all)**
+    * **―(On receiving the Semitransparent Shadow material of all)**
         * 全てのマテリアルの「半透明影を受信するかどうか」についての設定をオン(オフ)にします
-        * 　(You to receive a semi-transparent shadow?"of all material (off) on the)
+        * ―(You to receive a semi-transparent shadow?"of all material (off) on the)
     * **マテリアルのカラーランプ設定を他にコピー**
-    * **　(Copy the material color ramp settings)**
+    * **―(Copy the material color ramp settings)**
         * アクティブなマテリアルのカラーランプ設定を他の全マテリアル(選択オブジェクトのみも可)にコピーします
-        * 　(Color ramp settings of the active material is all material other (only selected objects are allowed) to copy)
+        * ―(Color ramp settings of the active material is all material other (only selected objects are allowed) to copy)
     * **アクティブマテリアルのFreeStyle色を他にコピー**
-    * **　(FreeStyle color of an active copy to other)**
+    * **―(FreeStyle color of an active copy to other)**
         * アクティブなマテリアルのFreeStyleの色設定を他の全マテリアル(選択オブジェクトのみも可)にコピーします
-        * 　(FreeStyle material active color for all materials other (only selected objects are allowed) to copy)
+        * ―(FreeStyle material active color for all materials other (only selected objects are allowed) to copy)
     * **全マテリアルのFreeStyle色をディフューズ色に**
-    * **　(FreeStyle color of all material diffuse color)**
+    * **―(FreeStyle color of all material diffuse color)**
         * 全マテリアル(選択オブジェクトのみも可)のFreeStyleライン色をそのマテリアルのディフューズ色+ブレンドした色に置換します
-        * 　(All material (only selected objects are allowed) for FreeStyle line color of the material diffuse color + a blend to replace the)
+        * ―(All material (only selected objects are allowed) for FreeStyle line color of the material diffuse color + a blend to replace the)
     * **全マテリアルのオブジェクトカラーを有効に**
-    * **　(To enable object color for all materials)**
+    * **―(To enable object color for all materials)**
         * 全マテリアルのオブジェクトカラーの設定をオンもしくはオフにします
-        * 　(The select or clear all object color settings)
+        * ―(The select or clear all object color settings)
     * **全てのバンプマップの品質を設定**
-    * **　(Set the bump of all quality)**
+    * **―(Set the bump of all quality)**
         * 全てのテクスチャのバンプマップの品質を一括で設定します
-        * 　(Bump-map texture of all quality sets in bulk)
+        * ―(Bump-map texture of all quality sets in bulk)
     * **全テクスチャ名を使用する画像ファイル名に**
-    * **　(All image file names using the texture name)**
+    * **―(All image file names using the texture name)**
         * 全てのテクスチャの名前を、使用している外部画像のファイル名にします
-        * 　(The names of all textures use external image file name)
+        * ―(The names of all textures use external image file name)
     * **UV指定が空欄な場合アクティブUVで埋める**
-    * **　(UV is a blank if you fill the active UV)**
+    * **―(UV is a blank if you fill the active UV)**
         * テクスチャのUV指定欄が空欄の場合、リンクしているメッシュオブジェクトのアクティブなUV名で埋めます
-        * 　(Under active UV texture UV specified fields linked to an empty mesh object fills)
+        * ―(Under active UV texture UV specified fields linked to an empty mesh object fills)
     * **全ての画像名を使用するファイル名に**
-    * **　(In the file name to use for all image names)**
+    * **―(In the file name to use for all image names)**
         * 全ての画像の名前を、使用している外部画像のファイル名にします
-        * 　(The names of all images using external image file name)
+        * ―(The names of all images using external image file name)
     * **物理演算の開始/終了フレームを一括設定**
-    * **　(Set physical operation start / end frames at once)**
+    * **―(Set physical operation start / end frames at once)**
         * 物理演算などの開始/終了フレームを設定する部分にレンダリング開始/終了フレーム数を割り当てます
-        * 　(Assign render start / end frames portions to set start / end frames, such as physics)
+        * ―(Assign render start / end frames portions to set start / end frames, such as physics)
     * **RigidBodyのキャッシュをクリア**
-    * **　(Clear the cache of the RigidBody)**
+    * **―(Clear the cache of the RigidBody)**
         * 設定は維持して剛体ワールドを作り直します
-        * 　(Keep setting, recreate the rigid world)
+        * ―(Keep setting, recreate the rigid world)
   
 * **情報 > 「ファイル」メニュー > 「外部データ」メニュー**
-* **　(Information > "file" menu > "external data" menu)**
+* **―(Information > "file" menu > "external data" menu)**
     * **全ての画像を再読み込み**
-    * **　(Load all images)**
+    * **―(Load all images)**
         * 外部ファイルを参照している画像データを全て読み込み直します
-        * 　(Reloads all the image data referring to external file)
+        * ―(Reloads all the image data referring to external file)
     * **全ての画像をtexturesフォルダに保存し直す**
-    * **　(Resave textures folder, all images)**
+    * **―(Resave textures folder, all images)**
         * 外部ファイルを参照している画像データを全てtexturesフォルダに保存し直します
-        * 　(All external files referenced by image data to resave the textures folder)
+        * ―(All external files referenced by image data to resave the textures folder)
     * **「最近使ったファイル」をテキストで開く**
-    * **　(Open text in "recent files")**
+    * **―(Open text in "recent files")**
         * 「最近使ったファイル」をBlenderのテキストエディタで開きます
-        * 　(Open the "recent files" in Blender text editor)
+        * ―(Open the "recent files" in Blender text editor)
     * **「ブックマーク」をテキストで開く**
-    * **　(Open text in "bookmarks")**
+    * **―(Open text in "bookmarks")**
         * ファイルブラウザのブックマークをBlenderのテキストエディタで開きます
-        * 　(Blender text editor open the file browser bookmarks)
+        * ―(Blender text editor open the file browser bookmarks)
   
 * **情報 > 「ヘルプ」メニュー**
-* **　(Information > Help menu)**
+* **―(Information > Help menu)**
     * **.blendファイルをこのバージョンに関連付け**
-    * **　(the.blend file associated with this version)**
+    * **―(the.blend file associated with this version)**
         * .blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
-        * 　((WindowsOS only).blend file associates a Blender run file)
+        * ―((WindowsOS only).blend file associates a Blender run file)
     * **バックアップをこのバージョンに関連付け**
-    * **　(Backup with this version)**
+    * **―(Backup with this version)**
         * .blend1 .blend2 などのバックアップファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
-        * 　(associates with Blender running file backup file, such as.blend1.blend2 (WindowsOS only))
+        * ―(associates with Blender running file backup file, such as.blend1.blend2 (WindowsOS only))
     * **Blender-Scramble-Addonを更新**
-    * **　(Update Blender-Scramble-Addon)**
+    * **―(Update Blender-Scramble-Addon)**
         * Blender-Scramble-Addonをダウンロード・更新を済ませます
-        * 　(Downloads, updates and check out Blender-Scramble-Addon)
+        * ―(Downloads, updates and check out Blender-Scramble-Addon)
     * **ショートカット一覧をブラウザで閲覧**
-    * **　(View in browser shortcut list)**
+    * **―(View in browser shortcut list)**
         * Blenderの全てのショートカットをブラウザで確認出来ます
-        * 　(Please see the browser all shortcuts in Blender)
+        * ―(Please see the browser all shortcuts in Blender)
     * **最後のコマンドをショートカットに登録**
-    * **　(Last command create shortcut)**
+    * **―(Last command create shortcut)**
         * 最後に実行したコマンドをショートカットに登録します
-        * 　(Last command create shortcut)
+        * ―(Last command create shortcut)
     * **「追加項目のオン/オフ」の表示切り替え**
-    * **　(Toggle on/off additional items)**
+    * **―(Toggle on/off additional items)**
         * ScrambleAddonによるメニューの末尾の「追加項目のオン/オフ」ボタンの表示/非表示を切り替えます
-        * 　(Turns on/off additional items button at the end of the menu by ScrambleAddon)
+        * ―(Turns on/off additional items button at the end of the menu by ScrambleAddon)
     * **割り当ての無いショートカット一覧**
-    * **　(Without assigning shortcut list)**
+    * **―(Without assigning shortcut list)**
         * 現在の編集モードでの割り当ての無いキーを「情報」エリアに表示します
-        * 　(Displays the key assignments in the current editing mode without information area)
+        * ―(Displays the key assignments in the current editing mode without information area)
   
 * **3Dビュー > オブジェクト/メッシュ編集モード > 「追加」メニュー > 「メッシュ」メニュー**
-* **　(3D view > object / mesh edit mode > "add" menu > "mesh" menu)**
+* **―(3D view > object / mesh edit mode > "add" menu > "mesh" menu)**
     * **四角ポリゴン球**
-    * **　(Rectangle polygon sphere)**
+    * **―(Rectangle polygon sphere)**
         * 四角ポリゴンのみで構成された球体メッシュを追加します
-        * 　(Adds a spherical mesh is composed only of quadrilateral polygon)
+        * ―(Adds a spherical mesh is composed only of quadrilateral polygon)
     * **頂点のみ**
-    * **　(Only the vertices)**
+    * **―(Only the vertices)**
         * 1頂点のみのメッシュオブジェクトを3Dカーソルの位置に追加します
-        * 　(Only 1 vertex meshes 3D adds to the position of the cursor)
+        * ―(Only 1 vertex meshes 3D adds to the position of the cursor)
   
 * **情報 > 「レンダー」メニュー**
-* **　(Information > "render" menu)**
+* **―(Information > "render" menu)**
     * **解像度の倍率を設定**
-    * **　(Set the magnification of the resolution)**
+    * **―(Set the magnification of the resolution)**
         * 設定解像度の何パーセントの大きさでレンダリングするか設定します
-        * 　(Set to be rendered settings resolution percentage?)
+        * ―(Set to be rendered settings resolution percentage?)
     * **レンダースロットを設定**
-    * **　(Set the render slots)**
+    * **―(Set the render slots)**
         * レンダリング結果を保存するスロットを設定します
-        * 　(Sets a slot to save the rendering result)
+        * ―(Sets a slot to save the rendering result)
     * **スレッド数を切り替え**
-    * **　(Switching threads)**
+    * **―(Switching threads)**
         * レンダリングに使用するCPUのスレッド数を切り替えます
-        * 　(Switch the thread number of CPUS used to render)
+        * ―(Switch the thread number of CPUS used to render)
     * **レンダリング時のサブサーフレベルをまとめて設定**
-    * **　(Set the Subsurf levels during rendering)**
+    * **―(Set the Subsurf levels during rendering)**
         * レンダリング時に適用するサブサーフの細分化レベルをまとめて設定します
-        * 　(Together sets the granularity of Subsurf applied during rendering)
+        * ―(Together sets the granularity of Subsurf applied during rendering)
     * **レンダリング時のサブサーフレベルをプレビュー値と同期**
-    * **　(Sync preview value when rendering the Subsurf levels)**
+    * **―(Sync preview value when rendering the Subsurf levels)**
         * 全オブジェクトのレンダリング時に適用するサブサーフの細分化レベルを、プレビューでのレベルへと設定します
-        * 　(Granularity of Subsurf applied during the rendering of all objects set to level in the preview)
+        * ―(Granularity of Subsurf applied during the rendering of all objects set to level in the preview)
   
 * **情報 > 「ウィンドウ」メニュー**
-* **　(Information > window menu)**
+* **―(Information > window menu)**
     * **エディタータイプ**
-    * **　(Editor type)**
+    * **―(Editor type)**
         * エディタータイプ変更のパイメニューです
-        * 　(Change the editor type pie menu is)
+        * ―(Change the editor type pie menu is)
     * **UIの英語・日本語 切り替え**
-    * **　(English UI, Japanese switch)**
+    * **―(English UI, Japanese switch)**
         * インターフェイスの英語と日本語を切り替えます
-        * 　(Japan language with English interface switch)
+        * ―(Japan language with English interface switch)
   
 * **プロパティ > 「マテリアル」タブ > リスト右の▼**
-* **　(Properties > materials"tab > list right down:)**
+* **―(Properties > materials"tab > list right down:)**
     * **割り当てのないマテリアルを削除**
-    * **　(Delete non-assignment material)**
+    * **―(Delete non-assignment material)**
         * 面に一つも割り当てられてないマテリアルを全て削除します
-        * 　(Delete all one assigned to a surface material)
+        * ―(Delete all one assigned to a surface material)
     * **マテリアルスロット全削除**
-    * **　(Remove all material slots)**
+    * **―(Remove all material slots)**
         * このオブジェクトのマテリアルスロットを全て削除します
-        * 　(Delete all material slots for this object)
+        * ―(Delete all material slots for this object)
     * **空のマテリアルスロット削除**
-    * **　(Delete empty material slots)**
+    * **―(Delete empty material slots)**
         * このオブジェクトのマテリアルが割り当てられていないマテリアルスロットを全て削除します
-        * 　(Delete all material of this object has not been assigned material slots)
+        * ―(Delete all material of this object has not been assigned material slots)
     * **マテリアルスロットを移動**
-    * **　(Move the material slots)**
+    * **―(Move the material slots)**
         * アクティブなマテリアルスロットを移動させます
-        * 　(Moves the active material slots)
+        * ―(Moves the active material slots)
     * **スロットを一番上へ**
-    * **　(Slot to the top)**
+    * **―(Slot to the top)**
         * アクティブなマテリアルスロットを一番上に移動させます
-        * 　(Move the active material slots on top)
+        * ―(Move the active material slots on top)
     * **スロットを一番下へ**
-    * **　(Slots to the bottom)**
+    * **―(Slots to the bottom)**
         * アクティブなマテリアルスロットを一番下に移動させます
-        * 　(Move the active material slot at the bottom)
+        * ―(Move the active material slot at the bottom)
   
 * **プロパティ > 「オブジェクトデータ」タブ > シェイプキー一覧右の▼**
-* **　(Properties > object data tab > shape key list right down:)**
+* **―(Properties > object data tab > shape key list right down:)**
     * **シェイプキーを複製**
-    * **　(Duplicate a shape key)**
+    * **―(Duplicate a shape key)**
         * アクティブなシェイプキーを複製します
-        * 　(Duplicate the active shape key)
+        * ―(Duplicate the active shape key)
     * **シェイプブロック名を調べる**
-    * **　(Examine the shape name)**
+    * **―(Examine the shape name)**
         * シェイプブロックの名前を表示し、クリップボードにコピーします
-        * 　(Copy to the Clipboard, and then displays the name of the shape blocks)
+        * ―(Copy to the Clipboard, and then displays the name of the shape blocks)
     * **シェイプブロックの名前をオブジェクト名に**
-    * **　(Block shape name in the object name)**
+    * **―(Block shape name in the object name)**
         * シェイプブロックの名前をオブジェクト名と同じにします
-        * 　(Same as object name the name of the shape blocks)
+        * ―(Same as object name the name of the shape blocks)
     * **全てのシェイプにキーフレームを打つ**
-    * **　(Hit the keyframes of all shapes)**
+    * **―(Hit the keyframes of all shapes)**
         * 現在のフレームに、全てのシェイプのキーフレームを挿入します
-        * 　(Inserts a keyframe for all shapes on the current frame)
+        * ―(Inserts a keyframe for all shapes on the current frame)
     * **最上段を選択**
-    * **　(Select the top)**
+    * **―(Select the top)**
         * 一番上のシェイプキーを選択します
-        * 　(Select the top shape key)
+        * ―(Select the top shape key)
     * **最下段を選択**
-    * **　(Select the bottom row)**
+    * **―(Select the bottom row)**
         * 一番下のシェイプキーを選択します
-        * 　(Select the bottom shape key)
+        * ―(Select the bottom shape key)
     * **現在の形状を保持して全シェイプ削除**
-    * **　(Remove all shape and holds the shape of the current)**
+    * **―(Remove all shape and holds the shape of the current)**
         * 現在のメッシュの形状を保持しながら全シェイプキーを削除します
-        * 　(Remove all shape key while maintaining the shape of the mesh current)
+        * ―(Remove all shape key while maintaining the shape of the mesh current)
   
 * **プロパティ > 「オブジェクトデータ」タブ > 頂点グループ一覧右の▼**
-* **　(Properties > object data tab > vertex group list right down:)**
+* **―(Properties > object data tab > vertex group list right down:)**
     * **空の頂点グループを削除**
-    * **　(Delete the empty vertex groups)**
+    * **―(Delete the empty vertex groups)**
         * メッシュにウェイトが割り当てられていない頂点グループを削除します
-        * 　(Remove the weights assigned to the mesh vertex groups)
+        * ―(Remove the weights assigned to the mesh vertex groups)
     * **ミラーの対になる空頂点グループを追加**
-    * **　(Add the empty vertex group versus the mirror)**
+    * **―(Add the empty vertex group versus the mirror)**
         * .L .R などミラーの命令規則に従って付けられたボーンの対になる空の新規ボーンを追加します
-        * 　(. L... R, add new bone bones according to mandate rule in Miller vs. empty)
+        * ―(. L... R, add new bone bones according to mandate rule in Miller vs. empty)
     * **一番上を選択**
-    * **　(Select the top)**
+    * **―(Select the top)**
         * 頂点グループの一番上の項目を選択します
-        * 　(Select the item at the top of the vertex groups)
+        * ―(Select the item at the top of the vertex groups)
     * **一番下を選択**
-    * **　(At the bottom, select)**
+    * **―(At the bottom, select)**
         * 頂点グループの一番下の項目を選択します
-        * 　(Select the item at the bottom of the vertex groups)
+        * ―(Select the item at the bottom of the vertex groups)
     * **最上段へ**
-    * **　(To the top)**
+    * **―(To the top)**
         * アクティブな頂点グループを一番上へ移動させます
-        * 　(Move to the top active vertex groups)
+        * ―(Move to the top active vertex groups)
     * **最下段へ**
-    * **　(To the bottom)**
+    * **―(To the bottom)**
         * アクティブな頂点グループを一番下へ移動させます
-        * 　(Move to the bottom vertex group active)
+        * ―(Move to the bottom vertex group active)
     * **特定文字列が含まれる頂点グループ削除**
-    * **　(Delete a vertex group that contains a specific string)**
+    * **―(Delete a vertex group that contains a specific string)**
         * 指定した文字列が名前に含まれている頂点グループを全て削除します
-        * 　(Removes all vertex group names contains the specified string)
+        * ―(Removes all vertex group names contains the specified string)
   
 * **ノードエディター > 「ノード」メニュー**
-* **　(Nordeditor > 'nodes' menu)**
+* **―(Nordeditor > 'nodes' menu)**
     * **このノードを全マテリアルにコピー**
-    * **　(Copy all materials to this node)**
+    * **―(Copy all materials to this node)**
         * 現在表示されているノードツリーを他の全マテリアル(選択オブジェクトのみも可)に複製します
-        * 　(Nodes currently displayed with all other materials (selection also allowed) to duplicate)
+        * ―(Nodes currently displayed with all other materials (selection also allowed) to duplicate)
   
 * **プロパティ > 「テクスチャ」タブ > リスト右の▼**
-* **　(Properties > "texture" tab > the list right down:)**
+* **―(Properties > "texture" tab > the list right down:)**
     * **テクスチャ名を使用する画像ファイル名に**
-    * **　(Image file name to use the texture name)**
+    * **―(Image file name to use the texture name)**
         * アクティブなテクスチャの名前を使用している外部画像のファイル名にします
-        * 　(The file name of the external images using the name of the active texture)
+        * ―(The file name of the external images using the name of the active texture)
     * **テクスチャスロットを全て空に**
-    * **　(Texture slot, all in the sky)**
+    * **―(Texture slot, all in the sky)**
         * アクティブなマテリアルの全てのテクスチャスロットを空にします
-        * 　(Empties all active material texture slots)
+        * ―(Empties all active material texture slots)
     * **最上段へ**
-    * **　(To the top)**
+    * **―(To the top)**
         * アクティブなテクスチャスロットを一番上に移動させます
-        * 　(Move the active texture slot at the top)
+        * ―(Move the active texture slot at the top)
     * **最下段へ**
-    * **　(To the bottom)**
+    * **―(To the bottom)**
         * アクティブなテクスチャスロットを一番下に移動させます
-        * 　(Move the active texture slot at the bottom)
+        * ―(Move the active texture slot at the bottom)
   
 * **3Dビュー > アーマチュア編集モード > 「W」キー**
-* **　(3D view > armature edit mode > 'W' key)**
+* **―(3D view > armature edit mode > 'W' key)**
     * **選択ボーンをミラーリング**
-    * **　(Select bones mirroring.)**
+    * **―(Select bones mirroring.)**
         * 選択中のボーンを任意の軸でミラーリングします
-        * 　(Mirrored at any axes selected bone.)
+        * ―(Mirrored at any axes selected bone.)
     * **ボーン名をクリップボードにコピー**
-    * **　(Copy to Clipboard bone name)**
+    * **―(Copy to Clipboard bone name)**
         * アクティブボーンの名前をクリップボードにコピーします
-        * 　(Copies the Clipboard the name of active bone)
+        * ―(Copies the Clipboard the name of active bone)
     * **ボーン名を正規表現で置換**
-    * **　(Replace the bone names in regular expressions)**
+    * **―(Replace the bone names in regular expressions)**
         * (選択中の)ボーン名を正規表現に一致する部分で置換します
-        * 　(In the bone name (of choice) to match regular expression replace)
+        * ―(In the bone name (of choice) to match regular expression replace)
     * **反対位置にあるボーンをリネーム**
-    * **　(Bones in the opposite position, rename.)**
+    * **―(Bones in the opposite position, rename.)**
         * 選択中ボーンのX軸反対側の位置にあるボーンを「○.R ○.L」のように対にします
-        * 　(Bone is located opposite the X axis selection in bone "1.R 1 longs.L ' of so versus the)
+        * ―(Bone is located opposite the X axis selection in bone "1.R 1 longs.L ' of so versus the)
   
 * **3Dビュー > アーマチュア編集モード > 「Shift+W」キー**
-* **　(3D view > armature edit mode > Shift + W key)**
+* **―(3D view > armature edit mode > Shift + W key)**
     * **ボーン名をまとめて設定**
-    * **　(Set the bone name)**
+    * **―(Set the bone name)**
         * 選択中のボーンの名前をまとめて設定します
-        * 　(The name of the selected bone sets together)
+        * ―(The name of the selected bone sets together)
     * **カーブボーンをまとめて設定**
-    * **　(Set the curve ban)**
+    * **―(Set the curve ban)**
         * 選択中のボーンのカーブボーン設定をします
-        * 　(The selected bone curve born setting)
+        * ―(The selected bone curve born setting)
     * **ロールをまとめて設定**
-    * **　(Set the roll)**
+    * **―(Set the roll)**
         * 選択中のボーンのロールを設定します
-        * 　(Sets the selected bone roll)
+        * ―(Sets the selected bone roll)
     * **アクティブのIK設定(回転制限等)をコピー**
-    * **　(Copy of active IK settings (rotation limits, etc.))**
+    * **―(Copy of active IK settings (rotation limits, etc.))**
         * アクティブなボーンのIK設定(回転制限など)を他の選択ボーンにコピーします
-        * 　(Copy selected bone of other active bone IK settings (speed limitations))
+        * ―(Copy selected bone of other active bone IK settings (speed limitations))
     * **IKのポールターゲットを設定**
-    * **　(Paul targeting IK)**
+    * **―(Paul targeting IK)**
         * アクティブなボーンのIKのポールターゲットを第二選択ボーンに設定します
-        * 　(Chose the second Paul target of active bone IK bones sets)
+        * ―(Chose the second Paul target of active bone IK bones sets)
     * **IKのチェーンの長さを設定**
-    * **　(Set the length of the IK chain)**
+    * **―(Set the length of the IK chain)**
         * アクティブなボーンのIKのチェーンの長さを第二選択ボーンへの長さへと設定します
-        * 　(Second choice of active bone IK chain length to length to the bones and set the)
+        * ―(Second choice of active bone IK chain length to length to the bones and set the)
   
 * **3Dビュー > アーマチュア編集モード > 「アーマチュア」メニュー**
-* **　(3D view > armature edit mode > "armature" menu)**
+* **―(3D view > armature edit mode > "armature" menu)**
     * **確認無しでボーンを削除**
-    * **　(Remove the bones with no confirmation)**
+    * **―(Remove the bones with no confirmation)**
         * ボーンを確認無しで削除します
-        * 　(Remove the bones with no verification)
+        * ―(Remove the bones with no verification)
     * **ボーンをそのまま3Dカーソルの位置へ**
-    * **　(Bones intact to position the 3D cursor)**
+    * **―(Bones intact to position the 3D cursor)**
         * 相対的なボーンの尾(根本でも可)の位置をそのままに、ボーンを3Dカーソルの位置へ移動させます
-        * 　(Position of relative born tail (even root), bone, 3 D move cursor position)
+        * ―(Position of relative born tail (even root), bone, 3 D move cursor position)
   
 * **3Dビュー > メッシュ編集モード > 「メッシュ」メニュー**
-* **　(3D view > mesh edit mode > mesh menu)**
+* **―(3D view > mesh edit mode > mesh menu)**
     * **メッシュ選択モードの切り替え**
-    * **　(Mesh selection mode)**
+    * **―(Mesh selection mode)**
         * メッシュ選択モードを頂点→辺→面…と切り替えます
-        * 　(Mesh selection mode → top → side surface. Switch and)
+        * ―(Mesh selection mode → top → side surface. Switch and)
     * **メッシュ選択モード**
-    * **　(Mesh selection mode)**
+    * **―(Mesh selection mode)**
         * メッシュの選択のパイメニューです
-        * 　(Is a pie menu selection of mesh)
+        * ―(Is a pie menu selection of mesh)
     * **プロポーショナル編集**
-    * **　(Proportional edit)**
+    * **―(Proportional edit)**
         * プロポーショナル編集のパイメニューです
-        * 　(Is a pie menu proportional edit)
+        * ―(Is a pie menu proportional edit)
   
 * **3Dビュー > メッシュ編集モード > 「X」キー**
-* **　(3D view > mesh edit mode > 'X' key)**
+* **―(3D view > mesh edit mode > 'X' key)**
     * **選択モードと同じ要素を削除**
-    * **　(Delete the selection mode and the same element)**
+    * **―(Delete the selection mode and the same element)**
         * 現在のメッシュ選択モードと同じ要素(頂点・辺・面)を削除します
-        * 　(Same mesh selection mode of the current element (vertices, sides and faces) remove)
+        * ―(Same mesh selection mode of the current element (vertices, sides and faces) remove)
     * **隠している部分を削除**
-    * **　(Remove the covering)**
+    * **―(Remove the covering)**
         * 隠している状態のメッシュを全て削除します
-        * 　(Delete all are mesh)
+        * ―(Delete all are mesh)
   
 * **3Dビュー > メッシュ編集モード > 「メッシュ」メニュー > 「表示/隠す」メニュー**
-* **　(3D view > mesh edit mode > mesh menu > show / hide menu)**
+* **―(3D view > mesh edit mode > mesh menu > show / hide menu)**
     * **表示/隠すを反転**
-    * **　(Show / hide flip)**
+    * **―(Show / hide flip)**
         * 表示状態と非表示状態を反転させます
-        * 　(Flip display and non-display state)
+        * ―(Flip display and non-display state)
     * **頂点のみを隠す**
-    * **　(Hide only the top)**
+    * **―(Hide only the top)**
         * 選択状態の頂点のみを隠して固定します
-        * 　(To hide the selected vertices, the fixed)
+        * ―(To hide the selected vertices, the fixed)
     * **選択しているパーツを隠す**
-    * **　(Hide the selected parts)**
+    * **―(Hide the selected parts)**
         * 1頂点以上を選択しているメッシュパーツを隠します
-        * 　(Hides the mesh part more than 1 vertex is selected)
+        * ―(Hides the mesh part more than 1 vertex is selected)
   
 * **3Dビュー > メッシュ編集モード > 「W」キー**
-* **　(3D view > mesh edit mode > 'W' key)**
+* **―(3D view > mesh edit mode > 'W' key)**
     * **選択頂点の頂点カラーを塗り潰す**
-    * **　(Fill the selected vertex vertex color)**
+    * **―(Fill the selected vertex vertex color)**
         * 選択中の頂点のアクティブ頂点カラーを指定色で塗り潰します
-        * 　(Active vertex colors for the selected vertices with specified color fills)
+        * ―(Active vertex colors for the selected vertices with specified color fills)
     * **一番上のシェイプを選択**
-    * **　(Select the shape on the top of)**
+    * **―(Select the shape on the top of)**
         * リストの一番上にあるシェイプキーを選択します
-        * 　(Schipke is at the top of the list, select)
+        * ―(Schipke is at the top of the list, select)
     * **編集ケージへのモディファイア適用を切り替え**
-    * **　(Transition modifiers apply to the editing cage)**
+    * **―(Transition modifiers apply to the editing cage)**
         * 編集中のメッシュケージにモディファイアを適用するかを切り替えます
-        * 　(Toggles whether to apply modifiers to total en bloc spondylectomy in the editing)
+        * ―(Toggles whether to apply modifiers to total en bloc spondylectomy in the editing)
     * **ミラーモディファイアを切り替え**
-    * **　(Toggle Miller modifier)**
+    * **―(Toggle Miller modifier)**
         * ミラーモディファイアが無ければ追加、有れば削除します
-        * 　(Delete if not Miller modifier added, Yes)
+        * ―(Delete if not Miller modifier added, Yes)
     * **選択頂点を平均ウェイトで塗り潰す**
-    * **　(Fill the selected vertex in average weighted)**
+    * **―(Fill the selected vertex in average weighted)**
         * 選択頂点のウェイトの平均で、選択頂点を塗り潰します
-        * 　(Fills the selected vertex, vertices weighted average)
+        * ―(Fills the selected vertex, vertices weighted average)
   
 * **3Dビュー > メッシュ編集モード > 「Ctrl+V」キー**
-* **　(3D view > mesh edit mode > Ctrl + V keys)**
+* **―(3D view > mesh edit mode > Ctrl + V keys)**
     * **別オブジェクトに分離 (拡張)**
-    * **　(Separation of different objects (extended))**
+    * **―(Separation of different objects (extended))**
         * 「別オブジェクトに分離」の拡張メニューを呼び出します
-        * 　(Isolate to another object of the call the extended menu)
+        * ―(Isolate to another object of the call the extended menu)
     * **選択物 (分離側をアクティブ)**
-    * **　(Choice of (active isolated-side))**
+    * **―(Choice of (active isolated-side))**
         * 「選択物で分離」した後に分離した側のエディトモードに入ります
-        * 　(After "in the choice of separation" enters edit mode for the separation side)
+        * ―(After "in the choice of separation" enters edit mode for the separation side)
     * **選択部を複製/新オブジェクトに**
-    * **　(A selection of reproduction and new objects)**
+    * **―(A selection of reproduction and new objects)**
         * 選択部分を複製・分離し新オブジェクトにしてからエディトモードに入ります
-        * 　(Enters edit mode, replication and selection to the new object from)
+        * ―(Enters edit mode, replication and selection to the new object from)
     * **クイック・シュリンクラップ**
-    * **　(Quick shrink wrap)**
+    * **―(Quick shrink wrap)**
         * もう1つの選択メッシュに、選択頂点をぺったりとくっつけます
-        * 　(Another one you mesh the selected vertices pettanko was bonds, who)
+        * ―(Another one you mesh the selected vertices pettanko was bonds, who)
   
 * **3Dビュー > オブジェクトモード > 「Ctrl+L」キー**
-* **　(3D view > mode > Ctrl + L key)**
+* **―(3D view > mode > Ctrl + L key)**
     * **オブジェクト名を同じに**
-    * **　(To the same object name)**
+    * **―(To the same object name)**
         * 他の選択オブジェクトにアクティブオブジェクトの名前をリンクします
-        * 　(Name of the active object links to other selected objects)
+        * ―(Name of the active object links to other selected objects)
     * **レイヤーを同じに**
-    * **　(In the same layer)**
+    * **―(In the same layer)**
         * 他の選択オブジェクトにアクティブオブジェクトのレイヤーをリンクします
-        * 　(The link active object layers to other selected objects)
+        * ―(The link active object layers to other selected objects)
     * **オブジェクトの表示設定を同じに**
-    * **　(Visibility of objects to the same)**
+    * **―(Visibility of objects to the same)**
         * 他の選択オブジェクトにアクティブオブジェクトの表示パネルの設定をコピーします
-        * 　(Copy the settings of the display panel of the active object to other selected objects)
+        * ―(Copy the settings of the display panel of the active object to other selected objects)
     * **空のUVマップをリンク**
-    * **　(Link to UV map of the sky)**
+    * **―(Link to UV map of the sky)**
         * 他の選択オブジェクトにアクティブオブジェクトのUVを空にして追加します
-        * 　(Empties the Add UV active objects to other objects)
+        * ―(Empties the Add UV active objects to other objects)
     * **アーマチュアの動きをリンク**
-    * **　(Link motion of the armature)**
+    * **―(Link motion of the armature)**
         * コンストレイントによって、他の選択アーマチュアにアクティブアーマチュアの動きを真似させます
-        * 　(By constraints on other selected armature mimic active armature movement)
+        * ―(By constraints on other selected armature mimic active armature movement)
     * **ソフトボディの設定をリンク**
-    * **　(Links for soft body)**
+    * **―(Links for soft body)**
         * アクティブオブジェクトのソフトボディの設定を、他の選択オブジェクトにコピーします
-        * 　(Sets the active object soft copies to other selected objects)
+        * ―(Sets the active object soft copies to other selected objects)
     * **クロスの設定をリンク**
-    * **　(Links for cross-)**
+    * **―(Links for cross-)**
         * アクティブオブジェクトのクロスシミュレーション設定を、他の選択オブジェクトにコピーします
-        * 　(Cloth simulation for the active object copies to other selected objects)
+        * ―(Cloth simulation for the active object copies to other selected objects)
   
 * **3Dビュー > オブジェクトモード > 「オブジェクト」メニュー**
-* **　(3D view > mode > object menu)**
+* **―(3D view > mode > object menu)**
     * **コピー**
-    * **　(Copy)**
+    * **―(Copy)**
         * オブジェクトに関するコピーのパイメニューです
-        * 　(Pie of the copy of the object is)
+        * ―(Pie of the copy of the object is)
     * **オブジェクト対話モード**
-    * **　(Interactive objects)**
+    * **―(Interactive objects)**
         * オブジェクト対話モードのパイメニューです
-        * 　(Is a pie menu objects in interactive mode)
+        * ―(Is a pie menu objects in interactive mode)
     * **サブサーフ設定**
-    * **　(Save surf set)**
+    * **―(Save surf set)**
         * サブサーフのレベルを設定するパイメニューです
-        * 　(Is a pie menu to set the Subsurf levels)
+        * ―(Is a pie menu to set the Subsurf levels)
     * **最高描画タイプ**
-    * **　(Best drawing type)**
+    * **―(Best drawing type)**
         * 最高描画タイプを設定するパイメニューです
-        * 　(Is a pie menu to set up drawing type)
+        * ―(Is a pie menu to set up drawing type)
     * **確認せずに削除**
-    * **　(Delete without confirmation)**
+    * **―(Delete without confirmation)**
         * 削除する時の確認メッセージを表示せずにオブジェクトを削除します
-        * 　(The delete objects without displaying a confirmation message when you delete)
+        * ―(The delete objects without displaying a confirmation message when you delete)
   
 * **3Dビュー > オブジェクトモード > Ctrl+Aキー**
-* **　(3D view > mode > CTRL + A)**
+* **―(3D view > mode > CTRL + A)**
     * **位置/回転/拡縮を適用**
-    * **　(Apply the position / rotation / Pan)**
+    * **―(Apply the position / rotation / Pan)**
         * オブジェクトの位置/回転/拡縮を適用します
-        * 　(Applies to object position / rotation / Pan)
+        * ―(Applies to object position / rotation / Pan)
   
 * **3Dビュー > オブジェクトモード > 「オブジェクト」メニュー > 「表示/隠す」メニュー**
-* **　(3D view > mode > object menu > show / hide menu)**
+* **―(3D view > mode > object menu > show / hide menu)**
     * **表示/隠すを反転**
-    * **　(Show / hide flip)**
+    * **―(Show / hide flip)**
         * オブジェクトの表示状態と非表示状態を反転させます
-        * 　(Flips the object's view state and non-State)
+        * ―(Flips the object's view state and non-State)
     * **特定の種類のオブジェクトのみを隠す**
-    * **　(Hide only specific types of objects)**
+    * **―(Hide only specific types of objects)**
         * 表示されている特定タイプのオブジェクトを隠します
-        * 　(Hides the object of a specific type are displayed)
+        * ―(Hides the object of a specific type are displayed)
     * **特定の種類のオブジェクト以外を隠す**
-    * **　(Non-specific types of objects to hide)**
+    * **―(Non-specific types of objects to hide)**
         * 表示されている特定タイプのオブジェクト以外を隠します
-        * 　(Hides the object non-specific type that is displayed)
+        * ―(Hides the object non-specific type that is displayed)
     * **グループで表示/非表示を切り替え**
-    * **　(Toggle show / hide groups)**
+    * **―(Toggle show / hide groups)**
         * 所属しているグループで表示/非表示を切り替えます
-        * 　(Group show / hide toggles)
+        * ―(Group show / hide toggles)
   
 * **3Dビュー > オブジェクトモード > 「W」キー**
-* **　(3D view > mode > 'W' key)**
+* **―(3D view > mode > 'W' key)**
     * **オブジェクト名をクリップボードにコピー**
-    * **　(Copy object to Clipboard)**
+    * **―(Copy object to Clipboard)**
         * アクティブなオブジェクトの名前をクリップボードにコピーします
-        * 　(Copies the name of the active object)
+        * ―(Copies the name of the active object)
     * **オブジェクト名を正規表現で置換**
-    * **　(Replace object names in regular expressions)**
+    * **―(Replace object names in regular expressions)**
         * 選択中のオブジェクトの名前を正規表現で置換します
-        * 　(Name of the currently selected object in the regular expression replace)
+        * ―(Name of the currently selected object in the regular expression replace)
     * **オブジェクト名とデータ名を同じにする**
-    * **　(To the same object and data names)**
+    * **―(To the same object and data names)**
         * 選択中のオブジェクトのオブジェクト名とデータ名を同じにします
-        * 　(The same object and data names for selected objects)
+        * ―(The same object and data names for selected objects)
     * **頂点カラーを一括追加**
-    * **　(Bulk add vertex color)**
+    * **―(Bulk add vertex color)**
         * 選択中のメッシュオブジェクト全てに色と名前を指定して頂点カラーを追加します
-        * 　(Specify color and name all selected mesh object, adds a vertex color)
+        * ―(Specify color and name all selected mesh object, adds a vertex color)
     * **カーブからロープ状のメッシュを作成**
-    * **　(Create a mesh of rope-like curve to)**
+    * **―(Create a mesh of rope-like curve to)**
         * アクティブなカーブオブジェクトに沿ったロープや蛇のようなメッシュを新規作成します
-        * 　(Creates a mesh like rope along the curve object is active or snake new)
+        * ―(Creates a mesh like rope along the curve object is active or snake new)
     * **ウェイト転送**
-    * **　(Weight transfer)**
+    * **―(Weight transfer)**
         * 他の選択中のメッシュからアクティブにウェイトペイントを転送します
-        * 　(From the mesh of the selection in the other active forwarding weight paint)
+        * ―(From the mesh of the selection in the other active forwarding weight paint)
     * **グリースペンシルにメタボール配置**
-    * **　(Grease pencil to metaballs)**
+    * **―(Grease pencil to metaballs)**
         * アクティブなグリースペンシルに沿ってメタボールを配置します
-        * 　(The blobby align with active grease pencil)
+        * ―(The blobby align with active grease pencil)
     * **頂点にメタボールをフック**
-    * **　(Top hook metaballs)**
+    * **―(Top hook metaballs)**
         * 選択中のメッシュオブジェクトの頂点部分に新規メタボールを張り付かせます
-        * 　(Have made new metaballs to the vertices of the selected mesh object)
+        * ―(Have made new metaballs to the vertices of the selected mesh object)
     * **スムーズ/フラットを切り替え**
-    * **　(Toggle smooth/flat)**
+    * **―(Toggle smooth/flat)**
         * 選択中のメッシュオブジェクトのスムーズ/フラット状態を切り替えます
-        * 　(Toggles the selected mesh object smooth / flat state)
+        * ―(Toggles the selected mesh object smooth / flat state)
     * **選択物のレンダリングを制限**
-    * **　(Limit the choice of rendering)**
+    * **―(Limit the choice of rendering)**
         * 選択中のオブジェクトをレンダリングしない設定にします
-        * 　(The setting does not render the selected object)
+        * ―(The setting does not render the selected object)
     * **レンダリングするかを「表示/非表示」に同期**
-    * **　(Or to render the "show / hide" to sync)**
+    * **―(Or to render the "show / hide" to sync)**
         * 現在のレイヤー内のオブジェクトをレンダリングするかどうかを表示/非表示の状態と同期します
-        * 　(Synchronize display / hide status and whether or not to render objects in the current layer)
+        * ―(Synchronize display / hide status and whether or not to render objects in the current layer)
     * **選択物の選択を制限**
-    * **　(Limit the choice of selecting)**
+    * **―(Limit the choice of selecting)**
         * 選択中のオブジェクトを選択出来なくします
-        * 　(Can't select the selected object)
+        * ―(Can't select the selected object)
     * **非選択物の選択を制限**
-    * **　(Limit the selection of non-selection)**
+    * **―(Limit the selection of non-selection)**
         * 選択物以外のオブジェクトを選択出来なくします
-        * 　(Cannot select object other than a selection of)
+        * ―(Cannot select object other than a selection of)
     * **すべての選択制限をクリア**
-    * **　(Clears all selected limits)**
+    * **―(Clears all selected limits)**
         * 全てのオブジェクトの選択不可設定を解除します(逆も可)
-        * 　(Removes all non-select settings (vice versa))
+        * ―(Removes all non-select settings (vice versa))
     * **頂点グループの転送**
-    * **　(Transport for vertex group)**
+    * **―(Transport for vertex group)**
         * アクティブなメッシュに他の選択メッシュの頂点グループを転送します
-        * 　(Transfers to other selected mesh vertex group active mesh)
+        * ―(Transfers to other selected mesh vertex group active mesh)
     * **厚み付けモディファイアで輪郭線生成**
-    * **　(Contour line generation in thickness with modifiers)**
+    * **―(Contour line generation in thickness with modifiers)**
         * 選択オブジェクトに「厚み付けモディファイア」による輪郭描画を追加します
-        * 　(Add to thicken modiﬁ contour drawing selection)
+        * ―(Add to thicken modiﬁ contour drawing selection)
     * **オブジェクトカラー有効 + 色設定**
-    * **　(Enable object color + color)**
+    * **―(Enable object color + color)**
         * 選択オブジェクトのオブジェクトカラーを有効にし、色を設定します
-        * 　(Object color of the selected object and sets the color,)
+        * ―(Object color of the selected object and sets the color,)
     * **オブジェクトカラー無効 + 色設定**
-    * **　(Object color off + color)**
+    * **―(Object color off + color)**
         * 選択オブジェクトのオブジェクトカラーを無効にし、色を設定します
-        * 　(To disable the object color of the selected object, sets the color)
+        * ―(To disable the object color of the selected object, sets the color)
     * **メッシュの変形を真似するアーマチュアを作成**
-    * **　(Creating an armature to mimic a mesh deformation)**
+    * **―(Creating an armature to mimic a mesh deformation)**
         * アクティブメッシュオブジェクトの変形に追従するアーマチュアを新規作成します
-        * 　(Create a new armature to follow the active mesh objects)
+        * ―(Create a new armature to follow the active mesh objects)
     * **頂点グループがある頂点位置にボーン作成**
-    * **　(Bones create the vertices where vertex groups)**
+    * **―(Bones create the vertices where vertex groups)**
         * 選択オブジェクトの頂点グループが割り当てられている頂点位置に、その頂点グループ名のボーンを作成します
-        * 　(Create a vertex group names of bones in the vertex position is choice object vertex groups assigned)
+        * ―(Create a vertex group names of bones in the vertex position is choice object vertex groups assigned)
     * **モディファイア適用してペアレント作成**
-    * **　(Applying modifiers, create a parent)**
+    * **―(Applying modifiers, create a parent)**
         * 親オブジェクトのモディファイアを適用してから、親子関係を作成します
-        * 　(Creates a parent-child relationship from the parent object's modifiers to apply)
+        * ―(Creates a parent-child relationship from the parent object's modifiers to apply)
     * **全モディファイア適用**
-    * **　(All modifiers applied)**
+    * **―(All modifiers applied)**
         * 選択オブジェクトの全てのモディファイアを適用します
-        * 　(Applies to all modifiers of the selected object)
+        * ―(Applies to all modifiers of the selected object)
     * **全モディファイア削除**
-    * **　(Remove all modifiers)**
+    * **―(Remove all modifiers)**
         * 選択オブジェクトの全てのモディファイアを削除します
-        * 　(Remove all modifiers of the selected object)
+        * ―(Remove all modifiers of the selected object)
     * **ビューへのモディファイア適用を切り替え**
-    * **　(Modifiers apply to the view switching)**
+    * **―(Modifiers apply to the view switching)**
         * 選択オブジェクトの全てのモディファイアのビューへの適用を切り替えます
-        * 　(Shows or hides the application to view all modifiers of the selected object)
+        * ―(Shows or hides the application to view all modifiers of the selected object)
     * **モディファイア使用を同期**
-    * **　(Synchronized modifier use)**
+    * **―(Synchronized modifier use)**
         * 選択オブジェクトのレンダリング時/ビュー時のモディファイア使用を同期します
-        * 　(The synchronized modifier used when rendering the selection / view)
+        * ―(The synchronized modifier used when rendering the selection / view)
     * **全モディファイアの展開/閉じるを切り替え**
-    * **　(All modifiers expand / collapse toggle)**
+    * **―(All modifiers expand / collapse toggle)**
         * アクティブオブジェクトの全モディファイアを展開/閉じるを切り替え(トグル)します
-        * 　(Expand / collapse all modifiers of the active objects to the switch (toggle))
+        * ―(Expand / collapse all modifiers of the active objects to the switch (toggle))
     * **モディファイア適用+統合**
-    * **　(Modifiers apply + integration)**
+    * **―(Modifiers apply + integration)**
         * オブジェクトのモディファイアを全適用してから統合します
-        * 　(The integration from the object's modifiers to apply all)
+        * ―(The integration from the object's modifiers to apply all)
     * **モディファイア名を自動でリネーム**
-    * **　(Modifier name auto-rename.)**
+    * **―(Modifier name auto-rename.)**
         * 選択オブジェクトのモディファイア名を参照先などの名前にリネームします
-        * 　(Rename the selected object modifier name refers to, for example,)
+        * ―(Rename the selected object modifier name refers to, for example,)
     * **ブーリアンを追加**
-    * **　(Add a Boolean)**
+    * **―(Add a Boolean)**
         * アクティブオブジェクトにその他選択オブジェクトのブーリアンを追加
-        * 　(Additional Boolean selected objects to an active object)
+        * ―(Additional Boolean selected objects to an active object)
     * **ブーリアンを適用**
-    * **　(Apply the Boolean)**
+    * **―(Apply the Boolean)**
         * アクティブオブジェクトにその他選択オブジェクトのブーリアンを適用
-        * 　(Active objects for other Boolean objects)
+        * ―(Active objects for other Boolean objects)
     * **UVをまとめてリネーム**
-    * **　(UV to rename)**
+    * **―(UV to rename)**
         * 選択オブジェクト内の指定UVをまとめて改名します
-        * 　(Renames the selected objects within designated UV together)
+        * ―(Renames the selected objects within designated UV together)
     * **指定名のUVを削除**
-    * **　(Removes the specified name UV)**
+    * **―(Removes the specified name UV)**
         * 指定した名前と同じ名のUVを、選択オブジェクトから削除します
-        * 　(Removes the selected object UV of the same name as the specified)
+        * ―(Removes the selected object UV of the same name as the specified)
     * **UV名を変更**
-    * **　(Rename the UV)**
+    * **―(Rename the UV)**
         * アクティブなUVの名前を変更します(テクスチャのUV指定もそれに伴って変更します)
-        * 　(Renames active UV (UV texture also changes accordingly))
+        * ―(Renames active UV (UV texture also changes accordingly))
     * **未使用のUVを削除**
-    * **　(Remove unused UV)**
+    * **―(Remove unused UV)**
         * アクティブなオブジェクトのマテリアルで未使用なUVを全削除します(他の部分に使われているUVは消してしまいます)
-        * 　(Active object material (the UV is used in other parts disappear) delete unused UV total)
+        * ―(Active object material (the UV is used in other parts disappear) delete unused UV total)
     * **レンダリング時の細分化数を設定**
-    * **　(Rendering subdivision number)**
+    * **―(Rendering subdivision number)**
         * 選択したオブジェクトのサブサーフモディファイアのレンダリング時の細分化数を設定します
-        * 　(Sets the number of subdivisions during rendering of the selected object subsurfmodifaia)
+        * ―(Sets the number of subdivisions during rendering of the selected object subsurfmodifaia)
     * **プレビュー・レンダリングの細分化数を同じに**
-    * **　(Equivalent to a subdivision of the preview rendering)**
+    * **―(Equivalent to a subdivision of the preview rendering)**
         * 選択したオブジェクトのサブサーフモディファイアのプレビュー時とレンダリング時の細分化数を同じに設定します
-        * 　(Set in the same subdivision of the subsurfmodifaia of the selected object when you preview and rendering time)
+        * ―(Set in the same subdivision of the subsurfmodifaia of the selected object when you preview and rendering time)
     * **最適化表示を設定**
-    * **　(Set the defragmentation display)**
+    * **―(Set the defragmentation display)**
         * 選択したオブジェクトのサブサーフモディファイアの最適化表示を設定します
-        * 　(Sets optimization for the subsurfmodifaia of the selected object)
+        * ―(Sets optimization for the subsurfmodifaia of the selected object)
     * **選択オブジェクトのサブサーフを削除**
-    * **　(Delete select Subsurf)**
+    * **―(Delete select Subsurf)**
         * 選択したオブジェクトのサブサーフモディファイアを削除します
-        * 　(Removes the selected object subsurfmodifaia)
+        * ―(Removes the selected object subsurfmodifaia)
     * **選択オブジェクトにサブサーフを追加**
-    * **　(Add a Subsurf on selected objects)**
+    * **―(Add a Subsurf on selected objects)**
         * 選択したオブジェクトにサブサーフモディファイアを追加します
-        * 　(Add subsurfmodifaia to the selected object)
+        * ―(Add subsurfmodifaia to the selected object)
     * **アーマチュアの「体積を維持」をまとめて設定**
-    * **　(Set keep up the volume the armature)**
+    * **―(Set keep up the volume the armature)**
         * 選択したオブジェクトのアーマチュアモディファイアの「体積を維持」をまとめてオン/オフします
-        * 　(Maintain volume in the armtuamodifaia of the selected objects together off and on the)
+        * ―(Maintain volume in the armtuamodifaia of the selected objects together off and on the)
     * **クイックカーブ変形**
-    * **　(Quick curve deformation)**
+    * **―(Quick curve deformation)**
         * すばやくカーブモディファイアを適用します
-        * 　(Quickly apply the curve modifier)
+        * ―(Quickly apply the curve modifier)
     * **クイック配列複製+カーブ変形**
-    * **　(Quick array replication + curve deformation)**
+    * **―(Quick array replication + curve deformation)**
         * すばやく配列複製モディファイアとカーブモディファイアを適用します
-        * 　(Quickly apply the curve modifier with the modifiers array replication)
+        * ―(Quickly apply the curve modifier with the modifiers array replication)
   
 * **3Dビュー > ウェイトペイントモード > 「ウェイト」メニュー**
-* **　(3D view > weight paint mode > "weight" menu)**
+* **―(3D view > weight paint mode > "weight" menu)**
     * **ウェイト同士の合成**
-    * **　(Synthesis of weights with each other)**
+    * **―(Synthesis of weights with each other)**
         * 選択中のボーンと同じ頂点グループのウェイトを合成します
-        * 　(The synthetic weights of the selected bone and the same vertex groups)
+        * ―(The synthetic weights of the selected bone and the same vertex groups)
     * **ウェイト同士の減算**
-    * **　(Subtraction of weight between)**
+    * **―(Subtraction of weight between)**
         * 選択中のボーンと同じ頂点グループのウェイトを減算します
-        * 　(Subtracts the weight of the selected bone and the same vertex groups)
+        * ―(Subtracts the weight of the selected bone and the same vertex groups)
     * **全頂点の平均ウェイトで塗り潰す**
-    * **　(Fill in the average weight of all vertices)**
+    * **―(Fill in the average weight of all vertices)**
         * 全てのウェイトの平均で、全ての頂点を塗り潰します
-        * 　(The average weight of all, fills all the vertices)
+        * ―(The average weight of all, fills all the vertices)
     * **オブジェクトが重なっている部分を塗る**
-    * **　(Paint the objects overlap)**
+    * **―(Paint the objects overlap)**
         * 他の選択オブジェクトと重なっている部分のウェイトを塗ります
-        * 　(I painted the weight of the portion that overlaps the other selected objects)
+        * ―(I painted the weight of the portion that overlaps the other selected objects)
     * **頂点グループぼかし**
-    * **　(Vertex group blur)**
+    * **―(Vertex group blur)**
         * アクティブ、もしくは全ての頂点グループをぼかします
-        * 　(Blurs the active or all vertex groups)
+        * ―(Blurs the active or all vertex groups)
   
 * **3Dビュー > ポーズモード > 「ポーズ」メニュー > 「コンストレイント」メニュー**
-* **　(3D view > pause mode ""pause"menu >"constraint"menu)**
+* **―(3D view > pause mode ""pause"menu >"constraint"menu)**
     * **IK回転制限をコンストレイント化**
-    * **　(Constraints of IK rotation restrictions)**
+    * **―(Constraints of IK rotation restrictions)**
         * IKの回転制限設定をコンストレイントの回転制限設定にコピー
-        * 　(Copy rotation constraint restrictions IK rotation limit settings)
+        * ―(Copy rotation constraint restrictions IK rotation limit settings)
   
 * **3Dビュー > ポーズモード > 「ポーズ」メニュー > 「表示/隠す」メニュー**
-* **　(3D view > pause mode ""pause"menu > show / hide menu)**
+* **―(3D view > pause mode ""pause"menu > show / hide menu)**
     * **選択しているものを選択不可に**
-    * **　(What is selected in the selection)**
+    * **―(What is selected in the selection)**
         * 選択しているボーンを選択不可能にします
-        * 　(Bones are selected to choose the impossible)
+        * ―(Bones are selected to choose the impossible)
     * **全ての選択不可を解除**
-    * **　(Unlock all selectable)**
+    * **―(Unlock all selectable)**
         * 全ての選択不可設定のボーンを選択可能にします
-        * 　(The non-selection of all bone)
+        * ―(The non-selection of all bone)
   
 * **3Dビュー > ポーズモード > 「W」キー**
-* **　(3D view > pause mode > 'W' key)**
+* **―(3D view > pause mode > 'W' key)**
     * **カスタムシェイプを作成**
-    * **　(Create a custom shape)**
+    * **―(Create a custom shape)**
         * 選択中のボーンのカスタムシェイプオブジェクトを作成します
-        * 　(Create a custom shape objects of the selected bone)
+        * ―(Create a custom shape objects of the selected bone)
     * **ウェイトコピー用メッシュを作成**
-    * **　(Create a mesh for weight copy)**
+    * **―(Create a mesh for weight copy)**
         * 選択中のボーンのウェイトコピーで使用するメッシュを作成します
-        * 　(Creates a mesh to use with a copy of the selected bone weight)
+        * ―(Creates a mesh to use with a copy of the selected bone weight)
     * **ボーン名をクリップボードにコピー**
-    * **　(Copy to Clipboard bone name)**
+    * **―(Copy to Clipboard bone name)**
         * アクティブボーンの名前をクリップボードにコピーします
-        * 　(Copies the Clipboard the name of active bone)
+        * ―(Copies the Clipboard the name of active bone)
     * **チェーン状ボーンをグリースペンシルに沿わせる**
-    * **　(A chain of bones around grease pencil)**
+    * **―(A chain of bones around grease pencil)**
         * チェーンの様に繋がった選択ボーンをグリースペンシルに沿わせてポーズを付けます
-        * 　(Select bones linked like a chain of threading to grease pencil, pose)
+        * ―(Select bones linked like a chain of threading to grease pencil, pose)
     * **ボーン名を正規表現で置換**
-    * **　(Replace the bone names in regular expressions)**
+    * **―(Replace the bone names in regular expressions)**
         * (選択中の)ボーン名を正規表現に一致する部分で置換します
-        * 　(In the bone name (of choice) to match regular expression replace)
+        * ―(In the bone name (of choice) to match regular expression replace)
     * **スローペアレントを設定**
-    * **　(Set slow parent)**
+    * **―(Set slow parent)**
         * 選択中のボーンにスローペアレントを設定します
-        * 　(Sets the selected bone slow parent)
+        * ―(Sets the selected bone slow parent)
     * **ボーン名の XXX.R => XXX_R を相互変換**
-    * **　(Bone name XXX. R = > XXX_R juggling)**
+    * **―(Bone name XXX. R = > XXX_R juggling)**
         * ボーン名の XXX.R => XXX_R を相互変換します
-        * 　(Bone name XXX. R = > the juggling XXX_R)
+        * ―(Bone name XXX. R = > the juggling XXX_R)
     * **ボーン名の XXX.R => 右XXX を相互変換**
-    * **　(Bone name XXX. R = > juggling right XXX)**
+    * **―(Bone name XXX. R = > juggling right XXX)**
         * ボーン名の XXX.R => 右XXX を相互変換します
-        * 　(Bone name XXX. R = > the conversion right XXX)
+        * ―(Bone name XXX. R = > the conversion right XXX)
     * **ポーズ位置を切り替え**
-    * **　(Toggles the pause position)**
+    * **―(Toggles the pause position)**
         * アーマチュアのポーズ位置/レスト位置を切り替えます
-        * 　(Toggles the pause / rest position of the armature)
+        * ―(Toggles the pause / rest position of the armature)
     * **対のボーンにコンストレイントをコピー**
-    * **　(Copy the constraints vs. Vaughan)**
+    * **―(Copy the constraints vs. Vaughan)**
         * 「X.L」なら「X.R」、「X.R」なら「X.L」の名前のボーンへとコンストレイントをコピーします
-        * 　("X.L" If "X.R", "X.R" bone "X.L" name copy constraints)
+        * ―("X.L" If "X.R", "X.R" bone "X.L" name copy constraints)
     * **ボーン名の連番を削除**
-    * **　(Remove the bone name serial number)**
+    * **―(Remove the bone name serial number)**
         * 「X.001」など、連番の付いたボーン名から数字を取り除くのを試みます
-        * 　(Try to get rid of the numbers from the bone names with sequential numbers, such as "X.001")
+        * ―(Try to get rid of the numbers from the bone names with sequential numbers, such as "X.001")
     * **物理演算を設定**
-    * **　(Set the physical operations)**
+    * **―(Set the physical operations)**
         * 選択中の繋がったボーン群に、RigidBodyによる物理演算を設定します
-        * 　(Bone group led selected sets the physical operations of the RigidBody)
+        * ―(Bone group led selected sets the physical operations of the RigidBody)
     * **現ポーズを回転制限に**
-    * **　(Currently pose a rotation limit)**
+    * **―(Currently pose a rotation limit)**
         * 現在のボーンの回転状態を、IKやコンストレイントの回転制限へと設定します
-        * 　(Rotational States of current bone sets to rotation limit constraints and IK)
+        * ―(Rotational States of current bone sets to rotation limit constraints and IK)
   
 * **3Dビュー > アーマチュア編集モード > 「選択」メニュー**
-* **　(3D view > armature edit mode > select menu)**
+* **―(3D view > armature edit mode > select menu)**
     * **右半分を選択**
-    * **　(Select the right half)**
+    * **―(Select the right half)**
         * ボーン群の右半分を選択します(その他設定も有)
-        * 　(Select the right half of the bone (and other settings too))
+        * ―(Select the right half of the bone (and other settings too))
   
 * **3Dビュー > メッシュ編集モード > 「選択」メニュー**
-* **　(3D view > mesh edit mode > select menu)**
+* **―(3D view > mesh edit mode > select menu)**
     * **X=0の頂点を選択**
-    * **　(Select the vertex of X = 0)**
+    * **―(Select the vertex of X = 0)**
         * X=0の頂点を選択する
-        * 　(Select the vertex of X = 0)
+        * ―(Select the vertex of X = 0)
     * **右半分を選択**
-    * **　(Select the right half)**
+    * **―(Select the right half)**
         * メッシュの右半分を選択します(その他設定も有)
-        * 　(Select the right half of the mesh (other settings too))
+        * ―(Select the right half of the mesh (other settings too))
   
 * **3Dビュー > オブジェクトモード > 「選択」メニュー**
-* **　(3D view > mode > select menu)**
+* **―(3D view > mode > select menu)**
     * **サイズで比較してオブジェクトを選択**
-    * **　(In size compared to the object)**
+    * **―(In size compared to the object)**
         * 最大オブジェクトに対して大きい、もしくは小さいオブジェクトを選択します
-        * 　(Select the maximum objects larger or smaller objects)
+        * ―(Select the maximum objects larger or smaller objects)
     * **同じ名前のオブジェクトを選択**
-    * **　(Select the object with the same name)**
+    * **―(Select the object with the same name)**
         * アクティブなオブジェクトと同じ名前 (X X.001 X.002など) の可視オブジェクトを選択します
-        * 　(Select the visible object of the active object with the same name, such as (X.001 X X.002))
+        * ―(Select the visible object of the active object with the same name, such as (X.001 X X.002))
     * **同じマテリアル構造のオブジェクトを選択**
-    * **　(Select an object of same material structure)**
+    * **―(Select an object of same material structure)**
         * アクティブなオブジェクトのマテリアル構造と同じ可視オブジェクトを選択します
-        * 　(Select the active object material structure and same visible objects)
+        * ―(Select the active object material structure and same visible objects)
     * **同じモディファイア構造のオブジェクトを選択**
-    * **　(Select the same modifier structure objects)**
+    * **―(Select the same modifier structure objects)**
         * アクティブなオブジェクトのモディファイア構造が同じ可視オブジェクトを選択します
-        * 　(Select the same modifier of active objects visible objects)
+        * ―(Select the same modifier of active objects visible objects)
     * **同じサブサーフレベルのオブジェクトを選択**
-    * **　(Select Subsurf levels the same object)**
+    * **―(Select Subsurf levels the same object)**
         * アクティブなオブジェクトのサブサーフレベルが同じ可視オブジェクトを選択します
-        * 　(Select Subsurf levels of active objects have the same visible objects)
+        * ―(Select Subsurf levels of active objects have the same visible objects)
     * **同じアーマチュアで変形しているオブジェクトを選択**
-    * **　(Select the objects that transform in the same armature)**
+    * **―(Select the objects that transform in the same armature)**
         * アクティブなオブジェクトと同じアーマチュアで変形している可視オブジェクトを選択します
-        * 　(Select the visible objects are transformed in an active object with same armature)
+        * ―(Select the visible objects are transformed in an active object with same armature)
     * **サイズで比較してオブジェクトを選択**
-    * **　(In size compared to the object)**
+    * **―(In size compared to the object)**
         * アクティブオブジェクトより大きい、もしくは小さいオブジェクトを追加選択します
-        * 　(Greater than the active object, or select additional small objects)
+        * ―(Greater than the active object, or select additional small objects)
     * **面のあるメッシュを選択**
-    * **　(Choose a surface mesh)**
+    * **―(Choose a surface mesh)**
         * 面が1つ以上あるメッシュを選択します
-        * 　(Select a mesh surface at least one)
+        * ―(Select a mesh surface at least one)
     * **辺のみのメッシュを選択**
-    * **　(Select only the side mesh)**
+    * **―(Select only the side mesh)**
         * 面が無く、辺のみのメッシュを選択します
-        * 　(Surface, select the only side mesh)
+        * ―(Surface, select the only side mesh)
     * **頂点のみのメッシュを選択**
-    * **　(Select the mesh vertices only)**
+    * **―(Select the mesh vertices only)**
         * 面と辺が無く、頂点のみのメッシュを選択します
-        * 　(Surfaces and edges, select the mesh vertices only)
+        * ―(Surfaces and edges, select the mesh vertices only)
     * **頂点すら無いメッシュを選択**
-    * **　(Select the no mesh even vertex)**
+    * **―(Select the no mesh even vertex)**
         * 面と辺と頂点が無い空のメッシュオブジェクトを選択します
-        * 　(Surface and edge and select the mesh object vertex is not empty)
+        * ―(Surface and edge and select the mesh object vertex is not empty)
   
 * **3Dビュー > ポーズモード > 「選択」メニュー**
-* **　(3D view > pause mode > select menu)**
+* **―(3D view > pause mode > select menu)**
     * **連番の付いたボーンを選択**
-    * **　(Select a numbered bone.)**
+    * **―(Select a numbered bone.)**
         * X.001 のように番号の付いた名前のボーンを選択します
-        * 　(Select the name with a number X.001 in bone)
+        * ―(Select the name with a number X.001 in bone)
     * **対称のボーンへ選択を移動**
-    * **　(Symmetrical bones move selection)**
+    * **―(Symmetrical bones move selection)**
         * X.Rを選択中ならX.Lへ選択を変更、X.LならX.Rへ
-        * 　(If you choose X.R change selection to X.L, if X.L to X.R)
+        * ―(If you choose X.R change selection to X.L, if X.L to X.R)
     * **同じコンストレイントのボーンを選択**
-    * **　(Select the bone of the same constraints)**
+    * **―(Select the bone of the same constraints)**
         * アクティブボーンと同じ種類のコンストレイントを持ったボーンを追加選択します
-        * 　(Select additional bone with active bone and same kind of constraint.)
+        * ―(Select additional bone with active bone and same kind of constraint.)
     * **同じ名前のボーンを選択**
-    * **　(Select the bone of the same name.)**
+    * **―(Select the bone of the same name.)**
         * X X.001 X.002 などのボーン名を同じ名前とみなして選択します
-        * 　(Regarding the bone names, such as X-X.001 X.002 with the same name, select)
+        * ―(Regarding the bone names, such as X-X.001 X.002 with the same name, select)
     * **名前が対称のボーンを追加選択**
-    * **　(Select Add name of symmetrical bone)**
+    * **―(Select Add name of symmetrical bone)**
         * X.Rを選択中ならX.Lも追加選択、X.LならX.Rも選択
-        * 　(If you select X.R X.L also selected X.R X.L if additional selection)
+        * ―(If you select X.R X.L also selected X.R X.L if additional selection)
     * **ボーンの末端まで選択**
-    * **　(Until the end of the bone)**
+    * **―(Until the end of the bone)**
         * 選択ボーンの子 → 子ボーンの子...と最後まで選択していきます
-        * 　(Select bones child-child child's bones. And we will select to the end)
+        * ―(Select bones child-child child's bones. And we will select to the end)
     * **ボーンの根本まで選択**
-    * **　(Select the bone)**
+    * **―(Select the bone)**
         * 選択ボーンの親 → 親ボーンの親...と最後まで選択していきます
-        * 　(Select bones parent → parent of parent bone. And we will select to the end)
+        * ―(Select bones parent → parent of parent bone. And we will select to the end)
   
 * **3Dビュー > Shift+S**
-* **　(3dビュー > Shift + S)**
+* **―(3dビュー > Shift + S)**
     * **メッシュに3Dカーソルをスナップ**
-    * **　(3D cursor snap to mesh)**
+    * **―(3D cursor snap to mesh)**
         * マウス下のメッシュ面上に3Dカーソルを移動させます(ショートカットに登録してお使い下さい)
-        * 　((Please use the shortcuts) mesh surface under the mouse move the 3D cursor)
+        * ―((Please use the shortcuts) mesh surface under the mouse move the 3D cursor)
     * **視点位置に3Dカーソル移動**
-    * **　(3D Navigation view)**
+    * **―(3D Navigation view)**
         * 視点の中心位置に3Dカーソルを移動させます
-        * 　(Move the 3D cursor center position of)
+        * ―(Move the 3D cursor center position of)
     * **3Dカーソルを非表示に(遥か遠くに)**
-    * **　(3D cursor invisible in the (distant))**
+    * **―(3D cursor invisible in the (distant))**
         * 3Dカーソルを遥か遠くに移動させて非表示のように見せかけます
-        * 　(Pretend to hide the 3D cursor to move far far away)
+        * ―(Pretend to hide the 3D cursor to move far far away)
   
 * **3Dビュー > メッシュ編集モード > 「U」キー**
-* **　(3D view > mesh edit mode > "U" key)**
+* **―(3D view > mesh edit mode > "U" key)**
     * **他のUVからコピー**
-    * **　(Copied from other UV)**
+    * **―(Copied from other UV)**
         * 選択部分のアクティブなUV展開を、他のUVからコピーしてきます
-        * 　(Deploying an active UV selection will copy from other UV)
+        * ―(Deploying an active UV selection will copy from other UV)
   
 * **3Dビュー > 「ビュー」メニュー**
-* **　(3D view > View menu)**
+* **―(3D view > View menu)**
     * **グローバルビュー/ローカルビュー(非ズーム)**
-    * **　(Global view and local views (non-zoom))**
+    * **―(Global view and local views (non-zoom))**
         * 選択したオブジェクトのみを表示し、視点の中央に配置します(ズームはしません)
-        * 　(And show only selected objects, center point of the Zoom (is not))
+        * ―(And show only selected objects, center point of the Zoom (is not))
     * **パネル表示切り替え(モードA)**
-    * **　(Toggle Panel (mode A))**
+    * **―(Toggle Panel (mode A))**
         * プロパティ/ツールシェルフの「両方表示」/「両方非表示」をトグルします
-        * 　(The properties/tool shelf "both display" / "both hide" toggle)
+        * ―(The properties/tool shelf "both display" / "both hide" toggle)
     * **パネル表示切り替え(モードB)**
-    * **　(Toggle Panel (mode B))**
+    * **―(Toggle Panel (mode B))**
         * 「パネル両方非表示」→「ツールシェルフのみ表示」→「プロパティのみ表示」→「パネル両方表示」のトグル
-        * 　("Panel both hide" → show only the tool shelf → show only properties → "Panel both display" for toggle)
+        * ―("Panel both hide" → show only the tool shelf → show only properties → "Panel both display" for toggle)
     * **パネル表示切り替え(モードC)**
-    * **　(Toggle Panel (mode C))**
+    * **―(Toggle Panel (mode C))**
         * 「パネル両方非表示」→「ツールシェルフのみ表示」→「プロパティのみ表示」... のトグル
-        * 　("Panel both hide" → see only the tool shelf → view properties only. The toggle)
+        * ―("Panel both hide" → see only the tool shelf → view properties only. The toggle)
     * **シェーディング切り替え(モードA)**
-    * **　(Shading switch (mode A))**
+    * **―(Shading switch (mode A))**
         * シェーディングを 「ワイヤーフレーム」→「ソリッド」→「テクスチャ」... と切り替えていきます
-        * 　("Wireframe", "solid" → "texture" shading... We'll switch and)
+        * ―("Wireframe", "solid" → "texture" shading... We'll switch and)
     * **プリセットビュー**
-    * **　(Preset views)**
+    * **―(Preset views)**
         * プリセットビュー(テンキー1,3,7とか)のパイメニューです
-        * 　(Is a pie menu of preset views or (NUMPAD 1, 3, 7))
+        * ―(Is a pie menu of preset views or (NUMPAD 1, 3, 7))
     * **シェーディング切り替え**
-    * **　(Shading transitions)**
+    * **―(Shading transitions)**
         * シェーディング切り替えパイメニューです
-        * 　(Is the shading switch pie)
+        * ―(Is the shading switch pie)
     * **レイヤーのパイメニュー**
-    * **　(Layer pie)**
+    * **―(Layer pie)**
         * レイヤー表示切り替えのパイメニューです
-        * 　(Is a pie menu toggle layer visibility)
+        * ―(Is a pie menu toggle layer visibility)
   
 * **3Dビュー > 「ビュー」メニュー > 「視点を揃える」メニュー**
-* **　(3D view > View menu > align View menu)**
+* **―(3D view > View menu > align View menu)**
     * **選択部分を表示 (非ズーム)**
-    * **　(Display selection (non-zoom))**
+    * **―(Display selection (non-zoom))**
         * 選択中の物に3D視点の中心を合わせます(ズームはしません)
-        * 　(Food choice in over the center of the 3D view (zoom is not))
+        * ―(Food choice in over the center of the 3D view (zoom is not))
     * **視点を原点に**
-    * **　(Viewpoint at the origin)**
+    * **―(Viewpoint at the origin)**
         * 3Dビューの視点を座標の中心に移動します
-        * 　(3D view perspective moves in the center of the coordinate)
+        * ―(3D view perspective moves in the center of the coordinate)
     * **選択+視点の中心に**
-    * **　(In the center of the selection + POV)**
+    * **―(In the center of the selection + POV)**
         * マウス下の物を選択し視点の中心にします (Shiftを押しながらで追加選択)
-        * 　(Select the object under the mouse, the center point of (shift in additional selection))
+        * ―(Select the object under the mouse, the center point of (shift in additional selection))
     * **メッシュに視点をスナップ**
-    * **　(Snap to point mesh)**
+    * **―(Snap to point mesh)**
         * マウス下のメッシュ面上に視点の中心を移動させます(ショートカットに登録してお使い下さい)
-        * 　((Please use the shortcuts) move the center point of mesh surface under the mouse)
+        * ―((Please use the shortcuts) move the center point of mesh surface under the mouse)
     * **ビューの反対側に**
-    * **　(On the other side of the view)**
+    * **―(On the other side of the view)**
         * 現在のビューの逆側へ回りこみます
-        * 　(Orbit to the reverse side of the current view)
+        * ―(Orbit to the reverse side of the current view)
     * **視点と3Dカーソルを原点に**
-    * **　(3D cursor with the viewpoint at the origin)**
+    * **―(3D cursor with the viewpoint at the origin)**
         * 視点と3Dカーソルの位置を原点(XYZ=0.0)に移動させます
-        * 　(Perspective and 3D cursor position move to origin (XYZ=0.0))
+        * ―(Perspective and 3D cursor position move to origin (XYZ=0.0))
     * **メッシュに視点と3Dカーソルをスナップ**
-    * **　(Perspective and 3D cursor snap to mesh)**
+    * **―(Perspective and 3D cursor snap to mesh)**
         * マウス下のメッシュ面上に視点と3Dカーソルを移動させます (ショートカットに登録してお使い下さい)
-        * 　((Please use the shortcuts) move the viewpoint and 3D cursor mesh surface under the mouse)
+        * ―((Please use the shortcuts) move the viewpoint and 3D cursor mesh surface under the mouse)
   
 * **3Dビュー > 「ビュー」メニュー > 「視点を揃える」メニュー > 「アクティブに視点を揃える」メニュー**
-* **　(3D view > View menu > align View menu > menu align view active)**
+* **―(3D view > View menu > align View menu > menu align view active)**
     * **面を正面から見る**
-    * **　(Viewed from the front side)**
+    * **―(Viewed from the front side)**
         * 選択中の面の法線方向から面を注視します
-        * 　(The watch face from the selected surface normal direction)
+        * ―(The watch face from the selected surface normal direction)
   
