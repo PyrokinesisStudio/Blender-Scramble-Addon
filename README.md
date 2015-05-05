@@ -9,10 +9,10 @@ Blenderのかゆいところに手が届くかもしれない機能が詰まっ�
 (Windows7なら： C:\Users\ユーザー名\AppData\Roaming\Blender Foundation\Blender\バージョン\scripts\addons\Scramble Addon)  
 Blenderを起動しユーザー設定のアドオンタブで「Scramble」等で検索、アドオンをオンにして「ユーザー設定の保存」クリック。  
 左上の「ファイル」メニューに「全体処理」という項目が追加されていればインストール成功です。  
-  
+---------------------------------------
 Download the ZIP file first in the "Download ZIP" of right and unzip.  
 Place a "Scramble Addon" folder in the addons folder of Blender.  
-(If Windows7: C:\Users\(UserName)\AppData\Roaming\Blender Foundation\Blender\(Version)\scripts\addons\Scramble Addon)  
+(If Windows7: C:\Users\\(UserName)\AppData\Roaming\Blender Foundation\Blender\\(Version)\scripts\addons\Scramble Addon)  
 Search Start the Blender add-on tab of the user settings in the "Scramble", etc., select the add-on click "save user settings".  
 The installation is successful if it is added to item "whole process" in the "File" menu in the upper-left corner.  
 
@@ -21,7 +21,7 @@ The installation is successful if it is added to item "whole process" in the "Fi
 例えば「ファイル > 全体処理 > オブジェクト > 全ての「すべての辺を表示」をオン」等です。  
 追加された項目には必ず![アイコン](http://i.imgur.com/OOVguPd.png)のようなアイコンが表示されています。  
 色々なところに項目が追加されているので探してみてください。  
-  
+---------------------------------------
 This add-on is basically, and then run it by clicking on it because the items to the existing menu is added.  
 For example, it is the "File> overall process> object> on all of the" Show all sides, "" and the like.  
 The added items are always displayed an icon such as ![アイコン](http://i.imgur.com/OOVguPd.png).  
