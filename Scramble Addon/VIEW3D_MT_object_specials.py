@@ -624,6 +624,10 @@ class ParentSetApplyModifiers(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="アクティブがメッシュオブジェクトではありません")
 			return {'CANCELLED'}
 		active_obj.select = False
+		enable_modifiers = []
+		for mod in active_obj.modifiers:
+			if (mod.show_viewport):
+				enable_modifiers.append(mod.name)
 		bpy.ops.object.parent_clear(type='CLEAR_KEEP_TRANSFORM')
 		active_obj.select = True
 		old_me = active_obj.data
@@ -631,20 +635,23 @@ class ParentSetApplyModifiers(bpy.types.Operator):
 		if (len(old_me.vertices) != len(new_me.vertices)):
 			self.report(type={'WARNING'}, message="モディファイア適用後に頂点数が変化してます、望んだ結果じゃないかもしれません")
 		active_obj.data = new_me
-		bpy.ops.object.parent_set(type=self.type)
-		active_obj.data = old_me
-		active_obj.select = False
-		bpy.ops.object.parent_clear(type='CLEAR_KEEP_TRANSFORM')
-		active_obj.select = True
-		enable_modifiers = []
 		for mod in active_obj.modifiers:
 			if (mod.show_viewport):
-				enable_modifiers.append(mod.name)
 				mod.show_viewport = False
+		bpy.ops.object.parent_set(type=self.type)
+		active_obj.data = old_me
+		for name in enable_modifiers:
+			active_obj.modifiers[name].show_viewport = True
+		active_obj.select = False
+		return {'FINISHED'}
+		"""
+		bpy.ops.object.parent_clear(type='CLEAR_KEEP_TRANSFORM')
+		active_obj.select = True
 		bpy.ops.object.parent_set(type=self.type)
 		for name in enable_modifiers:
 			active_obj.modifiers[name].show_viewport = True
 		return {'FINISHED'}
+		"""
 
 ################################
 # オペレーター(モディファイア) #
