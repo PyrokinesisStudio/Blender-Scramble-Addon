@@ -133,16 +133,12 @@ class SaveView(bpy.types.Operator):
 				continue
 			data = data + line + '|'
 		text = data + str(self.index) + ':'
-		"""
-		for vec in context.region_data.view_matrix:
-			for f in vec:
-				text = text + str(f) + ','
-		"""
 		co = context.region_data.view_location
 		text = text + str(co[0]) + ',' + str(co[1]) + ',' + str(co[2]) + ':'
 		ro = context.region_data.view_rotation
 		text = text + str(ro[0]) + ',' + str(ro[1]) + ',' + str(ro[2]) + ',' + str(ro[3])
 		context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = text
+		self.report(type={'INFO'}, message="現在の視点をセーブデータ"+str(self.index)+"に保存しました")
 		return {'FINISHED'}
 
 class LoadView(bpy.types.Operator):
@@ -163,6 +159,7 @@ class LoadView(bpy.types.Operator):
 					context.region_data.view_location[i] = float(v)
 				for i, v in enumerate(rot.split(',')):
 					context.region_data.view_rotation[i] = float(v)
+				self.report(type={'INFO'}, message="視点セーブデータ"+str(self.index)+"を読み込みました")
 				break
 		else:
 			self.report(type={'WARNING'}, message="視点のセーブデータ"+str(self.index)+"が存在しませんでした")
@@ -403,17 +400,19 @@ class ViewSaveAndLoadMenu(bpy.types.Menu):
 	bl_description = "視点のセーブ/ロード操作のメニューです"
 	
 	def draw(self, context):
-		self.layout.operator(SaveView.bl_idname, text="視点セーブ 1", icon="PLUGIN").index = 1
-		self.layout.operator(SaveView.bl_idname, text="視点セーブ 2", icon="PLUGIN").index = 2
-		self.layout.operator(SaveView.bl_idname, text="視点セーブ 3", icon="PLUGIN").index = 3
-		self.layout.operator(SaveView.bl_idname, text="視点セーブ 4", icon="PLUGIN").index = 4
-		self.layout.operator(SaveView.bl_idname, text="視点セーブ 5", icon="PLUGIN").index = 5
-		self.layout.separator()
-		self.layout.operator(LoadView.bl_idname, text="視点ロード 1", icon="PLUGIN").index = 1
-		self.layout.operator(LoadView.bl_idname, text="視点ロード 2", icon="PLUGIN").index = 2
-		self.layout.operator(LoadView.bl_idname, text="視点ロード 3", icon="PLUGIN").index = 3
-		self.layout.operator(LoadView.bl_idname, text="視点ロード 4", icon="PLUGIN").index = 4
-		self.layout.operator(LoadView.bl_idname, text="視点ロード 5", icon="PLUGIN").index = 5
+		row = self.layout.row()
+		column = row.column()
+		column.operator(SaveView.bl_idname, text="視点セーブ 1", icon="PLUGIN").index = 1
+		column.operator(SaveView.bl_idname, text="視点セーブ 2", icon="PLUGIN").index = 2
+		column.operator(SaveView.bl_idname, text="視点セーブ 3", icon="PLUGIN").index = 3
+		column.operator(SaveView.bl_idname, text="視点セーブ 4", icon="PLUGIN").index = 4
+		column.operator(SaveView.bl_idname, text="視点セーブ 5", icon="PLUGIN").index = 5
+		column = row.column()
+		column.operator(LoadView.bl_idname, text="視点ロード 1", icon="PLUGIN").index = 1
+		column.operator(LoadView.bl_idname, text="視点ロード 2", icon="PLUGIN").index = 2
+		column.operator(LoadView.bl_idname, text="視点ロード 3", icon="PLUGIN").index = 3
+		column.operator(LoadView.bl_idname, text="視点ロード 4", icon="PLUGIN").index = 4
+		column.operator(LoadView.bl_idname, text="視点ロード 5", icon="PLUGIN").index = 5
 
 ################
 # メニュー追加 #
