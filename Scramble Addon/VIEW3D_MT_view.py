@@ -128,7 +128,12 @@ class SaveView(bpy.types.Operator):
 		for line in context.user_preferences.addons["Scramble Addon"].preferences.view_savedata.split('|'):
 			if (line == ""):
 				continue
-			index, loc, rot = line.split(':')
+			try:
+				index = line.split(':')[0]
+			except ValueError:
+				context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = ""
+				self.report(type={'ERROR'}, message="視点の読み込みに失敗しました、セーブデータをリセットします")
+				return {'CANCELLED'}
 			if (str(self.index) == index):
 				continue
 			data = data + line + '|'
@@ -136,7 +141,9 @@ class SaveView(bpy.types.Operator):
 		co = context.region_data.view_location
 		text = text + str(co[0]) + ',' + str(co[1]) + ',' + str(co[2]) + ':'
 		ro = context.region_data.view_rotation
-		text = text + str(ro[0]) + ',' + str(ro[1]) + ',' + str(ro[2]) + ',' + str(ro[3])
+		text = text + str(ro[0]) + ',' + str(ro[1]) + ',' + str(ro[2]) + ',' + str(ro[3]) + ':'
+		text = text + str(context.region_data.view_distance) + ':'
+		text = text + context.region_data.view_perspective
 		context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = text
 		self.report(type={'INFO'}, message="現在の視点をセーブデータ"+str(self.index)+"に保存しました")
 		return {'FINISHED'}
@@ -153,12 +160,19 @@ class LoadView(bpy.types.Operator):
 		for line in context.user_preferences.addons["Scramble Addon"].preferences.view_savedata.split('|'):
 			if (line == ""):
 				continue
-			index, loc, rot = line.split(':')
+			try:
+				index, loc, rot, distance, view_perspective = line.split(':')
+			except ValueError:
+				context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = ""
+				self.report(type={'ERROR'}, message="視点の読み込みに失敗しました、セーブデータをリセットします")
+				return {'CANCELLED'}
 			if (str(self.index) == index):
 				for i, v in enumerate(loc.split(',')):
 					context.region_data.view_location[i] = float(v)
 				for i, v in enumerate(rot.split(',')):
 					context.region_data.view_rotation[i] = float(v)
+				context.region_data.view_distance = float(distance)
+				context.region_data.view_perspective = view_perspective
 				self.report(type={'INFO'}, message="視点セーブデータ"+str(self.index)+"を読み込みました")
 				break
 		else:
