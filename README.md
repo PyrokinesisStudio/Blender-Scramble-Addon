@@ -990,6 +990,14 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Shading switch (mode A))**
         * シェーディングを 「ワイヤーフレーム」→「ソリッド」→「テクスチャ」... と切り替えていきます
         * ―("Wireframe", "solid" → "texture" shading... We'll switch and)
+    * **視点のセーブ**
+    * **―(Save view)**
+        * 現在の3Dビューの視点をセーブします
+        * ―(Save the current 3D view perspective)
+    * **視点のロード**
+    * **―(Point of load)**
+        * 現在の3Dビューに視点をロードします
+        * ―(Load the current 3D view perspective)
     * **プリセットビュー**
     * **―(Preset views)**
         * プリセットビュー(テンキー1,3,7とか)のパイメニューです

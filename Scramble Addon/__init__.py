@@ -110,11 +110,13 @@ class AddonPreferences(bpy.types.AddonPreferences):
 	
 	disabled_menu = bpy.props.StringProperty(name="無効なメニュー", default="")
 	use_disabled_menu = bpy.props.BoolProperty(name="「追加項目のオン/オフ」の非表示", default=True)
+	view_savedata = bpy.props.StringProperty(name="視点のセーブデータ", default="")
 	
 	def draw(self, context):
 		layout = self.layout
 		layout.prop(self, 'disabled_menu')
 		layout.prop(self, 'use_disabled_menu')
+		layout.prop(self, 'view_savedata')
 
 # 追加メニューの有効/無効
 class ToggleMenuEnable(bpy.types.Operator):

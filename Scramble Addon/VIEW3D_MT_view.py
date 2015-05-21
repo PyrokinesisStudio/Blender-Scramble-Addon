@@ -1,6 +1,6 @@
 # 3Dビュー > 「ビュー」メニュー
 
-import bpy
+import bpy, mathutils
 import os, csv
 import collections
 
@@ -113,6 +113,59 @@ class ToggleViewportShadeA(bpy.types.Operator):
 			context.space_data.viewport_shade = 'WIREFRAME'
 		else:
 			context.space_data.viewport_shade = 'SOLID'
+		return {'FINISHED'}
+
+class SaveView(bpy.types.Operator):
+	bl_idname = "view3d.save_view"
+	bl_label = "視点のセーブ"
+	bl_description = "現在の3Dビューの視点をセーブします"
+	bl_options = {'REGISTER'}
+	
+	index = bpy.props.IntProperty(name="セーブデータ番号", default=0, min=1, soft_min=1)
+	
+	def execute(self, context):
+		data = ""
+		for line in context.user_preferences.addons["Scramble Addon"].preferences.view_savedata.split('|'):
+			if (line == ""):
+				continue
+			index, loc, rot = line.split(':')
+			if (str(self.index) == index):
+				continue
+			data = data + line + '|'
+		text = data + str(self.index) + ':'
+		"""
+		for vec in context.region_data.view_matrix:
+			for f in vec:
+				text = text + str(f) + ','
+		"""
+		co = context.region_data.view_location
+		text = text + str(co[0]) + ',' + str(co[1]) + ',' + str(co[2]) + ':'
+		ro = context.region_data.view_rotation
+		text = text + str(ro[0]) + ',' + str(ro[1]) + ',' + str(ro[2]) + ',' + str(ro[3])
+		context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = text
+		return {'FINISHED'}
+
+class LoadView(bpy.types.Operator):
+	bl_idname = "view3d.load_view"
+	bl_label = "視点のロード"
+	bl_description = "現在の3Dビューに視点をロードします"
+	bl_options = {'REGISTER'}
+	
+	index = bpy.props.IntProperty(name="セーブデータ番号", default=0, min=1, soft_min=1)
+	
+	def execute(self, context):
+		for line in context.user_preferences.addons["Scramble Addon"].preferences.view_savedata.split('|'):
+			if (line == ""):
+				continue
+			index, loc, rot = line.split(':')
+			if (str(self.index) == index):
+				for i, v in enumerate(loc.split(',')):
+					context.region_data.view_location[i] = float(v)
+				for i, v in enumerate(rot.split(',')):
+					context.region_data.view_rotation[i] = float(v)
+				break
+		else:
+			self.report(type={'WARNING'}, message="視点のセーブデータ"+str(self.index)+"が存在しませんでした")
 		return {'FINISHED'}
 
 ################
@@ -344,6 +397,24 @@ class ShortcutsMenu(bpy.types.Menu):
 		self.layout.separator()
 		self.layout.operator(ToggleViewportShadeA.bl_idname, icon="PLUGIN")
 
+class ViewSaveAndLoadMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_view_save_and_load"
+	bl_label = "視点のセーブ/ロード"
+	bl_description = "視点のセーブ/ロード操作のメニューです"
+	
+	def draw(self, context):
+		self.layout.operator(SaveView.bl_idname, text="視点セーブ 1", icon="PLUGIN").index = 1
+		self.layout.operator(SaveView.bl_idname, text="視点セーブ 2", icon="PLUGIN").index = 2
+		self.layout.operator(SaveView.bl_idname, text="視点セーブ 3", icon="PLUGIN").index = 3
+		self.layout.operator(SaveView.bl_idname, text="視点セーブ 4", icon="PLUGIN").index = 4
+		self.layout.operator(SaveView.bl_idname, text="視点セーブ 5", icon="PLUGIN").index = 5
+		self.layout.separator()
+		self.layout.operator(LoadView.bl_idname, text="視点ロード 1", icon="PLUGIN").index = 1
+		self.layout.operator(LoadView.bl_idname, text="視点ロード 2", icon="PLUGIN").index = 2
+		self.layout.operator(LoadView.bl_idname, text="視点ロード 3", icon="PLUGIN").index = 3
+		self.layout.operator(LoadView.bl_idname, text="視点ロード 4", icon="PLUGIN").index = 4
+		self.layout.operator(LoadView.bl_idname, text="視点ロード 5", icon="PLUGIN").index = 5
+
 ################
 # メニュー追加 #
 ################
@@ -360,6 +431,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
+		self.layout.menu(ViewSaveAndLoadMenu.bl_idname, icon="PLUGIN")
 		self.layout.prop(context.user_preferences.view, "use_rotate_around_active", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.menu(ShortcutsMenu.bl_idname, icon="PLUGIN")
