@@ -121,7 +121,7 @@ class SaveView(bpy.types.Operator):
 	bl_description = "現在の3Dビューの視点をセーブします"
 	bl_options = {'REGISTER'}
 	
-	index = bpy.props.IntProperty(name="セーブデータ番号", default=0, min=1, soft_min=1)
+	index = bpy.props.StringProperty(name="視点セーブデータ名", default="視点セーブデータ")
 	
 	def execute(self, context):
 		data = ""
@@ -147,6 +147,8 @@ class SaveView(bpy.types.Operator):
 		context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = text
 		self.report(type={'INFO'}, message="現在の視点をセーブデータ"+str(self.index)+"に保存しました")
 		return {'FINISHED'}
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
 
 class LoadView(bpy.types.Operator):
 	bl_idname = "view3d.load_view"
@@ -154,7 +156,7 @@ class LoadView(bpy.types.Operator):
 	bl_description = "現在の3Dビューに視点をロードします"
 	bl_options = {'REGISTER'}
 	
-	index = bpy.props.IntProperty(name="セーブデータ番号", default=0, min=1, soft_min=1)
+	index = bpy.props.StringProperty(name="視点セーブデータ名", default="視点セーブデータ")
 	
 	def execute(self, context):
 		for line in context.user_preferences.addons["Scramble Addon"].preferences.view_savedata.split('|'):
@@ -177,6 +179,16 @@ class LoadView(bpy.types.Operator):
 				break
 		else:
 			self.report(type={'WARNING'}, message="視点のセーブデータ"+str(self.index)+"が存在しませんでした")
+		return {'FINISHED'}
+
+class DeleteViewSavedata(bpy.types.Operator):
+	bl_idname = "view3d.delete_view_savedata"
+	bl_label = "視点セーブデータを破棄"
+	bl_description = "全ての視点セーブデータを削除します"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = ""
 		return {'FINISHED'}
 
 ################
@@ -414,19 +426,17 @@ class ViewSaveAndLoadMenu(bpy.types.Menu):
 	bl_description = "視点のセーブ/ロード操作のメニューです"
 	
 	def draw(self, context):
-		row = self.layout.row()
-		column = row.column()
-		column.operator(SaveView.bl_idname, text="視点セーブ 1", icon="PLUGIN").index = 1
-		column.operator(SaveView.bl_idname, text="視点セーブ 2", icon="PLUGIN").index = 2
-		column.operator(SaveView.bl_idname, text="視点セーブ 3", icon="PLUGIN").index = 3
-		column.operator(SaveView.bl_idname, text="視点セーブ 4", icon="PLUGIN").index = 4
-		column.operator(SaveView.bl_idname, text="視点セーブ 5", icon="PLUGIN").index = 5
-		column = row.column()
-		column.operator(LoadView.bl_idname, text="視点ロード 1", icon="PLUGIN").index = 1
-		column.operator(LoadView.bl_idname, text="視点ロード 2", icon="PLUGIN").index = 2
-		column.operator(LoadView.bl_idname, text="視点ロード 3", icon="PLUGIN").index = 3
-		column.operator(LoadView.bl_idname, text="視点ロード 4", icon="PLUGIN").index = 4
-		column.operator(LoadView.bl_idname, text="視点ロード 5", icon="PLUGIN").index = 5
+		self.layout.operator(SaveView.bl_idname, icon="PLUGIN")
+		self.layout.operator(DeleteViewSavedata.bl_idname, icon="PLUGIN")
+		self.layout.separator()
+		for line in context.user_preferences.addons["Scramble Addon"].preferences.view_savedata.split('|'):
+			if (line == ""):
+				continue
+			try:
+				index = line.split(':')[0]
+			except ValueError:
+				pass
+			self.layout.operator(LoadView.bl_idname, text=index+" をロード", icon="PLUGIN").index = index
 
 ################
 # メニュー追加 #
