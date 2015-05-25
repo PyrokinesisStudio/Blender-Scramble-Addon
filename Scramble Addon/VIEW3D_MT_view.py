@@ -119,7 +119,7 @@ class SaveView(bpy.types.Operator):
 	bl_idname = "view3d.save_view"
 	bl_label = "視点のセーブ"
 	bl_description = "現在の3Dビューの視点をセーブします"
-	bl_options = {'REGISTER'}
+	bl_options = {'REGISTER', 'UNDO'}
 	
 	index = bpy.props.StringProperty(name="視点セーブデータ名", default="視点セーブデータ")
 	
@@ -154,7 +154,7 @@ class LoadView(bpy.types.Operator):
 	bl_idname = "view3d.load_view"
 	bl_label = "視点のロード"
 	bl_description = "現在の3Dビューに視点をロードします"
-	bl_options = {'REGISTER'}
+	bl_options = {'REGISTER', 'UNDO'}
 	
 	index = bpy.props.StringProperty(name="視点セーブデータ名", default="視点セーブデータ")
 	
@@ -185,7 +185,7 @@ class DeleteViewSavedata(bpy.types.Operator):
 	bl_idname = "view3d.delete_view_savedata"
 	bl_label = "視点セーブデータを破棄"
 	bl_description = "全ての視点セーブデータを削除します"
-	bl_options = {'REGISTER'}
+	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
 		context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = ""
