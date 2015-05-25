@@ -378,7 +378,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	alt = bpy.props.BoolProperty(name="Altを修飾キーに", default=False)
 	
 	def execute(self, context):
-		keymap_item = context.window_manager.keyconfigs.default.keymaps[self.key_map].keymap_items.new(self.command, self.type, 'PRESS', False, self.shift, self.ctrl, self.alt)
+		keymap_item = context.window_manager.keyconfigs.user.keymaps[self.key_map].keymap_items.new(self.command, self.type, 'PRESS', False, self.shift, self.ctrl, self.alt)
 		for command in self.sub_command.split(","):
 			if (not command):
 				continue
