@@ -753,6 +753,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Quick array replication + curve deformation)**
         * すばやく配列複製モディファイアとカーブモディファイアを適用します
         * ―(Quickly apply the curve modifier with the modifiers array replication)
+    * **ベベルオブジェクトを断面に移動**
+    * **―(Bevel object section moved)**
+        * カーブに設定されているベベルオブジェクトを選択カーブの断面へと移動させます
+        * ―(Curve beveled objects that move and cross section of you curve)
   
 * **3Dビュー > ウェイトペイントモード > 「ウェイト」メニュー**
 * **―(3D view > weight paint mode > "weight" menu)**

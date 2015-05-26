@@ -1229,6 +1229,87 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 			curve.use_deform_bounds = pre_use_deform_bounds
 		return {'FINISHED'}
 
+class MoveBevelObject(bpy.types.Operator):
+	bl_idname = "object.move_bevel_object"
+	bl_label = "ベベルオブジェクトを断面に移動"
+	bl_description = "カーブに設定されているベベルオブジェクトを選択カーブの断面へと移動させます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('START', "先頭", "", 1),
+		('END', "末尾", "", 2),
+		]
+	move_position = bpy.props.EnumProperty(items=items, name="移動位置")
+	use_duplicate = bpy.props.BoolProperty(name="ベベルを複製", default=False)
+	
+	def execute(self, context):
+		bpy.ops.object.mode_set(mode='OBJECT')
+		selected_objects = context.selected_objects[:]
+		for obj in selected_objects:
+			if (obj.type != 'CURVE'):
+				self.report(type={'WARNING'}, message=obj.name+"はカーブではありません、無視します")
+				continue
+			curve = obj.data
+			if (not curve.bevel_object):
+				self.report(type={'WARNING'}, message=obj.name+"にベベルオブジェクトが設定されていません、無視します")
+				continue
+			bevel_object = curve.bevel_object
+			if (self.use_duplicate):
+				bevel_object.layers = obj.layers[:]
+				bevel_object.hide = False
+				bpy.ops.object.select_all(action='DESELECT')
+				bevel_object.select = True
+				bpy.ops.object.duplicate()
+				bevel_object = context.selected_objects[0]
+				curve.bevel_object = bevel_object
+			spline = curve.splines[0]
+			if (spline.type == 'NURBS'):
+				if (self.move_position == 'START'):
+					base_point = obj.matrix_world * spline.points[0].co
+					sub_point = obj.matrix_world * spline.points[1].co
+					tilt = spline.points[0].tilt
+				elif (self.move_position == 'END'):
+					base_point = obj.matrix_world * spline.points[-1].co
+					sub_point = obj.matrix_world * spline.points[-2].co
+					tilt = spline.points[-1].tilt
+			elif (spline.type == 'BEZIER'):
+				if (self.move_position == 'START'):
+					base_point = obj.matrix_world * spline.bezier_points[0].co
+					sub_point = obj.matrix_world * spline.bezier_points[0].handle_left
+					tilt = spline.bezier_points[0].tilt
+				elif (self.move_position == 'END'):
+					base_point = obj.matrix_world * spline.bezier_points[-1].co
+					sub_point = obj.matrix_world * spline.bezier_points[-1].handle_left
+					tilt = spline.bezier_points[-1].tilt
+			else:
+				self.report(type={'WARNING'}, message=obj.name+"は対応していないタイプのカーブです、無視します")
+				continue
+			print(base_point)
+			bevel_object.location = base_point[:3]
+			bpy.ops.object.select_all(action='DESELECT')
+			bpy.ops.object.empty_add(type='PLAIN_AXES', view_align=False, location=sub_point[:3])
+			empty = context.selected_objects[0]
+			const = bevel_object.constraints.new('DAMPED_TRACK')
+			const.target = empty
+			const.track_axis = 'TRACK_NEGATIVE_Z'
+			bpy.ops.object.select_all(action='DESELECT')
+			bevel_object.select = True
+			bpy.ops.object.visual_transform_apply()
+			bevel_object.constraints.remove(const)
+			context.scene.objects.unlink(empty)
+			bpy.data.objects.remove(empty)
+			"""
+			bevel_object.rotation_mode = 'XYZ'
+			euler = bevel_object.rotation_euler
+			euler.rotate_axis('Z', tilt)
+			euler.rotate_axis('Z', 0.08028514559173915)
+			bevel_object.rotation_euler = euler
+			"""
+		bpy.ops.object.select_all(action='DESELECT')
+		for obj in selected_objects:
+			obj.select = True
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -1301,7 +1382,6 @@ class ModifierMenu(bpy.types.Menu):
 		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
 		self.layout.menu(ArmatureMenu.bl_idname, icon="PLUGIN")
 		self.layout.menu(BooleanMenu.bl_idname, icon="PLUGIN")
-		self.layout.menu(CurveMenu.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.separator()
 		self.layout.operator(ApplyAllModifiers.bl_idname, icon="PLUGIN")
@@ -1358,6 +1438,7 @@ class CurveMenu(bpy.types.Menu):
 	def draw(self, context):
 		self.layout.operator(QuickCurveDeform.bl_idname, icon="PLUGIN")
 		self.layout.operator(QuickArrayAndCurveDeform.bl_idname, icon="PLUGIN")
+		self.layout.operator(MoveBevelObject.bl_idname, icon="PLUGIN")
 
 class UVMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_uv"
@@ -1430,6 +1511,7 @@ def menu(self, context):
 		self.layout.menu(ParentMenu.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(CurveMenu.bl_idname, icon="PLUGIN")
 		self.layout.menu(ModifierMenu.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		column = self.layout.column()
