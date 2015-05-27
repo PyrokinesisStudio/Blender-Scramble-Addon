@@ -1292,20 +1292,13 @@ class MoveBevelObject(bpy.types.Operator):
 			empty = context.selected_objects[0]
 			const = bevel_object.constraints.new('DAMPED_TRACK')
 			const.target = empty
-			const.track_axis = 'TRACK_NEGATIVE_Z'
+			const.track_axis = 'TRACK_Z'
 			bpy.ops.object.select_all(action='DESELECT')
 			bevel_object.select = True
 			bpy.ops.object.visual_transform_apply()
 			bevel_object.constraints.remove(const)
 			context.scene.objects.unlink(empty)
 			bpy.data.objects.remove(empty)
-			"""
-			bevel_object.rotation_mode = 'XYZ'
-			euler = bevel_object.rotation_euler
-			euler.rotate_axis('Z', tilt)
-			euler.rotate_axis('Z', 0.08028514559173915)
-			bevel_object.rotation_euler = euler
-			"""
 			euler = bevel_object.rotation_euler.copy()
 			euler.rotate_axis('Z', math.radians(self.tilt))
 			bevel_object.rotation_euler = euler
