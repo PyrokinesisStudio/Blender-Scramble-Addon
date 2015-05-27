@@ -1240,12 +1240,14 @@ class MoveBevelObject(bpy.types.Operator):
 		('END', "末尾", "", 2),
 		]
 	move_position = bpy.props.EnumProperty(items=items, name="移動位置", default='END')
-	use_duplicate = bpy.props.BoolProperty(name="ベベルを複製", default=False)
+	use_duplicate = bpy.props.BoolProperty(name="ベベルを複製", default=True)
+	delete_pre_bevel = bpy.props.BoolProperty(name="前ベベルオブジェクトを削除", default=True)
 	tilt = bpy.props.FloatProperty(name="Z角度", default=0.0, min=-3.14159265359, max=3.14159265359, soft_min=-3.14159265359, soft_max=3.14159265359, step=1, precision=1, subtype='ANGLE')
 	
 	def execute(self, context):
 		bpy.ops.object.mode_set(mode='OBJECT')
 		selected_objects = context.selected_objects[:]
+		delete_objects = []
 		for obj in selected_objects:
 			if (obj.type != 'CURVE'):
 				self.report(type={'WARNING'}, message=obj.name+"はカーブではありません、無視します")
@@ -1255,6 +1257,11 @@ class MoveBevelObject(bpy.types.Operator):
 				self.report(type={'WARNING'}, message=obj.name+"にベベルオブジェクトが設定されていません、無視します")
 				continue
 			bevel_object = curve.bevel_object
+			for o in delete_objects:
+				if (obj.name == o.name):
+					break
+			else:
+				delete_objects.append(bevel_object)
 			if (self.use_duplicate):
 				bevel_object.layers = obj.layers[:]
 				bevel_object.hide = False
@@ -1302,6 +1309,12 @@ class MoveBevelObject(bpy.types.Operator):
 			euler = bevel_object.rotation_euler.copy()
 			euler.rotate_axis('Z', self.tilt)
 			bevel_object.rotation_euler = euler
+		if (self.delete_pre_bevel and self.use_duplicate):
+			for obj in delete_objects:
+				try:
+					context.scene.objects.unlink(obj)
+				except RuntimeError:
+					pass
 		bpy.ops.object.select_all(action='DESELECT')
 		for obj in selected_objects:
 			obj.select = True
