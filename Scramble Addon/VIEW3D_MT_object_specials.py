@@ -1238,6 +1238,7 @@ class MoveBevelObject(bpy.types.Operator):
 	items = [
 		('START', "先頭", "", 1),
 		('END', "末尾", "", 2),
+		('CENTER', "中心", "", 3),
 		]
 	move_position = bpy.props.EnumProperty(items=items, name="移動位置", default='END')
 	use_duplicate = bpy.props.BoolProperty(name="ベベルを複製", default=True)
@@ -1257,6 +1258,12 @@ class MoveBevelObject(bpy.types.Operator):
 				self.report(type={'WARNING'}, message=obj.name+"にベベルオブジェクトが設定されていません、無視します")
 				continue
 			bevel_object = curve.bevel_object
+			if (len(curve.splines) < 1):
+				self.report(type={'WARNING'}, message=obj.name+"内にカーブデータがありません、無視します")
+				continue
+			if (len(curve.splines[0].points) <= 2):
+				self.report(type={'WARNING'}, message=obj.name+"のセグメント数が少なすぎます、無視します")
+				continue
 			for o in delete_objects:
 				if (obj.name == o.name):
 					break
@@ -1280,6 +1287,14 @@ class MoveBevelObject(bpy.types.Operator):
 					base_point = obj.matrix_world * spline.points[-1].co
 					sub_point = obj.matrix_world * spline.points[-2].co
 					tilt = spline.points[-1].tilt
+				elif (self.move_position == 'CENTER'):
+					i = int(len(spline.points) / 2)
+					base_point = obj.matrix_world * spline.points[i].co
+					sub_point = obj.matrix_world * spline.points[i-1].co
+					tilt = spline.points[i].tilt
+				else:
+					self.report(type={'ERROR'}, message="オプションの値が不正です")
+					return {'CANCELLED'}
 			elif (spline.type == 'BEZIER'):
 				if (self.move_position == 'START'):
 					base_point = obj.matrix_world * spline.bezier_points[0].co
@@ -1289,6 +1304,14 @@ class MoveBevelObject(bpy.types.Operator):
 					base_point = obj.matrix_world * spline.bezier_points[-1].co
 					sub_point = obj.matrix_world * spline.bezier_points[-1].handle_left
 					tilt = spline.bezier_points[-1].tilt
+				elif (self.move_position == 'CENTER'):
+					i = int(len(spline.spline.bezier_points) / 2)
+					base_point = obj.matrix_world * spline.bezier_points[i].co
+					sub_point = obj.matrix_world * spline.bezier_points[i-1].handle_left
+					tilt = spline.bezier_points[i].tilt
+				else:
+					self.report(type={'ERROR'}, message="オプションの値が不正です")
+					return {'CANCELLED'}
 			else:
 				self.report(type={'WARNING'}, message=obj.name+"は対応していないタイプのカーブです、無視します")
 				continue
@@ -1297,6 +1320,7 @@ class MoveBevelObject(bpy.types.Operator):
 			bevel_object.location = base_point
 			
 			vec = sub_point - base_point
+			vec.normalize()
 			up = mathutils.Vector((0,0,1))
 			quat = up.rotation_difference(vec)
 			eul = quat.to_euler('XYZ')
