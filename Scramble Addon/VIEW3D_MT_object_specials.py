@@ -1296,7 +1296,7 @@ class MoveBevelObject(bpy.types.Operator):
 			sub_point.resize_3d()
 			bevel_object.location = base_point
 			
-			vec = base_point - sub_point
+			vec = sub_point - base_point
 			up = mathutils.Vector((0,0,1))
 			quat = up.rotation_difference(vec)
 			eul = quat.to_euler('XYZ')
