@@ -1239,7 +1239,7 @@ class MoveBevelObject(bpy.types.Operator):
 		('START', "先頭", "", 1),
 		('END', "末尾", "", 2),
 		]
-	move_position = bpy.props.EnumProperty(items=items, name="移動位置")
+	move_position = bpy.props.EnumProperty(items=items, name="移動位置", default='END')
 	use_duplicate = bpy.props.BoolProperty(name="ベベルを複製", default=False)
 	tilt = bpy.props.FloatProperty(name="Z角度", default=0.0, min=-360, max=360, soft_min=-360, soft_max=360, step=100, precision=1)
 	
