@@ -1241,7 +1241,7 @@ class MoveBevelObject(bpy.types.Operator):
 		]
 	move_position = bpy.props.EnumProperty(items=items, name="移動位置", default='END')
 	use_duplicate = bpy.props.BoolProperty(name="ベベルを複製", default=True)
-	delete_pre_bevel = bpy.props.BoolProperty(name="前ベベルオブジェクトを削除", default=True)
+	delete_pre_bevel = bpy.props.BoolProperty(name="複製元のベベルを削除", default=True)
 	tilt = bpy.props.FloatProperty(name="Z角度", default=0.0, min=-3.14159265359, max=3.14159265359, soft_min=-3.14159265359, soft_max=3.14159265359, step=1, precision=1, subtype='ANGLE')
 	
 	def execute(self, context):
@@ -1292,23 +1292,19 @@ class MoveBevelObject(bpy.types.Operator):
 			else:
 				self.report(type={'WARNING'}, message=obj.name+"は対応していないタイプのカーブです、無視します")
 				continue
-			print(base_point)
-			bevel_object.location = base_point[:3]
-			bpy.ops.object.select_all(action='DESELECT')
-			bpy.ops.object.empty_add(type='PLAIN_AXES', view_align=False, location=sub_point[:3])
-			empty = context.selected_objects[0]
-			const = bevel_object.constraints.new('DAMPED_TRACK')
-			const.target = empty
-			const.track_axis = 'TRACK_Z'
-			bpy.ops.object.select_all(action='DESELECT')
-			bevel_object.select = True
-			bpy.ops.object.visual_transform_apply()
-			bevel_object.constraints.remove(const)
-			context.scene.objects.unlink(empty)
-			bpy.data.objects.remove(empty)
-			euler = bevel_object.rotation_euler.copy()
-			euler.rotate_axis('Z', self.tilt)
-			bevel_object.rotation_euler = euler
+			base_point.resize_3d()
+			sub_point.resize_3d()
+			bevel_object.location = base_point
+			
+			vec = base_point - sub_point
+			up = mathutils.Vector((0,0,1))
+			quat = up.rotation_difference(vec)
+			eul = quat.to_euler('XYZ')
+			#eul.rotate_axis('Z', 3.141592653589793)
+			eul.rotate_axis('Z', tilt)
+			eul.rotate_axis('Z', self.tilt)
+			bevel_object.rotation_mode = 'XYZ'
+			bevel_object.rotation_euler = eul.copy()
 		if (self.delete_pre_bevel and self.use_duplicate):
 			for obj in delete_objects:
 				try:
