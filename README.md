@@ -63,6 +63,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Change the name of the image file)**
         * アクティブな画像のファイル名を変更します
         * ―(Change the file name of the active image)
+    * **画像をぼかす (重いので注意)**
+    * **―((Note the heavy) blurs an image)**
+        * アクティブな画像をぼかします
+        * ―(Blurs an image of active)
   
 * **UV/画像エディター > 「選択」メニュー**
 * **―(UV / image editor > select menu)**
