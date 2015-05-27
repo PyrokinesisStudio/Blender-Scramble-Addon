@@ -1,7 +1,7 @@
 # 3Dビュー > オブジェクトモード > 「W」キー
 
 import bpy, bmesh, mathutils
-import re, random
+import re, random, math
 
 ################
 # オペレーター #
@@ -1241,6 +1241,7 @@ class MoveBevelObject(bpy.types.Operator):
 		]
 	move_position = bpy.props.EnumProperty(items=items, name="移動位置")
 	use_duplicate = bpy.props.BoolProperty(name="ベベルを複製", default=False)
+	tilt = bpy.props.FloatProperty(name="Z角度", default=0.0, min=-360, max=360, soft_min=-360, soft_max=360, step=100, precision=1)
 	
 	def execute(self, context):
 		bpy.ops.object.mode_set(mode='OBJECT')
@@ -1305,6 +1306,9 @@ class MoveBevelObject(bpy.types.Operator):
 			euler.rotate_axis('Z', 0.08028514559173915)
 			bevel_object.rotation_euler = euler
 			"""
+			euler = bevel_object.rotation_euler.copy()
+			euler.rotate_axis('Z', math.radians(self.tilt))
+			bevel_object.rotation_euler = euler
 		bpy.ops.object.select_all(action='DESELECT')
 		for obj in selected_objects:
 			obj.select = True
