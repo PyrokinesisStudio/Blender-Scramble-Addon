@@ -115,6 +115,7 @@ class RenameImageFile(bpy.types.Operator):
 		os.remove(bpy.path.abspath(pre_filepath))
 		return {'FINISHED'}
 
+# ながとさんに協力して頂きました、感謝！
 class BlurImage(bpy.types.Operator):
 	bl_idname = "image.blur_image"
 	bl_label = "画像をぼかす (重いので注意)"
@@ -130,32 +131,39 @@ class BlurImage(bpy.types.Operator):
 		if (not img):
 			self.report(type={'ERROR'}, message="アクティブな画像が見つかりません")
 			return {'CANCELLED'}
-		img_weight, img_height, img_channels = img.size[0], img.size[1], img.channels
-		pixels = numpy.array(img.pixels)
-		pixels = pixels.reshape((img_height, img_weight, img_channels))
-		for strength_index in range(self.strength):
-			buffer_pixels = pixels.copy()
-			for y in range(img_height):
-				for x in range(img_weight):
-					for c in range(img_channels):
-						average = 0
-						average_count = 0
-						if (0 < y):
-							average += buffer_pixels[y-1][x][c]
-							average_count += 1
-						if (0 < x):
-							average += buffer_pixels[y][x-1][c]
-							average_count += 1
-						if (y < img_height-1):
-							average += buffer_pixels[y+1][x][c]
-							average_count += 1
-						if (x < img_weight-1):
-							average += buffer_pixels[y][x+1][c]
-							average_count += 1
-						average /= average_count
-						col = buffer_pixels[y][x][c]
-						pixels[y][x][c] = ( col * 2 + average ) / 3
-		img.pixels = pixels.flatten()
+		w, h, c = img.size[0], img.size[1], img.channels
+		ps = numpy.array(img.pixels)
+		lengthes = []
+		sum = 0
+		for i in range(999):
+			length = 2 ** i
+			lengthes.append(length)
+			if (self.strength < sum + length):
+				lengthes[-1] -= (sum + length) - self.strength
+				if (lengthes[-1] == 0):
+					lengthes = lengthes[:-1]
+				break
+			sum += length
+		divisor = 16 ** len(lengthes)
+		for length in lengthes:
+			for (dx, dy, endX, endY) in [(w*c, c, h, w), (c, w*c, w, h)]:
+				for (start, end, sign) in [(0, endX, 1), (endX-1, -1, -1)]:
+					dir  = sign * dx
+					diff = dir * length
+					for y in range(0, dy*endY, dy):
+						for x in range(start*dx, end*dx - diff, dir):
+							for i in range(y + x, y + x + c):
+								ps[i] = ps[i] + ps[i + diff]
+						for x in range(end*dx - diff, end*dx, dir):
+							for i in range(y + x, y + x + c):
+								ps[i] = ps[i] * 2
+		for y in range(0, h*w*c, w*c):
+			for x in range(0, w*c, c):
+				for i in range(y + x, y + x + c):
+					ps[i] = ps[i] / divisor
+		img.pixels = ps.flatten()
+		for area in context.screen.areas:
+			area.tag_redraw()
 		return {'FINISHED'}
 
 ################
