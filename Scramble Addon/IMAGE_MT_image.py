@@ -139,8 +139,12 @@ class BlurImage(bpy.types.Operator):
 			lengthes.append(length)
 			if (self.strength < sum(lengthes)):
 				lengthes[-1] -= sum(lengthes) - self.strength
-				if (lengthes[-1] == 0):
-					lengthes = lengthes[:-1]
+				if (2 <= len(lengthes)):
+					if (lengthes[-1] == 0):
+						lengthes = lengthes[:-1]
+					elif (lengthes[-1] <= lengthes[-2] / 2):
+						lengthes[-2] += lengthes[-1]
+						lengthes = lengthes[:-1]
 				break
 		divisor = 16 ** len(lengthes)
 		for length in lengthes:
