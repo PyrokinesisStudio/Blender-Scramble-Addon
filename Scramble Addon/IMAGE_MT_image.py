@@ -134,16 +134,14 @@ class BlurImage(bpy.types.Operator):
 		w, h, c = img.size[0], img.size[1], img.channels
 		ps = numpy.array(img.pixels)
 		lengthes = []
-		sum = 0
 		for i in range(999):
 			length = 2 ** i
 			lengthes.append(length)
-			if (self.strength < sum + length):
-				lengthes[-1] -= (sum + length) - self.strength
+			if (self.strength < sum(lengthes)):
+				lengthes[-1] -= sum(lengthes) - self.strength
 				if (lengthes[-1] == 0):
 					lengthes = lengthes[:-1]
 				break
-			sum += length
 		divisor = 16 ** len(lengthes)
 		for length in lengthes:
 			for (dx, dy, endX, endY) in [(w*c, c, h, w), (c, w*c, w, h)]:
