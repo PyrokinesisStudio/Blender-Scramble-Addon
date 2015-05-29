@@ -67,6 +67,18 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―((Note the heavy) blurs an image)**
         * アクティブな画像をぼかします
         * ―(Blurs an image of active)
+    * **水平反転**
+    * **―(Flip horizontally)**
+        * アクティブな画像を水平方向に反転します
+        * ―(Active image flips horizontally)
+    * **垂直反転**
+    * **―(Flip vertically)**
+        * アクティブな画像を垂直方向に反転します
+        * ―(Active image flips vertical)
+    * **180°回転**
+    * **―(Rotate 180 degrees)**
+        * アクティブな画像を180°回転します
+        * ―(Active image rotates 180 °)
   
 * **UV/画像エディター > 「選択」メニュー**
 * **―(UV / image editor > select menu)**

@@ -168,6 +168,80 @@ class BlurImage(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class ReverseWidthImage(bpy.types.Operator):
+	bl_idname = "image.reverse_width_image"
+	bl_label = "水平反転"
+	bl_description = "アクティブな画像を水平方向に反転します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		img = context.edit_image
+		if (not img):
+			self.report(type={'ERROR'}, message="アクティブな画像が見つかりません")
+			return {'CANCELLED'}
+		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
+		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
+		for i in range(img_height):
+			pixels[i] = pixels[i][::-1]
+		img.pixels = pixels.flatten()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
+class ReverseHeightImage(bpy.types.Operator):
+	bl_idname = "image.reverse_height_image"
+	bl_label = "垂直反転"
+	bl_description = "アクティブな画像を垂直方向に反転します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		img = context.edit_image
+		if (not img):
+			self.report(type={'ERROR'}, message="アクティブな画像が見つかりません")
+			return {'CANCELLED'}
+		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
+		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
+		pixels = pixels[::-1]
+		img.pixels = pixels.flatten()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
+class Rotate180Image(bpy.types.Operator):
+	bl_idname = "image.rotate_180_image"
+	bl_label = "180°回転"
+	bl_description = "アクティブな画像を180°回転します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		img = context.edit_image
+		if (not img):
+			self.report(type={'ERROR'}, message="アクティブな画像が見つかりません")
+			return {'CANCELLED'}
+		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
+		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
+		for i in range(img_height):
+			pixels[i] = pixels[i][::-1]
+		pixels = pixels[::-1]
+		img.pixels = pixels.flatten()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
+################
+# サブメニュー #
+################
+
+class TransformMenu(bpy.types.Menu):
+	bl_idname = "IMAGE_MT_image_transform"
+	bl_label = "変形"
+	bl_description = "画像の変形処理メニューです"
+	
+	def draw(self, context):
+		self.layout.operator(ReverseWidthImage.bl_idname, icon="PLUGIN")
+		self.layout.operator(ReverseHeightImage.bl_idname, icon="PLUGIN")
+		self.layout.operator(Rotate180Image.bl_idname, icon="PLUGIN")
+
 ################
 # メニュー追加 #
 ################
@@ -186,6 +260,7 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.operator(FillColor.bl_idname, icon="PLUGIN")
 		self.layout.operator(BlurImage.bl_idname, icon="PLUGIN")
+		self.layout.menu(TransformMenu.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(RenameImageFile.bl_idname, icon="PLUGIN")
 		self.layout.operator(RenameImageFileName.bl_idname, icon="PLUGIN")
