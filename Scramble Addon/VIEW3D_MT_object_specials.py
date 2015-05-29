@@ -1242,9 +1242,12 @@ class MoveBevelObject(bpy.types.Operator):
 		]
 	move_position = bpy.props.EnumProperty(items=items, name="移動位置", default='END')
 	use_duplicate = bpy.props.BoolProperty(name="ベベルを複製", default=True)
-	delete_pre_bevel = bpy.props.BoolProperty(name="複製元のベベルを削除", default=True)
+	delete_pre_bevel = bpy.props.BoolProperty(name="複製元のベベルを削除", default=False)
 	tilt = bpy.props.FloatProperty(name="Z角度", default=0.0, min=-3.14159265359, max=3.14159265359, soft_min=-3.14159265359, soft_max=3.14159265359, step=1, precision=1, subtype='ANGLE')
+	use_2d = bpy.props.BoolProperty(name="2Dカーブに", default=True)
 	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
 	def execute(self, context):
 		bpy.ops.object.mode_set(mode='OBJECT')
 		selected_objects = context.selected_objects[:]
@@ -1270,13 +1273,18 @@ class MoveBevelObject(bpy.types.Operator):
 			else:
 				delete_objects.append(bevel_object)
 			if (self.use_duplicate):
+				pre_layers = bevel_object.layers[:]
 				bevel_object.layers = obj.layers[:]
 				bevel_object.hide = False
 				bpy.ops.object.select_all(action='DESELECT')
 				bevel_object.select = True
 				bpy.ops.object.duplicate()
+				bevel_object.layers = pre_layers[:]
 				bevel_object = context.selected_objects[0]
 				curve.bevel_object = bevel_object
+			if (self.use_2d):
+				bevel_object.data.dimensions = '2D'
+				bevel_object.data.fill_mode = 'NONE'
 			spline = curve.splines[0]
 			if (spline.type == 'NURBS'):
 				if (self.move_position == 'START'):
