@@ -163,7 +163,7 @@ class BlurImage(bpy.types.Operator):
 			for x in range(0, w*c, c):
 				for i in range(y + x, y + x + c):
 					ps[i] = ps[i] / divisor
-		img.pixels = ps.flatten()
+		img.pixels = ps.tolist()
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
