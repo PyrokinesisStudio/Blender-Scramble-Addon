@@ -379,6 +379,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなテクスチャスロットを一番下に移動させます
         * ―(Move the active texture slot at the bottom)
   
+* **ユーザー設定 > ヘッダー**
+* **―(User settings > header)**
+    * **キーコンフィグを全て閉じる**
+    * **―(Close all game)**
+        * キーコンフィグのメニューを全て折りたたみます
+        * ―(Collapses all the game menu)
+  
 * **3Dビュー > アーマチュア編集モード > 「W」キー**
 * **―(3D view > armature edit mode > 'W' key)**
     * **選択ボーンをミラーリング**

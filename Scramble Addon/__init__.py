@@ -60,6 +60,7 @@ if "bpy" in locals():
 	imp.reload(VIEW3D_MT_view_align_selected)
 	imp.reload(VIEW3D_MT_snap)
 	imp.reload(VIEW3D_MT_uv_map)
+	imp.reload(USERPREF_HT_header)
 else:
 	from . import IMAGE_MT_image
 	from . import IMAGE_MT_select
@@ -102,6 +103,7 @@ else:
 	from . import VIEW3D_MT_view_align_selected
 	from . import VIEW3D_MT_snap
 	from . import VIEW3D_MT_uv_map
+	from . import USERPREF_HT_header
 import bpy
 
 # アドオン設定
@@ -205,6 +207,7 @@ def register():
 	bpy.types.VIEW3D_MT_view_align_selected.append(VIEW3D_MT_view_align_selected.menu)
 	bpy.types.VIEW3D_MT_snap.append(VIEW3D_MT_snap.menu)
 	bpy.types.VIEW3D_MT_uv_map.append(VIEW3D_MT_uv_map.menu)
+	bpy.types.USERPREF_HT_header.append(USERPREF_HT_header.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -253,6 +256,7 @@ def unregister():
 	bpy.types.VIEW3D_MT_view_align_selected.remove(VIEW3D_MT_view_align_selected.menu)
 	bpy.types.VIEW3D_MT_snap.remove(VIEW3D_MT_snap.menu)
 	bpy.types.VIEW3D_MT_uv_map.remove(VIEW3D_MT_uv_map.menu)
+	bpy.types.USERPREF_HT_header.remove(USERPREF_HT_header.menu)
 
 # メイン関数
 if __name__ == "__main__":
