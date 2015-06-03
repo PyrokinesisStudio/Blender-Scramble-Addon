@@ -111,7 +111,7 @@ class AddonPreferences(bpy.types.AddonPreferences):
 	bl_idname = __name__
 	
 	disabled_menu = bpy.props.StringProperty(name="無効なメニュー", default="")
-	use_disabled_menu = bpy.props.BoolProperty(name="「追加項目のオン/オフ」の非表示", default=True)
+	use_disabled_menu = bpy.props.BoolProperty(name="「追加項目のオン/オフ」の非表示", default=False)
 	view_savedata = bpy.props.StringProperty(name="視点のセーブデータ", default="")
 	
 	def draw(self, context):
