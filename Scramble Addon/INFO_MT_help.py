@@ -15,36 +15,6 @@ except:
 # オペレーター #
 ################
 
-class RegisterBlendFile(bpy.types.Operator):
-	bl_idname = "system.register_blend_file"
-	bl_label = ".blendファイルをこのバージョンに関連付け"
-	bl_description = ".blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)"
-	bl_options = {'REGISTER'}
-	
-	def execute(self, context):
-		winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\.blend", winreg.REG_SZ, 'blend_auto_file')
-		winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\blend_auto_file\shell\open\command", winreg.REG_SZ, '"'+sys.argv[0]+'" "%1"')
-		self.report(type={"INFO"}, message=".blendファイルをこの実行ファイルに関連付けました")
-		return {'FINISHED'}
-
-class RegisterBlendBackupFiles(bpy.types.Operator):
-	bl_idname = "system.register_blend_backup_files"
-	bl_label = "バックアップをこのバージョンに関連付け"
-	bl_description = ".blend1 .blend2 などのバックアップファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)"
-	bl_options = {'REGISTER'}
-	
-	max = bpy.props.IntProperty(name=".blend1～.blendN まで", default=10, min=1, max=1000, soft_min=1, soft_max=1000)
-	
-	def invoke(self, context, event):
-		return context.window_manager.invoke_props_dialog(self)
-	def execute(self, context):
-		winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\blend1_auto_file\shell\open\command", winreg.REG_SZ, '"'+sys.argv[0]+'" "%1"')
-		for i in range(self.max):
-			i += 1
-			winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\.blend"+str(i), winreg.REG_SZ, 'blend1_auto_file')
-		self.report(type={"INFO"}, message="バックアップファイルをこの実行ファイルに関連付けました")
-		return {'FINISHED'}
-
 class UpdateScrambleAddon(bpy.types.Operator):
 	bl_idname = "script.update_scramble_addon"
 	bl_label = "Blender-Scramble-Addonを更新"
@@ -86,16 +56,6 @@ class ToggleDisabledMenu(bpy.types.Operator):
 # サブメニュー #
 ################
 
-class AssociateMenu(bpy.types.Menu):
-	bl_idname = "VIEW3D_MT_help_associate"
-	bl_label = "関連付け関係"
-	bl_description = "関連付け関係のメニューです (WindowsOSのみ)"
-	
-	def draw(self, context):
-		column = self.layout.column()
-		column.operator(RegisterBlendFile.bl_idname, icon="PLUGIN")
-		column.operator(RegisterBlendBackupFiles.bl_idname, icon="PLUGIN")
-
 ################
 # メニュー追加 #
 ################
@@ -111,8 +71,6 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		self.layout.separator()
-		self.layout.menu(AssociateMenu.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(UpdateScrambleAddon.bl_idname, icon="PLUGIN")
 	self.layout.separator()
