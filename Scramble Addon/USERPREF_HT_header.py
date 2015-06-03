@@ -539,5 +539,5 @@ class SystemAssociateMenu(bpy.types.Menu):
 def menu(self, context):
 	if (context.user_preferences.active_section == 'INPUT'):
 		self.layout.menu(InputMenu.bl_idname, icon="PLUGIN")
-	elif (context.user_preferences.active_section == 'SYSTEM'):
+	elif (context.user_preferences.active_section == 'FILES'):
 		self.layout.menu(SystemAssociateMenu.bl_idname, icon="PLUGIN")
