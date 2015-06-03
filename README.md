@@ -198,22 +198,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Update Blender-Scramble-Addon)**
         * Blender-Scramble-Addonをダウンロード・更新を済ませます
         * ―(Downloads, updates and check out Blender-Scramble-Addon)
-    * **ショートカット一覧をブラウザで閲覧**
-    * **―(View in browser shortcut list)**
-        * Blenderの全てのショートカットをブラウザで確認出来ます
-        * ―(Please see the browser all shortcuts in Blender)
-    * **最後のコマンドをショートカットに登録**
-    * **―(Last command create shortcut)**
-        * 最後に実行したコマンドをショートカットに登録します
-        * ―(Last command create shortcut)
     * **「追加項目のオン/オフ」の表示切り替え**
     * **―(Toggle on/off additional items)**
         * ScrambleAddonによるメニューの末尾の「追加項目のオン/オフ」ボタンの表示/非表示を切り替えます
         * ―(Turns on/off additional items button at the end of the menu by ScrambleAddon)
-    * **割り当ての無いショートカット一覧**
-    * **―(Without assigning shortcut list)**
-        * 現在の編集モードでの割り当ての無いキーを「情報」エリアに表示します
-        * ―(Displays the key assignments in the current editing mode without information area)
   
 * **3Dビュー > オブジェクト/メッシュ編集モード > 「追加」メニュー > 「メッシュ」メニュー**
 * **―(3D view > object / mesh edit mode > "add" menu > "mesh" menu)**
@@ -385,6 +373,18 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Close all game)**
         * キーコンフィグのメニューを全て折りたたみます
         * ―(Collapses all the game menu)
+    * **ショートカット一覧をブラウザで閲覧**
+    * **―(View in browser shortcut list)**
+        * Blenderの全てのショートカットをブラウザで確認出来ます
+        * ―(Please see the browser all shortcuts in Blender)
+    * **最後のコマンドをショートカットに登録**
+    * **―(Last command create shortcut)**
+        * 最後に実行したコマンドをショートカットに登録します
+        * ―(Last command create shortcut)
+    * **割り当ての無いショートカット一覧**
+    * **―(Without assigning shortcut list)**
+        * 現在の編集モードでの割り当ての無いキーを「情報」エリアに表示します
+        * ―(Displays the key assignments in the current editing mode without information area)
   
 * **3Dビュー > アーマチュア編集モード > 「W」キー**
 * **―(3D view > armature edit mode > 'W' key)**
