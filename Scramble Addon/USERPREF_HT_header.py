@@ -494,7 +494,7 @@ class ImportKeyConfigXml(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="このファイルはBlenderキーコンフィグXMLファイルではありません")
 			return {'CANCELLED'}
 		try:
-			if (root.attrib['Version'] != '1.0'):
+			if (root.attrib['Version'] != '1.1'):
 				self.report(type={'ERROR'}, message="このBlenderキーコンフィグXMLファイルのバージョンには対応していません")
 				return {'CANCELLED'}
 		except KeyError:
@@ -526,25 +526,28 @@ class ImportKeyConfigXml(bpy.types.Operator):
 					type = key_map_item_elem.find('Type').text
 					if (not type):
 						continue
-					any = False
-					if ('Any' in key_map_item_elem.find('Modifiers').attrib):
-						shift, ctrl, alt, any = True, True, True, True
+					if (key_map_item_elem.find('Modifiers') != None):
+						any = False
+						if ('Any' in key_map_item_elem.find('Modifiers').attrib):
+							shift, ctrl, alt, any = True, True, True, True
+						else:
+							shift = False
+							if ('Shift' in key_map_item_elem.find('Modifiers').attrib):
+								shift = bool(int(key_map_item_elem.find('Modifiers').attrib['Shift']))
+							ctrl = False
+							if ('Ctrl' in key_map_item_elem.find('Modifiers').attrib):
+								ctrl = bool(int(key_map_item_elem.find('Modifiers').attrib['Ctrl']))
+							alt = False
+							if ('Alt' in key_map_item_elem.find('Modifiers').attrib):
+								alt = bool(int(key_map_item_elem.find('Modifiers').attrib['Alt']))
+						os = False
+						if ('OS' in key_map_item_elem.find('Modifiers').attrib):
+							os = bool(int(key_map_item_elem.find('Modifiers').attrib['OS']))
+						key_modifier = 'NONE'
+						if ('KeyModifier' in key_map_item_elem.find('Modifiers').attrib):
+							key_modifier = key_map_item_elem.find('Modifiers').attrib['KeyModifier']
 					else:
-						shift = False
-						if ('Shift' in key_map_item_elem.find('Modifiers').attrib):
-							shift = True
-						ctrl = False
-						if ('Ctrl' in key_map_item_elem.find('Modifiers').attrib):
-							ctrl = True
-						alt = False
-						if ('Alt' in key_map_item_elem.find('Modifiers').attrib):
-							alt = True
-					os = False
-					if ('OS' in key_map_item_elem.find('Modifiers').attrib):
-						os = True
-					key_modifier = 'NONE'
-					if ('KeyModifier' in key_map_item_elem.find('Modifiers').attrib):
-						key_modifier = key_map_item_elem.find('Modifiers').attrib['KeyModifier']
+						any, shift, ctrl, alt, os, key_modifier = False, False, False, False, False, 'NONE'
 					key_map_item = key_map.keymap_items.new(id_name, type, value, any, shift, ctrl, alt, os, key_modifier)
 					key_map_item.active = active
 					try:
@@ -578,7 +581,7 @@ class ExportKeyConfigXml(bpy.types.Operator):
 	filepath = bpy.props.StringProperty(subtype='FILE_PATH')
 	
 	def execute(self, context):
-		data = ElementTree.Element('BlenderKeyConfig', {'Version':'1.0'})
+		data = ElementTree.Element('BlenderKeyConfig', {'Version':'1.1'})
 		for keyconfig in [context.window_manager.keyconfigs.user]:
 			keyconfig_elem = ElementTree.SubElement(data, 'KeyConfig', {'name':keyconfig.name})
 			for keymap in keyconfig.keymaps:
@@ -588,9 +591,10 @@ class ExportKeyConfigXml(bpy.types.Operator):
 				for keymap_item in keymap.keymap_items:
 					if (keymap_item.idname == ''):
 						continue
-					keymap_item_elem = ElementTree.SubElement(keymap_elem, 'KeyMapItem',
-						{'name':keymap_item.name,
-						'Active':str(int(keymap_item.active))})
+					attrib = {'name':keymap_item.name}
+					if (not keymap_item.active):
+						attrib['Active'] = '0'
+					keymap_item_elem = ElementTree.SubElement(keymap_elem, 'KeyMapItem', attrib)
 					ElementTree.SubElement(keymap_item_elem, 'IDName').text = keymap_item.idname
 					attrib = {}
 					if (keymap_item.map_type != 'KEYBOARD'):
@@ -600,19 +604,20 @@ class ExportKeyConfigXml(bpy.types.Operator):
 					ElementTree.SubElement(keymap_item_elem, 'Type', attrib).text = keymap_item.type
 					attrib = {}
 					if (keymap_item.any):
-						attrib['Any'] = 'True'
+						attrib['Any'] = '1'
 					else:
 						if (keymap_item.shift):
-							attrib['Shift'] = 'True'
+							attrib['Shift'] = '1'
 						if (keymap_item.ctrl):
-							attrib['Ctrl'] = 'True'
+							attrib['Ctrl'] = '1'
 						if (keymap_item.alt):
-							attrib['Alt'] = 'True'
+							attrib['Alt'] = '1'
 						if (keymap_item.oskey):
-							attrib['OS'] = 'True'
+							attrib['OS'] = '1'
 						if (keymap_item.key_modifier != 'NONE'):
 							attrib['KeyModifier'] = keymap_item.key_modifier
-					ElementTree.SubElement(keymap_item_elem, 'Modifiers', attrib)
+					if (0 < len(attrib)):
+						ElementTree.SubElement(keymap_item_elem, 'Modifiers', attrib)
 					if (keymap_item.properties):
 						if (0 < len(keymap_item.properties.keys())):
 							properties_elem = ElementTree.SubElement(keymap_item_elem, 'Properties')
