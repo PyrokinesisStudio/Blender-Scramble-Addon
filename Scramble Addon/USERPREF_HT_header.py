@@ -602,7 +602,6 @@ class ExportKeyConfigXml(bpy.types.Operator):
 					if (not keymap_item.active):
 						attrib['Active'] = '0'
 					keymap_item_elem = ElementTree.SubElement(keymap_elem, 'KeyMapItem', attrib)
-					ElementTree.SubElement(keymap_item_elem, 'Command').text = keymap_item.idname
 					attrib = {}
 					if (keymap_item.map_type != 'KEYBOARD'):
 						attrib['Type'] = keymap_item.map_type
@@ -622,6 +621,7 @@ class ExportKeyConfigXml(bpy.types.Operator):
 						if (keymap_item.key_modifier != 'NONE'):
 							attrib['KeyModifier'] = keymap_item.key_modifier
 					ElementTree.SubElement(keymap_item_elem, 'Key', attrib).text = keymap_item.type
+					ElementTree.SubElement(keymap_item_elem, 'Command').text = keymap_item.idname
 					if (keymap_item.properties):
 						if (0 < len(keymap_item.properties.keys())):
 							for property_name in keymap_item.properties.keys():
