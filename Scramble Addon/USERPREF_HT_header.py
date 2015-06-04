@@ -484,6 +484,7 @@ class ImportKeyConfigXml(bpy.types.Operator):
 	filepath = bpy.props.StringProperty(subtype='FILE_PATH')
 	
 	def execute(self, context):
+		context.user_preferences.addons["Scramble Addon"].preferences.key_config_xml_path = self.filepath
 		try:
 			tree = ElementTree.parse(self.filepath)
 		except:
@@ -494,7 +495,7 @@ class ImportKeyConfigXml(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="このファイルはBlenderキーコンフィグXMLファイルではありません")
 			return {'CANCELLED'}
 		try:
-			if (root.attrib['Version'] != '1.1'):
+			if (root.attrib['Version'] != '1.2'):
 				self.report(type={'ERROR'}, message="このBlenderキーコンフィグXMLファイルのバージョンには対応していません")
 				return {'CANCELLED'}
 		except KeyError:
@@ -514,48 +515,47 @@ class ImportKeyConfigXml(bpy.types.Operator):
 					active = True
 					if ('Active' in key_map_item_elem.attrib):
 						active = bool(int(key_map_item_elem.attrib['Active']))
-					id_name = key_map_item_elem.find('IDName').text
+					id_name = key_map_item_elem.find('Command').text
 					if (not id_name):
 						continue
-					map_type = 'KEYBOARD'
-					if ('MapType' in key_map_item_elem.find('Type').attrib):
-						map_type = key_map_item_elem.find('Type').attrib['MapType']
-					value = 'PRESS'
-					if ('Value' in key_map_item_elem.find('Type').attrib):
-						value = key_map_item_elem.find('Type').attrib['Value']
-					type = key_map_item_elem.find('Type').text
+					key_elem = key_map_item_elem.find('Key')
+					type = key_elem.text
 					if (not type):
 						continue
-					if (key_map_item_elem.find('Modifiers') != None):
-						any = False
-						if ('Any' in key_map_item_elem.find('Modifiers').attrib):
-							shift, ctrl, alt, any = True, True, True, True
-						else:
-							shift = False
-							if ('Shift' in key_map_item_elem.find('Modifiers').attrib):
-								shift = bool(int(key_map_item_elem.find('Modifiers').attrib['Shift']))
-							ctrl = False
-							if ('Ctrl' in key_map_item_elem.find('Modifiers').attrib):
-								ctrl = bool(int(key_map_item_elem.find('Modifiers').attrib['Ctrl']))
-							alt = False
-							if ('Alt' in key_map_item_elem.find('Modifiers').attrib):
-								alt = bool(int(key_map_item_elem.find('Modifiers').attrib['Alt']))
-						os = False
-						if ('OS' in key_map_item_elem.find('Modifiers').attrib):
-							os = bool(int(key_map_item_elem.find('Modifiers').attrib['OS']))
-						key_modifier = 'NONE'
-						if ('KeyModifier' in key_map_item_elem.find('Modifiers').attrib):
-							key_modifier = key_map_item_elem.find('Modifiers').attrib['KeyModifier']
+					map_type = 'KEYBOARD'
+					if ('Type' in key_elem.attrib):
+						map_type = key_elem.attrib['Type']
+					value = 'PRESS'
+					if ('Value' in key_elem.attrib):
+						value = key_elem.attrib['Value']
+					if (not type):
+						continue
+					any = False
+					if ('Any' in key_elem.attrib):
+						shift, ctrl, alt, any = True, True, True, True
 					else:
-						any, shift, ctrl, alt, os, key_modifier = False, False, False, False, False, 'NONE'
+						shift = False
+						if ('Shift' in key_elem.attrib):
+							shift = bool(int(key_elem.attrib['Shift']))
+						ctrl = False
+						if ('Ctrl' in key_elem.attrib):
+							ctrl = bool(int(key_elem.attrib['Ctrl']))
+						alt = False
+						if ('Alt' in key_elem.attrib):
+							alt = bool(int(key_elem.attrib['Alt']))
+					os = False
+					if ('OS' in key_elem.attrib):
+						os = bool(int(key_elem.attrib['OS']))
+					key_modifier = 'NONE'
+					if ('KeyModifier' in key_elem.attrib):
+						key_modifier = key_elem.attrib['KeyModifier']
 					key_map_item = key_map.keymap_items.new(id_name, type, value, any, shift, ctrl, alt, os, key_modifier)
 					key_map_item.active = active
-					try:
-						properties = key_map_item_elem.find('Properties').findall('Property')
-						for property in properties:
-							property_name = property.attrib['Name']
-							property_type = property.attrib['Type']
-							property_value = property.text
+					for property_elem in key_map_item_elem.findall('Property'):
+						try:
+							property_name = property_elem.attrib['Name']
+							property_type = property_elem.attrib['Type']
+							property_value = property_elem.text
 							if (property_type == 'int'):
 								key_map_item.properties[property_name] = int(property_value)
 							elif (property_type == 'float'):
@@ -564,11 +564,11 @@ class ImportKeyConfigXml(bpy.types.Operator):
 								key_map_item.properties[property_name] = str(property_value)
 							else:
 								print("Unknown Type: " + property_type)
-					except AttributeError:
-						pass
+						except AttributeError:
+							continue
 		return {'FINISHED'}
 	def invoke(self, context, event):
-		self.filepath = "BlenderKeyConfig.xml"
+		self.filepath = context.user_preferences.addons["Scramble Addon"].preferences.key_config_xml_path
 		context.window_manager.fileselect_add(self)
 		return {'RUNNING_MODAL'}
 
@@ -581,7 +581,8 @@ class ExportKeyConfigXml(bpy.types.Operator):
 	filepath = bpy.props.StringProperty(subtype='FILE_PATH')
 	
 	def execute(self, context):
-		data = ElementTree.Element('BlenderKeyConfig', {'Version':'1.1'})
+		context.user_preferences.addons["Scramble Addon"].preferences.key_config_xml_path = self.filepath
+		data = ElementTree.Element('BlenderKeyConfig', {'Version':'1.2'})
 		for keyconfig in [context.window_manager.keyconfigs.user]:
 			keyconfig_elem = ElementTree.SubElement(data, 'KeyConfig', {'name':keyconfig.name})
 			for keymap in keyconfig.keymaps:
@@ -595,14 +596,12 @@ class ExportKeyConfigXml(bpy.types.Operator):
 					if (not keymap_item.active):
 						attrib['Active'] = '0'
 					keymap_item_elem = ElementTree.SubElement(keymap_elem, 'KeyMapItem', attrib)
-					ElementTree.SubElement(keymap_item_elem, 'IDName').text = keymap_item.idname
+					ElementTree.SubElement(keymap_item_elem, 'Command').text = keymap_item.idname
 					attrib = {}
 					if (keymap_item.map_type != 'KEYBOARD'):
-						attrib['MapType'] = keymap_item.map_type
+						attrib['Type'] = keymap_item.map_type
 					if (keymap_item.value != 'PRESS'):
 						attrib['Value'] = keymap_item.value
-					ElementTree.SubElement(keymap_item_elem, 'Type', attrib).text = keymap_item.type
-					attrib = {}
 					if (keymap_item.any):
 						attrib['Any'] = '1'
 					else:
@@ -616,29 +615,17 @@ class ExportKeyConfigXml(bpy.types.Operator):
 							attrib['OS'] = '1'
 						if (keymap_item.key_modifier != 'NONE'):
 							attrib['KeyModifier'] = keymap_item.key_modifier
-					if (0 < len(attrib)):
-						ElementTree.SubElement(keymap_item_elem, 'Modifiers', attrib)
+					ElementTree.SubElement(keymap_item_elem, 'Key', attrib).text = keymap_item.type
 					if (keymap_item.properties):
 						if (0 < len(keymap_item.properties.keys())):
-							properties_elem = ElementTree.SubElement(keymap_item_elem, 'Properties')
 							for property_name in keymap_item.properties.keys():
 								property = keymap_item.properties[property_name]
 								property_type = type(property).__name__
 								if (property_type == 'IDPropertyGroup'):
 									pass
-									"""
-									for name in property.keys():
-										property_sub = property[name]
-										if (len(property_sub.keys()) == 0):
-											print("suru-")
-											continue
-										property_type = type(property_sub).__name__
-										elem = ElementTree.SubElement(property_elem, 'Property', {'Type':property_type})
-										elem.text = str(property_sub)
-									"""
 								else:
 									if (property != ''):
-										property_elem = ElementTree.SubElement(properties_elem, 'Property',
+										property_elem = ElementTree.SubElement(keymap_item_elem, 'Property',
 											{'Type':property_type,
 											'Name':property_name})
 										property_elem.text = str(property)
@@ -649,7 +636,7 @@ class ExportKeyConfigXml(bpy.types.Operator):
 		f.close()
 		return {'FINISHED'}
 	def invoke(self, context, event):
-		self.filepath = "BlenderKeyConfig.xml"
+		self.filepath = context.user_preferences.addons["Scramble Addon"].preferences.key_config_xml_path
 		context.window_manager.fileselect_add(self)
 		return {'RUNNING_MODAL'}
 
