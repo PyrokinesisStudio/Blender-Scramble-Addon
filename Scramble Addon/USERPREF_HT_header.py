@@ -355,6 +355,8 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		return {'FINISHED'}
 	def invoke(self, context, event):
 		pre_clipboard = context.window_manager.clipboard
+		pre_area_type = context.area.type
+		context.area.type = 'INFO'
 		if (not self.is_clipboard):
 			for area in context.screen.areas:
 				area.tag_redraw()
@@ -365,6 +367,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 				if (context.window_manager.clipboard != ""):
 					break
 			bpy.ops.info.select_all_toggle()
+		context.area.type = pre_area_type
 		commands = context.window_manager.clipboard.split("\n")
 		context.window_manager.clipboard = pre_clipboard
 		if (commands[-1] == ''):
