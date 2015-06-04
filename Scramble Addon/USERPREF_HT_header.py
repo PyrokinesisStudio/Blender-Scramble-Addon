@@ -482,6 +482,11 @@ class ImportKeyConfigXml(bpy.types.Operator):
 	bl_options = {'REGISTER'}
 	
 	filepath = bpy.props.StringProperty(subtype='FILE_PATH')
+	items = [
+		('RESET', "リセット", "", 1),
+		('ADD', "追加", "", 2),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="モード", default='ADD')
 	
 	def execute(self, context):
 		context.user_preferences.addons["Scramble Addon"].preferences.key_config_xml_path = self.filepath
@@ -509,8 +514,9 @@ class ImportKeyConfigXml(bpy.types.Operator):
 				key_map = key_config.keymaps[key_map_name]
 				if (key_map.is_modal):
 					continue
-				for key_map_item in key_map.keymap_items:
-					key_map.keymap_items.remove(key_map_item)
+				if (self.mode == 'RESET'):
+					for key_map_item in key_map.keymap_items:
+						key_map.keymap_items.remove(key_map_item)
 				for key_map_item_elem in key_map_elem.findall('KeyMapItem'):
 					active = True
 					if ('Active' in key_map_item_elem.attrib):
