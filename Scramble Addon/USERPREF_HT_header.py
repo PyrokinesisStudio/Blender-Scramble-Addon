@@ -10,6 +10,8 @@ try:
 	import winreg
 except:
 	pass
+from xml.dom import minidom
+import xml.etree.ElementTree as ElementTree
 
 ################################
 # オペレーター(ショートカット) #
@@ -470,6 +472,178 @@ class ShowEmptyShortcuts(bpy.types.Operator):
 				self.report(type={'INFO'}, message = key_names[key]+" ")
 		return {'FINISHED'}
 
+class ImportKeyConfigXml(bpy.types.Operator):
+	bl_idname = "file.import_key_config_xml"
+	bl_label = "キーコンフィグをXMLでインポート"
+	bl_description = "キーコンフィグをXML形式で読み込みます"
+	bl_options = {'REGISTER'}
+	
+	filepath = bpy.props.StringProperty(subtype='FILE_PATH')
+	
+	def execute(self, context):
+		try:
+			tree = ElementTree.parse(self.filepath)
+		except:
+			self.report(type={'ERROR'}, message="XMLファイルの読み込みに失敗しました")
+			return {'CANCELLED'}
+		root = tree.getroot()
+		if (root.tag != 'BlenderKeyConfig'):
+			self.report(type={'ERROR'}, message="このファイルはBlenderキーコンフィグXMLファイルではありません")
+			return {'CANCELLED'}
+		try:
+			if (root.attrib['Version'] != '1.0'):
+				self.report(type={'ERROR'}, message="このBlenderキーコンフィグXMLファイルのバージョンには対応していません")
+				return {'CANCELLED'}
+		except KeyError:
+			self.report(type={'ERROR'}, message="BlenderキーコンフィグXMLファイルのバージョンを確認できませんでした")
+			return {'CANCELLED'}
+		for key_config_elem in root.findall('KeyConfig'):
+			key_config_name = key_config_elem.attrib['name']
+			key_config = context.window_manager.keyconfigs[key_config_name]
+			for key_map_elem in key_config_elem.findall('KeyMap'):
+				key_map_name = key_map_elem.attrib['name']
+				key_map = key_config.keymaps[key_map_name]
+				
+				for key_map_item in key_map.keymap_items:
+					key_map.keymap_items.remove(key_map_item)
+				
+				for key_map_item_elem in key_map_elem.findall('KeyMapItem'):
+					active = key_map_item_elem.attrib['Active']
+					id_name = key_map_item_elem.find('IDName').text
+					if (not id_name):
+						continue
+					
+					map_type = 'KEYBOARD'
+					if ('MapType' in key_map_item_elem.find('Type').attrib):
+						map_type = key_map_item_elem.find('Type').attrib['MapType']
+					value = 'PRESS'
+					if ('Value' in key_map_item_elem.find('Type').attrib):
+						value = key_map_item_elem.find('Type').attrib['Value']
+					type = key_map_item_elem.find('Type').text
+					
+					any = False
+					if ('Any' in key_map_item_elem.find('Modifiers').attrib):
+						shift = True
+						ctrl = True
+						alt = True
+						any = True
+					else:
+						shift = False
+						if ('Shift' in key_map_item_elem.find('Modifiers').attrib):
+							shift = True
+						ctrl = False
+						if ('Ctrl' in key_map_item_elem.find('Modifiers').attrib):
+							ctrl = True
+						alt = False
+						if ('Alt' in key_map_item_elem.find('Modifiers').attrib):
+							alt = True
+					os = False
+					if ('OS' in key_map_item_elem.find('Modifiers').attrib):
+						os = True
+					key_modifier = 'NONE'
+					if ('KeyModifier' in key_map_item_elem.find('Modifiers').attrib):
+						key_modifier = key_map_item_elem.find('Modifiers').attrib['KeyModifier']
+					
+					key_map_item = key_map.keymap_items.new(id_name, type, value, any, shift, ctrl, alt, os, key_modifier)
+					
+					try:
+						properties = key_map_item_elem.find('Properties').findall('Property')
+						for property in properties:
+							property_name = property.attrib['Name']
+							property_type = property.attrib['Type']
+							property_value = property.text
+							if (property_type == 'int'):
+								key_map_item.properties[property_name] = int(property_value)
+							elif (property_type == 'float'):
+								key_map_item.properties[property_name] = float(property_value)
+							elif (property_type == 'str'):
+								key_map_item.properties[property_name] = str(property_value)
+							else:
+								print(property_type)
+					except AttributeError:
+						pass
+		return {'FINISHED'}
+	def invoke(self, context, event):
+		self.filepath = "BlenderKeyConfig.xml"
+		context.window_manager.fileselect_add(self)
+		return {'RUNNING_MODAL'}
+class ExportKeyConfigXml(bpy.types.Operator):
+	bl_idname = "file.export_key_config_xml"
+	bl_label = "キーコンフィグをXMLでエクスポート"
+	bl_description = "キーコンフィグをXML形式で保存します"
+	bl_options = {'REGISTER'}
+	
+	filepath = bpy.props.StringProperty(subtype='FILE_PATH')
+	
+	def execute(self, context):
+		data = ElementTree.Element('BlenderKeyConfig', {'Version':'1.0'})
+		for keyconfig in [context.window_manager.keyconfigs.user]:
+			keyconfig_elem = ElementTree.SubElement(data, 'KeyConfig', {'name':keyconfig.name})
+			for keymap in keyconfig.keymaps:
+				keymap_elem = ElementTree.SubElement(keyconfig_elem, 'KeyMap', {'name':keymap.name})
+				for keymap_item in keymap.keymap_items:
+					if (keymap_item.idname == ''):
+						continue
+					keymap_item_elem = ElementTree.SubElement(keymap_elem, 'KeyMapItem',
+						{'name':keymap_item.name,
+						'Active':str(int(keymap_item.active))})
+					ElementTree.SubElement(keymap_item_elem, 'IDName').text = keymap_item.idname
+					attrib = {}
+					if (keymap_item.map_type != 'KEYBOARD'):
+						attrib['MapType'] = keymap_item.map_type
+					if (keymap_item.value != 'PRESS'):
+						attrib['Value'] = keymap_item.value
+					ElementTree.SubElement(keymap_item_elem, 'Type', attrib).text = keymap_item.type
+					attrib = {}
+					if (keymap_item.any):
+						attrib['Any'] = 'True'
+					else:
+						if (keymap_item.shift):
+							attrib['Shift'] = 'True'
+						if (keymap_item.ctrl):
+							attrib['Ctrl'] = 'True'
+						if (keymap_item.alt):
+							attrib['Alt'] = 'True'
+						if (keymap_item.oskey):
+							attrib['OS'] = 'True'
+						if (keymap_item.key_modifier != 'NONE'):
+							attrib['KeyModifier'] = keymap_item.key_modifier
+					ElementTree.SubElement(keymap_item_elem, 'Modifiers', attrib)
+					if (keymap_item.properties):
+						if (0 < len(keymap_item.properties.keys())):
+							properties_elem = ElementTree.SubElement(keymap_item_elem, 'Properties')
+							for property_name in keymap_item.properties.keys():
+								property = keymap_item.properties[property_name]
+								property_type = type(property).__name__
+								if (property_type == 'IDPropertyGroup'):
+									pass
+									"""
+									for name in property.keys():
+										property_sub = property[name]
+										if (len(property_sub.keys()) == 0):
+											print("suru-")
+											continue
+										property_type = type(property_sub).__name__
+										elem = ElementTree.SubElement(property_elem, 'Property', {'Type':property_type})
+										elem.text = str(property_sub)
+									"""
+								else:
+									if (property != ''):
+										property_elem = ElementTree.SubElement(properties_elem, 'Property',
+											{'Type':property_type,
+											'Name':property_name})
+										property_elem.text = str(property)
+		string = minidom.parseString(ElementTree.tostring(data, encoding="utf-8")).toprettyxml()
+		string = string.replace("</KeyMapItem>", "</KeyMapItem>\n\t\t\t")
+		f = codecs.open(self.filepath, 'w', 'utf-8')
+		f.write(string)
+		f.close()
+		return {'FINISHED'}
+	def invoke(self, context, event):
+		self.filepath = "BlenderKeyConfig.xml"
+		context.window_manager.fileselect_add(self)
+		return {'RUNNING_MODAL'}
+
 ##########################
 # オペレーター(システム) #
 ##########################
@@ -521,6 +695,9 @@ class InputMenu(bpy.types.Menu):
 		self.layout.separator()
 		self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="最後のコマンドをショートカットに登録", icon="PLUGIN").is_clipboard = False
 		self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="クリップボードのコマンドをショートカットに登録", icon="PLUGIN").is_clipboard = True
+		self.layout.separator()
+		self.layout.operator(ImportKeyConfigXml.bl_idname, icon="PLUGIN")
+		self.layout.operator(ExportKeyConfigXml.bl_idname, icon="PLUGIN")
 
 class SystemAssociateMenu(bpy.types.Menu):
 	bl_idname = "USERPREF_HT_header_system_associate"

@@ -272,7 +272,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Move the active material slot at the bottom)
   
 * **プロパティ > 「オブジェクトデータ」タブ > シェイプキー一覧右の▼**
-* **―(Properties > object data tab > shape key list right down:)**
+* **―(Properties > object data tab > the right shape key list ▼)**
     * **シェイプキーを複製**
     * **―(Duplicate a shape key)**
         * アクティブなシェイプキーを複製します
@@ -377,6 +377,14 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Without assigning shortcut list)**
         * 現在の編集モードでの割り当ての無いキーを「情報」エリアに表示します
         * ―(Displays the key assignments in the current editing mode without information area)
+    * **キーコンフィグをXMLでインポート**
+    * **―(Import XML in the game)**
+        * キーコンフィグをXML形式で読み込みます
+        * ―(The game reads in XML format)
+    * **キーコンフィグをXMLでエクスポート**
+    * **―(Export XML in a game)**
+        * キーコンフィグをXML形式で保存します
+        * ―(Game save in XML format)
     * **.blendファイルをこのバージョンに関連付け**
     * **―(the.blend file associated with this version)**
         * .blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
@@ -805,14 +813,14 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Blurs the active or all vertex groups)
   
 * **3Dビュー > ポーズモード > 「ポーズ」メニュー > 「コンストレイント」メニュー**
-* **―(3D view > pause mode ""pause"menu >"constraint"menu)**
+* **―(3D view "pause mode" "pause" menu > "constraint" menu)**
     * **IK回転制限をコンストレイント化**
     * **―(Constraints of IK rotation restrictions)**
         * IKの回転制限設定をコンストレイントの回転制限設定にコピー
         * ―(Copy rotation constraint restrictions IK rotation limit settings)
   
 * **3Dビュー > ポーズモード > 「ポーズ」メニュー > 「表示/隠す」メニュー**
-* **―(3D view > pause mode ""pause"menu > show / hide menu)**
+* **―(3D view "pause mode" "pause" menu > show / hide menu)**
     * **選択しているものを選択不可に**
     * **―(What is selected in the selection)**
         * 選択しているボーンを選択不可能にします
@@ -974,7 +982,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Select bones parent → parent of parent bone. And we will select to the end)
   
 * **3Dビュー > Shift+S**
-* **―(3dビュー > Shift + S)**
+* **―(3Dビュー > Shift+S)**
     * **メッシュに3Dカーソルをスナップ**
     * **―(3D cursor snap to mesh)**
         * マウス下のメッシュ面上に3Dカーソルを移動させます(ショートカットに登録してお使い下さい)
