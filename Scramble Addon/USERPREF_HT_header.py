@@ -503,16 +503,17 @@ class ImportKeyConfigXml(bpy.types.Operator):
 			for key_map_elem in key_config_elem.findall('KeyMap'):
 				key_map_name = key_map_elem.attrib['name']
 				key_map = key_config.keymaps[key_map_name]
-				
+				if (key_map.is_modal):
+					continue
 				for key_map_item in key_map.keymap_items:
 					key_map.keymap_items.remove(key_map_item)
-				
 				for key_map_item_elem in key_map_elem.findall('KeyMapItem'):
-					active = key_map_item_elem.attrib['Active']
+					active = True
+					if ('Active' in key_map_item_elem.attrib):
+						active = bool(int(key_map_item_elem.attrib['Active']))
 					id_name = key_map_item_elem.find('IDName').text
 					if (not id_name):
 						continue
-					
 					map_type = 'KEYBOARD'
 					if ('MapType' in key_map_item_elem.find('Type').attrib):
 						map_type = key_map_item_elem.find('Type').attrib['MapType']
@@ -520,13 +521,11 @@ class ImportKeyConfigXml(bpy.types.Operator):
 					if ('Value' in key_map_item_elem.find('Type').attrib):
 						value = key_map_item_elem.find('Type').attrib['Value']
 					type = key_map_item_elem.find('Type').text
-					
+					if (not type):
+						continue
 					any = False
 					if ('Any' in key_map_item_elem.find('Modifiers').attrib):
-						shift = True
-						ctrl = True
-						alt = True
-						any = True
+						shift, ctrl, alt, any = True, True, True, True
 					else:
 						shift = False
 						if ('Shift' in key_map_item_elem.find('Modifiers').attrib):
@@ -543,9 +542,8 @@ class ImportKeyConfigXml(bpy.types.Operator):
 					key_modifier = 'NONE'
 					if ('KeyModifier' in key_map_item_elem.find('Modifiers').attrib):
 						key_modifier = key_map_item_elem.find('Modifiers').attrib['KeyModifier']
-					
 					key_map_item = key_map.keymap_items.new(id_name, type, value, any, shift, ctrl, alt, os, key_modifier)
-					
+					key_map_item.active = active
 					try:
 						properties = key_map_item_elem.find('Properties').findall('Property')
 						for property in properties:
@@ -559,7 +557,7 @@ class ImportKeyConfigXml(bpy.types.Operator):
 							elif (property_type == 'str'):
 								key_map_item.properties[property_name] = str(property_value)
 							else:
-								print(property_type)
+								print("Unknown Type: " + property_type)
 					except AttributeError:
 						pass
 		return {'FINISHED'}
@@ -567,6 +565,7 @@ class ImportKeyConfigXml(bpy.types.Operator):
 		self.filepath = "BlenderKeyConfig.xml"
 		context.window_manager.fileselect_add(self)
 		return {'RUNNING_MODAL'}
+
 class ExportKeyConfigXml(bpy.types.Operator):
 	bl_idname = "file.export_key_config_xml"
 	bl_label = "キーコンフィグをXMLでエクスポート"
@@ -580,6 +579,8 @@ class ExportKeyConfigXml(bpy.types.Operator):
 		for keyconfig in [context.window_manager.keyconfigs.user]:
 			keyconfig_elem = ElementTree.SubElement(data, 'KeyConfig', {'name':keyconfig.name})
 			for keymap in keyconfig.keymaps:
+				if (keymap.is_modal):
+					continue
 				keymap_elem = ElementTree.SubElement(keyconfig_elem, 'KeyMap', {'name':keymap.name})
 				for keymap_item in keymap.keymap_items:
 					if (keymap_item.idname == ''):
