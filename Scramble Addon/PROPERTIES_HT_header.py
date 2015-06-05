@@ -6,7 +6,7 @@ import bpy
 # オペレーター #
 ################
 
-class ChangeRightContextTab(bpy.types.Operator):
+class ChangeContextTab(bpy.types.Operator):
 	bl_idname = "buttons.change_context_tab"
 	bl_label = "プロパティタブを切り替え"
 	bl_description = "プロパティのタブを順番に切り替えます"
@@ -48,8 +48,8 @@ class ShortcutsMenu(bpy.types.Menu):
 	bl_description = "ショートカットに登録すると便利かもしれない機能のメニューです"
 	
 	def draw(self, context):
-		self.layout.operator(ChangeRightContextTab.bl_idname, text="タブを右へ", icon="PLUGIN").is_left = False
-		self.layout.operator(ChangeRightContextTab.bl_idname, text="タブを左へ", icon="PLUGIN").is_left = True
+		self.layout.operator(ChangeContextTab.bl_idname, text="タブを右へ", icon="PLUGIN").is_left = False
+		self.layout.operator(ChangeContextTab.bl_idname, text="タブを左へ", icon="PLUGIN").is_left = True
 
 ################
 # メニュー追加 #
