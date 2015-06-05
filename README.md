@@ -340,6 +340,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 現在表示されているノードツリーを他の全マテリアル(選択オブジェクトのみも可)に複製します
         * ―(Nodes currently displayed with all other materials (selection also allowed) to duplicate)
   
+* **プロパティ > ヘッダー**
+* **―(Properties > header)**
+    * **プロパティタブを切り替え**
+    * **―(Switch to properties tab)**
+        * プロパティのタブを順番に切り替えます
+        * ―(Turn switch Properties tab)
+  
 * **プロパティ > 「テクスチャ」タブ > リスト右の▼**
 * **―(Properties > "texture" tab > the list right down:)**
     * **テクスチャ名を使用する画像ファイル名に**
