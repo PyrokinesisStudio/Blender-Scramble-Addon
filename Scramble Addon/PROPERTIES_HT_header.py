@@ -15,11 +15,16 @@ class ChangeContextTab(bpy.types.Operator):
 	is_left = bpy.props.BoolProperty(name="左へ", default=False)
 	
 	def execute(self, context):
-		now_tab = context.space_data.context
+		for area in context.screen.areas:
+			if (area.type == 'PROPERTIES'):
+				for space in area.spaces:
+					if (space.type == 'PROPERTIES'):
+						space_data = space
+		now_tab = space_data.context
 		tabs = ['RENDER', 'RENDER_LAYER', 'SCENE', 'WORLD', 'OBJECT', 'CONSTRAINT', 'MODIFIER', 'DATA', 'BONE', 'BONE_CONSTRAINT', 'MATERIAL', 'TEXTURE', 'PARTICLES', 'PHYSICS']
 		for tab in tabs[:]:
 			try:
-				context.space_data.context = tab
+				space_data.context = tab
 			except TypeError:
 				tabs.remove(tab)
 		if (now_tab not in tabs):
@@ -30,12 +35,12 @@ class ChangeContextTab(bpy.types.Operator):
 		flag = False
 		for tab in tabs:
 			if (flag):
-				context.space_data.context = tab
+				space_data.context = tab
 				break
 			if (tab == now_tab):
 				flag = True
 		else:
-			context.space_data.context = tabs[0]
+			space_data.context = tabs[0]
 		return {'FINISHED'}
 
 ################
