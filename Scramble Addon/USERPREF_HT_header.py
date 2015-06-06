@@ -646,6 +646,133 @@ class ExportKeyConfigXml(bpy.types.Operator):
 		context.window_manager.fileselect_add(self)
 		return {'RUNNING_MODAL'}
 
+class MoveKeyBindCategory(bpy.types.Operator):
+	bl_idname = "ui.move_key_bind_category"
+	bl_label = "展開しているキー割り当てのカテゴリを移動"
+	bl_description = "展開しているキー割り当てを、他のカテゴリに移動します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('Window', "Window", "", 1),
+		('Screen', "Screen", "", 2),
+		('Screen Editing', "Screen Editing", "", 3),
+		('View2D', "View2D", "", 4),
+		('Frames', "Frames", "", 5),
+		('Header', "Header", "", 6),
+		('View2D Buttons List', "View2D Buttons List", "", 7),
+		('Property Editor', "Property Editor", "", 8),
+		('3D View Generic', "3D View Generic", "", 9),
+		('Grease Pencil', "Grease Pencil", "", 10),
+		('Grease Pencil Stroke Edit Mode', "Grease Pencil Stroke Edit Mode", "", 11),
+		('Face Mask', "Face Mask", "", 12),
+		('Weight Paint Vertex Selection', "Weight Paint Vertex Selection", "", 13),
+		('Pose', "Pose", "", 14),
+		('Object Mode', "Object Mode", "", 15),
+		('Paint Curve', "Paint Curve", "", 16),
+		('Curve', "Curve", "", 17),
+		('Image Paint', "Image Paint", "", 18),
+		('Vertex Paint', "Vertex Paint", "", 19),
+		('Weight Paint', "Weight Paint", "", 20),
+		('Sculpt', "Sculpt", "", 21),
+		('Mesh', "Mesh", "", 22),
+		('Armature', "Armature", "", 23),
+		('Metaball', "Metaball", "", 24),
+		('Lattice', "Lattice", "", 25),
+		('Particle', "Particle", "", 26),
+		('Font', "Font", "", 27),
+		('Object Non-modal', "Object Non-modal", "", 28),
+		('3D View', "3D View", "", 29),
+		('Outliner', "Outliner", "", 30),
+		('Info', "Info", "", 31),
+		('View3D Gesture Circle', "View3D Gesture Circle", "", 32),
+		('Gesture Border', "Gesture Border", "", 33),
+		('Gesture Zoom Border', "Gesture Zoom Border", "", 34),
+		('Gesture Straight Line', "Gesture Straight Line", "", 35),
+		('Standard Modal Map', "Standard Modal Map", "", 36),
+		('Animation', "Animation", "", 37),
+		('Animation Channels', "Animation Channels", "", 38),
+		('Knife Tool Modal Map', "Knife Tool Modal Map", "", 39),
+		('UV Editor', "UV Editor", "", 40),
+		('Transform Modal Map', "Transform Modal Map", "", 41),
+		('UV Sculpt', "UV Sculpt", "", 42),
+		('Paint Stroke Modal', "Paint Stroke Modal", "", 43),
+		('Mask Editing', "Mask Editing", "", 44),
+		('Markers', "Markers", "", 45),
+		('Timeline', "Timeline", "", 46),
+		('View3D Fly Modal', "View3D Fly Modal", "", 47),
+		('View3D Walk Modal', "View3D Walk Modal", "", 48),
+		('View3D Rotate Modal', "View3D Rotate Modal", "", 49),
+		('View3D Move Modal', "View3D Move Modal", "", 50),
+		('View3D Zoom Modal', "View3D Zoom Modal", "", 51),
+		('View3D Dolly Modal', "View3D Dolly Modal", "", 52),
+		('Graph Editor Generic', "Graph Editor Generic", "", 53),
+		('Graph Editor', "Graph Editor", "", 54),
+		('Image Generic', "Image Generic", "", 55),
+		('Image', "Image", "", 56),
+		('Node Generic', "Node Generic", "", 57),
+		('Node Editor', "Node Editor", "", 58),
+		('File Browser', "File Browser", "", 59),
+		('File Browser Main', "File Browser Main", "", 60),
+		('File Browser Buttons', "File Browser Buttons", "", 61),
+		('Dopesheet', "Dopesheet", "", 62),
+		('NLA Generic', "NLA Generic", "", 63),
+		('NLA Channels', "NLA Channels", "", 64),
+		('NLA Editor', "NLA Editor", "", 65),
+		('Text Generic', "Text Generic", "", 66),
+		('Text', "Text", "", 67),
+		('SequencerCommon', "SequencerCommon", "", 68),
+		('Sequencer', "Sequencer", "", 69),
+		('SequencerPreview', "SequencerPreview", "", 70),
+		('Logic Editor', "Logic Editor", "", 71),
+		('Console', "Console", "", 72),
+		('Clip', "Clip", "", 73),
+		('Clip Editor', "Clip Editor", "", 74),
+		('Clip Graph Editor', "Clip Graph Editor", "", 75),
+		('Clip Dopesheet Editor', "Clip Dopesheet Editor", "", 76),
+		]
+	category = bpy.props.EnumProperty(items=items, name="移動先カテゴリ")
+	
+	def invoke(self, context, event):
+		i = 0
+		for keymap in context.window_manager.keyconfigs.user.keymaps:
+			if (not keymap.is_modal):
+				for keymap_item in keymap.keymap_items:
+					if (keymap_item.show_expanded):
+						i += 1
+		if (i <= 0):
+			self.report(type={'ERROR'}, message="展開中の割り当てが存在しません")
+			return {'CANCELLED'}
+		if (2 <= i):
+			self.report(type={'ERROR'}, message="1つのみ割り当てを展開した状態で実行してください")
+			return {'CANCELLED'}
+		return context.window_manager.invoke_props_dialog(self)
+	def execute(self, context):
+		for keymap in context.window_manager.keyconfigs.user.keymaps:
+			if (not keymap.is_modal):
+				for keymap_item in keymap.keymap_items:
+					if (keymap_item.show_expanded):
+						target_keymap = context.window_manager.keyconfigs.user.keymaps[self.category]
+						target_keymap_item = target_keymap.keymap_items.new(
+							idname=keymap_item.idname,
+							type=keymap_item.type,
+							value=keymap_item.value,
+							any=keymap_item.any,
+							shift=keymap_item.shift,
+							ctrl=keymap_item.ctrl,
+							alt=keymap_item.alt,
+							oskey=keymap_item.oskey,
+							key_modifier=keymap_item.key_modifier)
+						for property_name in keymap_item.properties.keys():
+							target_keymap_item.properties[property_name] = keymap_item.properties[property_name]
+						keymap.keymap_items.remove(keymap_item)
+						bpy.ops.ui.close_key_map_items()
+						target_keymap.show_expanded_children = True
+						target_keymap.show_expanded_items = True
+						target_keymap_item.show_expanded = True
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ##########################
 # オペレーター(システム) #
 ##########################
@@ -691,6 +818,7 @@ class InputMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.operator(CloseKeyMapItems.bl_idname, icon="PLUGIN")
+		self.layout.operator(MoveKeyBindCategory.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
 		self.layout.operator(ShowEmptyShortcuts.bl_idname, icon="PLUGIN")

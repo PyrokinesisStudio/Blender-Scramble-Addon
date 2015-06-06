@@ -392,6 +392,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Export XML in a game)**
         * キーコンフィグをXML形式で保存します
         * ―(Game save in XML format)
+    * **展開しているキー割り当てのカテゴリを移動**
+    * **―(Move the key assignments that expand the categories)**
+        * 展開しているキー割り当てを、他のカテゴリに移動します
+        * ―(Move key assignments that expand into other categories)
     * **.blendファイルをこのバージョンに関連付け**
     * **―(the.blend file associated with this version)**
         * .blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
