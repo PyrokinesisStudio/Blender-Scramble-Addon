@@ -921,12 +921,12 @@ class RenameUV(bpy.types.Operator):
 	
 	def execute(self, context):
 		obj = context.active_object
-		if (obj.type == "MESH"):
+		if (obj.type == 'MESH'):
 			me = obj.data
 			uv = me.uv_layers.active
 			if (uv == None):
-				self.report(type={"ERROR"}, message="UVが存在しません")
-				return {"CANCELLED"}
+				self.report(type={'ERROR'}, message="UVが存在しません")
+				return {'"CANCELLED'}
 			preName = uv.name
 			uv.name = self.name
 			for mat in me.materials:
@@ -949,6 +949,14 @@ class RenameUV(bpy.types.Operator):
 			return {'CANCELLED'}
 		return {'FINISHED'}
 	def invoke(self, context, event):
+		obj = context.active_object
+		if (obj.type == 'MESH'):
+			me = obj.data
+			uv = me.uv_layers.active
+			if (uv == None):
+				self.report(type={'ERROR'}, message="UVが存在しません")
+				return {'"CANCELLED'}
+			self.name = uv.name
 		return context.window_manager.invoke_props_dialog(self)
 
 class DeleteEmptyUV(bpy.types.Operator):
