@@ -380,6 +380,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
   
 * **ユーザー設定 > ヘッダー**
 * **―(User settings > header)**
+    * **キーバインド検索**
+    * **―(Search key bindings)**
+        * 設定したキーバインドに一致する割り当てを検索します
+        * ―(Find matching key bindings you set assignment)
     * **キーコンフィグを全て閉じる**
     * **―(Close all game)**
         * キーコンフィグのメニューを全て折りたたみます

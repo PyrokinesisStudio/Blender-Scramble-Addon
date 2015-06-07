@@ -17,6 +17,30 @@ import xml.etree.ElementTree as ElementTree
 # オペレーター(ショートカット) #
 ################################
 
+class SearchKeyBind(bpy.types.Operator):
+	bl_idname = "ui.search_key_bind"
+	bl_label = "キーバインド検索"
+	bl_description = "設定したキーバインドに一致する割り当てを検索します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		keymap = context.window_manager.keyconfigs.addon.keymaps['temp'].keymap_items[0]
+		if (keymap.type == 'NONE'):
+			self.report(type={'ERROR'}, message="検索するキーが空です、設定してください")
+			return {'CANCELLED'}
+		filter_str = keymap.type
+		if (keymap.shift):
+			filter_str = filter_str + " Shift"
+		if (keymap.ctrl):
+			filter_str = filter_str + " Ctrl"
+		if (keymap.alt):
+			filter_str = filter_str + " Alt"
+		context.space_data.filter_type = 'KEY'
+		context.space_data.filter_text = filter_str
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 class CloseKeyMapItems(bpy.types.Operator):
 	bl_idname = "ui.close_key_map_items"
 	bl_label = "キーコンフィグを全て閉じる"
@@ -846,5 +870,18 @@ class SystemAssociateMenu(bpy.types.Menu):
 def menu(self, context):
 	if (context.user_preferences.active_section == 'INPUT'):
 		self.layout.menu(InputMenu.bl_idname, icon="PLUGIN")
+		try:
+			keymap = context.window_manager.keyconfigs.addon.keymaps['temp']
+		except KeyError:
+			keymap = context.window_manager.keyconfigs.addon.keymaps.new('temp')
+		if (1 <= len(keymap.keymap_items)):
+			keymap_item = keymap.keymap_items[0]
+		else:
+			keymap_item = keymap.keymap_items.new('', 'W', 'PRESS')
+		self.layout.prop(keymap_item, 'type', event=True, text="")
+		self.layout.prop(keymap_item, 'shift', text="Shift")
+		self.layout.prop(keymap_item, 'ctrl', text="Ctrl")
+		self.layout.prop(keymap_item, 'alt', text="Alt")
+		self.layout.operator(SearchKeyBind.bl_idname, icon="PLUGIN")
 	elif (context.user_preferences.active_section == 'FILES'):
 		self.layout.menu(SystemAssociateMenu.bl_idname, icon="PLUGIN")
