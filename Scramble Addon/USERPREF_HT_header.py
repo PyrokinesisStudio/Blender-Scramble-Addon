@@ -133,9 +133,9 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	bl_description = "最後に実行したコマンドをショートカットに登録します"
 	bl_options = {'REGISTER'}
 	
-	is_clipboard = bpy.props.BoolProperty(name="(変更不可)")
-	command = bpy.props.StringProperty(name="(変更不可)")
-	sub_command = bpy.props.StringProperty(name="(変更不可)")
+	is_clipboard = bpy.props.BoolProperty(name="(変更しないで)")
+	command = bpy.props.StringProperty(name="(変更しないで)")
+	sub_command = bpy.props.StringProperty(name="(変更しないで)")
 	items = [
 		('Window', "ウィンドウ", "", 1),
 		('Screen', "スクリーン", "", 2),
