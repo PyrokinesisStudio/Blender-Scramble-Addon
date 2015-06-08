@@ -29,12 +29,15 @@ class SearchKeyBind(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="検索するキーが空です、設定してください")
 			return {'CANCELLED'}
 		filter_str = keymap.type
-		if (keymap.shift):
-			filter_str = filter_str + " Shift"
-		if (keymap.ctrl):
-			filter_str = filter_str + " Ctrl"
-		if (keymap.alt):
-			filter_str = filter_str + " Alt"
+		if (not keymap.any):
+			if (keymap.shift):
+				filter_str = filter_str + " Shift"
+			if (keymap.ctrl):
+				filter_str = filter_str + " Ctrl"
+			if (keymap.alt):
+				filter_str = filter_str + " Alt"
+		else:
+			filter_str = filter_str + " Any"
 		context.space_data.filter_type = 'KEY'
 		context.space_data.filter_text = filter_str
 		for area in context.screen.areas:
@@ -882,6 +885,7 @@ def menu(self, context):
 		self.layout.prop(keymap_item, 'shift', text="Shift")
 		self.layout.prop(keymap_item, 'ctrl', text="Ctrl")
 		self.layout.prop(keymap_item, 'alt', text="Alt")
+		self.layout.prop(keymap_item, 'any', text="Any")
 		self.layout.operator(SearchKeyBind.bl_idname, icon="PLUGIN")
 	elif (context.user_preferences.active_section == 'FILES'):
 		self.layout.menu(SystemAssociateMenu.bl_idname, icon="PLUGIN")
