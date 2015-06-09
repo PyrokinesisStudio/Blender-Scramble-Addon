@@ -63,6 +63,7 @@ if "bpy" in locals():
 	imp.reload(USERPREF_HT_header)
 	imp.reload(PROPERTIES_HT_header)
 	imp.reload(DATA_PT_modifiers)
+	imp.reload(DATA_PT_uv_texture)
 else:
 	from . import IMAGE_MT_image
 	from . import IMAGE_MT_select
@@ -108,6 +109,7 @@ else:
 	from . import USERPREF_HT_header
 	from . import PROPERTIES_HT_header
 	from . import DATA_PT_modifiers
+	from . import DATA_PT_uv_texture
 import bpy
 
 # アドオン設定
@@ -216,6 +218,7 @@ def register():
 	bpy.types.USERPREF_HT_header.append(USERPREF_HT_header.menu)
 	bpy.types.PROPERTIES_HT_header.append(PROPERTIES_HT_header.menu)
 	bpy.types.DATA_PT_modifiers.append(DATA_PT_modifiers.menu)
+	bpy.types.DATA_PT_uv_texture.append(DATA_PT_uv_texture.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -267,6 +270,7 @@ def unregister():
 	bpy.types.USERPREF_HT_header.remove(USERPREF_HT_header.menu)
 	bpy.types.PROPERTIES_HT_header.remove(PROPERTIES_HT_header.menu)
 	bpy.types.DATA_PT_modifiers.remove(DATA_PT_modifiers.menu)
+	bpy.types.DATA_PT_uv_texture.remove(DATA_PT_uv_texture.menu)
 
 # メイン関数
 if __name__ == "__main__":

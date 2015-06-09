@@ -93,6 +93,25 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択したオブジェクトのアーマチュアモディファイアの「体積を維持」をまとめてオン/オフします
         * ―(Maintain volume in the armtuamodifaia of the selected objects together off and on the)
   
+* **プロパティ > "メッシュデータ"タブ > "UVマップ"パネル**
+* **―(Properties > "data mesh" tab > "UV map" Panel)**
+    * **UVをまとめてリネーム**
+    * **―(UV to rename)**
+        * 選択オブジェクト内の指定UVをまとめて改名します
+        * ―(Renames the selected objects within designated UV together)
+    * **まとめて指定名のUVを削除**
+    * **―(Bulk delete name UV)**
+        * 指定した名前と同じ名のUVを、選択オブジェクトから削除します
+        * ―(Removes the selected object UV of the same name as the specified)
+    * **UV名を変更**
+    * **―(Rename the UV)**
+        * アクティブなUVの名前を変更します(テクスチャのUV指定もそれに伴って変更します)
+        * ―(Renames active UV (UV texture also changes accordingly))
+    * **未使用のUVを削除**
+    * **―(Remove unused UV)**
+        * アクティブなオブジェクトのマテリアルで未使用なUVを全削除します(他の部分に使われているUVは消してしまいます)
+        * ―(Active object material (the UV is used in other parts disappear) delete unused UV total)
+  
 * **ドープシート > 「キー」メニュー**
 * **―(Dope sheet "menu"key")**
     * **キーフレームを削除 (確認しない)**
@@ -790,22 +809,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Applying modifiers, create a parent)**
         * 親オブジェクトのモディファイアを適用してから、親子関係を作成します
         * ―(Creates a parent-child relationship from the parent object's modifiers to apply)
-    * **UVをまとめてリネーム**
-    * **―(UV to rename)**
-        * 選択オブジェクト内の指定UVをまとめて改名します
-        * ―(Renames the selected objects within designated UV together)
-    * **指定名のUVを削除**
-    * **―(Removes the specified name UV)**
-        * 指定した名前と同じ名のUVを、選択オブジェクトから削除します
-        * ―(Removes the selected object UV of the same name as the specified)
-    * **UV名を変更**
-    * **―(Rename the UV)**
-        * アクティブなUVの名前を変更します(テクスチャのUV指定もそれに伴って変更します)
-        * ―(Renames active UV (UV texture also changes accordingly))
-    * **未使用のUVを削除**
-    * **―(Remove unused UV)**
-        * アクティブなオブジェクトのマテリアルで未使用なUVを全削除します(他の部分に使われているUVは消してしまいます)
-        * ―(Active object material (the UV is used in other parts disappear) delete unused UV total)
     * **クイックカーブ変形**
     * **―(Quick curve deformation)**
         * すばやくカーブモディファイアを適用します
