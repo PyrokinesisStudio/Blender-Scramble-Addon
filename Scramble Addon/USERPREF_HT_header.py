@@ -834,6 +834,50 @@ class RegisterBlendBackupFiles(bpy.types.Operator):
 		self.report(type={"INFO"}, message="バックアップファイルをこの実行ファイルに関連付けました")
 		return {'FINISHED'}
 
+##########################
+# オペレーター(アドオン) #
+##########################
+
+class UpdateScrambleAddon(bpy.types.Operator):
+	bl_idname = "script.update_scramble_addon"
+	bl_label = "Blender-Scramble-Addonを更新"
+	bl_description = "Blender-Scramble-Addonをダウンロード・更新を済ませます"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		response = urllib.request.urlopen("https://github.com/saidenka/Blender-Scramble-Addon/archive/master.zip")
+		tempDir = bpy.app.tempdir
+		zipPath = os.path.join(tempDir, "Blender-Scramble-Addon-master.zip")
+		addonDir = os.path.dirname(__file__)
+		f = open(zipPath, "wb")
+		f.write(response.read())
+		f.close()
+		zf = zipfile.ZipFile(zipPath, "r")
+		for f in zf.namelist():
+			if not os.path.basename(f):
+				pass
+			else:
+				if ("Scramble Addon" in f):
+					uzf = open(os.path.join(addonDir, os.path.basename(f)), 'wb')
+					uzf.write(zf.read(f))
+					uzf.close()
+		zf.close()
+		#self.report(type={"INFO"}, message="アドオンを更新しました、Blenderを再起動して下さい")
+		context.window_manager.popup_menu(self.draw, title="更新成功", icon='INFO')
+		return {'FINISHED'}
+	def draw(self, context):
+		self.layout.label("アドオンを更新しました、Blenderを再起動して下さい")
+
+class ToggleDisabledMenu(bpy.types.Operator):
+	bl_idname = "wm.toggle_disabled_menu"
+	bl_label = "「追加項目のオン/オフ」の表示切り替え"
+	bl_description = "ScrambleAddonによるメニューの末尾の「追加項目のオン/オフ」ボタンの表示/非表示を切り替えます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu = not context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -865,13 +909,23 @@ class SystemAssociateMenu(bpy.types.Menu):
 		self.layout.operator(RegisterBlendFile.bl_idname, icon="PLUGIN")
 		self.layout.operator(RegisterBlendBackupFiles.bl_idname, icon="PLUGIN")
 
+class AddonsMenu(bpy.types.Menu):
+	bl_idname = "USERPREF_HT_header_scramble_addon"
+	bl_label = "　Scramble Addon"
+	bl_description = "Scramble Addonに関係する操作のメニューです"
+	
+	def draw(self, context):
+		self.layout.operator(ToggleDisabledMenu.bl_idname, icon="PLUGIN")
+		self.layout.operator(UpdateScrambleAddon.bl_idname, icon="PLUGIN")
+
 ################
 # メニュー追加 #
 ################
 
 # メニューを登録する関数
 def menu(self, context):
-	if (context.user_preferences.active_section == 'INPUT'):
+	active_section = context.user_preferences.active_section
+	if (active_section == 'INPUT'):
 		self.layout.menu(InputMenu.bl_idname, icon="PLUGIN")
 		try:
 			keymap = context.window_manager.keyconfigs.addon.keymaps['temp']
@@ -887,5 +941,7 @@ def menu(self, context):
 		self.layout.prop(keymap_item, 'alt', text="Alt")
 		self.layout.prop(keymap_item, 'any', text="Any")
 		self.layout.operator(SearchKeyBind.bl_idname, icon="PLUGIN")
-	elif (context.user_preferences.active_section == 'FILES'):
+	elif (active_section == 'FILES'):
 		self.layout.menu(SystemAssociateMenu.bl_idname, icon="PLUGIN")
+	elif (active_section == 'ADDONS'):
+		self.layout.menu(AddonsMenu.bl_idname, icon="PLUGIN")

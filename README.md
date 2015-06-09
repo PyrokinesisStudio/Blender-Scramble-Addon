@@ -198,14 +198,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
   
 * **情報 > 「ヘルプ」メニュー**
 * **―(Information > Help menu)**
-    * **Blender-Scramble-Addonを更新**
-    * **―(Update Blender-Scramble-Addon)**
-        * Blender-Scramble-Addonをダウンロード・更新を済ませます
-        * ―(Downloads, updates and check out Blender-Scramble-Addon)
-    * **「追加項目のオン/オフ」の表示切り替え**
-    * **―(Toggle on/off additional items)**
-        * ScrambleAddonによるメニューの末尾の「追加項目のオン/オフ」ボタンの表示/非表示を切り替えます
-        * ―(Turns on/off additional items button at the end of the menu by ScrambleAddon)
   
 * **3Dビュー > オブジェクト/メッシュ編集モード > 「追加」メニュー > 「メッシュ」メニュー**
 * **―(3D view > object / mesh edit mode > "add" menu > "mesh" menu)**
@@ -420,6 +412,14 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Backup with this version)**
         * .blend1 .blend2 などのバックアップファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
         * ―(associates with Blender running file backup file, such as.blend1.blend2 (WindowsOS only))
+    * **Blender-Scramble-Addonを更新**
+    * **―(Update Blender-Scramble-Addon)**
+        * Blender-Scramble-Addonをダウンロード・更新を済ませます
+        * ―(Downloads, updates and check out Blender-Scramble-Addon)
+    * **「追加項目のオン/オフ」の表示切り替え**
+    * **―(Toggle on/off additional items)**
+        * ScrambleAddonによるメニューの末尾の「追加項目のオン/オフ」ボタンの表示/非表示を切り替えます
+        * ―(Turns on/off additional items button at the end of the menu by ScrambleAddon)
   
 * **3Dビュー > アーマチュア編集モード > 「W」キー**
 * **―(3D view > armature edit mode > 'W' key)**
