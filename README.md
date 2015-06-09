@@ -30,6 +30,69 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 
 ## 機能一覧 (List of functions)
   
+* **プロパティ > モディファイアタブ**
+* **―(Property: modifiatab)**
+    * **全モディファイア適用**
+    * **―(All modifiers applied)**
+        * 選択オブジェクトの全てのモディファイアを適用します
+        * ―(Applies to all modifiers of the selected object)
+    * **全モディファイア削除**
+    * **―(Remove all modifiers)**
+        * 選択オブジェクトの全てのモディファイアを削除します
+        * ―(Remove all modifiers of the selected object)
+    * **ビューへのモディファイア適用を切り替え**
+    * **―(Modifiers apply to the view switching)**
+        * 選択オブジェクトの全てのモディファイアのビューへの適用を切り替えます
+        * ―(Shows or hides the application to view all modifiers of the selected object)
+    * **モディファイア使用を同期**
+    * **―(Synchronized modifier use)**
+        * 選択オブジェクトのレンダリング時/ビュー時のモディファイア使用を同期します
+        * ―(The synchronized modifier used when rendering the selection / view)
+    * **全モディファイアの展開/閉じるを切り替え**
+    * **―(All modifiers expand / collapse toggle)**
+        * アクティブオブジェクトの全モディファイアを展開/閉じるを切り替え(トグル)します
+        * ―(Expand / collapse all modifiers of the active objects to the switch (toggle))
+    * **モディファイア適用+統合**
+    * **―(Modifiers apply + integration)**
+        * オブジェクトのモディファイアを全適用してから統合します
+        * ―(The integration from the object's modifiers to apply all)
+    * **モディファイア名を自動でリネーム**
+    * **―(Modifier name auto-rename.)**
+        * 選択オブジェクトのモディファイア名を参照先などの名前にリネームします
+        * ―(Rename the selected object modifier name refers to, for example,)
+    * **ブーリアンを追加**
+    * **―(Add a Boolean)**
+        * アクティブオブジェクトにその他選択オブジェクトのブーリアンを追加
+        * ―(Additional Boolean selected objects to an active object)
+    * **ブーリアンを適用**
+    * **―(Apply the Boolean)**
+        * アクティブオブジェクトにその他選択オブジェクトのブーリアンを適用
+        * ―(Active objects for other Boolean objects)
+    * **レンダリング時の細分化数を設定**
+    * **―(Rendering subdivision number)**
+        * 選択したオブジェクトのサブサーフモディファイアのレンダリング時の細分化数を設定します
+        * ―(Sets the number of subdivisions during rendering of the selected object subsurfmodifaia)
+    * **プレビュー・レンダリングの細分化数を同じに**
+    * **―(Equivalent to a subdivision of the preview rendering)**
+        * 選択したオブジェクトのサブサーフモディファイアのプレビュー時とレンダリング時の細分化数を同じに設定します
+        * ―(Set in the same subdivision of the subsurfmodifaia of the selected object when you preview and rendering time)
+    * **最適化表示を設定**
+    * **―(Set the defragmentation display)**
+        * 選択したオブジェクトのサブサーフモディファイアの最適化表示を設定します
+        * ―(Sets optimization for the subsurfmodifaia of the selected object)
+    * **選択オブジェクトのサブサーフを削除**
+    * **―(Delete select Subsurf)**
+        * 選択したオブジェクトのサブサーフモディファイアを削除します
+        * ―(Removes the selected object subsurfmodifaia)
+    * **選択オブジェクトにサブサーフを追加**
+    * **―(Add a Subsurf on selected objects)**
+        * 選択したオブジェクトにサブサーフモディファイアを追加します
+        * ―(Add subsurfmodifaia to the selected object)
+    * **アーマチュアの「体積を維持」をまとめて設定**
+    * **―(Set keep up the volume the armature)**
+        * 選択したオブジェクトのアーマチュアモディファイアの「体積を維持」をまとめてオン/オフします
+        * ―(Maintain volume in the armtuamodifaia of the selected objects together off and on the)
+  
 * **ドープシート > 「キー」メニュー**
 * **―(Dope sheet "menu"key")**
     * **キーフレームを削除 (確認しない)**
@@ -727,42 +790,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Applying modifiers, create a parent)**
         * 親オブジェクトのモディファイアを適用してから、親子関係を作成します
         * ―(Creates a parent-child relationship from the parent object's modifiers to apply)
-    * **全モディファイア適用**
-    * **―(All modifiers applied)**
-        * 選択オブジェクトの全てのモディファイアを適用します
-        * ―(Applies to all modifiers of the selected object)
-    * **全モディファイア削除**
-    * **―(Remove all modifiers)**
-        * 選択オブジェクトの全てのモディファイアを削除します
-        * ―(Remove all modifiers of the selected object)
-    * **ビューへのモディファイア適用を切り替え**
-    * **―(Modifiers apply to the view switching)**
-        * 選択オブジェクトの全てのモディファイアのビューへの適用を切り替えます
-        * ―(Shows or hides the application to view all modifiers of the selected object)
-    * **モディファイア使用を同期**
-    * **―(Synchronized modifier use)**
-        * 選択オブジェクトのレンダリング時/ビュー時のモディファイア使用を同期します
-        * ―(The synchronized modifier used when rendering the selection / view)
-    * **全モディファイアの展開/閉じるを切り替え**
-    * **―(All modifiers expand / collapse toggle)**
-        * アクティブオブジェクトの全モディファイアを展開/閉じるを切り替え(トグル)します
-        * ―(Expand / collapse all modifiers of the active objects to the switch (toggle))
-    * **モディファイア適用+統合**
-    * **―(Modifiers apply + integration)**
-        * オブジェクトのモディファイアを全適用してから統合します
-        * ―(The integration from the object's modifiers to apply all)
-    * **モディファイア名を自動でリネーム**
-    * **―(Modifier name auto-rename.)**
-        * 選択オブジェクトのモディファイア名を参照先などの名前にリネームします
-        * ―(Rename the selected object modifier name refers to, for example,)
-    * **ブーリアンを追加**
-    * **―(Add a Boolean)**
-        * アクティブオブジェクトにその他選択オブジェクトのブーリアンを追加
-        * ―(Additional Boolean selected objects to an active object)
-    * **ブーリアンを適用**
-    * **―(Apply the Boolean)**
-        * アクティブオブジェクトにその他選択オブジェクトのブーリアンを適用
-        * ―(Active objects for other Boolean objects)
     * **UVをまとめてリネーム**
     * **―(UV to rename)**
         * 選択オブジェクト内の指定UVをまとめて改名します
@@ -779,30 +806,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Remove unused UV)**
         * アクティブなオブジェクトのマテリアルで未使用なUVを全削除します(他の部分に使われているUVは消してしまいます)
         * ―(Active object material (the UV is used in other parts disappear) delete unused UV total)
-    * **レンダリング時の細分化数を設定**
-    * **―(Rendering subdivision number)**
-        * 選択したオブジェクトのサブサーフモディファイアのレンダリング時の細分化数を設定します
-        * ―(Sets the number of subdivisions during rendering of the selected object subsurfmodifaia)
-    * **プレビュー・レンダリングの細分化数を同じに**
-    * **―(Equivalent to a subdivision of the preview rendering)**
-        * 選択したオブジェクトのサブサーフモディファイアのプレビュー時とレンダリング時の細分化数を同じに設定します
-        * ―(Set in the same subdivision of the subsurfmodifaia of the selected object when you preview and rendering time)
-    * **最適化表示を設定**
-    * **―(Set the defragmentation display)**
-        * 選択したオブジェクトのサブサーフモディファイアの最適化表示を設定します
-        * ―(Sets optimization for the subsurfmodifaia of the selected object)
-    * **選択オブジェクトのサブサーフを削除**
-    * **―(Delete select Subsurf)**
-        * 選択したオブジェクトのサブサーフモディファイアを削除します
-        * ―(Removes the selected object subsurfmodifaia)
-    * **選択オブジェクトにサブサーフを追加**
-    * **―(Add a Subsurf on selected objects)**
-        * 選択したオブジェクトにサブサーフモディファイアを追加します
-        * ―(Add subsurfmodifaia to the selected object)
-    * **アーマチュアの「体積を維持」をまとめて設定**
-    * **―(Set keep up the volume the armature)**
-        * 選択したオブジェクトのアーマチュアモディファイアの「体積を維持」をまとめてオン/オフします
-        * ―(Maintain volume in the armtuamodifaia of the selected objects together off and on the)
     * **クイックカーブ変形**
     * **―(Quick curve deformation)**
         * すばやくカーブモディファイアを適用します
