@@ -93,7 +93,7 @@ class RenameUV(bpy.types.Operator):
 			uv = me.uv_layers.active
 			if (uv == None):
 				self.report(type={'ERROR'}, message="UVが存在しません")
-				return {'"CANCELLED'}
+				return {'CANCELLED'}
 			self.name = uv.name
 		return context.window_manager.invoke_props_dialog(self)
 
@@ -131,6 +131,75 @@ class DeleteEmptyUV(bpy.types.Operator):
 				self.report(type={"WARNING"}, message=obj.name+"はメッシュオブジェクトではありません")
 		return {'FINISHED'}
 
+class MoveActiveUV(bpy.types.Operator):
+	bl_idname = "object.move_active_uv"
+	bl_label = "UVを移動"
+	bl_description = "アクティブなオブジェクトのUVを移動して並び替えます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('UP', "上へ", "", 1),
+		('DOWN', "下へ", "", 2),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="方向", default="UP")
+	
+	def execute(self, context):
+		obj = context.active_object
+		if (not obj):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			return {'CANCELLED'}
+		if (obj.type != 'MESH'):
+			self.report(type={'ERROR'}, message="これはメッシュオブジェクトではありません")
+			return {'CANCELLED'}
+		me = obj.data
+		if (len(me.uv_layers) <= 1):
+			self.report(type={'ERROR'}, message="UV数が1つ以下です")
+			return {'CANCELLED'}
+		if (self.mode == 'UP'):
+			if (me.uv_layers.active_index <= 0):
+				return {'CANCELLED'}
+			target_index = me.uv_layers.active_index - 1
+		elif (self.mode == 'DOWN'):
+			target_index = me.uv_layers.active_index + 1
+			if (len(me.uv_layers) <= target_index):
+				return {'CANCELLED'}
+		pre_mode = obj.mode
+		bpy.ops.object.mode_set(mode='OBJECT')
+		uv_layer = me.uv_layers.active
+		target_uv_layer = me.uv_layers[target_index]
+		uv_tex = me.uv_textures.active
+		target_uv_tex = me.uv_textures[target_index]
+		"""
+		temp = uv_layer.name
+		target_temp = target_uv_layer.name
+		uv_layer.name = target_temp
+		target_uv_layer.name = temp
+		uv_layer.name = target_temp
+		"""
+		for data_name in dir(uv_tex):
+			if (data_name[0] != '_' and data_name != 'bl_rna' and data_name != 'rna_type' and data_name != 'data'):
+				temp = uv_tex.__getattribute__(data_name)
+				target_temp = target_uv_tex.__getattribute__(data_name)
+				target_uv_tex.__setattr__(data_name, temp)
+				uv_tex.__setattr__(data_name, target_temp)
+				target_uv_tex.__setattr__(data_name, temp)
+		for i in range(len(uv_layer.data)):
+			for data_name in dir(uv_layer.data[i]):
+				if (data_name[0] != '_' and data_name != 'bl_rna' and data_name != 'rna_type'):
+					try:
+						temp = target_uv_layer.data[i].__getattribute__(data_name)[:]
+					except TypeError:
+						temp = target_uv_layer.data[i].__getattribute__(data_name)
+					target_uv_layer.data[i].__setattr__(data_name, uv_layer.data[i].__getattribute__(data_name))
+					uv_layer.data[i].__setattr__(data_name, temp)
+		for i in range(len(uv_tex.data)):
+			temp = uv_tex.data[i].image
+			uv_tex.data[i].image = target_uv_tex.data[i].image
+			target_uv_tex.data[i].image = temp
+		me.uv_textures.active_index = target_index
+		bpy.ops.object.mode_set(mode=pre_mode)
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -152,5 +221,9 @@ class UVMenu(bpy.types.Menu):
 
 # メニューを登録する関数
 def menu(self, context):
-	self.layout.operator(RenameUV.bl_idname, icon="PLUGIN")
+	row = self.layout.row()
+	sub = row.row(align=True)
+	sub.operator(MoveActiveUV.bl_idname, icon='TRIA_UP', text="").mode = 'UP'
+	sub.operator(MoveActiveUV.bl_idname, icon='TRIA_DOWN', text="").mode = 'DOWN'
+	row.operator(RenameUV.bl_idname, icon="PLUGIN")
 	self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
