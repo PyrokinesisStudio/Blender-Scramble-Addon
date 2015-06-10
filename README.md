@@ -116,6 +116,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなオブジェクトのUVを移動して並び替えます
         * ―(Sorts, by moving the active object's UV)
   
+* **プロパティ > "メッシュデータ"タブ > "頂点色"パネル**
+* **―(Properties > "data mesh" tab > "vertex color Panel)**
+    * **頂点色を移動**
+    * **―(Move the vertex color)**
+        * アクティブなオブジェクトの頂点色を移動して並び替えます
+        * ―(Move the vertex color of active objects, sorts)
+  
 * **ドープシート > 「キー」メニュー**
 * **―(Dope sheet "menu"key")**
     * **キーフレームを削除 (確認しない)**

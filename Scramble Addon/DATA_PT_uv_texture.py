@@ -169,13 +169,6 @@ class MoveActiveUV(bpy.types.Operator):
 		target_uv_layer = me.uv_layers[target_index]
 		uv_tex = me.uv_textures.active
 		target_uv_tex = me.uv_textures[target_index]
-		"""
-		temp = uv_layer.name
-		target_temp = target_uv_layer.name
-		uv_layer.name = target_temp
-		target_uv_layer.name = temp
-		uv_layer.name = target_temp
-		"""
 		for data_name in dir(uv_tex):
 			if (data_name[0] != '_' and data_name != 'bl_rna' and data_name != 'rna_type' and data_name != 'data'):
 				temp = uv_tex.__getattribute__(data_name)
@@ -183,6 +176,7 @@ class MoveActiveUV(bpy.types.Operator):
 				target_uv_tex.__setattr__(data_name, temp)
 				uv_tex.__setattr__(data_name, target_temp)
 				target_uv_tex.__setattr__(data_name, temp)
+				uv_tex.__setattr__(data_name, target_temp)
 		for i in range(len(uv_layer.data)):
 			for data_name in dir(uv_layer.data[i]):
 				if (data_name[0] != '_' and data_name != 'bl_rna' and data_name != 'rna_type'):
