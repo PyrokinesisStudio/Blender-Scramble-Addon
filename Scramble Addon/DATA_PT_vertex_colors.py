@@ -82,10 +82,13 @@ class VertexColorSet(bpy.types.Operator):
 		return context.window_manager.invoke_props_dialog(self)
 	def execute(self, context):
 		obj = context.active_object
+		pre_mode = obj.mode
+		bpy.ops.object.mode_set(mode='OBJECT')
 		me = obj.data
 		active_col = me.vertex_colors.active
 		for data in active_col.data:
 			data.color = self.color[:]
+		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
 ################
