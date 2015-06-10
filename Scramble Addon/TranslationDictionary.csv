@@ -97,7 +97,7 @@
 "メッシュデータ","Mesh data"
 "タブ > ","Tab &gt; "
 "UVマップ","UV maps"
-"UVをまとめてリネーム","UV to rename"
+"まとめてUVをリネーム","Bulk Rename with UV"
 "選択オブジェクト内の指定UVをまとめて改名します","Renames the selected objects within designated UV together"
 "リネームするUV名","UV name rename"
 "過去のUV","Past UV"

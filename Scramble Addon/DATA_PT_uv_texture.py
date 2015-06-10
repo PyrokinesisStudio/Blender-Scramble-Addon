@@ -8,7 +8,7 @@ import bpy
 
 class RenameSpecificNameUV(bpy.types.Operator):
 	bl_idname = "object.rename_specific_name_uv"
-	bl_label = "UVをまとめてリネーム"
+	bl_label = "まとめてUVをリネーム"
 	bl_description = "選択オブジェクト内の指定UVをまとめて改名します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -224,11 +224,13 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		row = self.layout.row()
-		sub = row.row(align=True)
-		sub.operator(MoveActiveUV.bl_idname, icon='TRIA_UP', text="").mode = 'UP'
-		sub.operator(MoveActiveUV.bl_idname, icon='TRIA_DOWN', text="").mode = 'DOWN'
-		row.operator(RenameUV.bl_idname, icon="PLUGIN")
-		self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
+		if (context.active_object.type == 'MESH'):
+			if (context.active_object.data.uv_layers.active):
+				row = self.layout.row()
+				sub = row.row(align=True)
+				sub.operator(MoveActiveUV.bl_idname, icon='TRIA_UP', text="").mode = 'UP'
+				sub.operator(MoveActiveUV.bl_idname, icon='TRIA_DOWN', text="").mode = 'DOWN'
+				row.operator(RenameUV.bl_idname, icon="PLUGIN")
+				self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
