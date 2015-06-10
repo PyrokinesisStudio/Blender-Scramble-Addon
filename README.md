@@ -122,6 +122,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Move the vertex color)**
         * アクティブなオブジェクトの頂点色を移動して並び替えます
         * ―(Move the vertex color of active objects, sorts)
+    * **頂点色を塗り潰す**
+    * **―(Fill the vertex color)**
+        * アクティブなオブジェクトの頂点色を指定色で塗り潰します
+        * ―(Vertex color of the active object with the specified color fills)
   
 * **ドープシート > 「キー」メニュー**
 * **―(Dope sheet "menu"key")**

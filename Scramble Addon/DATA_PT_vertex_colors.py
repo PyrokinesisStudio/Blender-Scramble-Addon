@@ -58,6 +58,36 @@ class MoveActiveVertexColor(bpy.types.Operator):
 		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
+class VertexColorSet(bpy.types.Operator):
+	bl_idname = "object.vertex_color_set"
+	bl_label = "頂点色を塗り潰す"
+	bl_description = "アクティブなオブジェクトの頂点色を指定色で塗り潰します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	color = bpy.props.FloatVectorProperty(name="頂点色", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=3, precision=10, subtype='COLOR')
+	
+	def invoke(self, context, event):
+		obj = context.active_object
+		if (not obj):
+			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			return {'CANCELLED'}
+		if (obj.type != 'MESH'):
+			self.report(type={'ERROR'}, message="これはメッシュオブジェクトではありません")
+			return {'CANCELLED'}
+		me = obj.data
+		active_col = me.vertex_colors.active
+		if (not active_col):
+			self.report(type={'ERROR'}, message="頂点色が存在しません")
+			return {'CANCELLED'}
+		return context.window_manager.invoke_props_dialog(self)
+	def execute(self, context):
+		obj = context.active_object
+		me = obj.data
+		active_col = me.vertex_colors.active
+		for data in active_col.data:
+			data.color = self.color[:]
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -77,5 +107,6 @@ def menu(self, context):
 		sub = row.row(align=True)
 		sub.operator(MoveActiveVertexColor.bl_idname, icon='TRIA_UP', text="").mode = 'UP'
 		sub.operator(MoveActiveVertexColor.bl_idname, icon='TRIA_DOWN', text="").mode = 'DOWN'
+		row.operator(VertexColorSet.bl_idname, icon="PLUGIN", text="塗り潰す")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
