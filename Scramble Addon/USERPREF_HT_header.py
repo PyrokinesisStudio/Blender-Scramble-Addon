@@ -876,6 +876,8 @@ class ToggleDisabledMenu(bpy.types.Operator):
 	
 	def execute(self, context):
 		context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu = not context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu
+		for area in context.screen.areas:
+			area.tag_redraw()
 		return {'FINISHED'}
 
 ################
