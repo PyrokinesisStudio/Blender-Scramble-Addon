@@ -213,11 +213,22 @@ class UVMenu(bpy.types.Menu):
 # メニュー追加 #
 ################
 
+# メニューのオン/オフの判定
+def IsMenuEnable(self_id):
+	for id in bpy.context.user_preferences.addons["Scramble Addon"].preferences.disabled_menu.split(','):
+		if (id == self_id):
+			return False
+	else:
+		return True
+
 # メニューを登録する関数
 def menu(self, context):
-	row = self.layout.row()
-	sub = row.row(align=True)
-	sub.operator(MoveActiveUV.bl_idname, icon='TRIA_UP', text="").mode = 'UP'
-	sub.operator(MoveActiveUV.bl_idname, icon='TRIA_DOWN', text="").mode = 'DOWN'
-	row.operator(RenameUV.bl_idname, icon="PLUGIN")
-	self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
+	if (IsMenuEnable(__name__.split('.')[-1])):
+		row = self.layout.row()
+		sub = row.row(align=True)
+		sub.operator(MoveActiveUV.bl_idname, icon='TRIA_UP', text="").mode = 'UP'
+		sub.operator(MoveActiveUV.bl_idname, icon='TRIA_DOWN', text="").mode = 'DOWN'
+		row.operator(RenameUV.bl_idname, icon="PLUGIN")
+		self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
+	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
+		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

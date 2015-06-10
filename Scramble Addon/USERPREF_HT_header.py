@@ -922,26 +922,37 @@ class AddonsMenu(bpy.types.Menu):
 # メニュー追加 #
 ################
 
+# メニューのオン/オフの判定
+def IsMenuEnable(self_id):
+	for id in bpy.context.user_preferences.addons["Scramble Addon"].preferences.disabled_menu.split(','):
+		if (id == self_id):
+			return False
+	else:
+		return True
+
 # メニューを登録する関数
 def menu(self, context):
-	active_section = context.user_preferences.active_section
-	if (active_section == 'INPUT'):
-		self.layout.menu(InputMenu.bl_idname, icon="PLUGIN")
-		try:
-			keymap = context.window_manager.keyconfigs.addon.keymaps['temp']
-		except KeyError:
-			keymap = context.window_manager.keyconfigs.addon.keymaps.new('temp')
-		if (1 <= len(keymap.keymap_items)):
-			keymap_item = keymap.keymap_items[0]
-		else:
-			keymap_item = keymap.keymap_items.new('', 'W', 'PRESS')
-		self.layout.prop(keymap_item, 'type', event=True, text="")
-		self.layout.prop(keymap_item, 'shift', text="Shift")
-		self.layout.prop(keymap_item, 'ctrl', text="Ctrl")
-		self.layout.prop(keymap_item, 'alt', text="Alt")
-		self.layout.prop(keymap_item, 'any', text="Any")
-		self.layout.operator(SearchKeyBind.bl_idname, icon="PLUGIN")
-	elif (active_section == 'FILES'):
-		self.layout.menu(SystemAssociateMenu.bl_idname, icon="PLUGIN")
-	elif (active_section == 'ADDONS'):
-		self.layout.menu(AddonsMenu.bl_idname, icon="PLUGIN")
+	if (IsMenuEnable(__name__.split('.')[-1])):
+		active_section = context.user_preferences.active_section
+		if (active_section == 'INPUT'):
+			self.layout.menu(InputMenu.bl_idname, icon="PLUGIN")
+			try:
+				keymap = context.window_manager.keyconfigs.addon.keymaps['temp']
+			except KeyError:
+				keymap = context.window_manager.keyconfigs.addon.keymaps.new('temp')
+			if (1 <= len(keymap.keymap_items)):
+				keymap_item = keymap.keymap_items[0]
+			else:
+				keymap_item = keymap.keymap_items.new('', 'W', 'PRESS')
+			self.layout.prop(keymap_item, 'type', event=True, text="")
+			self.layout.prop(keymap_item, 'shift', text="Shift")
+			self.layout.prop(keymap_item, 'ctrl', text="Ctrl")
+			self.layout.prop(keymap_item, 'alt', text="Alt")
+			self.layout.prop(keymap_item, 'any', text="Any")
+			self.layout.operator(SearchKeyBind.bl_idname, icon="PLUGIN")
+		elif (active_section == 'FILES'):
+			self.layout.menu(SystemAssociateMenu.bl_idname, icon="PLUGIN")
+		elif (active_section == 'ADDONS'):
+			self.layout.menu(AddonsMenu.bl_idname, icon="PLUGIN")
+	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
+		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
