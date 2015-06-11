@@ -231,6 +231,6 @@ def menu(self, context):
 				sub.operator(MoveActiveUV.bl_idname, icon='TRIA_UP', text="").mode = 'UP'
 				sub.operator(MoveActiveUV.bl_idname, icon='TRIA_DOWN', text="").mode = 'DOWN'
 				row.operator(RenameUV.bl_idname, icon="PLUGIN")
-				self.layout.menu(UVMenu.bl_idname, icon="PLUGIN")
+				row.menu(UVMenu.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
