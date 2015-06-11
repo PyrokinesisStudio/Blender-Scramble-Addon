@@ -863,10 +863,10 @@ class UpdateScrambleAddon(bpy.types.Operator):
 					uzf.close()
 		zf.close()
 		#self.report(type={"INFO"}, message="アドオンを更新しました、Blenderを再起動して下さい")
-		context.window_manager.popup_menu(self.draw, title="更新成功", icon='INFO')
+		context.window_manager.popup_menu(self.popup_menu, title="更新成功", icon='INFO')
 		return {'FINISHED'}
-	def draw(self, context):
-		self.layout.label("アドオンを更新しました、Blenderを再起動して下さい")
+	def popup_menu(self, unknown, context):
+		unknown.layout.label("アドオンを更新しました、Blenderを再起動して下さい")
 
 class ToggleDisabledMenu(bpy.types.Operator):
 	bl_idname = "wm.toggle_disabled_menu"
