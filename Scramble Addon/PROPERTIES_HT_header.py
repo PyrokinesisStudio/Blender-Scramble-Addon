@@ -44,22 +44,23 @@ class ChangeContextTab(bpy.types.Operator):
 		return {'FINISHED'}
 
 ################
-# サブメニュー #
-################
-
-class ShortcutsMenu(bpy.types.Menu):
-	bl_idname = "PROPERTIES_HT_header_shortcuts"
-	bl_label = "　ショートカット登録用"
-	bl_description = "ショートカットに登録すると便利かもしれない機能のメニューです"
-	
-	def draw(self, context):
-		self.layout.operator(ChangeContextTab.bl_idname, text="タブを右へ", icon="PLUGIN").is_left = False
-		self.layout.operator(ChangeContextTab.bl_idname, text="タブを左へ", icon="PLUGIN").is_left = True
-
-################
 # メニュー追加 #
 ################
 
+# メニューのオン/オフの判定
+def IsMenuEnable(self_id):
+	for id in bpy.context.user_preferences.addons["Scramble Addon"].preferences.disabled_menu.split(','):
+		if (id == self_id):
+			return False
+	else:
+		return True
+
 # メニューを登録する関数
 def menu(self, context):
-	self.layout.menu(ShortcutsMenu.bl_idname, icon="PLUGIN")
+	if (IsMenuEnable(__name__.split('.')[-1])):
+		row = self.layout.row(align=True)
+		row.operator(ChangeContextTab.bl_idname, text="", icon='TRIA_LEFT').is_left = True
+		row.operator(ChangeContextTab.bl_idname, text="", icon='TRIA_RIGHT').is_left = False
+	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
+		self.layout.separator()
+		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
