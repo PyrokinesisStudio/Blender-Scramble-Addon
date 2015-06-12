@@ -946,7 +946,9 @@ def menu(self, context):
 				keymap_item = keymap.keymap_items[0]
 			else:
 				keymap_item = keymap.keymap_items.new('', 'W', 'PRESS')
-			self.layout.prop(keymap_item, 'type', event=True, text="")
+			row = self.layout.row()
+			row.prop(keymap_item, 'type', event=True, text="")
+			row.scale_x = 0.5
 			self.layout.prop(keymap_item, 'shift', text="Shift")
 			self.layout.prop(keymap_item, 'ctrl', text="Ctrl")
 			self.layout.prop(keymap_item, 'alt', text="Alt")
