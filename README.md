@@ -1136,6 +1136,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中の面の法線方向から面を注視します
         * ―(The watch face from the selected surface normal direction)
   
+# ライセンス (License)
 Copyright (c) 2015 saidenka.  
 All rights reserved.  
   
