@@ -15,11 +15,19 @@ class ChangeContextTab(bpy.types.Operator):
 	is_left = bpy.props.BoolProperty(name="左へ", default=False)
 	
 	def execute(self, context):
+		space_data = None
 		for area in context.screen.areas:
 			if (area.type == 'PROPERTIES'):
 				for space in area.spaces:
 					if (space.type == 'PROPERTIES'):
 						space_data = space
+						break
+				else:
+					continue
+				break
+		if (not space_data):
+			self.report(type={'ERROR'}, message="プロパティエリアが見つかりません")
+			return {'CANCELLED'}
 		now_tab = space_data.context
 		tabs = ['RENDER', 'RENDER_LAYER', 'SCENE', 'WORLD', 'OBJECT', 'CONSTRAINT', 'MODIFIER', 'DATA', 'BONE', 'BONE_CONSTRAINT', 'MATERIAL', 'TEXTURE', 'PARTICLES', 'PHYSICS']
 		for tab in tabs[:]:
@@ -32,14 +40,10 @@ class ChangeContextTab(bpy.types.Operator):
 			return {'CANCELLED'}
 		if (self.is_left):
 			tabs.reverse()
-		flag = False
-		for tab in tabs:
-			if (flag):
-				space_data.context = tab
-				break
-			if (tab == now_tab):
-				flag = True
-		else:
+		index = tabs.index(now_tab) + 1
+		try:
+			space_data.context = tabs[index]
+		except IndexError:
 			space_data.context = tabs[0]
 		return {'FINISHED'}
 
