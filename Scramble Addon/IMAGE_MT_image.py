@@ -228,6 +228,34 @@ class Rotate180Image(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class ExternalEditEX(bpy.types.Operator):
+	bl_idname = "image.external_edit_ex"
+	bl_label = "外部エディターで編集 (拡張)"
+	bl_description = "ユーザー設定のファイルタブで設定した追加の外部エディターで画像を開きます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	index = bpy.props.IntProperty(name="使用する番号", default=1, min=1, max=3, soft_min=1, soft_max=3)
+	
+	def execute(self, context):
+		img = context.edit_image
+		if (not img):
+			self.report(type={'ERROR'}, message="画像が見つかりません")
+			return {'CANCELLED'}
+		if (img.filepath == ""):
+			self.report(type={'ERROR'}, message="画像パスが見つかりません")
+			return {'CANCELLED'}
+		path = bpy.path.abspath(img.filepath)
+		pre_path = context.user_preferences.filepaths.image_editor
+		if (self.index == 1):
+			context.user_preferences.filepaths.image_editor = context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_1
+		elif (self.index == 2):
+			context.user_preferences.filepaths.image_editor = context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_2
+		elif (self.index == 3):
+			context.user_preferences.filepaths.image_editor = context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_3
+		bpy.ops.image.external_edit(filepath=path)
+		context.user_preferences.filepaths.image_editor = pre_path
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -257,6 +285,18 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
+		if (context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_1):
+			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_1)
+			name, ext = os.path.splitext(path)
+			self.layout.operator(ExternalEditEX.bl_idname, icon="PLUGIN", text=name+" で開く").index = 1
+		if (context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_2):
+			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_2)
+			name, ext = os.path.splitext(path)
+			self.layout.operator(ExternalEditEX.bl_idname, icon="PLUGIN", text=name+" で開く").index = 2
+		if (context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_3):
+			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_3)
+			name, ext = os.path.splitext(path)
+			self.layout.operator(ExternalEditEX.bl_idname, icon="PLUGIN", text=name+" で開く").index = 3
 		self.layout.separator()
 		self.layout.operator(FillColor.bl_idname, icon="PLUGIN")
 		self.layout.operator(BlurImage.bl_idname, icon="PLUGIN")

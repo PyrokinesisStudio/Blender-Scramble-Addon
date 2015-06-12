@@ -65,6 +65,7 @@ if "bpy" in locals():
 	imp.reload(DATA_PT_modifiers)
 	imp.reload(DATA_PT_uv_texture)
 	imp.reload(DATA_PT_vertex_colors)
+	imp.reload(USERPREF_PT_file)
 else:
 	from . import IMAGE_MT_image
 	from . import IMAGE_MT_select
@@ -112,6 +113,7 @@ else:
 	from . import DATA_PT_modifiers
 	from . import DATA_PT_uv_texture
 	from . import DATA_PT_vertex_colors
+	from . import USERPREF_PT_file
 import bpy
 
 # アドオン設定
@@ -122,6 +124,9 @@ class AddonPreferences(bpy.types.AddonPreferences):
 	use_disabled_menu = bpy.props.BoolProperty(name="「追加項目のオン/オフ」の非表示", default=False)
 	view_savedata = bpy.props.StringProperty(name="視点のセーブデータ", default="")
 	key_config_xml_path = bpy.props.StringProperty(name="XMLキーコンフィグのパス", default="BlenderKeyConfig.xml")
+	image_editor_path_1 = bpy.props.StringProperty(name="画像編集ソフトのパス 1", default="", subtype='FILE_PATH')
+	image_editor_path_2 = bpy.props.StringProperty(name="画像編集ソフトのパス 2", default="", subtype='FILE_PATH')
+	image_editor_path_3 = bpy.props.StringProperty(name="画像編集ソフトのパス 3", default="", subtype='FILE_PATH')
 	
 	def draw(self, context):
 		layout = self.layout
@@ -129,6 +134,10 @@ class AddonPreferences(bpy.types.AddonPreferences):
 		layout.prop(self, 'use_disabled_menu')
 		layout.prop(self, 'view_savedata')
 		layout.prop(self, 'key_config_xml_path')
+		box = layout.box()
+		box.prop(self, 'image_editor_path_1')
+		box.prop(self, 'image_editor_path_2')
+		box.prop(self, 'image_editor_path_3')
 
 # 追加メニューの有効/無効
 class ToggleMenuEnable(bpy.types.Operator):
@@ -222,6 +231,7 @@ def register():
 	bpy.types.DATA_PT_modifiers.append(DATA_PT_modifiers.menu)
 	bpy.types.DATA_PT_uv_texture.append(DATA_PT_uv_texture.menu)
 	bpy.types.DATA_PT_vertex_colors.append(DATA_PT_vertex_colors.menu)
+	bpy.types.USERPREF_PT_file.append(USERPREF_PT_file.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -275,6 +285,7 @@ def unregister():
 	bpy.types.DATA_PT_modifiers.remove(DATA_PT_modifiers.menu)
 	bpy.types.DATA_PT_uv_texture.remove(DATA_PT_uv_texture.menu)
 	bpy.types.DATA_PT_vertex_colors.remove(DATA_PT_vertex_colors.menu)
+	bpy.types.USERPREF_PT_file.remove(USERPREF_PT_file.menu)
 
 # メイン関数
 if __name__ == "__main__":

@@ -176,6 +176,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Rotate 180 degrees)**
         * アクティブな画像を180°回転します
         * ―(Active image rotates 180 °)
+    * **外部エディターで編集 (拡張)**
+    * **―(Editing in an external editor (enhanced))**
+        * ユーザー設定のファイルタブで設定した追加の外部エディターで画像を開きます
+        * ―(Open the image in an external editor of the additional files page of the custom)
   
 * **UV/画像エディター > 「選択」メニュー**
 * **―(UV / image editor > select menu)**
@@ -517,6 +521,9 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Toggle on/off additional items)**
         * ScrambleAddonによるメニューの末尾の「追加項目のオン/オフ」ボタンの表示/非表示を切り替えます
         * ―(Turns on/off additional items button at the end of the menu by ScrambleAddon)
+  
+* **ユーザー設定 > ファイル**
+* **―(User settings > file)**
   
 * **3Dビュー > アーマチュア編集モード > 「W」キー**
 * **―(3D view > armature edit mode > 'W' key)**
