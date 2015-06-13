@@ -30,21 +30,20 @@ class ChangeContextTab(bpy.types.Operator):
 			return {'CANCELLED'}
 		now_tab = space_data.context
 		tabs = ['RENDER', 'RENDER_LAYER', 'SCENE', 'WORLD', 'OBJECT', 'CONSTRAINT', 'MODIFIER', 'DATA', 'BONE', 'BONE_CONSTRAINT', 'MATERIAL', 'TEXTURE', 'PARTICLES', 'PHYSICS']
-		for tab in tabs[:]:
-			try:
-				space_data.context = tab
-			except TypeError:
-				tabs.remove(tab)
 		if (now_tab not in tabs):
 			self.report(type={'ERROR'}, message="現在のタブが予期せぬ設定値です")
 			return {'CANCELLED'}
 		if (self.is_left):
 			tabs.reverse()
 		index = tabs.index(now_tab) + 1
-		try:
-			space_data.context = tabs[index]
-		except IndexError:
-			space_data.context = tabs[0]
+		for i in range(len(tabs)):
+			try:
+				space_data.context = tabs[index]
+				break
+			except TypeError:
+				index += 1
+			except IndexError:
+				index = 0
 		return {'FINISHED'}
 
 ################
