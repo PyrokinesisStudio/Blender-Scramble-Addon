@@ -177,6 +177,8 @@ class ToggleMenuEnable(bpy.types.Operator):
 			if (recovery[-1] == ","):
 				recovery = recovery[:-1]
 		context.user_preferences.addons["Scramble Addon"].preferences.disabled_menu = recovery
+		for area in context.screen.areas:
+			area.tag_redraw()
 		return {'FINISHED'}
 
 # 翻訳辞書の取得
