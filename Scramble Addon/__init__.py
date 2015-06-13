@@ -67,6 +67,7 @@ if "bpy" in locals():
 	imp.reload(DATA_PT_vertex_colors)
 	imp.reload(USERPREF_PT_file)
 	imp.reload(VIEW3D_PT_tools_imagepaint_external)
+	imp.reload(TEXT_MT_text)
 else:
 	from . import IMAGE_MT_image
 	from . import IMAGE_MT_select
@@ -116,6 +117,7 @@ else:
 	from . import DATA_PT_vertex_colors
 	from . import USERPREF_PT_file
 	from . import VIEW3D_PT_tools_imagepaint_external
+	from . import TEXT_MT_text
 import bpy
 
 # アドオン設定
@@ -126,9 +128,14 @@ class AddonPreferences(bpy.types.AddonPreferences):
 	use_disabled_menu = bpy.props.BoolProperty(name="「追加項目のオン/オフ」の非表示", default=False)
 	view_savedata = bpy.props.StringProperty(name="視点のセーブデータ", default="")
 	key_config_xml_path = bpy.props.StringProperty(name="XMLキーコンフィグのパス", default="BlenderKeyConfig.xml")
+	
 	image_editor_path_1 = bpy.props.StringProperty(name="画像編集ソフトのパス 1", default="", subtype='FILE_PATH')
 	image_editor_path_2 = bpy.props.StringProperty(name="画像編集ソフトのパス 2", default="", subtype='FILE_PATH')
 	image_editor_path_3 = bpy.props.StringProperty(name="画像編集ソフトのパス 3", default="", subtype='FILE_PATH')
+	
+	text_editor_path_1 = bpy.props.StringProperty(name="テキスト編集ソフトのパス 1", default="", subtype='FILE_PATH')
+	text_editor_path_2 = bpy.props.StringProperty(name="テキスト編集ソフトのパス 2", default="", subtype='FILE_PATH')
+	text_editor_path_3 = bpy.props.StringProperty(name="テキスト編集ソフトのパス 3", default="", subtype='FILE_PATH')
 	
 	def draw(self, context):
 		layout = self.layout
@@ -140,6 +147,10 @@ class AddonPreferences(bpy.types.AddonPreferences):
 		box.prop(self, 'image_editor_path_1')
 		box.prop(self, 'image_editor_path_2')
 		box.prop(self, 'image_editor_path_3')
+		box = layout.box()
+		box.prop(self, 'text_editor_path_1')
+		box.prop(self, 'text_editor_path_2')
+		box.prop(self, 'text_editor_path_3')
 
 # 追加メニューの有効/無効
 class ToggleMenuEnable(bpy.types.Operator):
@@ -235,6 +246,7 @@ def register():
 	bpy.types.DATA_PT_vertex_colors.append(DATA_PT_vertex_colors.menu)
 	bpy.types.USERPREF_PT_file.append(USERPREF_PT_file.menu)
 	bpy.types.VIEW3D_PT_tools_imagepaint_external.append(VIEW3D_PT_tools_imagepaint_external.menu)
+	bpy.types.TEXT_MT_text.append(TEXT_MT_text.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -290,6 +302,7 @@ def unregister():
 	bpy.types.DATA_PT_vertex_colors.remove(DATA_PT_vertex_colors.menu)
 	bpy.types.USERPREF_PT_file.remove(USERPREF_PT_file.menu)
 	bpy.types.VIEW3D_PT_tools_imagepaint_external.remove(VIEW3D_PT_tools_imagepaint_external.menu)
+	bpy.types.TEXT_MT_text.remove(TEXT_MT_text.menu)
 
 # メイン関数
 if __name__ == "__main__":

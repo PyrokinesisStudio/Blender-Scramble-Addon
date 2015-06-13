@@ -471,6 +471,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなテクスチャスロットを一番下に移動させます
         * ―(Move the active texture slot at the bottom)
   
+* **テキストエディター > 「テキスト」メニュー**
+* **―(Text editor > text menu)**
+    * **外部エディターで編集**
+    * **―(Edit with external editor)**
+        * ユーザー設定のファイルタブで設定した外部エディターでテキストを開きます
+        * ―(Open the text in an external editor you set on the files page of the custom)
+  
 * **ユーザー設定 > ヘッダー**
 * **―(User settings > header)**
     * **ユーザー設定タブを切り替え**

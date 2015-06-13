@@ -17,16 +17,15 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		self.layout.label(text="画像エディター: 拡張")
-		
 		col = self.layout.column()
-		
-		
+		col.label(text="画像エディター: 拡張")
 		col.prop(context.user_preferences.addons["Scramble Addon"].preferences, 'image_editor_path_1', text="")
 		col.prop(context.user_preferences.addons["Scramble Addon"].preferences, 'image_editor_path_2', text="")
 		col.prop(context.user_preferences.addons["Scramble Addon"].preferences, 'image_editor_path_3', text="")
-		
-		
-		
+		col = self.layout.column()
+		col.label(text="テキストエディター")
+		col.prop(context.user_preferences.addons["Scramble Addon"].preferences, 'text_editor_path_1', text="")
+		col.prop(context.user_preferences.addons["Scramble Addon"].preferences, 'text_editor_path_2', text="")
+		col.prop(context.user_preferences.addons["Scramble Addon"].preferences, 'text_editor_path_3', text="")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
