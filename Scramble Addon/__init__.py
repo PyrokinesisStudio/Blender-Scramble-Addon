@@ -66,6 +66,7 @@ if "bpy" in locals():
 	imp.reload(DATA_PT_uv_texture)
 	imp.reload(DATA_PT_vertex_colors)
 	imp.reload(USERPREF_PT_file)
+	imp.reload(VIEW3D_PT_tools_imagepaint_external)
 else:
 	from . import IMAGE_MT_image
 	from . import IMAGE_MT_select
@@ -114,6 +115,7 @@ else:
 	from . import DATA_PT_uv_texture
 	from . import DATA_PT_vertex_colors
 	from . import USERPREF_PT_file
+	from . import VIEW3D_PT_tools_imagepaint_external
 import bpy
 
 # アドオン設定
@@ -232,6 +234,7 @@ def register():
 	bpy.types.DATA_PT_uv_texture.append(DATA_PT_uv_texture.menu)
 	bpy.types.DATA_PT_vertex_colors.append(DATA_PT_vertex_colors.menu)
 	bpy.types.USERPREF_PT_file.append(USERPREF_PT_file.menu)
+	bpy.types.VIEW3D_PT_tools_imagepaint_external.append(VIEW3D_PT_tools_imagepaint_external.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -286,6 +289,7 @@ def unregister():
 	bpy.types.DATA_PT_uv_texture.remove(DATA_PT_uv_texture.menu)
 	bpy.types.DATA_PT_vertex_colors.remove(DATA_PT_vertex_colors.menu)
 	bpy.types.USERPREF_PT_file.remove(USERPREF_PT_file.menu)
+	bpy.types.VIEW3D_PT_tools_imagepaint_external.remove(VIEW3D_PT_tools_imagepaint_external.menu)
 
 # メイン関数
 if __name__ == "__main__":

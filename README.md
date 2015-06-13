@@ -1147,6 +1147,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中の面の法線方向から面を注視します
         * ―(The watch face from the selected surface normal direction)
   
+* **UV/画像エディター > 「画像」メニュー**
+* **―(UV / image editor > image menu)**
+    * **クイック編集 (拡張)**
+    * **―(Quick Edit (extend))**
+        * ユーザー設定のファイルタブで設定した追加の外部エディターでクイック編集を行います
+        * ―(Do the quick editing in an external editor of the additional files page of the custom)
+  
 # ライセンス (License)
 Copyright (c) 2015 saidenka.  
 All rights reserved.  
