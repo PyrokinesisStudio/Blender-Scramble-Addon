@@ -985,11 +985,8 @@ def menu(self, context):
 			self.layout.menu(SystemAssociateMenu.bl_idname, icon="PLUGIN")
 		elif (active_section == 'ADDONS'):
 			self.layout.menu(AddonsMenu.bl_idname, icon="PLUGIN")
-	
-	row = self.layout.row(align=True)
-	row.operator(ChangeUserPreferencesTab.bl_idname, icon='TRIA_LEFT', text="").is_left = True
-	row.operator(ChangeUserPreferencesTab.bl_idname, icon='TRIA_RIGHT', text="").is_left = False
-	
-	
+		row = self.layout.row(align=True)
+		row.operator(ChangeUserPreferencesTab.bl_idname, icon='TRIA_LEFT', text="").is_left = True
+		row.operator(ChangeUserPreferencesTab.bl_idname, icon='TRIA_RIGHT', text="").is_left = False
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
