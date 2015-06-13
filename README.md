@@ -473,6 +473,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
   
 * **ユーザー設定 > ヘッダー**
 * **―(User settings > header)**
+    * **ユーザー設定タブを切り替え**
+    * **―(Switch to the custom tab)**
+        * ユーザー設定のタブを順番に切り替えます
+        * ―(Cycles the user settings tab)
     * **キーバインド検索**
     * **―(Search key bindings)**
         * 設定したキーバインドに一致する割り当てを検索します

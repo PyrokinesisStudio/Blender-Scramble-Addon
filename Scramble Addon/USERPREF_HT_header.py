@@ -13,6 +13,33 @@ except:
 from xml.dom import minidom
 import xml.etree.ElementTree as ElementTree
 
+################
+# オペレーター #
+################
+
+class ChangeUserPreferencesTab(bpy.types.Operator):
+	bl_idname = "ui.change_user_preferences_tab"
+	bl_label = "ユーザー設定タブを切り替え"
+	bl_description = "ユーザー設定のタブを順番に切り替えます"
+	bl_options = {'REGISTER'}
+	
+	is_left = bpy.props.BoolProperty(name="左へ", default=False)
+	
+	def execute(self, context):
+		tabs = ['INTERFACE', 'EDITING', 'INPUT', 'ADDONS', 'THEMES', 'FILES', 'SYSTEM']
+		now_tab = context.user_preferences.active_section
+		if (now_tab not in tabs):
+			self.report(type={'ERROR'}, message="現在のタブが予期せぬ設定値です")
+			return {'CANCELLED'}
+		if (self.is_left):
+			tabs.reverse()
+		index = tabs.index(now_tab) + 1
+		try:
+			context.user_preferences.active_section = tabs[index]
+		except IndexError:
+			context.user_preferences.active_section = tabs[0]
+		return {'FINISHED'}
+
 ################################
 # オペレーター(ショートカット) #
 ################################
@@ -958,5 +985,11 @@ def menu(self, context):
 			self.layout.menu(SystemAssociateMenu.bl_idname, icon="PLUGIN")
 		elif (active_section == 'ADDONS'):
 			self.layout.menu(AddonsMenu.bl_idname, icon="PLUGIN")
+	
+	row = self.layout.row(align=True)
+	row.operator(ChangeUserPreferencesTab.bl_idname, icon='TRIA_LEFT', text="").is_left = True
+	row.operator(ChangeUserPreferencesTab.bl_idname, icon='TRIA_RIGHT', text="").is_left = False
+	
+	
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
