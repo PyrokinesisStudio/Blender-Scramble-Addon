@@ -452,6 +452,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 現在表示されているノードツリーを他の全マテリアル(選択オブジェクトのみも可)に複製します
         * ―(Nodes currently displayed with all other materials (selection also allowed) to duplicate)
   
+* **「プロパティ」エリア > 「オブジェクト」タブ > 「表示」パネル**
+* **―(Area "Properties" > "object" tab > "Panel")**
+    * **表示設定をコピー**
+    * **―(Copy the display settings)**
+        * この表示設定を他の選択オブジェクトにコピーします
+        * ―(Copy the selected objects of other display settings)
+  
 * **プロパティ > ヘッダー**
 * **―(Properties > header)**
     * **プロパティタブを切り替え**
