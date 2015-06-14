@@ -286,6 +286,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		if (context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_1):
+			self.layout.separator()
 			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_1)
 			name, ext = os.path.splitext(path)
 			self.layout.operator(ExternalEditEX.bl_idname, icon="PLUGIN", text=name+" で開く").index = 1
