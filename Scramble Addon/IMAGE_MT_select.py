@@ -65,4 +65,6 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
 		self.layout.operator(SelectSeamEdge.bl_idname, icon="PLUGIN")
-	self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
+	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
+		self.layout.separator()
+		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
