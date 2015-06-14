@@ -15,14 +15,14 @@ class ExternalEdit(bpy.types.Operator):
 	
 	index = bpy.props.IntProperty(name="使用する番号", default=1, min=1, max=3, soft_min=1, soft_max=3)
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_text):
+			return False
+		if (context.edit_text.filepath == ""):
+			return False
+		return True
 	def execute(self, context):
-		text = context.edit_text
-		if (not text):
-			self.report(type={'ERROR'}, message="テキストが見つかりません")
-			return {'CANCELLED'}
-		if (text.filepath == ""):
-			self.report(type={'ERROR'}, message="テキストのパスが見つかりません")
-			return {'CANCELLED'}
 		path = bpy.path.abspath(text.filepath)
 		if (self.index == 1):
 			editor_path = context.user_preferences.addons["Scramble Addon"].preferences.text_editor_path_1
