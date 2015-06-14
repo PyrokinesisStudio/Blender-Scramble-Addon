@@ -344,9 +344,7 @@ class ModifierMenu(bpy.types.Menu):
 		self.layout.menu(ArmatureMenu.bl_idname, icon="PLUGIN")
 		self.layout.menu(BooleanMenu.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.separator()
 		self.layout.operator(ApplyModifiersAndJoin.bl_idname, icon="PLUGIN")
-		self.layout.separator()
 
 class SubsurfMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_subsurf"
