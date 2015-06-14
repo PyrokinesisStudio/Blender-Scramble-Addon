@@ -112,6 +112,11 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 	unapply_armature = bpy.props.BoolProperty(name="アーマチュア除く", default=True)
 	unapply_mirror = bpy.props.BoolProperty(name="ミラー除く", default=False)
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(context.selected_objects) <= 1):
+			return False
+		return True
 	def execute(self, context):
 		pre_active_object = context.active_object
 		for obj in context.selected_objects:
