@@ -188,6 +188,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * シームによって分離している頂点を選択します
         * ―(Select the vertex are separated by seams)
   
+* **UV/画像エディター > 「UV」メニュー**
+* **―(UV / image editor > "UV" menu)**
+    * **UVをメッシュに変換**
+    * **―(Convert UV to mesh)**
+        * アクティブなUVを新規メッシュに変換します
+        * ―(Converts the new mesh to UV active)
+  
 * **UV/画像エディター > 「ビュー」メニュー**
 * **―(UV / image editor > View menu)**
     * **カーソルの位置をリセット**

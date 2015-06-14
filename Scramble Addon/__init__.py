@@ -68,6 +68,7 @@ if "bpy" in locals():
 	imp.reload(USERPREF_PT_file)
 	imp.reload(VIEW3D_PT_tools_imagepaint_external)
 	imp.reload(TEXT_MT_text)
+	imp.reload(IMAGE_MT_uvs)
 else:
 	from . import IMAGE_MT_image
 	from . import IMAGE_MT_select
@@ -118,6 +119,7 @@ else:
 	from . import USERPREF_PT_file
 	from . import VIEW3D_PT_tools_imagepaint_external
 	from . import TEXT_MT_text
+	from . import IMAGE_MT_uvs
 import bpy
 
 # アドオン設定
@@ -249,6 +251,7 @@ def register():
 	bpy.types.USERPREF_PT_file.append(USERPREF_PT_file.menu)
 	bpy.types.VIEW3D_PT_tools_imagepaint_external.append(VIEW3D_PT_tools_imagepaint_external.menu)
 	bpy.types.TEXT_MT_text.append(TEXT_MT_text.menu)
+	bpy.types.IMAGE_MT_uvs.append(IMAGE_MT_uvs.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -305,6 +308,7 @@ def unregister():
 	bpy.types.USERPREF_PT_file.remove(USERPREF_PT_file.menu)
 	bpy.types.VIEW3D_PT_tools_imagepaint_external.remove(VIEW3D_PT_tools_imagepaint_external.menu)
 	bpy.types.TEXT_MT_text.remove(TEXT_MT_text.menu)
+	bpy.types.IMAGE_MT_uvs.remove(IMAGE_MT_uvs.menu)
 
 # メイン関数
 if __name__ == "__main__":
