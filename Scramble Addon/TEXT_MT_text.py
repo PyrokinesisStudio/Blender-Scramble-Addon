@@ -23,7 +23,7 @@ class ExternalEdit(bpy.types.Operator):
 			return False
 		return True
 	def execute(self, context):
-		path = bpy.path.abspath(text.filepath)
+		path = bpy.path.abspath(context.edit_text.filepath)
 		if (self.index == 1):
 			editor_path = context.user_preferences.addons["Scramble Addon"].preferences.text_editor_path_1
 		elif (self.index == 2):
