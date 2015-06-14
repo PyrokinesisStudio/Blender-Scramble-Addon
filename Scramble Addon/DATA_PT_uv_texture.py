@@ -15,6 +15,11 @@ class RenameSpecificNameUV(bpy.types.Operator):
 	source_name =  bpy.props.StringProperty(name="リネームするUV名", default="過去のUV")
 	replace_name =  bpy.props.StringProperty(name="新しいUV名", default="新しいUV")
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(context.selected_objects) <= 1):
+			return False
+		return True
 	def execute(self, context):
 		for obj in context.selected_objects:
 			if (obj.type != 'MESH'):
@@ -36,6 +41,11 @@ class DeleteSpecificNameUV(bpy.types.Operator):
 	
 	name =  bpy.props.StringProperty(name="削除するUV名", default="UV")
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(context.selected_objects) <= 1):
+			return False
+		return True
 	def execute(self, context):
 		for obj in context.selected_objects:
 			if (obj.type != 'MESH'):
@@ -57,6 +67,17 @@ class RenameUV(bpy.types.Operator):
 	
 	name =  bpy.props.StringProperty(name="新しいUV名", default="UV")
 	
+	@classmethod
+	def poll(cls, context):
+		obj = context.active_object
+		if (not obj):
+			return False
+		if (obj.type != 'MESH'):
+			return False
+		me = obj.data
+		if (not me.uv_layers.active):
+			return False
+		return True
 	def execute(self, context):
 		obj = context.active_object
 		if (obj.type == 'MESH'):
@@ -143,18 +164,20 @@ class MoveActiveUV(bpy.types.Operator):
 		]
 	mode = bpy.props.EnumProperty(items=items, name="方向", default="UP")
 	
-	def execute(self, context):
+	@classmethod
+	def poll(cls, context):
 		obj = context.active_object
 		if (not obj):
-			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
-			return {'CANCELLED'}
+			return False
 		if (obj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="これはメッシュオブジェクトではありません")
-			return {'CANCELLED'}
+			return False
 		me = obj.data
 		if (len(me.uv_layers) <= 1):
-			self.report(type={'ERROR'}, message="UV数が1つ以下です")
-			return {'CANCELLED'}
+			return False
+		return True
+	def execute(self, context):
+		obj = context.active_object
+		me = obj.data
 		if (self.mode == 'UP'):
 			if (me.uv_layers.active_index <= 0):
 				return {'CANCELLED'}
