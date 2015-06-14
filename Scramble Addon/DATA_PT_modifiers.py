@@ -398,11 +398,12 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		if (context.active_object):
 			if (len(context.active_object.modifiers)):
-				row = self.layout.row(align=True)
+				col = self.layout.column(align=True)
+				row = col.row(align=True)
 				row.operator(AutoRenameModifiers.bl_idname, icon='SCRIPT', text="全リネーム")
 				row.operator(ApplyAllModifiers.bl_idname, icon='IMPORT', text="全適用")
 				row.operator(DeleteAllModifiers.bl_idname, icon='X', text="全削除")
-				row = self.layout.row(align=True)
+				row = col.row(align=True)
 				row.operator(ToggleApplyModifiersView.bl_idname, icon='RESTRICT_VIEW_OFF', text="ビュー表示")
 				row.operator(ToggleAllShowExpanded.bl_idname, icon='FULLSCREEN_ENTER', text="展開/閉じる")
 				row.operator(SyncShowModifiers.bl_idname, icon='LINKED', text="使用同期")
