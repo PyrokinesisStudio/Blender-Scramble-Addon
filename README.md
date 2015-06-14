@@ -523,14 +523,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Move the key assignments that expand the categories)**
         * 展開しているキー割り当てを、他のカテゴリに移動します
         * ―(Move key assignments that expand into other categories)
-    * **.blendファイルをこのバージョンに関連付け**
-    * **―(the.blend file associated with this version)**
-        * .blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
-        * ―((WindowsOS only).blend file associates a Blender run file)
-    * **バックアップをこのバージョンに関連付け**
-    * **―(Backup with this version)**
-        * .blend1 .blend2 などのバックアップファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
-        * ―(associates with Blender running file backup file, such as.blend1.blend2 (WindowsOS only))
     * **Blender-Scramble-Addonを更新**
     * **―(Update Blender-Scramble-Addon)**
         * Blender-Scramble-Addonをダウンロード・更新を済ませます
@@ -542,6 +534,14 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
   
 * **ユーザー設定 > ファイル**
 * **―(User settings > file)**
+    * **.blendファイルをこのバージョンに関連付け**
+    * **―(the.blend file associated with this version)**
+        * .blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
+        * ―((WindowsOS only).blend file associates a Blender run file)
+    * **バックアップをこのバージョンに関連付け**
+    * **―(Backup with this version)**
+        * .blend1 .blend2 などのバックアップファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
+        * ―(associates with Blender running file backup file, such as.blend1.blend2 (WindowsOS only))
   
 * **3Dビュー > アーマチュア編集モード > 「W」キー**
 * **―(3D view > armature edit mode > 'W' key)**
