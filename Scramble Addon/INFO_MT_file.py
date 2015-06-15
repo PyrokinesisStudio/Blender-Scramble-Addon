@@ -379,28 +379,6 @@ class FixEmptyTextureUVLayer(bpy.types.Operator):
 											tslot.uv_layer = uv.name
 		return {'FINISHED'}
 
-######################
-# オペレーター(画像) #
-######################
-
-class AllRenameImageFileName(bpy.types.Operator):
-	bl_idname = "image.all_rename_image_file_name"
-	bl_label = "全ての画像名を使用するファイル名に"
-	bl_description = "全ての画像の名前を、使用している外部画像のファイル名にします"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	isExt = bpy.props.BoolProperty(name="拡張子も含む", default=True)
-	
-	def execute(self, context):
-		for img in  bpy.data.images:
-			name = bpy.path.basename(img.filepath_raw)
-			if (not self.isExt):
-				name, ext = os.path.splitext(name)
-			try:
-				img.name = name
-			except: pass
-		return {'FINISHED'}
-
 ##########################
 # オペレーター(物理演算) #
 ##########################
@@ -544,7 +522,7 @@ class EntireProcessImageMenu(bpy.types.Menu):
 	bl_description = "全画像を一括処理する機能群です"
 	
 	def draw(self, context):
-		self.layout.operator(AllRenameImageFileName.bl_idname, icon="PLUGIN")
+		self.layout.operator('image.all_rename_image_file_name', icon='PLUGIN')
 
 class EntireProcessPhysicsMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_physics"

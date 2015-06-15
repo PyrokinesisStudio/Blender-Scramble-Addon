@@ -47,7 +47,10 @@ class AllRenameImageFileName(bpy.types.Operator):
 	def poll(cls, context):
 		if (len(bpy.data.images) <= 0):
 			return False
-		return True
+		for img in bpy.data.images:
+			if (img.filepath != ""):
+				return True
+		return False
 	def execute(self, context):
 		for img in  bpy.data.images:
 			name = bpy.path.basename(img.filepath_raw)
@@ -68,7 +71,10 @@ class ReloadAllImage(bpy.types.Operator):
 	def poll(cls, context):
 		if (len(bpy.data.images) <= 0):
 			return False
-		return True
+		for img in bpy.data.images:
+			if (img.filepath != ""):
+				return True
+		return False
 	def execute(self, context):
 		for img in bpy.data.images:
 			if (img.filepath != ""):

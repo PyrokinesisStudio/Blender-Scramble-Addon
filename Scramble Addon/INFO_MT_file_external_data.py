@@ -7,24 +7,6 @@ import os
 # オペレーター #
 ################
 
-class ReloadAllImage(bpy.types.Operator):
-	bl_idname = "image.reload_all_image"
-	bl_label = "全ての画像を再読み込み"
-	bl_description = "外部ファイルを参照している画像データを全て読み込み直します"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	def execute(self, context):
-		for img in bpy.data.images:
-			if (img.filepath != ""):
-				img.reload()
-				try:
-					img.update()
-				except RuntimeError:
-					pass
-		for area in context.screen.areas:
-			area.tag_redraw()
-		return {'FINISHED'}
-
 class ResaveAllImage(bpy.types.Operator):
 	bl_idname = "image.resave_all_image"
 	bl_label = "全ての画像をtexturesフォルダに保存し直す"
@@ -125,7 +107,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(ReloadAllImage.bl_idname, icon="PLUGIN")
+		self.layout.operator('image.reload_all_image', icon="PLUGIN")
 		self.layout.operator(ResaveAllImage.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(OpenRecentFiles.bl_idname, icon="PLUGIN")
