@@ -12,6 +12,12 @@ class RemoveNoAssignMaterial(bpy.types.Operator):
 	bl_description = "面に一つも割り当てられてないマテリアルを全て削除します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		obj = context.active_object
+		if (len(obj.material_slots) <= 0):
+			return False
+		return True
 	def execute(self, context):
 		preActiveObj = context.active_object
 		for obj in context.selected_objects:
@@ -42,6 +48,12 @@ class RemoveAllMaterialSlot(bpy.types.Operator):
 	bl_description = "このオブジェクトのマテリアルスロットを全て削除します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		obj = context.active_object
+		if (len(obj.material_slots) <= 0):
+			return False
+		return True
 	def execute(self, context):
 		activeObj = context.active_object
 		if (activeObj.type == "MESH"):
@@ -58,6 +70,13 @@ class RemoveEmptyMaterialSlot(bpy.types.Operator):
 	bl_description = "このオブジェクトのマテリアルが割り当てられていないマテリアルスロットを全て削除します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		obj = context.active_object
+		for slot in obj.material_slots:
+			if (not slot.material):
+				return True
+		return False
 	def execute(self, context):
 		activeObj = context.active_object
 		if (activeObj.type == "MESH"):
