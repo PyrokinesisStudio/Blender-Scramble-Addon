@@ -1,7 +1,7 @@
 # ユーザー設定 > ファイル
 
 import bpy
-import sys
+import sys, platform
 try:
 	import winreg
 except:
@@ -17,6 +17,11 @@ class RegisterBlendFile(bpy.types.Operator):
 	bl_description = ".blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)"
 	bl_options = {'REGISTER'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (platform.system() != 'Windows'):
+			return False
+		return True
 	def execute(self, context):
 		winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\.blend", winreg.REG_SZ, 'blend_auto_file')
 		winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\blend_auto_file\shell\open\command", winreg.REG_SZ, '"'+sys.argv[0]+'" "%1"')
@@ -31,6 +36,11 @@ class RegisterBlendBackupFiles(bpy.types.Operator):
 	
 	max = bpy.props.IntProperty(name=".blend1～.blendN まで", default=10, min=1, max=1000, soft_min=1, soft_max=1000)
 	
+	@classmethod
+	def poll(cls, context):
+		if (platform.system() != 'Windows'):
+			return False
+		return True
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
 	def execute(self, context):
