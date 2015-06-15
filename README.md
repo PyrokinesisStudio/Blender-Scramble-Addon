@@ -29,9 +29,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 > Please look because items have been added to the various places.  
 
 ## 機能一覧 (List of functions)
-  
-* **プロパティ > モディファイアタブ**
-* **―(Property: modifiatab)**
+* **「プロパティ」エリア > 「モディファイア」タブ**
+* **―(Area properties > tab "modifiers")**
     * **全モディファイア適用**
     * **―(All modifiers applied)**
         * 選択オブジェクトの全てのモディファイアを適用します

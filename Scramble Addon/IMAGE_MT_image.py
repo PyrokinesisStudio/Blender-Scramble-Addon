@@ -15,6 +15,13 @@ class RenameImageFileName(bpy.types.Operator):
 	
 	isExt = bpy.props.BoolProperty(name="拡張子も含む", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (context.edit_image.filepath == ""):
+			return False
+		return True
 	def invoke(self, context, event):
 		wm = context.window_manager
 		return wm.invoke_props_dialog(self)
@@ -36,6 +43,11 @@ class AllRenameImageFileName(bpy.types.Operator):
 	
 	isExt = bpy.props.BoolProperty(name="拡張子も含む", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(bpy.data.images) <= 0):
+			return False
+		return True
 	def execute(self, context):
 		for img in  bpy.data.images:
 			name = bpy.path.basename(img.filepath_raw)
@@ -52,6 +64,11 @@ class ReloadAllImage(bpy.types.Operator):
 	bl_description = "外部ファイルを参照している画像データを全て読み込み直します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(bpy.data.images) <= 0):
+			return False
+		return True
 	def execute(self, context):
 		for img in bpy.data.images:
 			if (img.filepath != ""):
@@ -73,6 +90,11 @@ class FillColor(bpy.types.Operator):
 	color = bpy.props.FloatVectorProperty(name="色", description="塗り潰す色", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
 	alpha = bpy.props.FloatProperty(name="透明度", description="透明度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		return True
 	def invoke(self, context, event):
 		wm = context.window_manager
 		return wm.invoke_props_dialog(self)
@@ -97,6 +119,13 @@ class RenameImageFile(bpy.types.Operator):
 	
 	new_name = bpy.props.StringProperty(name="新しいファイル名")
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (context.edit_image.filepath == ""):
+			return False
+		return True
 	def invoke(self, context, event):
 		self.new_name = bpy.path.basename(context.edit_image.filepath_raw)
 		if (self.new_name == ""):
@@ -124,6 +153,11 @@ class BlurImage(bpy.types.Operator):
 	
 	strength = bpy.props.IntProperty(name="ぼかし量", default=10, min=1, max=100, soft_min=1, soft_max=100)
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		return True
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
 	def execute(self, context):
@@ -174,6 +208,11 @@ class ReverseWidthImage(bpy.types.Operator):
 	bl_description = "アクティブな画像を水平方向に反転します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		return True
 	def execute(self, context):
 		img = context.edit_image
 		if (not img):
@@ -194,6 +233,11 @@ class ReverseHeightImage(bpy.types.Operator):
 	bl_description = "アクティブな画像を垂直方向に反転します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		return True
 	def execute(self, context):
 		img = context.edit_image
 		if (not img):
@@ -213,6 +257,11 @@ class Rotate180Image(bpy.types.Operator):
 	bl_description = "アクティブな画像を180°回転します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		return True
 	def execute(self, context):
 		img = context.edit_image
 		if (not img):
@@ -236,6 +285,13 @@ class ExternalEditEX(bpy.types.Operator):
 	
 	index = bpy.props.IntProperty(name="使用する番号", default=1, min=1, max=3, soft_min=1, soft_max=3)
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (context.edit_image.filepath == ""):
+			return False
+		return True
 	def execute(self, context):
 		img = context.edit_image
 		if (not img):
