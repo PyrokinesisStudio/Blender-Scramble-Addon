@@ -12,6 +12,11 @@ class WorldReset(bpy.types.Operator):
 	bl_description = "設定は維持して剛体ワールドを作り直します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.scene.rigidbody_world):
+			return False
+		return context.scene.rigidbody_world.enabled
 	def execute(self, context):
 		group = context.scene.rigidbody_world.group
 		constraints = context.scene.rigidbody_world.constraints
