@@ -513,6 +513,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Search key bindings)**
         * 設定したキーバインドに一致する割り当てを検索します
         * ―(Find matching key bindings you set assignment)
+    * **ショートカット検索をクリア**
+    * **―(Clear Search shortcuts)**
+        * ショートカット検索に使用した文字列を削除します
+        * ―(Remove the string used to search for shortcuts)
     * **キーコンフィグを全て閉じる**
     * **―(Close all game)**
         * キーコンフィグのメニューを全て折りたたみます

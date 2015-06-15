@@ -67,6 +67,18 @@ class SearchKeyBind(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class ClearFilterText(bpy.types.Operator):
+	bl_idname = "ui.clear_filter_text"
+	bl_label = "ショートカット検索をクリア"
+	bl_description = "ショートカット検索に使用した文字列を削除します"
+	bl_options = {'REGISTER'}
+	
+	def execute(self, context):
+		context.space_data.filter_text = ""
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 class CloseKeyMapItems(bpy.types.Operator):
 	bl_idname = "ui.close_key_map_items"
 	bl_label = "キーコンフィグを全て閉じる"
@@ -926,14 +938,16 @@ def menu(self, context):
 				keymap_item = keymap.keymap_items[0]
 			else:
 				keymap_item = keymap.keymap_items.new('', 'W', 'PRESS')
-			row = self.layout.row()
-			row.prop(keymap_item, 'type', event=True, text="")
-			row.scale_x = 0.5
-			self.layout.prop(keymap_item, 'shift', text="Shift")
-			self.layout.prop(keymap_item, 'ctrl', text="Ctrl")
-			self.layout.prop(keymap_item, 'alt', text="Alt")
-			self.layout.prop(keymap_item, 'any', text="Any")
-			self.layout.operator(SearchKeyBind.bl_idname, icon="PLUGIN")
+			row = self.layout.row(align=True)
+			sub = row.row()
+			sub.prop(keymap_item, 'type', event=True, text="")
+			sub.scale_x = 0.5
+			row.prop(keymap_item, 'shift', text="Shift")
+			row.prop(keymap_item, 'ctrl', text="Ctrl")
+			row.prop(keymap_item, 'alt', text="Alt")
+			row.prop(keymap_item, 'any', text="Any")
+			row.operator(SearchKeyBind.bl_idname, icon="PLUGIN")
+			row.operator(ClearFilterText.bl_idname, icon='X', text="")
 		elif (active_section == 'ADDONS'):
 			self.layout.menu(AddonsMenu.bl_idname, icon="PLUGIN")
 		row = self.layout.row(align=True)
