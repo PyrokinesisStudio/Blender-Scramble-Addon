@@ -545,8 +545,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ScrambleAddonによるメニューの末尾の「追加項目のオン/オフ」ボタンの表示/非表示を切り替えます
         * ―(Turns on/off additional items button at the end of the menu by ScrambleAddon)
   
-* **ユーザー設定 > ファイル**
-* **―(User settings > file)**
+* **「ユーザー設定」エリア > 「ファイル」タブ**
+* **―("User settings" > "files" tab)**
     * **.blendファイルをこのバージョンに関連付け**
     * **―(the.blend file associated with this version)**
         * .blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)

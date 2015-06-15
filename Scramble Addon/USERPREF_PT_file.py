@@ -1,4 +1,4 @@
-# ユーザー設定 > ファイル
+# 「ユーザー設定」エリア > 「ファイル」タブ
 
 import bpy
 import sys, platform
@@ -66,7 +66,7 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		self.layout.label(text="Scramble Addon:")
+		self.layout.label(text="Scramble Addon:", icon='PLUGIN')
 		split = self.layout.split(percentage=0.7)
 		split_sub = split.split(percentage=0.95)
 		col = split_sub.column()
