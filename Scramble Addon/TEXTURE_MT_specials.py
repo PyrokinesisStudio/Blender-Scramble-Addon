@@ -14,6 +14,17 @@ class RenameTextureFileName(bpy.types.Operator):
 	
 	isExt = bpy.props.BoolProperty(name="拡張子も含む", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.texture):
+			return False
+		if (context.texture.type != 'IMAGE'):
+			return False
+		if (not context.texture.image):
+			return False
+		if (context.texture.image.filepath == ""):
+			return False
+		return True
 	def execute(self, context):
 		tex = context.texture
 		if (not tex):
@@ -41,6 +52,14 @@ class RemoveAllTextureSlots(bpy.types.Operator):
 	bl_description = "アクティブなマテリアルの全てのテクスチャスロットを空にします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object.active_material):
+			return False
+		for slot in context.object.active_material.texture_slots:
+			if (slot):
+				return True
+		return False
 	def execute(self, context):
 		slots = context.active_object.active_material.texture_slots[:]
 		for i in range(len(slots)):
@@ -53,6 +72,15 @@ class SlotMoveTop(bpy.types.Operator):
 	bl_description = "アクティブなテクスチャスロットを一番上に移動させます"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object.active_material):
+			return False
+		if (not context.object.active_material.active_texture):
+			return False
+		if (context.object.active_material.active_texture_index <= 0):
+			return False
+		return True
 	def execute(self, context):
 		preTop = context.active_object.active_material.texture_slots[0]
 		i = 0
@@ -64,12 +92,26 @@ class SlotMoveTop(bpy.types.Operator):
 			if (100 <= i): break
 			i += 1
 		return {'FINISHED'}
+
 class SlotMoveBottom(bpy.types.Operator):
 	bl_idname = "texture.slot_move_bottom"
 	bl_label = "最下段へ"
 	bl_description = "アクティブなテクスチャスロットを一番下に移動させます"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object.active_material):
+			return False
+		if (not context.object.active_material.active_texture):
+			return False
+		bottom_index = 0
+		for i, slot in enumerate(context.object.active_material.texture_slots):
+			if (slot):
+				bottom_index = i
+		if (bottom_index <= context.object.active_material.active_texture_index):
+			return False
+		return True
 	def execute(self, context):
 		for i in range(len(context.active_object.active_material.texture_slots)):
 			if (context.active_object.active_material.texture_slots[i]):

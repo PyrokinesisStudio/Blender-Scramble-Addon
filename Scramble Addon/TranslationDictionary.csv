@@ -289,7 +289,6 @@
 "物理演算関係のデータを一括処理する機能群です","Is the relationship between physical operation of data processing functions"
 "全ての画像をtexturesフォルダに保存し直す","Resave textures folder, all images"
 "外部ファイルを参照している画像データを全てtexturesフォルダに保存し直します","All external files referenced by image data to resave the textures folder"
-"blendファイルを保存してから実行して下さい","Please run save the blend file"
 "texturesフォルダに保存し直しました","repaired and stored in the textures folder"
 "「最近使ったファイル」をテキストで開く","Open text in "recent files""
 "「最近使ったファイル」をBlenderのテキストエディタで開きます","Open the "recent files" in Blender text editor"
