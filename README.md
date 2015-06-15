@@ -360,10 +360,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
   
 * **「プロパティ」エリア > 「マテリアル」タブ**
 * **―("Properties" areas ""material"tab)**
-    * **マテリアルスロットを移動**
-    * **―(Move the material slots)**
-        * アクティブなマテリアルスロットを移動させます
-        * ―(Moves the active material slots)
     * **スロットを一番上へ**
     * **―(Slot to the top)**
         * アクティブなマテリアルスロットを一番上に移動させます
