@@ -13,10 +13,15 @@ class ResaveAllImage(bpy.types.Operator):
 	bl_description = "外部ファイルを参照している画像データを全てtexturesフォルダに保存し直します"
 	bl_options = {'REGISTER'}
 	
-	def execute(self, context):
+	@classmethod
+	def poll(cls, context):
 		if (context.blend_data.filepath == ""):
-			self.report(type={"ERROR"}, message="blendファイルを保存してから実行して下さい")
-			return {'CANCELLED'}
+			return False
+		for img in bpy.data.images:
+			if (img.filepath != ""):
+				return True
+		return False
+	def execute(self, context):
 		for img in context.blend_data.images:
 			if (img.filepath != ""):
 				try:
