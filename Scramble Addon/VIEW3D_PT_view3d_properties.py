@@ -104,6 +104,7 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
+		self.layout.prop(context.user_preferences.view, 'use_zoom_to_mouse')
 		self.layout.prop(context.user_preferences.view, 'use_rotate_around_active')
 		box = self.layout.box()
 		col = box.column(align=True)
