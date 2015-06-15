@@ -1,4 +1,4 @@
-# アドオンを読み込む時に最初にこのファイルが読み込まれます
+﻿# アドオンを読み込む時に最初にこのファイルが読み込まれます
 
 import os, csv, codecs
 
@@ -71,6 +71,8 @@ if "bpy" in locals():
 	imp.reload(IMAGE_MT_uvs)
 	imp.reload(OBJECT_PT_display)
 	imp.reload(RENDER_PT_render)
+	imp.reload(MATERIAL_PT_context_material)
+	#imp.reload(***)
 else:
 	from . import IMAGE_MT_image
 	from . import IMAGE_MT_select
@@ -124,6 +126,8 @@ else:
 	from . import IMAGE_MT_uvs
 	from . import OBJECT_PT_display
 	from . import RENDER_PT_render
+	from . import MATERIAL_PT_context_material
+	#from . import ***
 import bpy
 
 # アドオン設定
@@ -258,6 +262,8 @@ def register():
 	bpy.types.IMAGE_MT_uvs.append(IMAGE_MT_uvs.menu)
 	bpy.types.OBJECT_PT_display.append(OBJECT_PT_display.menu)
 	bpy.types.RENDER_PT_render.append(RENDER_PT_render.menu)
+	bpy.types.MATERIAL_PT_context_material.append(MATERIAL_PT_context_material.menu)
+	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -317,7 +323,10 @@ def unregister():
 	bpy.types.IMAGE_MT_uvs.remove(IMAGE_MT_uvs.menu)
 	bpy.types.OBJECT_PT_display.remove(OBJECT_PT_display.menu)
 	bpy.types.RENDER_PT_render.remove(RENDER_PT_render.menu)
+	bpy.types.MATERIAL_PT_context_material.remove(MATERIAL_PT_context_material.menu)
+	#bpy.types.***.remove(***.menu)
 
 # メイン関数
 if __name__ == "__main__":
 	register()
+

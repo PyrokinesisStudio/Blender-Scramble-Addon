@@ -366,6 +366,9 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Delete empty material slots)**
         * このオブジェクトのマテリアルが割り当てられていないマテリアルスロットを全て削除します
         * ―(Delete all material of this object has not been assigned material slots)
+  
+* **「プロパティ」エリア > 「マテリアル」タブ**
+* **―("Properties" areas ""material"tab)**
     * **マテリアルスロットを移動**
     * **―(Move the material slots)**
         * アクティブなマテリアルスロットを移動させます
