@@ -8,13 +8,24 @@ import bpy
 
 class CopyAllMaterialNode(bpy.types.Operator):
 	bl_idname = "node.copy_all_material_node"
-	bl_label = "このノードを全マテリアルにコピー"
-	bl_description = "現在表示されているノードツリーを他の全マテリアル(選択オブジェクトのみも可)に複製します"
+	bl_label = "このシェーダーノードを他マテリアルにコピー"
+	bl_description = "表示しているシェーダーノードを他のマテリアルにコピーします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isOnlySelected = bpy.props.BoolProperty(name="選択オブジェクトのみ", default=False)
 	isOnlyUseNode = bpy.props.BoolProperty(name="ﾉｰﾄﾞ使用済の場合のみ", default=False)
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object):
+			return False
+		if (not context.object.active_material):
+			return False
+		if (not context.object.active_material.use_nodes):
+			return False
+		if (context.space_data.tree_type != 'ShaderNodeTree'):
+			return False
+		return True
 	def execute(self, context):
 		activeObj = context.active_object
 		activeMat = activeObj.active_material
