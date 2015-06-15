@@ -100,6 +100,8 @@ class FillColor(bpy.types.Operator):
 	def poll(cls, context):
 		if (not context.edit_image):
 			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
 		return True
 	def invoke(self, context, event):
 		wm = context.window_manager
@@ -163,6 +165,8 @@ class BlurImage(bpy.types.Operator):
 	def poll(cls, context):
 		if (not context.edit_image):
 			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
 		return True
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
@@ -218,6 +222,8 @@ class ReverseWidthImage(bpy.types.Operator):
 	def poll(cls, context):
 		if (not context.edit_image):
 			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
 		return True
 	def execute(self, context):
 		img = context.edit_image
@@ -243,6 +249,8 @@ class ReverseHeightImage(bpy.types.Operator):
 	def poll(cls, context):
 		if (not context.edit_image):
 			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
 		return True
 	def execute(self, context):
 		img = context.edit_image
@@ -266,6 +274,8 @@ class Rotate180Image(bpy.types.Operator):
 	@classmethod
 	def poll(cls, context):
 		if (not context.edit_image):
+			return False
+		if (len(context.edit_image.pixels) <= 0):
 			return False
 		return True
 	def execute(self, context):
