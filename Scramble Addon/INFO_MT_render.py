@@ -7,35 +7,6 @@ import sys, subprocess
 # オペレーター #
 ################
 
-class RenderBackground(bpy.types.Operator):
-	bl_idname = "render.render_background"
-	bl_label = "バックグラウンドでレンダリング"
-	bl_description = "コマンドラインから現在のblendファイルをレンダリングします"
-	bl_options = {'REGISTER'}
-	
-	is_quit = bpy.props.BoolProperty(name="Blenderを終了", default=True)
-	items = [
-		('IMAGE', "静止画", "", 1),
-		('ANIME', "アニメーション", "", 2),
-		]
-	mode = bpy.props.EnumProperty(items=items, name="設定モード", default='IMAGE')
-	thread = bpy.props.IntProperty(name="スレッド数", default=2, min=1, max=16, soft_min=1, soft_max=16)
-	
-	def execute(self, context):
-		blend_path = bpy.data.filepath
-		if (not blend_path):
-			self.report(type={'ERROR'}, message="blendファイルを開いた状態で実行して下さい")
-			return {'CANCELLED'}
-		if (self.mode == 'IMAGE'):
-			subprocess.Popen([sys.argv[0], '-b', blend_path, '-f', str(context.scene.frame_current), '-t', str(self.thread)])
-		elif (self.mode == 'ANIME'):
-			subprocess.Popen([sys.argv[0], '-b', blend_path, '-a', '-t', str(self.thread)])
-		if (self.is_quit):
-			bpy.ops.wm.quit_blender()
-		return {'FINISHED'}
-	def invoke(self, context, event):
-		return context.window_manager.invoke_props_dialog(self)
-
 class SetRenderResolutionPercentage(bpy.types.Operator):
 	bl_idname = "render.set_render_resolution_percentage"
 	bl_label = "解像度の倍率を設定"
@@ -239,8 +210,6 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		self.layout.separator()
-		self.layout.operator(RenderBackground.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.prop(context.scene.render, 'resolution_x', text="解像度 X", icon="PLUGIN")
 		self.layout.prop(context.scene.render, 'resolution_y', text="解像度 Y", icon="PLUGIN")

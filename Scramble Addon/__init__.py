@@ -70,6 +70,7 @@ if "bpy" in locals():
 	imp.reload(TEXT_MT_text)
 	imp.reload(IMAGE_MT_uvs)
 	imp.reload(OBJECT_PT_display)
+	imp.reload(RENDER_PT_render)
 else:
 	from . import IMAGE_MT_image
 	from . import IMAGE_MT_select
@@ -122,6 +123,7 @@ else:
 	from . import TEXT_MT_text
 	from . import IMAGE_MT_uvs
 	from . import OBJECT_PT_display
+	from . import RENDER_PT_render
 import bpy
 
 # アドオン設定
@@ -255,6 +257,7 @@ def register():
 	bpy.types.TEXT_MT_text.append(TEXT_MT_text.menu)
 	bpy.types.IMAGE_MT_uvs.append(IMAGE_MT_uvs.menu)
 	bpy.types.OBJECT_PT_display.append(OBJECT_PT_display.menu)
+	bpy.types.RENDER_PT_render.append(RENDER_PT_render.menu)
 
 # プラグインをアンインストールしたときの処理
 def unregister():
@@ -313,6 +316,7 @@ def unregister():
 	bpy.types.TEXT_MT_text.remove(TEXT_MT_text.menu)
 	bpy.types.IMAGE_MT_uvs.remove(IMAGE_MT_uvs.menu)
 	bpy.types.OBJECT_PT_display.remove(OBJECT_PT_display.menu)
+	bpy.types.RENDER_PT_render.remove(RENDER_PT_render.menu)
 
 # メイン関数
 if __name__ == "__main__":
