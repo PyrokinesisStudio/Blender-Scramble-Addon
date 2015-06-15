@@ -7,16 +7,6 @@ import re, random
 # オペレーター #
 ################
 
-class CopyObjectName(bpy.types.Operator):
-	bl_idname = "object.copy_object_name"
-	bl_label = "オブジェクト名をクリップボードにコピー"
-	bl_description = "アクティブなオブジェクトの名前をクリップボードにコピーします"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	def execute(self, context):
-		context.window_manager.clipboard = context.active_object.name
-		return {'FINISHED'}
-
 class RenameObjectRegularExpression(bpy.types.Operator):
 	bl_idname = "object.rename_object_regular_expression"
 	bl_label = "オブジェクト名を正規表現で置換"
@@ -937,7 +927,6 @@ class ObjectNameMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		column = self.layout.column()
-		column.operator(CopyObjectName.bl_idname, icon="PLUGIN")
 		column.operator(RenameObjectRegularExpression.bl_idname, icon="PLUGIN")
 		column.operator(EqualizeObjectNameAndDataName.bl_idname, icon="PLUGIN")
 		if (len(context.selected_objects) <= 0):
