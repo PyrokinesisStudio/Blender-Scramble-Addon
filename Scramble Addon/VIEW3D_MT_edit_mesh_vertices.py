@@ -75,14 +75,15 @@ class QuickShrinkwrap(bpy.types.Operator):
 	wrap_method = bpy.props.EnumProperty(items=items, name="モード", default='PROJECT')
 	offset = bpy.props.FloatProperty(name="オフセット", default=0.0, min=-10, max=10, soft_min=-10, soft_max=10, step=1, precision=5)
 	
-	def execute(self, context):
+	@classmethod
+	def poll(cls, context):
 		if (len(context.selected_objects) != 2):
-			self.report(type={"ERROR"}, message="メッシュオブジェクトを2つ選択状態で実行して下さい")
-			return {'CANCELLED'}
+			return False
 		for obj in context.selected_objects:
 			if (obj.type != 'MESH'):
-				self.report(type={"ERROR"}, message="メッシュオブジェクトを2つ選択状態で実行して下さい")
-				return {'CANCELLED'}
+				return False
+		return True
+	def execute(self, context):
 		active_obj = context.active_object
 		pre_mode = active_obj.mode
 		bpy.ops.object.mode_set(mode='OBJECT')
