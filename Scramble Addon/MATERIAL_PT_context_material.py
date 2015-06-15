@@ -69,6 +69,8 @@ class MoveMaterialSlotTop(bpy.types.Operator):
 			return False
 		if (len(obj.material_slots) <= 2):
 			return False
+		if (obj.active_material_index <= 0):
+			return False
 		return True
 	def execute(self, context):
 		activeObj = context.active_object
@@ -88,6 +90,8 @@ class MoveMaterialSlotBottom(bpy.types.Operator):
 		if (not obj):
 			return False
 		if (len(obj.material_slots) <= 2):
+			return False
+		if (len(obj.material_slots)-1 <= obj.active_material_index):
 			return False
 		return True
 	def execute(self, context):
