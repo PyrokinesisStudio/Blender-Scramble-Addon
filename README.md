@@ -275,10 +275,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Set physical operation start / end frames at once)**
         * 物理演算などの開始/終了フレームを設定する部分にレンダリング開始/終了フレーム数を割り当てます
         * ―(Assign render start / end frames portions to set start / end frames, such as physics)
-    * **RigidBodyのキャッシュをクリア**
-    * **―(Clear the cache of the RigidBody)**
-        * 設定は維持して剛体ワールドを作り直します
-        * ―(Keep setting, recreate the rigid world)
   
 * **情報 > 「ファイル」メニュー > 「外部データ」メニュー**
 * **―(Information > "file" menu > "external data" menu)**
@@ -458,6 +454,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Background rendering.)**
         * コマンドラインから現在のblendファイルをレンダリングします
         * ―(Renders the current blend file from the command line)
+  
+* **「プロパティ」エリア > 「シーン」タブ > 「剛体ワールド」パネル**
+* **―(Area "Properties" > "scenes" tab > rigid World Panel)**
+    * **剛体ワールドを作り直す**
+    * **―(Recreate the rigid world)**
+        * 設定は維持して剛体ワールドを作り直します
+        * ―(Keep setting, recreate the rigid world)
   
 * **プロパティ > 「テクスチャ」タブ > リスト右の▼**
 * **―(Properties > "texture" tab > the list right down:)**

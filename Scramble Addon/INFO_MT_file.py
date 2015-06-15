@@ -439,35 +439,6 @@ class AllSetPhysicsFrames(bpy.types.Operator):
 				particle.frame_end = end
 		return {'FINISHED'}
 
-class FreeRigidBodyBake(bpy.types.Operator):
-	bl_idname = "world.free_rigid_body_bake"
-	bl_label = "RigidBodyのキャッシュをクリア"
-	bl_description = "設定は維持して剛体ワールドを作り直します"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	def execute(self, context):
-		group = context.scene.rigidbody_world.group
-		constraints = context.scene.rigidbody_world.constraints
-		time_scale = context.scene.rigidbody_world.time_scale
-		steps_per_second = context.scene.rigidbody_world.steps_per_second
-		use_split_impulse = context.scene.rigidbody_world.use_split_impulse
-		solver_iterations = context.scene.rigidbody_world.solver_iterations
-		frame_start = context.scene.rigidbody_world.point_cache.frame_start
-		frame_end = context.scene.rigidbody_world.point_cache.frame_end
-		
-		bpy.ops.rigidbody.world_remove()
-		bpy.ops.rigidbody.world_add()
-		
-		context.scene.rigidbody_world.group = group
-		context.scene.rigidbody_world.constraints = constraints
-		context.scene.rigidbody_world.time_scale = time_scale
-		context.scene.rigidbody_world.steps_per_second = steps_per_second
-		context.scene.rigidbody_world.use_split_impulse = use_split_impulse
-		context.scene.rigidbody_world.solver_iterations = solver_iterations
-		context.scene.rigidbody_world.point_cache.frame_start = frame_start
-		context.scene.rigidbody_world.point_cache.frame_end = frame_end
-		return {'FINISHED'}
-
 ##########################
 # サブメニュー(Modifier) #
 ##########################
@@ -531,7 +502,6 @@ class EntireProcessPhysicsMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.operator(AllSetPhysicsFrames.bl_idname, icon="PLUGIN")
-		self.layout.operator(FreeRigidBodyBake.bl_idname, icon="PLUGIN")
 
 ################
 # メニュー追加 #
