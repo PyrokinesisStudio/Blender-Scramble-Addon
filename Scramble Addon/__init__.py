@@ -72,6 +72,7 @@ if "bpy" in locals():
 	imp.reload(OBJECT_PT_display)
 	imp.reload(RENDER_PT_render)
 	imp.reload(MATERIAL_PT_context_material)
+	imp.reload(VIEW3D_PT_view3d_properties)
 	#imp.reload(***)
 else:
 	from . import IMAGE_MT_image
@@ -127,6 +128,7 @@ else:
 	from . import OBJECT_PT_display
 	from . import RENDER_PT_render
 	from . import MATERIAL_PT_context_material
+	from . import VIEW3D_PT_view3d_properties
 	#from . import ***
 import bpy
 
@@ -263,6 +265,7 @@ def register():
 	bpy.types.OBJECT_PT_display.append(OBJECT_PT_display.menu)
 	bpy.types.RENDER_PT_render.append(RENDER_PT_render.menu)
 	bpy.types.MATERIAL_PT_context_material.append(MATERIAL_PT_context_material.menu)
+	bpy.types.VIEW3D_PT_view3d_properties.append(VIEW3D_PT_view3d_properties.menu)
 	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
@@ -324,9 +327,11 @@ def unregister():
 	bpy.types.OBJECT_PT_display.remove(OBJECT_PT_display.menu)
 	bpy.types.RENDER_PT_render.remove(RENDER_PT_render.menu)
 	bpy.types.MATERIAL_PT_context_material.remove(MATERIAL_PT_context_material.menu)
+	bpy.types.VIEW3D_PT_view3d_properties.remove(VIEW3D_PT_view3d_properties.menu)
 	#bpy.types.***.remove(***.menu)
 
 # メイン関数
 if __name__ == "__main__":
 	register()
+
 
