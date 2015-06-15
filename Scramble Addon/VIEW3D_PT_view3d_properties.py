@@ -109,18 +109,16 @@ def menu(self, context):
 		col = box.column(align=True)
 		col.operator(SaveView.bl_idname, icon="PLUGIN")
 		col.operator(DeleteViewSavedata.bl_idname, icon="PLUGIN")
-		col = box.column(align=True)
-		count = 0
-		for line in context.user_preferences.addons["Scramble Addon"].preferences.view_savedata.split('|'):
-			if (line == ""):
-				continue
-			try:
-				index = line.split(':')[0]
-			except ValueError:
-				pass
-			if (not count):
-				col.label(text="視点セーブをロード", icon='PLUGIN')
-			col.operator(LoadView.bl_idname, text=index, icon="PLUGIN").index = index
-			count = 1
+		if (context.user_preferences.addons["Scramble Addon"].preferences.view_savedata):
+			col = box.column(align=True)
+			col.label(text="視点セーブをロード", icon='PLUGIN')
+			for line in context.user_preferences.addons["Scramble Addon"].preferences.view_savedata.split('|'):
+				if (line == ""):
+					continue
+				try:
+					index = line.split(':')[0]
+				except ValueError:
+					pass
+				col.operator(LoadView.bl_idname, text=index, icon="PLUGIN").index = index
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
