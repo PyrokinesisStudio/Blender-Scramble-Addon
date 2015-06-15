@@ -77,6 +77,7 @@ if "bpy" in locals():
 	imp.reload(NODE_MT_view)
 	imp.reload(VIEW3D_PT_view3d_name)
 	imp.reload(OBJECT_PT_context_object)
+	imp.reload(DATA_PT_context_mesh)
 	#imp.reload(***)
 else:
 	from . import IMAGE_MT_image
@@ -137,6 +138,7 @@ else:
 	from . import NODE_MT_view
 	from . import VIEW3D_PT_view3d_name
 	from . import OBJECT_PT_context_object
+	from . import DATA_PT_context_mesh
 	#from . import ***
 import bpy
 
@@ -278,6 +280,7 @@ def register():
 	bpy.types.NODE_MT_view.append(NODE_MT_view.menu)
 	bpy.types.VIEW3D_PT_view3d_name.append(VIEW3D_PT_view3d_name.menu)
 	bpy.types.OBJECT_PT_context_object.append(OBJECT_PT_context_object.menu)
+	bpy.types.DATA_PT_context_mesh.append(DATA_PT_context_mesh.menu)
 	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
@@ -344,11 +347,13 @@ def unregister():
 	bpy.types.NODE_MT_view.remove(NODE_MT_view.menu)
 	bpy.types.VIEW3D_PT_view3d_name.remove(VIEW3D_PT_view3d_name.menu)
 	bpy.types.OBJECT_PT_context_object.remove(OBJECT_PT_context_object.menu)
+	bpy.types.DATA_PT_context_mesh.remove(DATA_PT_context_mesh.menu)
 	#bpy.types.***.remove(***.menu)
 
 # メイン関数
 if __name__ == "__main__":
 	register()
+
 
 
 
