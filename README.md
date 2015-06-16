@@ -809,14 +809,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
   
 * **3Dビュー > オブジェクトモード > 「W」キー**
 * **―(3D view > mode > 'W' key)**
-    * **オブジェクト名を正規表現で置換**
-    * **―(Replace object names in regular expressions)**
-        * 選択中のオブジェクトの名前を正規表現で置換します
-        * ―(Name of the currently selected object in the regular expression replace)
-    * **オブジェクト名とデータ名を同じにする**
-    * **―(To the same object and data names)**
-        * 選択中のオブジェクトのオブジェクト名とデータ名を同じにします
-        * ―(The same object and data names for selected objects)
     * **頂点カラーを一括追加**
     * **―(Bulk add vertex color)**
         * 選択中のメッシュオブジェクト全てに色と名前を指定して頂点カラーを追加します
@@ -825,54 +817,26 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Weight transfer)**
         * 他の選択中のメッシュからアクティブにウェイトペイントを転送します
         * ―(From the mesh of the selection in the other active forwarding weight paint)
-    * **グリースペンシルにメタボール配置**
-    * **―(Grease pencil to metaballs)**
-        * アクティブなグリースペンシルに沿ってメタボールを配置します
-        * ―(The blobby align with active grease pencil)
-    * **頂点にメタボールをフック**
-    * **―(Top hook metaballs)**
-        * 選択中のメッシュオブジェクトの頂点部分に新規メタボールを張り付かせます
-        * ―(Have made new metaballs to the vertices of the selected mesh object)
     * **スムーズ/フラットを切り替え**
     * **―(Toggle smooth/flat)**
         * 選択中のメッシュオブジェクトのスムーズ/フラット状態を切り替えます
         * ―(Toggles the selected mesh object smooth / flat state)
-    * **選択物のレンダリングを制限**
-    * **―(Limit the choice of rendering)**
-        * 選択中のオブジェクトをレンダリングしない設定にします
-        * ―(The setting does not render the selected object)
-    * **レンダリングするかを「表示/非表示」に同期**
-    * **―(Or to render the "show / hide" to sync)**
-        * 現在のレイヤー内のオブジェクトをレンダリングするかどうかを表示/非表示の状態と同期します
-        * ―(Synchronize display / hide status and whether or not to render objects in the current layer)
-    * **選択物の選択を制限**
-    * **―(Limit the choice of selecting)**
-        * 選択中のオブジェクトを選択出来なくします
-        * ―(Can't select the selected object)
-    * **非選択物の選択を制限**
-    * **―(Limit the selection of non-selection)**
-        * 選択物以外のオブジェクトを選択出来なくします
-        * ―(Cannot select object other than a selection of)
-    * **すべての選択制限をクリア**
-    * **―(Clears all selected limits)**
-        * 全てのオブジェクトの選択不可設定を解除します(逆も可)
-        * ―(Removes all non-select settings (vice versa))
     * **頂点グループの転送**
     * **―(Transport for vertex group)**
         * アクティブなメッシュに他の選択メッシュの頂点グループを転送します
         * ―(Transfers to other selected mesh vertex group active mesh)
-    * **厚み付けモディファイアで輪郭線生成**
-    * **―(Contour line generation in thickness with modifiers)**
-        * 選択オブジェクトに「厚み付けモディファイア」による輪郭描画を追加します
-        * ―(Add to thicken modiﬁ contour drawing selection)
-    * **オブジェクトカラー有効 + 色設定**
-    * **―(Enable object color + color)**
-        * 選択オブジェクトのオブジェクトカラーを有効にし、色を設定します
-        * ―(Object color of the selected object and sets the color,)
-    * **オブジェクトカラー無効 + 色設定**
-    * **―(Object color off + color)**
-        * 選択オブジェクトのオブジェクトカラーを無効にし、色を設定します
-        * ―(To disable the object color of the selected object, sets the color)
+    * **全頂点の平均ウェイトで塗り潰す**
+    * **―(Fill in the average weight of all vertices)**
+        * 全てのウェイトの平均で、全ての頂点を塗り潰します
+        * ―(The average weight of all, fills all the vertices)
+    * **頂点にメタボールをフック**
+    * **―(Top hook metaballs)**
+        * 選択中のメッシュオブジェクトの頂点部分に新規メタボールを張り付かせます
+        * ―(Have made new metaballs to the vertices of the selected mesh object)
+    * **グリースペンシルにメタボール配置**
+    * **―(Grease pencil to metaballs)**
+        * アクティブなグリースペンシルに沿ってメタボールを配置します
+        * ―(The blobby align with active grease pencil)
     * **メッシュの変形を真似するアーマチュアを作成**
     * **―(Creating an armature to mimic a mesh deformation)**
         * アクティブメッシュオブジェクトの変形に追従するアーマチュアを新規作成します
@@ -881,6 +845,46 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Bones create the vertices where vertex groups)**
         * 選択オブジェクトの頂点グループが割り当てられている頂点位置に、その頂点グループ名のボーンを作成します
         * ―(Create a vertex group names of bones in the vertex position is choice object vertex groups assigned)
+    * **厚み付けモディファイアで輪郭線生成**
+    * **―(Contour line generation in thickness with modifiers)**
+        * 選択オブジェクトに「厚み付けモディファイア」による輪郭描画を追加します
+        * ―(Add to thicken modiﬁ contour drawing selection)
+    * **選択物のレンダリングを制限**
+    * **―(Limit the choice of rendering)**
+        * 選択中のオブジェクトをレンダリングしない設定にします
+        * ―(The setting does not render the selected object)
+    * **レンダリングするかを「表示/非表示」に同期**
+    * **―(Or to render the "show / hide" to sync)**
+        * 現在のレイヤー内のオブジェクトをレンダリングするかどうかを表示/非表示の状態と同期します
+        * ―(Synchronize display / hide status and whether or not to render objects in the current layer)
+    * **すべての選択制限をクリア**
+    * **―(Clears all selected limits)**
+        * 全てのオブジェクトの選択不可設定を解除します(逆も可)
+        * ―(Removes all non-select settings (vice versa))
+    * **非選択物の選択を制限**
+    * **―(Limit the selection of non-selection)**
+        * 選択物以外のオブジェクトを選択出来なくします
+        * ―(Cannot select object other than a selection of)
+    * **選択物の選択を制限**
+    * **―(Limit the choice of selecting)**
+        * 選択中のオブジェクトを選択出来なくします
+        * ―(Can't select the selected object)
+    * **オブジェクト名を正規表現で置換**
+    * **―(Replace object names in regular expressions)**
+        * 選択中のオブジェクトの名前を正規表現で置換します
+        * ―(Name of the currently selected object in the regular expression replace)
+    * **オブジェクト名とデータ名を同じにする**
+    * **―(To the same object and data names)**
+        * 選択中のオブジェクトのオブジェクト名とデータ名を同じにします
+        * ―(The same object and data names for selected objects)
+    * **オブジェクトカラー有効 + 色設定**
+    * **―(Enable object color + color)**
+        * 選択オブジェクトのオブジェクトカラーを有効にし、色を設定します
+        * ―(Object color of the selected object and sets the color,)
+    * **オブジェクトカラー無効 + 色設定**
+    * **―(Object color off + color)**
+        * 選択オブジェクトのオブジェクトカラーを無効にし、色を設定します
+        * ―(To disable the object color of the selected object, sets the color)
     * **モディファイア適用してペアレント作成**
     * **―(Applying modifiers, create a parent)**
         * 親オブジェクトのモディファイアを適用してから、親子関係を作成します
