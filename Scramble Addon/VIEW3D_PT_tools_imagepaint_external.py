@@ -43,17 +43,18 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		col = self.layout.column(align=True)
+		col.label(text="追加クイック編集", icon='PLUGIN')
 		if (context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_1):
 			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_1)
 			name, ext = os.path.splitext(path)
-			col.operator(ProjectEditEX.bl_idname, icon="PLUGIN", text=name+" でクイック編集").index = 1
+			col.operator(ProjectEditEX.bl_idname, icon="PLUGIN", text=name).index = 1
 		if (context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_2):
 			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_2)
 			name, ext = os.path.splitext(path)
-			col.operator(ProjectEditEX.bl_idname, icon="PLUGIN", text=name+" でクイック編集").index = 2
+			col.operator(ProjectEditEX.bl_idname, icon="PLUGIN", text=name).index = 2
 		if (context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_3):
 			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_3)
 			name, ext = os.path.splitext(path)
-			col.operator(ProjectEditEX.bl_idname, icon="PLUGIN", text=name+" でクイック編集").index = 3
+			col.operator(ProjectEditEX.bl_idname, icon="PLUGIN", text=name).index = 3
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
