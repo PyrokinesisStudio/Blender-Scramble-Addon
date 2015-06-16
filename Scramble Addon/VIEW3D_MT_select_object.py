@@ -31,6 +31,11 @@ class SelectBoundBoxSize(bpy.types.Operator):
 	select_type = bpy.props.EnumProperty(items=items, name="選択タイプ", default='MESH')
 	threshold = bpy.props.FloatProperty(name="選択範囲", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selectable_objects:
+			return True
+		return False
 	def execute(self, context):
 		context.scene.update()
 		max_volume = -1
@@ -244,6 +249,12 @@ class SelectMeshFaceOnly(bpy.types.Operator):
 	bl_description = "面が1つ以上あるメッシュを選択します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selectable_objects:
+			if (obj.type == 'MESH'):
+				return True
+		return False
 	def execute(self, context):
 		for obj in context.selectable_objects:
 			if (obj.type == 'MESH'):
@@ -258,6 +269,12 @@ class SelectMeshEdgeOnly(bpy.types.Operator):
 	bl_description = "面が無く、辺のみのメッシュを選択します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selectable_objects:
+			if (obj.type == 'MESH'):
+				return True
+		return False
 	def execute(self, context):
 		for obj in context.selectable_objects:
 			if (obj.type == 'MESH'):
@@ -272,6 +289,12 @@ class SelectMeshVertexOnly(bpy.types.Operator):
 	bl_description = "面と辺が無く、頂点のみのメッシュを選択します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selectable_objects:
+			if (obj.type == 'MESH'):
+				return True
+		return False
 	def execute(self, context):
 		for obj in context.selectable_objects:
 			if (obj.type == 'MESH'):
@@ -286,6 +309,12 @@ class SelectMeshNone(bpy.types.Operator):
 	bl_description = "面と辺と頂点が無い空のメッシュオブジェクトを選択します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selectable_objects:
+			if (obj.type == 'MESH'):
+				return True
+		return False
 	def execute(self, context):
 		for obj in context.selectable_objects:
 			if (obj.type == 'MESH'):
@@ -304,27 +333,30 @@ class SelectGroupedEX(bpy.types.Menu):
 	bl_description = "プロパティによってグループ化されたすべての可視オブジェクトを選択します"
 	
 	def draw(self, context):
-		self.layout.operator("object.select_grouped", text="子").type = 'CHILDREN_RECURSIVE'
-		self.layout.operator("object.select_grouped", text="直接の子").type = 'CHILDREN'
-		self.layout.operator("object.select_grouped", text="親").type = 'PARENT'
-		self.layout.operator("object.select_grouped", text="兄弟").type = 'SIBLINGS'
-		self.layout.operator("object.select_grouped", text="タイプ").type = 'TYPE'
-		self.layout.operator("object.select_grouped", text="レイヤー").type = 'LAYER'
-		self.layout.operator("object.select_grouped", text="グループ").type = 'GROUP'
-		self.layout.operator("object.select_grouped", text="パス").type = 'PASS'
-		self.layout.operator("object.select_grouped", text="カラー").type = 'COLOR'
-		self.layout.operator("object.select_grouped", text="プロパティ").type = 'PROPERTIES'
-		self.layout.operator("object.select_grouped", text="キーイングセット").type = 'KEYINGSET'
-		self.layout.operator("object.select_grouped", text="ランプタイプ").type = 'LAMP_TYPE'
-		self.layout.separator()
-		self.layout.operator(SelectGroupedSizeThan.bl_idname, text="より大きい", icon="PLUGIN").mode = 'LARGER'
-		self.layout.operator(SelectGroupedSizeThan.bl_idname, text="より小さい", icon="PLUGIN").mode = 'SMALLER'
-		self.layout.separator()
-		self.layout.operator(SelectGroupedName.bl_idname, text="オブジェクト名", icon="PLUGIN")
-		self.layout.operator(SelectGroupedMaterial.bl_idname, text="マテリアル", icon="PLUGIN")
-		self.layout.operator(SelectGroupedModifiers.bl_idname, text="モディファイア", icon="PLUGIN")
-		self.layout.operator(SelectGroupedSubsurfLevel.bl_idname, text="サブサーフレベル", icon="PLUGIN")
-		self.layout.operator(SelectGroupedArmatureTarget.bl_idname, text="同アーマチュア変形", icon="PLUGIN")
+		column = self.layout.column()
+		column.operator("object.select_grouped", text="子").type = 'CHILDREN_RECURSIVE'
+		column.operator("object.select_grouped", text="直接の子").type = 'CHILDREN'
+		column.operator("object.select_grouped", text="親").type = 'PARENT'
+		column.operator("object.select_grouped", text="兄弟").type = 'SIBLINGS'
+		column.operator("object.select_grouped", text="タイプ").type = 'TYPE'
+		column.operator("object.select_grouped", text="レイヤー").type = 'LAYER'
+		column.operator("object.select_grouped", text="グループ").type = 'GROUP'
+		column.operator("object.select_grouped", text="パス").type = 'PASS'
+		column.operator("object.select_grouped", text="カラー").type = 'COLOR'
+		column.operator("object.select_grouped", text="プロパティ").type = 'PROPERTIES'
+		column.operator("object.select_grouped", text="キーイングセット").type = 'KEYINGSET'
+		column.operator("object.select_grouped", text="ランプタイプ").type = 'LAMP_TYPE'
+		column.separator()
+		column.operator(SelectGroupedSizeThan.bl_idname, text="より大きい", icon="PLUGIN").mode = 'LARGER'
+		column.operator(SelectGroupedSizeThan.bl_idname, text="より小さい", icon="PLUGIN").mode = 'SMALLER'
+		column.separator()
+		column.operator(SelectGroupedName.bl_idname, text="オブジェクト名", icon="PLUGIN")
+		column.operator(SelectGroupedMaterial.bl_idname, text="マテリアル", icon="PLUGIN")
+		column.operator(SelectGroupedModifiers.bl_idname, text="モディファイア", icon="PLUGIN")
+		column.operator(SelectGroupedSubsurfLevel.bl_idname, text="サブサーフレベル", icon="PLUGIN")
+		column.operator(SelectGroupedArmatureTarget.bl_idname, text="同アーマチュア変形", icon="PLUGIN")
+		if (not context.object):
+			column.enabled = False
 
 class SelectMesh(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_object_mesh"
