@@ -54,45 +54,6 @@ class AddVertexColorSelectedObject(bpy.types.Operator):
 					data.color = self.color
 		return {'FINISHED'}
 
-class CreateRopeMesh(bpy.types.Operator):
-	bl_idname = "object.create_rope_mesh"
-	bl_label = "カーブからロープ状のメッシュを作成"
-	bl_description = "アクティブなカーブオブジェクトに沿ったロープや蛇のようなメッシュを新規作成します"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	vertices = bpy.props.IntProperty(name="頂点数", default=32, min=3, soft_min=3, max=999, soft_max=999, step=1)
-	radius = bpy.props.FloatProperty(name="半径", default=0.1, step=1, precision=3, min=0, soft_min=0, max=99, soft_max=99)
-	number_cuts = bpy.props.IntProperty(name="分割数", default=32, min=2, soft_min=2, max=999, soft_max=999, step=1)
-	resolution_u = bpy.props.IntProperty(name="カーブの解像度", default=64, min=1, soft_min=1, max=999, soft_max=999, step=1)
-	
-	def execute(self, context):
-		for obj in context.selected_objects:
-			activeObj = obj
-			context.scene.objects.active = obj
-			pre_use_stretch = activeObj.data.use_stretch
-			pre_use_deform_bounds = activeObj.data.use_deform_bounds
-			bpy.ops.object.transform_apply_all()
-			
-			bpy.ops.mesh.primitive_cylinder_add(vertices=self.vertices, radius=self.radius, depth=1, end_fill_type='NOTHING', view_align=False, enter_editmode=True, location=(0, 0, 0), rotation=(0, 1.5708, 0))
-			bpy.ops.mesh.select_all(action='DESELECT')
-			context.tool_settings.mesh_select_mode = [False, True, False]
-			bpy.ops.mesh.select_non_manifold()
-			bpy.ops.mesh.select_all(action='INVERT')
-			bpy.ops.mesh.subdivide(number_cuts=self.number_cuts, smoothness=0)
-			bpy.ops.object.mode_set(mode='OBJECT')
-			
-			meshObj = context.active_object
-			modi = meshObj.modifiers.new("temp", 'CURVE')
-			modi.object = activeObj
-			activeObj.data.use_stretch = True
-			activeObj.data.use_deform_bounds = True
-			activeObj.data.resolution_u = self.resolution_u
-			bpy.ops.object.modifier_apply(apply_as='DATA', modifier=modi.name)
-			
-			activeObj.data.use_stretch = pre_use_stretch
-			activeObj.data.use_deform_bounds = pre_use_deform_bounds
-		return {'FINISHED'}
-
 class VertexGroupTransferWeightObjmode(bpy.types.Operator):
 	bl_idname = "object.vertex_group_transfer_weight_objmode"
 	bl_label = "ウェイト転送"
@@ -647,6 +608,52 @@ class ParentSetApplyModifiers(bpy.types.Operator):
 # オペレーター(カーブ) #
 ########################
 
+class CreateRopeMesh(bpy.types.Operator):
+	bl_idname = "object.create_rope_mesh"
+	bl_label = "カーブからロープ状のメッシュを作成"
+	bl_description = "アクティブなカーブオブジェクトに沿ったロープや蛇のようなメッシュを新規作成します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	vertices = bpy.props.IntProperty(name="頂点数", default=32, min=3, soft_min=3, max=999, soft_max=999, step=1)
+	radius = bpy.props.FloatProperty(name="半径", default=0.1, step=1, precision=3, min=0, soft_min=0, max=99, soft_max=99)
+	number_cuts = bpy.props.IntProperty(name="分割数", default=32, min=2, soft_min=2, max=999, soft_max=999, step=1)
+	resolution_u = bpy.props.IntProperty(name="カーブの解像度", default=64, min=1, soft_min=1, max=999, soft_max=999, step=1)
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object):
+			return False
+		if (context.object.type != 'CURVE'):
+			return False
+		return True
+	def execute(self, context):
+		for obj in context.selected_objects:
+			activeObj = obj
+			context.scene.objects.active = obj
+			pre_use_stretch = activeObj.data.use_stretch
+			pre_use_deform_bounds = activeObj.data.use_deform_bounds
+			bpy.ops.object.transform_apply_all()
+			
+			bpy.ops.mesh.primitive_cylinder_add(vertices=self.vertices, radius=self.radius, depth=1, end_fill_type='NOTHING', view_align=False, enter_editmode=True, location=(0, 0, 0), rotation=(0, 1.5708, 0))
+			bpy.ops.mesh.select_all(action='DESELECT')
+			context.tool_settings.mesh_select_mode = [False, True, False]
+			bpy.ops.mesh.select_non_manifold()
+			bpy.ops.mesh.select_all(action='INVERT')
+			bpy.ops.mesh.subdivide(number_cuts=self.number_cuts, smoothness=0)
+			bpy.ops.object.mode_set(mode='OBJECT')
+			
+			meshObj = context.active_object
+			modi = meshObj.modifiers.new("temp", 'CURVE')
+			modi.object = activeObj
+			activeObj.data.use_stretch = True
+			activeObj.data.use_deform_bounds = True
+			activeObj.data.resolution_u = self.resolution_u
+			bpy.ops.object.modifier_apply(apply_as='DATA', modifier=modi.name)
+			
+			activeObj.data.use_stretch = pre_use_stretch
+			activeObj.data.use_deform_bounds = pre_use_deform_bounds
+		return {'FINISHED'}
+
 class QuickCurveDeform(bpy.types.Operator):
 	bl_idname = "object.quick_curve_deform"
 	bl_label = "クイックカーブ変形"
@@ -664,6 +671,18 @@ class QuickCurveDeform(bpy.types.Operator):
 	deform_axis = bpy.props.EnumProperty(items=items, name="変形する軸")
 	is_apply = bpy.props.BoolProperty(name="モディファイア適用", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object):
+			return False
+		if (context.object.type != 'MESH'):
+			return False
+		if (len(context.selected_objects) != 2):
+			return False
+		for obj in context.selected_objects:
+			if (obj.type == 'CURVE'):
+				return True
+		return False
 	def execute(self, context):
 		mesh_obj = context.active_object
 		if (mesh_obj.type != 'MESH'):
@@ -715,6 +734,18 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 	use_merge_vertices = bpy.props.BoolProperty(name="頂点結合", default=True)
 	is_apply = bpy.props.BoolProperty(name="モディファイア適用", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object):
+			return False
+		if (context.object.type != 'MESH'):
+			return False
+		if (len(context.selected_objects) != 2):
+			return False
+		for obj in context.selected_objects:
+			if (obj.type == 'CURVE'):
+				return True
+		return False
 	def execute(self, context):
 		mesh_obj = context.active_object
 		if (mesh_obj.type != 'MESH'):
@@ -787,6 +818,13 @@ class MoveBevelObject(bpy.types.Operator):
 	tilt = bpy.props.FloatProperty(name="Z角度", default=0.0, min=-3.14159265359, max=3.14159265359, soft_min=-3.14159265359, soft_max=3.14159265359, step=1, precision=1, subtype='ANGLE')
 	use_2d = bpy.props.BoolProperty(name="2Dカーブに", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selected_objects:
+			if (obj.type == 'CURVE'):
+				if (obj.data.bevel_object):
+					return True
+		return False
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
 	def execute(self, context):
@@ -805,9 +843,11 @@ class MoveBevelObject(bpy.types.Operator):
 			if (len(curve.splines) < 1):
 				self.report(type={'WARNING'}, message=obj.name+"内にカーブデータがありません、無視します")
 				continue
-			if (len(curve.splines[0].points) <= 2):
+			"""
+			if (len(curve.splines[0].points) <= 1):
 				self.report(type={'WARNING'}, message=obj.name+"のセグメント数が少なすぎます、無視します")
 				continue
+			"""
 			for o in delete_objects:
 				if (obj.name == o.name):
 					break
@@ -957,6 +997,7 @@ class CurveMenu(bpy.types.Menu):
 	bl_description = "カーブ関係の操作です"
 	
 	def draw(self, context):
+		self.layout.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
 		self.layout.operator(QuickCurveDeform.bl_idname, icon="PLUGIN")
 		self.layout.operator(QuickArrayAndCurveDeform.bl_idname, icon="PLUGIN")
 		self.layout.operator(MoveBevelObject.bl_idname, icon="PLUGIN")
@@ -967,12 +1008,6 @@ class SpecialsMenu(bpy.types.Menu):
 	bl_description = "特殊な処理をする操作のメニューです"
 	
 	def draw(self, context):
-		column = self.layout.column()
-		column.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
-		column.enabled = False
-		if (context.active_object):
-			if (context.active_object.type == "CURVE"):
-				column.enabled = True
 		column = self.layout.column()
 		self.layout.separator()
 		column = self.layout.column()
