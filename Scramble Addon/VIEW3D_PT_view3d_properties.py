@@ -109,7 +109,8 @@ def menu(self, context):
 		box = self.layout.box()
 		col = box.column(align=True)
 		col.operator(SaveView.bl_idname, icon="PLUGIN")
-		col.operator(DeleteViewSavedata.bl_idname, icon="PLUGIN")
+		if (context.user_preferences.addons["Scramble Addon"].preferences.view_savedata != ""):
+			col.operator(DeleteViewSavedata.bl_idname, icon="PLUGIN")
 		if (context.user_preferences.addons["Scramble Addon"].preferences.view_savedata):
 			col = box.column(align=True)
 			col.label(text="視点セーブをロード", icon='PLUGIN')
