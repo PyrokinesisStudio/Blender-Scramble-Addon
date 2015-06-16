@@ -54,6 +54,8 @@ class RemoveAllTextureSlots(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
+		if (not context.object):
+			return False
 		if (not context.object.active_material):
 			return False
 		for slot in context.object.active_material.texture_slots:
@@ -74,6 +76,8 @@ class SlotMoveTop(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
+		if (not context.object):
+			return False
 		if (not context.object.active_material):
 			return False
 		if (not context.object.active_material.active_texture):
@@ -101,6 +105,8 @@ class SlotMoveBottom(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
+		if (not context.object):
+			return False
 		if (not context.object.active_material):
 			return False
 		if (not context.object.active_material.active_texture):
