@@ -925,7 +925,7 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 		]
 	deform_axis = bpy.props.EnumProperty(items=items, name="変形する軸")
 	use_merge_vertices = bpy.props.BoolProperty(name="頂点結合", default=True)
-	is_apply = bpy.props.BoolProperty(name="モディファイア適用", default=True)
+	is_apply = bpy.props.BoolProperty(name="モディファイア適用", default=False)
 	
 	@classmethod
 	def poll(cls, context):
