@@ -1,4 +1,4 @@
-# 情報 > 「ファイル」メニュー
+# 「情報」エリア > 「ファイル」メニュー
 
 import bpy
 import mathutils
@@ -520,9 +520,9 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
 		self.layout.operator(RestartBlender.bl_idname, icon="PLUGIN")
-		self.layout.separator()
 		self.layout.operator(SaveMainfileUnmassage.bl_idname, icon="PLUGIN")
 		self.layout.operator(RecoverLatestAutoSave.bl_idname, icon="PLUGIN")
+		self.layout.operator('wm.save_userpref', icon="PLUGIN")
 		self.layout.separator()
 		self.layout.separator()
 		self.layout.separator()
