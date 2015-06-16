@@ -580,8 +580,9 @@ class AllResetHideSelect(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		if (1 <= len(bpy.data.objects)):
-			return True
+		for obj in bpy.data.objects:
+			if (obj.hide_select):
+				return True
 		return False
 	def execute(self, context):
 		for obj in bpy.data.objects:
