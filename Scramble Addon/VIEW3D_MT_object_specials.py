@@ -862,7 +862,7 @@ class QuickCurveDeform(bpy.types.Operator):
 		('NEG_Z', "-Z", "", 6),
 		]
 	deform_axis = bpy.props.EnumProperty(items=items, name="変形する軸")
-	is_apply = bpy.props.BoolProperty(name="モディファイア適用", default=True)
+	is_apply = bpy.props.BoolProperty(name="モディファイア適用", default=False)
 	
 	@classmethod
 	def poll(cls, context):
