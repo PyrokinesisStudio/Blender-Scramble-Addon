@@ -80,6 +80,7 @@ if "bpy" in locals():
 	imp.reload(BONE_PT_context_bone)
 	imp.reload(DATA_PT_skeleton)
 	imp.reload(TEXTURE_PT_context_texture)
+	imp.reload(undisplay_commands)
 	#imp.reload(***)
 else:
 	from . import IMAGE_MT_image
@@ -143,6 +144,7 @@ else:
 	from . import BONE_PT_context_bone
 	from . import DATA_PT_skeleton
 	from . import TEXTURE_PT_context_texture
+	from . import undisplay_commands
 	#from . import ***
 import bpy
 

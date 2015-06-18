@@ -540,6 +540,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ユーザー設定のファイルタブで設定した外部エディターでテキストを開きます
         * ―(Open the text in an external editor you set on the files page of the custom)
   
+* **メニューに表示されないコマンド**
+* **―(Missing menu commands)**
+    * **最後までスクロール**
+    * **―(Scroll to end)**
+        * 画面の一番下までスクロールします
+        * ―(Scroll to the bottom of the screen)
+  
 * **ユーザー設定 > ヘッダー**
 * **―(User settings > header)**
     * **ユーザー設定タブを切り替え**
