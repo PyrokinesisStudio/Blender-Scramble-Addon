@@ -524,6 +524,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなテクスチャスロットを一番下に移動させます
         * ―(Move the active texture slot at the bottom)
   
+* **「プロパティ」エリア > 「テクスチャ」タブ**
+* **―("Properties" area: "texture" tab)**
+    * **テクスチャ画像をUV/画像エディターに表示**
+    * **―(Texture images show in the UV / image editor)**
+        * アクティブなテクスチャに使われている画像を「UV/画像エディター」に表示します
+        * ―(Image is used in the active texture shows the UV / image editor)
+  
 * **テキストエディター > 「テキスト」メニュー**
 * **―(Text editor > text menu)**
     * **外部エディターで編集**
