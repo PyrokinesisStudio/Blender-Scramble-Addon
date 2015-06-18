@@ -1235,6 +1235,8 @@
 "コピー元UV","Copy source UV"
 "グローバルビュー/ローカルビュー(非ズーム)","Global view and local views (non-zoom)"
 "選択したオブジェクトのみを表示し、視点の中央に配置します(ズームはしません)","And show only selected objects, center point of the Zoom (is not)"
+"ローカル","Local"
+"グローバル","Global"
 "シェーディング切り替え(モードA)","Shading switch (mode A)"
 "シェーディングを 「ワイヤーフレーム」→「ソリッド」→「テクスチャ」... と切り替えていきます",""Wireframe", "solid" → "texture" shading... We'll switch and"
 "3Dビュー関係のパイメニューです","Is the pie between the 3D view"

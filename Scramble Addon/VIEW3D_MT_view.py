@@ -22,12 +22,15 @@ class LocalViewEx(bpy.types.Operator):
 		pre_view_rotation = context.region_data.view_rotation.copy()
 		pre_cursor_location = context.space_data.cursor_location.copy()
 		bpy.ops.view3d.localview()
+		if (context.space_data.local_view):
+			self.report(type={'INFO'}, message="ローカル")
+		else:
+			self.report(type={'INFO'}, message="グローバル")
 		context.space_data.cursor_location = pre_cursor_location
 		context.region_data.view_distance = pre_view_distance
 		context.region_data.view_location = pre_view_location
 		context.region_data.view_rotation = pre_view_rotation
 		context.user_preferences.view.smooth_view = pre_smooth_view
-		#bpy.ops.view3d.view_selected_ex()
 		return {'FINISHED'}
 
 class TogglePanelsA(bpy.types.Operator):
