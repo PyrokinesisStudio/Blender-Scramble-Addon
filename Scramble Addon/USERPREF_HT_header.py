@@ -73,6 +73,11 @@ class ClearFilterText(bpy.types.Operator):
 	bl_description = "ショートカット検索に使用した文字列を削除します"
 	bl_options = {'REGISTER'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (context.space_data.filter_text):
+			return True
+		return False
 	def execute(self, context):
 		context.space_data.filter_text = ""
 		for area in context.screen.areas:
@@ -85,6 +90,18 @@ class CloseKeyMapItems(bpy.types.Operator):
 	bl_description = "キーコンフィグのメニューを全て折りたたみます"
 	bl_options = {'REGISTER'}
 	
+	@classmethod
+	def poll(cls, context):
+		for keyconfig in context.window_manager.keyconfigs:
+			for keymap in keyconfig.keymaps:
+				if (keymap.show_expanded_children):
+					return True
+				if (keymap.show_expanded_items):
+					return True
+				for keymap_item in keymap.keymap_items:
+					if (keymap_item.show_expanded):
+						return True
+		return False
 	def execute(self, context):
 		for keyconfig in context.window_manager.keyconfigs:
 			for keymap in keyconfig.keymaps:
@@ -891,9 +908,6 @@ class InputMenu(bpy.types.Menu):
 	bl_description = "ショートカットに関係する操作のメニューです"
 	
 	def draw(self, context):
-		self.layout.operator(CloseKeyMapItems.bl_idname, icon="PLUGIN")
-		self.layout.operator(MoveKeyBindCategory.bl_idname, icon="PLUGIN")
-		self.layout.separator()
 		self.layout.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
 		self.layout.operator(ShowEmptyShortcuts.bl_idname, icon="PLUGIN")
 		self.layout.separator()
@@ -929,7 +943,11 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		active_section = context.user_preferences.active_section
 		if (active_section == 'INPUT'):
-			self.layout.menu(InputMenu.bl_idname, icon="PLUGIN")
+			row = self.layout.row(align=True)
+			row.menu(InputMenu.bl_idname, icon="PLUGIN")
+			row.operator(CloseKeyMapItems.bl_idname, icon='FULLSCREEN_EXIT', text="")
+			row.operator(MoveKeyBindCategory.bl_idname, icon='NODETREE', text="")
+			self.layout.separator()
 			try:
 				keymap = context.window_manager.keyconfigs.addon.keymaps['temp']
 			except KeyError:
