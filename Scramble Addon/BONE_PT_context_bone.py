@@ -14,12 +14,16 @@ class CopyBoneName(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		if (not context.bone):
-			return False
-		return True
+		if (context.edit_bone or context.bone):
+			return True
+		return False
 	def execute(self, context):
-		context.window_manager.clipboard = context.bone.name
-		self.report(type={'INFO'}, message=context.bone.name)
+		if (context.edit_bone):
+			context.window_manager.clipboard = context.edit_bone.name
+			self.report(type={'INFO'}, message=context.edit_bone.name)
+		elif (context.bone):
+			context.window_manager.clipboard = context.bone.name
+			self.report(type={'INFO'}, message=context.bone.name)
 		return {'FINISHED'}
 
 ################
@@ -37,7 +41,7 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		if (context.bone):
+		if (context.edit_bone or context.bone):
 			self.layout.operator(CopyBoneName.bl_idname, icon='PLUGIN', text="名前をクリップボードにコピー")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
