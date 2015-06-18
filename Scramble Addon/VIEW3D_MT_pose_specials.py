@@ -364,7 +364,7 @@ class RenameBoneNameEndJapanese(bpy.types.Operator):
 
 class TogglePosePosition(bpy.types.Operator):
 	bl_idname = "pose.toggle_pose_position"
-	bl_label = "ポーズ位置を切り替え"
+	bl_label = "ポーズの有効/無効を切り替え"
 	bl_description = "アーマチュアのポーズ位置/レスト位置を切り替えます"
 	bl_options = {'REGISTER', 'UNDO'}
 	

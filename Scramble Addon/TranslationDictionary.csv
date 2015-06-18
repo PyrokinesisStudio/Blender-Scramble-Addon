@@ -1081,7 +1081,7 @@
 "XXX.R => 右XXX","XXX. R = 右XXX >"
 "^右","^ Right"
 "^左","^ L"
-"ポーズ位置を切り替え","Toggles the pause position"
+"ポーズの有効/無効を切り替え","Enable / disable pause switch"
 "アーマチュアのポーズ位置/レスト位置を切り替えます","Toggles the pause / rest position of the armature"
 "アーマチュアで実行して下さい","Try in the armature."
 "対のボーンにコンストレイントをコピー","Copy the constraints vs. Vaughan"
