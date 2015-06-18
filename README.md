@@ -29,6 +29,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 > Please look because items have been added to the various places.  
 
 ## 機能一覧 (List of functions)
+* **「プロパティ」エリア > 「ボーン」タブ**
+* **―('Properties' area > see bones tab)**
+    * **ボーン名をクリップボードにコピー**
+    * **―(Copy to Clipboard bone name)**
+        * ボーン名をクリップボードにコピーします
+        * ―(To the Clipboard copies the bone name)
+  
 * **メッシュオブジェクト > 「プロパティ」エリア > 「データ」タブ**
 * **―(Mesh objects > properties area > "data" tab)**
   
@@ -454,8 +461,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
   
 * **「プロパティ」エリア > 「オブジェクト」タブ**
 * **―(Area 'properties' > 'objects' tab)**
-    * **オブジェクト名をコピー**
-    * **―(Copy the object name)**
+    * **オブジェクト名をクリップボードにコピー**
+    * **―(Copy object to Clipboard)**
         * オブジェクト名をクリップボードにコピーします
         * ―(Copy to the Clipboard object name)
     * **オブジェクト名をデータ名に**

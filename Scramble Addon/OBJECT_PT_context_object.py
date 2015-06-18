@@ -8,7 +8,7 @@ import bpy
 
 class CopyObjectName(bpy.types.Operator):
 	bl_idname = "object.copy_object_name_2"
-	bl_label = "オブジェクト名をコピー"
+	bl_label = "オブジェクト名をクリップボードにコピー"
 	bl_description = "オブジェクト名をクリップボードにコピーします"
 	bl_options = {'REGISTER'}
 	
