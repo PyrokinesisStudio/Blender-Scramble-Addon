@@ -34,7 +34,7 @@ class AddSphereOnlySquare(bpy.types.Operator):
 			rotation = self.rotation
 			rotation = (math.radians(rotation[0]), math.radians(rotation[1]), math.radians(rotation[2]))
 			bpy.ops.mesh.primitive_cube_add(radius=self.radius, location=self.location, rotation=rotation)
-		context.active_object.name = "四角ポリゴン球"
+		context.active_object.name = "SquarePolySphere"
 		subsurf = context.active_object.modifiers.new("temp", "SUBSURF")
 		subsurf.levels = self.level
 		bpy.ops.object.modifier_apply(apply_as="DATA", modifier=subsurf.name)
