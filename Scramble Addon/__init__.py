@@ -214,9 +214,8 @@ def GetTranslationDict():
 	with codecs.open(path, 'r', 'utf-8') as f:
 		reader = csv.reader(f)
 		for row in reader:
-			#for context in bpy.app.translations.contexts:
-			dict['en'][(bpy.app.translations.contexts.default, row[0])] = row[1]
-			dict['en'][(bpy.app.translations.contexts.operator_default, row[0])] = row[1]
+			for context in bpy.app.translations.contexts:
+				dict['en'][(context, row[0])] = row[1]
 	return dict
 
 # プラグインをインストールしたときの処理
@@ -361,13 +360,3 @@ def unregister():
 # メイン関数
 if __name__ == "__main__":
 	register()
-
-
-
-
-
-
-
-
-
-
