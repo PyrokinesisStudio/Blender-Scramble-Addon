@@ -20,7 +20,10 @@ class ShowTextureImage(bpy.types.Operator):
 			return False
 		if (not context.texture.image):
 			return False
-		return True
+		for area in context.screen.areas:
+			if (area.type == 'IMAGE_EDITOR'):
+				return True
+		return False
 	def execute(self, context):
 		for area in context.screen.areas:
 			if (area.type == 'IMAGE_EDITOR'):
