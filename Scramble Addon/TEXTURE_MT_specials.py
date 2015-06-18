@@ -133,6 +133,65 @@ class SlotMoveBottom(bpy.types.Operator):
 			i += 1
 		return {'FINISHED'}
 
+class RemoveUnenabledSlots(bpy.types.Operator):
+	bl_idname = "texture.remove_unenabled_slots"
+	bl_label = "無効なテクスチャを削除"
+	bl_description = "無効にしているテクスチャを全て削除します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	is_truncate = bpy.props.BoolProperty(name="切り詰める", default=True)
+	
+	@classmethod
+	def poll(cls, context):
+		try:
+			if (not context.material):
+				return False
+		except AttributeError:
+			return False
+		for slot in context.material.texture_slots:
+			if (slot):
+				if (not slot.use):
+					return True
+		return False
+	def execute(self, context):
+		for i, slot in enumerate(context.material.texture_slots):
+			if (slot):
+				if (not slot.use):
+					context.material.texture_slots.clear(i)
+		if (self.is_truncate):
+			bpy.ops.texture.truncate_empty_slots()
+		return {'FINISHED'}
+
+class TruncateEmptySlots(bpy.types.Operator):
+	bl_idname = "texture.truncate_empty_slots"
+	bl_label = "空のテクスチャスロットを切り詰める"
+	bl_description = "テクスチャが割り当てられていない空のテクスチャスロットを埋め、切り詰めます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.material):
+			return False
+		flag = 0
+		for slot in context.material.texture_slots:
+			if (slot and flag == 0):
+				flag = 1
+			elif (not slot and flag == 1):
+				flag = 2
+			elif (slot and flag == 2):
+				return True
+		return False
+	def execute(self, context):
+		empty_slot_count = 0
+		for i, slot in enumerate(context.material.texture_slots[:]):
+			if (slot):
+				context.material.active_texture_index = i
+				for j in range(empty_slot_count):
+					bpy.ops.texture.slot_move(type='UP')
+			else:
+				empty_slot_count += 1
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -151,7 +210,9 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.operator(SlotMoveTop.bl_idname, icon="PLUGIN")
 		self.layout.operator(SlotMoveBottom.bl_idname, icon="PLUGIN")
+		self.layout.operator(TruncateEmptySlots.bl_idname, icon="PLUGIN")
 		self.layout.separator()
+		self.layout.operator(RemoveUnenabledSlots.bl_idname, icon='PLUGIN')
 		self.layout.operator(RemoveAllTextureSlots.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(RenameTextureFileName.bl_idname, icon="PLUGIN")
