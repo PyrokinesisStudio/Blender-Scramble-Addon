@@ -1092,6 +1092,8 @@
 "ポーズの有効/無効を切り替え","Enable / disable pause switch"
 "アーマチュアのポーズ位置/レスト位置を切り替えます","Toggles the pause / rest position of the armature"
 "アーマチュアで実行して下さい","Try in the armature."
+"ポーズ無効","Pause disabled"
+"ポーズ有効","Pause active"
 "対のボーンにコンストレイントをコピー","Copy the constraints vs. Vaughan"
 "「X.L」なら「X.R」、「X.R」なら「X.L」の名前のボーンへとコンストレイントをコピーします",""X.L" If "X.R", "X.R" bone "X.L" name copy constraints"
 "の対になるボーンが存在しないので無視します","The ignores because bone-to-be does not exist"

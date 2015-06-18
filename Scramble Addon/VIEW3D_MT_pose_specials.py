@@ -370,12 +370,14 @@ class TogglePosePosition(bpy.types.Operator):
 	
 	def execute(self, context):
 		if (context.object.type != 'ARMATURE'):
-			self.report(type={"ERROR"}, message="アーマチュアで実行して下さい")
-			return {"CANCELLED"}
+			self.report(type={'ERROR'}, message="アーマチュアで実行して下さい")
+			return {'CANCELLED'}
 		if (context.object.data.pose_position == 'POSE'):
 			context.object.data.pose_position = 'REST'
+			self.report(type={'INFO'}, message="ポーズ無効")
 		else:
 			context.object.data.pose_position = 'POSE'
+			self.report(type={'INFO'}, message="ポーズ有効")
 		return {'FINISHED'}
 
 class CopyConstraintsMirror(bpy.types.Operator):
