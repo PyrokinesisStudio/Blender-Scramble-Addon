@@ -811,6 +811,14 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		]
 	category = bpy.props.EnumProperty(items=items, name="移動先カテゴリ")
 	
+	@classmethod
+	def poll(cls, context):
+		for keymap in context.window_manager.keyconfigs.user.keymaps:
+			if (not keymap.is_modal):
+				for keymap_item in keymap.keymap_items:
+					if (keymap_item.show_expanded):
+						return True
+		return False
 	def invoke(self, context, event):
 		i = 0
 		for keymap in context.window_manager.keyconfigs.user.keymaps:
