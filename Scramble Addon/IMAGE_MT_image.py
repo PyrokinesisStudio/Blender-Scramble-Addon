@@ -119,6 +119,43 @@ class FillColor(bpy.types.Operator):
 		context.area.tag_redraw()
 		return {'FINISHED'}
 
+class FillTransparency(bpy.types.Operator):
+	bl_idname = "image.fill_transparency"
+	bl_label = "透明部分を塗り潰し"
+	bl_description = "アクティブな画像の透明部分を指定色で塗り潰します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	color = bpy.props.FloatVectorProperty(name="埋める色", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
+		if (context.edit_image.channels < 4):
+			return False
+		return True
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	def execute(self, context):
+		img = context.edit_image
+		color = self.color[:]
+		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
+		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
+		for y in range(img_height):
+			for x in range(img_width):
+				alpha = pixels[y][x][3]
+				unalpha = 1 - alpha
+				pixels[y][x][0] = (pixels[y][x][0] * alpha) + (color[0] * unalpha)
+				pixels[y][x][1] = (pixels[y][x][1] * alpha) + (color[1] * unalpha)
+				pixels[y][x][2] = (pixels[y][x][2] * alpha) + (color[2] * unalpha)
+				pixels[y][x][3] = 1.0
+		img.pixels = pixels.flatten()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 class RenameImageFile(bpy.types.Operator):
 	bl_idname = "image.rename_image_file"
 	bl_label = "画像ファイル名を変更"
@@ -319,11 +356,11 @@ class ExternalEditEX(bpy.types.Operator):
 		path = bpy.path.abspath(img.filepath)
 		pre_path = context.user_preferences.filepaths.image_editor
 		if (self.index == 1):
-			context.user_preferences.filepaths.image_editor = context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_1
+			context.user_preferences.filepaths.image_editor = context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1
 		elif (self.index == 2):
-			context.user_preferences.filepaths.image_editor = context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_2
+			context.user_preferences.filepaths.image_editor = context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_2
 		elif (self.index == 3):
-			context.user_preferences.filepaths.image_editor = context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_3
+			context.user_preferences.filepaths.image_editor = context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_3
 		bpy.ops.image.external_edit(filepath=path)
 		context.user_preferences.filepaths.image_editor = pre_path
 		return {'FINISHED'}
@@ -338,9 +375,9 @@ class TransformMenu(bpy.types.Menu):
 	bl_description = "画像の変形処理メニューです"
 	
 	def draw(self, context):
-		self.layout.operator(ReverseWidthImage.bl_idname, icon="PLUGIN")
-		self.layout.operator(ReverseHeightImage.bl_idname, icon="PLUGIN")
-		self.layout.operator(Rotate180Image.bl_idname, icon="PLUGIN")
+		self.layout.operator(ReverseWidthImage.bl_idname, icon='PLUGIN')
+		self.layout.operator(ReverseHeightImage.bl_idname, icon='PLUGIN')
+		self.layout.operator(Rotate180Image.bl_idname, icon='PLUGIN')
 
 ################
 # メニュー追加 #
@@ -348,7 +385,7 @@ class TransformMenu(bpy.types.Menu):
 
 # メニューのオン/オフの判定
 def IsMenuEnable(self_id):
-	for id in bpy.context.user_preferences.addons["Scramble Addon"].preferences.disabled_menu.split(','):
+	for id in bpy.context.user_preferences.addons['Scramble Addon'].preferences.disabled_menu.split(','):
 		if (id == self_id):
 			return False
 	else:
@@ -357,29 +394,30 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		if (context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_1):
+		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1):
 			self.layout.separator()
-			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_1)
+			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1)
 			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEditEX.bl_idname, icon="PLUGIN", text=name+" で開く").index = 1
-		if (context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_2):
-			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_2)
+			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" で開く").index = 1
+		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_2):
+			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_2)
 			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEditEX.bl_idname, icon="PLUGIN", text=name+" で開く").index = 2
-		if (context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_3):
-			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_3)
+			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" で開く").index = 2
+		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_3):
+			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_3)
 			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEditEX.bl_idname, icon="PLUGIN", text=name+" で開く").index = 3
+			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" で開く").index = 3
 		self.layout.separator()
-		self.layout.operator(FillColor.bl_idname, icon="PLUGIN")
-		self.layout.operator(BlurImage.bl_idname, icon="PLUGIN")
-		self.layout.menu(TransformMenu.bl_idname, icon="PLUGIN")
+		self.layout.operator(FillColor.bl_idname, icon='PLUGIN')
+		self.layout.operator(FillTransparency.bl_idname, icon='PLUGIN')
+		self.layout.operator(BlurImage.bl_idname, icon='PLUGIN')
+		self.layout.menu(TransformMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(RenameImageFile.bl_idname, icon="PLUGIN")
-		self.layout.operator(RenameImageFileName.bl_idname, icon="PLUGIN")
+		self.layout.operator(RenameImageFile.bl_idname, icon='PLUGIN')
+		self.layout.operator(RenameImageFileName.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(AllRenameImageFileName.bl_idname, icon="PLUGIN")
-		self.layout.operator(ReloadAllImage.bl_idname, icon="PLUGIN")
-	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
+		self.layout.operator(AllRenameImageFileName.bl_idname, icon='PLUGIN')
+		self.layout.operator(ReloadAllImage.bl_idname, icon='PLUGIN')
+	if (context.user_preferences.addons['Scramble Addon'].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
