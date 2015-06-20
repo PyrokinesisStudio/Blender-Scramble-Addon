@@ -364,6 +364,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Delete empty material slots)**
         * このオブジェクトのマテリアルが割り当てられていないマテリアルスロットを全て削除します
         * ―(Delete all material of this object has not been assigned material slots)
+    * **裏側を透明にする**
+    * **―(Transparent back.)**
+        * メッシュの裏側が透明になるようにシェーダーノードを設定します
+        * ―(Sets the shader nodes transparently mesh back)
   
 * **「プロパティ」エリア > 「マテリアル」タブ**
 * **―("Properties" areas ""material"tab)**

@@ -90,13 +90,48 @@ class RemoveEmptyMaterialSlot(bpy.types.Operator):
 				i += 1
 		return {'FINISHED'}
 
+class SetTransparentBackSide(bpy.types.Operator):
+	bl_idname = "material.set_transparent_back_side"
+	bl_label = "裏側を透明にする"
+	bl_description = "メッシュの裏側が透明になるようにシェーダーノードを設定します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		mat = context.material
+		if (not mat):
+			return False
+		if (mat.node_tree):
+			if (len(mat.node_tree.nodes) == 0):
+				return True
+		if (not mat.use_nodes):
+			return True
+		return False
+	def execute(self, context):
+		mat = context.material
+		mat.use_nodes = True
+		if (mat.node_tree):
+			for node in mat.node_tree.nodes:
+				if (node):
+					mat.node_tree.nodes.remove(node)
+		mat.use_transparency = True
+		node_mat = mat.node_tree.nodes.new('ShaderNodeMaterial')
+		node_out = mat.node_tree.nodes.new('ShaderNodeOutput')
+		node_geo = mat.node_tree.nodes.new('ShaderNodeGeometry')
+		node_mat.material = mat
+		node_out.location = [node_out.location[0]+500, node_out.location[1]]
+		node_geo.location = [node_geo.location[0]+150, node_geo.location[1]-150]
+		mat.node_tree.links.new(node_mat.outputs[0], node_out.inputs[0])
+		mat.node_tree.links.new(node_geo.outputs[8], node_out.inputs[1])
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
 
 # メニューのオン/オフの判定
 def IsMenuEnable(self_id):
-	for id in bpy.context.user_preferences.addons["Scramble Addon"].preferences.disabled_menu.split(','):
+	for id in bpy.context.user_preferences.addons['Scramble Addon'].preferences.disabled_menu.split(','):
 		if (id == self_id):
 			return False
 	else:
@@ -106,9 +141,11 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(RemoveAllMaterialSlot.bl_idname, icon="PLUGIN")
-		self.layout.operator(RemoveEmptyMaterialSlot.bl_idname, icon="PLUGIN")
-		self.layout.operator(RemoveNoAssignMaterial.bl_idname, icon="PLUGIN")
-	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
+		self.layout.operator(RemoveAllMaterialSlot.bl_idname, icon='PLUGIN')
+		self.layout.operator(RemoveEmptyMaterialSlot.bl_idname, icon='PLUGIN')
+		self.layout.operator(RemoveNoAssignMaterial.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator(SetTransparentBackSide.bl_idname, icon='PLUGIN')
+	if (context.user_preferences.addons['Scramble Addon'].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
