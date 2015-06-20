@@ -156,6 +156,34 @@ class FillTransparency(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class Normalize(bpy.types.Operator):
+	bl_idname = "image.normalize"
+	bl_label = "画像の正規化"
+	bl_description = "アクティブな画像を正規化します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
+		return True
+	def execute(self, context):
+		img = context.edit_image
+		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
+		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
+		for c in range(3):
+			values = pixels[:,:,c]
+			min = numpy.amin(values)
+			max = numpy.amax(values)
+			values = (values - min) * (max / min)
+			pixels[:,:,c] = values
+		img.pixels = pixels.flatten()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 class RenameImageFile(bpy.types.Operator):
 	bl_idname = "image.rename_image_file"
 	bl_label = "画像ファイル名を変更"
@@ -410,6 +438,8 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.operator(FillColor.bl_idname, icon='PLUGIN')
 		self.layout.operator(FillTransparency.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator(Normalize.bl_idname, icon='PLUGIN')
 		self.layout.operator(BlurImage.bl_idname, icon='PLUGIN')
 		self.layout.menu(TransformMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()

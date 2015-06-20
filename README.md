@@ -168,6 +168,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Fill with transparency)**
         * アクティブな画像の透明部分を指定色で塗り潰します
         * ―(The transparent parts of the image are active in the specified color fills)
+    * **画像の正規化**
+    * **―(Image normalization)**
+        * アクティブな画像を正規化します
+        * ―(Normalizes the active image)
     * **画像ファイル名を変更**
     * **―(Change the name of the image file)**
         * アクティブな画像のファイル名を変更します
