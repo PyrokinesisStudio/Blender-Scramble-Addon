@@ -173,12 +173,15 @@ class Normalize(bpy.types.Operator):
 		img = context.edit_image
 		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
 		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
+		rs = pixels[:,:,0]
+		gs = pixels[:,:,1]
+		bs = pixels[:,:,2]
+		values = (rs + gs + bs) / 3
+		min = numpy.amin(values)
+		max = numpy.amax(values)
+		multi = 1 / (max - min)
 		for c in range(3):
-			values = pixels[:,:,c]
-			min = numpy.amin(values)
-			max = numpy.amax(values)
-			values = (values - min) * (max / min)
-			pixels[:,:,c] = values
+			pixels[:,:,c] = (pixels[:,:,c] - min) * multi
 		img.pixels = pixels.flatten()
 		for area in context.screen.areas:
 			area.tag_redraw()
