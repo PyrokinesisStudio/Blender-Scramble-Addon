@@ -111,12 +111,9 @@ class FillColor(bpy.types.Operator):
 		pixel = list(self.color[:])
 		if (4 <= img.channels):
 			pixel.append(self.alpha)
-		pixels = []
-		for i in range(img.size[0] * img.size[1]):
-			pixels.extend(pixel)
-		img.pixels=pixels
-		img.update()
-		context.area.tag_redraw()
+		img.pixels = pixel * (img.size[0] * img.size[1])
+		for area in context.screen.areas:
+			area.tag_redraw()
 		return {'FINISHED'}
 
 class FillTransparency(bpy.types.Operator):
