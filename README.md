@@ -134,6 +134,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Fill the vertex color)**
         * アクティブなオブジェクトの頂点色を指定色で塗り潰します
         * ―(Vertex color of the active object with the specified color fills)
+    * **頂点カラーを一括追加**
+    * **―(Bulk add vertex color)**
+        * 選択中のメッシュオブジェクト全てに色と名前を指定して頂点カラーを追加します
+        * ―(Specify color and name all selected mesh object, adds a vertex color)
   
 * **ドープシート > 「キー」メニュー**
 * **―(Dope sheet "menu"key")**
@@ -847,10 +851,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
   
 * **3Dビュー > オブジェクトモード > 「W」キー**
 * **―(3D view > mode > 'W' key)**
-    * **頂点カラーを一括追加**
-    * **―(Bulk add vertex color)**
-        * 選択中のメッシュオブジェクト全てに色と名前を指定して頂点カラーを追加します
-        * ―(Specify color and name all selected mesh object, adds a vertex color)
     * **ウェイト転送**
     * **―(Weight transfer)**
         * 他の選択中のメッシュからアクティブにウェイトペイントを転送します

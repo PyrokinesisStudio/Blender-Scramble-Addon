@@ -7,33 +7,6 @@ import re, random
 # オペレーター #
 ################
 
-class AddVertexColorSelectedObject(bpy.types.Operator):
-	bl_idname = "object.add_vertex_color_selected_object"
-	bl_label = "頂点カラーを一括追加"
-	bl_description = "選択中のメッシュオブジェクト全てに色と名前を指定して頂点カラーを追加します"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	name = bpy.props.StringProperty(name="頂点カラー名", default="Col")
-	color = bpy.props.FloatVectorProperty(name="頂点カラー", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
-	
-	@classmethod
-	def poll(cls, context):
-		for obj in context.selected_objects:
-			if (obj.type == 'MESH'):
-				return True
-		return False
-	def execute(self, context):
-		for obj in context.selected_objects:
-			if (obj.type == "MESH"):
-				me = obj.data
-				try:
-					col = me.vertex_colors[self.name]
-				except KeyError:
-					col = me.vertex_colors.new(self.name)
-				for data in col.data:
-					data.color = self.color
-		return {'FINISHED'}
-
 class VertexGroupTransferWeightObjmode(bpy.types.Operator):
 	bl_idname = "object.vertex_group_transfer_weight_objmode"
 	bl_label = "ウェイト転送"
@@ -1228,7 +1201,6 @@ def menu(self, context):
 		self.layout.menu(CurveMenu.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(ToggleSmooth.bl_idname, icon="PLUGIN")
-		self.layout.operator(AddVertexColorSelectedObject.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(VertexGroupTransfer.bl_idname, icon="PLUGIN")
 		self.layout.operator(VertexGroupAverageAll.bl_idname, icon="PLUGIN")

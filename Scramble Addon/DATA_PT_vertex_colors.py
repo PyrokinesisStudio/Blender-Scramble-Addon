@@ -91,6 +91,47 @@ class VertexColorSet(bpy.types.Operator):
 		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
+class AddVertexColorSelectedObject(bpy.types.Operator):
+	bl_idname = "object.add_vertex_color_selected_object"
+	bl_label = "頂点カラーを一括追加"
+	bl_description = "選択中のメッシュオブジェクト全てに色と名前を指定して頂点カラーを追加します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	name = bpy.props.StringProperty(name="頂点カラー名", default="Col")
+	color = bpy.props.FloatVectorProperty(name="頂点カラー", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
+	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selected_objects:
+			if (obj.type == 'MESH'):
+				return True
+		return False
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	def execute(self, context):
+		for obj in context.selected_objects:
+			if (obj.type == "MESH"):
+				me = obj.data
+				try:
+					col = me.vertex_colors[self.name]
+				except KeyError:
+					col = me.vertex_colors.new(self.name)
+				for data in col.data:
+					data.color = self.color
+		return {'FINISHED'}
+
+################
+# サブメニュー #
+################
+
+class SubMenu(bpy.types.Menu):
+	bl_idname = "DATA_PT_vertex_colors_sub_menu"
+	bl_label = "頂点カラー操作"
+	bl_description = "頂点カラーの操作に関するメニューです"
+	
+	def draw(self, context):
+		self.layout.operator(AddVertexColorSelectedObject.bl_idname, icon='PLUGIN')
+
 ################
 # メニュー追加 #
 ################
@@ -113,5 +154,6 @@ def menu(self, context):
 				sub.operator(MoveActiveVertexColor.bl_idname, icon='TRIA_UP', text="").mode = 'UP'
 				sub.operator(MoveActiveVertexColor.bl_idname, icon='TRIA_DOWN', text="").mode = 'DOWN'
 				row.operator(VertexColorSet.bl_idname, icon="PLUGIN", text="塗り潰す")
+		self.layout.menu(SubMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
