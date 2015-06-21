@@ -10,7 +10,7 @@ class ScrollEnd(bpy.types.Operator):
 	bl_idname = "view2d.scroll_end"
 	bl_label = "最後までスクロール"
 	bl_description = "画面の一番下までスクロールします"
-	bl_options = {'REGISTER'}
+	bl_options = {'UNDO'}
 	
 	def execute(self, context):
 		for i in range(20):
