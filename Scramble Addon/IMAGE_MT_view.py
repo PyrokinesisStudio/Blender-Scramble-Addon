@@ -50,10 +50,6 @@ class Reset2DCursor(bpy.types.Operator):
 		elif (self.mode == "LU"):
 			bpy.context.space_data.cursor_location = [0, y]
 		return {'FINISHED'}
-	
-	def invoke(self, context, event):
-		wm = context.window_manager
-		return wm.invoke_props_dialog(self)
 
 class TogglePanelsA(bpy.types.Operator):
 	bl_idname = "image.toggle_panels_a"
@@ -139,6 +135,24 @@ class ShortcutsMenu(bpy.types.Menu):
 		self.layout.operator(TogglePanelsB.bl_idname, icon="PLUGIN")
 		self.layout.operator(TogglePanelsC.bl_idname, icon="PLUGIN")
 
+class Reset2DCursorMenu(bpy.types.Menu):
+	bl_idname = "IMAGE_MT_view_reset_2d_cursor"
+	bl_label = "カーソルの位置をリセット"
+	bl_description = "カーソルの位置をリセットします"
+	
+	def draw(self, context):
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="上").mode = 'U'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="右").mode = 'R'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="下").mode = 'D'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="左").mode = 'L'
+		self.layout.separator()
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="右上").mode = 'RU'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="右下").mode = 'RD'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="左下").mode = 'LD'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="左上").mode = 'LU'
+		self.layout.separator()
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="中央").mode = 'C'
+
 ################
 # メニュー追加 #
 ################
@@ -155,7 +169,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(Reset2DCursor.bl_idname, icon="PLUGIN")
+		self.layout.menu(Reset2DCursorMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
 		self.layout.menu(ShortcutsMenu.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
