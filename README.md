@@ -99,6 +99,14 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Set keep up the volume the armature)**
         * 選択したオブジェクトのアーマチュアモディファイアの「体積を維持」をまとめてオン/オフします
         * ―(Maintain volume in the armtuamodifaia of the selected objects together off and on the)
+    * **クイックカーブ変形**
+    * **―(Quick curve deformation)**
+        * すばやくカーブモディファイアを適用します
+        * ―(Quickly apply the curve modifier)
+    * **クイック配列複製+カーブ変形**
+    * **―(Quick array replication + curve deformation)**
+        * すばやく配列複製モディファイアとカーブモディファイアを適用します
+        * ―(Quickly apply the curve modifier with the modifiers array replication)
   
   
 * **プロパティ > "メッシュデータ"タブ > "UVマップ"パネル**
@@ -931,14 +939,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Create a mesh of rope-like curve to)**
         * アクティブなカーブオブジェクトに沿ったロープや蛇のようなメッシュを新規作成します
         * ―(Creates a mesh like rope along the curve object is active or snake new)
-    * **クイックカーブ変形**
-    * **―(Quick curve deformation)**
-        * すばやくカーブモディファイアを適用します
-        * ―(Quickly apply the curve modifier)
-    * **クイック配列複製+カーブ変形**
-    * **―(Quick array replication + curve deformation)**
-        * すばやく配列複製モディファイアとカーブモディファイアを適用します
-        * ―(Quickly apply the curve modifier with the modifiers array replication)
     * **ベベルオブジェクトを断面に移動**
     * **―(Bevel object section moved)**
         * カーブに設定されているベベルオブジェクトを選択カーブの断面へと移動させます

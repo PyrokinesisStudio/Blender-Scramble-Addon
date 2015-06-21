@@ -335,56 +335,217 @@ class SetArmatureDeformPreserveVolume(bpy.types.Operator):
 						mod.use_deform_preserve_volume = self.use_deform_preserve_volume
 		return {'FINISHED'}
 
+########################
+# オペレーター(カーブ) #
+########################
+
+class QuickCurveDeform(bpy.types.Operator):
+	bl_idname = "object.quick_curve_deform"
+	bl_label = "クイックカーブ変形"
+	bl_description = "すばやくカーブモディファイアを適用します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('POS_X', "+X", "", 1),
+		('POS_Y', "+Y", "", 2),
+		('POS_Z', "+Z", "", 3),
+		('NEG_X', "-X", "", 4),
+		('NEG_Y', "-Y", "", 5),
+		('NEG_Z', "-Z", "", 6),
+		]
+	deform_axis = bpy.props.EnumProperty(items=items, name="変形する軸")
+	is_apply = bpy.props.BoolProperty(name="モディファイア適用", default=False)
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object):
+			return False
+		if (context.object.type != 'MESH'):
+			return False
+		if (len(context.selected_objects) != 2):
+			return False
+		for obj in context.selected_objects:
+			if (obj.type == 'CURVE'):
+				return True
+		return False
+	def execute(self, context):
+		mesh_obj = context.active_object
+		if (mesh_obj.type != 'MESH'):
+			self.report(type={"ERROR"}, message="メッシュオブジェクトがアクティブな状態で実行して下さい")
+			return {"CANCELLED"}
+		if (len(context.selected_objects) != 2):
+			self.report(type={"ERROR"}, message="メッシュ・カーブの2つのみ選択して実行して下さい")
+			return {"CANCELLED"}
+		for obj in context.selected_objects:
+			if (mesh_obj.name != obj.name):
+				if (obj.type == 'CURVE'):
+					curve_obj = obj
+					break
+		else:
+			self.report(type={"ERROR"}, message="カーブオブジェクトも選択状態で実行して下さい")
+			return {"CANCELLED"}
+		curve = curve_obj.data
+		pre_use_stretch = curve.use_stretch
+		pre_use_deform_bounds = curve.use_deform_bounds
+		curve.use_stretch = True
+		curve.use_deform_bounds = True
+		bpy.ops.object.transform_apply_all()
+		mod = mesh_obj.modifiers.new("temp", 'CURVE')
+		mod.object = curve_obj
+		mod.deform_axis = self.deform_axis
+		for i in range(len(mesh_obj.modifiers)):
+			bpy.ops.object.modifier_move_up(modifier=mod.name)
+		if (self.is_apply):
+			bpy.ops.object.modifier_apply(modifier=mod.name)
+			curve.use_stretch = pre_use_stretch
+			curve.use_deform_bounds = pre_use_deform_bounds
+		return {'FINISHED'}
+
+class QuickArrayAndCurveDeform(bpy.types.Operator):
+	bl_idname = "object.quick_array_and_curve_deform"
+	bl_label = "クイック配列複製+カーブ変形"
+	bl_description = "すばやく配列複製モディファイアとカーブモディファイアを適用します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('POS_X', "+X", "", 1),
+		('POS_Y', "+Y", "", 2),
+		('POS_Z', "+Z", "", 3),
+		('NEG_X', "-X", "", 4),
+		('NEG_Y', "-Y", "", 5),
+		('NEG_Z', "-Z", "", 6),
+		]
+	deform_axis = bpy.props.EnumProperty(items=items, name="変形する軸")
+	use_merge_vertices = bpy.props.BoolProperty(name="頂点結合", default=True)
+	is_apply = bpy.props.BoolProperty(name="モディファイア適用", default=False)
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object):
+			return False
+		if (context.object.type != 'MESH'):
+			return False
+		if (len(context.selected_objects) != 2):
+			return False
+		for obj in context.selected_objects:
+			if (obj.type == 'CURVE'):
+				return True
+		return False
+	def execute(self, context):
+		mesh_obj = context.active_object
+		if (mesh_obj.type != 'MESH'):
+			self.report(type={'ERROR'}, message="メッシュオブジェクトがアクティブな状態で実行して下さい")
+			return {'CANCELLED'}
+		if (len(context.selected_objects) != 2):
+			self.report(type={'ERROR'}, message="メッシュ・カーブの2つのみ選択して実行して下さい")
+			return {'CANCELLED'}
+		for obj in context.selected_objects:
+			if (mesh_obj.name != obj.name):
+				if (obj.type == 'CURVE'):
+					curve_obj = obj
+					break
+		else:
+			self.report(type={'ERROR'}, message="カーブオブジェクトも選択状態で実行して下さい")
+			return {'CANCELLED'}
+		curve = curve_obj.data
+		pre_use_stretch = curve.use_stretch
+		pre_use_deform_bounds = curve.use_deform_bounds
+		curve.use_stretch = True
+		curve.use_deform_bounds = True
+		bpy.ops.object.transform_apply_all()
+		
+		mod_array = mesh_obj.modifiers.new("Array", 'ARRAY')
+		mod_array.fit_type = 'FIT_CURVE'
+		mod_array.curve = curve_obj
+		mod_array.use_merge_vertices = self.use_merge_vertices
+		mod_array.use_merge_vertices_cap = self.use_merge_vertices
+		if (self.deform_axis == 'POS_Y'):
+			mod_array.relative_offset_displace = (0, 1, 0)
+		elif (self.deform_axis == 'POS_Z'):
+			mod_array.relative_offset_displace = (0, 0, 1)
+		elif (self.deform_axis == 'NEG_X'):
+			mod_array.relative_offset_displace = (-1, 0, 0)
+		elif (self.deform_axis == 'NEG_Y'):
+			mod_array.relative_offset_displace = (0, -1, 0)
+		elif (self.deform_axis == 'NEG_Z'):
+			mod_array.relative_offset_displace = (0, 0, -1)
+		
+		mod_curve = mesh_obj.modifiers.new("Curve", 'CURVE')
+		mod_curve.object = curve_obj
+		mod_curve.deform_axis = self.deform_axis
+		
+		for i in range(len(mesh_obj.modifiers)):
+			bpy.ops.object.modifier_move_up(modifier=mod_curve.name)
+		for i in range(len(mesh_obj.modifiers)):
+			bpy.ops.object.modifier_move_up(modifier=mod_array.name)
+		
+		if (self.is_apply):
+			bpy.ops.object.modifier_apply(modifier=mod_array.name)
+			bpy.ops.object.modifier_apply(modifier=mod_curve.name)
+			curve.use_stretch = pre_use_stretch
+			curve.use_deform_bounds = pre_use_deform_bounds
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
 
 class ModifierMenu(bpy.types.Menu):
-	bl_idname = "VIEW3D_MT_object_specials_modifier"
+	bl_idname = "DATA_PT_modifiers_specials"
 	bl_label = "モディファイア操作"
 	bl_description = "モディファイア関係の操作です"
 	
 	def draw(self, context):
-		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
-		self.layout.menu(ArmatureMenu.bl_idname, icon="PLUGIN")
-		self.layout.menu(BooleanMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(SubsurfMenu.bl_idname, icon='PLUGIN')
+		self.layout.menu(ArmatureMenu.bl_idname, icon='PLUGIN')
+		self.layout.menu(BooleanMenu.bl_idname, icon='PLUGIN')
+		self.layout.menu(CurveMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(ApplyModifiersAndJoin.bl_idname, icon="PLUGIN")
+		self.layout.operator(ApplyModifiersAndJoin.bl_idname, icon='PLUGIN')
 
 class SubsurfMenu(bpy.types.Menu):
-	bl_idname = "VIEW3D_MT_object_specials_subsurf"
+	bl_idname = "DATA_PT_modifiers_subsurf"
 	bl_label = "サブサーフ関係"
 	bl_description = "サブサーフェイス関係の操作です"
 	
 	def draw(self, context):
-		self.layout.operator(AddSubsurf.bl_idname, icon="PLUGIN")
-		self.layout.operator(DeleteSubsurf.bl_idname, icon="PLUGIN")
+		self.layout.operator(AddSubsurf.bl_idname, icon='PLUGIN')
+		self.layout.operator(DeleteSubsurf.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(SetRenderSubsurfLevel.bl_idname, icon="PLUGIN")
-		self.layout.operator(EqualizeSubsurfLevel.bl_idname, icon="PLUGIN")
-		self.layout.operator(SetSubsurfOptimalDisplay.bl_idname, icon="PLUGIN")
+		self.layout.operator(SetRenderSubsurfLevel.bl_idname, icon='PLUGIN')
+		self.layout.operator(EqualizeSubsurfLevel.bl_idname, icon='PLUGIN')
+		self.layout.operator(SetSubsurfOptimalDisplay.bl_idname, icon='PLUGIN')
 
 class BooleanMenu(bpy.types.Menu):
-	bl_idname = "VIEW3D_MT_object_specials_boolean"
+	bl_idname = "DATA_PT_modifiers_boolean"
 	bl_label = "ブーリアン関係"
 	bl_description = "ブーリアン関係の操作です"
 	
 	def draw(self, context):
-		self.layout.operator(AddBoolean.bl_idname, icon="PLUGIN", text="ブーリアン追加 (交差)").mode = "INTERSECT"
-		self.layout.operator(AddBoolean.bl_idname, icon="PLUGIN", text="ブーリアン追加 (統合)").mode = "UNION"
-		self.layout.operator(AddBoolean.bl_idname, icon="PLUGIN", text="ブーリアン追加 (差分)").mode = "DIFFERENCE"
+		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="ブーリアン追加 (交差)").mode = "INTERSECT"
+		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="ブーリアン追加 (統合)").mode = "UNION"
+		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="ブーリアン追加 (差分)").mode = "DIFFERENCE"
 		self.layout.separator()
-		self.layout.operator(ApplyBoolean.bl_idname, icon="PLUGIN", text="ブーリアン適用 (交差)").mode = "INTERSECT"
-		self.layout.operator(ApplyBoolean.bl_idname, icon="PLUGIN", text="ブーリアン適用 (統合)").mode = "UNION"
-		self.layout.operator(ApplyBoolean.bl_idname, icon="PLUGIN", text="ブーリアン適用 (差分)").mode = "DIFFERENCE"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="ブーリアン適用 (交差)").mode = "INTERSECT"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="ブーリアン適用 (統合)").mode = "UNION"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="ブーリアン適用 (差分)").mode = "DIFFERENCE"
 
 class ArmatureMenu(bpy.types.Menu):
-	bl_idname = "VIEW3D_MT_object_specials_armature"
+	bl_idname = "DATA_PT_modifiers_armature"
 	bl_label = "アーマチュア関係"
 	bl_description = "アーマチュア関係の操作です"
 	
 	def draw(self, context):
-		self.layout.operator(SetArmatureDeformPreserveVolume.bl_idname, icon="PLUGIN")
+		self.layout.operator(SetArmatureDeformPreserveVolume.bl_idname, icon='PLUGIN')
+
+class CurveMenu(bpy.types.Menu):
+	bl_idname = "DATA_PT_modifiers_curve"
+	bl_label = "カーブ関係"
+	bl_description = "カーブ関係の操作です"
+	
+	def draw(self, context):
+		self.layout.operator(QuickCurveDeform.bl_idname, icon='PLUGIN')
+		self.layout.operator(QuickArrayAndCurveDeform.bl_idname, icon='PLUGIN')
 
 ################
 # メニュー追加 #
@@ -392,7 +553,7 @@ class ArmatureMenu(bpy.types.Menu):
 
 # メニューのオン/オフの判定
 def IsMenuEnable(self_id):
-	for id in bpy.context.user_preferences.addons["Scramble Addon"].preferences.disabled_menu.split(','):
+	for id in bpy.context.user_preferences.addons['Scramble Addon'].preferences.disabled_menu.split(','):
 		if (id == self_id):
 			return False
 	else:
@@ -412,6 +573,6 @@ def menu(self, context):
 				row.operator(ToggleApplyModifiersView.bl_idname, icon='RESTRICT_VIEW_OFF', text="ビュー表示")
 				row.operator(ToggleAllShowExpanded.bl_idname, icon='FULLSCREEN_ENTER', text="展開/閉じる")
 				row.operator(SyncShowModifiers.bl_idname, icon='LINKED', text="使用同期")
-		self.layout.menu(ModifierMenu.bl_idname, icon="PLUGIN")
-	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
+		self.layout.menu(ModifierMenu.bl_idname, icon='PLUGIN')
+	if (context.user_preferences.addons['Scramble Addon'].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
