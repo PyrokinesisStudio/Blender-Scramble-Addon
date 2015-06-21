@@ -1,7 +1,7 @@
 # 情報 > 「ファイル」メニュー > 「外部データ」メニュー
 
 import bpy
-import os
+import os, shutil
 
 ################
 # オペレーター #
@@ -30,6 +30,43 @@ class ResaveAllImage(bpy.types.Operator):
 				except RuntimeError:
 					pass
 		self.report(type={"INFO"}, message="texturesフォルダに保存し直しました")
+		return {'FINISHED'}
+
+class IsolationTexturesUnusedFiles(bpy.types.Operator):
+	bl_idname = "image.isolation_textures_unused_files"
+	bl_label = "texturesフォルダ内の未使用ファイルを隔離"
+	bl_description = "このBlendファイルのあるフォルダのtextures内で、使用していないファイルをbackupフォルダに隔離します"
+	bl_options = {'REGISTER'}
+	
+	@classmethod
+	def poll(cls, context):
+		path = context.blend_data.filepath
+		if (context.blend_data.filepath == ""):
+			return False
+		dir = os.path.dirname(path)
+		if (not os.path.isdir( os.path.join(dir, "textures") )):
+			return False
+		for img in bpy.data.images:
+			if (img.filepath != ""):
+				return True
+		return False
+	def execute(self, context):
+		names = []
+		for img in context.blend_data.images:
+			if (img.filepath != ""):
+				names.append(bpy.path.basename(img.filepath))
+		tex_dir = os.path.join( os.path.dirname(context.blend_data.filepath), "textures")
+		backup_dir = os.path.join(tex_dir, "backup")
+		if (not os.path.isdir(backup_dir)):
+			os.mkdir(backup_dir)
+		for name in os.listdir(tex_dir):
+			path = os.path.join(tex_dir, name)
+			if (not os.path.isdir(path)):
+				if (name not in names):
+					src = path
+					dst = os.path.join(path, backup_dir, name)
+					shutil.move(src, dst)
+					self.report(type={'INFO'}, message=name+"を隔離")
 		return {'FINISHED'}
 
 class OpenRecentFiles(bpy.types.Operator):
@@ -113,7 +150,9 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
 		self.layout.operator('image.reload_all_image', icon="PLUGIN")
+		self.layout.separator()
 		self.layout.operator(ResaveAllImage.bl_idname, icon="PLUGIN")
+		self.layout.operator(IsolationTexturesUnusedFiles.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(OpenRecentFiles.bl_idname, icon="PLUGIN")
 		self.layout.operator(OpenBookmarkText.bl_idname, icon="PLUGIN")

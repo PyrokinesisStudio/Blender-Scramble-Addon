@@ -315,6 +315,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Resave textures folder, all images)**
         * 外部ファイルを参照している画像データを全てtexturesフォルダに保存し直します
         * ―(All external files referenced by image data to resave the textures folder)
+    * **texturesフォルダ内の未使用ファイルを隔離**
+    * **―(isolate unused files in the textures folder)**
+        * このBlendファイルのあるフォルダのtextures内で、使用していないファイルをbackupフォルダに隔離します
+        * ―(Files in a textures folder with the Blend files, do not use isolates them in a backup folder)
     * **「最近使ったファイル」をテキストで開く**
     * **―(Open text in "recent files")**
         * 「最近使ったファイル」をBlenderのテキストエディタで開きます
