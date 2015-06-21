@@ -87,10 +87,10 @@ class ReloadAllImage(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
-class FillColor(bpy.types.Operator):
-	bl_idname = "image.fill_color"
-	bl_label = "指定色で塗り潰し"
-	bl_description = "アクティブな画像を指定した色で全て塗り潰します"
+class FillOverrideColor(bpy.types.Operator):
+	bl_idname = "image.fill_override_color"
+	bl_label = "指定色で上書き"
+	bl_description = "アクティブな画像を指定した色で全て上書きします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	color = bpy.props.FloatVectorProperty(name="色", description="塗り潰す色", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
@@ -112,6 +112,39 @@ class FillColor(bpy.types.Operator):
 		if (4 <= img.channels):
 			pixel.append(self.alpha)
 		img.pixels = pixel * (img.size[0] * img.size[1])
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
+class FillColor(bpy.types.Operator):
+	bl_idname = "image.fill_color"
+	bl_label = "指定色で塗り潰す"
+	bl_description = "アクティブな画像を指定した色で全て塗り潰します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	color = bpy.props.FloatVectorProperty(name="色", description="塗り潰す色", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
+	alpha = bpy.props.FloatProperty(name="透明度", description="透明度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
+		return True
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	def execute(self, context):
+		img = context.edit_image
+		color = self.color[:]
+		alpha = self.alpha
+		unalpha = 1.0 - alpha
+		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
+		pixels = numpy.array(img.pixels).reshape(img_height * img_width, img_channel)
+		pixels[:,0] = (pixels[:,0] * unalpha) + (color[0] * alpha)
+		pixels[:,1] = (pixels[:,1] * unalpha) + (color[1] * alpha)
+		pixels[:,2] = (pixels[:,2] * unalpha) + (color[2] * alpha)
+		img.pixels = pixels.flatten()
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
@@ -436,6 +469,7 @@ def menu(self, context):
 			name, ext = os.path.splitext(path)
 			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" で開く").index = 3
 		self.layout.separator()
+		self.layout.operator(FillOverrideColor.bl_idname, icon='PLUGIN')
 		self.layout.operator(FillColor.bl_idname, icon='PLUGIN')
 		self.layout.operator(FillTransparency.bl_idname, icon='PLUGIN')
 		self.layout.separator()

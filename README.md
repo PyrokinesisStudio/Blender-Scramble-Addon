@@ -160,7 +160,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Load all images)**
         * 外部ファイルを参照している画像データを全て読み込み直します
         * ―(Reloads all the image data referring to external file)
-    * **指定色で塗り潰し**
+    * **指定色で上書き**
+    * **―(Over the specified color)**
+        * アクティブな画像を指定した色で全て上書きします
+        * ―(All over the colors you specify the active image)
+    * **指定色で塗り潰す**
     * **―(Fill with color)**
         * アクティブな画像を指定した色で全て塗り潰します
         * ―(All fill in the color you specify the active image)
