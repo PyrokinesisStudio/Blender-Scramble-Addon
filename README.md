@@ -529,6 +529,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * プロパティのタブを順番に切り替えます
         * ―(Turn switch Properties tab)
   
+  
 * **「プロパティ」エリア > 「レンダー」タブ > 「レンダー」パネル**
 * **―("Properties" area: "render" tab > "render" Panel)**
     * **バックグラウンドでレンダリング**
