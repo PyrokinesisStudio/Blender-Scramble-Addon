@@ -212,6 +212,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Editing in an external editor (enhanced))**
         * ユーザー設定のファイルタブで設定した追加の外部エディターで画像を開きます
         * ―(Open the image in an external editor of the additional files page of the custom)
+    * **画像の拡大/縮小**
+    * **―(Image zoom in / out)**
+        * アクティブな画像をリサイズします
+        * ―(Active image resizing)
   
 * **UV/画像エディター > 「選択」メニュー**
 * **―(UV / image editor > select menu)**

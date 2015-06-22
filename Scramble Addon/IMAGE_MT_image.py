@@ -434,6 +434,34 @@ class ExternalEditEX(bpy.types.Operator):
 		context.user_preferences.filepaths.image_editor = pre_path
 		return {'FINISHED'}
 
+class Resize(bpy.types.Operator):
+	bl_idname = "image.resize"
+	bl_label = "画像の拡大/縮小"
+	bl_description = "アクティブな画像をリサイズします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	width = bpy.props.IntProperty(name="横幅", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
+	height = bpy.props.IntProperty(name="縦幅", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
+		return True
+	def invoke(self, context, event):
+		img = context.edit_image
+		self.width, self.height = img.size[0], img.size[1]
+		return context.window_manager.invoke_props_dialog(self)
+	def execute(self, context):
+		img = context.edit_image
+		img.scale(self.width, self.height)
+		img.gl_free()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -481,6 +509,7 @@ def menu(self, context):
 		self.layout.operator(FillColor.bl_idname, icon='PLUGIN')
 		self.layout.operator(FillTransparency.bl_idname, icon='PLUGIN')
 		self.layout.separator()
+		self.layout.operator(Resize.bl_idname, icon='PLUGIN')
 		self.layout.operator(Normalize.bl_idname, icon='PLUGIN')
 		self.layout.operator(BlurImage.bl_idname, icon='PLUGIN')
 		self.layout.menu(TransformMenu.bl_idname, icon='PLUGIN')
