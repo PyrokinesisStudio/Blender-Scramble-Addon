@@ -94,7 +94,7 @@ class FillOverrideColor(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	color = bpy.props.FloatVectorProperty(name="色", description="塗り潰す色", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
-	alpha = bpy.props.FloatProperty(name="透明度", description="透明度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
+	alpha = bpy.props.FloatProperty(name="透明度", description="透明度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='PERCENTAGE')
 	
 	@classmethod
 	def poll(cls, context):
@@ -124,7 +124,7 @@ class FillColor(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	color = bpy.props.FloatVectorProperty(name="色", description="塗り潰す色", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
-	alpha = bpy.props.FloatProperty(name="透明度", description="透明度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
+	alpha = bpy.props.FloatProperty(name="透明度", description="透明度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='PERCENTAGE')
 	
 	@classmethod
 	def poll(cls, context):
