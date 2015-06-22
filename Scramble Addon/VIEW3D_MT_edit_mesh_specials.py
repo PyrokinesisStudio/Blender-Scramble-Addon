@@ -12,7 +12,7 @@ class PaintSelectedVertexColor(bpy.types.Operator):
 	bl_description = "選択中の頂点のアクティブ頂点カラーを指定色で塗り潰します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="色", default=(1, 1, 1), step=1, precision=3, subtype='COLOR', min=0, max=1, soft_min=0, soft_max=1)
+	color = bpy.props.FloatVectorProperty(name="色", default=(1, 1, 1), step=1, precision=3, subtype='COLOR_GAMMA', min=0, max=1, soft_min=0, soft_max=1)
 	
 	def execute(self, context):
 		activeObj = context.active_object

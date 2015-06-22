@@ -417,7 +417,7 @@ class CreateSolidifyEdge(bpy.types.Operator):
 	
 	use_render = bpy.props.BoolProperty(name="レンダリングにも適用", default=False)
 	thickness = bpy.props.FloatProperty(name="輪郭線の厚さ", default=0.01, min=0, max=1, soft_min=0, soft_max=1, step=0.1, precision=3)
-	color = bpy.props.FloatVectorProperty(name="線の色", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
+	color = bpy.props.FloatVectorProperty(name="線の色", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	use_rim = bpy.props.BoolProperty(name="ふちに面を張る", default=False)
 	show_backface_culling = bpy.props.BoolProperty(name="「裏面を非表示」をオン", default=True)
 	
@@ -658,7 +658,7 @@ class ApplyObjectColor(bpy.types.Operator):
 	bl_description = "選択オブジェクトのオブジェクトカラーを有効にし、色を設定します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="カラー", default=(0, 0, 0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
+	color = bpy.props.FloatVectorProperty(name="カラー", default=(0, 0, 0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	use_random = bpy.props.BoolProperty(name="ランダムな色を使う", default=True)
 	
 	@classmethod
@@ -688,7 +688,7 @@ class ClearObjectColor(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	set_color = bpy.props.BoolProperty(name="色を設定する", default=False)
-	color = bpy.props.FloatVectorProperty(name="カラー", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
+	color = bpy.props.FloatVectorProperty(name="カラー", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	
 	@classmethod
 	def poll(cls, context):

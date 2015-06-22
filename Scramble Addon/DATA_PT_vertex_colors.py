@@ -64,7 +64,7 @@ class VertexColorSet(bpy.types.Operator):
 	bl_description = "アクティブなオブジェクトの頂点色を指定色で塗り潰します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="頂点色", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=3, precision=10, subtype='COLOR')
+	color = bpy.props.FloatVectorProperty(name="頂点色", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=3, precision=10, subtype='COLOR_GAMMA')
 	
 	def invoke(self, context, event):
 		obj = context.active_object
@@ -98,7 +98,7 @@ class AddVertexColorSelectedObject(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	name = bpy.props.StringProperty(name="頂点カラー名", default="Col")
-	color = bpy.props.FloatVectorProperty(name="頂点カラー", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR')
+	color = bpy.props.FloatVectorProperty(name="頂点カラー", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	
 	@classmethod
 	def poll(cls, context):
