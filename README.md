@@ -36,7 +36,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ボーン名をクリップボードにコピーします
         * ―(To the Clipboard copies the bone name)
   
-  
+* **メッシュオブジェクト > 「プロパティ」エリア > 「データ」タブ**
+* **―(Mesh objects > properties area > "data" tab)**
 * **「プロパティ」エリア > 「モディファイア」タブ**
 * **―(Area properties > tab "modifiers")**
     * **全モディファイア適用**
@@ -108,7 +109,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * すばやく配列複製モディファイアとカーブモディファイアを適用します
         * ―(Quickly apply the curve modifier with the modifiers array replication)
   
-  
+* **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「スケルトン」パネル**
+* **―('Properties' area > armature data tab > "skeleton" Panel)**
 * **プロパティ > "メッシュデータ"タブ > "UVマップ"パネル**
 * **―(Properties > "data mesh" tab > "UV map" Panel)**
     * **まとめてUVをリネーム**
@@ -340,7 +342,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ファイルブラウザのブックマークをBlenderのテキストエディタで開きます
         * ―(Blender text editor open the file browser bookmarks)
   
-  
+* **情報 > 「ヘルプ」メニュー**
+* **―(Information > Help menu)**
 * **3Dビュー > オブジェクト/メッシュ編集モード > 「追加」メニュー > 「メッシュ」メニュー**
 * **―(3D view > object / mesh edit mode > "add" menu > "mesh" menu)**
     * **四角ポリゴン球**
@@ -529,7 +532,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * プロパティのタブを順番に切り替えます
         * ―(Turn switch Properties tab)
   
-  
+* **「プロパティ」エリア > 「レンダー」タブ > 「ベイク」パネル**
+* **―("Properties" area: "render" tab > "bake" Panel)**
 * **「プロパティ」エリア > 「レンダー」タブ > 「レンダー」パネル**
 * **―("Properties" area: "render" tab > "render" Panel)**
     * **バックグラウンドでレンダリング**
@@ -571,7 +575,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * テクスチャが割り当てられていない空のテクスチャスロットを埋め、切り詰めます
         * ―(No texture is assigned an empty texture slots will be filled, truncated)
   
-  
+* **「プロパティ」エリア > 「テクスチャ」タブ**
+* **―("Properties" area: "texture" tab)**
 * **「プロパティ」エリア > 「テクスチャ」タブ > 「画像」パネル**
 * **―(Area "Properties" > "texture" tab > "images" Panel)**
     * **テクスチャ画像をUV/画像エディターに表示**
