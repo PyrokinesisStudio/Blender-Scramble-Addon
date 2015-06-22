@@ -112,6 +112,7 @@ class FillOverrideColor(bpy.types.Operator):
 		if (4 <= img.channels):
 			pixel.append(self.alpha)
 		img.pixels = pixel * (img.size[0] * img.size[1])
+		img.gl_free()
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
@@ -145,6 +146,7 @@ class FillColor(bpy.types.Operator):
 		pixels[:,1] = (pixels[:,1] * unalpha) + (color[1] * alpha)
 		pixels[:,2] = (pixels[:,2] * unalpha) + (color[2] * alpha)
 		img.pixels = pixels.flatten()
+		img.gl_free()
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
@@ -182,6 +184,7 @@ class FillTransparency(bpy.types.Operator):
 				pixels[y][x][2] = (pixels[y][x][2] * alpha) + (color[2] * unalpha)
 				pixels[y][x][3] = 1.0
 		img.pixels = pixels.flatten()
+		img.gl_free()
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
@@ -213,6 +216,7 @@ class Normalize(bpy.types.Operator):
 		for c in range(3):
 			pixels[:,:,c] = (pixels[:,:,c] - min) * multi
 		img.pixels = pixels.flatten()
+		img.gl_free()
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
@@ -306,6 +310,7 @@ class BlurImage(bpy.types.Operator):
 				for i in range(y + x, y + x + c):
 					ps[i] = ps[i] / divisor
 		img.pixels = ps.tolist()
+		img.gl_free()
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
@@ -333,6 +338,7 @@ class ReverseWidthImage(bpy.types.Operator):
 		for i in range(img_height):
 			pixels[i] = pixels[i][::-1]
 		img.pixels = pixels.flatten()
+		img.gl_free()
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
@@ -359,6 +365,7 @@ class ReverseHeightImage(bpy.types.Operator):
 		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
 		pixels = pixels[::-1]
 		img.pixels = pixels.flatten()
+		img.gl_free()
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
@@ -387,6 +394,7 @@ class Rotate180Image(bpy.types.Operator):
 			pixels[i] = pixels[i][::-1]
 		pixels = pixels[::-1]
 		img.pixels = pixels.flatten()
+		img.gl_free()
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
