@@ -175,14 +175,16 @@ class FillTransparency(bpy.types.Operator):
 		color = self.color[:]
 		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
 		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
-		for y in range(img_height):
-			for x in range(img_width):
-				alpha = pixels[y][x][3]
-				unalpha = 1 - alpha
-				pixels[y][x][0] = (pixels[y][x][0] * alpha) + (color[0] * unalpha)
-				pixels[y][x][1] = (pixels[y][x][1] * alpha) + (color[1] * unalpha)
-				pixels[y][x][2] = (pixels[y][x][2] * alpha) + (color[2] * unalpha)
-				pixels[y][x][3] = 1.0
+		if (4 <= img_channel):
+			alphas = pixels[:,:,3]
+			unalphas = 1.0 - alphas
+		else:
+			alphas = numpy.ones(img_height * img_width)
+			unalphas = numpy.zeros(img_height * img_width)
+		pixels[:,:,0]= (pixels[:,:,0] * alphas) + (color[0] * unalphas)
+		pixels[:,:,1]= (pixels[:,:,1] * alphas) + (color[1] * unalphas)
+		pixels[:,:,2]= (pixels[:,:,2] * alphas) + (color[2] * unalphas)
+		pixels[:,:,3] = 1.0
 		img.pixels = pixels.flatten()
 		img.gl_free()
 		for area in context.screen.areas:
