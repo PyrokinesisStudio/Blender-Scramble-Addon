@@ -531,6 +531,8 @@
 "テクスチャ画像をUV/画像エディターに表示","Texture images show in the UV / image editor"
 "アクティブなテクスチャに使われている画像を「UV/画像エディター」に表示します","Image is used in the active texture shows the UV / image editor"
 "画像をUV/画像エディターに表示","In the UV / image editor show pictures"
+"アクティブなUVを使う","Using Active UV"
+"メッシュのアクティブなUVを、このスロットで使います","Active UV mesh used in this slot"
 "外部エディターで編集","Edit with external editor"
 "ユーザー設定のファイルタブで設定した外部エディターでテキストを開きます","Open the text in an external editor you set on the files page of the custom"
 "最後までスクロール","Scroll to end"

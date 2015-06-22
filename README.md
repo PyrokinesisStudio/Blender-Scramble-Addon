@@ -584,6 +584,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなテクスチャに使われている画像を「UV/画像エディター」に表示します
         * ―(Image is used in the active texture shows the UV / image editor)
   
+* **「プロパティ」エリア > 「テクスチャ」タブ > 「マッピング」パネル**
+* **―(Area "Properties" > "texture" tab > "mapping Panel)**
+    * **アクティブなUVを使う**
+    * **―(Using Active UV)**
+        * メッシュのアクティブなUVを、このスロットで使います
+        * ―(Active UV mesh used in this slot)
+  
 * **テキストエディター > 「テキスト」メニュー**
 * **―(Text editor > text menu)**
     * **外部エディターで編集**
