@@ -337,8 +337,9 @@ class ReverseWidthImage(bpy.types.Operator):
 			return {'CANCELLED'}
 		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
 		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
-		for i in range(img_height):
-			pixels[i] = pixels[i][::-1]
+		#for i in range(img_height):
+		#	pixels[i] = pixels[i][::-1]
+		pixels[:,:] = pixels[:,::-1]
 		img.pixels = pixels.flatten()
 		img.gl_free()
 		for area in context.screen.areas:
