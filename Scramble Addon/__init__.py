@@ -81,6 +81,7 @@ if "bpy" in locals():
 	imp.reload(DATA_PT_skeleton)
 	imp.reload(TEXTURE_PT_context_texture)
 	imp.reload(undisplay_commands)
+	imp.reload(TEXTURE_PT_image)
 	#imp.reload(***)
 else:
 	from . import IMAGE_MT_image
@@ -145,6 +146,7 @@ else:
 	from . import DATA_PT_skeleton
 	from . import TEXTURE_PT_context_texture
 	from . import undisplay_commands
+	from . import TEXTURE_PT_image
 	#from . import ***
 import bpy
 
@@ -288,6 +290,7 @@ def register():
 	bpy.types.BONE_PT_context_bone.append(BONE_PT_context_bone.menu)
 	bpy.types.DATA_PT_skeleton.append(DATA_PT_skeleton.menu)
 	bpy.types.TEXTURE_PT_context_texture.append(TEXTURE_PT_context_texture.menu)
+	bpy.types.TEXTURE_PT_image.append(TEXTURE_PT_image.menu)
 	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
@@ -357,6 +360,7 @@ def unregister():
 	bpy.types.BONE_PT_context_bone.remove(BONE_PT_context_bone.menu)
 	bpy.types.DATA_PT_skeleton.remove(DATA_PT_skeleton.menu)
 	bpy.types.TEXTURE_PT_context_texture.remove(TEXTURE_PT_context_texture.menu)
+	bpy.types.TEXTURE_PT_image.remove(TEXTURE_PT_image.menu)
 	#bpy.types.***.remove(***.menu)
 
 # メイン関数

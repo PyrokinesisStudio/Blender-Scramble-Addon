@@ -562,8 +562,9 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * テクスチャが割り当てられていない空のテクスチャスロットを埋め、切り詰めます
         * ―(No texture is assigned an empty texture slots will be filled, truncated)
   
-* **「プロパティ」エリア > 「テクスチャ」タブ**
-* **―("Properties" area: "texture" tab)**
+  
+* **「プロパティ」エリア > 「テクスチャ」タブ > 「画像」パネル**
+* **―(Area "Properties" > "texture" tab > "images" Panel)**
     * **テクスチャ画像をUV/画像エディターに表示**
     * **―(Texture images show in the UV / image editor)**
         * アクティブなテクスチャに使われている画像を「UV/画像エディター」に表示します
