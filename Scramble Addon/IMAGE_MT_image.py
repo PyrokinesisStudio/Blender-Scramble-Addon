@@ -372,6 +372,33 @@ class ReverseHeightImage(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class Rotate90Image(bpy.types.Operator):
+	bl_idname = "image.rotate_90_image"
+	bl_label = "90°回転"
+	bl_description = "アクティブな画像を90°回転します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
+		return True
+	def execute(self, context):
+		img = context.edit_image
+		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
+		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
+		new_pixels = numpy.zeros((img_width, img_height, img_channel))
+		for y in range(img_height):
+			new_pixels[:,y,:] = pixels[y,::-1,:]
+		img.scale(img_height, img_width)
+		img.pixels = new_pixels.flatten()
+		img.gl_free()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 class Rotate180Image(bpy.types.Operator):
 	bl_idname = "image.rotate_180_image"
 	bl_label = "180°回転"
@@ -392,10 +419,36 @@ class Rotate180Image(bpy.types.Operator):
 			return {'CANCELLED'}
 		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
 		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
-		for i in range(img_height):
-			pixels[i] = pixels[i][::-1]
+		pixels[:,:] = pixels[:,::-1]
 		pixels = pixels[::-1]
 		img.pixels = pixels.flatten()
+		img.gl_free()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
+class Rotate270Image(bpy.types.Operator):
+	bl_idname = "image.rotate_270_image"
+	bl_label = "270°回転"
+	bl_description = "アクティブな画像を270°回転します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
+		return True
+	def execute(self, context):
+		img = context.edit_image
+		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
+		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
+		new_pixels = numpy.zeros((img_width, img_height, img_channel))
+		for y in range(img_height):
+			new_pixels[:,y,:] = pixels[-y-1,:,:]
+		img.scale(img_height, img_width)
+		img.pixels = new_pixels.flatten()
 		img.gl_free()
 		for area in context.screen.areas:
 			area.tag_redraw()
@@ -474,9 +527,14 @@ class TransformMenu(bpy.types.Menu):
 	bl_description = "画像の変形処理メニューです"
 	
 	def draw(self, context):
+		self.layout.operator(Resize.bl_idname, icon='PLUGIN')
+		self.layout.separator()
 		self.layout.operator(ReverseWidthImage.bl_idname, icon='PLUGIN')
 		self.layout.operator(ReverseHeightImage.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator(Rotate90Image.bl_idname, icon='PLUGIN')
 		self.layout.operator(Rotate180Image.bl_idname, icon='PLUGIN')
+		self.layout.operator(Rotate270Image.bl_idname, icon='PLUGIN')
 
 ################
 # メニュー追加 #
@@ -513,8 +571,6 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.operator(Normalize.bl_idname, icon='PLUGIN')
 		self.layout.operator(BlurImage.bl_idname, icon='PLUGIN')
-		self.layout.separator()
-		self.layout.operator(Resize.bl_idname, icon='PLUGIN')
 		self.layout.menu(TransformMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
 		self.layout.operator(RenameImageFile.bl_idname, icon='PLUGIN')
