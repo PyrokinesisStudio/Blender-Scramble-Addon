@@ -496,8 +496,24 @@ class Resize(bpy.types.Operator):
 	bl_description = "アクティブな画像をリサイズします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	width = bpy.props.IntProperty(name="横幅", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
-	height = bpy.props.IntProperty(name="縦幅", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
+	def width_update(self, context):
+		if (self.keep_ratio):
+			img = bpy.context.edit_image
+			w, h = img.size[0], img.size[1]
+			ratio = w / h
+			self.height = round(self.width / ratio)
+		return None
+	def height_update(self, context):
+		if (self.keep_ratio):
+			img = bpy.context.edit_image
+			w, h = img.size[0], img.size[1]
+			ratio = w / h
+			self.width = round(self.height * ratio)
+		return None
+	
+	width = bpy.props.IntProperty(name="横幅", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL', update=width_update)
+	height = bpy.props.IntProperty(name="縦幅", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL', update=height_update)
+	keep_ratio = bpy.props.BoolProperty(name="比率を維持", default=True)
 	
 	@classmethod
 	def poll(cls, context):
