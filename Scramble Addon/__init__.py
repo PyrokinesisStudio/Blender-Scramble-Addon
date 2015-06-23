@@ -84,6 +84,8 @@ if "bpy" in locals():
 	imp.reload(TEXTURE_PT_image)
 	imp.reload(RENDER_PT_bake)
 	imp.reload(TEXTURE_PT_mapping)
+	imp.reload(VIEW3D_PT_imapaint_tools_missing)
+	imp.reload(VIEW3D_PT_slots_projectpaint)
 	#imp.reload(***)
 else:
 	from . import IMAGE_MT_image
@@ -151,6 +153,8 @@ else:
 	from . import TEXTURE_PT_image
 	from . import RENDER_PT_bake
 	from . import TEXTURE_PT_mapping
+	from . import VIEW3D_PT_imapaint_tools_missing
+	from . import VIEW3D_PT_slots_projectpaint
 	#from . import ***
 import bpy
 
@@ -297,6 +301,8 @@ def register():
 	bpy.types.TEXTURE_PT_image.append(TEXTURE_PT_image.menu)
 	bpy.types.RENDER_PT_bake.append(RENDER_PT_bake.menu)
 	bpy.types.TEXTURE_PT_mapping.append(TEXTURE_PT_mapping.menu)
+	bpy.types.VIEW3D_PT_imapaint_tools_missing.append(VIEW3D_PT_imapaint_tools_missing.menu)
+	bpy.types.VIEW3D_PT_slots_projectpaint.append(VIEW3D_PT_slots_projectpaint.menu)
 	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
@@ -369,6 +375,8 @@ def unregister():
 	bpy.types.TEXTURE_PT_image.remove(TEXTURE_PT_image.menu)
 	bpy.types.RENDER_PT_bake.remove(RENDER_PT_bake.menu)
 	bpy.types.TEXTURE_PT_mapping.remove(TEXTURE_PT_mapping.menu)
+	bpy.types.VIEW3D_PT_imapaint_tools_missing.remove(VIEW3D_PT_imapaint_tools_missing.menu)
+	bpy.types.VIEW3D_PT_slots_projectpaint.remove(VIEW3D_PT_slots_projectpaint.menu)
 	#bpy.types.***.remove(***.menu)
 
 # メイン関数
