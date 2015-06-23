@@ -216,6 +216,7 @@ def menu(self, context):
 		self.layout.operator(RemoveAllTextureSlots.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(RenameTextureFileName.bl_idname, icon="PLUGIN")
+		self.layout.operator('texture.all_rename_texture_file_name', icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
