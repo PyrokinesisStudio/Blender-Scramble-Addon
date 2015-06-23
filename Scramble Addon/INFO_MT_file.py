@@ -3,7 +3,7 @@
 import bpy
 import mathutils
 import os.path
-import os, sys
+import os, sys, codecs
 import subprocess
 import fnmatch
 
@@ -62,6 +62,29 @@ class SaveMainfileUnmassage(bpy.types.Operator):
 			self.report(type={"INFO"}, message=bpy.path.basename(bpy.data.filepath)+" を保存しました")
 		else:
 			self.report(type={"ERROR"}, message="先に「名前をつけて保存」して下さい")
+		return {'FINISHED'}
+
+class LoadLastFile(bpy.types.Operator):
+	bl_idname = "wm.load_last_file"
+	bl_label = "最後に使ったファイルを開く"
+	bl_description = "「最近使ったファイル」の一番上のファイルを開きます"
+	bl_options = {'REGISTER'}
+	
+	@classmethod
+	def poll(cls, context):
+		recent_files = os.path.join(bpy.utils.user_resource('CONFIG'), "recent-files.txt")
+		file = codecs.open(recent_files, 'r', 'utf-8-sig')
+		path = file.readline().rstrip("\r\n")
+		file.close()
+		if (path != ""):
+			return True
+		return False
+	def execute(self, context):
+		recent_files = os.path.join(bpy.utils.user_resource('CONFIG'), "recent-files.txt")
+		file = codecs.open(recent_files, 'r', 'utf-8-sig')
+		path = file.readline().rstrip("\r\n")
+		file.close()
+		bpy.ops.wm.open_mainfile(filepath=path)
 		return {'FINISHED'}
 
 ##############################
@@ -449,11 +472,11 @@ class EntireProcessMenu(bpy.types.Menu):
 	bl_description = "全データを一括処理する機能群です"
 	
 	def draw(self, context):
-		self.layout.menu(EntireProcessObjectMenu.bl_idname, icon="PLUGIN")
-		self.layout.menu(EntireProcessMaterialMenu.bl_idname, icon="PLUGIN")
-		self.layout.menu(EntireProcessTextureMenu.bl_idname, icon="PLUGIN")
-		self.layout.menu(EntireProcessImageMenu.bl_idname, icon="PLUGIN")
-		self.layout.menu(EntireProcessPhysicsMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(EntireProcessObjectMenu.bl_idname, icon='PLUGIN')
+		self.layout.menu(EntireProcessMaterialMenu.bl_idname, icon='PLUGIN')
+		self.layout.menu(EntireProcessTextureMenu.bl_idname, icon='PLUGIN')
+		self.layout.menu(EntireProcessImageMenu.bl_idname, icon='PLUGIN')
+		self.layout.menu(EntireProcessPhysicsMenu.bl_idname, icon='PLUGIN')
 
 class EntireProcessObjectMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_object"
@@ -461,9 +484,9 @@ class EntireProcessObjectMenu(bpy.types.Menu):
 	bl_description = "全オブジェクトを一括処理する機能群です"
 	
 	def draw(self, context):
-		self.layout.operator(AllOnShowAllEdges.bl_idname, icon="PLUGIN")
-		self.layout.operator(AllSetDrawType.bl_idname, icon="PLUGIN")
-		self.layout.operator(AllRenameObjectData.bl_idname, icon="PLUGIN")
+		self.layout.operator(AllOnShowAllEdges.bl_idname, icon='PLUGIN')
+		self.layout.operator(AllSetDrawType.bl_idname, icon='PLUGIN')
+		self.layout.operator(AllRenameObjectData.bl_idname, icon='PLUGIN')
 
 class EntireProcessMaterialMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_material"
@@ -471,11 +494,11 @@ class EntireProcessMaterialMenu(bpy.types.Menu):
 	bl_description = "全マテリアルを一括処理する機能群です"
 	
 	def draw(self, context):
-		self.layout.operator(AllSetMaterialReceiveTransparent.bl_idname, icon="PLUGIN")
-		self.layout.operator(AllSetMaterialColorRamp.bl_idname, icon="PLUGIN")
-		self.layout.operator(AllSetMaterialFreestyleColor.bl_idname, icon="PLUGIN")
-		self.layout.operator(AllSetMaterialFreestyleColorByDiffuse.bl_idname, icon="PLUGIN")
-		self.layout.operator(AllSetMaterialObjectColor.bl_idname, icon="PLUGIN")
+		self.layout.operator(AllSetMaterialReceiveTransparent.bl_idname, icon='PLUGIN')
+		self.layout.operator(AllSetMaterialColorRamp.bl_idname, icon='PLUGIN')
+		self.layout.operator(AllSetMaterialFreestyleColor.bl_idname, icon='PLUGIN')
+		self.layout.operator(AllSetMaterialFreestyleColorByDiffuse.bl_idname, icon='PLUGIN')
+		self.layout.operator(AllSetMaterialObjectColor.bl_idname, icon='PLUGIN')
 
 class EntireProcessTextureMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_texture"
@@ -483,9 +506,9 @@ class EntireProcessTextureMenu(bpy.types.Menu):
 	bl_description = "全テクスチャを一括処理する機能群です"
 	
 	def draw(self, context):
-		self.layout.operator(AllRenameTextureFileName.bl_idname, icon="PLUGIN")
-		self.layout.operator(AllSetBumpMethod.bl_idname, icon="PLUGIN")
-		self.layout.operator(FixEmptyTextureUVLayer.bl_idname, icon="PLUGIN")
+		self.layout.operator(AllRenameTextureFileName.bl_idname, icon='PLUGIN')
+		self.layout.operator(AllSetBumpMethod.bl_idname, icon='PLUGIN')
+		self.layout.operator(FixEmptyTextureUVLayer.bl_idname, icon='PLUGIN')
 
 class EntireProcessImageMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_image"
@@ -501,7 +524,7 @@ class EntireProcessPhysicsMenu(bpy.types.Menu):
 	bl_description = "物理演算関係のデータを一括処理する機能群です"
 	
 	def draw(self, context):
-		self.layout.operator(AllSetPhysicsFrames.bl_idname, icon="PLUGIN")
+		self.layout.operator(AllSetPhysicsFrames.bl_idname, icon='PLUGIN')
 
 ################
 # メニュー追加 #
@@ -519,14 +542,17 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(RestartBlender.bl_idname, icon="PLUGIN")
-		self.layout.operator(SaveMainfileUnmassage.bl_idname, icon="PLUGIN")
-		self.layout.operator(RecoverLatestAutoSave.bl_idname, icon="PLUGIN")
-		self.layout.operator('wm.save_userpref', icon="PLUGIN")
+		self.layout.operator(LoadLastFile.bl_idname, icon='PLUGIN')
+		self.layout.operator(RecoverLatestAutoSave.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator(SaveMainfileUnmassage.bl_idname, icon='PLUGIN')
+		self.layout.operator('wm.save_userpref', icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator(RestartBlender.bl_idname, icon='PLUGIN')
 		self.layout.separator()
 		self.layout.separator()
 		self.layout.separator()
-		self.layout.menu(EntireProcessMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(EntireProcessMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

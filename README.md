@@ -274,6 +274,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Save without prompting)**
         * 確認メッセージを表示せずに上書き保存します
         * ―(Save the changes without displaying the confirmation message)
+    * **最後に使ったファイルを開く**
+    * **―(Open the last used file)**
+        * 「最近使ったファイル」の一番上のファイルを開きます
+        * ―(Opens the file at the top of the "recent files")
     * **全ての「すべての辺を表示」をオン**
     * **―(All show all sides turn)**
         * 全てのオブジェクトの「すべての辺を表示」表示設定をオンにします(オフも可能)

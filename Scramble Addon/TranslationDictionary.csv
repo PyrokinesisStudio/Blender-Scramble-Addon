@@ -256,6 +256,8 @@
 "確認メッセージを表示せずに上書き保存します","Save the changes without displaying the confirmation message"
 " を保存しました"," Has been saved"
 "先に「名前をつけて保存」して下さい","To save your find"
+"最後に使ったファイルを開く","Open the last used file"
+"「最近使ったファイル」の一番上のファイルを開きます","Opens the file at the top of the "recent files""
 "全ての「すべての辺を表示」をオン","All show all sides turn"
 "全てのオブジェクトの「すべての辺を表示」表示設定をオンにします(オフも可能)","Show all sides of all objects (can be off) turn the display settings"
 "オンにする","To turn on"
