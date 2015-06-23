@@ -36,7 +36,6 @@ class SaveView(bpy.types.Operator):
 		text = text + str(context.region_data.view_distance) + ':'
 		text = text + context.region_data.view_perspective
 		context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = text
-		self.report(type={'INFO'}, message="現在の視点をセーブデータ"+str(self.save_name)+"に保存しました")
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
@@ -68,10 +67,10 @@ class LoadView(bpy.types.Operator):
 					context.region_data.view_rotation[i] = float(v)
 				context.region_data.view_distance = float(distance)
 				context.region_data.view_perspective = view_perspective
-				self.report(type={'INFO'}, message="視点セーブデータ"+str(self.index)+"を読み込みました")
+				self.report(type={'INFO'}, message=str(self.index))
 				break
 		else:
-			self.report(type={'WARNING'}, message="視点のセーブデータ"+str(self.index)+"が存在しませんでした")
+			self.report(type={'WARNING'}, message="セーブデータが存在しませんでした")
 		return {'FINISHED'}
 
 class DeleteViewSavedata(bpy.types.Operator):
