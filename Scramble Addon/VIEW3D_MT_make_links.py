@@ -12,6 +12,11 @@ class MakeLinkObjectName(bpy.types.Operator):
 	bl_description = "他の選択オブジェクトにアクティブオブジェクトの名前をリンクします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(context.selected_objects) < 2):
+			return False
+		return True
 	def execute(self, context):
 		name = context.active_object.name
 		for obj in context.selected_objects:
@@ -27,6 +32,11 @@ class MakeLinkLayer(bpy.types.Operator):
 	bl_description = "他の選択オブジェクトにアクティブオブジェクトのレイヤーをリンクします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(context.selected_objects) < 2):
+			return False
+		return True
 	def execute(self, context):
 		for obj in context.selected_objects:
 			if (obj.name != context.active_object.name):
@@ -52,6 +62,11 @@ class MakeLinkDisplaySetting(bpy.types.Operator):
 	draw_type = bpy.props.BoolProperty(name="最高描画タイプ", default=True)
 	color = bpy.props.BoolProperty(name="オブジェクトカラー", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(context.selected_objects) < 2):
+			return False
+		return True
 	def execute(self, context):
 		activeObj = context.active_object
 		for obj in context.selected_objects:
@@ -87,18 +102,25 @@ class MakeLinkUVNames(bpy.types.Operator):
 	bl_description = "他の選択オブジェクトにアクティブオブジェクトのUVを空にして追加します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(context.selected_objects) < 2):
+			return False
+		if (context.object.type != 'MESH'):
+			return False
+		if (len(context.object.data.uv_layers) <= 0):
+			return False
+		for obj in context.selected_objects:
+			if (obj.name != context.object.name):
+				if (obj.type == 'MESH'):
+					return True
+		return False
 	def execute(self, context):
 		active_obj = context.active_object
-		if (active_obj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="アクティブオブジェクトはメッシュである必要があります")
-			return {'CANCELLED'}
 		target_objs = []
 		for obj in context.selected_objects:
 			if (obj.type == 'MESH' and active_obj.name != obj.name):
 				target_objs.append(obj)
-		if (len(target_objs) <= 0):
-			self.report(type={'ERROR'}, message="リンクすべきメッシュオブジェクトがありません")
-			return {'CANCELLED'}
 		for obj in target_objs:
 			for uv in active_obj.data.uv_layers:
 				obj.data.uv_textures.new(uv.name)
@@ -110,18 +132,23 @@ class MakeLinkArmaturePose(bpy.types.Operator):
 	bl_description = "コンストレイントによって、他の選択アーマチュアにアクティブアーマチュアの動きを真似させます"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(context.selected_objects) < 2):
+			return False
+		if (context.object.type != 'ARMATURE'):
+			return False
+		for obj in context.selected_objects:
+			if (obj.name != context.object.name):
+				if (obj.type == 'ARMATURE'):
+					return True
+		return False
 	def execute(self, context):
 		active_obj = context.active_object
-		if (active_obj.type != 'ARMATURE'):
-			self.report(type={'ERROR'}, message="アクティブオブジェクトはアーマチュアである必要があります")
-			return {'CANCELLED'}
 		target_objs = []
 		for obj in context.selected_objects:
 			if (obj.type == 'ARMATURE' and active_obj.name != obj.name):
 				target_objs.append(obj)
-		if (len(target_objs) <= 0):
-			self.report(type={'ERROR'}, message="真似させるアーマチュアオブジェクトがありません")
-			return {'CANCELLED'}
 		for obj in target_objs:
 			for bone in active_obj.pose.bones:
 				try:
@@ -142,22 +169,23 @@ class MakeLinkSoftbodySettings(bpy.types.Operator):
 	bl_description = "アクティブオブジェクトのソフトボディの設定を、他の選択オブジェクトにコピーします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(context.selected_objects) < 2):
+			return False
+		for mod in context.object.modifiers:
+			if (mod.type == 'SOFT_BODY'):
+				break
+		else:
+			return False
+		return True
 	def execute(self, context):
 		active_obj = context.active_object
-		if (not active_obj):
-			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
-			return {'CANCELLED'}
 		active_softbody = None
 		for mod in active_obj.modifiers:
 			if (mod.type == 'SOFT_BODY'):
 				active_softbody = mod
 				break
-		else:
-			self.report(type={'ERROR'}, message="アクティブオブジェクトにソフトボディが設定されていません")
-			return {'CANCELLED'}
-		if (len(context.selected_objects) < 2):
-			self.report(type={'ERROR'}, message="2つ以上のオブジェクトを選択して実行して下さい")
-			return {'CANCELLED'}
 		target_objs = []
 		for obj in context.selected_objects:
 			if (active_obj.name != obj.name):
@@ -192,22 +220,23 @@ class MakeLinkClothSettings(bpy.types.Operator):
 	bl_description = "アクティブオブジェクトのクロスシミュレーション設定を、他の選択オブジェクトにコピーします"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(context.selected_objects) < 2):
+			return False
+		for mod in context.object.modifiers:
+			if (mod.type == 'CLOTH'):
+				break
+		else:
+			return False
+		return True
 	def execute(self, context):
 		active_obj = context.active_object
-		if (not active_obj):
-			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
-			return {'CANCELLED'}
 		active_cloth = None
 		for mod in active_obj.modifiers:
 			if (mod.type == 'CLOTH'):
 				active_cloth = mod
 				break
-		else:
-			self.report(type={'ERROR'}, message="アクティブオブジェクトにクロスが設定されていません")
-			return {'CANCELLED'}
-		if (len(context.selected_objects) < 2):
-			self.report(type={'ERROR'}, message="2つ以上のオブジェクトを選択して実行して下さい")
-			return {'CANCELLED'}
 		target_objs = []
 		for obj in context.selected_objects:
 			if (active_obj.name != obj.name):
