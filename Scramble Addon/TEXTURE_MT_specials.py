@@ -192,6 +192,32 @@ class TruncateEmptySlots(bpy.types.Operator):
 				empty_slot_count += 1
 		return {'FINISHED'}
 
+class RemoveFollowingSlots(bpy.types.Operator):
+	bl_idname = "texture.remove_following_slots"
+	bl_label = "ここより下を削除"
+	bl_description = "アクティブなテクスチャスロットより下を、全て削除します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object.active_material):
+			return False
+		mat = context.object.active_material
+		for i, slot in enumerate(mat.texture_slots):
+			if (mat.active_texture_index < i):
+				if (slot):
+					break
+		else:
+			return False
+		return True
+	def execute(self, context):
+		mat = context.object.active_material
+		for i, slot in enumerate(mat.texture_slots):
+			if (mat.active_texture_index < i):
+				if (slot):
+					mat.texture_slots.clear(i)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -213,6 +239,7 @@ def menu(self, context):
 		self.layout.operator(TruncateEmptySlots.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(RemoveUnenabledSlots.bl_idname, icon='PLUGIN')
+		self.layout.operator(RemoveFollowingSlots.bl_idname, icon='PLUGIN')
 		self.layout.operator(RemoveAllTextureSlots.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(RenameTextureFileName.bl_idname, icon="PLUGIN")

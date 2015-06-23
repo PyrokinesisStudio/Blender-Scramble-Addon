@@ -534,6 +534,47 @@ class Resize(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class Duplicate(bpy.types.Operator):
+	bl_idname = "image.duplicate"
+	bl_label = "画像の複製"
+	bl_description = "アクティブな画像を複製します"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
+		return True
+	def execute(self, context):
+		src = context.edit_image
+		new = bpy.data.images.new(
+			name = 'temptemp',
+			width = src.size[0],
+			height = src.size[1],
+			alpha = src.use_alpha,
+			float_buffer = src.is_float,
+			stereo3d = src.is_stereo_3d)
+		for name in dir(src):
+			if (name == 'pixels'):
+				new.pixels = src.pixels[:]
+				continue
+			elif (name == 'name'):
+				new.name = src.name + "_copy"
+				continue
+			value = src.__getattribute__(name)
+			try:
+				new.__setattr__(name, value)[:]
+			except AttributeError:
+				pass
+			except TypeError:
+				new.__setattr__(name, value)
+		context.space_data.image = new
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -590,6 +631,7 @@ def menu(self, context):
 		self.layout.operator(BlurImage.bl_idname, icon='PLUGIN')
 		self.layout.menu(TransformMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
+		self.layout.operator(Duplicate.bl_idname, icon='PLUGIN')
 		self.layout.operator(RenameImageFile.bl_idname, icon='PLUGIN')
 		self.layout.operator(RenameImageFileName.bl_idname, icon='PLUGIN')
 		self.layout.separator()

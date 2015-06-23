@@ -222,6 +222,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Image zoom in / out)**
         * アクティブな画像をリサイズします
         * ―(Active image resizing)
+    * **画像の複製**
+    * **―(Reproduction of images)**
+        * アクティブな画像を複製します
+        * ―(Duplicate the active picture)
   
 * **UV/画像エディター > 「選択」メニュー**
 * **―(UV / image editor > select menu)**
@@ -566,6 +570,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Cut the texture slot empty)**
         * テクスチャが割り当てられていない空のテクスチャスロットを埋め、切り詰めます
         * ―(No texture is assigned an empty texture slots will be filled, truncated)
+    * **ここより下を削除**
+    * **―(Delete below here)**
+        * アクティブなテクスチャスロットより下を、全て削除します
+        * ―(Remove all active texture slot below)
   
 * **「プロパティ」エリア > 「テクスチャ」タブ > 「画像」パネル**
 * **―(Area "Properties" > "texture" tab > "images" Panel)**
