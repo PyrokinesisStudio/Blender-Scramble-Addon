@@ -32,6 +32,34 @@ class ShowTextureImage(bpy.types.Operator):
 						space.image = context.texture.image
 		return {'FINISHED'}
 
+class StartTexturePaint(bpy.types.Operator):
+	bl_idname = "texture.start_texture_paint"
+	bl_label = "このテクスチャでテクスチャペイント"
+	bl_description = "アクティブなテクスチャでテクスチャペイントを行います"
+	bl_options = {'REGISTER'}
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object):
+			return False
+		if (not context.object.active_material):
+			return False
+		if (context.object.active_material.paint_active_slot == context.object.active_material.active_texture_index):
+			if (context.object.mode == 'TEXTURE_PAINT'):
+				return False
+		if (not context.texture):
+			return False
+		if (context.texture.type != 'IMAGE'):
+			return False
+		if (not context.texture.image):
+			return False
+		return True
+	def execute(self, context):
+		bpy.ops.object.set_object_mode(mode='TEXTURE_PAINT')
+		context.object.active_material.paint_active_slot = context.object.active_material.active_texture_index
+		bpy.context.object.active_material.use_nodes = False
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -48,5 +76,6 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.operator(ShowTextureImage.bl_idname, icon='PLUGIN', text="画像をUV/画像エディターに表示")
+		self.layout.operator(StartTexturePaint.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

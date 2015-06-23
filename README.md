@@ -573,6 +573,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Texture images show in the UV / image editor)**
         * アクティブなテクスチャに使われている画像を「UV/画像エディター」に表示します
         * ―(Image is used in the active texture shows the UV / image editor)
+    * **このテクスチャでテクスチャペイント**
+    * **―(This texture is a texture paint)**
+        * アクティブなテクスチャでテクスチャペイントを行います
+        * ―(Active texture provides a texture paint)
   
 * **「プロパティ」エリア > 「テクスチャ」タブ > 「マッピング」パネル**
 * **―(Area "Properties" > "texture" tab > "mapping Panel)**
