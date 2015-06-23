@@ -236,6 +236,63 @@ class MakeLinkClothSettings(bpy.types.Operator):
 						pass
 		return {'FINISHED'}
 
+######################
+# オペレーター(変形) #
+######################
+
+class MakeLinkTransform(bpy.types.Operator):
+	bl_idname = "object.make_link_transform"
+	bl_label = "変形をリンク"
+	bl_description = "アクティブオブジェクトの変形情報を、他の選択オブジェクトにコピーします"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	copy_location = bpy.props.BoolProperty(name="位置", default=True)
+	copy_rotation = bpy.props.BoolProperty(name="回転", default=True)
+	copy_scale = bpy.props.BoolProperty(name="拡大/縮小", default=True)
+	
+	@classmethod
+	def poll(cls, context):
+		if (len(context.selected_objects) < 2):
+			return False
+		return True
+	def execute(self, context):
+		active_obj = context.active_object
+		for obj in context.selected_objects:
+			if (obj.name != active_obj.name):
+				if (self.copy_location):
+					obj.location = active_obj.location[:]
+				if (self.copy_rotation):
+					obj.rotation_mode = active_obj.rotation_mode
+					if (obj.rotation_mode == 'QUATERNION'):
+						obj.rotation_quaternion = active_obj.rotation_quaternion[:]
+					elif (obj.rotation_mode == 'AXIS_ANGLE'):
+						obj.rotation_axis_angle = active_obj.rotation_axis_angle[:]
+					else:
+						obj.rotation_euler = active_obj.rotation_euler[:]
+				if (self.copy_scale):
+					obj.scale = active_obj.scale[:]
+		return {'FINISHED'}
+
+################
+# サブメニュー #
+################
+
+class TransformMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_make_links_transform"
+	bl_label = "変形"
+	bl_description = "オブジェクトの変形情報をリンクします"
+	
+	def draw(self, context):
+		op = self.layout.operator(MakeLinkTransform.bl_idname, text="トランスフォーム", icon='PLUGIN')
+		op.copy_location, op.copy_rotation, op.copy_scale = True, True, True
+		self.layout.separator()
+		op = self.layout.operator(MakeLinkTransform.bl_idname, text="位置", icon='PLUGIN')
+		op.copy_location, op.copy_rotation, op.copy_scale = True, False, False
+		op = self.layout.operator(MakeLinkTransform.bl_idname, text="回転", icon='PLUGIN')
+		op.copy_location, op.copy_rotation, op.copy_scale = False, True, False
+		op = self.layout.operator(MakeLinkTransform.bl_idname, text="拡大/縮小", icon='PLUGIN')
+		op.copy_location, op.copy_rotation, op.copy_scale = False, False, True
+
 ################
 # メニュー追加 #
 ################
@@ -251,6 +308,8 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
+		self.layout.separator()
+		self.layout.menu(TransformMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
 		self.layout.operator(MakeLinkObjectName.bl_idname, text="オブジェクト名", icon="PLUGIN")
 		self.layout.operator(MakeLinkLayer.bl_idname, text="レイヤー", icon="PLUGIN")
