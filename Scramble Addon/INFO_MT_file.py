@@ -220,6 +220,12 @@ class RenameDataBlocks(bpy.types.Operator):
 											if (tex_slot.texture.name not in alreadys):
 												tex_slot.texture.name = self.rename(tex_slot.texture.name)
 												alreadys.append(tex_slot.texture.name)
+					elif (data_name in 'grease_pencil'):
+						alreadys = []
+						for obj in context.selected_objects[:]:
+							if (obj.grease_pencil):
+								obj.grease_pencil.name = self.rename(obj.grease_pencil.name)
+								alreadys.append(obj.grease_pencil.name)
 					else:
 						self.report(type={'INFO'}, message="Ignored "+data_name+" data")
 				else:
