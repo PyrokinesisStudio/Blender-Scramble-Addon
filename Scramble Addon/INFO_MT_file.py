@@ -157,7 +157,7 @@ class RenameDataBlocks(bpy.types.Operator):
 		data_names = ['actions', 'armatures', 'brushes', 'cameras', 'curves', 'fonts', 'grease_pencil', 'groups', 'images', 'lamps', 'lattices', 'libraries', 'linestyles', 'masks', 'materials', 'meshes', 'metaballs', 'movieclips', 'node_groups', 'objects', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'speakers', 'texts', 'textures', 'window_managers', 'worlds']
 		for data_name in data_names:
 			if (self.__getattribute__(data_name)):
-				for data in bpy.data.__getattribute__(data_name):
+				for data in bpy.data.__getattribute__(data_name)[:]:
 					data.name = self.prefix + data.name.replace(self.source, self.replace) + self.suffix
 		for area in context.screen.areas:
 			area.tag_redraw()
