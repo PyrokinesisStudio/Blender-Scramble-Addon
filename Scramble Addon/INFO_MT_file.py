@@ -127,7 +127,7 @@ class RenameDataBlocks(bpy.types.Operator):
 	speakers = bpy.props.BoolProperty(name="スピーカー", default=False)
 	texts = bpy.props.BoolProperty(name="テキスト", default=False)
 	textures = bpy.props.BoolProperty(name="テクスチャ", default=False)
-	window_managers = bpy.props.BoolProperty(name="ウィンドウマネージャー", default=False)
+	window_managers = bpy.props.BoolProperty(name="Wマネージャー", default=False)
 	worlds = bpy.props.BoolProperty(name="ワールド", default=False)
 	
 	prefix = bpy.props.StringProperty(name="先頭に追加", default="")
