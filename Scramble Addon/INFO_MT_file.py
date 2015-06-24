@@ -130,22 +130,31 @@ class RenameDataBlocks(bpy.types.Operator):
 	window_managers = bpy.props.BoolProperty(name="Wマネージャー", default=False)
 	worlds = bpy.props.BoolProperty(name="ワールド", default=False)
 	
+	vertex_groups = bpy.props.BoolProperty(name="頂点グループ", default=False)
+	bones = bpy.props.BoolProperty(name="ボーン名", default=False)
+	
 	prefix = bpy.props.StringProperty(name="先頭に追加", default="")
 	suffix = bpy.props.StringProperty(name="末尾に追加", default="")
 	
 	source = bpy.props.StringProperty(name="置換前", default="")
 	replace = bpy.props.StringProperty(name="置換後", default="")
 	
-	selected_only = bpy.props.BoolProperty(name="選択オブジェクトのみ", default=False)
+	selected_only = bpy.props.BoolProperty(name="選択オブジェのみ", default=False)
+	show_log = bpy.props.BoolProperty(name="ログを表示", default=True)
 	
 	def draw(self, context):
 		data_names = ['objects', 'meshes', 'curves', 'metaballs', 'fonts', 'armatures', 'lattices', 'cameras', 'lamps', 'speakers', 'materials', 'textures', 'images', 'actions', 'brushes', 'grease_pencil', 'groups', 'libraries', 'linestyles', 'masks', 'movieclips', 'node_groups', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'texts', 'window_managers', 'worlds']
 		self.layout.label(text="リネームするデータにチェック")
-		col = self.layout.column()
 		for i, data_name in enumerate(data_names):
 			if (i % 2 == 0):
-				row = col.row()
+				row = self.layout.row()
 			row.prop(self, data_name)
+		
+		self.layout.label(text="拡張")
+		row = self.layout.row()
+		row.prop(self, 'vertex_groups')
+		row.prop(self, 'bones')
+		
 		self.layout.label(text="リネーム設定")
 		row = self.layout.row()
 		row.prop(self, 'prefix')
@@ -153,11 +162,16 @@ class RenameDataBlocks(bpy.types.Operator):
 		row = self.layout.row()
 		row.prop(self, 'source')
 		row.prop(self, 'replace')
-		self.layout.prop(self, 'selected_only')
+		row = self.layout.row()
+		row.prop(self, 'selected_only')
+		row.prop(self, 'show_log')
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
 	def rename(self, name):
-		return self.prefix + name.replace(self.source, self.replace) + self.suffix
+		new_name = self.prefix + name.replace(self.source, self.replace) + self.suffix
+		if (self.show_log):
+			self.report(type={'INFO'}, message=name+" => "+new_name)
+		return new_name
 	def execute(self, context):
 		data_names = ['objects', 'meshes', 'curves', 'metaballs', 'fonts', 'armatures', 'lattices', 'cameras', 'lamps', 'speakers', 'materials', 'textures', 'images', 'actions', 'brushes', 'grease_pencil', 'groups', 'libraries', 'linestyles', 'masks', 'movieclips', 'node_groups', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'texts', 'window_managers', 'worlds']
 		for data_name in data_names:
@@ -247,6 +261,25 @@ class RenameDataBlocks(bpy.types.Operator):
 				else:
 					for data in bpy.data.__getattribute__(data_name)[:]:
 						data.name = self.rename(data.name)
+		if (self.vertex_groups):
+			if (self.selected_only):
+				objs = context.selected_objects[:]
+			else:
+				objs = bpy.data.objects[:]
+			for obj in objs:
+				for vg in obj.vertex_groups[:]:
+					vg.name = self.rename(vg.name)
+		if (self.bones):
+			if (self.selected_only):
+				arms = []
+				for obj in context.selected_objects:
+					if (obj.type == 'ARMATURE'):
+						arms.append(obj.data)
+			else:
+				arms = bpy.data.armatures[:]
+			for arm in arms:
+				for bone in arm.bones:
+					bone.name = self.rename(bone.name)
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
