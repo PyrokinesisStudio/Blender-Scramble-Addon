@@ -224,15 +224,24 @@ class RenameDataBlocks(bpy.types.Operator):
 						alreadys = []
 						for obj in context.selected_objects[:]:
 							if (obj.grease_pencil):
-								obj.grease_pencil.name = self.rename(obj.grease_pencil.name)
-								alreadys.append(obj.grease_pencil.name)
+								if (obj.grease_pencil.name not in alreadys):
+									obj.grease_pencil.name = self.rename(obj.grease_pencil.name)
+									alreadys.append(obj.grease_pencil.name)
 					elif (data_name in 'particles'):
 						alreadys = []
 						for obj in context.selected_objects[:]:
 							for mod in obj.modifiers[:]:
 								if (mod.type == 'PARTICLE_SYSTEM'):
-									mod.particle_system.name = self.rename(mod.particle_system.name)
-									alreadys.append(mod.particle_system.name)
+									if (mod.particle_system.name not in alreadys):
+										mod.particle_system.name = self.rename(mod.particle_system.name)
+										alreadys.append(mod.particle_system.name)
+					elif (data_name in 'groups'):
+						alreadys = []
+						for obj in context.selected_objects[:]:
+							for group in obj.users_group[:]:
+								if (group.name not in alreadys):
+									group.name = self.rename(group.name)
+									alreadys.append(group.name)
 					else:
 						self.report(type={'INFO'}, message="Ignored "+data_name+" data")
 				else:
