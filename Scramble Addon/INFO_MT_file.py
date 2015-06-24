@@ -139,7 +139,7 @@ class RenameDataBlocks(bpy.types.Operator):
 	selected_only = bpy.props.BoolProperty(name="選択オブジェクトのみ", default=False)
 	
 	def draw(self, context):
-		data_names = ['actions', 'armatures', 'brushes', 'cameras', 'curves', 'fonts', 'grease_pencil', 'groups', 'images', 'lamps', 'lattices', 'libraries', 'linestyles', 'masks', 'materials', 'meshes', 'metaballs', 'movieclips', 'node_groups', 'objects', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'speakers', 'texts', 'textures', 'window_managers', 'worlds']
+		data_names = ['objects', 'meshes', 'curves', 'metaballs', 'fonts', 'armatures', 'lattices', 'cameras', 'lamps', 'speakers', 'materials', 'textures', 'images', 'actions', 'brushes', 'grease_pencil', 'groups', 'libraries', 'linestyles', 'masks', 'movieclips', 'node_groups', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'texts', 'window_managers', 'worlds']
 		self.layout.label(text="リネームするデータにチェック")
 		col = self.layout.column()
 		for i, data_name in enumerate(data_names):
@@ -159,7 +159,7 @@ class RenameDataBlocks(bpy.types.Operator):
 	def rename(self, name):
 		return self.prefix + name.replace(self.source, self.replace) + self.suffix
 	def execute(self, context):
-		data_names = ['actions', 'armatures', 'brushes', 'cameras', 'curves', 'fonts', 'grease_pencil', 'groups', 'images', 'lamps', 'lattices', 'libraries', 'linestyles', 'masks', 'materials', 'meshes', 'metaballs', 'movieclips', 'node_groups', 'objects', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'speakers', 'texts', 'textures', 'window_managers', 'worlds']
+		data_names = ['objects', 'meshes', 'curves', 'metaballs', 'fonts', 'armatures', 'lattices', 'cameras', 'lamps', 'speakers', 'materials', 'textures', 'images', 'actions', 'brushes', 'grease_pencil', 'groups', 'libraries', 'linestyles', 'masks', 'movieclips', 'node_groups', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'texts', 'window_managers', 'worlds']
 		for data_name in data_names:
 			if (self.__getattribute__(data_name)):
 				if (self.selected_only):
@@ -220,6 +220,8 @@ class RenameDataBlocks(bpy.types.Operator):
 											if (tex_slot.texture.name not in alreadys):
 												tex_slot.texture.name = self.rename(tex_slot.texture.name)
 												alreadys.append(tex_slot.texture.name)
+					else:
+						self.report(type={'INFO'}, message="Ignored "+data_name+" data")
 				else:
 					for data in bpy.data.__getattribute__(data_name)[:]:
 						data.name = self.rename(data.name)
