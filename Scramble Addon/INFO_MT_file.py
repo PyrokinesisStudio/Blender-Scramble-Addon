@@ -156,6 +156,8 @@ class RenameDataBlocks(bpy.types.Operator):
 		self.layout.prop(self, 'selected_only')
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
+	def rename(self, name):
+		return self.prefix + name.replace(self.source, self.replace) + self.suffix
 	def execute(self, context):
 		data_names = ['actions', 'armatures', 'brushes', 'cameras', 'curves', 'fonts', 'grease_pencil', 'groups', 'images', 'lamps', 'lattices', 'libraries', 'linestyles', 'masks', 'materials', 'meshes', 'metaballs', 'movieclips', 'node_groups', 'objects', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'speakers', 'texts', 'textures', 'window_managers', 'worlds']
 		for data_name in data_names:
@@ -163,61 +165,64 @@ class RenameDataBlocks(bpy.types.Operator):
 				if (self.selected_only):
 					if (data_name == 'objects'):
 						for obj in context.selected_objects[:]:
-							obj.name = self.prefix + obj.name.replace(self.source, self.replace) + self.suffix
+							obj.name = self.rename(obj.name)
 					elif (data_name == 'armatures'):
 						for obj in context.selected_objects[:]:
 							if (obj.type == 'ARMATURE'):
-								obj.data.name = self.prefix + obj.data.name.replace(self.source, self.replace) + self.suffix
+								obj.data.name = self.rename(obj.data.name)
 					elif (data_name == 'cameras'):
 						for obj in context.selected_objects[:]:
 							if (obj.type == 'CAMERA'):
-								obj.data.name = self.prefix + obj.data.name.replace(self.source, self.replace) + self.suffix
+								obj.data.name = self.rename(obj.data.name)
 					elif (data_name == 'curves'):
 						for obj in context.selected_objects[:]:
 							if (obj.type == 'CURVE' or obj.type == 'SURFACE'):
-								obj.data.name = self.prefix + obj.data.name.replace(self.source, self.replace) + self.suffix
+								obj.data.name = self.rename(obj.data.name)
 					elif (data_name == 'fonts'):
 						for obj in context.selected_objects[:]:
 							if (obj.type == 'FONT'):
-								obj.data.name = self.prefix + obj.data.name.replace(self.source, self.replace) + self.suffix
+								obj.data.name = self.rename(obj.data.name)
 					elif (data_name == 'lamps'):
 						for obj in context.selected_objects[:]:
 							if (obj.type == 'LAMP'):
-								obj.data.name = self.prefix + obj.data.name.replace(self.source, self.replace) + self.suffix
+								obj.data.name = self.rename(obj.data.name)
 					elif (data_name == 'lattices'):
 						for obj in context.selected_objects[:]:
 							if (obj.type == 'LATTICE'):
-								obj.data.name = self.prefix + obj.data.name.replace(self.source, self.replace) + self.suffix
+								obj.data.name = self.rename(obj.data.name)
 					elif (data_name == 'meshes'):
 						for obj in context.selected_objects[:]:
 							if (obj.type == 'MESH'):
-								obj.data.name = self.prefix + obj.data.name.replace(self.source, self.replace) + self.suffix
+								obj.data.name = self.rename(obj.data.name)
 					elif (data_name == 'metaballs'):
 						for obj in context.selected_objects[:]:
 							if (obj.type == 'META'):
-								obj.data.name = self.prefix + obj.data.name.replace(self.source, self.replace) + self.suffix
+								obj.data.name = self.rename(obj.data.name)
 					elif (data_name == 'speakers'):
 						for obj in context.selected_objects[:]:
 							if (obj.type == 'SPEAKER'):
-								obj.data.name = self.prefix + obj.data.name.replace(self.source, self.replace) + self.suffix
+								obj.data.name = self.rename(obj.data.name)
 					elif (data_name in 'materials'):
+						alreadys = []
 						for obj in context.selected_objects[:]:
 							for slot in obj.material_slots:
 								if (slot):
-									slot.material.name = self.prefix + slot.material.name.replace(self.source, self.replace) + self.suffix
+									if (slot.material.name not in alreadys):
+										slot.material.name = self.rename(slot.material.name)
+										alreadys.append(slot.material.name)
 					elif (data_name in 'textures'):
+						alreadys = []
 						for obj in context.selected_objects[:]:
 							for slot in obj.material_slots:
 								if (slot):
 									for tex_slot in slot.material.texture_slots:
 										if (tex_slot):
-											tex_slot.texture.name = self.prefix + tex_slot.texture.name.replace(self.source, self.replace) + self.suffix
-					else:
-						for data in bpy.data.__getattribute__(data_name)[:]:
-							data.name = self.prefix + data.name.replace(self.source, self.replace) + self.suffix
+											if (tex_slot.texture.name not in alreadys):
+												tex_slot.texture.name = self.rename(tex_slot.texture.name)
+												alreadys.append(tex_slot.texture.name)
 				else:
 					for data in bpy.data.__getattribute__(data_name)[:]:
-						data.name = self.prefix + data.name.replace(self.source, self.replace) + self.suffix
+						data.name = self.rename(data.name)
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
