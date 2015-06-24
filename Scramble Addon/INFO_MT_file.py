@@ -87,6 +87,82 @@ class LoadLastFile(bpy.types.Operator):
 		bpy.ops.wm.open_mainfile(filepath=path)
 		return {'FINISHED'}
 
+##########################
+# オペレーター(全体処理) #
+##########################
+
+class RenameDataBlocks(bpy.types.Operator):
+	bl_idname = "file.rename_data_blocks"
+	bl_label = "データ名をリネーム"
+	bl_description = "全てのデータを対象にしたリネームが可能です"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	actions = bpy.props.BoolProperty(name="アクション", default=False)
+	armatures = bpy.props.BoolProperty(name="アーマチュア", default=False)
+	brushes = bpy.props.BoolProperty(name="ブラシ", default=False)
+	cameras = bpy.props.BoolProperty(name="カメラ", default=False)
+	curves = bpy.props.BoolProperty(name="カーブ", default=False)
+	fonts = bpy.props.BoolProperty(name="フォント", default=False)
+	grease_pencil = bpy.props.BoolProperty(name="グリースペンシル", default=False)
+	groups = bpy.props.BoolProperty(name="グループ", default=False)
+	images = bpy.props.BoolProperty(name="画像", default=False)
+	lamps = bpy.props.BoolProperty(name="ランプ", default=False)
+	lattices = bpy.props.BoolProperty(name="ラティス", default=False)
+	libraries = bpy.props.BoolProperty(name="ライブラリ", default=False)
+	linestyles = bpy.props.BoolProperty(name="ラインスタイル", default=False)
+	masks = bpy.props.BoolProperty(name="マスク", default=False)
+	materials = bpy.props.BoolProperty(name="マテリアル", default=False)
+	meshes = bpy.props.BoolProperty(name="メッシュ", default=False)
+	metaballs = bpy.props.BoolProperty(name="メタボール", default=False)
+	movieclips = bpy.props.BoolProperty(name="ムービークリップ", default=False)
+	node_groups = bpy.props.BoolProperty(name="ノードグループ", default=False)
+	objects = bpy.props.BoolProperty(name="オブジェクト", default=True)
+	palettes = bpy.props.BoolProperty(name="パレット", default=False)
+	particles = bpy.props.BoolProperty(name="パーティクル", default=False)
+	scenes = bpy.props.BoolProperty(name="シーン", default=False)
+	screens = bpy.props.BoolProperty(name="スクリーン", default=False)
+	scripts = bpy.props.BoolProperty(name="スクリプト", default=False)
+	shape_keys = bpy.props.BoolProperty(name="シェイプキー", default=False)
+	sounds = bpy.props.BoolProperty(name="サウンド", default=False)
+	speakers = bpy.props.BoolProperty(name="スピーカー", default=False)
+	texts = bpy.props.BoolProperty(name="テキスト", default=False)
+	textures = bpy.props.BoolProperty(name="テクスチャ", default=False)
+	window_managers = bpy.props.BoolProperty(name="ウィンドウマネージャー", default=False)
+	worlds = bpy.props.BoolProperty(name="ワールド", default=False)
+	
+	prefix = bpy.props.StringProperty(name="先頭に追加", default="")
+	suffix = bpy.props.StringProperty(name="末尾に追加", default="")
+	
+	source = bpy.props.StringProperty(name="置換前", default="")
+	replace = bpy.props.StringProperty(name="置換後", default="")
+	
+	def draw(self, context):
+		data_names = ['actions', 'armatures', 'brushes', 'cameras', 'curves', 'fonts', 'grease_pencil', 'groups', 'images', 'lamps', 'lattices', 'libraries', 'linestyles', 'masks', 'materials', 'meshes', 'metaballs', 'movieclips', 'node_groups', 'objects', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'speakers', 'texts', 'textures', 'window_managers', 'worlds']
+		self.layout.label(text="リネームするデータにチェック")
+		col = self.layout.column()
+		for i, data_name in enumerate(data_names):
+			if (i % 2 == 0):
+				row = col.row()
+			row.prop(self, data_name)
+		self.layout.label(text="リネーム設定")
+		row = self.layout.row()
+		row.prop(self, 'prefix')
+		row.prop(self, 'suffix')
+		row = self.layout.row()
+		row.prop(self, 'source')
+		row.prop(self, 'replace')
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	def execute(self, context):
+		data_names = ['actions', 'armatures', 'brushes', 'cameras', 'curves', 'fonts', 'grease_pencil', 'groups', 'images', 'lamps', 'lattices', 'libraries', 'linestyles', 'masks', 'materials', 'meshes', 'metaballs', 'movieclips', 'node_groups', 'objects', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'speakers', 'texts', 'textures', 'window_managers', 'worlds']
+		for data_name in data_names:
+			if (self.__getattribute__(data_name)):
+				for data in bpy.data.__getattribute__(data_name):
+					data.name = self.prefix + data.name.replace(self.source, self.replace) + self.suffix
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ##############################
 # オペレーター(オブジェクト) #
 ##############################
@@ -472,6 +548,8 @@ class EntireProcessMenu(bpy.types.Menu):
 	bl_description = "全データを一括処理する機能群です"
 	
 	def draw(self, context):
+		self.layout.operator(RenameDataBlocks.bl_idname, icon='PLUGIN')
+		self.layout.separator()
 		self.layout.menu(EntireProcessObjectMenu.bl_idname, icon='PLUGIN')
 		self.layout.menu(EntireProcessMaterialMenu.bl_idname, icon='PLUGIN')
 		self.layout.menu(EntireProcessTextureMenu.bl_idname, icon='PLUGIN')

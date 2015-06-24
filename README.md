@@ -289,6 +289,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Open the last used file)**
         * 「最近使ったファイル」の一番上のファイルを開きます
         * ―(Opens the file at the top of the "recent files")
+    * **データ名をリネーム**
+    * **―(Data name to rename.)**
+        * 全てのデータを対象にしたリネームが可能です
+        * ―(Rename using all of the data is available)
     * **全ての「すべての辺を表示」をオン**
     * **―(All show all sides turn)**
         * 全てのオブジェクトの「すべての辺を表示」表示設定をオンにします(オフも可能)
