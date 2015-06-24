@@ -127,7 +127,7 @@ class RenameDataBlocks(bpy.types.Operator):
 	speakers = bpy.props.BoolProperty(name="スピーカー", default=False)
 	texts = bpy.props.BoolProperty(name="テキスト", default=False)
 	textures = bpy.props.BoolProperty(name="テクスチャ", default=False)
-	window_managers = bpy.props.BoolProperty(name="Wマネージャー", default=False)
+	window_managers = bpy.props.BoolProperty(name="ｳｨﾝﾄﾞｳﾏﾈｰｼﾞｬｰ", default=False)
 	worlds = bpy.props.BoolProperty(name="ワールド", default=False)
 	
 	vertex_groups = bpy.props.BoolProperty(name="頂点グループ", default=False)
