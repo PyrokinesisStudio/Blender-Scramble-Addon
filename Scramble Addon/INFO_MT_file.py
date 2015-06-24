@@ -226,6 +226,13 @@ class RenameDataBlocks(bpy.types.Operator):
 							if (obj.grease_pencil):
 								obj.grease_pencil.name = self.rename(obj.grease_pencil.name)
 								alreadys.append(obj.grease_pencil.name)
+					elif (data_name in 'particles'):
+						alreadys = []
+						for obj in context.selected_objects[:]:
+							for mod in obj.modifiers[:]:
+								if (mod.type == 'PARTICLE_SYSTEM'):
+									mod.particle_system.name = self.rename(mod.particle_system.name)
+									alreadys.append(mod.particle_system.name)
 					else:
 						self.report(type={'INFO'}, message="Ignored "+data_name+" data")
 				else:
