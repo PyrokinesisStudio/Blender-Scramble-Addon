@@ -36,6 +36,17 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ボーン名をクリップボードにコピーします
         * ―(To the Clipboard copies the bone name)
   
+* **「プロパティ」エリア > 「カーブデータ」タブ > 「ジオメトリ」パネル**
+* **―('Properties' area > see these curves"tab >"geometry"Panel)**
+    * **テーパー指定コピー**
+    * **―(Taper specified copy)**
+        * アクティブカーブオブジェクトに指定されているテーパーオブジェクトを、他の選択カーブオブジェクトにコピーします
+        * ―(Tapered object that is specified in the active curve object copies to other selection curves)
+    * **ベベル指定コピー**
+    * **―(Bevel given copies)**
+        * アクティブカーブオブジェクトに指定されているベベルオブジェクトを、他の選択カーブオブジェクトにコピーします
+        * ―(Bevel object that is specified in the active curve object copies to other selection curves)
+  
 * **「プロパティ」エリア > 「モディファイア」タブ**
 * **―(Area properties > tab "modifiers")**
     * **全モディファイア適用**

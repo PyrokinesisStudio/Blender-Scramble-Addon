@@ -633,9 +633,10 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.operator(Duplicate.bl_idname, icon='PLUGIN')
 		self.layout.operator(RenameImageFile.bl_idname, icon='PLUGIN')
-		self.layout.operator(RenameImageFileName.bl_idname, icon='PLUGIN')
 		self.layout.separator()
+		self.layout.operator(RenameImageFileName.bl_idname, icon='PLUGIN')
 		self.layout.operator(AllRenameImageFileName.bl_idname, icon='PLUGIN')
+		self.layout.separator()
 		self.layout.operator(ReloadAllImage.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons['Scramble Addon'].preferences.use_disabled_menu):
 		self.layout.separator()

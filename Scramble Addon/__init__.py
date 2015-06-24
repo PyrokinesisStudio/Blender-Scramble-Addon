@@ -86,6 +86,7 @@ if "bpy" in locals():
 	imp.reload(TEXTURE_PT_mapping)
 	imp.reload(VIEW3D_PT_imapaint_tools_missing)
 	imp.reload(VIEW3D_PT_slots_projectpaint)
+	imp.reload(DATA_PT_geometry_curve)
 	#imp.reload(***)
 else:
 	from . import IMAGE_MT_image
@@ -155,6 +156,7 @@ else:
 	from . import TEXTURE_PT_mapping
 	from . import VIEW3D_PT_imapaint_tools_missing
 	from . import VIEW3D_PT_slots_projectpaint
+	from . import DATA_PT_geometry_curve
 	#from . import ***
 import bpy
 
@@ -303,6 +305,7 @@ def register():
 	bpy.types.TEXTURE_PT_mapping.append(TEXTURE_PT_mapping.menu)
 	bpy.types.VIEW3D_PT_imapaint_tools_missing.append(VIEW3D_PT_imapaint_tools_missing.menu)
 	bpy.types.VIEW3D_PT_slots_projectpaint.append(VIEW3D_PT_slots_projectpaint.menu)
+	bpy.types.DATA_PT_geometry_curve.append(DATA_PT_geometry_curve.menu)
 	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
@@ -377,6 +380,7 @@ def unregister():
 	bpy.types.TEXTURE_PT_mapping.remove(TEXTURE_PT_mapping.menu)
 	bpy.types.VIEW3D_PT_imapaint_tools_missing.remove(VIEW3D_PT_imapaint_tools_missing.menu)
 	bpy.types.VIEW3D_PT_slots_projectpaint.remove(VIEW3D_PT_slots_projectpaint.menu)
+	bpy.types.DATA_PT_geometry_curve.remove(DATA_PT_geometry_curve.menu)
 	#bpy.types.***.remove(***.menu)
 
 # メイン関数
