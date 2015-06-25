@@ -234,6 +234,18 @@ class RenameDataBlocks(bpy.types.Operator):
 											if (tex_slot.texture.name not in alreadys):
 												tex_slot.texture.name = self.rename(tex_slot.texture.name)
 												alreadys.append(tex_slot.texture.name)
+					elif (data_name in 'images'):
+						alreadys = []
+						for obj in context.selected_objects[:]:
+							for slot in obj.material_slots:
+								if (slot):
+									for tex_slot in slot.material.texture_slots:
+										if (tex_slot):
+											if (tex_slot.texture.type == 'IMAGE'):
+												if (tex_slot.texture.image):
+													if (tex_slot.texture.image.name not in alreadys):
+														tex_slot.texture.image.name = self.rename(tex_slot.texture.image.name)
+														alreadys.append(tex_slot.texture.image.name)
 					elif (data_name in 'grease_pencil'):
 						alreadys = []
 						for obj in context.selected_objects[:]:
