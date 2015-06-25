@@ -430,6 +430,17 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 				keymap_item.properties[name] = float(value)
 			else:
 				keymap_item.properties[name] = value
+		for keyconfig in context.window_manager.keyconfigs:
+			for keymap in keyconfig.keymaps:
+				keymap.show_expanded_children = False
+				keymap.show_expanded_items = False
+				for keymap_item in keymap.keymap_items:
+					keymap_item.show_expanded = False
+		context.window_manager.keyconfigs.user.keymaps[self.key_map].show_expanded_children = True
+		context.window_manager.keyconfigs.user.keymaps[self.key_map].show_expanded_items = True
+		context.window_manager.keyconfigs.user.keymaps[self.key_map].keymap_items[-1].show_expanded = True
+		for area in context.screen.areas:
+			area.tag_redraw()
 		self.report(type={"INFO"}, message="ショートカットを登録しました、必要であれば「ユーザー設定の保存」をしてください")
 		return {'FINISHED'}
 	def invoke(self, context, event):
