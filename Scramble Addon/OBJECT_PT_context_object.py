@@ -74,7 +74,9 @@ def menu(self, context):
 		col = self.layout.column(align=True)
 		col.operator(CopyObjectName.bl_idname, icon='PLUGIN', text="名前をクリップボードにコピー")
 		sub = col.row(align=True)
-		sub.operator(DataNameToObjectName.bl_idname, icon='PLUGIN', text="データ名 → オブジェ名")
-		sub.operator(ObjectNameToDataName.bl_idname, icon='PLUGIN', text="オブジェ名 → データ名")
+		sub.label(text="オブジェクト名")
+		sub.operator(DataNameToObjectName.bl_idname, icon='TRIA_LEFT', text="")
+		sub.operator(ObjectNameToDataName.bl_idname, icon='TRIA_RIGHT', text="")
+		sub.label(text="データ名")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
