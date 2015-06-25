@@ -5,15 +5,17 @@ Blenderのかゆいところに手が届くかもしれない機能が詰まっ�
 ![Translation](http://i.imgur.com/U1pO6Jh.jpg)  
 
 ## インストール (Installation)
-まず→の「Download ZIP」でZIPファイルをダウンロードし、解凍して下さい。  
+まず画面右の「Download ZIP」でZIPファイルをダウンロードし解凍。  
 中の「Scramble Addon」フォルダをBlenderのaddonsフォルダに置いて下さい。  
 (Windows7なら： C:\Users\ユーザー名\AppData\Roaming\Blender Foundation\Blender\バージョン\scripts\addons\Scramble Addon)  
+日本語・英語を問わず、国際フォントの使用には必ずチェックを。  
 Blenderを起動しユーザー設定のアドオンタブで「Scramble」等で検索、アドオンをオンにして「ユーザー設定の保存」クリック。  
 左上の「ファイル」メニューに「全体処理」という項目が追加されていればインストール成功です。  
   
 > Download the ZIP file first in the "Download ZIP" of right and unzip.  
 > Place a "Scramble Addon" folder in the addons folder of Blender.  
 > (If Windows7: C:\Users\\(UserName)\AppData\Roaming\Blender Foundation\Blender\\(Version)\scripts\addons\Scramble Addon)  
+> Regardless of Japanese or English for the use of the international font by all means a check.  
 > Search Start the Blender add-on tab of the user settings in the "Scramble", etc., select the add-on click "save user settings".  
 > The installation is successful if it is added to item "whole process" in the "File" menu in the upper-left corner.  
 
