@@ -224,7 +224,11 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 				if (self.isAll):
 					bones = obj.pose.bones
 				for bone in bones:
-					bone.name = re.sub(self.pattern, self.repl, bone.name)
+					try:
+						new_name = re.sub(self.pattern, self.repl, bone.name)
+					except:
+						continue
+					bone.name = new_name
 			else:
 				self.report(type={"ERROR"}, message="ポーズモードで実行してください")
 				return {'CANCELLED'}

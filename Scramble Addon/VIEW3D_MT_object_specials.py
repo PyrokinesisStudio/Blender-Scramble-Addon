@@ -628,7 +628,11 @@ class RenameObjectRegularExpression(bpy.types.Operator):
 		return False
 	def execute(self, context):
 		for obj in context.selected_objects:
-			obj.name = re.sub(self.pattern, self.repl, obj.name)
+			try:
+				new_name = re.sub(self.pattern, self.repl, obj.name)
+			except:
+				continue
+			obj.name = new_name
 		return {'FINISHED'}
 
 class EqualizeObjectNameAndDataName(bpy.types.Operator):
