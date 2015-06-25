@@ -73,7 +73,7 @@ class SnapMeshView(bpy.types.Operator):
 	bl_idname = "view3d.snap_mesh_view"
 	bl_label = "メッシュに視点をスナップ"
 	bl_description = "マウス下のメッシュ面上に視点の中心を移動させます(ショートカットに登録してお使い下さい)"
-	bl_options = {'REGISTER'}
+	bl_options = {'MACRO'}
 	
 	mouse_co = bpy.props.IntVectorProperty(name="マウス位置", size=2)
 	
