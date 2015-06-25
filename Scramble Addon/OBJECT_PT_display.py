@@ -29,8 +29,30 @@ class CopyDisplaySetting(bpy.types.Operator):
 		if (len(context.selected_objects) <= 1):
 			return False
 		return True
+	
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
+	
+	def draw(self, context):
+		row = self.layout.row()
+		row.prop(self, 'copy_show_name')
+		row.prop(self, 'copy_show_bounds')
+		row = self.layout.row()
+		row.label(text="")
+		row.prop(self, 'copy_draw_bounds_type')
+		row = self.layout.row()
+		row.prop(self, 'copy_show_axis')
+		row.prop(self, 'copy_show_texture_space')
+		row = self.layout.row()
+		row.prop(self, 'copy_show_wire')
+		row.prop(self, 'copy_show_x_ray')
+		row = self.layout.row()
+		row.prop(self, 'copy_show_all_edges')
+		row.prop(self, 'copy_show_transparent')
+		row = self.layout.row()
+		row.prop(self, 'copy_draw_type')
+		row.prop(self, 'copy_color')
+	
 	def execute(self, context):
 		active_obj = context.active_object
 		for obj in context.selected_objects:

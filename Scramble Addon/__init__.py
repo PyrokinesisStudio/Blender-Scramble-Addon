@@ -311,7 +311,6 @@ def register():
 	bpy.types.VIEW3D_PT_slots_projectpaint.append(VIEW3D_PT_slots_projectpaint.menu)
 	bpy.types.DATA_PT_geometry_curve.append(DATA_PT_geometry_curve.menu)
 	bpy.types.VIEW3D_PT_transform_orientations.append(VIEW3D_PT_transform_orientations.menu)
-	bpy.types.VIEW3D_PT_layers.append(VIEW3D_PT_layers.menu)
 	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
@@ -388,7 +387,6 @@ def unregister():
 	bpy.types.VIEW3D_PT_slots_projectpaint.remove(VIEW3D_PT_slots_projectpaint.menu)
 	bpy.types.DATA_PT_geometry_curve.remove(DATA_PT_geometry_curve.menu)
 	bpy.types.VIEW3D_PT_transform_orientations.remove(VIEW3D_PT_transform_orientations.menu)
-	bpy.types.VIEW3D_PT_layers.remove(VIEW3D_PT_layers.menu)
 	#bpy.types.***.remove(***.menu)
 
 # メイン関数
