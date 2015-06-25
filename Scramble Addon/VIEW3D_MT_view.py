@@ -204,11 +204,7 @@ class LayerPie(bpy.types.Menu):
 	bl_description = "レイヤー表示切り替えのパイメニューです"
 	
 	def draw(self, context):
-		pie = self.layout.menu_pie()
-		pie.separator()
-		pie.separator()
-		pie.separator()
-		box = pie.box()
+		box = self.layout.box()
 		column = box.column()
 		row = column.row()
 		row.label(text="切り替えるレイヤーを選択して下さい (+Shiftで追加選択 +Ctrlで半選択 +Altで半選択解除)", icon='PLUGIN')
