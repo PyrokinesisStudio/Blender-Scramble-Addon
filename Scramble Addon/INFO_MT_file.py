@@ -149,6 +149,8 @@ class RenameDataBlocks(bpy.types.Operator):
 	
 	vertex_groups = bpy.props.BoolProperty(name="頂点グループ", default=False)
 	bones = bpy.props.BoolProperty(name="ボーン名", default=False)
+	uvs = bpy.props.BoolProperty(name="UV名", default=False)
+	vertex_colors = bpy.props.BoolProperty(name="頂点色名", default=False)
 	
 	prefix = bpy.props.StringProperty(name="先頭に追加", default="")
 	suffix = bpy.props.StringProperty(name="末尾に追加", default="")
@@ -171,7 +173,9 @@ class RenameDataBlocks(bpy.types.Operator):
 		row = self.layout.row()
 		row.prop(self, 'vertex_groups')
 		row.prop(self, 'bones')
-		
+		row = self.layout.row()
+		row.prop(self, 'uvs')
+		row.prop(self, 'vertex_colors')
 		self.layout.label(text="リネーム設定")
 		row = self.layout.row()
 		row.prop(self, 'prefix')
@@ -309,6 +313,28 @@ class RenameDataBlocks(bpy.types.Operator):
 			for arm in arms:
 				for bone in arm.bones:
 					bone.name = self.rename(bone.name)
+		if (self.uvs):
+			if (self.selected_only):
+				mes = []
+				for obj in context.selected_objects:
+					if (obj.type == 'MESH'):
+						mes.append(obj.data)
+			else:
+				mes = bpy.data.meshes[:]
+			for me in mes:
+				for uvl in me.uv_layers[:]:
+					uvl.name = self.rename(uvl.name)
+		if (self.vertex_colors):
+			if (self.selected_only):
+				mes = []
+				for obj in context.selected_objects:
+					if (obj.type == 'MESH'):
+						mes.append(obj.data)
+			else:
+				mes = bpy.data.meshes[:]
+			for me in mes:
+				for vc in me.vertex_colors[:]:
+					vc.name = self.rename(vc.name)
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
