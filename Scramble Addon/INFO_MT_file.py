@@ -325,6 +325,12 @@ class AllOnShowAllEdges(bpy.types.Operator):
 	
 	isOn = bpy.props.BoolProperty(name="オンにする", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(bpy.data.objects)):
+			return True
+		return False
+	
 	def execute(self, context):
 		for obj in bpy.data.objects:
 			obj.show_all_edges = self.isOn
@@ -359,6 +365,12 @@ class AllSetDrawType(bpy.types.Operator):
 		]
 	type = bpy.props.EnumProperty(items=items, name="描画タイプ")
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(bpy.data.objects)):
+			return True
+		return False
+	
 	def execute(self, context):
 		for obj in bpy.data.objects:
 			if (self.objType == obj.type or self.objType == "ALL"):
@@ -372,6 +384,12 @@ class AllRenameObjectData(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isSelected = bpy.props.BoolProperty(name="選択中のオブジェクトのみ", default=False)
+	
+	@classmethod
+	def poll(cls, context):
+		if (len(bpy.data.objects)):
+			return True
+		return False
 	
 	def execute(self, context):
 		if (self.isSelected):
@@ -395,6 +413,12 @@ class AllSetMaterialReceiveTransparent(bpy.types.Operator):
 	
 	isOff = bpy.props.BoolProperty(name="オフにする", default=False)
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(bpy.data.materials)):
+			return True
+		return False
+	
 	def execute(self, context):
 		for mat in bpy.data.materials:
 			mat.use_transparent_shadows = not self.isOff
@@ -407,6 +431,16 @@ class AllSetMaterialColorRamp(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isOnlySelected = bpy.props.BoolProperty(name="選択オブジェクトのみ", default=False)
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object):
+			return False
+		if (not context.object.active_material):
+			return False
+		if (len(bpy.data.materials)):
+			return True
+		return False
 	
 	def execute(self, context):
 		activeMat = context.active_object.active_material
@@ -454,6 +488,16 @@ class AllSetMaterialFreestyleColor(bpy.types.Operator):
 	isColor = bpy.props.BoolProperty(name="色", default=True)
 	isAlpha = bpy.props.BoolProperty(name="アルファ", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		if (not context.object):
+			return False
+		if (not context.object.active_material):
+			return False
+		if (len(bpy.data.materials)):
+			return True
+		return False
+	
 	def execute(self, context):
 		activeMat = context.active_object.active_material
 		if (not activeMat):
@@ -499,6 +543,12 @@ class AllSetMaterialFreestyleColorByDiffuse(bpy.types.Operator):
 	blendMode = bpy.props.EnumProperty(items=items, name="ブレンドモード")
 	blendValue = bpy.props.FloatProperty(name="ブレンド強度", default=0.5, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
 	
+	@classmethod
+	def poll(cls, context):
+		if (len(bpy.data.materials)):
+			return True
+		return False
+	
 	def execute(self, context):
 		mats = []
 		if (self.isOnlySelected):
@@ -533,6 +583,12 @@ class AllSetMaterialObjectColor(bpy.types.Operator):
 	
 	use_object_color = bpy.props.BoolProperty(name="オン/オフ", default=True)
 	only_selected = bpy.props.BoolProperty(name="選択オブジェクトのみ", default=False)
+	
+	@classmethod
+	def poll(cls, context):
+		if (len(bpy.data.materials)):
+			return True
+		return False
 	
 	def execute(self, context):
 		mats = []
@@ -570,8 +626,18 @@ class AllSetBumpMethod(bpy.types.Operator):
 		]
 	method = bpy.props.EnumProperty(items=items, name="バンプ品質", default="BUMP_BEST_QUALITY")
 	
-	def execute(self, context):
+	@classmethod
+	def poll(cls, context):
+		if (not len(bpy.data.materials)):
+			return False
 		for mat in  bpy.data.materials:
+			for slot in mat.texture_slots:
+				if (slot):
+					return True
+		return False
+	
+	def execute(self, context):
+		for mat in bpy.data.materials:
 			for slot in mat.texture_slots:
 				try:
 					slot.bump_method = self.method
@@ -588,7 +654,7 @@ class AllRenameTextureFileName(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		for tex in  bpy.data.textures:
+		for tex in bpy.data.textures:
 			if (tex.type == "IMAGE"):
 				if (tex.image):
 					if (tex.image.filepath != ""):
@@ -617,6 +683,20 @@ class FixEmptyTextureUVLayer(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isSelectedOnly = bpy.props.BoolProperty(name="選択オブジェクトのみ", default=False)
+	
+	@classmethod
+	def poll(cls, context):
+		for obj in bpy.data.objects:
+			if (obj.type == 'MESH'):
+				if (len(obj.data.uv_layers)):
+					for mslot in obj.material_slots:
+						if (mslot.material):
+							for tslot in mslot.material:
+								if (tslot):
+									if (tslot.texture_coords == 'UV'):
+										if(tslot.uv_layer == ""):
+											return True
+		return False
 	
 	def execute(self, context):
 		objs = bpy.data.objects

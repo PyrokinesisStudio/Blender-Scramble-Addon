@@ -125,6 +125,51 @@ class SetTransparentBackSide(bpy.types.Operator):
 		mat.node_tree.links.new(node_geo.outputs[8], node_out.inputs[1])
 		return {'FINISHED'}
 
+class MoveMaterialSlotTop(bpy.types.Operator):
+	bl_idname = "material.move_material_slot_top"
+	bl_label = "スロットを一番上へ"
+	bl_description = "アクティブなマテリアルスロットを一番上に移動させます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		obj = context.active_object
+		if (not obj):
+			return False
+		if (len(obj.material_slots) <= 2):
+			return False
+		if (obj.active_material_index <= 0):
+			return False
+		return True
+	def execute(self, context):
+		activeObj = context.active_object
+		for i in range(activeObj.active_material_index):
+			bpy.ops.object.material_slot_move(direction='UP')
+		return {'FINISHED'}
+
+class MoveMaterialSlotBottom(bpy.types.Operator):
+	bl_idname = "material.move_material_slot_bottom"
+	bl_label = "スロットを一番下へ"
+	bl_description = "アクティブなマテリアルスロットを一番下に移動させます"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		obj = context.active_object
+		if (not obj):
+			return False
+		if (len(obj.material_slots) <= 2):
+			return False
+		if (len(obj.material_slots)-1 <= obj.active_material_index):
+			return False
+		return True
+	def execute(self, context):
+		activeObj = context.active_object
+		lastSlotIndex = len(activeObj.material_slots) - 1
+		for i in range(lastSlotIndex - activeObj.active_material_index):
+			bpy.ops.object.material_slot_move(direction='DOWN')
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -140,6 +185,9 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
+		self.layout.separator()
+		self.layout.operator(MoveMaterialSlotTop.bl_idname, icon='PLUGIN', text="一番上へ")
+		self.layout.operator(MoveMaterialSlotBottom.bl_idname, icon='PLUGIN', text="一番下へ")
 		self.layout.separator()
 		self.layout.operator(RemoveAllMaterialSlot.bl_idname, icon='PLUGIN')
 		self.layout.operator(RemoveEmptyMaterialSlot.bl_idname, icon='PLUGIN')

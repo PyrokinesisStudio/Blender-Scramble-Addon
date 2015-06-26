@@ -426,9 +426,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Transparent back.)**
         * メッシュの裏側が透明になるようにシェーダーノードを設定します
         * ―(Sets the shader nodes transparently mesh back)
-  
-* **「プロパティ」エリア > 「マテリアル」タブ**
-* **―("Properties" areas ""material"tab)**
     * **スロットを一番上へ**
     * **―(Slot to the top)**
         * アクティブなマテリアルスロットを一番上に移動させます
