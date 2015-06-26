@@ -147,10 +147,13 @@ class RenameDataBlocks(bpy.types.Operator):
 	window_managers = bpy.props.BoolProperty(name="ｳｨﾝﾄﾞｳﾏﾈｰｼﾞｬｰ", default=False)
 	worlds = bpy.props.BoolProperty(name="ワールド", default=False)
 	
+	modifiers = bpy.props.BoolProperty(name="モディファイア", default=False)
+	constraints = bpy.props.BoolProperty(name="コンストレイント", default=False)
+	
 	vertex_groups = bpy.props.BoolProperty(name="頂点グループ", default=False)
-	bones = bpy.props.BoolProperty(name="ボーン名", default=False)
-	uvs = bpy.props.BoolProperty(name="UV名", default=False)
-	vertex_colors = bpy.props.BoolProperty(name="頂点色名", default=False)
+	bones = bpy.props.BoolProperty(name="ボーン", default=False)
+	uvs = bpy.props.BoolProperty(name="UV", default=False)
+	vertex_colors = bpy.props.BoolProperty(name="頂点色", default=False)
 	
 	prefix = bpy.props.StringProperty(name="先頭に追加", default="")
 	suffix = bpy.props.StringProperty(name="末尾に追加", default="")
@@ -168,14 +171,20 @@ class RenameDataBlocks(bpy.types.Operator):
 			if (i % 2 == 0):
 				row = self.layout.row()
 			row.prop(self, data_name)
-		
-		self.layout.label(text="拡張")
+		self.layout.label(text="オブジェクト")
+		row = self.layout.row()
+		row.prop(self, 'modifiers')
+		row.prop(self, 'constraints')
+		self.layout.label(text="メッシュ")
 		row = self.layout.row()
 		row.prop(self, 'vertex_groups')
+		row.prop(self, 'uvs')
+		row = self.layout.row()
+		row.prop(self, 'vertex_colors')
+		self.layout.label(text="アーマチュア")
+		row = self.layout.row()
 		row.prop(self, 'bones')
 		row = self.layout.row()
-		row.prop(self, 'uvs')
-		row.prop(self, 'vertex_colors')
 		self.layout.label(text="リネーム設定")
 		row = self.layout.row()
 		row.prop(self, 'prefix')
@@ -336,6 +345,22 @@ class RenameDataBlocks(bpy.types.Operator):
 			for me in mes:
 				for vc in me.vertex_colors[:]:
 					vc.name = self.rename(vc.name)
+		if (self.modifiers):
+			if (self.selected_only):
+				objs = context.selected_objects[:]
+			else:
+				objs = bpy.data.objects[:]
+			for obj in objs:
+				for mod in obj.modifiers[:]:
+					mod.name = self.rename(mod.name)
+		if (self.constraints):
+			if (self.selected_only):
+				objs = context.selected_objects[:]
+			else:
+				objs = bpy.data.objects[:]
+			for obj in objs:
+				for const in obj.constraints[:]:
+					const.name = self.rename(const.name)
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
