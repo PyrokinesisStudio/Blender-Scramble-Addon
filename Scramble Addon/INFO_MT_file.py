@@ -151,9 +151,11 @@ class RenameDataBlocks(bpy.types.Operator):
 	constraints = bpy.props.BoolProperty(name="コンストレイント", default=False)
 	
 	vertex_groups = bpy.props.BoolProperty(name="頂点グループ", default=False)
-	bones = bpy.props.BoolProperty(name="ボーン", default=False)
 	uvs = bpy.props.BoolProperty(name="UV", default=False)
 	vertex_colors = bpy.props.BoolProperty(name="頂点色", default=False)
+	
+	bones = bpy.props.BoolProperty(name="ボーン", default=False)
+	bone_constraints = bpy.props.BoolProperty(name="ボーンｺﾝｽﾄﾚｲﾝﾄ", default=False)
 	
 	prefix = bpy.props.StringProperty(name="先頭に追加", default="")
 	suffix = bpy.props.StringProperty(name="末尾に追加", default="")
@@ -184,7 +186,7 @@ class RenameDataBlocks(bpy.types.Operator):
 		self.layout.label(text="アーマチュア")
 		row = self.layout.row()
 		row.prop(self, 'bones')
-		row = self.layout.row()
+		row.prop(self, 'bone_constraints')
 		self.layout.label(text="リネーム設定")
 		row = self.layout.row()
 		row.prop(self, 'prefix')
@@ -369,6 +371,16 @@ class RenameDataBlocks(bpy.types.Operator):
 			for obj in objs:
 				for const in obj.constraints[:]:
 					const.name = self.rename(const.name)
+		if (self.bone_constraints):
+			if (self.selected_only):
+				objs = context.selected_objects[:]
+			else:
+				objs = bpy.data.objects[:]
+			for obj in objs:
+				if (obj.type == 'ARMATURE'):
+					for bone in obj.pose.bones[:]:
+						for const in bone.constraints:
+							const.name = self.rename(const.name)
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
