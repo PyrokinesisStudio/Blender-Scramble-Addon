@@ -90,6 +90,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
+		row.alignment = 'RIGHT'
 		row.label("クリップボードへ")
 		row.operator('object.copy_object_name', icon='MOVE_UP_VEC', text="")
 		row.operator('object.copy_data_name', icon='MOVE_DOWN_VEC', text="")
