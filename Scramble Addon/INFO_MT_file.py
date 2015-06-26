@@ -191,7 +191,8 @@ class RenameDataBlocks(bpy.types.Operator):
 	def rename(self, name):
 		new_name = self.prefix + name.replace(self.source, self.replace) + self.suffix
 		if (self.show_log):
-			self.report(type={'INFO'}, message=name+" => "+new_name)
+			if (name != new_name):
+				self.report(type={'INFO'}, message=name+" => "+new_name)
 		return new_name
 	def execute(self, context):
 		data_names = ['objects', 'meshes', 'curves', 'metaballs', 'fonts', 'armatures', 'lattices', 'cameras', 'lamps', 'speakers', 'materials', 'textures', 'images', 'actions', 'brushes', 'grease_pencil', 'groups', 'libraries', 'linestyles', 'masks', 'movieclips', 'node_groups', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'texts', 'window_managers', 'worlds']
