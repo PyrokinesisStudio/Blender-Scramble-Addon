@@ -133,7 +133,7 @@ class RenameDataBlocks(bpy.types.Operator):
 	metaballs = bpy.props.BoolProperty(name="メタボール", default=False)
 	movieclips = bpy.props.BoolProperty(name="ムービークリップ", default=False)
 	node_groups = bpy.props.BoolProperty(name="ノードグループ", default=False)
-	objects = bpy.props.BoolProperty(name="オブジェクト", default=True)
+	objects = bpy.props.BoolProperty(name="オブジェクト", default=False)
 	palettes = bpy.props.BoolProperty(name="パレット", default=False)
 	particles = bpy.props.BoolProperty(name="パーティクル", default=False)
 	scenes = bpy.props.BoolProperty(name="シーン", default=False)
