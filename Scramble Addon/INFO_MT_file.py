@@ -569,6 +569,15 @@ class AllRenameTextureFileName(bpy.types.Operator):
 	
 	isExt = bpy.props.BoolProperty(name="拡張子も含む", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		for tex in  bpy.data.textures:
+			if (tex.type == "IMAGE"):
+				if (tex.image):
+					if (tex.image.filepath != ""):
+						return True
+		return False
+	
 	def execute(self, context):
 		for tex in  bpy.data.textures:
 			if (tex.type == "IMAGE"):
