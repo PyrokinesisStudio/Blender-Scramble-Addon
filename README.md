@@ -524,10 +524,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
   
 * **「プロパティ」エリア > 「オブジェクト」タブ**
 * **―(Area 'properties' > 'objects' tab)**
-    * **オブジェクト名をクリップボードにコピー**
-    * **―(Copy object to Clipboard)**
-        * オブジェクト名をクリップボードにコピーします
-        * ―(Copy to the Clipboard object name)
     * **オブジェクト名をデータ名に**
     * **―(Object names in the data name)**
         * オブジェクト名をリンクしているデータ名に設定します

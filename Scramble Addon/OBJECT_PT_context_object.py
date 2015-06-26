@@ -6,22 +6,6 @@ import bpy
 # オペレーター #
 ################
 
-class CopyObjectName(bpy.types.Operator):
-	bl_idname = "object.copy_object_name_2"
-	bl_label = "オブジェクト名をクリップボードにコピー"
-	bl_description = "オブジェクト名をクリップボードにコピーします"
-	bl_options = {'REGISTER'}
-	
-	@classmethod
-	def poll(cls, context):
-		if (not context.object):
-			return False
-		return True
-	def execute(self, context):
-		context.window_manager.clipboard = context.object.name
-		self.report(type={'INFO'}, message=context.object.name)
-		return {'FINISHED'}
-
 class DataNameToObjectName(bpy.types.Operator):
 	bl_idname = "object.data_name_to_object_name"
 	bl_label = "オブジェクト名をデータ名に"
@@ -71,12 +55,13 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		col = self.layout.column(align=True)
-		col.operator(CopyObjectName.bl_idname, icon='PLUGIN', text="名前をクリップボードにコピー")
-		sub = col.row(align=True)
-		sub.label(text="オブジェクト名")
-		sub.operator(DataNameToObjectName.bl_idname, icon='TRIA_LEFT', text="")
-		sub.operator(ObjectNameToDataName.bl_idname, icon='TRIA_RIGHT', text="")
-		sub.label(text="データ名")
+		row = self.layout.row(align=True)
+		row.operator(ObjectNameToDataName.bl_idname, icon='TRIA_DOWN', text="")
+		row.operator('object.copy_object_name', icon='MOVE_UP_VEC', text="コピー")
+		row.operator('object.copy_data_name', icon='MOVE_DOWN_VEC', text="コピー")
+		row.operator(DataNameToObjectName.bl_idname, icon='TRIA_UP', text="")
+		row = self.layout.row()
+		row.label(text="", icon='MESH_DATA')
+		row.prop(context.object.data, 'name', text="")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
