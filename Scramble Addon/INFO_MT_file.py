@@ -33,6 +33,16 @@ class RecoverLatestAutoSave(bpy.types.Operator):
 	bl_description = "復元するために自動的に保存したファイルの最新ファイルを開きます"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		tempPath = context.user_preferences.filepaths.temporary_directory
+		if (not tempPath):
+			return False
+		for fileName in fnmatch.filter(os.listdir(tempPath), "*.blend"):
+			if (fileName != "quit.blend"):
+				return True
+		return False
+	
 	def execute(self, context):
 		tempPath = context.user_preferences.filepaths.temporary_directory
 		lastFile = None
@@ -47,7 +57,7 @@ class RecoverLatestAutoSave(bpy.types.Operator):
 				lastFile = path
 				lastTime = os.stat(path).st_mtime
 		bpy.ops.wm.recover_auto_save(filepath=lastFile)
-		self.report(type={"INFO"}, message="最新の自動保存ファイルを読み込みました")
+		self.report(type={'INFO'}, message="最新の自動保存ファイルを読み込みました")
 		return {'FINISHED'}
 
 class SaveMainfileUnmassage(bpy.types.Operator):
@@ -55,6 +65,12 @@ class SaveMainfileUnmassage(bpy.types.Operator):
 	bl_label = "確認せずに上書き保存"
 	bl_description = "確認メッセージを表示せずに上書き保存します"
 	bl_options = {'REGISTER'}
+	
+	@classmethod
+	def poll(cls, context):
+		if (bpy.data.filepath):
+			return True
+		return False
 	
 	def execute(self, context):
 		if (bpy.data.filepath != ""):
@@ -79,6 +95,7 @@ class LoadLastFile(bpy.types.Operator):
 		if (path != ""):
 			return True
 		return False
+	
 	def execute(self, context):
 		recent_files = os.path.join(bpy.utils.user_resource('CONFIG'), "recent-files.txt")
 		file = codecs.open(recent_files, 'r', 'utf-8-sig')
