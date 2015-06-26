@@ -299,6 +299,14 @@ class RenameDataBlocks(bpy.types.Operator):
 								if (group.name not in alreadys):
 									group.name = self.rename(group.name)
 									alreadys.append(group.name)
+					elif (data_name in 'shape_keys'):
+						alreadys = []
+						for obj in context.selected_objects[:]:
+							if (obj.type == 'MESH'):
+								if (obj.data.shape_keys):
+									if (obj.data.shape_keys.name not in alreadys):
+										obj.data.shape_keys.name = self.rename(obj.data.shape_keys.name)
+										alreadys.append(obj.data.shape_keys.name)
 					else:
 						self.report(type={'INFO'}, message="Ignored "+data_name+" data")
 				else:
