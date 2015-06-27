@@ -96,7 +96,7 @@ def menu(self, context):
 					row = self.layout.row(align=True)
 					row.operator(MoveActivePose.bl_idname, icon='TRIA_UP', text="").is_up = True
 					row.operator(MoveActivePose.bl_idname, icon='TRIA_DOWN', text="").is_up = False
-					row.operator(MoveActivePoseMost.bl_idname, icon='TRIA_UP', text="最上部へ").is_top = True
-					row.operator(MoveActivePoseMost.bl_idname, icon='TRIA_DOWN', text="最下部へ").is_top = False
+					row.operator(MoveActivePoseMost.bl_idname, icon='TRIA_UP_BAR', text="最上部へ").is_top = True
+					row.operator(MoveActivePoseMost.bl_idname, icon='TRIA_DOWN_BAR', text="最下部へ").is_top = False
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
