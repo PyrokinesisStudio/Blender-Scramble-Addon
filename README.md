@@ -120,6 +120,17 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * すばやく配列複製モディファイアとカーブモディファイアを適用します
         * ―(Quickly apply the curve modifier with the modifiers array replication)
   
+* **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ポーズライブラリ」パネル**
+* **―('Properties' area > armature data tab > pose library panel)**
+    * **ポーズライブラリを並び替え**
+    * **―(Pose library sort.)**
+        * アクティブなポーズライブラリのポーズを並び替えます
+        * ―(Sorts by posing for an active pose library)
+    * **ポーズライブラリのポーズを最上部/最下部へ**
+    * **―(Top / bottom pose pose library)**
+        * アクティブなポーズライブラリのポーズを最上部、もしくは最下部へ移動させます
+        * ―(Posing in an active pose library moves to the top or bottom)
+  
 * **プロパティ > "メッシュデータ"タブ > "UVマップ"パネル**
 * **―(Properties > "data mesh" tab > "UV map" Panel)**
     * **まとめてUVをリネーム**
