@@ -66,10 +66,9 @@ class ObjectSelectPanel(bpy.types.Panel):
 			for group in obj.users_group:
 				if (not group in groups):
 					groups.append(group)
-		col = self.layout.column(align=True)
-		col.operator('object.hide_view_clear', text="全て表示", icon='PLUGIN')
-		col.operator(GroupLayers.bl_idname, text="無所属を表示", icon='PLUGIN').group = ''
-		self.layout.separator()
+		row = self.layout.row(align=True)
+		row.operator('object.hide_view_clear', text="全表示", icon='RESTRICT_VIEW_OFF')
+		row.operator(GroupLayers.bl_idname, text="無所属", icon='FILE').group = ''
 		col = self.layout.column(align=True)
 		for group in groups:
 			col.operator(GroupLayers.bl_idname, text=group.name, icon='PLUGIN').group = group.name
