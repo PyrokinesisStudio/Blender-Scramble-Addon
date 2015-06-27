@@ -15,10 +15,10 @@ class CopyBoneName(bpy.types.Operator):
 	@classmethod
 	def poll(cls, context):
 		if (context.active_bone):
-			if (context.window_manager.clipboard == context.active_bone.name):
+			if (context.window_manager.clipboard != context.active_bone.name):
 				return True
 		if (context.active_pose_bone):
-			if (context.window_manager.clipboard == context.active_pose_bone.name):
+			if (context.window_manager.clipboard != context.active_pose_bone.name):
 				return True
 		return False
 	def execute(self, context):
