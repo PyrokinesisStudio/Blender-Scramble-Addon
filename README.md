@@ -570,6 +570,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * プロパティのタブを順番に切り替えます
         * ―(Turn switch Properties tab)
   
+* **「プロパティ」エリア > 「レンダー」タブ > 「ベイク」パネル**
+* **―("Properties" area: "render" tab > "bake" Panel)**
+    * **ベイク用の画像を作成**
+    * **―(Create images for bake)**
+        * ベイクに使う新規画像を素早く用意可能です
+        * ―(New images used to bake quickly, is available)
+  
 * **「プロパティ」エリア > 「レンダー」タブ > 「レンダー」パネル**
 * **―("Properties" area: "render" tab > "render" Panel)**
     * **バックグラウンドでレンダリング**
