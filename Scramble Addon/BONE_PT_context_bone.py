@@ -14,16 +14,16 @@ class CopyBoneName(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		if (context.edit_bone or context.bone):
+		if (context.active_bone or context.active_pose_bone):
 			return True
 		return False
 	def execute(self, context):
-		if (context.edit_bone):
-			context.window_manager.clipboard = context.edit_bone.name
-			self.report(type={'INFO'}, message=context.edit_bone.name)
-		elif (context.bone):
-			context.window_manager.clipboard = context.bone.name
-			self.report(type={'INFO'}, message=context.bone.name)
+		if (context.active_bone):
+			context.window_manager.clipboard = context.active_bone.name
+			self.report(type={'INFO'}, message=context.active_bone.name)
+		elif (context.active_pose_bone):
+			context.window_manager.clipboard = context.active_pose_bone.name
+			self.report(type={'INFO'}, message=context.active_pose_bone.name)
 		return {'FINISHED'}
 
 ################
