@@ -50,11 +50,17 @@ class ObjectSelectPanel(bpy.types.Panel):
 	
 	def draw_header(self, context):
 		row = self.layout.row()
-		row.scale_x=0.7
-		row.scale_y=0.7
+		row.scale_x = 0.7
+		row.scale_y = 0.7
 		row.prop(context.scene, 'layers', text="")
 	
 	def draw(self, context):
+		if (context.object):
+			if (context.object.type == 'ARMATURE'):
+				self.layout.label(text="ボーンレイヤー")
+				col = self.layout.column()
+				col.scale_y = 0.7
+				col.prop(context.object.data, 'layers', text="")
 		self.layout.label(text="グループでレイヤー")
 		objs = []
 		for obj in bpy.data.objects:

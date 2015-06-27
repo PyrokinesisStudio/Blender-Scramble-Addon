@@ -1354,6 +1354,7 @@
 "グループで表示/非表示を切り替え","Toggle show / hide groups"
 "所属しているグループで表示/非表示を切り替えます","Group show / hide toggles"
 "グループ名","Group name"
+"ボーンレイヤー","Bone layer"
 "グループでレイヤー","Group layers."
 ", text="全表示", icon=",", Text= "", icon="
 "全表示","All said"
