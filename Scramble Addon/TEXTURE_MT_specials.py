@@ -200,6 +200,8 @@ class RemoveFollowingSlots(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
+		if (not context.object):
+			return False
 		if (not context.object.active_material):
 			return False
 		mat = context.object.active_material
