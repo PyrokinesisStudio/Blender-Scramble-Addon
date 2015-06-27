@@ -18,6 +18,8 @@ class DataNameToObjectName(bpy.types.Operator):
 			return False
 		if (not context.object.data):
 			return False
+		if (context.object.name == context.object.data.name):
+			return False
 		return True
 	def execute(self, context):
 		context.object.name = context.object.data.name
@@ -35,6 +37,8 @@ class ObjectNameToDataName(bpy.types.Operator):
 			return False
 		if (not context.object.data):
 			return False
+		if (context.object.name == context.object.data.name):
+			return False
 		return True
 	def execute(self, context):
 		context.object.data.name = context.object.name
@@ -49,6 +53,8 @@ class CopyObjectName(bpy.types.Operator):
 	@classmethod
 	def poll(cls, context):
 		if (not context.object):
+			return False
+		if (context.window_manager.clipboard == context.object.name):
 			return False
 		return True
 	def execute(self, context):
@@ -67,6 +73,8 @@ class CopyDataName(bpy.types.Operator):
 		if (not context.object):
 			return False
 		if (not context.object.data):
+			return False
+		if (context.window_manager.clipboard == context.object.data.name):
 			return False
 		return True
 	def execute(self, context):
