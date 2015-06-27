@@ -131,6 +131,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなポーズライブラリのポーズを最上部、もしくは最下部へ移動させます
         * ―(Posing in an active pose library moves to the top or bottom)
   
+* **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「スケルトン」パネル**
+* **―('Properties' area > armature data tab > "skeleton" Panel)**
+    * **全ボーンレイヤーを表示**
+    * **―(View all bone layer)**
+        * 全てのボーンレイヤーをオンにして表示します
+        * ―(All the bone layer and then displays the)
+  
 * **プロパティ > "メッシュデータ"タブ > "UVマップ"パネル**
 * **―(Properties > "data mesh" tab > "UV map" Panel)**
     * **まとめてUVをリネーム**
