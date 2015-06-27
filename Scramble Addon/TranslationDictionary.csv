@@ -1365,6 +1365,7 @@
 "クイック編集 (拡張)","Quick Edit (extend)"
 "ユーザー設定のファイルタブで設定した追加の外部エディターでクイック編集を行います","Do the quick editing in an external editor of the additional files page of the custom"
 "追加クイック編集","Add Quick Edit"
+"カーソルをリセット","Reset cursors"
 "視点のセーブ","Save view"
 "現在の3Dビューの視点をセーブします","Save the current 3D view perspective"
 "視点セーブデータ","View saved games"
