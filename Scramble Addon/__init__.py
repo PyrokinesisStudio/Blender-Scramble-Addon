@@ -235,13 +235,17 @@ class ToggleMenuEnable(bpy.types.Operator):
 
 # 翻訳辞書の取得
 def GetTranslationDict():
-	dict = {'en':{}}
+	dict = {}
 	path = os.path.join(os.path.dirname(__file__), "TranslationDictionary.csv")
 	with codecs.open(path, 'r', 'utf-8') as f:
 		reader = csv.reader(f)
-		for row in reader:
-			for context in bpy.app.translations.contexts:
-				dict['en'][(context, row[0])] = row[1]
+		for lang in bpy.app.translations.locales:
+			if (lang == 'ja_JP'):
+				continue
+			dict[lang] = {}
+			for row in reader:
+				for context in bpy.app.translations.contexts:
+					dict[lang][(context, row[0])] = row[1]
 	return dict
 
 # プラグインをインストールしたときの処理
