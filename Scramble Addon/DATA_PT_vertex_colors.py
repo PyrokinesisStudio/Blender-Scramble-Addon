@@ -168,13 +168,13 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
+		row = self.layout.row()
 		if (context.active_object.type == 'MESH'):
 			if (context.active_object.data.vertex_colors.active):
-				row = self.layout.row()
 				sub = row.row(align=True)
 				sub.operator(MoveActiveVertexColor.bl_idname, icon='TRIA_UP', text="").mode = 'UP'
 				sub.operator(MoveActiveVertexColor.bl_idname, icon='TRIA_DOWN', text="").mode = 'DOWN'
 				row.operator(VertexColorSet.bl_idname, icon="PLUGIN", text="Fill")
-		self.layout.menu(SubMenu.bl_idname, icon='PLUGIN')
+		row.menu(SubMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
