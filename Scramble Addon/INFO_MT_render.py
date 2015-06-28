@@ -28,7 +28,9 @@ class SetRenderSlot(bpy.types.Operator):
 	slot = bpy.props.IntProperty(name="Slot", default=1, min=0, max=100, soft_min=0, soft_max=100, step=1)
 	
 	def execute(self, context):
-		bpy.data.images["Render Result"].render_slots.active_index = self.slot
+		for img in bpy.data.images:
+			if (img.type == 'RENDER_RESULT'):
+				img.render_slots.active_index = self.slot
 		return {'FINISHED'}
 
 class ToggleThreadsMode(bpy.types.Operator):
@@ -214,8 +216,10 @@ def menu(self, context):
 		self.layout.prop(context.scene.render, 'resolution_x', text="RES X", icon="PLUGIN")
 		self.layout.prop(context.scene.render, 'resolution_y', text="RES Y", icon="PLUGIN")
 		self.layout.menu(RenderResolutionPercentageMenu.bl_idname, text="Render size (currently:"+str(context.scene.render.resolution_percentage)+"%)", icon="PLUGIN")
-		if (bpy.data.images.find("Render Result") != -1):
-			self.layout.menu(SlotsRenderMenu.bl_idname, text="Render slot (slot:"+str(bpy.data.images["Render Result"].render_slots.active_index+1)+")", icon="PLUGIN")
+		for img in bpy.data.images:
+			if (img.type == 'RENDER_RESULT'):
+				self.layout.menu(SlotsRenderMenu.bl_idname, text="Render slot (slot:"+str(img.render_slots.active_index+1)+")", icon="PLUGIN")
+				break
 		self.layout.prop_menu_enum(context.scene.render.image_settings, 'file_format', text="File formats", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.prop(context.scene, 'frame_start', text="Start frame", icon="PLUGIN")
