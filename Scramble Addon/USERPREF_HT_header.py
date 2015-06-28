@@ -920,7 +920,7 @@ class ToggleDisabledMenu(bpy.types.Operator):
 
 class InputMenu(bpy.types.Menu):
 	bl_idname = "USERPREF_HT_header_input"
-	bl_label = "　Shortcut actions"
+	bl_label = "　Shortcut keys"
 	bl_description = "Operations related to the shortcut menu."
 	
 	def draw(self, context):

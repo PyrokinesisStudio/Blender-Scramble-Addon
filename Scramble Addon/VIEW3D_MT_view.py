@@ -83,7 +83,7 @@ class TogglePanelsB(bpy.types.Operator):
 class TogglePanelsC(bpy.types.Operator):
 	bl_idname = "view3d.toggle_panels_c"
 	bl_label = "Toggle Panel (mode C)"
-	bl_description = "\"Panel both hide\" → see only the tool shelf → view properties only. The toggle"
+	bl_description = "\"Panel both hide\" → \"show only the tool shelf → show only the properties. The toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -106,7 +106,7 @@ class TogglePanelsC(bpy.types.Operator):
 class ToggleViewportShadeA(bpy.types.Operator):
 	bl_idname = "view3d.toggle_viewport_shade_a"
 	bl_label = "Shading switch (mode A)"
-	bl_description = "\"Wireframe\", \"solid\" → \"texture\" shading... We\'ll switch and"
+	bl_description = "\"Wireframe\", \"solid\" → \"texture\" shading... We will switch"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):

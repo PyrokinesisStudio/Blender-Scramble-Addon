@@ -296,7 +296,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **パネル表示切り替え(モードC)**
     * **―(Toggle Panel (mode C))**
         * 「パネル両方非表示」→「ツールシェルフのみ表示」→「プロパティのみ表示」... のトグル
-        * ―("Panel both hide" → see only the tool shelf → view properties only. The toggle)
+        * ―("Panel both hide" → "show only the tool shelf → show only the properties. The toggle)
   
 * **「情報」エリア > 「ファイル」メニュー**
 * **―(Area information">"file"menu)**
@@ -542,7 +542,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **パネル表示切り替え(モードC)**
     * **―(Toggle Panel (mode C))**
         * 「パネル両方非表示」→「ツールシェルフのみ表示」→「プロパティのみ表示」... のトグル
-        * ―("Panel both hide" → see only the tool shelf → view properties only. The toggle)
+        * ―("Panel both hide" → "show only the tool shelf → show only the properties. The toggle)
   
 * **「プロパティ」エリア > 「オブジェクト」タブ**
 * **―(Area 'properties' > 'objects' tab)**
@@ -1220,7 +1220,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **ボーンの根本まで選択**
     * **―(Select the bone)**
         * 選択ボーンの親 → 親ボーンの親...と最後まで選択していきます
-        * ―(Select bones parent → parent of parent bone. And we will select to the end)
+        * ―(Choice bones parent → parent of parent bone. And we will select to the end)
   
 * **3Dビュー > Shift+S**
 * **―(3Dビュー > Shift+S)**
@@ -1261,11 +1261,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **パネル表示切り替え(モードC)**
     * **―(Toggle Panel (mode C))**
         * 「パネル両方非表示」→「ツールシェルフのみ表示」→「プロパティのみ表示」... のトグル
-        * ―("Panel both hide" → see only the tool shelf → view properties only. The toggle)
+        * ―("Panel both hide" → "show only the tool shelf → show only the properties. The toggle)
     * **シェーディング切り替え(モードA)**
     * **―(Shading switch (mode A))**
         * シェーディングを 「ワイヤーフレーム」→「ソリッド」→「テクスチャ」... と切り替えていきます
-        * ―("Wireframe", "solid" → "texture" shading... We'll switch and)
+        * ―("Wireframe", "solid" → "texture" shading... We will switch)
     * **プリセットビュー**
     * **―(Preset views)**
         * プリセットビュー(テンキー1,3,7とか)のパイメニューです

@@ -193,7 +193,7 @@ class SelectChildrenEnd(bpy.types.Operator):
 class SelectParentEnd(bpy.types.Operator):
 	bl_idname = "pose.select_parent_end"
 	bl_label = "Select the bone"
-	bl_description = "Select bones parent → parent of parent bone. And we will select to the end"
+	bl_description = "Choice bones parent → parent of parent bone. And we will select to the end"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):

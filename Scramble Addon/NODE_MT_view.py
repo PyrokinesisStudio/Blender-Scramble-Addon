@@ -56,7 +56,7 @@ class TogglePanelsB(bpy.types.Operator):
 class TogglePanelsC(bpy.types.Operator):
 	bl_idname = "node.toggle_panels_c"
 	bl_label = "Toggle Panel (mode C)"
-	bl_description = "\"Panel both hide\" → see only the tool shelf → view properties only. The toggle"
+	bl_description = "\"Panel both hide\" → \"show only the tool shelf → show only the properties. The toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
