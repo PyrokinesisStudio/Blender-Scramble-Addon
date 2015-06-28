@@ -13,6 +13,15 @@ class RemoveEmptyVertexGroups(bpy.types.Operator):
 	bl_description = "メッシュにウェイトが割り当てられていない頂点グループを削除します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if (ob):
+			if (ob.type == 'MESH'):
+				if (len(ob.vertex_groups)):
+					return True
+		return False
+	
 	def execute(self, context):
 		obj = context.active_object
 		if (obj.type == "MESH"):
@@ -32,6 +41,15 @@ class AddOppositeVertexGroups(bpy.types.Operator):
 	bl_label = "ミラーの対になる空頂点グループを追加"
 	bl_description = ".L .R などミラーの命令規則に従って付けられたボーンの対になる空の新規ボーンを追加します"
 	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if (ob):
+			if (ob.type == 'MESH'):
+				if (len(ob.vertex_groups)):
+					return True
+		return False
 	
 	def execute(self, context):
 		obj = context.active_object
@@ -67,6 +85,15 @@ class SelectVertexGroupsTop(bpy.types.Operator):
 	bl_description = "頂点グループの一番上の項目を選択します"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if (ob):
+			if (ob.type == 'MESH'):
+				if (2 <= len(ob.vertex_groups)):
+					return True
+		return False
+	
 	def execute(self, context):
 		context.active_object.vertex_groups.active_index = 0
 		return {'FINISHED'}
@@ -75,6 +102,15 @@ class SelectVertexGroupsBottom(bpy.types.Operator):
 	bl_label = "一番下を選択"
 	bl_description = "頂点グループの一番下の項目を選択します"
 	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if (ob):
+			if (ob.type == 'MESH'):
+				if (2 <= len(ob.vertex_groups)):
+					return True
+		return False
 	
 	def execute(self, context):
 		context.active_object.vertex_groups.active_index = len(context.active_object.vertex_groups) - 1
@@ -86,15 +122,34 @@ class MoveVertexGroupTop(bpy.types.Operator):
 	bl_description = "アクティブな頂点グループを一番上へ移動させます"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if (ob):
+			if (ob.type == 'MESH'):
+				if (2 <= len(ob.vertex_groups)):
+					return True
+		return False
+	
 	def execute(self, context):
 		for i in range(context.active_object.vertex_groups.active_index):
 			bpy.ops.object.vertex_group_move(direction='UP')
 		return {'FINISHED'}
+
 class MoveVertexGroupBottom(bpy.types.Operator):
 	bl_idname = "mesh.move_vertex_group_bottom"
 	bl_label = "最下段へ"
 	bl_description = "アクティブな頂点グループを一番下へ移動させます"
 	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if (ob):
+			if (ob.type == 'MESH'):
+				if (2 <= len(ob.vertex_groups)):
+					return True
+		return False
 	
 	def execute(self, context):
 		for i in range(len(context.active_object.vertex_groups) - context.active_object.vertex_groups.active_index - 1):
@@ -108,6 +163,15 @@ class RemoveSpecifiedStringVertexGroups(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	string = bpy.props.StringProperty(name="削除する名前の一部", default="")
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if (ob):
+			if (ob.type == 'MESH'):
+				if (len(ob.vertex_groups)):
+					return True
+		return False
 	
 	def execute(self, context):
 		obj = context.active_object
@@ -140,28 +204,25 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		column = self.layout.column()
-		column.separator()
-		column.operator(SelectVertexGroupsTop.bl_idname, icon="PLUGIN")
-		column.operator(SelectVertexGroupsBottom.bl_idname, icon="PLUGIN")
-		column.separator()
-		column.operator(MoveVertexGroupTop.bl_idname, icon="PLUGIN")
-		column.operator(MoveVertexGroupBottom.bl_idname, icon="PLUGIN")
-		column.separator()
-		operator = column.operator('object.vertex_group_normalize_all', icon="PLUGIN")
+		self.layout.separator()
+		self.layout.operator(SelectVertexGroupsTop.bl_idname, icon='PLUGIN')
+		self.layout.operator(SelectVertexGroupsBottom.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator(MoveVertexGroupTop.bl_idname, icon='PLUGIN')
+		self.layout.operator(MoveVertexGroupBottom.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		operator = self.layout.operator('object.vertex_group_normalize_all', icon='PLUGIN')
 		operator.group_select_mode = 'ALL'
 		operator.lock_active = False
-		operator = column.operator('object.vertex_group_clean', icon="PLUGIN")
+		operator = self.layout.operator('object.vertex_group_clean', icon='PLUGIN')
 		operator.group_select_mode = 'ALL'
 		operator.limit = 0
 		operator.keep_single = False
-		column.separator()
-		column.operator(RemoveSpecifiedStringVertexGroups.bl_idname, icon="PLUGIN")
-		column.operator(RemoveEmptyVertexGroups.bl_idname, icon="PLUGIN")
-		column.separator()
-		column.operator(AddOppositeVertexGroups.bl_idname, icon="PLUGIN")
-		if (len(context.active_object.vertex_groups) <= 0):
-			column.enabled = False
+		self.layout.separator()
+		self.layout.operator(RemoveSpecifiedStringVertexGroups.bl_idname, icon='PLUGIN')
+		self.layout.operator(RemoveEmptyVertexGroups.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator(AddOppositeVertexGroups.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
