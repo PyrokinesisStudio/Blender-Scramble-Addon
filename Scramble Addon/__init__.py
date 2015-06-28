@@ -92,6 +92,7 @@ if "bpy" in locals():
 	imp.reload(DATA_PT_pose_library)
 	imp.reload(VIEW3D_PT_view3d_cursor)
 	imp.reload(DATA_PT_bone_groups)
+	imp.reload(OBJECT_PT_transform)
 	#imp.reload(***)
 else:
 	from . import IMAGE_MT_image
@@ -167,6 +168,7 @@ else:
 	from . import DATA_PT_pose_library
 	from . import VIEW3D_PT_view3d_cursor
 	from . import DATA_PT_bone_groups
+	from . import OBJECT_PT_transform
 	#from . import ***
 import bpy
 
@@ -320,6 +322,7 @@ def register():
 	bpy.types.DATA_PT_pose_library.append(DATA_PT_pose_library.menu)
 	bpy.types.VIEW3D_PT_view3d_cursor.append(VIEW3D_PT_view3d_cursor.menu)
 	bpy.types.DATA_PT_bone_groups.append(DATA_PT_bone_groups.menu)
+	bpy.types.OBJECT_PT_transform.append(OBJECT_PT_transform.menu)
 	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
@@ -399,6 +402,7 @@ def unregister():
 	bpy.types.DATA_PT_pose_library.remove(DATA_PT_pose_library.menu)
 	bpy.types.VIEW3D_PT_view3d_cursor.remove(VIEW3D_PT_view3d_cursor.menu)
 	bpy.types.DATA_PT_bone_groups.remove(DATA_PT_bone_groups.menu)
+	bpy.types.OBJECT_PT_transform.remove(OBJECT_PT_transform.menu)
 	#bpy.types.***.remove(***.menu)
 
 # メイン関数
