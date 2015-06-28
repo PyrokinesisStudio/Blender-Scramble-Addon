@@ -8,11 +8,11 @@ import bpy
 
 class RenameTextureFileName(bpy.types.Operator):
 	bl_idname = "texture.rename_texture_file_name"
-	bl_label = "テクスチャ名を使用する画像ファイル名に"
-	bl_description = "アクティブなテクスチャの名前を使用している外部画像のファイル名にします"
+	bl_label = "Image file name to use the texture name"
+	bl_description = "The file name of the external images using the name of the active texture"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isExt = bpy.props.BoolProperty(name="拡張子も含む", default=True)
+	isExt = bpy.props.BoolProperty(name="Including the extension", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -28,11 +28,11 @@ class RenameTextureFileName(bpy.types.Operator):
 	def execute(self, context):
 		tex = context.texture
 		if (not tex):
-			self.report(type={"ERROR"}, message="画像/動画テクスチャで実行してください")
+			self.report(type={"ERROR"}, message="Try image / video textures")
 			return {"CANCELLED"}
 		if (tex.type == "IMAGE"):
 			if (not tex.image):
-				self.report(type={"ERROR"}, message="画像が指定されていません")
+				self.report(type={"ERROR"}, message="Image is not specified")
 				return {"CANCELLED"}
 			if (tex.image.filepath_raw != ""):
 				name = bpy.path.basename(tex.image.filepath_raw)
@@ -42,14 +42,14 @@ class RenameTextureFileName(bpy.types.Operator):
 					tex.name = name
 				except: pass
 		else:
-			self.report(type={"ERROR"}, message="画像/動画テクスチャで実行してください")
+			self.report(type={"ERROR"}, message="Try image / video textures")
 			return {"CANCELLED"}
 		return {'FINISHED'}
 
 class RemoveAllTextureSlots(bpy.types.Operator):
 	bl_idname = "texture.remove_all_texture_slots"
-	bl_label = "テクスチャスロットを全て空に"
-	bl_description = "アクティブなマテリアルの全てのテクスチャスロットを空にします"
+	bl_label = "Texture slot, all in the sky"
+	bl_description = "Empties all active material texture slots"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -70,8 +70,8 @@ class RemoveAllTextureSlots(bpy.types.Operator):
 
 class SlotMoveTop(bpy.types.Operator):
 	bl_idname = "texture.slot_move_top"
-	bl_label = "最上段へ"
-	bl_description = "アクティブなテクスチャスロットを一番上に移動させます"
+	bl_label = "To the top"
+	bl_description = "Move the active texture slot at the top"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -99,8 +99,8 @@ class SlotMoveTop(bpy.types.Operator):
 
 class SlotMoveBottom(bpy.types.Operator):
 	bl_idname = "texture.slot_move_bottom"
-	bl_label = "最下段へ"
-	bl_description = "アクティブなテクスチャスロットを一番下に移動させます"
+	bl_label = "To the bottom"
+	bl_description = "Move the active texture slot at the bottom"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -135,11 +135,11 @@ class SlotMoveBottom(bpy.types.Operator):
 
 class RemoveUnenabledSlots(bpy.types.Operator):
 	bl_idname = "texture.remove_unenabled_slots"
-	bl_label = "無効なテクスチャを削除"
-	bl_description = "無効にしているテクスチャを全て削除します"
+	bl_label = "Remove invalid texture"
+	bl_description = "Removes all textures have turned off"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	is_truncate = bpy.props.BoolProperty(name="切り詰める", default=True)
+	is_truncate = bpy.props.BoolProperty(name="Cut back on", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -164,8 +164,8 @@ class RemoveUnenabledSlots(bpy.types.Operator):
 
 class TruncateEmptySlots(bpy.types.Operator):
 	bl_idname = "texture.truncate_empty_slots"
-	bl_label = "空のテクスチャスロットを切り詰める"
-	bl_description = "テクスチャが割り当てられていない空のテクスチャスロットを埋め、切り詰めます"
+	bl_label = "Cut the texture slot empty"
+	bl_description = "No texture is assigned an empty texture slots will be filled, truncated"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -194,8 +194,8 @@ class TruncateEmptySlots(bpy.types.Operator):
 
 class RemoveFollowingSlots(bpy.types.Operator):
 	bl_idname = "texture.remove_following_slots"
-	bl_label = "ここより下を削除"
-	bl_description = "アクティブなテクスチャスロットより下を、全て削除します"
+	bl_label = "Delete below here"
+	bl_description = "Remove all active texture slot below"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

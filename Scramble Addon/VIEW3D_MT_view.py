@@ -10,8 +10,8 @@ import collections
 
 class LocalViewEx(bpy.types.Operator):
 	bl_idname = "view3d.local_view_ex"
-	bl_label = "グローバルビュー/ローカルビュー(非ズーム)"
-	bl_description = "選択したオブジェクトのみを表示し、視点の中央に配置します(ズームはしません)"
+	bl_label = "Global view and local views (non-zoom)"
+	bl_description = "And show only selected objects, center point of the Zoom (is not)"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -23,9 +23,9 @@ class LocalViewEx(bpy.types.Operator):
 		pre_cursor_location = context.space_data.cursor_location.copy()
 		bpy.ops.view3d.localview()
 		if (context.space_data.local_view):
-			self.report(type={'INFO'}, message="ローカル")
+			self.report(type={'INFO'}, message="Local")
 		else:
-			self.report(type={'INFO'}, message="グローバル")
+			self.report(type={'INFO'}, message="Global")
 		context.space_data.cursor_location = pre_cursor_location
 		context.region_data.view_distance = pre_view_distance
 		context.region_data.view_location = pre_view_location
@@ -35,8 +35,8 @@ class LocalViewEx(bpy.types.Operator):
 
 class TogglePanelsA(bpy.types.Operator):
 	bl_idname = "view3d.toggle_panels_a"
-	bl_label = "パネル表示切り替え(モードA)"
-	bl_description = "プロパティ/ツールシェルフの「両方表示」/「両方非表示」をトグルします"
+	bl_label = "Toggle Panel (mode A)"
+	bl_description = "The properties/tool shelf \"both display\" / \"both hide\" toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -59,8 +59,8 @@ class TogglePanelsA(bpy.types.Operator):
 
 class TogglePanelsB(bpy.types.Operator):
 	bl_idname = "view3d.toggle_panels_b"
-	bl_label = "パネル表示切り替え(モードB)"
-	bl_description = "「パネル両方非表示」→「ツールシェルフのみ表示」→「プロパティのみ表示」→「パネル両方表示」のトグル"
+	bl_label = "Toggle Panel (mode B)"
+	bl_description = "\"Panel both hide\" → show only the tool shelf → show only properties → \"Panel both display\" for toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -82,8 +82,8 @@ class TogglePanelsB(bpy.types.Operator):
 
 class TogglePanelsC(bpy.types.Operator):
 	bl_idname = "view3d.toggle_panels_c"
-	bl_label = "パネル表示切り替え(モードC)"
-	bl_description = "「パネル両方非表示」→「ツールシェルフのみ表示」→「プロパティのみ表示」... のトグル"
+	bl_label = "Toggle Panel (mode C)"
+	bl_description = "\"Panel both hide\" → see only the tool shelf → view properties only. The toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -105,8 +105,8 @@ class TogglePanelsC(bpy.types.Operator):
 
 class ToggleViewportShadeA(bpy.types.Operator):
 	bl_idname = "view3d.toggle_viewport_shade_a"
-	bl_label = "シェーディング切り替え(モードA)"
-	bl_description = "シェーディングを 「ワイヤーフレーム」→「ソリッド」→「テクスチャ」... と切り替えていきます"
+	bl_label = "Shading switch (mode A)"
+	bl_description = "\"Wireframe\", \"solid\" → \"texture\" shading... We\'ll switch and"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -124,18 +124,18 @@ class ToggleViewportShadeA(bpy.types.Operator):
 
 class PieMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_view_pie"
-	bl_label = "パイメニュー"
-	bl_description = "3Dビュー関係のパイメニューです"
+	bl_label = "Pie menu"
+	bl_description = "Is the pie between the 3D view"
 	
 	def draw(self, context):
 		self.layout.operator(ViewNumpadPieOperator.bl_idname, icon="PLUGIN")
 		self.layout.operator(ViewportShadePieOperator.bl_idname, icon="PLUGIN")
-		self.layout.operator(LayerPieOperator.bl_idname, text="レイヤー", icon="PLUGIN")
+		self.layout.operator(LayerPieOperator.bl_idname, text="Layer", icon="PLUGIN")
 
 class ViewNumpadPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.view_numpad_pie_operator"
-	bl_label = "プリセットビュー"
-	bl_description = "プリセットビュー(テンキー1,3,7とか)のパイメニューです"
+	bl_label = "Preset views"
+	bl_description = "Is a pie menu of preset views or (NUMPAD 1, 3, 7)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -143,8 +143,8 @@ class ViewNumpadPieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class ViewNumpadPie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_view_pie_view_numpad"
-	bl_label = "プリセットビュー"
-	bl_description = "プリセットビュー(テンキー1,3,7とか)のパイメニューです"
+	bl_label = "Preset views"
+	bl_description = "Is a pie menu of preset views or (NUMPAD 1, 3, 7)"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="左", icon="TRIA_LEFT").type = "LEFT"
@@ -152,14 +152,14 @@ class ViewNumpadPie(bpy.types.Menu): #
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="下", icon="TRIA_DOWN").type = "BOTTOM"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="上", icon="TRIA_UP").type = "TOP"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="後", icon="BBOX").type = "BACK"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="カメラ", icon="CAMERA_DATA").type = "CAMERA"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="Camera", icon="CAMERA_DATA").type = "CAMERA"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="前", icon="SOLID").type = "FRONT"
-		self.layout.menu_pie().operator("view3d.view_persportho", text="透視投影/平行投影", icon="BORDERMOVE")
+		self.layout.menu_pie().operator("view3d.view_persportho", text="Perspective projection and parallel projection", icon="BORDERMOVE")
 
 class ViewportShadePieOperator(bpy.types.Operator):
 	bl_idname = "view3d.viewport_shade_pie_operator"
-	bl_label = "シェーディング切り替え"
-	bl_description = "シェーディング切り替えパイメニューです"
+	bl_label = "Shading transitions"
+	bl_description = "Is the shading switch pie"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -167,23 +167,23 @@ class ViewportShadePieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class ViewportShadePie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_view_pie_viewport_shade"
-	bl_label = "シェーディング切り替え"
-	bl_description = "シェーディング切り替えパイメニューです"
+	bl_label = "Shading transitions"
+	bl_description = "Is the shading switch pie"
 	
 	def draw(self, context):
-		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="バウンディングボックス", icon="BBOX").mode = "BOUNDBOX"
-		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="レンダー", icon="SMOOTH").mode = "RENDERED"
-		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="ソリッド", icon="SOLID").mode = "SOLID"
-		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="テクスチャ", icon="POTATO").mode = "TEXTURED"
-		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="ワイヤーフレーム", icon="WIRE").mode = "WIREFRAME"
-		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="マテリアル", icon="MATERIAL").mode = "MATERIAL"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Bounding box", icon="BBOX").mode = "BOUNDBOX"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Render", icon="SMOOTH").mode = "RENDERED"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Solid", icon="SOLID").mode = "SOLID"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Texture", icon="POTATO").mode = "TEXTURED"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Wire frame", icon="WIRE").mode = "WIREFRAME"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Material", icon="MATERIAL").mode = "MATERIAL"
 class SetViewportShade(bpy.types.Operator): #
 	bl_idname = "view3d.set_viewport_shade"
-	bl_label = "シェーディング切り替え"
-	bl_description = "シェーディングを切り替えます"
+	bl_label = "Shading transitions"
+	bl_description = "Toggles shading"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	mode = bpy.props.StringProperty(name="シェーディング", default="SOLID")
+	mode = bpy.props.StringProperty(name="Shading", default="SOLID")
 	
 	def execute(self, context):
 		context.space_data.viewport_shade = self.mode
@@ -191,8 +191,8 @@ class SetViewportShade(bpy.types.Operator): #
 
 class LayerPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.layer_pie_operator"
-	bl_label = "レイヤーのパイメニュー"
-	bl_description = "レイヤー表示切り替えのパイメニューです"
+	bl_label = "Layer pie"
+	bl_description = "Is a pie menu toggle layer visibility"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -200,14 +200,14 @@ class LayerPieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class LayerPie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_layer"
-	bl_label = "レイヤーのパイメニュー"
-	bl_description = "レイヤー表示切り替えのパイメニューです"
+	bl_label = "Layer pie"
+	bl_description = "Is a pie menu toggle layer visibility"
 	
 	def draw(self, context):
 		box = self.layout.box()
 		column = box.column()
 		row = column.row()
-		row.label(text="切り替えるレイヤーを選択して下さい (+Shiftで追加選択 +Ctrlで半選択 +Altで半選択解除)", icon='PLUGIN')
+		row.label(text="Select layer switch (shift + add choice + CTRL in semi-selection + Alt half-clear)", icon='PLUGIN')
 		row = column.row()
 		operator = row.operator(LayerPieRun.bl_idname, text="01", icon=self.GetIcon(0))
 		operator.nr = 1
@@ -280,14 +280,14 @@ class LayerPie(bpy.types.Menu):
 			return 'BLANK1'
 class LayerPieRun(bpy.types.Operator): #
 	bl_idname = "view3d.layer_pie_run"
-	bl_label = "レイヤーのパイメニュー"
-	bl_description = "レイヤーを切り替えます (+Shiftで追加選択 +Ctrlで半選択 +Altで半選択解除)"
+	bl_label = "Layer pie"
+	bl_description = "Shows or hides layer (shift + add choice + CTRL in semi-selection + Alt half-clear)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	nr = bpy.props.IntProperty(name="レイヤー番号")
-	extend = bpy.props.BoolProperty(name="選択拡張", default=False)
-	half = bpy.props.BoolProperty(name="半選択", default=False)
-	unhalf = bpy.props.BoolProperty(name="半選択解除", default=False)
+	nr = bpy.props.IntProperty(name="Layer number")
+	extend = bpy.props.BoolProperty(name="Select extension", default=False)
+	half = bpy.props.BoolProperty(name="Half selection", default=False)
+	unhalf = bpy.props.BoolProperty(name="Half-clear", default=False)
 	
 	def execute(self, context):
 		nr = self.nr - 1
@@ -335,8 +335,8 @@ class LayerPieRun(bpy.types.Operator): #
 
 class ShortcutsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_view_shortcuts"
-	bl_label = "ショートカット登録用"
-	bl_description = "ショートカットに登録すると便利かもしれない機能群です"
+	bl_label = "Shortcut for registration"
+	bl_description = "Shortcuts and features that might come in handy"
 	
 	def draw(self, context):
 		self.layout.operator(LocalViewEx.bl_idname, icon="PLUGIN")

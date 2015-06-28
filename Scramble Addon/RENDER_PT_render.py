@@ -9,17 +9,17 @@ import sys, subprocess
 
 class RenderBackground(bpy.types.Operator):
 	bl_idname = "render.render_background"
-	bl_label = "バックグラウンドでレンダリング"
-	bl_description = "コマンドラインから現在のblendファイルをレンダリングします"
+	bl_label = "Background rendering."
+	bl_description = "Renders the current blend file from the command line"
 	bl_options = {'REGISTER'}
 	
-	is_quit = bpy.props.BoolProperty(name="Blenderを終了", default=True)
+	is_quit = bpy.props.BoolProperty(name="Quit Blender", default=True)
 	items = [
-		('IMAGE', "静止画", "", 1),
-		('ANIME', "アニメーション", "", 2),
+		('IMAGE', "Stills", "", 1),
+		('ANIME', "Animation", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="設定モード", default='IMAGE')
-	thread = bpy.props.IntProperty(name="スレッド数", default=2, min=1, max=16, soft_min=1, soft_max=16)
+	mode = bpy.props.EnumProperty(items=items, name="Setting mode", default='IMAGE')
+	thread = bpy.props.IntProperty(name="Number of threads", default=2, min=1, max=16, soft_min=1, soft_max=16)
 	
 	@classmethod
 	def poll(cls, context):

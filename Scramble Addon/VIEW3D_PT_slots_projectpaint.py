@@ -8,8 +8,8 @@ import bpy
 
 class ActiveTextureSlotToActivePaintSlot(bpy.types.Operator):
 	bl_idname = "texture.active_texture_slot_to_active_paint_slot"
-	bl_label = "アクティブなテクスチャスロットを塗る"
-	bl_description = "アクティブなペイントスロットをアクティブなテクスチャスロットにします"
+	bl_label = "Apply active texture slot"
+	bl_description = "The active texture slot slot active paint"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -43,8 +43,8 @@ def menu(self, context):
 		if (context.object):
 			if (context.object.active_material):
 				if (context.object.active_material.use_nodes):
-					self.layout.prop(context.object.active_material, 'use_nodes', icon='PLUGIN', text="ノード使用中なので不可")
+					self.layout.prop(context.object.active_material, 'use_nodes', icon='PLUGIN', text="Because the nodes used in non-")
 				else:
-					self.layout.operator(ActiveTextureSlotToActivePaintSlot.bl_idname, icon='PLUGIN', text="アクティブテクスチャスロット")
+					self.layout.operator(ActiveTextureSlotToActivePaintSlot.bl_idname, icon='PLUGIN', text="Active texture slots")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

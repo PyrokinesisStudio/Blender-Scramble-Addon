@@ -8,8 +8,8 @@ import bpy, bmesh
 
 class MakeLinkObjectName(bpy.types.Operator):
 	bl_idname = "object.make_link_object_name"
-	bl_label = "オブジェクト名を同じに"
-	bl_description = "他の選択オブジェクトにアクティブオブジェクトの名前をリンクします"
+	bl_label = "To the same object name"
+	bl_description = "Name of the active object links to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -28,8 +28,8 @@ class MakeLinkObjectName(bpy.types.Operator):
 
 class MakeLinkLayer(bpy.types.Operator):
 	bl_idname = "object.make_link_layer"
-	bl_label = "レイヤーを同じに"
-	bl_description = "他の選択オブジェクトにアクティブオブジェクトのレイヤーをリンクします"
+	bl_label = "In the same layer"
+	bl_description = "The link active object layers to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -45,22 +45,22 @@ class MakeLinkLayer(bpy.types.Operator):
 
 class MakeLinkDisplaySetting(bpy.types.Operator):
 	bl_idname = "object.make_link_display_setting"
-	bl_label = "オブジェクトの表示設定を同じに"
-	bl_description = "他の選択オブジェクトにアクティブオブジェクトの表示パネルの設定をコピーします"
+	bl_label = "Visibility of objects to the same"
+	bl_description = "Copy the settings of the display panel of the active object to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isSameType = bpy.props.BoolProperty(name="同タイプのオブジェクトのみ", default=True)
-	show_name = bpy.props.BoolProperty(name="名前", default=True)
-	show_axis = bpy.props.BoolProperty(name="座標軸", default=True)
-	show_wire = bpy.props.BoolProperty(name="ワイヤーフレーム", default=True)
-	show_all_edges = bpy.props.BoolProperty(name="すべての辺を表示", default=True)
-	show_bounds = bpy.props.BoolProperty(name="バウンド", default=True)
-	show_texture_space = bpy.props.BoolProperty(name="テクスチャ スペース", default=True)
-	show_x_ray = bpy.props.BoolProperty(name="レントゲン", default=True)
-	show_transparent = bpy.props.BoolProperty(name="透過", default=True)
-	draw_bounds_type = bpy.props.BoolProperty(name="バウンドのタイプ", default=True)
-	draw_type = bpy.props.BoolProperty(name="最高描画タイプ", default=True)
-	color = bpy.props.BoolProperty(name="オブジェクトカラー", default=True)
+	isSameType = bpy.props.BoolProperty(name="Only objects of the same type", default=True)
+	show_name = bpy.props.BoolProperty(name="The name", default=True)
+	show_axis = bpy.props.BoolProperty(name="Coordinate axes", default=True)
+	show_wire = bpy.props.BoolProperty(name="Wire frame", default=True)
+	show_all_edges = bpy.props.BoolProperty(name="See all sides", default=True)
+	show_bounds = bpy.props.BoolProperty(name="Bound", default=True)
+	show_texture_space = bpy.props.BoolProperty(name="Texture space", default=True)
+	show_x_ray = bpy.props.BoolProperty(name="X rays", default=True)
+	show_transparent = bpy.props.BoolProperty(name="Through", default=True)
+	draw_bounds_type = bpy.props.BoolProperty(name="Types of bounces", default=True)
+	draw_type = bpy.props.BoolProperty(name="Best drawing type", default=True)
+	color = bpy.props.BoolProperty(name="Object color", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -98,8 +98,8 @@ class MakeLinkDisplaySetting(bpy.types.Operator):
 
 class MakeLinkUVNames(bpy.types.Operator):
 	bl_idname = "object.make_link_uv_names"
-	bl_label = "空のUVマップをリンク"
-	bl_description = "他の選択オブジェクトにアクティブオブジェクトのUVを空にして追加します"
+	bl_label = "Link to UV map of the sky"
+	bl_description = "Empties the Add UV active objects to other objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -128,8 +128,8 @@ class MakeLinkUVNames(bpy.types.Operator):
 
 class MakeLinkArmaturePose(bpy.types.Operator):
 	bl_idname = "object.make_link_armature_pose"
-	bl_label = "アーマチュアの動きをリンク"
-	bl_description = "コンストレイントによって、他の選択アーマチュアにアクティブアーマチュアの動きを真似させます"
+	bl_label = "Link motion of the armature"
+	bl_description = "By constraints on other selected armature mimic active armature movement"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -165,8 +165,8 @@ class MakeLinkArmaturePose(bpy.types.Operator):
 
 class MakeLinkSoftbodySettings(bpy.types.Operator):
 	bl_idname = "object.make_link_softbody_settings"
-	bl_label = "ソフトボディの設定をリンク"
-	bl_description = "アクティブオブジェクトのソフトボディの設定を、他の選択オブジェクトにコピーします"
+	bl_label = "Links for soft body"
+	bl_description = "Sets the active object soft copies to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -216,8 +216,8 @@ class MakeLinkSoftbodySettings(bpy.types.Operator):
 
 class MakeLinkClothSettings(bpy.types.Operator):
 	bl_idname = "object.make_link_cloth_settings"
-	bl_label = "クロスの設定をリンク"
-	bl_description = "アクティブオブジェクトのクロスシミュレーション設定を、他の選択オブジェクトにコピーします"
+	bl_label = "Links for cross-"
+	bl_description = "Cloth simulation for the active object copies to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -271,13 +271,13 @@ class MakeLinkClothSettings(bpy.types.Operator):
 
 class MakeLinkTransform(bpy.types.Operator):
 	bl_idname = "object.make_link_transform"
-	bl_label = "変形をリンク"
-	bl_description = "アクティブオブジェクトの変形情報を、他の選択オブジェクトにコピーします"
+	bl_label = "Link to deformation"
+	bl_description = "Information of the active object copies to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	copy_location = bpy.props.BoolProperty(name="位置", default=True)
-	copy_rotation = bpy.props.BoolProperty(name="回転", default=True)
-	copy_scale = bpy.props.BoolProperty(name="拡大/縮小", default=True)
+	copy_location = bpy.props.BoolProperty(name="Location", default=True)
+	copy_rotation = bpy.props.BoolProperty(name="Rotation", default=True)
+	copy_scale = bpy.props.BoolProperty(name="Zoom in / out", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -308,18 +308,18 @@ class MakeLinkTransform(bpy.types.Operator):
 
 class TransformMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_make_links_transform"
-	bl_label = "変形"
-	bl_description = "オブジェクトの変形情報をリンクします"
+	bl_label = "Deformation"
+	bl_description = "Links to information about transform objects"
 	
 	def draw(self, context):
-		op = self.layout.operator(MakeLinkTransform.bl_idname, text="トランスフォーム", icon='PLUGIN')
+		op = self.layout.operator(MakeLinkTransform.bl_idname, text="Transform", icon='PLUGIN')
 		op.copy_location, op.copy_rotation, op.copy_scale = True, True, True
 		self.layout.separator()
-		op = self.layout.operator(MakeLinkTransform.bl_idname, text="位置", icon='PLUGIN')
+		op = self.layout.operator(MakeLinkTransform.bl_idname, text="Location", icon='PLUGIN')
 		op.copy_location, op.copy_rotation, op.copy_scale = True, False, False
-		op = self.layout.operator(MakeLinkTransform.bl_idname, text="回転", icon='PLUGIN')
+		op = self.layout.operator(MakeLinkTransform.bl_idname, text="Rotation", icon='PLUGIN')
 		op.copy_location, op.copy_rotation, op.copy_scale = False, True, False
-		op = self.layout.operator(MakeLinkTransform.bl_idname, text="拡大/縮小", icon='PLUGIN')
+		op = self.layout.operator(MakeLinkTransform.bl_idname, text="Zoom in / out", icon='PLUGIN')
 		op.copy_location, op.copy_rotation, op.copy_scale = False, False, True
 
 ################
@@ -340,15 +340,15 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.menu(TransformMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(MakeLinkObjectName.bl_idname, text="オブジェクト名", icon="PLUGIN")
-		self.layout.operator(MakeLinkLayer.bl_idname, text="レイヤー", icon="PLUGIN")
-		self.layout.operator(MakeLinkDisplaySetting.bl_idname, text="表示設定", icon="PLUGIN")
+		self.layout.operator(MakeLinkObjectName.bl_idname, text="Object name", icon="PLUGIN")
+		self.layout.operator(MakeLinkLayer.bl_idname, text="Layer", icon="PLUGIN")
+		self.layout.operator(MakeLinkDisplaySetting.bl_idname, text="Display settings", icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="ソフトボディ設定", icon="PLUGIN")
-		self.layout.operator(MakeLinkClothSettings.bl_idname, text="クロス設定", icon="PLUGIN")
+		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="Soft body set", icon="PLUGIN")
+		self.layout.operator(MakeLinkClothSettings.bl_idname, text="Cross set", icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(MakeLinkUVNames.bl_idname, text="空UV", icon="PLUGIN")
-		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="アーマチュアの動き", icon="PLUGIN")
+		self.layout.operator(MakeLinkUVNames.bl_idname, text="Free UV", icon="PLUGIN")
+		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="Movement of the armature", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

@@ -8,16 +8,16 @@ import bpy
 
 class NewBakeImage(bpy.types.Operator):
 	bl_idname = "image.new_bake_image"
-	bl_label = "ベイク用の画像を作成"
-	bl_description = "ベイクに使う新規画像を素早く用意可能です"
+	bl_label = "Create images for bake"
+	bl_description = "New images used to bake quickly, is available"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name = bpy.props.StringProperty(name="名前", default="Bake")
+	name = bpy.props.StringProperty(name="The name", default="Bake")
 	width = bpy.props.IntProperty(name="幅", default=1024, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
-	height = bpy.props.IntProperty(name="高さ", default=1024, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
-	alpha = bpy.props.BoolProperty(name="アルファ", default=True)
-	float = bpy.props.BoolProperty(name="32ビットFloat", default=False)
-	show_image = bpy.props.BoolProperty(name="画像を確認", default=True)
+	height = bpy.props.IntProperty(name="Height", default=1024, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
+	alpha = bpy.props.BoolProperty(name="Alpha", default=True)
+	float = bpy.props.BoolProperty(name="32-bit Float", default=False)
+	show_image = bpy.props.BoolProperty(name="Make a picture", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -69,7 +69,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		if (context.scene.render.bake_type == 'AO'):
-			self.layout.prop(context.scene.world.light_settings, 'samples', icon='PLUGIN', text="AOサンプル数")
+			self.layout.prop(context.scene.world.light_settings, 'samples', icon='PLUGIN', text="AO samples.")
 		self.layout.operator(NewBakeImage.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

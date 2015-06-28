@@ -8,8 +8,8 @@ import bpy
 
 class CopyBoneName(bpy.types.Operator):
 	bl_idname = "object.copy_bone_name"
-	bl_label = "ボーン名をクリップボードにコピー"
-	bl_description = "ボーン名をクリップボードにコピーします"
+	bl_label = "Copy to Clipboard bone name"
+	bl_description = "To the Clipboard copies the bone name"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -46,6 +46,6 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		if (context.edit_bone or context.bone):
-			self.layout.operator(CopyBoneName.bl_idname, icon='COPYDOWN', text="名前をクリップボードにコピー")
+			self.layout.operator(CopyBoneName.bl_idname, icon='COPYDOWN', text="Copy the name to the Clipboard")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

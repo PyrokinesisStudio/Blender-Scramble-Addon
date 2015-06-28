@@ -22,7 +22,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		col = self.layout.column(align=True)
-		col.operator('view3d.snap_cursor_to_selected', icon='PLUGIN', text="カーソル → 選択物")
-		col.operator('view3d.snap_cursor_to_center', icon='PLUGIN', text="カーソルをリセット")
+		col.operator('view3d.snap_cursor_to_selected', icon='PLUGIN', text="Cursor-choice products")
+		col.operator('view3d.snap_cursor_to_center', icon='PLUGIN', text="Reset cursors")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

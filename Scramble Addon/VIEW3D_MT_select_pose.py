@@ -9,14 +9,14 @@ import re
 
 class SelectSerialNumberNameBone(bpy.types.Operator):
 	bl_idname = "pose.select_serial_number_name_bone"
-	bl_label = "連番の付いたボーンを選択"
-	bl_description = "X.001 のように番号の付いた名前のボーンを選択します"
+	bl_label = "Select a numbered bone."
+	bl_description = "Select the name with a number X.001 in bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
 		obj = context.active_object
 		if (obj.type != 'ARMATURE'):
-			self.report(type={"ERROR"}, message="アーマチュアオブジェクトで実行して下さい")
+			self.report(type={"ERROR"}, message="Run with an armature object")
 			return {"CANCELLED"}
 		arm = obj.data
 		for bone in context.visible_pose_bones[:]:
@@ -26,8 +26,8 @@ class SelectSerialNumberNameBone(bpy.types.Operator):
 
 class SelectMoveSymmetryNameBones(bpy.types.Operator):
 	bl_idname = "pose.select_move_symmetry_name_bones"
-	bl_label = "対称のボーンへ選択を移動"
-	bl_description = "X.Rを選択中ならX.Lへ選択を変更、X.LならX.Rへ"
+	bl_label = "Symmetrical bones move selection"
+	bl_description = "If you choose X.R change selection to X.L, if X.L to X.R"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -51,19 +51,19 @@ class SelectMoveSymmetryNameBones(bpy.types.Operator):
 			return name
 		obj = context.active_object
 		if (obj.type != 'ARMATURE'):
-			self.report(type={"ERROR"}, message="アーマチュアオブジェクトで実行して下さい")
+			self.report(type={"ERROR"}, message="Run with an armature object")
 			return {"CANCELLED"}
 		arm = obj.data
 		pre_selected_pose_bones = context.selected_pose_bones[:]
 		for bone in pre_selected_pose_bones[:]:
 			mirror_name = GetMirrorBoneName(bone.name)
 			if (mirror_name == bone.name):
-				self.report(type={"WARNING"}, message=bone.name+"はミラーに対応した名前ではありません、無視します")
+				self.report(type={"WARNING"}, message=bone.name+"The name that corresponds to the mirror, ignore")
 				continue
 			try:
 				arm.bones[mirror_name]
 			except KeyError:
-				self.report(type={"WARNING"}, message=bone.name+"の対になるボーンが存在しないので無視します")
+				self.report(type={"WARNING"}, message=bone.name+"The ignores because bone-to-be does not exist")
 				continue
 			arm.bones[mirror_name].select = True
 		for bone in pre_selected_pose_bones[:]:
@@ -76,8 +76,8 @@ class SelectMoveSymmetryNameBones(bpy.types.Operator):
 
 class SelectSameConstraintBone(bpy.types.Operator):
 	bl_idname = "pose.select_same_constraint_bone"
-	bl_label = "同じコンストレイントのボーンを選択"
-	bl_description = "アクティブボーンと同じ種類のコンストレイントを持ったボーンを追加選択します"
+	bl_label = "Select the bone of the same constraints"
+	bl_description = "Select additional bone with active bone and same kind of constraint."
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -99,14 +99,14 @@ class SelectSameConstraintBone(bpy.types.Operator):
 
 class SelectSameNameBones(bpy.types.Operator):
 	bl_idname = "pose.select_same_name_bones"
-	bl_label = "同じ名前のボーンを選択"
-	bl_description = "X X.001 X.002 などのボーン名を同じ名前とみなして選択します"
+	bl_label = "Select the bone of the same name."
+	bl_description = "Regarding the bone names, such as X-X.001 X.002 with the same name, select"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
 		obj = context.active_object
 		if (obj.type != 'ARMATURE'):
-			self.report(type={"ERROR"}, message="アーマチュアオブジェクトで実行して下さい")
+			self.report(type={"ERROR"}, message="Run with an armature object")
 			return {"CANCELLED"}
 		arm = obj.data
 		name_base = context.active_pose_bone.name
@@ -119,8 +119,8 @@ class SelectSameNameBones(bpy.types.Operator):
 
 class SelectSymmetryNameBones(bpy.types.Operator):
 	bl_idname = "pose.select_symmetry_name_bones"
-	bl_label = "名前が対称のボーンを追加選択"
-	bl_description = "X.Rを選択中ならX.Lも追加選択、X.LならX.Rも選択"
+	bl_label = "Select Add name of symmetrical bone"
+	bl_description = "If you select X.R X.L also selected X.R X.L if additional selection"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -144,35 +144,35 @@ class SelectSymmetryNameBones(bpy.types.Operator):
 			return name
 		obj = context.active_object
 		if (obj.type != 'ARMATURE'):
-			self.report(type={"ERROR"}, message="アーマチュアオブジェクトで実行して下さい")
+			self.report(type={"ERROR"}, message="Run with an armature object")
 			return {"CANCELLED"}
 		arm = obj.data
 		for bone in context.selected_pose_bones[:]:
 			mirror_name = GetMirrorBoneName(bone.name)
 			if (mirror_name == bone.name):
-				self.report(type={"WARNING"}, message=bone.name+"はミラーに対応した名前ではありません、無視します")
+				self.report(type={"WARNING"}, message=bone.name+"The name that corresponds to the mirror, ignore")
 				continue
 			try:
 				arm.bones[mirror_name]
 			except KeyError:
-				self.report(type={"WARNING"}, message=bone.name+"の対になるボーンが存在しないので無視します")
+				self.report(type={"WARNING"}, message=bone.name+"The ignores because bone-to-be does not exist")
 				continue
 			arm.bones[mirror_name].select = True
 		return {'FINISHED'}
 
 class SelectChildrenEnd(bpy.types.Operator):
 	bl_idname = "pose.select_children_end"
-	bl_label = "ボーンの末端まで選択"
-	bl_description = "選択ボーンの子 → 子ボーンの子...と最後まで選択していきます"
+	bl_label = "Until the end of the bone"
+	bl_description = "Select bones child-child child\'s bones. And we will select to the end"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
 		obj = context.active_object
 		if (not obj):
-			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			self.report(type={'ERROR'}, message="There is no active object")
 			return {'CANCELLED'}
 		if (obj.type != 'ARMATURE'):
-			self.report(type={'ERROR'}, message="アーマチュアオブジェクトで実行して下さい")
+			self.report(type={'ERROR'}, message="Run with an armature object")
 			return {'CANCELLED'}
 		arm = obj.data
 		selected_bones = context.selected_pose_bones[:]
@@ -192,17 +192,17 @@ class SelectChildrenEnd(bpy.types.Operator):
 
 class SelectParentEnd(bpy.types.Operator):
 	bl_idname = "pose.select_parent_end"
-	bl_label = "ボーンの根本まで選択"
-	bl_description = "選択ボーンの親 → 親ボーンの親...と最後まで選択していきます"
+	bl_label = "Select the bone"
+	bl_description = "Select bones parent → parent of parent bone. And we will select to the end"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
 		obj = context.active_object
 		if (not obj):
-			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			self.report(type={'ERROR'}, message="There is no active object")
 			return {'CANCELLED'}
 		if (obj.type != 'ARMATURE'):
-			self.report(type={'ERROR'}, message="アーマチュアオブジェクトで実行して下さい")
+			self.report(type={'ERROR'}, message="Run with an armature object")
 			return {'CANCELLED'}
 		arm = obj.data
 		selected_bones = context.selected_pose_bones[:]
@@ -219,17 +219,17 @@ class SelectParentEnd(bpy.types.Operator):
 
 class SelectGroupedMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_pose_grouped"
-	bl_label = "関係で選択 (拡張)"
-	bl_description = "同じプロパティでまとめた可視ボーンをすべて選択する機能のメニューです"
+	bl_label = "Selected relationship (extended)"
+	bl_description = "Ability to select all visible bones together with the same properties menu."
 	
 	def draw(self, context):
-		self.layout.operator('pose.select_grouped', text="レイヤー", icon="PLUGIN").type = 'LAYER'
-		self.layout.operator('pose.select_grouped', text="グループ", icon="PLUGIN").type = 'GROUP'
-		self.layout.operator('pose.select_grouped', text="キーイングセット", icon="PLUGIN").type = 'KEYINGSET'
+		self.layout.operator('pose.select_grouped', text="Layer", icon="PLUGIN").type = 'LAYER'
+		self.layout.operator('pose.select_grouped', text="Group", icon="PLUGIN").type = 'GROUP'
+		self.layout.operator('pose.select_grouped', text="Keying set", icon="PLUGIN").type = 'KEYINGSET'
 		self.layout.separator()
-		self.layout.operator(SelectSameNameBones.bl_idname, text="ボーン名", icon="PLUGIN")
-		self.layout.operator(SelectSymmetryNameBones.bl_idname, text="名前が対称", icon="PLUGIN")
-		self.layout.operator(SelectSameConstraintBone.bl_idname, text="コンストレイント", icon="PLUGIN")
+		self.layout.operator(SelectSameNameBones.bl_idname, text="Bone name", icon="PLUGIN")
+		self.layout.operator(SelectSymmetryNameBones.bl_idname, text="Mirror name", icon="PLUGIN")
+		self.layout.operator(SelectSameConstraintBone.bl_idname, text="Constraint", icon="PLUGIN")
 
 ################
 # メニュー追加 #

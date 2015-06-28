@@ -1,15 +1,15 @@
-﻿# アドオンを読み込む時に最初にこのファイルが読み込まれます
+# アドオンを読み込む時に最初にこのファイルが読み込まれます
 
 import os, csv, codecs
 
 # アドオン情報
 bl_info = {
 	"name" : "Scramble Addon",
-	"author" : "さいでんか(saidenka)",
+	"author" : "Saidenn or (saidenka)",
 	"version" : (0,1),
 	"blender" : (2, 7),
-	"location" : "様々なメニューの末尾",
-	"description" : "さいでんか制作の拡張機能群の詰め合わせ",
+	"location" : "At the end of a varied menu",
+	"description" : "An assortment of extended functions of saidenn production",
 	"warning" : "",
 	"wiki_url" : "http://github.com/saidenka/Blender-Scramble-Addon",
 	"tracker_url" : "http://github.com/saidenka/Blender-Scramble-Addon/issues",
@@ -176,18 +176,18 @@ import bpy
 class AddonPreferences(bpy.types.AddonPreferences):
 	bl_idname = __name__
 	
-	disabled_menu = bpy.props.StringProperty(name="無効なメニュー", default="")
-	use_disabled_menu = bpy.props.BoolProperty(name="「追加項目のオン/オフ」の非表示", default=False)
-	view_savedata = bpy.props.StringProperty(name="視点のセーブデータ", default="")
-	key_config_xml_path = bpy.props.StringProperty(name="XMLキーコンフィグのパス", default="BlenderKeyConfig.xml")
+	disabled_menu = bpy.props.StringProperty(name="Invalid menu", default="")
+	use_disabled_menu = bpy.props.BoolProperty(name="Turn on/off additional items hidden", default=False)
+	view_savedata = bpy.props.StringProperty(name="View saved games", default="")
+	key_config_xml_path = bpy.props.StringProperty(name="XML game pass", default="BlenderKeyConfig.xml")
 	
-	image_editor_path_1 = bpy.props.StringProperty(name="画像編集ソフトのパス 1", default="", subtype='FILE_PATH')
-	image_editor_path_2 = bpy.props.StringProperty(name="画像編集ソフトのパス 2", default="", subtype='FILE_PATH')
-	image_editor_path_3 = bpy.props.StringProperty(name="画像編集ソフトのパス 3", default="", subtype='FILE_PATH')
+	image_editor_path_1 = bpy.props.StringProperty(name="Pass 1 of image-editing software", default="", subtype='FILE_PATH')
+	image_editor_path_2 = bpy.props.StringProperty(name="Pass 2 of the image-editing software", default="", subtype='FILE_PATH')
+	image_editor_path_3 = bpy.props.StringProperty(name="Path 3 image editing software", default="", subtype='FILE_PATH')
 	
-	text_editor_path_1 = bpy.props.StringProperty(name="テキスト編集ソフトのパス 1", default="", subtype='FILE_PATH')
-	text_editor_path_2 = bpy.props.StringProperty(name="テキスト編集ソフトのパス 2", default="", subtype='FILE_PATH')
-	text_editor_path_3 = bpy.props.StringProperty(name="テキスト編集ソフトのパス 3", default="", subtype='FILE_PATH')
+	text_editor_path_1 = bpy.props.StringProperty(name="Path 1 text editing software", default="", subtype='FILE_PATH')
+	text_editor_path_2 = bpy.props.StringProperty(name="Pass 2 of text editing software", default="", subtype='FILE_PATH')
+	text_editor_path_3 = bpy.props.StringProperty(name="Path 3 text editing software", default="", subtype='FILE_PATH')
 	
 	def draw(self, context):
 		layout = self.layout
@@ -207,8 +207,8 @@ class AddonPreferences(bpy.types.AddonPreferences):
 # 追加メニューの有効/無効
 class ToggleMenuEnable(bpy.types.Operator):
 	bl_idname = "wm.toggle_menu_enable"
-	bl_label = "追加項目のオン/オフ"
-	bl_description = "ScrambleAddonによる追加メニューを有効/無効に切り替えます"
+	bl_label = "Turn on or off additional items"
+	bl_description = "ScrambleAddon-add menu toggles the enabled / disabled"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	id = bpy.props.StringProperty()
@@ -239,6 +239,11 @@ def GetTranslationDict():
 	path = os.path.join(os.path.dirname(__file__), "TranslationDictionary.csv")
 	with codecs.open(path, 'r', 'utf-8') as f:
 		reader = csv.reader(f)
+		dict['ja_JP'] = {}
+		for row in reader:
+			for context in bpy.app.translations.contexts:
+				dict['ja_JP'][(context, row[1])] = row[0]
+		"""
 		for lang in bpy.app.translations.locales:
 			if (lang == 'ja_JP'):
 				continue
@@ -246,6 +251,7 @@ def GetTranslationDict():
 			for row in reader:
 				for context in bpy.app.translations.contexts:
 					dict[lang][(context, row[0])] = row[1]
+		"""
 	return dict
 
 # プラグインをインストールしたときの処理

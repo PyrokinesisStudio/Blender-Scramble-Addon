@@ -8,8 +8,8 @@ import bpy
 
 class RemoveNoAssignMaterial(bpy.types.Operator):
 	bl_idname = "material.remove_no_assign_material"
-	bl_label = "割り当てのないマテリアルを削除"
-	bl_description = "面に一つも割り当てられてないマテリアルを全て削除します"
+	bl_label = "Delete non-assignment material"
+	bl_description = "Delete all one assigned to a surface material"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -44,8 +44,8 @@ class RemoveNoAssignMaterial(bpy.types.Operator):
 
 class RemoveAllMaterialSlot(bpy.types.Operator):
 	bl_idname = "material.remove_all_material_slot"
-	bl_label = "マテリアルスロット全削除"
-	bl_description = "このオブジェクトのマテリアルスロットを全て削除します"
+	bl_label = "Remove all material slots"
+	bl_description = "Delete all material slots for this object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -66,8 +66,8 @@ class RemoveAllMaterialSlot(bpy.types.Operator):
 
 class RemoveEmptyMaterialSlot(bpy.types.Operator):
 	bl_idname = "material.remove_empty_material_slot"
-	bl_label = "空のマテリアルスロット削除"
-	bl_description = "このオブジェクトのマテリアルが割り当てられていないマテリアルスロットを全て削除します"
+	bl_label = "Delete empty material slots"
+	bl_description = "Delete all material of this object has not been assigned material slots"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -92,8 +92,8 @@ class RemoveEmptyMaterialSlot(bpy.types.Operator):
 
 class SetTransparentBackSide(bpy.types.Operator):
 	bl_idname = "material.set_transparent_back_side"
-	bl_label = "裏側を透明にする"
-	bl_description = "メッシュの裏側が透明になるようにシェーダーノードを設定します"
+	bl_label = "Transparent back."
+	bl_description = "Sets the shader nodes transparently mesh back"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -127,8 +127,8 @@ class SetTransparentBackSide(bpy.types.Operator):
 
 class MoveMaterialSlotTop(bpy.types.Operator):
 	bl_idname = "material.move_material_slot_top"
-	bl_label = "スロットを一番上へ"
-	bl_description = "アクティブなマテリアルスロットを一番上に移動させます"
+	bl_label = "Slot to the top"
+	bl_description = "Move the active material slots on top"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -149,8 +149,8 @@ class MoveMaterialSlotTop(bpy.types.Operator):
 
 class MoveMaterialSlotBottom(bpy.types.Operator):
 	bl_idname = "material.move_material_slot_bottom"
-	bl_label = "スロットを一番下へ"
-	bl_description = "アクティブなマテリアルスロットを一番下に移動させます"
+	bl_label = "Slots to the bottom"
+	bl_description = "Move the active material slot at the bottom"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -186,8 +186,8 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(MoveMaterialSlotTop.bl_idname, icon='PLUGIN', text="一番上へ")
-		self.layout.operator(MoveMaterialSlotBottom.bl_idname, icon='PLUGIN', text="一番下へ")
+		self.layout.operator(MoveMaterialSlotTop.bl_idname, icon='PLUGIN', text="Back to top")
+		self.layout.operator(MoveMaterialSlotBottom.bl_idname, icon='PLUGIN', text="To the bottom")
 		self.layout.separator()
 		self.layout.operator(RemoveAllMaterialSlot.bl_idname, icon='PLUGIN')
 		self.layout.operator(RemoveEmptyMaterialSlot.bl_idname, icon='PLUGIN')

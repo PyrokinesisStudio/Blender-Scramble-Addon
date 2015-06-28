@@ -1,4 +1,4 @@
-﻿# 「プロパティ」エリア > 「オブジェクト」タブ > 「トランスフォーム」パネル
+# 「プロパティ」エリア > 「オブジェクト」タブ > 「トランスフォーム」パネル
 
 import bpy
 
@@ -22,11 +22,11 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
-		op = row.operator('object.make_link_transform', icon='MAN_TRANS', text="位置コピー")
+		op = row.operator('object.make_link_transform', icon='MAN_TRANS', text="Copy location")
 		op.copy_location, op.copy_rotation, op.copy_scale = True, False, False
-		op = row.operator('object.make_link_transform', icon='MAN_ROT', text="回転コピー")
+		op = row.operator('object.make_link_transform', icon='MAN_ROT', text="Rotate copy")
 		op.copy_location, op.copy_rotation, op.copy_scale = False, True, False
-		op = row.operator('object.make_link_transform', icon='MAN_SCALE', text="拡縮コピー")
+		op = row.operator('object.make_link_transform', icon='MAN_SCALE', text="Extension of copy")
 		op.copy_location, op.copy_rotation, op.copy_scale = False, False, True
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

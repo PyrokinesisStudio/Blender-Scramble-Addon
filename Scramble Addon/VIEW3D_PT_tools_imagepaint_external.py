@@ -9,11 +9,11 @@ import os
 
 class ProjectEditEX(bpy.types.Operator):
 	bl_idname = "image.project_edit_ex"
-	bl_label = "クイック編集 (拡張)"
-	bl_description = "ユーザー設定のファイルタブで設定した追加の外部エディターでクイック編集を行います"
+	bl_label = "Quick Edit (extend)"
+	bl_description = "Do the quick editing in an external editor of the additional files page of the custom"
 	bl_options = {'REGISTER'}
 	
-	index = bpy.props.IntProperty(name="使用する番号", default=1, min=1, max=3, soft_min=1, soft_max=3)
+	index = bpy.props.IntProperty(name="Number to use", default=1, min=1, max=3, soft_min=1, soft_max=3)
 	
 	def execute(self, context):
 		pre_path = context.user_preferences.filepaths.image_editor
@@ -43,7 +43,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		col = self.layout.column(align=True)
-		col.label(text="追加クイック編集", icon='PLUGIN')
+		col.label(text="Add Quick Edit", icon='PLUGIN')
 		if (context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_1):
 			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.image_editor_path_1)
 			name, ext = os.path.splitext(path)

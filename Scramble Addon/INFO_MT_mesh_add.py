@@ -9,15 +9,15 @@ import math
 
 class AddSphereOnlySquare(bpy.types.Operator):
 	bl_idname = "mesh.add_sphere_only_square"
-	bl_label = "四角ポリゴン球"
-	bl_description = "四角ポリゴンのみで構成された球体メッシュを追加します"
+	bl_label = "Rectangle polygon sphere"
+	bl_description = "Adds a spherical mesh is composed only of quadrilateral polygon"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	level = bpy.props.IntProperty(name="分割数", default=2, step=1, min=1, max=6, soft_min=1, soft_max=6)
-	radius = bpy.props.FloatProperty(name="半径(大体)", default=1.0, step=10, precision=3, min=0.001, max=100, soft_min=0.001, soft_max=100)
-	view_align = bpy.props.BoolProperty(name="視点に揃える", default=False)
-	location = bpy.props.FloatVectorProperty(name="位置", default=(0.0, 0.0, 0.0), step=10, precision=3, subtype='XYZ', min=-100, max=100, soft_min=-100, soft_max=100)
-	rotation = bpy.props.IntVectorProperty(name="回転", default=(0, 0, 0), step=1, subtype='XYZ', min=-360, max=360, soft_min=-360, soft_max=360)
+	level = bpy.props.IntProperty(name="Split number", default=2, step=1, min=1, max=6, soft_min=1, soft_max=6)
+	radius = bpy.props.FloatProperty(name="RADIUS (roughly)", default=1.0, step=10, precision=3, min=0.001, max=100, soft_min=0.001, soft_max=100)
+	view_align = bpy.props.BoolProperty(name="Align view", default=False)
+	location = bpy.props.FloatVectorProperty(name="Location", default=(0.0, 0.0, 0.0), step=10, precision=3, subtype='XYZ', min=-100, max=100, soft_min=-100, soft_max=100)
+	rotation = bpy.props.IntVectorProperty(name="Rotation", default=(0, 0, 0), step=1, subtype='XYZ', min=-360, max=360, soft_min=-360, soft_max=360)
 	enter_editmode = False
 	
 	def execute(self, context):
@@ -50,8 +50,8 @@ class AddSphereOnlySquare(bpy.types.Operator):
 
 class AddVertexOnlyObject(bpy.types.Operator):
 	bl_idname = "mesh.add_vertex_only_object"
-	bl_label = "頂点のみ"
-	bl_description = "1頂点のみのメッシュオブジェクトを3Dカーソルの位置に追加します"
+	bl_label = "Only the vertices"
+	bl_description = "Only 1 vertex meshes 3D adds to the position of the cursor"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):

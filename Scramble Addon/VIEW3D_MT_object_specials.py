@@ -9,18 +9,18 @@ import re, random
 
 class VertexGroupTransferWeightObjmode(bpy.types.Operator):
 	bl_idname = "object.vertex_group_transfer_weight_objmode"
-	bl_label = "ウェイト転送"
-	bl_description = "他の選択中のメッシュからアクティブにウェイトペイントを転送します"
+	bl_label = "Weight transfer"
+	bl_description = "From the mesh of the selection in the other active forwarding weight paint"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isDeleteWeights = bpy.props.BoolProperty(name="ウェイト全削除してから", default=True)
+	isDeleteWeights = bpy.props.BoolProperty(name="Weight total remove from", default=True)
 	items = [
-		('WT_BY_INDEX', "頂点のインデックス番号", "", 1),
-		('WT_BY_NEAREST_VERTEX', "最近接頂点", "", 2),
-		('WT_BY_NEAREST_FACE', "最近接面", "", 3),
-		('WT_BY_NEAREST_VERTEX_IN_FACE', "面内の最近接頂点", "", 4),
+		('WT_BY_INDEX', "Index of the vertex", "", 1),
+		('WT_BY_NEAREST_VERTEX', "Nearest vertex", "", 2),
+		('WT_BY_NEAREST_FACE', "Recently the junction", "", 3),
+		('WT_BY_NEAREST_VERTEX_IN_FACE', "In-plane nearest vertex", "", 4),
 		]
-	method = bpy.props.EnumProperty(items=items, name="方式", default="WT_BY_NEAREST_VERTEX")
+	method = bpy.props.EnumProperty(items=items, name="Way", default="WT_BY_NEAREST_VERTEX")
 	
 	def execute(self, context):
 		if (self.isDeleteWeights):
@@ -33,8 +33,8 @@ class VertexGroupTransferWeightObjmode(bpy.types.Operator):
 
 class ToggleSmooth(bpy.types.Operator):
 	bl_idname = "object.toggle_smooth"
-	bl_label = "スムーズ/フラットを切り替え"
-	bl_description = "選択中のメッシュオブジェクトのスムーズ/フラット状態を切り替えます"
+	bl_label = "Toggle smooth/flat"
+	bl_description = "Toggles the selected mesh object smooth / flat state"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -57,23 +57,23 @@ class ToggleSmooth(bpy.types.Operator):
 				else:
 					bpy.ops.object.shade_smooth()
 		else:
-			self.report(type={"ERROR"}, message="メッシュオブジェクトをアクティブにしてから実行して下さい")
+			self.report(type={"ERROR"}, message="Try mesh object to activate it.")
 			return {'CANCELLED'}
 		if (is_smoothed):
-			self.report(type={"INFO"}, message="メッシュオブジェクトをフラットにしました")
+			self.report(type={"INFO"}, message="Mesh objects have flat")
 		else:
-			self.report(type={"INFO"}, message="メッシュオブジェクトをスムーズにしました")
+			self.report(type={"INFO"}, message="Mesh objects smoothly.")
 		return {'FINISHED'}
 
 class VertexGroupTransfer(bpy.types.Operator):
 	bl_idname = "object.vertex_group_transfer"
-	bl_label = "頂点グループの転送"
-	bl_description = "アクティブなメッシュに他の選択メッシュの頂点グループを転送します"
+	bl_label = "Transport for vertex group"
+	bl_description = "Transfers to other selected mesh vertex group active mesh"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	vertex_group_remove_all = bpy.props.BoolProperty(name="最初に頂点グループ全削除", default=False)
-	vertex_group_clean = bpy.props.BoolProperty(name="頂点グループのクリーン", default=True)
-	vertex_group_delete = bpy.props.BoolProperty(name="割り当ての無い頂点グループ削除", default=True)
+	vertex_group_remove_all = bpy.props.BoolProperty(name="Delete all vertex groups first", default=False)
+	vertex_group_clean = bpy.props.BoolProperty(name="Clean of the vertex groups", default=True)
+	vertex_group_delete = bpy.props.BoolProperty(name="No assignment of vertex group delete", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -91,14 +91,14 @@ class VertexGroupTransfer(bpy.types.Operator):
 		return False
 	def execute(self, context):
 		if (context.active_object.type != 'MESH'):
-			self.report(type={'ERROR'}, message="メッシュオブジェクトがアクティブな状態で実行して下さい")
+			self.report(type={'ERROR'}, message="Please run the mesh object is active")
 			return {'CANCELLED'}
 		source_objs = []
 		for obj in context.selected_objects:
 			if (obj.type == 'MESH' and context.active_object.name != obj.name):
 				source_objs.append(obj)
 		if (len(source_objs) <= 0):
-			self.report(type={'ERROR'}, message="メッシュオブジェクトを2つ以上選択した状態で実行して下さい")
+			self.report(type={'ERROR'}, message="Please run the selected mesh object to two or more")
 			return {'CANCELLED'}
 		if (0 < len(context.active_object.vertex_groups) and self.vertex_group_remove_all):
 			bpy.ops.object.vertex_group_remove(all=True)
@@ -123,11 +123,11 @@ class VertexGroupTransfer(bpy.types.Operator):
 
 class VertexGroupAverageAll(bpy.types.Operator):
 	bl_idname = "mesh.vertex_group_average_all_2"
-	bl_label = "全頂点の平均ウェイトで塗り潰す"
-	bl_description = "全てのウェイトの平均で、全ての頂点を塗り潰します"
+	bl_label = "Fill in the average weight of all vertices"
+	bl_description = "The average weight of all, fills all the vertices"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	strength = bpy.props.FloatProperty(name="強度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
+	strength = bpy.props.FloatProperty(name="Strength", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
 	
 	@classmethod
 	def poll(cls, context):
@@ -176,14 +176,14 @@ class VertexGroupAverageAll(bpy.types.Operator):
 
 class CreateVertexToMetaball(bpy.types.Operator):
 	bl_idname = "object.create_vertex_to_metaball"
-	bl_label = "頂点にメタボールをフック"
-	bl_description = "選択中のメッシュオブジェクトの頂点部分に新規メタボールを張り付かせます"
+	bl_label = "Top hook metaballs"
+	bl_description = "Have made new metaballs to the vertices of the selected mesh object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name = bpy.props.StringProperty(name="メタボール名", default="Mball")
-	size = bpy.props.FloatProperty(name="サイズ", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=1, precision=3)
-	resolution = bpy.props.FloatProperty(name="解像度", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=0.5, precision=3)
-	isUseVg = bpy.props.BoolProperty(name="頂点グループを大きさに", default=False)
+	name = bpy.props.StringProperty(name="Metaball name", default="Mball")
+	size = bpy.props.FloatProperty(name="Size", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=1, precision=3)
+	resolution = bpy.props.FloatProperty(name="RES", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=0.5, precision=3)
+	isUseVg = bpy.props.BoolProperty(name="Vertex group size", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -229,13 +229,13 @@ class CreateVertexToMetaball(bpy.types.Operator):
 
 class AddGreasePencilPathMetaballs(bpy.types.Operator):
 	bl_idname = "object.add_grease_pencil_path_metaballs"
-	bl_label = "グリースペンシルにメタボール配置"
-	bl_description = "アクティブなグリースペンシルに沿ってメタボールを配置します"
+	bl_label = "Grease pencil to metaballs"
+	bl_description = "The blobby align with active grease pencil"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	dissolve_verts_count = bpy.props.IntProperty(name="密度", default=3, min=1, max=100, soft_min=1, soft_max=100, step=1)
-	radius = bpy.props.FloatProperty(name="メタボールサイズ", default=0.05, min=0, max=1, soft_min=0, soft_max=1, step=0.2, precision=3)
-	resolution = bpy.props.FloatProperty(name="メタボール解像度", default=0.05, min=0.001, max=1, soft_min=0.001, soft_max=1, step=0.2, precision=3)
+	dissolve_verts_count = bpy.props.IntProperty(name="Density", default=3, min=1, max=100, soft_min=1, soft_max=100, step=1)
+	radius = bpy.props.FloatProperty(name="Metaball size", default=0.05, min=0, max=1, soft_min=0, soft_max=1, step=0.2, precision=3)
+	resolution = bpy.props.FloatProperty(name="Resolution metaball", default=0.05, min=0.001, max=1, soft_min=0.001, soft_max=1, step=0.2, precision=3)
 	
 	@classmethod
 	def poll(cls, context):
@@ -246,7 +246,7 @@ class AddGreasePencilPathMetaballs(bpy.types.Operator):
 		return True
 	def execute(self, context):
 		if (not context.scene.grease_pencil.layers.active):
-			self.report(type={"ERROR"}, message="グリースペンシルレイヤーが存在しません")
+			self.report(type={"ERROR"}, message="Grespencillayer does not exist")
 			return {"CANCELLED"}
 		pre_selectable_objects = context.selectable_objects
 		bpy.ops.gpencil.convert(type='CURVE', use_normalize_weights=False, use_link_strokes=False, use_timing_data=True)
@@ -280,15 +280,15 @@ class AddGreasePencilPathMetaballs(bpy.types.Operator):
 
 class CreateMeshImitateArmature(bpy.types.Operator):
 	bl_idname = "object.create_mesh_imitate_armature"
-	bl_label = "メッシュの変形を真似するアーマチュアを作成"
-	bl_description = "アクティブメッシュオブジェクトの変形に追従するアーマチュアを新規作成します"
+	bl_label = "Creating an armature to mimic a mesh deformation"
+	bl_description = "Create a new armature to follow the active mesh objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	bone_length = bpy.props.FloatProperty(name="ボーンの長さ", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
-	use_normal = bpy.props.BoolProperty(name="法線に合わせて回転", default=False)
-	add_edge = bpy.props.BoolProperty(name="辺にもボーンを追加", default=False)
-	vert_bone_name = bpy.props.StringProperty(name="頂点部分のボーン名", default="頂点")
-	edge_bone_name = bpy.props.StringProperty(name="辺部分のボーン名", default="辺")
+	bone_length = bpy.props.FloatProperty(name="The length of the bone", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
+	use_normal = bpy.props.BoolProperty(name="Rotate normal", default=False)
+	add_edge = bpy.props.BoolProperty(name="Add bones to the sides", default=False)
+	vert_bone_name = bpy.props.StringProperty(name="Vertex part bone name", default="Vertex")
+	edge_bone_name = bpy.props.StringProperty(name="Side parts bone name", default="辺")
 	
 	@classmethod
 	def poll(cls, context):
@@ -300,10 +300,10 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 		pre_active_obj = context.active_object
 		for obj in context.selected_objects:
 			if (obj.type != 'MESH'):
-				self.report(type={'INFO'}, message=obj.name+"はメッシュオブジェクトではないので無視します")
+				self.report(type={'INFO'}, message=obj.name+"The mesh object the ignored")
 				continue
-			arm = bpy.data.armatures.new(obj.name+"の真似をするアーマチュア")
-			arm_obj = bpy.data.objects.new(obj.name+"の真似をするアーマチュア", arm)
+			arm = bpy.data.armatures.new(obj.name+"The armature to imitate")
+			arm_obj = bpy.data.objects.new(obj.name+"The armature to imitate", arm)
 			context.scene.objects.link(arm_obj)
 			context.scene.objects.active = arm_obj
 			bpy.ops.object.mode_set(mode='EDIT')
@@ -357,13 +357,13 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 
 class CreateVertexGroupsArmature(bpy.types.Operator):
 	bl_idname = "object.create_vertex_groups_armature"
-	bl_label = "頂点グループがある頂点位置にボーン作成"
-	bl_description = "選択オブジェクトの頂点グループが割り当てられている頂点位置に、その頂点グループ名のボーンを作成します"
+	bl_label = "Bones create the vertices where vertex groups"
+	bl_description = "Create a vertex group names of bones in the vertex position is choice object vertex groups assigned"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	armature_name = bpy.props.StringProperty(name="アーマチュア名", default="Armature")
-	use_vertex_group_name = bpy.props.BoolProperty(name="ボーン名を頂点グループ名に", default=True)
-	bone_length = bpy.props.FloatProperty(name="ボーンの長さ", default=0.5, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
+	armature_name = bpy.props.StringProperty(name="Armature name", default="Armature")
+	use_vertex_group_name = bpy.props.BoolProperty(name="Bone name vertex group names", default=True)
+	bone_length = bpy.props.FloatProperty(name="The length of the bone", default=0.5, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
 	
 	@classmethod
 	def poll(cls, context):
@@ -375,15 +375,15 @@ class CreateVertexGroupsArmature(bpy.types.Operator):
 	def execute(self, context):
 		pre_active_obj = context.active_object
 		if (not pre_active_obj):
-			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			self.report(type={'ERROR'}, message="There is no active object")
 			return {'CANCELLED'}
 		pre_mode = pre_active_obj.mode
 		for obj in context.selected_objects:
 			if (obj.type != 'MESH'):
-				self.report(type={'INFO'}, message=obj.name+"はメッシュオブジェクトではありません、無視します")
+				self.report(type={'INFO'}, message=obj.name+"A mesh object, ignore")
 				continue
 			if (len(obj.vertex_groups) <= 0):
-				self.report(type={'INFO'}, message=obj.name+"には頂点グループがありません、無視します")
+				self.report(type={'INFO'}, message=obj.name+"To ignore the missing vertex groups")
 				continue
 			arm = bpy.data.armatures.new(self.armature_name)
 			arm_obj = bpy.data.objects.new(self.armature_name, arm)
@@ -411,15 +411,15 @@ class CreateVertexGroupsArmature(bpy.types.Operator):
 
 class CreateSolidifyEdge(bpy.types.Operator):
 	bl_idname = "object.create_solidify_edge"
-	bl_label = "厚み付けモディファイアで輪郭線生成"
-	bl_description = "選択オブジェクトに「厚み付けモディファイア」による輪郭描画を追加します"
+	bl_label = "Contour line generation in thickness with modifiers"
+	bl_description = "Add to thicken modiﬁ contour drawing selection"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	use_render = bpy.props.BoolProperty(name="レンダリングにも適用", default=False)
-	thickness = bpy.props.FloatProperty(name="輪郭線の厚さ", default=0.01, min=0, max=1, soft_min=0, soft_max=1, step=0.1, precision=3)
-	color = bpy.props.FloatVectorProperty(name="線の色", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
-	use_rim = bpy.props.BoolProperty(name="ふちに面を張る", default=False)
-	show_backface_culling = bpy.props.BoolProperty(name="「裏面を非表示」をオン", default=True)
+	use_render = bpy.props.BoolProperty(name="Apply the rendering", default=False)
+	thickness = bpy.props.FloatProperty(name="Thickness of contour lines", default=0.01, min=0, max=1, soft_min=0, soft_max=1, step=0.1, precision=3)
+	color = bpy.props.FloatVectorProperty(name="Color of the line", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
+	use_rim = bpy.props.BoolProperty(name="Put the faces to the edge", default=False)
+	show_backface_culling = bpy.props.BoolProperty(name="Select to hide on the back", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -436,9 +436,9 @@ class CreateSolidifyEdge(bpy.types.Operator):
 			if (obj.type == 'MESH'):
 				selected_objs.append(obj)
 			else:
-				self.report(type={'INFO'}, message=obj.name+"はメッシュオブジェクトではないので無視します")
+				self.report(type={'INFO'}, message=obj.name+"The mesh object the ignored")
 		if (len(selected_objs) <= 0):
-			self.report(type={'ERROR'}, message="1つ以上のメッシュオブジェクトを選択した状態で実行して下さい")
+			self.report(type={'ERROR'}, message="Please run the selected mesh object for one or more")
 			return {'CANCELLED'}
 		for obj in selected_objs:
 			pre_mtls = []
@@ -447,13 +447,13 @@ class CreateSolidifyEdge(bpy.types.Operator):
 					pre_mtls.append(i)
 			if (len(pre_mtls) <= 0):
 				"""
-				self.report(type={'WARNING'}, message=obj.name+"にマテリアルが割り当てられていないので無視します")
+				self.report(type={'WARNING'}, message=obj.name+"To ignore because it does not have a material")
 				continue
 				"""
 				pass
 			context.scene.objects.active = obj
 			
-			mtl = bpy.data.materials.new(obj.name+"の輪郭線")
+			mtl = bpy.data.materials.new(obj.name+"The contour line")
 			mtl.use_shadeless = True
 			mtl.diffuse_color = self.color
 			mtl.use_nodes = True
@@ -474,7 +474,7 @@ class CreateSolidifyEdge(bpy.types.Operator):
 			slot = obj.material_slots[-1]
 			slot.material = mtl
 			
-			mod = obj.modifiers.new("輪郭線", 'SOLIDIFY')
+			mod = obj.modifiers.new("Contour lines", 'SOLIDIFY')
 			mod.use_flip_normals = True
 			if (not self.use_rim):
 				mod.use_rim = False
@@ -496,11 +496,11 @@ class CreateSolidifyEdge(bpy.types.Operator):
 
 class SetRenderHide(bpy.types.Operator):
 	bl_idname = "object.set_render_hide"
-	bl_label = "選択物のレンダリングを制限"
-	bl_description = "選択中のオブジェクトをレンダリングしない設定にします"
+	bl_label = "Limit the choice of rendering"
+	bl_description = "The setting does not render the selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	reverse = bpy.props.BoolProperty(name="レンダリングしない", default=True)
+	reverse = bpy.props.BoolProperty(name="Does not render", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -514,11 +514,11 @@ class SetRenderHide(bpy.types.Operator):
 
 class SyncRenderHide(bpy.types.Operator):
 	bl_idname = "object.sync_render_hide"
-	bl_label = "レンダリングするかを「表示/非表示」に同期"
-	bl_description = "現在のレイヤー内のオブジェクトをレンダリングするかどうかを表示/非表示の状態と同期します"
+	bl_label = "Or to render the \"show / hide\" to sync"
+	bl_description = "Synchronize display / hide status and whether or not to render objects in the current layer"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isAll = bpy.props.BoolProperty(name="全オブジェクト", default=False)
+	isAll = bpy.props.BoolProperty(name="All objects", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -545,11 +545,11 @@ class SyncRenderHide(bpy.types.Operator):
 
 class AllResetHideSelect(bpy.types.Operator):
 	bl_idname = "object.all_reset_hide_select"
-	bl_label = "すべての選択制限をクリア"
-	bl_description = "全てのオブジェクトの選択不可設定を解除します(逆も可)"
+	bl_label = "Clears all selected limits"
+	bl_description = "Removes all non-select settings (vice versa)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	reverse = bpy.props.BoolProperty(name="選択不可に", default=False)
+	reverse = bpy.props.BoolProperty(name="Selection", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -566,11 +566,11 @@ class AllResetHideSelect(bpy.types.Operator):
 
 class SetUnselectHideSelect(bpy.types.Operator):
 	bl_idname = "object.set_unselect_hide_select"
-	bl_label = "非選択物の選択を制限"
-	bl_description = "選択物以外のオブジェクトを選択出来なくします"
+	bl_label = "Limit the selection of non-selection"
+	bl_description = "Cannot select object other than a selection of"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	reverse = bpy.props.BoolProperty(name="選択不可に", default=True)
+	reverse = bpy.props.BoolProperty(name="Selection", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -590,11 +590,11 @@ class SetUnselectHideSelect(bpy.types.Operator):
 
 class SetHideSelect(bpy.types.Operator):
 	bl_idname = "object.set_hide_select"
-	bl_label = "選択物の選択を制限"
-	bl_description = "選択中のオブジェクトを選択出来なくします"
+	bl_label = "Limit the choice of selecting"
+	bl_description = "Can\'t select the selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	reverse = bpy.props.BoolProperty(name="選択不可に", default=True)
+	reverse = bpy.props.BoolProperty(name="Selection", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -614,12 +614,12 @@ class SetHideSelect(bpy.types.Operator):
 
 class RenameObjectRegularExpression(bpy.types.Operator):
 	bl_idname = "object.rename_object_regular_expression"
-	bl_label = "オブジェクト名を正規表現で置換"
-	bl_description = "選択中のオブジェクトの名前を正規表現で置換します"
+	bl_label = "Replace object names in regular expressions"
+	bl_description = "Name of the currently selected object in the regular expression replace"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	pattern = bpy.props.StringProperty(name="置換前(正規表現)", default="")
-	repl = bpy.props.StringProperty(name="置換後", default="")
+	pattern = bpy.props.StringProperty(name="Replacement front (in regular expressions)", default="")
+	repl = bpy.props.StringProperty(name="Replacement", default="")
 	
 	@classmethod
 	def poll(cls, context):
@@ -637,8 +637,8 @@ class RenameObjectRegularExpression(bpy.types.Operator):
 
 class EqualizeObjectNameAndDataName(bpy.types.Operator):
 	bl_idname = "object.equalize_objectname_and_dataname"
-	bl_label = "オブジェクト名とデータ名を同じにする"
-	bl_description = "選択中のオブジェクトのオブジェクト名とデータ名を同じにします"
+	bl_label = "To the same object and data names"
+	bl_description = "The same object and data names for selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -658,12 +658,12 @@ class EqualizeObjectNameAndDataName(bpy.types.Operator):
 
 class ApplyObjectColor(bpy.types.Operator):
 	bl_idname = "object.apply_object_color"
-	bl_label = "オブジェクトカラー有効 + 色設定"
-	bl_description = "選択オブジェクトのオブジェクトカラーを有効にし、色を設定します"
+	bl_label = "Enable object color + color"
+	bl_description = "Object color of the selected object and sets the color,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="カラー", default=(0, 0, 0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
-	use_random = bpy.props.BoolProperty(name="ランダムな色を使う", default=True)
+	color = bpy.props.FloatVectorProperty(name="Color", default=(0, 0, 0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
+	use_random = bpy.props.BoolProperty(name="Use random colors", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -687,12 +687,12 @@ class ApplyObjectColor(bpy.types.Operator):
 
 class ClearObjectColor(bpy.types.Operator):
 	bl_idname = "object.clear_object_color"
-	bl_label = "オブジェクトカラー無効 + 色設定"
-	bl_description = "選択オブジェクトのオブジェクトカラーを無効にし、色を設定します"
+	bl_label = "Object color off + color"
+	bl_description = "To disable the object color of the selected object, sets the color"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	set_color = bpy.props.BoolProperty(name="色を設定する", default=False)
-	color = bpy.props.FloatVectorProperty(name="カラー", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
+	set_color = bpy.props.BoolProperty(name="To set the color", default=False)
+	color = bpy.props.FloatVectorProperty(name="Color", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	
 	@classmethod
 	def poll(cls, context):
@@ -714,15 +714,15 @@ class ClearObjectColor(bpy.types.Operator):
 
 class ParentSetApplyModifiers(bpy.types.Operator):
 	bl_idname = "object.parent_set_apply_modifiers"
-	bl_label = "モディファイア適用してペアレント作成"
-	bl_description = "親オブジェクトのモディファイアを適用してから、親子関係を作成します"
+	bl_label = "Applying modifiers, create a parent"
+	bl_description = "Creates a parent-child relationship from the parent object\'s modifiers to apply"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('VERTEX', "頂点", "", 1),
-		('VERTEX_TRI', "頂点(三角形)", "", 2),
+		('VERTEX', "Vertex", "", 1),
+		('VERTEX_TRI', "Vertex (triangle)", "", 2),
 		]
-	type = bpy.props.EnumProperty(items=items, name="演算")
+	type = bpy.props.EnumProperty(items=items, name="Calculus")
 	
 	@classmethod
 	def poll(cls, context):
@@ -740,10 +740,10 @@ class ParentSetApplyModifiers(bpy.types.Operator):
 	def execute(self, context):
 		active_obj = context.active_object
 		if (not active_obj):
-			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			self.report(type={'ERROR'}, message="There is no active object")
 			return {'CANCELLED'}
 		if (active_obj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="アクティブがメッシュオブジェクトではありません")
+			self.report(type={'ERROR'}, message="Active is not a mesh object")
 			return {'CANCELLED'}
 		active_obj.select = False
 		enable_modifiers = []
@@ -755,7 +755,7 @@ class ParentSetApplyModifiers(bpy.types.Operator):
 		old_me = active_obj.data
 		new_me = active_obj.to_mesh(context.scene, True, 'PREVIEW')
 		if (len(old_me.vertices) != len(new_me.vertices)):
-			self.report(type={'WARNING'}, message="モディファイア適用後に頂点数が変化してます、望んだ結果じゃないかもしれません")
+			self.report(type={'WARNING'}, message="May not count changes after applying the modifier to the wished result")
 		active_obj.data = new_me
 		for mod in active_obj.modifiers:
 			if (mod.show_viewport):
@@ -781,14 +781,14 @@ class ParentSetApplyModifiers(bpy.types.Operator):
 
 class CreateRopeMesh(bpy.types.Operator):
 	bl_idname = "object.create_rope_mesh"
-	bl_label = "カーブからロープ状のメッシュを作成"
-	bl_description = "アクティブなカーブオブジェクトに沿ったロープや蛇のようなメッシュを新規作成します"
+	bl_label = "Create a mesh of rope-like curve to"
+	bl_description = "Creates a mesh like rope along the curve object is active or snake new"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	vertices = bpy.props.IntProperty(name="頂点数", default=32, min=3, soft_min=3, max=999, soft_max=999, step=1)
-	radius = bpy.props.FloatProperty(name="半径", default=0.1, step=1, precision=3, min=0, soft_min=0, max=99, soft_max=99)
-	number_cuts = bpy.props.IntProperty(name="分割数", default=32, min=2, soft_min=2, max=999, soft_max=999, step=1)
-	resolution_u = bpy.props.IntProperty(name="カーブの解像度", default=64, min=1, soft_min=1, max=999, soft_max=999, step=1)
+	vertices = bpy.props.IntProperty(name="Number of vertices", default=32, min=3, soft_min=3, max=999, soft_max=999, step=1)
+	radius = bpy.props.FloatProperty(name="RADIUS", default=0.1, step=1, precision=3, min=0, soft_min=0, max=99, soft_max=99)
+	number_cuts = bpy.props.IntProperty(name="Split number", default=32, min=2, soft_min=2, max=999, soft_max=999, step=1)
+	resolution_u = bpy.props.IntProperty(name="Curve resolution", default=64, min=1, soft_min=1, max=999, soft_max=999, step=1)
 	
 	@classmethod
 	def poll(cls, context):
@@ -826,20 +826,20 @@ class CreateRopeMesh(bpy.types.Operator):
 
 class MoveBevelObject(bpy.types.Operator):
 	bl_idname = "object.move_bevel_object"
-	bl_label = "ベベルオブジェクトを断面に移動"
-	bl_description = "カーブに設定されているベベルオブジェクトを選択カーブの断面へと移動させます"
+	bl_label = "Bevel object section moved"
+	bl_description = "Curve beveled objects that move and cross section of you curve"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('START', "先頭", "", 1),
-		('END', "末尾", "", 2),
-		('CENTER', "中心", "", 3),
+		('START', "Top", "", 1),
+		('END', "At the end", "", 2),
+		('CENTER', "Centre", "", 3),
 		]
-	move_position = bpy.props.EnumProperty(items=items, name="移動位置", default='END')
-	use_duplicate = bpy.props.BoolProperty(name="ベベルを複製", default=True)
-	delete_pre_bevel = bpy.props.BoolProperty(name="複製元のベベルを削除", default=False)
-	tilt = bpy.props.FloatProperty(name="Z角度", default=0.0, min=-3.14159265359, max=3.14159265359, soft_min=-3.14159265359, soft_max=3.14159265359, step=1, precision=1, subtype='ANGLE')
-	use_2d = bpy.props.BoolProperty(name="2Dカーブに", default=True)
+	move_position = bpy.props.EnumProperty(items=items, name="Moving location", default='END')
+	use_duplicate = bpy.props.BoolProperty(name="Duplicate the bevel", default=True)
+	delete_pre_bevel = bpy.props.BoolProperty(name="Delete the original bevel", default=False)
+	tilt = bpy.props.FloatProperty(name="Z angle", default=0.0, min=-3.14159265359, max=3.14159265359, soft_min=-3.14159265359, soft_max=3.14159265359, step=1, precision=1, subtype='ANGLE')
+	use_2d = bpy.props.BoolProperty(name="On a 2-D curve", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -856,19 +856,19 @@ class MoveBevelObject(bpy.types.Operator):
 		delete_objects = []
 		for obj in selected_objects:
 			if (obj.type != 'CURVE'):
-				self.report(type={'WARNING'}, message=obj.name+"はカーブではありません、無視します")
+				self.report(type={'WARNING'}, message=obj.name+"The curve, ignore")
 				continue
 			curve = obj.data
 			if (not curve.bevel_object):
-				self.report(type={'WARNING'}, message=obj.name+"にベベルオブジェクトが設定されていません、無視します")
+				self.report(type={'WARNING'}, message=obj.name+"To ignore the beveled objects is not set")
 				continue
 			bevel_object = curve.bevel_object
 			if (len(curve.splines) < 1):
-				self.report(type={'WARNING'}, message=obj.name+"内にカーブデータがありません、無視します")
+				self.report(type={'WARNING'}, message=obj.name+"In these curves are no, ignore")
 				continue
 			"""
 			if (len(curve.splines[0].points) <= 1):
-				self.report(type={'WARNING'}, message=obj.name+"のセグメント数が少なすぎます、無視します")
+				self.report(type={'WARNING'}, message=obj.name+"The segment number is too low, ignore")
 				continue
 			"""
 			for o in delete_objects:
@@ -905,7 +905,7 @@ class MoveBevelObject(bpy.types.Operator):
 					sub_point = obj.matrix_world * spline.points[i-1].co
 					tilt = spline.points[i].tilt
 				else:
-					self.report(type={'ERROR'}, message="オプションの値が不正です")
+					self.report(type={'ERROR'}, message="Value of the option is invalid.")
 					return {'CANCELLED'}
 			elif (spline.type == 'BEZIER'):
 				if (self.move_position == 'START'):
@@ -922,10 +922,10 @@ class MoveBevelObject(bpy.types.Operator):
 					sub_point = obj.matrix_world * spline.bezier_points[i-1].handle_left
 					tilt = spline.bezier_points[i].tilt
 				else:
-					self.report(type={'ERROR'}, message="オプションの値が不正です")
+					self.report(type={'ERROR'}, message="Value of the option is invalid.")
 					return {'CANCELLED'}
 			else:
-				self.report(type={'WARNING'}, message=obj.name+"は対応していないタイプのカーブです、無視します")
+				self.report(type={'WARNING'}, message=obj.name+"The type does not support curves, ignore")
 				continue
 			base_point.resize_3d()
 			sub_point.resize_3d()
@@ -958,33 +958,33 @@ class MoveBevelObject(bpy.types.Operator):
 
 class RenderHideMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_render_hide"
-	bl_label = "レンダリング制限"
-	bl_description = "オブジェクトのレンダリング制限関係のメニューです"
+	bl_label = "Rendering limits"
+	bl_description = "Menu object rendering limits involved."
 	
 	def draw(self, context):
-		self.layout.operator(SetRenderHide.bl_idname, text="選択物のレンダリングを制限", icon="PLUGIN").reverse = True
+		self.layout.operator(SetRenderHide.bl_idname, text="Limit the choice of rendering", icon="PLUGIN").reverse = True
 		self.layout.operator('object.isolate_type_render')
 		self.layout.separator()
-		self.layout.operator(SetRenderHide.bl_idname, text="選択物のレンダリングを許可", icon="PLUGIN").reverse = False
+		self.layout.operator(SetRenderHide.bl_idname, text="Allow the choice of rendering", icon="PLUGIN").reverse = False
 		self.layout.operator('object.hide_render_clear_all')
 		self.layout.separator()
 		self.layout.operator(SyncRenderHide.bl_idname, icon="PLUGIN")
 
 class HideSelectMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_hide_select"
-	bl_label = "選択制限"
-	bl_description = "オブジェクトの選択制限関係のメニューです"
+	bl_label = "Select limit"
+	bl_description = "Menu selection limits of object"
 	
 	def draw(self, context):
-		self.layout.operator(SetHideSelect.bl_idname, text="選択物の選択を制限", icon="PLUGIN").reverse = True
+		self.layout.operator(SetHideSelect.bl_idname, text="Limit the choice of selecting", icon="PLUGIN").reverse = True
 		self.layout.operator(SetUnselectHideSelect.bl_idname, icon="PLUGIN").reverse = True
 		self.layout.separator()
 		self.layout.operator(AllResetHideSelect.bl_idname, icon="PLUGIN").reverse = False
 
 class ObjectNameMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_object_name"
-	bl_label = "オブジェクト名"
-	bl_description = "オブジェクト名関係のメニューです"
+	bl_label = "Object name"
+	bl_description = "Is the object name of the menu"
 	
 	def draw(self, context):
 		self.layout.operator(RenameObjectRegularExpression.bl_idname, icon="PLUGIN")
@@ -992,8 +992,8 @@ class ObjectNameMenu(bpy.types.Menu):
 
 class ObjectColorMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_object_color"
-	bl_label = "オブジェクトカラー"
-	bl_description = "オブジェクトカラー関係のメニューです"
+	bl_label = "Object color"
+	bl_description = "Relationship between object color menu."
 	
 	def draw(self, context):
 		self.layout.operator(ApplyObjectColor.bl_idname, icon="PLUGIN")
@@ -1001,16 +1001,16 @@ class ObjectColorMenu(bpy.types.Menu):
 
 class ParentMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_parent"
-	bl_label = "親子関係"
-	bl_description = "親子関係のメニューです"
+	bl_label = "Parent/child relationships"
+	bl_description = "Is the menu of the parent-child relationship"
 	
 	def draw(self, context):
-		self.layout.operator(ParentSetApplyModifiers.bl_idname, icon="PLUGIN", text="モディファイア適用 => +頂点(三角形)").type = 'VERTEX_TRI'
+		self.layout.operator(ParentSetApplyModifiers.bl_idname, icon="PLUGIN", text="Modifiers apply = &gt; + vertex (triangle)").type = 'VERTEX_TRI'
 
 class CurveMenu(bpy.types.Menu):
 	bl_idname = "view3d_mt_object_specials_curve"
-	bl_label = "カーブ関係"
-	bl_description = "カーブ関係の操作です"
+	bl_label = "Relationship between curves"
+	bl_description = "Operation of curve relationships"
 	
 	def draw(self, context):
 		self.layout.operator(CreateRopeMesh.bl_idname, icon="PLUGIN")
@@ -1018,8 +1018,8 @@ class CurveMenu(bpy.types.Menu):
 
 class SpecialsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_specials"
-	bl_label = "特殊処理"
-	bl_description = "特殊な処理をする操作のメニューです"
+	bl_label = "Special processing"
+	bl_description = "Processing special action menu."
 	
 	def draw(self, context):
 		self.layout.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")

@@ -9,8 +9,8 @@ import os, shutil
 
 class ResaveAllImage(bpy.types.Operator):
 	bl_idname = "image.resave_all_image"
-	bl_label = "全ての画像をtexturesフォルダに保存し直す"
-	bl_description = "外部ファイルを参照している画像データを全てtexturesフォルダに保存し直します"
+	bl_label = "Resave textures folder, all images"
+	bl_description = "All external files referenced by image data to resave the textures folder"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -29,13 +29,13 @@ class ResaveAllImage(bpy.types.Operator):
 					img.unpack()
 				except RuntimeError:
 					pass
-		self.report(type={"INFO"}, message="texturesフォルダに保存し直しました")
+		self.report(type={"INFO"}, message="repaired and stored in the textures folder")
 		return {'FINISHED'}
 
 class IsolationTexturesUnusedFiles(bpy.types.Operator):
 	bl_idname = "image.isolation_textures_unused_files"
-	bl_label = "texturesフォルダ内の未使用ファイルを隔離"
-	bl_description = "このBlendファイルのあるフォルダのtextures内で、使用していないファイルをbackupフォルダに隔離します"
+	bl_label = "isolate unused files in the textures folder"
+	bl_description = "Files in a textures folder with the Blend files, do not use isolates them in a backup folder"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -66,13 +66,13 @@ class IsolationTexturesUnusedFiles(bpy.types.Operator):
 					src = path
 					dst = os.path.join(path, backup_dir, name)
 					shutil.move(src, dst)
-					self.report(type={'INFO'}, message=name+"を隔離")
+					self.report(type={'INFO'}, message=name+"Isolation")
 		return {'FINISHED'}
 
 class OpenRecentFiles(bpy.types.Operator):
 	bl_idname = "wm.open_recent_files"
-	bl_label = "「最近使ったファイル」をテキストで開く"
-	bl_description = "「最近使ったファイル」をBlenderのテキストエディタで開きます"
+	bl_label = "Open text in \"recent files\""
+	bl_description = "Open the \"recent files\" in Blender text editor"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -103,8 +103,8 @@ class OpenRecentFiles(bpy.types.Operator):
 
 class OpenBookmarkText(bpy.types.Operator):
 	bl_idname = "wm.open_bookmark_text"
-	bl_label = "「ブックマーク」をテキストで開く"
-	bl_description = "ファイルブラウザのブックマークをBlenderのテキストエディタで開きます"
+	bl_label = "Open text in \"bookmarks\""
+	bl_description = "Blender text editor open the file browser bookmarks"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):

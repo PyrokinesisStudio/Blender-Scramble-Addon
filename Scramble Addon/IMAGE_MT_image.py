@@ -9,11 +9,11 @@ import os, numpy
 
 class RenameImageFileName(bpy.types.Operator):
 	bl_idname = "image.rename_image_file_name"
-	bl_label = "画像名を使用するファイル名に"
-	bl_description = "アクティブな画像の名前を、使用している外部画像のファイル名にします"
+	bl_label = "Using the name of the image file name"
+	bl_description = "External images are using the name of the active image file name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isExt = bpy.props.BoolProperty(name="拡張子も含む", default=True)
+	isExt = bpy.props.BoolProperty(name="Including the extension", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -37,11 +37,11 @@ class RenameImageFileName(bpy.types.Operator):
 
 class AllRenameImageFileName(bpy.types.Operator):
 	bl_idname = "image.all_rename_image_file_name"
-	bl_label = "全ての画像名を使用するファイル名に"
-	bl_description = "全ての画像の名前を、使用している外部画像のファイル名にします"
+	bl_label = "In the file name to use for all image names"
+	bl_description = "The names of all images using external image file name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isExt = bpy.props.BoolProperty(name="拡張子も含む", default=True)
+	isExt = bpy.props.BoolProperty(name="Including the extension", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -63,8 +63,8 @@ class AllRenameImageFileName(bpy.types.Operator):
 
 class ReloadAllImage(bpy.types.Operator):
 	bl_idname = "image.reload_all_image"
-	bl_label = "全ての画像を再読み込み"
-	bl_description = "外部ファイルを参照している画像データを全て読み込み直します"
+	bl_label = "Load all images"
+	bl_description = "Reloads all the image data referring to external file"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -89,12 +89,12 @@ class ReloadAllImage(bpy.types.Operator):
 
 class FillOverrideColor(bpy.types.Operator):
 	bl_idname = "image.fill_override_color"
-	bl_label = "指定色で上書き"
-	bl_description = "アクティブな画像を指定した色で全て上書きします"
+	bl_label = "Over the specified color"
+	bl_description = "All over the colors you specify the active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="色", description="塗り潰す色", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
-	alpha = bpy.props.FloatProperty(name="透明度", description="透明度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='PERCENTAGE')
+	color = bpy.props.FloatVectorProperty(name="色", description="Color fill", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
+	alpha = bpy.props.FloatProperty(name="Transparency", description="Transparency", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='PERCENTAGE')
 	
 	@classmethod
 	def poll(cls, context):
@@ -119,12 +119,12 @@ class FillOverrideColor(bpy.types.Operator):
 
 class FillColor(bpy.types.Operator):
 	bl_idname = "image.fill_color"
-	bl_label = "指定色で塗り潰す"
-	bl_description = "アクティブな画像を指定した色で全て塗り潰します"
+	bl_label = "Fill with color"
+	bl_description = "All fill in the color you specify the active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="色", description="塗り潰す色", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
-	alpha = bpy.props.FloatProperty(name="透明度", description="透明度", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='PERCENTAGE')
+	color = bpy.props.FloatVectorProperty(name="色", description="Color fill", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
+	alpha = bpy.props.FloatProperty(name="Transparency", description="Transparency", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='PERCENTAGE')
 	
 	@classmethod
 	def poll(cls, context):
@@ -153,11 +153,11 @@ class FillColor(bpy.types.Operator):
 
 class FillTransparency(bpy.types.Operator):
 	bl_idname = "image.fill_transparency"
-	bl_label = "透明部分を塗り潰し"
-	bl_description = "アクティブな画像の透明部分を指定色で塗り潰します"
+	bl_label = "Fill with transparency"
+	bl_description = "The transparent parts of the image are active in the specified color fills"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="埋める色", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
+	color = bpy.props.FloatVectorProperty(name="Color fill", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	
 	@classmethod
 	def poll(cls, context):
@@ -193,8 +193,8 @@ class FillTransparency(bpy.types.Operator):
 
 class Normalize(bpy.types.Operator):
 	bl_idname = "image.normalize"
-	bl_label = "画像の正規化"
-	bl_description = "アクティブな画像を正規化します"
+	bl_label = "Image normalization"
+	bl_description = "Normalizes the active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -225,11 +225,11 @@ class Normalize(bpy.types.Operator):
 
 class RenameImageFile(bpy.types.Operator):
 	bl_idname = "image.rename_image_file"
-	bl_label = "画像ファイル名を変更"
-	bl_description = "アクティブな画像のファイル名を変更します"
+	bl_label = "Change the name of the image file"
+	bl_description = "Change the file name of the active image"
 	bl_options = {'REGISTER'}
 	
-	new_name = bpy.props.StringProperty(name="新しいファイル名")
+	new_name = bpy.props.StringProperty(name="New file name")
 	
 	@classmethod
 	def poll(cls, context):
@@ -241,7 +241,7 @@ class RenameImageFile(bpy.types.Operator):
 	def invoke(self, context, event):
 		self.new_name = bpy.path.basename(context.edit_image.filepath_raw)
 		if (self.new_name == ""):
-			self.report(type={"ERROR"}, message="この画像には外部ファイルが存在しません")
+			self.report(type={"ERROR"}, message="External file does not exist on this image")
 			return {"CANCELLED"}
 		return context.window_manager.invoke_props_dialog(self)
 	def execute(self, context):
@@ -249,7 +249,7 @@ class RenameImageFile(bpy.types.Operator):
 		dir = os.path.dirname(bpy.path.abspath(context.edit_image.filepath_raw))
 		name = bpy.path.basename(context.edit_image.filepath_raw)
 		if (self.new_name == name):
-			self.report(type={"ERROR"}, message="画像ファイル名が元と同じです")
+			self.report(type={"ERROR"}, message="The image file name is the same as the original")
 			return {"CANCELLED"}
 		bpy.ops.image.save_as(filepath=os.path.join(dir, self.new_name))
 		context.edit_image.name = self.new_name
@@ -259,11 +259,11 @@ class RenameImageFile(bpy.types.Operator):
 # ながとさんに協力して頂きました、感謝！
 class BlurImage(bpy.types.Operator):
 	bl_idname = "image.blur_image"
-	bl_label = "画像をぼかす (重いので注意)"
-	bl_description = "アクティブな画像をぼかします"
+	bl_label = "(Note the heavy) blurs an image"
+	bl_description = "Blurs an image of active"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	strength = bpy.props.IntProperty(name="ぼかし量", default=10, min=1, max=100, soft_min=1, soft_max=100)
+	strength = bpy.props.IntProperty(name="Blur amount", default=10, min=1, max=100, soft_min=1, soft_max=100)
 	
 	@classmethod
 	def poll(cls, context):
@@ -277,7 +277,7 @@ class BlurImage(bpy.types.Operator):
 	def execute(self, context):
 		img = context.edit_image
 		if (not img):
-			self.report(type={'ERROR'}, message="アクティブな画像が見つかりません")
+			self.report(type={'ERROR'}, message="Active image not found")
 			return {'CANCELLED'}
 		w, h, c = img.size[0], img.size[1], img.channels
 		ps = numpy.array(img.pixels)
@@ -319,8 +319,8 @@ class BlurImage(bpy.types.Operator):
 
 class ReverseWidthImage(bpy.types.Operator):
 	bl_idname = "image.reverse_width_image"
-	bl_label = "水平反転"
-	bl_description = "アクティブな画像を水平方向に反転します"
+	bl_label = "Flip horizontally"
+	bl_description = "Active image flips horizontally"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -333,7 +333,7 @@ class ReverseWidthImage(bpy.types.Operator):
 	def execute(self, context):
 		img = context.edit_image
 		if (not img):
-			self.report(type={'ERROR'}, message="アクティブな画像が見つかりません")
+			self.report(type={'ERROR'}, message="Active image not found")
 			return {'CANCELLED'}
 		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
 		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
@@ -348,8 +348,8 @@ class ReverseWidthImage(bpy.types.Operator):
 
 class ReverseHeightImage(bpy.types.Operator):
 	bl_idname = "image.reverse_height_image"
-	bl_label = "垂直反転"
-	bl_description = "アクティブな画像を垂直方向に反転します"
+	bl_label = "Flip vertically"
+	bl_description = "Active image flips vertical"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -362,7 +362,7 @@ class ReverseHeightImage(bpy.types.Operator):
 	def execute(self, context):
 		img = context.edit_image
 		if (not img):
-			self.report(type={'ERROR'}, message="アクティブな画像が見つかりません")
+			self.report(type={'ERROR'}, message="Active image not found")
 			return {'CANCELLED'}
 		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
 		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
@@ -375,8 +375,8 @@ class ReverseHeightImage(bpy.types.Operator):
 
 class Rotate90Image(bpy.types.Operator):
 	bl_idname = "image.rotate_90_image"
-	bl_label = "90°回転"
-	bl_description = "アクティブな画像を90°回転します"
+	bl_label = "Rotate 90 degrees"
+	bl_description = "Active image rotates 90 °"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -402,8 +402,8 @@ class Rotate90Image(bpy.types.Operator):
 
 class Rotate180Image(bpy.types.Operator):
 	bl_idname = "image.rotate_180_image"
-	bl_label = "180°回転"
-	bl_description = "アクティブな画像を180°回転します"
+	bl_label = "Rotate 180 degrees"
+	bl_description = "Active image rotates 180 °"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -416,7 +416,7 @@ class Rotate180Image(bpy.types.Operator):
 	def execute(self, context):
 		img = context.edit_image
 		if (not img):
-			self.report(type={'ERROR'}, message="アクティブな画像が見つかりません")
+			self.report(type={'ERROR'}, message="Active image not found")
 			return {'CANCELLED'}
 		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
 		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
@@ -430,8 +430,8 @@ class Rotate180Image(bpy.types.Operator):
 
 class Rotate270Image(bpy.types.Operator):
 	bl_idname = "image.rotate_270_image"
-	bl_label = "270°回転"
-	bl_description = "アクティブな画像を270°回転します"
+	bl_label = "Rotate 270 degrees"
+	bl_description = "Active image rotates 270 degrees"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -457,11 +457,11 @@ class Rotate270Image(bpy.types.Operator):
 
 class ExternalEditEX(bpy.types.Operator):
 	bl_idname = "image.external_edit_ex"
-	bl_label = "外部エディターで編集 (拡張)"
-	bl_description = "ユーザー設定のファイルタブで設定した追加の外部エディターで画像を開きます"
+	bl_label = "Editing in an external editor (enhanced)"
+	bl_description = "Open the image in an external editor of the additional files page of the custom"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	index = bpy.props.IntProperty(name="使用する番号", default=1, min=1, max=3, soft_min=1, soft_max=3)
+	index = bpy.props.IntProperty(name="Number to use", default=1, min=1, max=3, soft_min=1, soft_max=3)
 	
 	@classmethod
 	def poll(cls, context):
@@ -473,10 +473,10 @@ class ExternalEditEX(bpy.types.Operator):
 	def execute(self, context):
 		img = context.edit_image
 		if (not img):
-			self.report(type={'ERROR'}, message="画像が見つかりません")
+			self.report(type={'ERROR'}, message="Image not found")
 			return {'CANCELLED'}
 		if (img.filepath == ""):
-			self.report(type={'ERROR'}, message="画像パスが見つかりません")
+			self.report(type={'ERROR'}, message="Cannot find the image path")
 			return {'CANCELLED'}
 		path = bpy.path.abspath(img.filepath)
 		pre_path = context.user_preferences.filepaths.image_editor
@@ -492,8 +492,8 @@ class ExternalEditEX(bpy.types.Operator):
 
 class Resize(bpy.types.Operator):
 	bl_idname = "image.resize"
-	bl_label = "画像の拡大/縮小"
-	bl_description = "アクティブな画像をリサイズします"
+	bl_label = "Image zoom in / out"
+	bl_description = "Active image resizing"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def width_update(self, context):
@@ -511,9 +511,9 @@ class Resize(bpy.types.Operator):
 			self.width = round(self.height * ratio)
 		return None
 	
-	width = bpy.props.IntProperty(name="横幅", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL', update=width_update)
-	height = bpy.props.IntProperty(name="縦幅", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL', update=height_update)
-	keep_ratio = bpy.props.BoolProperty(name="比率を維持", default=True)
+	width = bpy.props.IntProperty(name="Width", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL', update=width_update)
+	height = bpy.props.IntProperty(name="Vertical size", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL', update=height_update)
+	keep_ratio = bpy.props.BoolProperty(name="Keep ratio", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -536,8 +536,8 @@ class Resize(bpy.types.Operator):
 
 class Duplicate(bpy.types.Operator):
 	bl_idname = "image.duplicate"
-	bl_label = "画像の複製"
-	bl_description = "アクティブな画像を複製します"
+	bl_label = "Reproduction of images"
+	bl_description = "Duplicate the active picture"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -581,8 +581,8 @@ class Duplicate(bpy.types.Operator):
 
 class TransformMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_image_transform"
-	bl_label = "変形"
-	bl_description = "画像の変形処理メニューです"
+	bl_label = "Deformation"
+	bl_description = "Image deformation processing menu."
 	
 	def draw(self, context):
 		self.layout.operator(Resize.bl_idname, icon='PLUGIN')
@@ -613,15 +613,15 @@ def menu(self, context):
 			self.layout.separator()
 			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1)
 			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" で開く").index = 1
+			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" In the open").index = 1
 		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_2):
 			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_2)
 			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" で開く").index = 2
+			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" In the open").index = 2
 		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_3):
 			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_3)
 			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" で開く").index = 3
+			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" In the open").index = 3
 		self.layout.separator()
 		self.layout.operator(FillOverrideColor.bl_idname, icon='PLUGIN')
 		self.layout.operator(FillColor.bl_idname, icon='PLUGIN')

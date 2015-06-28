@@ -8,12 +8,12 @@ import bpy
 
 class CopyAllMaterialNode(bpy.types.Operator):
 	bl_idname = "node.copy_all_material_node"
-	bl_label = "このシェーダーノードを他マテリアルにコピー"
-	bl_description = "表示しているシェーダーノードを他のマテリアルにコピーします"
+	bl_label = "Copy to other material shader node"
+	bl_description = "Copies of other material shader nodes are displayed"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOnlySelected = bpy.props.BoolProperty(name="選択オブジェクトのみ", default=False)
-	isOnlyUseNode = bpy.props.BoolProperty(name="ﾉｰﾄﾞ使用済の場合のみ", default=False)
+	isOnlySelected = bpy.props.BoolProperty(name="Only the selected object", default=False)
+	isOnlyUseNode = bpy.props.BoolProperty(name="Only used for those nodes", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -72,7 +72,7 @@ class CopyAllMaterialNode(bpy.types.Operator):
 	
 	def invoke(self, context, event):
 		if (context.space_data.tree_type != 'ShaderNodeTree'):
-			self.report(type={"ERROR"}, message="シェーダーノードで実行して下さい")
+			self.report(type={"ERROR"}, message="Please run the shader nodes")
 			return {"CANCELLED"}
 		wm = context.window_manager
 		return wm.invoke_props_dialog(self)

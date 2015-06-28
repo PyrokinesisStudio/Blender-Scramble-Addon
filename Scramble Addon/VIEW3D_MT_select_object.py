@@ -9,27 +9,27 @@ import re
 
 class SelectBoundBoxSize(bpy.types.Operator):
 	bl_idname = "object.select_bound_box_size"
-	bl_label = "サイズで比較してオブジェクトを選択"
-	bl_description = "最大オブジェクトに対して大きい、もしくは小さいオブジェクトを選択します"
+	bl_label = "In size compared to the object"
+	bl_description = "Select the maximum objects larger or smaller objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('LARGE', "大きい物を選択", "", 1),
-		('SMALL', "小さい物を選択", "", 2),
+		('LARGE', "Choose the big ones", "", 1),
+		('SMALL', "Choose small ones", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="選択モード")
+	mode = bpy.props.EnumProperty(items=items, name="Selection mode")
 	items = [
-		('MESH', "メッシュ", "", 1),
-		('CURVE', "カーブ", "", 2),
-		('SURFACE', "サーフェス", "", 3),
-		('META', "メタボール", "", 4),
-		('FONT', "テキスト", "", 5),
-		('ARMATURE', "アーマチュア", "", 6),
-		('LATTICE', "ラティス", "", 7),
-		('ALL', "全て", "", 8),
+		('MESH', "Mesh", "", 1),
+		('CURVE', "Curve", "", 2),
+		('SURFACE', "Surface", "", 3),
+		('META', "Metaballs", "", 4),
+		('FONT', "Text", "", 5),
+		('ARMATURE', "Armature", "", 6),
+		('LATTICE', "Lattice", "", 7),
+		('ALL', "All", "", 8),
 		]
-	select_type = bpy.props.EnumProperty(items=items, name="選択タイプ", default='MESH')
-	threshold = bpy.props.FloatProperty(name="選択範囲", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
+	select_type = bpy.props.EnumProperty(items=items, name="Select type", default='MESH')
+	threshold = bpy.props.FloatProperty(name="Selection", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
 	
 	@classmethod
 	def poll(cls, context):
@@ -79,8 +79,8 @@ class SelectBoundBoxSize(bpy.types.Operator):
 
 class SelectGroupedName(bpy.types.Operator):
 	bl_idname = "object.select_grouped_name"
-	bl_label = "同じ名前のオブジェクトを選択"
-	bl_description = "アクティブなオブジェクトと同じ名前 (X X.001 X.002など) の可視オブジェクトを選択します"
+	bl_label = "Select the object with the same name"
+	bl_description = "Select the visible object of the active object with the same name, such as (X.001 X X.002)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -94,8 +94,8 @@ class SelectGroupedName(bpy.types.Operator):
 
 class SelectGroupedMaterial(bpy.types.Operator):
 	bl_idname = "object.select_grouped_material"
-	bl_label = "同じマテリアル構造のオブジェクトを選択"
-	bl_description = "アクティブなオブジェクトのマテリアル構造と同じ可視オブジェクトを選択します"
+	bl_label = "Select an object of same material structure"
+	bl_description = "Select the active object material structure and same visible objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -114,8 +114,8 @@ class SelectGroupedMaterial(bpy.types.Operator):
 
 class SelectGroupedModifiers(bpy.types.Operator):
 	bl_idname = "object.select_grouped_modifiers"
-	bl_label = "同じモディファイア構造のオブジェクトを選択"
-	bl_description = "アクティブなオブジェクトのモディファイア構造が同じ可視オブジェクトを選択します"
+	bl_label = "Select the same modifier structure objects"
+	bl_description = "Select the same modifier of active objects visible objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -133,8 +133,8 @@ class SelectGroupedModifiers(bpy.types.Operator):
 
 class SelectGroupedSubsurfLevel(bpy.types.Operator):
 	bl_idname = "object.select_grouped_subsurf_level"
-	bl_label = "同じサブサーフレベルのオブジェクトを選択"
-	bl_description = "アクティブなオブジェクトのサブサーフレベルが同じ可視オブジェクトを選択します"
+	bl_label = "Select Subsurf levels the same object"
+	bl_description = "Select Subsurf levels of active objects have the same visible objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -153,8 +153,8 @@ class SelectGroupedSubsurfLevel(bpy.types.Operator):
 
 class SelectGroupedArmatureTarget(bpy.types.Operator):
 	bl_idname = "object.select_grouped_armature_target"
-	bl_label = "同じアーマチュアで変形しているオブジェクトを選択"
-	bl_description = "アクティブなオブジェクトと同じアーマチュアで変形している可視オブジェクトを選択します"
+	bl_label = "Select the objects that transform in the same armature"
+	bl_description = "Select the visible objects are transformed in an active object with same armature"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -169,7 +169,7 @@ class SelectGroupedArmatureTarget(bpy.types.Operator):
 			return set(target)
 		active_armature_targets = GetArmatureTarget(context.active_object)
 		if (len(active_armature_targets) == 0):
-			self.report(type={"ERROR"}, message="アクティブオブジェクトにアーマチュアモディファイアがありません")
+			self.report(type={"ERROR"}, message="No active object armtuamodifaia")
 			return {"CANCELLED"}
 		active_type = context.active_object.type
 		for obj in context.selectable_objects:
@@ -179,29 +179,29 @@ class SelectGroupedArmatureTarget(bpy.types.Operator):
 
 class SelectGroupedSizeThan(bpy.types.Operator):
 	bl_idname = "object.select_grouped_size_than"
-	bl_label = "サイズで比較してオブジェクトを選択"
-	bl_description = "アクティブオブジェクトより大きい、もしくは小さいオブジェクトを追加選択します"
+	bl_label = "In size compared to the object"
+	bl_description = "Greater than the active object, or select additional small objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('LARGER', "より大きい物を選択", "", 1),
-		('SMALLER', "より小さい物を選択", "", 2),
+		('LARGER', "Choose the bigger ones", "", 1),
+		('SMALLER', "Choose smaller ones", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="選択モード")
-	select_same_size = bpy.props.BoolProperty(name="同じサイズも選択", default=True)
+	mode = bpy.props.EnumProperty(items=items, name="Selection mode")
+	select_same_size = bpy.props.BoolProperty(name="Also choose the same size", default=True)
 	items = [
-		('MESH', "メッシュ", "", 1),
-		('CURVE', "カーブ", "", 2),
-		('SURFACE', "サーフェス", "", 3),
-		('META', "メタボール", "", 4),
-		('FONT', "テキスト", "", 5),
-		('ARMATURE', "アーマチュア", "", 6),
-		('LATTICE', "ラティス", "", 7),
-		('ALL', "全て", "", 8),
-		('SAME', "同じタイプ", "", 9),
+		('MESH', "Mesh", "", 1),
+		('CURVE', "Curve", "", 2),
+		('SURFACE', "Surface", "", 3),
+		('META', "Metaballs", "", 4),
+		('FONT', "Text", "", 5),
+		('ARMATURE', "Armature", "", 6),
+		('LATTICE', "Lattice", "", 7),
+		('ALL', "All", "", 8),
+		('SAME', "Same type", "", 9),
 		]
-	select_type = bpy.props.EnumProperty(items=items, name="選択タイプ", default='SAME')
-	size_multi = bpy.props.FloatProperty(name="基準サイズ オフセット", default=1.0, min=0, max=10, soft_min=0, soft_max=10, step=10, precision=3)
+	select_type = bpy.props.EnumProperty(items=items, name="Select type", default='SAME')
+	size_multi = bpy.props.FloatProperty(name="Standard size offset", default=1.0, min=0, max=10, soft_min=0, soft_max=10, step=10, precision=3)
 	
 	def execute(self, context):
 		def GetSize(obj):
@@ -215,7 +215,7 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 		
 		active_obj = context.active_object
 		if (not active_obj):
-			self.report(type={'ERROR'}, message="アクティブオブジェクトがありません")
+			self.report(type={'ERROR'}, message="There is no active object")
 			return {'CANCELLED'}
 		context.scene.update()
 		active_obj_size = GetSize(active_obj) * self.size_multi
@@ -245,8 +245,8 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 
 class SelectMeshFaceOnly(bpy.types.Operator):
 	bl_idname = "object.select_mesh_face_only"
-	bl_label = "面のあるメッシュを選択"
-	bl_description = "面が1つ以上あるメッシュを選択します"
+	bl_label = "Choose a surface mesh"
+	bl_description = "Select a mesh surface at least one"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -265,8 +265,8 @@ class SelectMeshFaceOnly(bpy.types.Operator):
 
 class SelectMeshEdgeOnly(bpy.types.Operator):
 	bl_idname = "object.select_mesh_edge_only"
-	bl_label = "辺のみのメッシュを選択"
-	bl_description = "面が無く、辺のみのメッシュを選択します"
+	bl_label = "Select only the side mesh"
+	bl_description = "Surface, select the only side mesh"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -285,8 +285,8 @@ class SelectMeshEdgeOnly(bpy.types.Operator):
 
 class SelectMeshVertexOnly(bpy.types.Operator):
 	bl_idname = "object.select_mesh_vertex_only"
-	bl_label = "頂点のみのメッシュを選択"
-	bl_description = "面と辺が無く、頂点のみのメッシュを選択します"
+	bl_label = "Select the mesh vertices only"
+	bl_description = "Surfaces and edges, select the mesh vertices only"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -305,8 +305,8 @@ class SelectMeshVertexOnly(bpy.types.Operator):
 
 class SelectMeshNone(bpy.types.Operator):
 	bl_idname = "object.select_mesh_none"
-	bl_label = "頂点すら無いメッシュを選択"
-	bl_description = "面と辺と頂点が無い空のメッシュオブジェクトを選択します"
+	bl_label = "Select the no mesh even vertex"
+	bl_description = "Surface and edge and select the mesh object vertex is not empty"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -329,45 +329,45 @@ class SelectMeshNone(bpy.types.Operator):
 
 class SelectGroupedEX(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_object_grouped_ex"
-	bl_label = "関係で選択 (拡張)"
-	bl_description = "プロパティによってグループ化されたすべての可視オブジェクトを選択します"
+	bl_label = "Selected relationship (extended)"
+	bl_description = "Select all visible objects grouped by properties"
 	
 	def draw(self, context):
 		column = self.layout.column()
 		column.operator("object.select_grouped", text="子").type = 'CHILDREN_RECURSIVE'
-		column.operator("object.select_grouped", text="直接の子").type = 'CHILDREN'
+		column.operator("object.select_grouped", text="Immediate children").type = 'CHILDREN'
 		column.operator("object.select_grouped", text="親").type = 'PARENT'
-		column.operator("object.select_grouped", text="兄弟").type = 'SIBLINGS'
-		column.operator("object.select_grouped", text="タイプ").type = 'TYPE'
-		column.operator("object.select_grouped", text="レイヤー").type = 'LAYER'
-		column.operator("object.select_grouped", text="グループ").type = 'GROUP'
-		column.operator("object.select_grouped", text="パス").type = 'PASS'
-		column.operator("object.select_grouped", text="カラー").type = 'COLOR'
-		column.operator("object.select_grouped", text="プロパティ").type = 'PROPERTIES'
-		column.operator("object.select_grouped", text="キーイングセット").type = 'KEYINGSET'
-		column.operator("object.select_grouped", text="ランプタイプ").type = 'LAMP_TYPE'
+		column.operator("object.select_grouped", text="Brother").type = 'SIBLINGS'
+		column.operator("object.select_grouped", text="Type").type = 'TYPE'
+		column.operator("object.select_grouped", text="Layer").type = 'LAYER'
+		column.operator("object.select_grouped", text="Group").type = 'GROUP'
+		column.operator("object.select_grouped", text="Path").type = 'PASS'
+		column.operator("object.select_grouped", text="Color").type = 'COLOR'
+		column.operator("object.select_grouped", text="Property").type = 'PROPERTIES'
+		column.operator("object.select_grouped", text="Keying set").type = 'KEYINGSET'
+		column.operator("object.select_grouped", text="Lamp type").type = 'LAMP_TYPE'
 		column.separator()
-		column.operator(SelectGroupedSizeThan.bl_idname, text="より大きい", icon="PLUGIN").mode = 'LARGER'
-		column.operator(SelectGroupedSizeThan.bl_idname, text="より小さい", icon="PLUGIN").mode = 'SMALLER'
+		column.operator(SelectGroupedSizeThan.bl_idname, text="Greater than", icon="PLUGIN").mode = 'LARGER'
+		column.operator(SelectGroupedSizeThan.bl_idname, text="Less than", icon="PLUGIN").mode = 'SMALLER'
 		column.separator()
-		column.operator(SelectGroupedName.bl_idname, text="オブジェクト名", icon="PLUGIN")
-		column.operator(SelectGroupedMaterial.bl_idname, text="マテリアル", icon="PLUGIN")
-		column.operator(SelectGroupedModifiers.bl_idname, text="モディファイア", icon="PLUGIN")
-		column.operator(SelectGroupedSubsurfLevel.bl_idname, text="サブサーフレベル", icon="PLUGIN")
-		column.operator(SelectGroupedArmatureTarget.bl_idname, text="同アーマチュア変形", icon="PLUGIN")
+		column.operator(SelectGroupedName.bl_idname, text="Object name", icon="PLUGIN")
+		column.operator(SelectGroupedMaterial.bl_idname, text="Material", icon="PLUGIN")
+		column.operator(SelectGroupedModifiers.bl_idname, text="Modifier", icon="PLUGIN")
+		column.operator(SelectGroupedSubsurfLevel.bl_idname, text="Subsurf levels", icon="PLUGIN")
+		column.operator(SelectGroupedArmatureTarget.bl_idname, text="Same armature deformation", icon="PLUGIN")
 		if (not context.object):
 			column.enabled = False
 
 class SelectMesh(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_object_mesh"
-	bl_label = "メッシュの特徴で選択"
-	bl_description = "可視メッシュオブジェクトを選択する機能のメニューです"
+	bl_label = "Selected characteristics of a mesh"
+	bl_description = "Ability to select the mesh object visualization menu."
 	
 	def draw(self, context):
-		self.layout.operator(SelectMeshFaceOnly.bl_idname, text="面あり", icon="PLUGIN")
-		self.layout.operator(SelectMeshEdgeOnly.bl_idname, text="辺のみ", icon="PLUGIN")
-		self.layout.operator(SelectMeshVertexOnly.bl_idname, text="頂点のみ", icon="PLUGIN")
-		self.layout.operator(SelectMeshNone.bl_idname, text="頂点すら無し", icon="PLUGIN")
+		self.layout.operator(SelectMeshFaceOnly.bl_idname, text="Terms and", icon="PLUGIN")
+		self.layout.operator(SelectMeshEdgeOnly.bl_idname, text="Sides only", icon="PLUGIN")
+		self.layout.operator(SelectMeshVertexOnly.bl_idname, text="Only the vertices", icon="PLUGIN")
+		self.layout.operator(SelectMeshNone.bl_idname, text="Even the vertex no", icon="PLUGIN")
 
 ################
 # メニュー追加 #
@@ -385,8 +385,8 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(SelectBoundBoxSize.bl_idname, text="小さなものを選択", icon="PLUGIN").mode = 'SMALL'
-		self.layout.operator(SelectBoundBoxSize.bl_idname, text="大きなものを選択", icon="PLUGIN").mode = 'LARGE'
+		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Choose small ones", icon="PLUGIN").mode = 'SMALL'
+		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Choose the big ones", icon="PLUGIN").mode = 'LARGE'
 		self.layout.separator()
 		self.layout.menu(SelectMesh.bl_idname, icon="PLUGIN")
 		self.layout.menu(SelectGroupedEX.bl_idname, icon="PLUGIN")

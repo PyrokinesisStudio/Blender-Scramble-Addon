@@ -8,22 +8,22 @@ import bpy
 
 class Reset2DCursor(bpy.types.Operator):
 	bl_idname = "image.reset_2d_cursor"
-	bl_label = "カーソルの位置をリセット"
-	bl_description = "2Dカーソルの位置を左下に移動させます"
+	bl_label = "Reset the position of the cursor"
+	bl_description = "2D cursor moves in the lower left"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("C", "中央", "", 1),
+		("C", "Central", "", 1),
 		("U", "上", "", 2),
-		("RU", "右上", "", 3),
+		("RU", "On the upper right", "", 3),
 		("R", "右", "", 4),
-		("RD", "右下", "", 5),
+		("RD", "Lower right", "", 5),
 		("D", "下", "", 6),
-		("LD", "左下", "", 7),
+		("LD", "Lower left", "", 7),
 		("L", "左", "", 8),
-		("LU", "左上", "", 9),
+		("LU", "On the top left", "", 9),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="位置", default="LD")
+	mode = bpy.props.EnumProperty(items=items, name="Location", default="LD")
 	
 	def execute(self, context):
 		if (bpy.context.edit_image):
@@ -53,8 +53,8 @@ class Reset2DCursor(bpy.types.Operator):
 
 class TogglePanelsA(bpy.types.Operator):
 	bl_idname = "image.toggle_panels_a"
-	bl_label = "パネル表示切り替え(モードA)"
-	bl_description = "プロパティ/ツールシェルフの「両方表示」/「両方非表示」をトグルします"
+	bl_label = "Toggle Panel (mode A)"
+	bl_description = "The properties/tool shelf \"both display\" / \"both hide\" toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -77,8 +77,8 @@ class TogglePanelsA(bpy.types.Operator):
 
 class TogglePanelsB(bpy.types.Operator):
 	bl_idname = "image.toggle_panels_b"
-	bl_label = "パネル表示切り替え(モードB)"
-	bl_description = "「パネル両方非表示」→「ツールシェルフのみ表示」→「プロパティのみ表示」→「パネル両方表示」のトグル"
+	bl_label = "Toggle Panel (mode B)"
+	bl_description = "\"Panel both hide\" → show only the tool shelf → show only properties → \"Panel both display\" for toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -100,8 +100,8 @@ class TogglePanelsB(bpy.types.Operator):
 
 class TogglePanelsC(bpy.types.Operator):
 	bl_idname = "image.toggle_panels_c"
-	bl_label = "パネル表示切り替え(モードC)"
-	bl_description = "「パネル両方非表示」→「ツールシェルフのみ表示」→「プロパティのみ表示」... のトグル"
+	bl_label = "Toggle Panel (mode C)"
+	bl_description = "\"Panel both hide\" → see only the tool shelf → view properties only. The toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -127,8 +127,8 @@ class TogglePanelsC(bpy.types.Operator):
 
 class ShortcutsMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_view_shortcuts"
-	bl_label = "ショートカット登録用"
-	bl_description = "ショートカットに登録すると便利かもしれない機能群です"
+	bl_label = "Shortcut for registration"
+	bl_description = "Shortcuts and features that might come in handy"
 	
 	def draw(self, context):
 		self.layout.operator(TogglePanelsA.bl_idname, icon="PLUGIN")
@@ -137,8 +137,8 @@ class ShortcutsMenu(bpy.types.Menu):
 
 class Reset2DCursorMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_view_reset_2d_cursor"
-	bl_label = "カーソルの位置をリセット"
-	bl_description = "カーソルの位置をリセットします"
+	bl_label = "Reset the position of the cursor"
+	bl_description = "Resets the position of the cursor"
 	
 	def draw(self, context):
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="上").mode = 'U'
@@ -146,12 +146,12 @@ class Reset2DCursorMenu(bpy.types.Menu):
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="下").mode = 'D'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="左").mode = 'L'
 		self.layout.separator()
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="右上").mode = 'RU'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="右下").mode = 'RD'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="左下").mode = 'LD'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="左上").mode = 'LU'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On the upper right").mode = 'RU'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Lower right").mode = 'RD'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Lower left").mode = 'LD'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On the top left").mode = 'LU'
 		self.layout.separator()
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="中央").mode = 'C'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Central").mode = 'C'
 
 ################
 # メニュー追加 #

@@ -8,8 +8,8 @@ import bpy
 
 class ViewSelectedEX(bpy.types.Operator):
 	bl_idname = "view3d.view_selected_ex"
-	bl_label = "選択部分を表示 (非ズーム)"
-	bl_description = "選択中の物に3D視点の中心を合わせます(ズームはしません)"
+	bl_label = "Display selection (non-zoom)"
+	bl_description = "Food choice in over the center of the 3D view (zoom is not)"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -31,8 +31,8 @@ class ViewSelectedEX(bpy.types.Operator):
 
 class ResetView(bpy.types.Operator):
 	bl_idname = "view3d.reset_view"
-	bl_label = "視点を原点に"
-	bl_description = "3Dビューの視点を座標の中心に移動します"
+	bl_label = "Viewpoint at the origin"
+	bl_description = "3D view perspective moves in the center of the coordinate"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -44,17 +44,17 @@ class ResetView(bpy.types.Operator):
 
 class SelectAndView(bpy.types.Operator):
 	bl_idname = "view3d.select_and_view"
-	bl_label = "選択+視点の中心に"
-	bl_description = "マウス下の物を選択し視点の中心にします (Shiftを押しながらで追加選択)"
+	bl_label = "In the center of the selection + POV"
+	bl_description = "Select the object under the mouse, the center point of (shift in additional selection)"
 	bl_options = {'REGISTER'}
 	
 	items = [
-		("view_selected_ex", "ズームしない", "", 1),
-		("view_selected", "ズームする", "", 2),
+		("view_selected_ex", "No zoom", "", 1),
+		("view_selected", "To zoom", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="視点変更方法")
-	mouse_loc = bpy.props.IntVectorProperty(name="マウス位置", size=2)
-	isExtend = bpy.props.BoolProperty(name="追加選択", default=False)
+	mode = bpy.props.EnumProperty(items=items, name="How to change the point of view")
+	mouse_loc = bpy.props.IntVectorProperty(name="Mouse position", size=2)
+	isExtend = bpy.props.BoolProperty(name="Add selection", default=False)
 	
 	def execute(self, context):
 		bpy.ops.view3d.select(location=self.mouse_loc, extend=self.isExtend)
@@ -71,11 +71,11 @@ class SelectAndView(bpy.types.Operator):
 
 class SnapMeshView(bpy.types.Operator):
 	bl_idname = "view3d.snap_mesh_view"
-	bl_label = "メッシュに視点をスナップ"
-	bl_description = "マウス下のメッシュ面上に視点の中心を移動させます(ショートカットに登録してお使い下さい)"
+	bl_label = "Snap to point mesh"
+	bl_description = "(Please use the shortcuts) move the center point of mesh surface under the mouse"
 	bl_options = {'MACRO'}
 	
-	mouse_co = bpy.props.IntVectorProperty(name="マウス位置", size=2)
+	mouse_co = bpy.props.IntVectorProperty(name="Mouse position", size=2)
 	
 	def execute(self, context):
 		preGp = context.scene.grease_pencil
@@ -107,8 +107,8 @@ class SnapMeshView(bpy.types.Operator):
 
 class ReverseView(bpy.types.Operator):
 	bl_idname = "view3d.reverse_view"
-	bl_label = "ビューの反対側に"
-	bl_description = "現在のビューの逆側へ回りこみます"
+	bl_label = "On the other side of the view"
+	bl_description = "Orbit to the reverse side of the current view"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -119,8 +119,8 @@ class ReverseView(bpy.types.Operator):
 
 class ResetViewAndCursor(bpy.types.Operator):
 	bl_idname = "view3d.reset_view_and_cursor"
-	bl_label = "視点と3Dカーソルを原点に"
-	bl_description = "視点と3Dカーソルの位置を原点(XYZ=0.0)に移動させます"
+	bl_label = "3D cursor with the viewpoint at the origin"
+	bl_description = "Perspective and 3D cursor position move to origin (XYZ=0.0)"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -130,11 +130,11 @@ class ResetViewAndCursor(bpy.types.Operator):
 
 class SnapMeshViewAndCursor(bpy.types.Operator):
 	bl_idname = "view3d.snap_mesh_view_and_cursor"
-	bl_label = "メッシュに視点と3Dカーソルをスナップ"
-	bl_description = "マウス下のメッシュ面上に視点と3Dカーソルを移動させます (ショートカットに登録してお使い下さい)"
+	bl_label = "Perspective and 3D cursor snap to mesh"
+	bl_description = "(Please use the shortcuts) move the viewpoint and 3D cursor mesh surface under the mouse"
 	bl_options = {'REGISTER'}
 	
-	mouse_co = bpy.props.IntVectorProperty(name="マウス位置", size=2)
+	mouse_co = bpy.props.IntVectorProperty(name="Mouse position", size=2)
 	
 	def execute(self, context):
 		preGp = context.scene.grease_pencil

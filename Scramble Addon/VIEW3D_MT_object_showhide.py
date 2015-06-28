@@ -8,8 +8,8 @@ import bpy
 
 class InvertHide(bpy.types.Operator):
 	bl_idname = "object.invert_hide"
-	bl_label = "表示/隠すを反転"
-	bl_description = "オブジェクトの表示状態と非表示状態を反転させます"
+	bl_label = "Show / hide flip"
+	bl_description = "Flips the object\'s view state and non-State"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -28,24 +28,24 @@ class InvertHide(bpy.types.Operator):
 
 class HideOnlyType(bpy.types.Operator):
 	bl_idname = "object.hide_only_mesh"
-	bl_label = "特定の種類のオブジェクトのみを隠す"
-	bl_description = "表示されている特定タイプのオブジェクトを隠します"
+	bl_label = "Hide only specific types of objects"
+	bl_description = "Hides the object of a specific type are displayed"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("MESH", "メッシュ", "", 1),
-		("CURVE", "カーブ", "", 2),
-		("SURFACE", "サーフェイス", "", 3),
-		("META", "メタボール", "", 4),
-		("FONT", "テキスト", "", 5),
-		("ARMATURE", "アーマチュア", "", 6),
-		("LATTICE", "ラティス", "", 7),
-		("EMPTY", "エンプティ", "", 8),
-		("CAMERA", "カメラ", "", 9),
-		("LAMP", "ランプ", "", 10),
-		("SPEAKER", "スピーカー", "", 11),
+		("MESH", "Mesh", "", 1),
+		("CURVE", "Curve", "", 2),
+		("SURFACE", "Surface", "", 3),
+		("META", "Metaballs", "", 4),
+		("FONT", "Text", "", 5),
+		("ARMATURE", "Armature", "", 6),
+		("LATTICE", "Lattice", "", 7),
+		("EMPTY", "Empty", "", 8),
+		("CAMERA", "Camera", "", 9),
+		("LAMP", "Lamp", "", 10),
+		("SPEAKER", "Speakers", "", 11),
 		]
-	type = bpy.props.EnumProperty(items=items, name="隠すオブジェクトのタイプ")
+	type = bpy.props.EnumProperty(items=items, name="Hide object type")
 	
 	def execute(self, context):
 		for obj in context.selectable_objects:
@@ -55,24 +55,24 @@ class HideOnlyType(bpy.types.Operator):
 
 class HideExceptType(bpy.types.Operator):
 	bl_idname = "object.hide_except_mesh"
-	bl_label = "特定の種類のオブジェクト以外を隠す"
-	bl_description = "表示されている特定タイプのオブジェクト以外を隠します"
+	bl_label = "Non-specific types of objects to hide"
+	bl_description = "Hides the object non-specific type that is displayed"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("MESH", "メッシュ", "", 1),
-		("CURVE", "カーブ", "", 2),
-		("SURFACE", "サーフェイス", "", 3),
-		("META", "メタボール", "", 4),
-		("FONT", "テキスト", "", 5),
-		("ARMATURE", "アーマチュア", "", 6),
-		("LATTICE", "ラティス", "", 7),
-		("EMPTY", "エンプティ", "", 8),
-		("CAMERA", "カメラ", "", 9),
-		("LAMP", "ランプ", "", 10),
-		("SPEAKER", "スピーカー", "", 11),
+		("MESH", "Mesh", "", 1),
+		("CURVE", "Curve", "", 2),
+		("SURFACE", "Surface", "", 3),
+		("META", "Metaballs", "", 4),
+		("FONT", "Text", "", 5),
+		("ARMATURE", "Armature", "", 6),
+		("LATTICE", "Lattice", "", 7),
+		("EMPTY", "Empty", "", 8),
+		("CAMERA", "Camera", "", 9),
+		("LAMP", "Lamp", "", 10),
+		("SPEAKER", "Speakers", "", 11),
 		]
-	type = bpy.props.EnumProperty(items=items, name="残すオブジェクトのタイプ")
+	type = bpy.props.EnumProperty(items=items, name="Leave the object type")
 	
 	def execute(self, context):
 		for obj in context.selectable_objects:

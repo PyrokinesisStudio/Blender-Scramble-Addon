@@ -8,13 +8,13 @@ import bpy
 
 class ShowAllBoneLayers(bpy.types.Operator):
 	bl_idname = "armature.show_all_bone_layers"
-	bl_label = "全ボーンレイヤーを表示"
-	bl_description = "全てのボーンレイヤーをオンにして表示します"
+	bl_label = "View all bone layer"
+	bl_description = "All the bone layer and then displays the"
 	bl_options = {'REGISTER'}
 	
 	layers = [False] * 32
 	layers[0] = True
-	pre_layers = bpy.props.BoolVectorProperty(name="直前のレイヤー情報", size=32, default=layers[:])
+	pre_layers = bpy.props.BoolVectorProperty(name="The last layer information", size=32, default=layers[:])
 	
 	@classmethod
 	def poll(cls, context):
@@ -48,7 +48,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
-		row.operator('pose.toggle_pose_position', icon='POSE_HLT', text="ポーズ有効/無効")
-		row.operator(ShowAllBoneLayers.bl_idname, icon='RESTRICT_VIEW_OFF', text="全レイヤー表示")
+		row.operator('pose.toggle_pose_position', icon='POSE_HLT', text="Enables or disables the pause")
+		row.operator(ShowAllBoneLayers.bl_idname, icon='RESTRICT_VIEW_OFF', text="All layers display")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

@@ -1,4 +1,4 @@
-﻿# 「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ボーングループ」パネル
+# 「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ボーングループ」パネル
 
 import bpy
 
@@ -8,11 +8,11 @@ import bpy
 
 class GroupShow(bpy.types.Operator):
 	bl_idname = "pose.group_show"
-	bl_label = "このボーングループのボーンのみ表示"
-	bl_description = "アクティブなボーングループのみを表示し、その他のボーンを隠します"
+	bl_label = "Show only bone bones group"
+	bl_description = "Group active on bones and the bones of other hide"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	reverse = bpy.props.BoolProperty(name="反転", default=False)
+	reverse = bpy.props.BoolProperty(name="Flip", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -66,7 +66,7 @@ def menu(self, context):
 		split = self.layout.split(percentage=0.5)
 		split.row()
 		row = split.row(align=True)
-		row.operator(GroupShow.bl_idname, icon='RESTRICT_VIEW_OFF', text="表示").reverse = False
-		row.operator(GroupShow.bl_idname, icon='RESTRICT_VIEW_ON', text="隠す").reverse = True
+		row.operator(GroupShow.bl_idname, icon='RESTRICT_VIEW_OFF', text="Says").reverse = False
+		row.operator(GroupShow.bl_idname, icon='RESTRICT_VIEW_ON', text="Hide").reverse = True
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

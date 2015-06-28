@@ -15,17 +15,17 @@ import xml.etree.ElementTree as ElementTree
 
 class ChangeUserPreferencesTab(bpy.types.Operator):
 	bl_idname = "ui.change_user_preferences_tab"
-	bl_label = "ユーザー設定タブを切り替え"
-	bl_description = "ユーザー設定のタブを順番に切り替えます"
+	bl_label = "Switch to the custom tab"
+	bl_description = "Cycles the user settings tab"
 	bl_options = {'REGISTER'}
 	
-	is_left = bpy.props.BoolProperty(name="左へ", default=False)
+	is_left = bpy.props.BoolProperty(name="To the left", default=False)
 	
 	def execute(self, context):
 		tabs = ['INTERFACE', 'EDITING', 'INPUT', 'ADDONS', 'THEMES', 'FILES', 'SYSTEM']
 		now_tab = context.user_preferences.active_section
 		if (now_tab not in tabs):
-			self.report(type={'ERROR'}, message="現在のタブが予期せぬ設定値です")
+			self.report(type={'ERROR'}, message="Is the current tab is unexpected")
 			return {'CANCELLED'}
 		if (self.is_left):
 			tabs.reverse()
@@ -42,14 +42,14 @@ class ChangeUserPreferencesTab(bpy.types.Operator):
 
 class SearchKeyBind(bpy.types.Operator):
 	bl_idname = "ui.search_key_bind"
-	bl_label = "キーバインド検索"
-	bl_description = "設定したキーバインドに一致する割り当てを検索します"
+	bl_label = "Search key bindings"
+	bl_description = "Find matching key bindings you set assignment"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
 		keymap = context.window_manager.keyconfigs.addon.keymaps['temp'].keymap_items[0]
 		if (keymap.type == 'NONE'):
-			self.report(type={'ERROR'}, message="検索するキーが空です、設定してください")
+			self.report(type={'ERROR'}, message="Set the search key is empty")
 			return {'CANCELLED'}
 		filter_str = keymap.type
 		if (not keymap.any):
@@ -69,8 +69,8 @@ class SearchKeyBind(bpy.types.Operator):
 
 class ClearFilterText(bpy.types.Operator):
 	bl_idname = "ui.clear_filter_text"
-	bl_label = "ショートカット検索をクリア"
-	bl_description = "ショートカット検索に使用した文字列を削除します"
+	bl_label = "Clear Search shortcuts"
+	bl_description = "Remove the string used to search for shortcuts"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -86,8 +86,8 @@ class ClearFilterText(bpy.types.Operator):
 
 class CloseKeyMapItems(bpy.types.Operator):
 	bl_idname = "ui.close_key_map_items"
-	bl_label = "キーコンフィグを全て閉じる"
-	bl_description = "キーコンフィグのメニューを全て折りたたみます"
+	bl_label = "Close all game"
+	bl_description = "Collapses all the game menu"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -115,8 +115,8 @@ class CloseKeyMapItems(bpy.types.Operator):
 
 class ShowShortcutHtml(bpy.types.Operator):
 	bl_idname = "system.show_shortcut_html"
-	bl_label = "ショートカット一覧をブラウザで閲覧"
-	bl_description = "Blenderの全てのショートカットをブラウザで確認出来ます"
+	bl_label = "View in browser shortcut list"
+	bl_description = "Please see the browser all shortcuts in Blender"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -168,19 +168,19 @@ class ShowShortcutHtml(bpy.types.Operator):
 					if (cfgStr):
 						cfgStr = "(+" + cfgStr[1:] + ")　"
 					if (cfg.any):
-						cfgStr = "(常に)　"
+						cfgStr = "(Always)　"
 					modifierKeyStr = cfgStr
 					if (cfg.name):
 						if (cfg.idname == "wm.call_menu"):
-							cfgStr = cfgStr + "「" + cfg.properties.name + "」メニューの呼び出し"
+							cfgStr = cfgStr + "「" + cfg.properties.name + "\"Call menu"
 						elif (cfg.idname == "wm.context_set_enum"):
-							cfgStr = cfgStr + "「" + cfg.properties.data_path + "」を「" + cfg.properties.value + "」に変更"
+							cfgStr = cfgStr + "「" + cfg.properties.data_path + "\"\'" + cfg.properties.value + "\"To change"
 						elif (cfg.idname == "wm.context_toggle"):
-							cfgStr = cfgStr + "「" + cfg.properties.data_path + "」の切り替え"
+							cfgStr = cfgStr + "「" + cfg.properties.data_path + "\"The switch"
 						elif (cfg.idname == "wm.context_toggle_enum"):
-							cfgStr = cfgStr + "「" + cfg.properties.data_path + "」を「" + cfg.properties.value_1 + "」と「" + cfg.properties.value_2 + "」に切り替え"
+							cfgStr = cfgStr + "「" + cfg.properties.data_path + "\"\'" + cfg.properties.value_1 + "\"And\"" + cfg.properties.value_2 + "\"To switch"
 						elif (cfg.idname == "wm.context_menu_enum"):
-							cfgStr = cfgStr + "「" + cfg.properties.data_path + "」メニューの呼び出し"
+							cfgStr = cfgStr + "「" + cfg.properties.data_path + "\"Call menu"
 						else:
 							cfgStr = cfgStr + cfg.name
 					else:
@@ -208,130 +208,130 @@ class ShowShortcutHtml(bpy.types.Operator):
 
 class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	bl_idname = "wm.register_last_command_keyconfig"
-	bl_label = "最後のコマンドをショートカットに登録"
-	bl_description = "最後に実行したコマンドをショートカットに登録します"
+	bl_label = "Last command create shortcut"
+	bl_description = "Last command create shortcut"
 	bl_options = {'REGISTER'}
 	
-	is_clipboard = bpy.props.BoolProperty(name="(変更しないで)")
-	command = bpy.props.StringProperty(name="(変更しないで)")
-	sub_command = bpy.props.StringProperty(name="(変更しないで)")
+	is_clipboard = bpy.props.BoolProperty(name="(Do not change)")
+	command = bpy.props.StringProperty(name="(Do not change)")
+	sub_command = bpy.props.StringProperty(name="(Do not change)")
 	items = [
-		('Window', "ウィンドウ", "", 1),
-		('Screen', "スクリーン", "", 2),
-		('Screen Editing', "スクリーン編集", "", 3),
-		('View2D', "2Dビュー", "", 4),
-		('Frames', "フレーム", "", 5),
-		('Header', "ヘッダー", "", 6),
-		('View2D Buttons List', "2Dビューボタンリスト", "", 7),
-		('Property Editor', "プロパティエディター", "", 8),
-		('3D View Generic', "3Dビュー全般", "", 9),
-		('Grease Pencil', "グリースペンシル", "", 10),
-		('Grease Pencil Stroke Edit Mode', "グリースペンシルストローク編集モード", "", 11),
-		('Face Mask', "面のマスク", "", 12),
-		('Weight Paint Vertex Selection', "ウェイトペイント頂点選択", "", 13),
-		('Pose', "ポーズ", "", 14),
-		('Object Mode', "オブジェクトモード", "", 15),
-		('Paint Curve', "ペイントカーブ", "", 16),
-		('Curve', "カーブ", "", 17),
-		('Image Paint', "画像ペイント", "", 18),
-		('Vertex Paint', "頂点ペイント", "", 19),
-		('Weight Paint', "ウェイトペイント", "", 20),
-		('Sculpt', "スカルプト", "", 21),
-		('Mesh', "メッシュ", "", 22),
-		('Armature', "アーマチュア", "", 23),
-		('Metaball', "メタボール", "", 24),
-		('Lattice', "ラティス", "", 25),
-		('Particle', "パーティクル", "", 26),
-		('Font', "フォント", "", 27),
-		('Object Non-modal', "オブジェクト非モーダル", "", 28),
-		('3D View', "3Dビュー", "", 29),
-		('Outliner', "アウトライナー", "", 30),
-		('Info', "情報", "", 31),
-		('View3D Gesture Circle', "3Dビュージェスチャサークル", "", 32),
-		('Gesture Border', "ジェスチャ境界", "", 33),
-		('Gesture Zoom Border', "ジェスチャ境界ズーム", "", 34),
-		('Gesture Straight Line', "ジェスチャ直線", "", 35),
-		('Standard Modal Map', "標準モーダルマップ", "", 36),
-		('Animation', "アニメーション", "", 37),
-		('Animation Channels', "アニメーションチャンネル", "", 38),
-		('Knife Tool Modal Map', "ナイフツールモーダルマップ", "", 39),
-		('UV Editor', "UVエディター", "", 40),
-		('Transform Modal Map', "トランスフォームモーダルマップ", "", 41),
-		('UV Sculpt', "UVスカルプト", "", 42),
-		('Paint Stroke Modal', "ペイントストロークモーダル", "", 43),
-		('Mask Editing', "マスク編集", "", 44),
-		('Markers', "マーカー", "", 45),
-		('Timeline', "タイムライン", "", 46),
-		('View3D Fly Modal', "3Dビューフライモーダル", "", 47),
-		('View3D Walk Modal', "3Dビューウォークモーダル", "", 48),
-		('View3D Rotate Modal', "3Dビュー回転モーダル", "", 49),
-		('View3D Move Modal', "3Dビュー移動モーダル", "", 50),
-		('View3D Zoom Modal', "3Dビューズームモーダル", "", 51),
-		('View3D Dolly Modal', "3Dビュードリーモーダル", "", 52),
-		('Graph Editor Generic', "グラフエディター全般", "", 53),
-		('Graph Editor', "グラフエディター", "", 54),
-		('Image Generic', "画像全般", "", 55),
-		('Image', "画像", "", 56),
-		('Node Generic', "ノード全般", "", 57),
-		('Node Editor', "ノードエディター", "", 58),
-		('File Browser', "ファイルブラウザー", "", 59),
-		('File Browser Main', "ファイルブラウザーメイン", "", 60),
-		('File Browser Buttons', "ファイルブラウザーボタン", "", 61),
-		('Dopesheet', "ドープシート", "", 62),
-		('NLA Generic', "NLA全般", "", 63),
-		('NLA Channels', "NLAチャンネル", "", 64),
-		('NLA Editor', "NLAエディター", "", 65),
-		('Text Generic', "テキスト全般", "", 66),
-		('Text', "テキスト", "", 67),
-		('SequencerCommon', "シーケンサー共通", "", 68),
-		('Sequencer', "シーケンサー", "", 69),
-		('SequencerPreview', "シーケンサープレビュー", "", 70),
-		('Logic Editor', "ロジックエディター", "", 71),
-		('Console', "コンソール", "", 72),
-		('Clip', "クリップ", "", 73),
-		('Clip Editor', "クリップエディター", "", 74),
-		('Clip Graph Editor', "クリップグラフエディター", "", 75),
-		('Clip Dopesheet Editor', "クリップドープシートエディター", "", 76),
+		('Window', "Window", "", 1),
+		('Screen', "Screen", "", 2),
+		('Screen Editing', "Screen edit", "", 3),
+		('View2D', "2D view", "", 4),
+		('Frames', "Frame", "", 5),
+		('Header', "Header", "", 6),
+		('View2D Buttons List', "2-D view buttons list", "", 7),
+		('Property Editor', "Property editor", "", 8),
+		('3D View Generic', "3D view general", "", 9),
+		('Grease Pencil', "Grease pencil", "", 10),
+		('Grease Pencil Stroke Edit Mode', "Grease pencil stroke edit mode", "", 11),
+		('Face Mask', "Face mask", "", 12),
+		('Weight Paint Vertex Selection', "Weight painting vertex selection", "", 13),
+		('Pose', "Pose", "", 14),
+		('Object Mode', "Object mode", "", 15),
+		('Paint Curve', "Paint curves", "", 16),
+		('Curve', "Curve", "", 17),
+		('Image Paint', "Paint a picture", "", 18),
+		('Vertex Paint', "Vertex paint", "", 19),
+		('Weight Paint', "Weight paint", "", 20),
+		('Sculpt', "Sculpt", "", 21),
+		('Mesh', "Mesh", "", 22),
+		('Armature', "Armature", "", 23),
+		('Metaball', "Metaballs", "", 24),
+		('Lattice', "Lattice", "", 25),
+		('Particle', "Particle", "", 26),
+		('Font', "Font", "", 27),
+		('Object Non-modal', "Object non-modal", "", 28),
+		('3D View', "3D view", "", 29),
+		('Outliner', "Out liner", "", 30),
+		('Info', "Information", "", 31),
+		('View3D Gesture Circle', "3 D Burgess Cha circle", "", 32),
+		('Gesture Border', "Gesture boundary", "", 33),
+		('Gesture Zoom Border', "Zoom gesture boundary", "", 34),
+		('Gesture Straight Line', "Gesture lines", "", 35),
+		('Standard Modal Map', "Standard modal map", "", 36),
+		('Animation', "Animation", "", 37),
+		('Animation Channels', "Animation channel", "", 38),
+		('Knife Tool Modal Map', "Knife modal map", "", 39),
+		('UV Editor', "UV Editor", "", 40),
+		('Transform Modal Map', "Transform modal map", "", 41),
+		('UV Sculpt', "UV sculpt", "", 42),
+		('Paint Stroke Modal', "Paint stroke modal", "", 43),
+		('Mask Editing', "Mask editing", "", 44),
+		('Markers', "Marker", "", 45),
+		('Timeline', "Timeline", "", 46),
+		('View3D Fly Modal', "3D view fly modal", "", 47),
+		('View3D Walk Modal', "3D view walk modal", "", 48),
+		('View3D Rotate Modal', "3D view rotation modal", "", 49),
+		('View3D Move Modal', "3D view mobile modal", "", 50),
+		('View3D Zoom Modal', "3D views me modal", "", 51),
+		('View3D Dolly Modal', "3D Bewdley modal", "", 52),
+		('Graph Editor Generic', "General graph", "", 53),
+		('Graph Editor', "Graph Editor", "", 54),
+		('Image Generic', "The general picture", "", 55),
+		('Image', "Images", "", 56),
+		('Node Generic', "The General node", "", 57),
+		('Node Editor', "Nordeditor", "", 58),
+		('File Browser', "File browser", "", 59),
+		('File Browser Main', "File browser main", "", 60),
+		('File Browser Buttons', "Filebrowser-Botan", "", 61),
+		('Dopesheet', "Dope sheet", "", 62),
+		('NLA Generic', "The NLA General", "", 63),
+		('NLA Channels', "NLA channels", "", 64),
+		('NLA Editor', "The NLA Editor", "", 65),
+		('Text Generic', "General text", "", 66),
+		('Text', "Text", "", 67),
+		('SequencerCommon', "Sequencer-common", "", 68),
+		('Sequencer', "Sequencer", "", 69),
+		('SequencerPreview', "Sequencer preview", "", 70),
+		('Logic Editor', "Logic Editor", "", 71),
+		('Console', "Console", "", 72),
+		('Clip', "Clip", "", 73),
+		('Clip Editor', "Clip Editor", "", 74),
+		('Clip Graph Editor', "Clip grapheditor", "", 75),
+		('Clip Dopesheet Editor', "Clip deepseateditor", "", 76),
 		]
-	key_map = bpy.props.EnumProperty(items=items, name="有効エリア")
+	key_map = bpy.props.EnumProperty(items=items, name="Effective area")
 	items = [
-		('LEFTMOUSE', "左クリック", "", 1),
-		('MIDDLEMOUSE', "ホイールクリック", "", 2),
-		('RIGHTMOUSE', "右クリック", "", 3),
-		('BUTTON4MOUSE', "マウス4ボタン", "", 4),
-		('BUTTON5MOUSE', "マウス5ボタン", "", 5),
-		('BUTTON6MOUSE', "マウス6ボタン", "", 6),
-		('BUTTON7MOUSE', "マウス7ボタン", "", 7),
-		('MOUSEMOVE', "マウス移動", "", 8),
-		('INBETWEEN_MOUSEMOVE', "境界のマウス移動", "", 9),
-		('WHEELUPMOUSE', "ホイールアップ", "", 10),
-		('WHEELDOWNMOUSE', "ホイールダウン", "", 11),
-		('A', "Aキー", "", 12),
-		('B', "Bキー", "", 13),
-		('C', "Cキー", "", 14),
-		('D', "Dキー", "", 15),
-		('E', "Eキー", "", 16),
-		('F', "Fキー", "", 17),
-		('G', "Gキー", "", 18),
-		('H', "Hキー", "", 19),
-		('I', "Iキー", "", 20),
-		('J', "Jキー", "", 21),
-		('K', "Kキー", "", 22),
-		('L', "Lキー", "", 23),
-		('M', "Mキー", "", 24),
-		('N', "Nキー", "", 25),
-		('O', "Oキー", "", 26),
-		('P', "Pキー", "", 27),
-		('Q', "Qキー", "", 28),
-		('R', "Rキー", "", 29),
-		('S', "Sキー", "", 30),
-		('T', "Tキー", "", 31),
-		('U', "Uキー", "", 32),
-		('V', "Vキー", "", 33),
-		('W', "Wキー", "", 34),
-		('X', "Xキー", "", 35),
-		('Y', "Yキー", "", 36),
-		('Z', "Zキー", "", 37),
+		('LEFTMOUSE', "Left click", "", 1),
+		('MIDDLEMOUSE', "Click wheel", "", 2),
+		('RIGHTMOUSE', "Right click", "", 3),
+		('BUTTON4MOUSE', "4-button mouse", "", 4),
+		('BUTTON5MOUSE', "5-button mouse", "", 5),
+		('BUTTON6MOUSE', "Mouse 6 button", "", 6),
+		('BUTTON7MOUSE', "7 button mouse", "", 7),
+		('MOUSEMOVE', "Mouse movement", "", 8),
+		('INBETWEEN_MOUSEMOVE', "Mouse moving boundaries", "", 9),
+		('WHEELUPMOUSE', "Wheel up", "", 10),
+		('WHEELDOWNMOUSE', "Wheel down", "", 11),
+		('A', "A key", "", 12),
+		('B', "B key", "", 13),
+		('C', "C key", "", 14),
+		('D', "D key", "", 15),
+		('E', "E key", "", 16),
+		('F', "F keys", "", 17),
+		('G', "G key", "", 18),
+		('H', "H key", "", 19),
+		('I', "I key", "", 20),
+		('J', "J key", "", 21),
+		('K', "K key", "", 22),
+		('L', "L key", "", 23),
+		('M', "M key", "", 24),
+		('N', "N key", "", 25),
+		('O', "O key", "", 26),
+		('P', "P key", "", 27),
+		('Q', "Q key", "", 28),
+		('R', "R key", "", 29),
+		('S', "S key", "", 30),
+		('T', "T key", "", 31),
+		('U', "U key", "", 32),
+		('V', "V key", "", 33),
+		('W', "W key", "", 34),
+		('X', "X key", "", 35),
+		('Y', "Y key", "", 36),
+		('Z', "Z key", "", 37),
 		('ZERO', "0", "", 38),
 		('ONE', "1", "", 39),
 		('TWO', "2", "", 40),
@@ -342,28 +342,28 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('SEVEN', "7", "", 45),
 		('EIGHT', "8", "", 46),
 		('NINE', "9", "", 47),
-		('LEFT_CTRL', "左CTRL", "", 48),
-		('LEFT_ALT', "左ALT", "", 49),
-		('LEFT_SHIFT', "左SHIFT", "", 50),
-		('RIGHT_ALT', "右ALT", "", 51),
-		('RIGHT_CTRL', "右CTRL", "", 52),
-		('RIGHT_SHIFT', "右SHIFT", "", 53),
-		('OSKEY', "OSキー", "", 54),
+		('LEFT_CTRL', "Left CTRL", "", 48),
+		('LEFT_ALT', "Left ALT", "", 49),
+		('LEFT_SHIFT', "Left SHIFT", "", 50),
+		('RIGHT_ALT', "Right ALT", "", 51),
+		('RIGHT_CTRL', "Right CTRL", "", 52),
+		('RIGHT_SHIFT', "Right SHIFT", "", 53),
+		('OSKEY', "OS key", "", 54),
 		('GRLESS', "\\", "", 55),
-		('ESC', "Escキー", "", 56),
-		('TAB', "Tabキー", "", 57),
-		('RET', "エンターキー", "", 58),
-		('SPACE', "Spaceキー", "", 59),
-		('BACK_SPACE', "BackSpaceキー", "", 60),
-		('DEL', "Deleteキー", "", 61),
+		('ESC', "ESC key", "", 56),
+		('TAB', "Tab key", "", 57),
+		('RET', "Enter key", "", 58),
+		('SPACE', "Space key", "", 59),
+		('BACK_SPACE', "BackSpace key", "", 60),
+		('DEL', "Delete key", "", 61),
 		('SEMI_COLON', ":", "", 62),
-		('PERIOD', ".(ピリオド)", "", 63),
-		('COMMA', ",(コンマ)", "", 64),
+		('PERIOD', ". (Period)", "", 63),
+		('COMMA', ", (Comma)", "", 64),
 		('QUOTE', "^", "", 65),
 		('ACCENT_GRAVE', "@", "", 66),
 		('MINUS', "-", "", 67),
 		('SLASH', "/", "", 68),
-		('BACK_SLASH', "\\(バックスラッシュ)", "", 69),
+		('BACK_SLASH', "C: (backslash)", "", 69),
 		('EQUAL', ";", "", 70),
 		('LEFT_BRACKET', "[", "", 71),
 		('RIGHT_BRACKET', "]", "", 72),
@@ -371,22 +371,22 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('DOWN_ARROW', "↓", "", 74),
 		('RIGHT_ARROW', "→", "", 75),
 		('UP_ARROW', "↑", "", 76),
-		('NUMPAD_2', "テンキー2", "", 77),
-		('NUMPAD_4', "テンキー4", "", 78),
-		('NUMPAD_6', "テンキー6", "", 79),
-		('NUMPAD_8', "テンキー8", "", 80),
-		('NUMPAD_1', "テンキー1", "", 81),
-		('NUMPAD_3', "テンキー3", "", 82),
-		('NUMPAD_5', "テンキー5", "", 83),
-		('NUMPAD_7', "テンキー7", "", 84),
-		('NUMPAD_9', "テンキー9", "", 85),
-		('NUMPAD_PERIOD', "テンキーピリオド", "", 86),
-		('NUMPAD_SLASH', "テンキースラッシュ", "", 87),
-		('NUMPAD_ASTERIX', "テンキー＊", "", 88),
-		('NUMPAD_0', "テンキー0", "", 89),
-		('NUMPAD_MINUS', "テンキーマイナス", "", 90),
-		('NUMPAD_ENTER', "テンキーエンター", "", 91),
-		('NUMPAD_PLUS', "テンキー＋", "", 92),
+		('NUMPAD_2', "NUMPAD 2", "", 77),
+		('NUMPAD_4', "NUMPAD 4", "", 78),
+		('NUMPAD_6', "Numeric keypad 6", "", 79),
+		('NUMPAD_8', "Numeric keypad 8", "", 80),
+		('NUMPAD_1', "NUMPAD 1", "", 81),
+		('NUMPAD_3', "Numeric keypad 3", "", 82),
+		('NUMPAD_5', "Numeric keypad 5", "", 83),
+		('NUMPAD_7', "Numeric keypad 7", "", 84),
+		('NUMPAD_9', "Numeric keypad 9", "", 85),
+		('NUMPAD_PERIOD', "NUMPAD period", "", 86),
+		('NUMPAD_SLASH', "NUMPAD slash", "", 87),
+		('NUMPAD_ASTERIX', "Numeric keypad *", "", 88),
+		('NUMPAD_0', "Numeric keypad 0", "", 89),
+		('NUMPAD_MINUS', "NUMPAD minus", "", 90),
+		('NUMPAD_ENTER', "Ten key enter", "", 91),
+		('NUMPAD_PLUS', "NUMPAD +", "", 92),
 		('F1', "F1", "", 93),
 		('F2', "F2", "", 94),
 		('F3', "F3", "", 95),
@@ -406,17 +406,17 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('F17', "F17", "", 109),
 		('F18', "F18", "", 110),
 		('F19', "F19", "", 111),
-		('PAUSE', "Pauseキー", "", 112),
-		('INSERT', "Insertキー", "", 113),
-		('HOME', "Homeキー", "", 114),
-		('PAGE_UP', "PageUpキー", "", 115),
-		('PAGE_DOWN', "PageDownキー", "", 116),
-		('END', "Endキー", "", 117),
+		('PAUSE', "Pause key", "", 112),
+		('INSERT', "Insert key", "", 113),
+		('HOME', "The home key", "", 114),
+		('PAGE_UP', "PageUp key", "", 115),
+		('PAGE_DOWN', "Page down key", "", 116),
+		('END', "End key", "", 117),
 		]
-	type = bpy.props.EnumProperty(items=items, name="入力キー")
-	shift = bpy.props.BoolProperty(name="Shiftを修飾キーに", default=False)
-	ctrl = bpy.props.BoolProperty(name="Ctrlを修飾キーに", default=False)
-	alt = bpy.props.BoolProperty(name="Altを修飾キーに", default=False)
+	type = bpy.props.EnumProperty(items=items, name="Input keys")
+	shift = bpy.props.BoolProperty(name="The SHIFT key is a modifier", default=False)
+	ctrl = bpy.props.BoolProperty(name="CTRL modifier keys to", default=False)
+	alt = bpy.props.BoolProperty(name="The ALT key is a modifier", default=False)
 	
 	def execute(self, context):
 		keymap_item = context.window_manager.keyconfigs.user.keymaps[self.key_map].keymap_items.new(self.command, self.type, 'PRESS', False, self.shift, self.ctrl, self.alt)
@@ -441,7 +441,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		context.window_manager.keyconfigs.user.keymaps[self.key_map].keymap_items[-1].show_expanded = True
 		for area in context.screen.areas:
 			area.tag_redraw()
-		self.report(type={"INFO"}, message="ショートカットを登録しました、必要であれば「ユーザー設定の保存」をしてください")
+		self.report(type={"INFO"}, message="Please save user settings, shortcuts, register if you")
 		return {'FINISHED'}
 	def invoke(self, context, event):
 		pre_clipboard = context.window_manager.clipboard
@@ -463,7 +463,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		if (commands[-1] == ''):
 			commands = commands[:-1]
 		if (len(commands) <= 0):
-			self.report(type={'ERROR'}, message="最後に実行したコマンドが見つかりません")
+			self.report(type={'ERROR'}, message="Last command not found")
 			return {'CANCELLED'}
 		commands.reverse()
 		for command in commands:
@@ -493,18 +493,18 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 					self.sub_command = 'data_path:'+re.search(r"^bpy\.context\.([^ ]+)", command).groups()[0]
 					self.sub_command = self.sub_command+","+'value:'+re.search(r' = [+-]?(\d*\.\d+|\d+\.?\d*)([eE][+-]?\d+|)\Z$', command).groups()[0]
 				else:
-					self.report(type={'ERROR'}, message="対応していないタイプのコマンドです")
+					self.report(type={'ERROR'}, message="Command type not supported")
 					return {'CANCELLED'}
 				break
 		else:
-			self.report(type={'ERROR'}, message="登録出来るコマンドが見つかりませんでした")
+			self.report(type={'ERROR'}, message="Could not find command can register")
 			return {'CANCELLED'}
 		return context.window_manager.invoke_props_dialog(self)
 
 class ShowEmptyShortcuts(bpy.types.Operator):
 	bl_idname = "view3d.show_empty_shortcuts"
-	bl_label = "割り当ての無いショートカット一覧"
-	bl_description = "現在の編集モードでの割り当ての無いキーを「情報」エリアに表示します"
+	bl_label = "Without assigning shortcut list"
+	bl_description = "Displays the key assignments in the current editing mode without information area"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -559,7 +559,7 @@ class ShowEmptyShortcuts(bpy.types.Operator):
 								key_binds[item.type] = item.idname
 							elif (item.any):
 								key_binds[item.type] = item.idname
-		self.report(type={'INFO'}, message = permits[-1]+"モードでは、以下の割り当てが空いています")
+		self.report(type={'INFO'}, message = permits[-1]+"Free mode, assign the following")
 		for key, value in key_binds.items():
 			if (not value):
 				self.report(type={'INFO'}, message = key_names[key]+" ")
@@ -567,34 +567,34 @@ class ShowEmptyShortcuts(bpy.types.Operator):
 
 class ImportKeyConfigXml(bpy.types.Operator):
 	bl_idname = "file.import_key_config_xml"
-	bl_label = "キーコンフィグをXMLでインポート"
-	bl_description = "キーコンフィグをXML形式で読み込みます"
+	bl_label = "Import XML in the game"
+	bl_description = "The game reads in XML format"
 	bl_options = {'REGISTER'}
 	
 	filepath = bpy.props.StringProperty(subtype='FILE_PATH')
 	items = [
-		('RESET', "リセット", "", 1),
-		('ADD', "追加", "", 2),
+		('RESET', "Reset", "", 1),
+		('ADD', "Append", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="モード", default='ADD')
+	mode = bpy.props.EnumProperty(items=items, name="Mode", default='ADD')
 	
 	def execute(self, context):
 		context.user_preferences.addons["Scramble Addon"].preferences.key_config_xml_path = self.filepath
 		try:
 			tree = ElementTree.parse(self.filepath)
 		except:
-			self.report(type={'ERROR'}, message="XMLファイルの読み込みに失敗しました")
+			self.report(type={'ERROR'}, message="Failed to load XML file")
 			return {'CANCELLED'}
 		root = tree.getroot()
 		if (root.tag != 'BlenderKeyConfig'):
-			self.report(type={'ERROR'}, message="このファイルはBlenderキーコンフィグXMLファイルではありません")
+			self.report(type={'ERROR'}, message="This file is not a Blender game XML file")
 			return {'CANCELLED'}
 		try:
 			if (root.attrib['Version'] != '1.2'):
-				self.report(type={'ERROR'}, message="このBlenderキーコンフィグXMLファイルのバージョンには対応していません")
+				self.report(type={'ERROR'}, message="Does not correspond to the version of the Blender game XML file")
 				return {'CANCELLED'}
 		except KeyError:
-			self.report(type={'ERROR'}, message="BlenderキーコンフィグXMLファイルのバージョンを確認できませんでした")
+			self.report(type={'ERROR'}, message="Could not determine the version of the Blender game XML file")
 			return {'CANCELLED'}
 		for key_config_elem in root.findall('KeyConfig'):
 			key_config_name = key_config_elem.attrib['name']
@@ -670,8 +670,8 @@ class ImportKeyConfigXml(bpy.types.Operator):
 
 class ExportKeyConfigXml(bpy.types.Operator):
 	bl_idname = "file.export_key_config_xml"
-	bl_label = "キーコンフィグをXMLでエクスポート"
-	bl_description = "キーコンフィグをXML形式で保存します"
+	bl_label = "Export XML in a game"
+	bl_description = "Game save in XML format"
 	bl_options = {'REGISTER'}
 	
 	filepath = bpy.props.StringProperty(subtype='FILE_PATH')
@@ -738,89 +738,89 @@ class ExportKeyConfigXml(bpy.types.Operator):
 
 class MoveKeyBindCategory(bpy.types.Operator):
 	bl_idname = "ui.move_key_bind_category"
-	bl_label = "展開しているキー割り当てのカテゴリを移動"
-	bl_description = "展開しているキー割り当てを、他のカテゴリに移動します"
+	bl_label = "Move the key assignments that expand the categories"
+	bl_description = "Move key assignments that expand into other categories"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('Window', "ウィンドウ", "", 1),
-		('Screen', "スクリーン", "", 2),
-		('Screen Editing', "スクリーン編集", "", 3),
-		('View2D', "2Dビュー", "", 4),
-		('Frames', "フレーム", "", 5),
-		('Header', "ヘッダー", "", 6),
-		('View2D Buttons List', "2Dビューボタンリスト", "", 7),
-		('Property Editor', "プロパティエディター", "", 8),
-		('3D View Generic', "3Dビュー全般", "", 9),
-		('Grease Pencil', "グリースペンシル", "", 10),
-		('Grease Pencil Stroke Edit Mode', "グリースペンシルストローク編集モード", "", 11),
-		('Face Mask', "面のマスク", "", 12),
-		('Weight Paint Vertex Selection', "ウェイトペイント頂点選択", "", 13),
-		('Pose', "ポーズ", "", 14),
-		('Object Mode', "オブジェクトモード", "", 15),
-		('Paint Curve', "ペイントカーブ", "", 16),
-		('Curve', "カーブ", "", 17),
-		('Image Paint', "画像ペイント", "", 18),
-		('Vertex Paint', "頂点ペイント", "", 19),
-		('Weight Paint', "ウェイトペイント", "", 20),
-		('Sculpt', "スカルプト", "", 21),
-		('Mesh', "メッシュ", "", 22),
-		('Armature', "アーマチュア", "", 23),
-		('Metaball', "メタボール", "", 24),
-		('Lattice', "ラティス", "", 25),
-		('Particle', "パーティクル", "", 26),
-		('Font', "フォント", "", 27),
-		('Object Non-modal', "オブジェクト非モーダル", "", 28),
-		('3D View', "3Dビュー", "", 29),
-		('Outliner', "アウトライナー", "", 30),
-		('Info', "情報", "", 31),
-		('View3D Gesture Circle', "3Dビュージェスチャサークル", "", 32),
-		('Gesture Border', "ジェスチャ境界", "", 33),
-		('Gesture Zoom Border', "ジェスチャ境界ズーム", "", 34),
-		('Gesture Straight Line', "ジェスチャ直線", "", 35),
-		('Standard Modal Map', "標準モーダルマップ", "", 36),
-		('Animation', "アニメーション", "", 37),
-		('Animation Channels', "アニメーションチャンネル", "", 38),
-		('Knife Tool Modal Map', "ナイフツールモーダルマップ", "", 39),
-		('UV Editor', "UVエディター", "", 40),
-		('Transform Modal Map', "トランスフォームモーダルマップ", "", 41),
-		('UV Sculpt', "UVスカルプト", "", 42),
-		('Paint Stroke Modal', "ペイントストロークモーダル", "", 43),
-		('Mask Editing', "マスク編集", "", 44),
-		('Markers', "マーカー", "", 45),
-		('Timeline', "タイムライン", "", 46),
-		('View3D Fly Modal', "3Dビューフライモーダル", "", 47),
-		('View3D Walk Modal', "3Dビューウォークモーダル", "", 48),
-		('View3D Rotate Modal', "3Dビュー回転モーダル", "", 49),
-		('View3D Move Modal', "3Dビュー移動モーダル", "", 50),
-		('View3D Zoom Modal', "3Dビューズームモーダル", "", 51),
-		('View3D Dolly Modal', "3Dビュードリーモーダル", "", 52),
-		('Graph Editor Generic', "グラフエディター全般", "", 53),
-		('Graph Editor', "グラフエディター", "", 54),
-		('Image Generic', "画像全般", "", 55),
-		('Image', "画像", "", 56),
-		('Node Generic', "ノード全般", "", 57),
-		('Node Editor', "ノードエディター", "", 58),
-		('File Browser', "ファイルブラウザー", "", 59),
-		('File Browser Main', "ファイルブラウザーメイン", "", 60),
-		('File Browser Buttons', "ファイルブラウザーボタン", "", 61),
-		('Dopesheet', "ドープシート", "", 62),
-		('NLA Generic', "NLA全般", "", 63),
-		('NLA Channels', "NLAチャンネル", "", 64),
-		('NLA Editor', "NLAエディター", "", 65),
-		('Text Generic', "テキスト全般", "", 66),
-		('Text', "テキスト", "", 67),
-		('SequencerCommon', "シーケンサー共通", "", 68),
-		('Sequencer', "シーケンサー", "", 69),
-		('SequencerPreview', "シーケンサープレビュー", "", 70),
-		('Logic Editor', "ロジックエディター", "", 71),
-		('Console', "コンソール", "", 72),
-		('Clip', "クリップ", "", 73),
-		('Clip Editor', "クリップエディター", "", 74),
-		('Clip Graph Editor', "クリップグラフエディター", "", 75),
-		('Clip Dopesheet Editor', "クリップドープシートエディター", "", 76),
+		('Window', "Window", "", 1),
+		('Screen', "Screen", "", 2),
+		('Screen Editing', "Screen edit", "", 3),
+		('View2D', "2D view", "", 4),
+		('Frames', "Frame", "", 5),
+		('Header', "Header", "", 6),
+		('View2D Buttons List', "2-D view buttons list", "", 7),
+		('Property Editor', "Property editor", "", 8),
+		('3D View Generic', "3D view general", "", 9),
+		('Grease Pencil', "Grease pencil", "", 10),
+		('Grease Pencil Stroke Edit Mode', "Grease pencil stroke edit mode", "", 11),
+		('Face Mask', "Face mask", "", 12),
+		('Weight Paint Vertex Selection', "Weight painting vertex selection", "", 13),
+		('Pose', "Pose", "", 14),
+		('Object Mode', "Object mode", "", 15),
+		('Paint Curve', "Paint curves", "", 16),
+		('Curve', "Curve", "", 17),
+		('Image Paint', "Paint a picture", "", 18),
+		('Vertex Paint', "Vertex paint", "", 19),
+		('Weight Paint', "Weight paint", "", 20),
+		('Sculpt', "Sculpt", "", 21),
+		('Mesh', "Mesh", "", 22),
+		('Armature', "Armature", "", 23),
+		('Metaball', "Metaballs", "", 24),
+		('Lattice', "Lattice", "", 25),
+		('Particle', "Particle", "", 26),
+		('Font', "Font", "", 27),
+		('Object Non-modal', "Object non-modal", "", 28),
+		('3D View', "3D view", "", 29),
+		('Outliner', "Out liner", "", 30),
+		('Info', "Information", "", 31),
+		('View3D Gesture Circle', "3 D Burgess Cha circle", "", 32),
+		('Gesture Border', "Gesture boundary", "", 33),
+		('Gesture Zoom Border', "Zoom gesture boundary", "", 34),
+		('Gesture Straight Line', "Gesture lines", "", 35),
+		('Standard Modal Map', "Standard modal map", "", 36),
+		('Animation', "Animation", "", 37),
+		('Animation Channels', "Animation channel", "", 38),
+		('Knife Tool Modal Map', "Knife modal map", "", 39),
+		('UV Editor', "UV Editor", "", 40),
+		('Transform Modal Map', "Transform modal map", "", 41),
+		('UV Sculpt', "UV sculpt", "", 42),
+		('Paint Stroke Modal', "Paint stroke modal", "", 43),
+		('Mask Editing', "Mask editing", "", 44),
+		('Markers', "Marker", "", 45),
+		('Timeline', "Timeline", "", 46),
+		('View3D Fly Modal', "3D view fly modal", "", 47),
+		('View3D Walk Modal', "3D view walk modal", "", 48),
+		('View3D Rotate Modal', "3D view rotation modal", "", 49),
+		('View3D Move Modal', "3D view mobile modal", "", 50),
+		('View3D Zoom Modal', "3D views me modal", "", 51),
+		('View3D Dolly Modal', "3D Bewdley modal", "", 52),
+		('Graph Editor Generic', "General graph", "", 53),
+		('Graph Editor', "Graph Editor", "", 54),
+		('Image Generic', "The general picture", "", 55),
+		('Image', "Images", "", 56),
+		('Node Generic', "The General node", "", 57),
+		('Node Editor', "Nordeditor", "", 58),
+		('File Browser', "File browser", "", 59),
+		('File Browser Main', "File browser main", "", 60),
+		('File Browser Buttons', "Filebrowser-Botan", "", 61),
+		('Dopesheet', "Dope sheet", "", 62),
+		('NLA Generic', "The NLA General", "", 63),
+		('NLA Channels', "NLA channels", "", 64),
+		('NLA Editor', "The NLA Editor", "", 65),
+		('Text Generic', "General text", "", 66),
+		('Text', "Text", "", 67),
+		('SequencerCommon', "Sequencer-common", "", 68),
+		('Sequencer', "Sequencer", "", 69),
+		('SequencerPreview', "Sequencer preview", "", 70),
+		('Logic Editor', "Logic Editor", "", 71),
+		('Console', "Console", "", 72),
+		('Clip', "Clip", "", 73),
+		('Clip Editor', "Clip Editor", "", 74),
+		('Clip Graph Editor', "Clip grapheditor", "", 75),
+		('Clip Dopesheet Editor', "Clip deepseateditor", "", 76),
 		]
-	category = bpy.props.EnumProperty(items=items, name="移動先カテゴリ")
+	category = bpy.props.EnumProperty(items=items, name="Move to category")
 	
 	@classmethod
 	def poll(cls, context):
@@ -838,10 +838,10 @@ class MoveKeyBindCategory(bpy.types.Operator):
 					if (keymap_item.show_expanded):
 						i += 1
 		if (i <= 0):
-			self.report(type={'ERROR'}, message="展開中の割り当てが存在しません")
+			self.report(type={'ERROR'}, message="No assignment during deployment.")
 			return {'CANCELLED'}
 		if (2 <= i):
-			self.report(type={'ERROR'}, message="1つのみ割り当てを展開した状態で実行してください")
+			self.report(type={'ERROR'}, message="Try only one expansion assignments in the")
 			return {'CANCELLED'}
 		return context.window_manager.invoke_props_dialog(self)
 	def execute(self, context):
@@ -877,8 +877,8 @@ class MoveKeyBindCategory(bpy.types.Operator):
 
 class UpdateScrambleAddon(bpy.types.Operator):
 	bl_idname = "script.update_scramble_addon"
-	bl_label = "Blender-Scramble-Addonを更新"
-	bl_description = "Blender-Scramble-Addonをダウンロード・更新を済ませます"
+	bl_label = "Update Blender-Scramble-Addon"
+	bl_description = "Downloads, updates and check out Blender-Scramble-Addon"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -899,13 +899,13 @@ class UpdateScrambleAddon(bpy.types.Operator):
 					uzf.write(zf.read(f))
 					uzf.close()
 		zf.close()
-		self.report(type={"INFO"}, message="アドオンを更新しました、Blenderを再起動して下さい")
+		self.report(type={"INFO"}, message="Please restart the Blender updated add-ons")
 		return {'FINISHED'}
 
 class ToggleDisabledMenu(bpy.types.Operator):
 	bl_idname = "wm.toggle_disabled_menu"
-	bl_label = "「追加項目のオン/オフ」の表示切り替え"
-	bl_description = "ScrambleAddonによるメニューの末尾の「追加項目のオン/オフ」ボタンの表示/非表示を切り替えます"
+	bl_label = "Toggle on/off additional items"
+	bl_description = "Turns on/off additional items button at the end of the menu by ScrambleAddon"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -920,15 +920,15 @@ class ToggleDisabledMenu(bpy.types.Operator):
 
 class InputMenu(bpy.types.Menu):
 	bl_idname = "USERPREF_HT_header_input"
-	bl_label = "　ショートカット操作"
-	bl_description = "ショートカットに関係する操作のメニューです"
+	bl_label = "　Shortcut actions"
+	bl_description = "Operations related to the shortcut menu."
 	
 	def draw(self, context):
 		self.layout.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
 		self.layout.operator(ShowEmptyShortcuts.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="最後のコマンドをショートカットに登録", icon="PLUGIN").is_clipboard = False
-		self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="クリップボードのコマンドをショートカットに登録", icon="PLUGIN").is_clipboard = True
+		self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="Last command create shortcut", icon="PLUGIN").is_clipboard = False
+		self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="Clipboard command create shortcut", icon="PLUGIN").is_clipboard = True
 		self.layout.separator()
 		self.layout.operator(ImportKeyConfigXml.bl_idname, icon="PLUGIN")
 		self.layout.operator(ExportKeyConfigXml.bl_idname, icon="PLUGIN")
@@ -936,7 +936,7 @@ class InputMenu(bpy.types.Menu):
 class AddonsMenu(bpy.types.Menu):
 	bl_idname = "USERPREF_HT_header_scramble_addon"
 	bl_label = "　Scramble Addon"
-	bl_description = "Scramble Addonに関係する操作のメニューです"
+	bl_description = "Operations involving the scramble Addon menu."
 	
 	def draw(self, context):
 		self.layout.operator(ToggleDisabledMenu.bl_idname, icon="PLUGIN")

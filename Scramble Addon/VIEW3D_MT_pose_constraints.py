@@ -8,12 +8,12 @@ import bpy
 
 class ConstraintIKToLimitRotation(bpy.types.Operator):
 	bl_idname = "pose.constraint_ik_to_limit_rotation"
-	bl_label = "IK回転制限をコンストレイント化"
-	bl_description = "IKの回転制限設定をコンストレイントの回転制限設定にコピー"
+	bl_label = "Constraints of IK rotation restrictions"
+	bl_description = "Copy rotation constraint restrictions IK rotation limit settings"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isAdd = bpy.props.BoolProperty(name="無い場合コンストレイントを追加", default=True)
-	isLocal = bpy.props.BoolProperty(name="ローカル空間", default=True)
+	isAdd = bpy.props.BoolProperty(name="If not add a constraint", default=True)
+	isLocal = bpy.props.BoolProperty(name="Local space", default=True)
 	
 	def execute(self, context):
 		for bone in context.selected_pose_bones:

@@ -8,8 +8,8 @@ import bpy
 
 class CopyShape(bpy.types.Operator):
 	bl_idname = "mesh.copy_shape"
-	bl_label = "シェイプキーを複製"
-	bl_description = "アクティブなシェイプキーを複製します"
+	bl_label = "Duplicate a shape key"
+	bl_description = "Duplicate the active shape key"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -33,8 +33,8 @@ class CopyShape(bpy.types.Operator):
 
 class ShowShapeBlockName(bpy.types.Operator):
 	bl_idname = "mesh.show_shape_block_name"
-	bl_label = "シェイプブロック名を調べる"
-	bl_description = "シェイプブロックの名前を表示し、クリップボードにコピーします"
+	bl_label = "Examine the shape name"
+	bl_description = "Copy to the Clipboard, and then displays the name of the shape blocks"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -42,18 +42,18 @@ class ShowShapeBlockName(bpy.types.Operator):
 		if (obj.type == "MESH"):
 			shape_keys = obj.data.shape_keys
 			if (shape_keys != None):
-				self.report(type={"INFO"}, message="シェイプキーブロップ名は「"+shape_keys.name+"」です")
+				self.report(type={"INFO"}, message="Shape Kiev prop name \""+shape_keys.name+"\"Is")
 				context.window_manager.clipboard = shape_keys.name
 			else:
-				self.report(type={"ERROR"}, message="シェイプキーが存在しません")
+				self.report(type={"ERROR"}, message="Shape key does not exist")
 		else:
-			self.report(type={"ERROR"}, message="メッシュオブジェクトではありません")
+			self.report(type={"ERROR"}, message="Mesh objects are not")
 		return {'FINISHED'}
 
 class RenameShapeBlockName(bpy.types.Operator):
 	bl_idname = "mesh.rename_shape_block_name"
-	bl_label = "シェイプブロックの名前をオブジェクト名に"
-	bl_description = "シェイプブロックの名前をオブジェクト名と同じにします"
+	bl_label = "Block shape name in the object name"
+	bl_description = "Same as object name the name of the shape blocks"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -64,8 +64,8 @@ class RenameShapeBlockName(bpy.types.Operator):
 
 class InsertKeyframeAllShapes(bpy.types.Operator):
 	bl_idname = "mesh.insert_keyframe_all_shapes"
-	bl_label = "全てのシェイプにキーフレームを打つ"
-	bl_description = "現在のフレームに、全てのシェイプのキーフレームを挿入します"
+	bl_label = "Hit the keyframes of all shapes"
+	bl_description = "Inserts a keyframe for all shapes on the current frame"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -77,8 +77,8 @@ class InsertKeyframeAllShapes(bpy.types.Operator):
 
 class SelectShapeTop(bpy.types.Operator):
 	bl_idname = "object.select_shape_top"
-	bl_label = "最上段を選択"
-	bl_description = "一番上のシェイプキーを選択します"
+	bl_label = "Select the top"
+	bl_description = "Select the top shape key"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -86,8 +86,8 @@ class SelectShapeTop(bpy.types.Operator):
 		return {'FINISHED'}
 class SelectShapeBottom(bpy.types.Operator):
 	bl_idname = "object.select_shape_bottom"
-	bl_label = "最下段を選択"
-	bl_description = "一番下のシェイプキーを選択します"
+	bl_label = "Select the bottom row"
+	bl_description = "Select the bottom shape key"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -96,8 +96,8 @@ class SelectShapeBottom(bpy.types.Operator):
 
 class ShapeKeyApplyRemoveAll(bpy.types.Operator):
 	bl_idname = "object.shape_key_apply_remove_all"
-	bl_label = "現在の形状を保持して全シェイプ削除"
-	bl_description = "現在のメッシュの形状を保持しながら全シェイプキーを削除します"
+	bl_label = "Remove all shape and holds the shape of the current"
+	bl_description = "Remove all shape key while maintaining the shape of the mesh current"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):

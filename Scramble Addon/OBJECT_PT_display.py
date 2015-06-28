@@ -8,21 +8,21 @@ import bpy
 
 class CopyDisplaySetting(bpy.types.Operator):
 	bl_idname = "object.copy_display_setting"
-	bl_label = "表示設定をコピー"
-	bl_description = "この表示設定を他の選択オブジェクトにコピーします"
+	bl_label = "Copy the display settings"
+	bl_description = "Copy the selected objects of other display settings"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	copy_show_name = bpy.props.BoolProperty(name="名前", default=True)
-	copy_show_axis = bpy.props.BoolProperty(name="座標軸", default=True)
-	copy_show_wire = bpy.props.BoolProperty(name="ワイヤーフレーム", default=True)
-	copy_show_all_edges = bpy.props.BoolProperty(name="すべての辺を表示", default=True)
-	copy_show_bounds = bpy.props.BoolProperty(name="バウンド", default=True)
-	copy_draw_bounds_type = bpy.props.BoolProperty(name="バウンドタイプ", default=True)
-	copy_show_texture_space = bpy.props.BoolProperty(name="テクスチャスペース", default=True)
-	copy_show_x_ray = bpy.props.BoolProperty(name="レントゲン", default=True)
-	copy_show_transparent = bpy.props.BoolProperty(name="透過", default=True)
-	copy_draw_type = bpy.props.BoolProperty(name="最高描画タイプ", default=True)
-	copy_color = bpy.props.BoolProperty(name="オブジェクトカラー", default=True)
+	copy_show_name = bpy.props.BoolProperty(name="The name", default=True)
+	copy_show_axis = bpy.props.BoolProperty(name="Coordinate axes", default=True)
+	copy_show_wire = bpy.props.BoolProperty(name="Wire frame", default=True)
+	copy_show_all_edges = bpy.props.BoolProperty(name="See all sides", default=True)
+	copy_show_bounds = bpy.props.BoolProperty(name="Bound", default=True)
+	copy_draw_bounds_type = bpy.props.BoolProperty(name="Type outbound", default=True)
+	copy_show_texture_space = bpy.props.BoolProperty(name="Texture space", default=True)
+	copy_show_x_ray = bpy.props.BoolProperty(name="X rays", default=True)
+	copy_show_transparent = bpy.props.BoolProperty(name="Through", default=True)
+	copy_draw_type = bpy.props.BoolProperty(name="Best drawing type", default=True)
+	copy_color = bpy.props.BoolProperty(name="Object color", default=True)
 	
 	@classmethod
 	def poll(cls, context):

@@ -8,11 +8,11 @@ import bpy
 
 class GroupLayers(bpy.types.Operator):
 	bl_idname = "object.group_layers"
-	bl_label = "グループで表示/非表示を切り替え"
-	bl_description = "所属しているグループで表示/非表示を切り替えます"
+	bl_label = "Toggle show / hide groups"
+	bl_description = "Group show / hide toggles"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	group = bpy.props.StringProperty(name="グループ名")
+	group = bpy.props.StringProperty(name="Group name")
 	
 	def execute(self, context):
 		for obj in bpy.data.objects:
@@ -57,11 +57,11 @@ class ObjectSelectPanel(bpy.types.Panel):
 	def draw(self, context):
 		if (context.object):
 			if (context.object.type == 'ARMATURE'):
-				self.layout.label(text="ボーンレイヤー")
+				self.layout.label(text="Bone layer")
 				col = self.layout.column()
 				col.scale_y = 0.7
 				col.prop(context.object.data, 'layers', text="")
-		self.layout.label(text="グループでレイヤー")
+		self.layout.label(text="Group layers.")
 		objs = []
 		for obj in bpy.data.objects:
 			for i in range(len(obj.layers)):
@@ -73,8 +73,8 @@ class ObjectSelectPanel(bpy.types.Panel):
 				if (not group in groups):
 					groups.append(group)
 		row = self.layout.row(align=True)
-		row.operator('object.hide_view_clear', text="全表示", icon='RESTRICT_VIEW_OFF')
-		row.operator(GroupLayers.bl_idname, text="無所属", icon='FILE').group = ''
+		row.operator('object.hide_view_clear', text="All said", icon='RESTRICT_VIEW_OFF')
+		row.operator(GroupLayers.bl_idname, text="Non-partisan", icon='FILE').group = ''
 		col = self.layout.column(align=True)
 		for group in groups:
 			col.operator(GroupLayers.bl_idname, text=group.name, icon='PLUGIN').group = group.name

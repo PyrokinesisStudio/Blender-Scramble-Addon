@@ -9,8 +9,8 @@ import re
 
 class CreateMirror(bpy.types.Operator):
 	bl_idname = "armature.create_mirror"
-	bl_label = "選択ボーンをミラーリング"
-	bl_description = "選択中のボーンを任意の軸でミラーリングします"
+	bl_label = "Select bones mirroring."
+	bl_description = "Mirrored at any axes selected bone."
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -54,18 +54,18 @@ class CreateMirror(bpy.types.Operator):
 				context.space_data.pivot_point = prePivotPoint
 				context.object.data.use_mirror_x = preUseMirror
 			else:
-				self.report(type={"ERROR"}, message="エディトモードで実行してください")
+				self.report(type={"ERROR"}, message="Please perform in edit mode")
 		else:
-			self.report(type={"ERROR"}, message="アーマチュアオブジェクトではありません")
+			self.report(type={"ERROR"}, message="Armature object is not")
 		return {'FINISHED'}
 
 class CopyBoneName(bpy.types.Operator):
 	bl_idname = "armature.copy_bone_name"
-	bl_label = "ボーン名をクリップボードにコピー"
-	bl_description = "アクティブボーンの名前をクリップボードにコピーします"
+	bl_label = "Copy to Clipboard bone name"
+	bl_description = "Copies the Clipboard the name of active bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isObject = bpy.props.BoolProperty(name="オブジェクト名も", default=False)
+	isObject = bpy.props.BoolProperty(name="Object name", default=False)
 	
 	def execute(self, context):
 		if (self.isObject):
@@ -76,13 +76,13 @@ class CopyBoneName(bpy.types.Operator):
 
 class RenameBoneRegularExpression(bpy.types.Operator):
 	bl_idname = "armature.rename_bone_regular_expression"
-	bl_label = "ボーン名を正規表現で置換"
-	bl_description = "(選択中の)ボーン名を正規表現に一致する部分で置換します"
+	bl_label = "Replace the bone names in regular expressions"
+	bl_description = "In the bone name (of choice) to match regular expression replace"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isAll = bpy.props.BoolProperty(name="非選択も含め全て", default=False)
-	pattern = bpy.props.StringProperty(name="置換前(正規表現)", default="^")
-	repl = bpy.props.StringProperty(name="置換後", default="@")
+	isAll = bpy.props.BoolProperty(name="Including non-select all", default=False)
+	pattern = bpy.props.StringProperty(name="Replacement front (in regular expressions)", default="^")
+	repl = bpy.props.StringProperty(name="Replacement", default="@")
 	
 	def execute(self, context):
 		obj = context.active_object
@@ -98,18 +98,18 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 						continue
 					bone.name = new_name
 			else:
-				self.report(type={"ERROR"}, message="エディトモードで実行してください")
+				self.report(type={"ERROR"}, message="Please perform in edit mode")
 		else:
-			self.report(type={"ERROR"}, message="アーマチュアオブジェクトではありません")
+			self.report(type={"ERROR"}, message="Armature object is not")
 		return {'FINISHED'}
 
 class RenameOppositeBone(bpy.types.Operator):
 	bl_idname = "armature.rename_opposite_bone"
-	bl_label = "反対位置にあるボーンをリネーム"
-	bl_description = "選択中ボーンのX軸反対側の位置にあるボーンを「○.R ○.L」のように対にします"
+	bl_label = "Bones in the opposite position, rename."
+	bl_description = "Bone is located opposite the X axis selection in bone \"1.R 1 longs.L \' of so versus the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	threshold = bpy.props.FloatProperty(name="位置のしきい値", default=0.00001, min=0, soft_min=0, step=0.001, precision=5)
+	threshold = bpy.props.FloatProperty(name="At the threshold", default=0.00001, min=0, soft_min=0, step=0.001, precision=5)
 	
 	def execute(self, context):
 		obj = context.active_object
@@ -140,9 +140,9 @@ class RenameOppositeBone(bpy.types.Operator):
 				bpy.ops.object.mode_set(mode='EDIT')
 				bpy.ops.armature.flip_names()
 			else:
-				self.report(type={"ERROR"}, message="エディトモードで実行してください")
+				self.report(type={"ERROR"}, message="Please perform in edit mode")
 		else:
-			self.report(type={"ERROR"}, message="アーマチュアオブジェクトではありません")
+			self.report(type={"ERROR"}, message="Armature object is not")
 		return {'FINISHED'}
 		return {'FINISHED'}
 
@@ -162,7 +162,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.prop(context.object.data, "use_mirror_x", icon="PLUGIN", text="X軸ミラー編集")
+		self.layout.prop(context.object.data, "use_mirror_x", icon="PLUGIN", text="X axis mirror edit")
 		self.layout.operator(CreateMirror.bl_idname, icon="PLUGIN")
 		self.layout.operator(RenameOppositeBone.bl_idname, icon="PLUGIN")
 		self.layout.separator()

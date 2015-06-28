@@ -8,21 +8,21 @@ import bpy, bmesh
 
 class ConvertMesh(bpy.types.Operator):
 	bl_idname = "uv.convert_mesh"
-	bl_label = "UVをメッシュに変換"
-	bl_description = "アクティブなUVを新規メッシュに変換します"
+	bl_label = "Convert UV to mesh"
+	bl_description = "Converts the new mesh to UV active"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
 		obj = context.object
 		if (not obj):
-			self.report(type={'ERROR'}, message="アクティブなオブジェクトが見つかりません")
+			self.report(type={'ERROR'}, message="An active object is not found")
 			return {'CANCELLED'}
 		if (obj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="メッシュオブジェクトではありません")
+			self.report(type={'ERROR'}, message="Mesh objects are not")
 			return {'CANCELLED'}
 		me = obj.data
 		if (not me.uv_layers.active):
-			self.report(type={'ERROR'}, message="UVが見つかりません")
+			self.report(type={'ERROR'}, message="UV cannot be found")
 			return {'CANCELLED'}
 		bpy.ops.object.mode_set(mode='OBJECT')
 		bpy.ops.object.select_all(action='DESELECT')

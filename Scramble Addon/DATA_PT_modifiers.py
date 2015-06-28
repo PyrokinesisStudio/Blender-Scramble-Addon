@@ -8,8 +8,8 @@ import bpy
 
 class ApplyAllModifiers(bpy.types.Operator):
 	bl_idname = "object.apply_all_modifiers"
-	bl_label = "全モディファイア適用"
-	bl_description = "選択オブジェクトの全てのモディファイアを適用します"
+	bl_label = "All modifiers applied"
+	bl_description = "Applies to all modifiers of the selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -20,8 +20,8 @@ class ApplyAllModifiers(bpy.types.Operator):
 
 class DeleteAllModifiers(bpy.types.Operator):
 	bl_idname = "object.delete_all_modifiers"
-	bl_label = "全モディファイア削除"
-	bl_description = "選択オブジェクトの全てのモディファイアを削除します"
+	bl_label = "Remove all modifiers"
+	bl_description = "Remove all modifiers of the selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -33,8 +33,8 @@ class DeleteAllModifiers(bpy.types.Operator):
 
 class ToggleApplyModifiersView(bpy.types.Operator):
 	bl_idname = "object.toggle_apply_modifiers_view"
-	bl_label = "ビューへのモディファイア適用を切り替え"
-	bl_description = "選択オブジェクトの全てのモディファイアのビューへの適用を切り替えます"
+	bl_label = "Modifiers apply to the view switching"
+	bl_description = "Shows or hides the application to view all modifiers of the selected object"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -47,22 +47,22 @@ class ToggleApplyModifiersView(bpy.types.Operator):
 			for mod in obj.modifiers:
 				mod.show_viewport = is_apply
 		if is_apply:
-			self.report(type={"INFO"}, message="ビューにモディファイアを適用しました")
+			self.report(type={"INFO"}, message="Applying modifiers to view")
 		else:
-			self.report(type={"INFO"}, message="ビューへのモディファイア適用を解除しました")
+			self.report(type={"INFO"}, message="Unregistered modifiers apply to the view")
 		return {'FINISHED'}
 
 class SyncShowModifiers(bpy.types.Operator):
 	bl_idname = "object.sync_show_modifiers"
-	bl_label = "モディファイア使用を同期"
-	bl_description = "選択オブジェクトのレンダリング時/ビュー時のモディファイア使用を同期します"
+	bl_label = "Synchronized modifier use"
+	bl_description = "The synchronized modifier used when rendering the selection / view"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("1", "レンダリング → ビュー", "", 1),
-		("0", "ビュー → レンダリング", "", 2),
+		("1", "Rendering → view", "", 1),
+		("0", "View-rendering", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="演算", default="0")
+	mode = bpy.props.EnumProperty(items=items, name="Calculus", default="0")
 	
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
@@ -77,8 +77,8 @@ class SyncShowModifiers(bpy.types.Operator):
 
 class ToggleAllShowExpanded(bpy.types.Operator):
 	bl_idname = "wm.toggle_all_show_expanded"
-	bl_label = "全モディファイアの展開/閉じるを切り替え"
-	bl_description = "アクティブオブジェクトの全モディファイアを展開/閉じるを切り替え(トグル)します"
+	bl_label = "All modifiers expand / collapse toggle"
+	bl_description = "Expand / collapse all modifiers of the active objects to the switch (toggle)"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -96,7 +96,7 @@ class ToggleAllShowExpanded(bpy.types.Operator):
 			for mod in obj.modifiers:
 				mod.show_expanded = not is_close
 		else:
-			self.report(type={'WARNING'}, message="モディファイアが1つもありません")
+			self.report(type={'WARNING'}, message="Not a single modifier")
 			return {'CANCELLED'}
 		for area in context.screen.areas:
 			area.tag_redraw()
@@ -104,13 +104,13 @@ class ToggleAllShowExpanded(bpy.types.Operator):
 
 class ApplyModifiersAndJoin(bpy.types.Operator):
 	bl_idname = "object.apply_modifiers_and_join"
-	bl_label = "モディファイア適用+統合"
-	bl_description = "オブジェクトのモディファイアを全適用してから統合します"
+	bl_label = "Modifiers apply + integration"
+	bl_description = "The integration from the object\'s modifiers to apply all"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	unapply_subsurf = bpy.props.BoolProperty(name="サブサーフ除く", default=True)
-	unapply_armature = bpy.props.BoolProperty(name="アーマチュア除く", default=True)
-	unapply_mirror = bpy.props.BoolProperty(name="ミラー除く", default=False)
+	unapply_subsurf = bpy.props.BoolProperty(name="Excluding the Subsurf", default=True)
+	unapply_armature = bpy.props.BoolProperty(name="Except the armature", default=True)
+	unapply_mirror = bpy.props.BoolProperty(name="Except for mirrors", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -135,8 +135,8 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 
 class AutoRenameModifiers(bpy.types.Operator):
 	bl_idname = "object.auto_rename_modifiers"
-	bl_label = "モディファイア名を自動でリネーム"
-	bl_description = "選択オブジェクトのモディファイア名を参照先などの名前にリネームします"
+	bl_label = "Modifier name auto-rename."
+	bl_description = "Rename the selected object modifier name refers to, for example,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -170,16 +170,16 @@ class AutoRenameModifiers(bpy.types.Operator):
 
 class AddBoolean(bpy.types.Operator):
 	bl_idname = "object.add_boolean"
-	bl_label = "ブーリアンを追加"
-	bl_description = "アクティブオブジェクトにその他選択オブジェクトのブーリアンを追加"
+	bl_label = "Add a Boolean"
+	bl_description = "Additional Boolean selected objects to an active object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("INTERSECT", "交差", "", 1),
-		("UNION", "統合", "", 2),
-		("DIFFERENCE", "差分", "", 3),
+		("INTERSECT", "Cross", "", 1),
+		("UNION", "Integration", "", 2),
+		("DIFFERENCE", "Difference", "", 3),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="演算")
+	mode = bpy.props.EnumProperty(items=items, name="Calculus")
 	
 	def execute(self, context):
 		activeObj = context.active_object
@@ -193,16 +193,16 @@ class AddBoolean(bpy.types.Operator):
 
 class ApplyBoolean(bpy.types.Operator):
 	bl_idname = "object.apply_boolean"
-	bl_label = "ブーリアンを適用"
-	bl_description = "アクティブオブジェクトにその他選択オブジェクトのブーリアンを適用"
+	bl_label = "Apply the Boolean"
+	bl_description = "Active objects for other Boolean objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("INTERSECT", "交差", "", 1),
-		("UNION", "統合", "", 2),
-		("DIFFERENCE", "差分", "", 3),
+		("INTERSECT", "Cross", "", 1),
+		("UNION", "Integration", "", 2),
+		("DIFFERENCE", "Difference", "", 3),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="演算")
+	mode = bpy.props.EnumProperty(items=items, name="Calculus")
 	
 	def execute(self, context):
 		activeObj = context.active_object
@@ -224,11 +224,11 @@ class ApplyBoolean(bpy.types.Operator):
 
 class SetRenderSubsurfLevel(bpy.types.Operator):
 	bl_idname = "object.set_render_subsurf_level"
-	bl_label = "レンダリング時の細分化数を設定"
-	bl_description = "選択したオブジェクトのサブサーフモディファイアのレンダリング時の細分化数を設定します"
+	bl_label = "Rendering subdivision number"
+	bl_description = "Sets the number of subdivisions during rendering of the selected object subsurfmodifaia"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	level = bpy.props.IntProperty(name="分割数", default=2, min=0, max=6)
+	level = bpy.props.IntProperty(name="Split number", default=2, min=0, max=6)
 	
 	def execute(self, context):
 		for obj in context.selected_objects:
@@ -240,15 +240,15 @@ class SetRenderSubsurfLevel(bpy.types.Operator):
 
 class EqualizeSubsurfLevel(bpy.types.Operator):
 	bl_idname = "object.equalize_subsurf_level"
-	bl_label = "プレビュー・レンダリングの細分化数を同じに"
-	bl_description = "選択したオブジェクトのサブサーフモディファイアのプレビュー時とレンダリング時の細分化数を同じに設定します"
+	bl_label = "Equivalent to a subdivision of the preview rendering"
+	bl_description = "Set in the same subdivision of the subsurfmodifaia of the selected object when you preview and rendering time"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("ToRender", "プレビュー → レンダリング", "", 1),
-		("ToPreview", "レンダリング → プレビュー", "", 2),
+		("ToRender", "Preview-rendering", "", 1),
+		("ToPreview", "Rendering-preview", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="設定方法")
+	mode = bpy.props.EnumProperty(items=items, name="How to set up")
 	
 	def execute(self, context):
 		for obj in context.selected_objects:
@@ -263,11 +263,11 @@ class EqualizeSubsurfLevel(bpy.types.Operator):
 
 class SetSubsurfOptimalDisplay(bpy.types.Operator):
 	bl_idname = "object.set_subsurf_optimal_display"
-	bl_label = "最適化表示を設定"
-	bl_description = "選択したオブジェクトのサブサーフモディファイアの最適化表示を設定します"
+	bl_label = "Set the defragmentation display"
+	bl_description = "Sets optimization for the subsurfmodifaia of the selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	mode =  bpy.props.BoolProperty(name="最適化表示")
+	mode =  bpy.props.BoolProperty(name="Optimized view")
 	
 	def execute(self, context):
 		for obj in context.selected_objects:
@@ -279,8 +279,8 @@ class SetSubsurfOptimalDisplay(bpy.types.Operator):
 
 class DeleteSubsurf(bpy.types.Operator):
 	bl_idname = "object.delete_subsurf"
-	bl_label = "選択オブジェクトのサブサーフを削除"
-	bl_description = "選択したオブジェクトのサブサーフモディファイアを削除します"
+	bl_label = "Delete select Subsurf"
+	bl_description = "Removes the selected object subsurfmodifaia"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -293,16 +293,16 @@ class DeleteSubsurf(bpy.types.Operator):
 
 class AddSubsurf(bpy.types.Operator):
 	bl_idname = "object.add_subsurf"
-	bl_label = "選択オブジェクトにサブサーフを追加"
-	bl_description = "選択したオブジェクトにサブサーフモディファイアを追加します"
+	bl_label = "Add a Subsurf on selected objects"
+	bl_description = "Add subsurfmodifaia to the selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	
-	subdivision_type = bpy.props.EnumProperty(items=[("CATMULL_CLARK", "カトマルクラーク", "", 1), ("SIMPLE", "シンプル", "", 2)], name="細分化方法")
-	levels = bpy.props.IntProperty(name="ビューの分割数", default=2, min=0, max=6)
-	render_levels = bpy.props.IntProperty(name="レンダーの分割数", default=2, min=0, max=6)
-	use_subsurf_uv =  bpy.props.BoolProperty(name="UVを細分化", default=True)
-	show_only_control_edges =  bpy.props.BoolProperty(name="最適化表示")
+	subdivision_type = bpy.props.EnumProperty(items=[("CATMULL_CLARK", "Catmulclark", "", 1), ("SIMPLE", "Simple", "", 2)], name="Subdivision method")
+	levels = bpy.props.IntProperty(name="Number of views", default=2, min=0, max=6)
+	render_levels = bpy.props.IntProperty(name="Split number render", default=2, min=0, max=6)
+	use_subsurf_uv =  bpy.props.BoolProperty(name="Subdivided UVs", default=True)
+	show_only_control_edges =  bpy.props.BoolProperty(name="Optimized view")
 	
 	def execute(self, context):
 		for obj in context.selected_objects:
@@ -321,11 +321,11 @@ class AddSubsurf(bpy.types.Operator):
 
 class SetArmatureDeformPreserveVolume(bpy.types.Operator):
 	bl_idname = "object.set_armature_deform_preserve_volume"
-	bl_label = "アーマチュアの「体積を維持」をまとめて設定"
-	bl_description = "選択したオブジェクトのアーマチュアモディファイアの「体積を維持」をまとめてオン/オフします"
+	bl_label = "Set keep up the volume the armature"
+	bl_description = "Maintain volume in the armtuamodifaia of the selected objects together off and on the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	use_deform_preserve_volume =  bpy.props.BoolProperty(name="「体積を維持」を使用", default=True)
+	use_deform_preserve_volume =  bpy.props.BoolProperty(name="Use the preserve volume", default=True)
 	
 	def execute(self, context):
 		for obj in context.selected_objects:
@@ -341,8 +341,8 @@ class SetArmatureDeformPreserveVolume(bpy.types.Operator):
 
 class QuickCurveDeform(bpy.types.Operator):
 	bl_idname = "object.quick_curve_deform"
-	bl_label = "クイックカーブ変形"
-	bl_description = "すばやくカーブモディファイアを適用します"
+	bl_label = "Quick curve deformation"
+	bl_description = "Quickly apply the curve modifier"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -353,8 +353,8 @@ class QuickCurveDeform(bpy.types.Operator):
 		('NEG_Y', "-Y", "", 5),
 		('NEG_Z', "-Z", "", 6),
 		]
-	deform_axis = bpy.props.EnumProperty(items=items, name="変形する軸")
-	is_apply = bpy.props.BoolProperty(name="モディファイア適用", default=False)
+	deform_axis = bpy.props.EnumProperty(items=items, name="Axial deformation")
+	is_apply = bpy.props.BoolProperty(name="Modifiers applied", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -371,10 +371,10 @@ class QuickCurveDeform(bpy.types.Operator):
 	def execute(self, context):
 		mesh_obj = context.active_object
 		if (mesh_obj.type != 'MESH'):
-			self.report(type={"ERROR"}, message="メッシュオブジェクトがアクティブな状態で実行して下さい")
+			self.report(type={"ERROR"}, message="Please run the mesh object is active")
 			return {"CANCELLED"}
 		if (len(context.selected_objects) != 2):
-			self.report(type={"ERROR"}, message="メッシュ・カーブの2つのみ選択して実行して下さい")
+			self.report(type={"ERROR"}, message="By selecting only the two meshes, curves, please run")
 			return {"CANCELLED"}
 		for obj in context.selected_objects:
 			if (mesh_obj.name != obj.name):
@@ -382,7 +382,7 @@ class QuickCurveDeform(bpy.types.Operator):
 					curve_obj = obj
 					break
 		else:
-			self.report(type={"ERROR"}, message="カーブオブジェクトも選択状態で実行して下さい")
+			self.report(type={"ERROR"}, message="Curve objects run in the selected state")
 			return {"CANCELLED"}
 		curve = curve_obj.data
 		pre_use_stretch = curve.use_stretch
@@ -403,8 +403,8 @@ class QuickCurveDeform(bpy.types.Operator):
 
 class QuickArrayAndCurveDeform(bpy.types.Operator):
 	bl_idname = "object.quick_array_and_curve_deform"
-	bl_label = "クイック配列複製+カーブ変形"
-	bl_description = "すばやく配列複製モディファイアとカーブモディファイアを適用します"
+	bl_label = "Quick array replication + curve deformation"
+	bl_description = "Quickly apply the curve modifier with the modifiers array replication"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -415,9 +415,9 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 		('NEG_Y', "-Y", "", 5),
 		('NEG_Z', "-Z", "", 6),
 		]
-	deform_axis = bpy.props.EnumProperty(items=items, name="変形する軸")
-	use_merge_vertices = bpy.props.BoolProperty(name="頂点結合", default=True)
-	is_apply = bpy.props.BoolProperty(name="モディファイア適用", default=False)
+	deform_axis = bpy.props.EnumProperty(items=items, name="Axial deformation")
+	use_merge_vertices = bpy.props.BoolProperty(name="Vertex binding", default=True)
+	is_apply = bpy.props.BoolProperty(name="Modifiers applied", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -434,10 +434,10 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 	def execute(self, context):
 		mesh_obj = context.active_object
 		if (mesh_obj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="メッシュオブジェクトがアクティブな状態で実行して下さい")
+			self.report(type={'ERROR'}, message="Please run the mesh object is active")
 			return {'CANCELLED'}
 		if (len(context.selected_objects) != 2):
-			self.report(type={'ERROR'}, message="メッシュ・カーブの2つのみ選択して実行して下さい")
+			self.report(type={'ERROR'}, message="By selecting only the two meshes, curves, please run")
 			return {'CANCELLED'}
 		for obj in context.selected_objects:
 			if (mesh_obj.name != obj.name):
@@ -445,7 +445,7 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 					curve_obj = obj
 					break
 		else:
-			self.report(type={'ERROR'}, message="カーブオブジェクトも選択状態で実行して下さい")
+			self.report(type={'ERROR'}, message="Curve objects run in the selected state")
 			return {'CANCELLED'}
 		curve = curve_obj.data
 		pre_use_stretch = curve.use_stretch
@@ -492,8 +492,8 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 
 class ModifierMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_specials"
-	bl_label = "モディファイア操作"
-	bl_description = "モディファイア関係の操作です"
+	bl_label = "Modifier action"
+	bl_description = "Is working with modifiers"
 	
 	def draw(self, context):
 		self.layout.menu(SubsurfMenu.bl_idname, icon='PLUGIN')
@@ -505,8 +505,8 @@ class ModifierMenu(bpy.types.Menu):
 
 class SubsurfMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_subsurf"
-	bl_label = "サブサーフ関係"
-	bl_description = "サブサーフェイス関係の操作です"
+	bl_label = "Save surf related"
+	bl_description = "Is the relationship between subsurface operations"
 	
 	def draw(self, context):
 		self.layout.operator(AddSubsurf.bl_idname, icon='PLUGIN')
@@ -518,30 +518,30 @@ class SubsurfMenu(bpy.types.Menu):
 
 class BooleanMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_boolean"
-	bl_label = "ブーリアン関係"
-	bl_description = "ブーリアン関係の操作です"
+	bl_label = "Boolean related"
+	bl_description = "Is the relationship between Boolean operations"
 	
 	def draw(self, context):
-		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="ブーリアン追加 (交差)").mode = "INTERSECT"
-		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="ブーリアン追加 (統合)").mode = "UNION"
-		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="ブーリアン追加 (差分)").mode = "DIFFERENCE"
+		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (cross)").mode = "INTERSECT"
+		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (integrated)").mode = "UNION"
+		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (diff)").mode = "DIFFERENCE"
 		self.layout.separator()
-		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="ブーリアン適用 (交差)").mode = "INTERSECT"
-		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="ブーリアン適用 (統合)").mode = "UNION"
-		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="ブーリアン適用 (差分)").mode = "DIFFERENCE"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (cross)").mode = "INTERSECT"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (integrated)").mode = "UNION"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (diff)").mode = "DIFFERENCE"
 
 class ArmatureMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_armature"
-	bl_label = "アーマチュア関係"
-	bl_description = "アーマチュア関係の操作です"
+	bl_label = "Armature connection"
+	bl_description = "Armature connection operation"
 	
 	def draw(self, context):
 		self.layout.operator(SetArmatureDeformPreserveVolume.bl_idname, icon='PLUGIN')
 
 class CurveMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_curve"
-	bl_label = "カーブ関係"
-	bl_description = "カーブ関係の操作です"
+	bl_label = "Relationship between curves"
+	bl_description = "Operation of curve relationships"
 	
 	def draw(self, context):
 		self.layout.operator(QuickCurveDeform.bl_idname, icon='PLUGIN')
@@ -566,13 +566,13 @@ def menu(self, context):
 			if (len(context.active_object.modifiers)):
 				col = self.layout.column(align=True)
 				row = col.row(align=True)
-				row.operator(AutoRenameModifiers.bl_idname, icon='SCRIPT', text="全リネーム")
-				row.operator(ApplyAllModifiers.bl_idname, icon='IMPORT', text="全適用")
-				row.operator(DeleteAllModifiers.bl_idname, icon='X', text="全削除")
+				row.operator(AutoRenameModifiers.bl_idname, icon='SCRIPT', text="Rename all")
+				row.operator(ApplyAllModifiers.bl_idname, icon='IMPORT', text="All applicable")
+				row.operator(DeleteAllModifiers.bl_idname, icon='X', text="Delete all")
 				row = col.row(align=True)
-				row.operator(ToggleApplyModifiersView.bl_idname, icon='RESTRICT_VIEW_OFF', text="ビュー表示")
-				row.operator(ToggleAllShowExpanded.bl_idname, icon='FULLSCREEN_ENTER', text="展開/閉じる")
-				row.operator(SyncShowModifiers.bl_idname, icon='LINKED', text="使用同期")
+				row.operator(ToggleApplyModifiersView.bl_idname, icon='RESTRICT_VIEW_OFF', text="View")
+				row.operator(ToggleAllShowExpanded.bl_idname, icon='FULLSCREEN_ENTER', text="Expand / collapse")
+				row.operator(SyncShowModifiers.bl_idname, icon='LINKED', text="Use over the")
 		self.layout.menu(ModifierMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons['Scramble Addon'].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

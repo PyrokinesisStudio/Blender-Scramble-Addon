@@ -1,4 +1,4 @@
-# プロパティ > "メッシュデータ"タブ > "UVマップ"パネル
+# プロパティ > "Mesh data"タブ > "UV maps"パネル
 
 import bpy
 
@@ -8,12 +8,12 @@ import bpy
 
 class RenameSpecificNameUV(bpy.types.Operator):
 	bl_idname = "object.rename_specific_name_uv"
-	bl_label = "まとめてUVをリネーム"
-	bl_description = "選択オブジェクト内の指定UVをまとめて改名します"
+	bl_label = "Bulk Rename with UV"
+	bl_description = "Renames the selected objects within designated UV together"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	source_name =  bpy.props.StringProperty(name="リネームするUV名", default="過去のUV")
-	replace_name =  bpy.props.StringProperty(name="新しいUV名", default="新しいUV")
+	source_name =  bpy.props.StringProperty(name="UV name rename", default="Past UV")
+	replace_name =  bpy.props.StringProperty(name="New UV name", default="New UV")
 	
 	@classmethod
 	def poll(cls, context):
@@ -23,7 +23,7 @@ class RenameSpecificNameUV(bpy.types.Operator):
 	def execute(self, context):
 		for obj in context.selected_objects:
 			if (obj.type != 'MESH'):
-				self.report(type={'WARNING'}, message=obj.name+" はメッシュオブジェクトではありません、無視します")
+				self.report(type={'WARNING'}, message=obj.name+" A mesh object, ignore")
 				continue
 			me = obj.data
 			for uv in me.uv_textures[:]:
@@ -35,11 +35,11 @@ class RenameSpecificNameUV(bpy.types.Operator):
 
 class DeleteSpecificNameUV(bpy.types.Operator):
 	bl_idname = "object.delete_specific_name_uv"
-	bl_label = "まとめて指定名のUVを削除"
-	bl_description = "指定した名前と同じ名のUVを、選択オブジェクトから削除します"
+	bl_label = "Bulk delete name UV"
+	bl_description = "Removes the selected object UV of the same name as the specified"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name =  bpy.props.StringProperty(name="削除するUV名", default="UV")
+	name =  bpy.props.StringProperty(name="Remove the UV name", default="UV")
 	
 	@classmethod
 	def poll(cls, context):
@@ -49,7 +49,7 @@ class DeleteSpecificNameUV(bpy.types.Operator):
 	def execute(self, context):
 		for obj in context.selected_objects:
 			if (obj.type != 'MESH'):
-				self.report(type={'WARNING'}, message=obj.name+" はメッシュオブジェクトではありません、無視します")
+				self.report(type={'WARNING'}, message=obj.name+" A mesh object, ignore")
 				continue
 			me = obj.data
 			for uv in me.uv_textures:
@@ -61,11 +61,11 @@ class DeleteSpecificNameUV(bpy.types.Operator):
 
 class RenameUV(bpy.types.Operator):
 	bl_idname = "object.rename_uv"
-	bl_label = "UV名を変更"
-	bl_description = "アクティブなUVの名前を変更します(テクスチャのUV指定もそれに伴って変更します)"
+	bl_label = "Rename the UV"
+	bl_description = "Renames active UV (UV texture also changes accordingly)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name =  bpy.props.StringProperty(name="新しいUV名", default="UV")
+	name =  bpy.props.StringProperty(name="New UV name", default="UV")
 	
 	@classmethod
 	def poll(cls, context):
@@ -84,7 +84,7 @@ class RenameUV(bpy.types.Operator):
 			me = obj.data
 			uv = me.uv_layers.active
 			if (uv == None):
-				self.report(type={'ERROR'}, message="UVが存在しません")
+				self.report(type={'ERROR'}, message="No UV")
 				return {'"CANCELLED'}
 			preName = uv.name
 			uv.name = self.name
@@ -94,17 +94,17 @@ class RenameUV(bpy.types.Operator):
 						if (slot != None):
 							if (slot.uv_layer == preName):
 									slot.uv_layer = uv.name
-									self.report(type={"INFO"}, message="マテリアル「"+mat.name+"」のUV指定を修正しました")
+									self.report(type={"INFO"}, message="Material \""+mat.name+"\"The fixed UV designation")
 					for me2 in bpy.data.meshes:
 						for mat2 in me2.materials:
 							if (mat2):
 								if (mat.name == mat2.name):
 									try:
 										me2.uv_layers[preName].name = uv.name
-										self.report(type={"INFO"}, message="メッシュ「"+me2.name+"」のUV指定を修正しました")
+										self.report(type={"INFO"}, message="Mesh \""+me2.name+"\"The fixed UV designation")
 									except KeyError: pass
 		else:
-			self.report(type={'ERROR'}, message="メッシュオブジェクトではありません")
+			self.report(type={'ERROR'}, message="Mesh objects are not")
 			return {'CANCELLED'}
 		return {'FINISHED'}
 	def invoke(self, context, event):
@@ -113,18 +113,18 @@ class RenameUV(bpy.types.Operator):
 			me = obj.data
 			uv = me.uv_layers.active
 			if (uv == None):
-				self.report(type={'ERROR'}, message="UVが存在しません")
+				self.report(type={'ERROR'}, message="No UV")
 				return {'CANCELLED'}
 			self.name = uv.name
 		return context.window_manager.invoke_props_dialog(self)
 
 class DeleteEmptyUV(bpy.types.Operator):
 	bl_idname = "object.delete_empty_uv"
-	bl_label = "未使用のUVを削除"
-	bl_description = "アクティブなオブジェクトのマテリアルで未使用なUVを全削除します(他の部分に使われているUVは消してしまいます)"
+	bl_label = "Remove unused UV"
+	bl_description = "Active object material (the UV is used in other parts disappear) delete unused UV total"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isAllSelected =  bpy.props.BoolProperty(name="全ての選択したメッシュ", default=False)
+	isAllSelected =  bpy.props.BoolProperty(name="All the selected mesh", default=False)
 	
 	def execute(self, context):
 		objs = [context.active_object]
@@ -144,25 +144,25 @@ class DeleteEmptyUV(bpy.types.Operator):
 				u = me.uv_layers[:]
 				for uv in u:
 					if (not uv.name in uvs):
-						self.report(type={"INFO"}, message=uv.name+" を削除しました")
+						self.report(type={"INFO"}, message=uv.name+" Removed")
 						me.uv_layers.active = uv
 						bpy.ops.mesh.uv_texture_remove()
 				me.uv_layers.active = preUV
 			else:
-				self.report(type={"WARNING"}, message=obj.name+"はメッシュオブジェクトではありません")
+				self.report(type={"WARNING"}, message=obj.name+"A mesh object is not")
 		return {'FINISHED'}
 
 class MoveActiveUV(bpy.types.Operator):
 	bl_idname = "object.move_active_uv"
-	bl_label = "UVを移動"
-	bl_description = "アクティブなオブジェクトのUVを移動して並び替えます"
+	bl_label = "Move to UV"
+	bl_description = "Sorts, by moving the active object\'s UV"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('UP', "上へ", "", 1),
-		('DOWN', "下へ", "", 2),
+		('UP', "To the top", "", 1),
+		('DOWN', "To the bottom", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="方向", default="UP")
+	mode = bpy.props.EnumProperty(items=items, name="Direction", default="UP")
 	
 	@classmethod
 	def poll(cls, context):
@@ -223,8 +223,8 @@ class MoveActiveUV(bpy.types.Operator):
 
 class UVMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_uv"
-	bl_label = "UV操作"
-	bl_description = "UV関係の操作です"
+	bl_label = "UV operations"
+	bl_description = "UV related operations"
 	
 	def draw(self, context):
 		self.layout.operator(DeleteEmptyUV.bl_idname, icon="PLUGIN")

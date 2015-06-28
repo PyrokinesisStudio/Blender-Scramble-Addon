@@ -8,8 +8,8 @@ import bpy
 
 class DataNameToObjectName(bpy.types.Operator):
 	bl_idname = "object.data_name_to_object_name"
-	bl_label = "オブジェクト名をデータ名に"
-	bl_description = "オブジェクト名をリンクしているデータ名に設定します"
+	bl_label = "Object names in the data name"
+	bl_description = "Set the data name linked to object name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -27,8 +27,8 @@ class DataNameToObjectName(bpy.types.Operator):
 
 class ObjectNameToDataName(bpy.types.Operator):
 	bl_idname = "object.object_name_to_data_name"
-	bl_label = "データ名をオブジェクト名に"
-	bl_description = "データ名をリンクしているオブジェクト名に設定します"
+	bl_label = "Data name in the object name"
+	bl_description = "Sets the data linked to the object name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -46,8 +46,8 @@ class ObjectNameToDataName(bpy.types.Operator):
 
 class CopyObjectName(bpy.types.Operator):
 	bl_idname = "object.copy_object_name"
-	bl_label = "オブジェクト名をコピー"
-	bl_description = "オブジェクト名をクリップボードにコピーします"
+	bl_label = "Copy the object name"
+	bl_description = "Copy to the Clipboard object name"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -64,8 +64,8 @@ class CopyObjectName(bpy.types.Operator):
 
 class CopyDataName(bpy.types.Operator):
 	bl_idname = "object.copy_data_name"
-	bl_label = "データ名をコピー"
-	bl_description = "データ名をクリップボードにコピーします"
+	bl_label = "Copy the data name"
+	bl_description = "Copies data to the Clipboard"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -99,12 +99,12 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
 		row.alignment = 'RIGHT'
-		row.label("クリップボードへ", icon='COPYDOWN')
+		row.label("To the Clipboard", icon='COPYDOWN')
 		row.operator('object.copy_object_name', icon='OBJECT_DATAMODE', text="")
 		if (context.active_bone or context.active_pose_bone):
 			row.operator('object.copy_bone_name', icon='BONE_DATA', text="")
 		row.operator('object.copy_data_name', icon='EDITMODE_HLT', text="")
-		row.label("名前を同期", icon='LINKED')
+		row.label("Name synchronization", icon='LINKED')
 		row.operator('object.object_name_to_data_name', icon='TRIA_DOWN_BAR', text="")
 		row.operator('object.data_name_to_object_name', icon='TRIA_UP_BAR', text="")
 		self.layout.template_ID(context.object, 'data')

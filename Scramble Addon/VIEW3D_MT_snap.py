@@ -8,11 +8,11 @@ import bpy
 
 class SnapMesh3DCursor(bpy.types.Operator):
 	bl_idname = "view3d.snap_mesh_3d_cursor"
-	bl_label = "メッシュに3Dカーソルをスナップ"
-	bl_description = "マウス下のメッシュ面上に3Dカーソルを移動させます(ショートカットに登録してお使い下さい)"
+	bl_label = "3D cursor snap to mesh"
+	bl_description = "(Please use the shortcuts) mesh surface under the mouse move the 3D cursor"
 	bl_options = {'REGISTER'}
 	
-	mouse_co = bpy.props.IntVectorProperty(name="マウス位置", size=2)
+	mouse_co = bpy.props.IntVectorProperty(name="Mouse position", size=2)
 	
 	def execute(self, context):
 		preGp = context.scene.grease_pencil
@@ -41,8 +41,8 @@ class SnapMesh3DCursor(bpy.types.Operator):
 
 class Move3DCursorToViewLocation(bpy.types.Operator):
 	bl_idname = "view3d.move_3d_cursor_to_view_location"
-	bl_label = "視点位置に3Dカーソル移動"
-	bl_description = "視点の中心位置に3Dカーソルを移動させます"
+	bl_label = "3D Navigation view"
+	bl_description = "Move the 3D cursor center position of"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -51,8 +51,8 @@ class Move3DCursorToViewLocation(bpy.types.Operator):
 
 class Move3DCursorFar(bpy.types.Operator):
 	bl_idname = "view3d.move_3d_cursor_far"
-	bl_label = "3Dカーソルを非表示に(遥か遠くに)"
-	bl_description = "3Dカーソルを遥か遠くに移動させて非表示のように見せかけます"
+	bl_label = "3D cursor invisible in the (distant)"
+	bl_description = "Pretend to hide the 3D cursor to move far far away"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -75,9 +75,9 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(Move3DCursorToViewLocation.bl_idname, text="カーソル → 視点位置", icon="PLUGIN")
-		self.layout.operator(Move3DCursorFar.bl_idname, text="カーソル → 非表示 (遠くへ)", icon="PLUGIN")
-		self.layout.operator(SnapMesh3DCursor.bl_idname, text="カーソル → メッシュ表面", icon="PLUGIN")
+		self.layout.operator(Move3DCursorToViewLocation.bl_idname, text="Cursor-position", icon="PLUGIN")
+		self.layout.operator(Move3DCursorFar.bl_idname, text="Cursor to hide (to)", icon="PLUGIN")
+		self.layout.operator(SnapMesh3DCursor.bl_idname, text="Cursor → mesh surface", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
