@@ -18,6 +18,15 @@ class MoveActiveVertexColor(bpy.types.Operator):
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Direction", default="UP")
 	
+	@classmethod
+	def poll(cls, context):
+		obj = context.active_object
+		if (obj):
+			if (obj.type == 'MESH'):
+				if (2 <= len(obj.data.vertex_colors)):
+					return True
+		return False
+	
 	def execute(self, context):
 		obj = context.active_object
 		if (not obj):
@@ -66,6 +75,15 @@ class VertexColorSet(bpy.types.Operator):
 	
 	color = bpy.props.FloatVectorProperty(name="Vertex color", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=3, precision=10, subtype='COLOR_GAMMA')
 	
+	@classmethod
+	def poll(cls, context):
+		obj = context.active_object
+		if (obj):
+			if (obj.type == 'MESH'):
+				if (obj.data.vertex_colors.active):
+					return True
+		return False
+	
 	def invoke(self, context, event):
 		obj = context.active_object
 		if (not obj):
@@ -80,6 +98,7 @@ class VertexColorSet(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="Vertex color does not exist")
 			return {'CANCELLED'}
 		return context.window_manager.invoke_props_dialog(self)
+	
 	def execute(self, context):
 		obj = context.active_object
 		pre_mode = obj.mode
@@ -106,8 +125,10 @@ class AddVertexColorSelectedObject(bpy.types.Operator):
 			if (obj.type == 'MESH'):
 				return True
 		return False
+	
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
+	
 	def execute(self, context):
 		for obj in context.selected_objects:
 			if (obj.type == "MESH"):
