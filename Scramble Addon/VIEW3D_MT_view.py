@@ -147,13 +147,13 @@ class ViewNumpadPie(bpy.types.Menu): #
 	bl_description = "Is a pie menu of preset views or (NUMPAD 1, 3, 7)"
 	
 	def draw(self, context):
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="左", icon="TRIA_LEFT").type = "LEFT"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="右", icon="TRIA_RIGHT").type = "RIGHT"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="下", icon="TRIA_DOWN").type = "BOTTOM"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="上", icon="TRIA_UP").type = "TOP"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="後", icon="BBOX").type = "BACK"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="Left", icon="TRIA_LEFT").type = "LEFT"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="Right", icon="TRIA_RIGHT").type = "RIGHT"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="Xia", icon="TRIA_DOWN").type = "BOTTOM"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="Shang", icon="TRIA_UP").type = "TOP"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="Rear", icon="BBOX").type = "BACK"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="Camera", icon="CAMERA_DATA").type = "CAMERA"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="前", icon="SOLID").type = "FRONT"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="Qian", icon="SOLID").type = "FRONT"
 		self.layout.menu_pie().operator("view3d.view_persportho", text="Perspective projection and parallel projection", icon="BORDERMOVE")
 
 class ViewportShadePieOperator(bpy.types.Operator):

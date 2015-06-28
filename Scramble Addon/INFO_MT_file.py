@@ -557,7 +557,7 @@ class AllSetMaterialFreestyleColor(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isOnlySelected = bpy.props.BoolProperty(name="Only the selected object", default=False)
-	isColor = bpy.props.BoolProperty(name="色", default=True)
+	isColor = bpy.props.BoolProperty(name="Color", default=True)
 	isAlpha = bpy.props.BoolProperty(name="Alpha", default=True)
 	
 	@classmethod

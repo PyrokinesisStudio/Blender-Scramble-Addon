@@ -17,7 +17,7 @@ class SelectAxisLimit(bpy.types.Operator):
 		("1", "Y軸", "", 2),
 		("2", "Z軸", "", 3),
 		]
-	axis = bpy.props.EnumProperty(items=items, name="軸")
+	axis = bpy.props.EnumProperty(items=items, name="Axis")
 	offset = bpy.props.FloatProperty(name="Offset", default=0.0, step=10, precision=3)
 	threshold = bpy.props.FloatProperty(name="Threshold", default=0.0000001, min=0.0, soft_min=0.0, step=0.1, precision=10)
 	
@@ -47,7 +47,7 @@ class SelectAxisOver(bpy.types.Operator):
 		("1", "Y軸", "", 2),
 		("2", "Z軸", "", 3),
 		]
-	axis = bpy.props.EnumProperty(items=items, name="軸")
+	axis = bpy.props.EnumProperty(items=items, name="Axis")
 	items = [
 		("-1", "-(Minus)", "", 1),
 		("1", "+ (Plus)", "", 2),

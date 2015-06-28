@@ -93,7 +93,7 @@ class FillOverrideColor(bpy.types.Operator):
 	bl_description = "All over the colors you specify the active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="色", description="Color fill", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
+	color = bpy.props.FloatVectorProperty(name="Color", description="Color fill", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	alpha = bpy.props.FloatProperty(name="Transparency", description="Transparency", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='PERCENTAGE')
 	
 	@classmethod
@@ -123,7 +123,7 @@ class FillColor(bpy.types.Operator):
 	bl_description = "All fill in the color you specify the active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="色", description="Color fill", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
+	color = bpy.props.FloatVectorProperty(name="Color", description="Color fill", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	alpha = bpy.props.FloatProperty(name="Transparency", description="Transparency", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='PERCENTAGE')
 	
 	@classmethod

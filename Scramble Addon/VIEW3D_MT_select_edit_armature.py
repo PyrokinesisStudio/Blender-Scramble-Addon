@@ -17,7 +17,7 @@ class SelectAxisOver(bpy.types.Operator):
 		("1", "Y軸", "", 2),
 		("2", "Z軸", "", 3),
 		]
-	axis = bpy.props.EnumProperty(items=items, name="軸")
+	axis = bpy.props.EnumProperty(items=items, name="Axis")
 	items = [
 		("-1", "-(Minus)", "", 1),
 		("1", "+ (Plus)", "", 2),

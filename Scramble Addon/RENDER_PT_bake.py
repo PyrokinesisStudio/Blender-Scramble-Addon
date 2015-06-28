@@ -13,7 +13,7 @@ class NewBakeImage(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	name = bpy.props.StringProperty(name="The name", default="Bake")
-	width = bpy.props.IntProperty(name="幅", default=1024, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
+	width = bpy.props.IntProperty(name="Picture", default=1024, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
 	height = bpy.props.IntProperty(name="Height", default=1024, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
 	alpha = bpy.props.BoolProperty(name="Alpha", default=True)
 	float = bpy.props.BoolProperty(name="32-bit Float", default=False)

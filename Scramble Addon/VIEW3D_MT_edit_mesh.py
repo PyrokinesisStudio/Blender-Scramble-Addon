@@ -45,8 +45,8 @@ class SelectModePie(bpy.types.Menu): #
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator("mesh.select_mode", text="Vertex", icon='VERTEXSEL').type = 'VERT'
-		self.layout.menu_pie().operator("mesh.select_mode", text="面", icon='FACESEL').type = 'FACE'
-		self.layout.menu_pie().operator("mesh.select_mode", text="辺", icon='EDGESEL').type = 'EDGE'
+		self.layout.menu_pie().operator("mesh.select_mode", text="Noodles", icon='FACESEL').type = 'FACE'
+		self.layout.menu_pie().operator("mesh.select_mode", text="Edge", icon='EDGESEL').type = 'EDGE'
 
 class ProportionalPieOperator(bpy.types.Operator):
 	bl_idname = "mesh.proportional_pie_operator"

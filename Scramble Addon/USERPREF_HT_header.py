@@ -187,7 +187,7 @@ class ShowShortcutHtml(bpy.types.Operator):
 						cfgStr = cfgStr + cfg.propvalue
 					if (not cfg.active):
 						cfgStr = "<s>" + cfgStr + "</s>"
-					cfgStr = "　<font size='2' color='#" +color[0]+color[1]+color[2]+ "'>" + cfgStr + "</font><br>"
+					cfgStr = "  <font size='2' color='#" +color[0]+color[1]+color[2]+ "'>" + cfgStr + "</font><br>"
 					cfgsData.append([cfgStr, modifierKeyStr])
 				cfgsData = sorted(cfgsData, key=lambda i: len(i[1]))
 				alreadys = []

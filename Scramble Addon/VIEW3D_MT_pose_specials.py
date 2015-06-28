@@ -15,10 +15,10 @@ class CreateCustomShape(bpy.types.Operator):
 	
 	name =  bpy.props.StringProperty(name="Object name", default="For custom shape objects")
 	items = [
-		("1", "線", "", 1),
+		("1", "Line", "", 1),
 		("2", "Diamond", "", 2),
 		]
-	shape = bpy.props.EnumProperty(items=items, name="形")
+	shape = bpy.props.EnumProperty(items=items, name="Profile")
 	isObjectMode =  bpy.props.BoolProperty(name="To complete after the object mode", default=True)
 	isHide = bpy.props.BoolProperty(name="After hiding the armature", default=True)
 	
@@ -351,9 +351,9 @@ class RenameBoneNameEndJapanese(bpy.types.Operator):
 			pre_name = bone.name
 			if (not self.reverse):
 				if (re.search(r"[\._][rR]$", bone.name)):
-					bone.name = "右" + bone.name[:-2]
+					bone.name = "Right" + bone.name[:-2]
 				if (re.search(r"[\._][lL]$", bone.name)):
-					bone.name = "左" + bone.name[:-2]
+					bone.name = "Left" + bone.name[:-2]
 			else:
 				if (re.search(r"^ Right", bone.name)):
 					bone.name = bone.name[1:] + "_R"
@@ -464,9 +464,9 @@ class SetRigidBodyBone(bpy.types.Operator):
 		('PLAIN_AXES', "Cross", "", 1),
 		('ARROWS', "Coordinate axes", "", 2),
 		('SINGLE_ARROW', "Arrow", "", 3),
-		('CIRCLE', "円", "", 4),
+		('CIRCLE', "JPY", "", 4),
 		('CUBE', "Cube", "", 5),
-		('SPHERE', "球", "", 6),
+		('SPHERE', "Ball", "", 6),
 		('CONE', "Cone", "", 7),
 		('IMAGE', "Images", "", 8),
 		]

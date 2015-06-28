@@ -288,7 +288,7 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 	use_normal = bpy.props.BoolProperty(name="Rotate normal", default=False)
 	add_edge = bpy.props.BoolProperty(name="Add bones to the sides", default=False)
 	vert_bone_name = bpy.props.StringProperty(name="Vertex part bone name", default="Vertex")
-	edge_bone_name = bpy.props.StringProperty(name="Side parts bone name", default="辺")
+	edge_bone_name = bpy.props.StringProperty(name="Side parts bone name", default="Edge")
 	
 	@classmethod
 	def poll(cls, context):

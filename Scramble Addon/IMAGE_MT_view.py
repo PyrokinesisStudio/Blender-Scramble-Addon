@@ -14,13 +14,13 @@ class Reset2DCursor(bpy.types.Operator):
 	
 	items = [
 		("C", "Central", "", 1),
-		("U", "上", "", 2),
+		("U", "Shang", "", 2),
 		("RU", "On the upper right", "", 3),
-		("R", "右", "", 4),
+		("R", "Right", "", 4),
 		("RD", "Lower right", "", 5),
-		("D", "下", "", 6),
+		("D", "Xia", "", 6),
 		("LD", "Lower left", "", 7),
-		("L", "左", "", 8),
+		("L", "Left", "", 8),
 		("LU", "On the top left", "", 9),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Location", default="LD")
@@ -141,10 +141,10 @@ class Reset2DCursorMenu(bpy.types.Menu):
 	bl_description = "Resets the position of the cursor"
 	
 	def draw(self, context):
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="上").mode = 'U'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="右").mode = 'R'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="下").mode = 'D'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="左").mode = 'L'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Shang").mode = 'U'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Right").mode = 'R'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Xia").mode = 'D'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Left").mode = 'L'
 		self.layout.separator()
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On the upper right").mode = 'RU'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Lower right").mode = 'RD'
