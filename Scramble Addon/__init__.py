@@ -5,11 +5,11 @@ import os, csv, codecs
 # アドオン情報
 bl_info = {
 	"name" : "Scramble Addon",
-	"author" : "Saidenn or (saidenka)",
+	"author" : "Saidenka",
 	"version" : (0,1),
 	"blender" : (2, 7),
 	"location" : "At the end of a varied menu",
-	"description" : "An assortment of extended functions of saidenn production",
+	"description" : "An assortment of extended functions of saidenka\'s production",
 	"warning" : "",
 	"wiki_url" : "http://github.com/saidenka/Blender-Scramble-Addon",
 	"tracker_url" : "http://github.com/saidenka/Blender-Scramble-Addon/issues",
