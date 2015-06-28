@@ -105,6 +105,7 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.prop(context.user_preferences.view, 'use_zoom_to_mouse')
 		self.layout.prop(context.user_preferences.view, 'use_rotate_around_active')
+		self.layout.prop(context.scene, 'sync_mode')
 		box = self.layout.box()
 		col = box.column(align=True)
 		col.operator(SaveView.bl_idname, icon="PLUGIN")
