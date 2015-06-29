@@ -24,8 +24,9 @@ class CreateCustomShape(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		if (1 <= len(context.selected_pose_bones)):
-			return True
+		if (context.selected_pose_bones):
+			if (1 <= len(context.selected_pose_bones)):
+				return True
 		return False
 	
 	def execute(self, context):
