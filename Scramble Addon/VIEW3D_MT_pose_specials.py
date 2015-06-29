@@ -391,7 +391,7 @@ class TogglePosePosition(bpy.types.Operator):
 			return {'CANCELLED'}
 		if (context.object.data.pose_position == 'POSE'):
 			context.object.data.pose_position = 'REST'
-			self.report(type={'INFO'}, message="Pause disabled")
+			self.report(type={'WARNING'}, message="Pause disabled")
 		else:
 			context.object.data.pose_position = 'POSE'
 			self.report(type={'INFO'}, message="Pause active")
