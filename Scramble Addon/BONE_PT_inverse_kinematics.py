@@ -73,6 +73,46 @@ class CopyIKSettings(bpy.types.Operator):
 					target.ik_stretch = source.ik_stretch
 		return {'FINISHED'}
 
+class ReverseMinMax(bpy.types.Operator):
+	bl_idname = "pose.reverse_min_max"
+	bl_label = "Flip the minimum / maximum angle"
+	bl_description = "Reverses the minimum and maximum angle of IK setup this bone"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	is_x = bpy.props.BoolProperty(name="Flip X", default=False)
+	is_y = bpy.props.BoolProperty(name="Flip Y", default=False)
+	is_z = bpy.props.BoolProperty(name="Z invert", default=False)
+	
+	@classmethod
+	def poll(cls, context):
+		if (context.active_pose_bone):
+			return True
+		return False
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def execute(self, context):
+		bone = context.active_pose_bone
+		if (self.is_x):
+			ik_min = bone.ik_min_x
+			ik_max = bone.ik_max_x
+			bone.ik_min_x = -ik_max
+			bone.ik_max_x = -ik_min
+		if (self.is_y):
+			ik_min = bone.ik_min_y
+			ik_max = bone.ik_max_y
+			bone.ik_min_y = -ik_max
+			bone.ik_max_y = -ik_min
+		if (self.is_z):
+			ik_min = bone.ik_min_z
+			ik_max = bone.ik_max_z
+			bone.ik_min_z = -ik_max
+			bone.ik_max_z = -ik_min
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -88,6 +128,8 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		self.layout.operator(CopyIKSettings.bl_idname, icon='COPY_ID')
+		row = self.layout.row(align=True)
+		row.operator(CopyIKSettings.bl_idname, icon='COPY_ID')
+		row.operator(ReverseMinMax.bl_idname, icon='ARROW_LEFTRIGHT')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
