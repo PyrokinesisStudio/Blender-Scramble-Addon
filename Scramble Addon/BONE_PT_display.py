@@ -23,6 +23,6 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		split = self.layout.split()
 		split.label("")
-		split.operator('pose.create_custom_shape', icon='PLUGIN')
+		split.operator('pose.create_custom_shape', icon='PARTICLE_PATH')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
