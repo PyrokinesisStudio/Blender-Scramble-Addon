@@ -1152,6 +1152,7 @@
 "完了後アーマチュアを隠す","After hiding the armature"
 "ポーズモードで実行してください","Try running in pause mode"
 "アクティブオブジェクトがアーマチュアではありません","Active object is no armature"
+"アーマチュアを一時的に非表示にしました","Armature temporarily hidden."
 "ウェイトコピー用メッシュを作成","Create a mesh for weight copy"
 "選択中のボーンのウェイトコピーで使用するメッシュを作成します","Creates a mesh to use with a copy of the selected bone weight"
 "作成するオブジェクト名","Name of object to create"

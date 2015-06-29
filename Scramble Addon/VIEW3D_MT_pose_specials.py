@@ -22,8 +22,15 @@ class CreateCustomShape(bpy.types.Operator):
 	isObjectMode =  bpy.props.BoolProperty(name="To complete after the object mode", default=True)
 	isHide = bpy.props.BoolProperty(name="After hiding the armature", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		if (1 <= len(context.selected_pose_bones)):
+			return True
+		return False
+	
 	def execute(self, context):
 		obj = bpy.context.active_object
+		meObjs = []
 		if (obj.type == "ARMATURE"):
 			if (obj.mode == "POSE"):
 				bpy.ops.object.mode_set(mode="OBJECT")
@@ -45,10 +52,9 @@ class CreateCustomShape(bpy.types.Operator):
 						context.scene.objects.link(meObj)
 						meObj.select = True
 						context.scene.objects.active = meObj
-						
 						meObj.draw_type = "WIRE"
 						meObj.show_x_ray = True
-						bpy.ops.object.constraint_add(type="COPY_TRANSFORMS")
+						meObj.constraints.new('COPY_TRANSFORMS')
 						meObj.constraints[-1].target = obj
 						meObj.constraints[-1].subtarget = bone.name
 						bpy.ops.object.visual_transform_apply()
@@ -56,6 +62,7 @@ class CreateCustomShape(bpy.types.Operator):
 						obj.pose.bones[bone.name].custom_shape = meObj
 						len = bone.length
 						bpy.ops.transform.resize(value=(len, len, len))
+						meObjs.append(meObj)
 				bpy.ops.object.select_all(action="DESELECT")
 				obj.select = True
 				context.scene.objects.active = obj
@@ -65,11 +72,15 @@ class CreateCustomShape(bpy.types.Operator):
 				if (self.isHide):
 					obj.hide = True
 			else:
-				self.report(type={"ERROR"}, message="Try running in pause mode")
+				self.report(type={'ERROR'}, message="Try running in pause mode")
 				return {'CANCELLED'}
 		else:
-			self.report(type={"ERROR"}, message="Active object is no armature")
+			self.report(type={'ERROR'}, message="Active object is no armature")
 			return {'CANCELLED'}
+		for obj in meObjs:
+			obj.select = True
+			context.scene.objects.active = obj
+		self.report(type={'INFO'}, message="Armature temporarily hidden.")
 		return {'FINISHED'}
 
 class CreateWeightCopyMesh(bpy.types.Operator):
