@@ -13,7 +13,7 @@ class CreateCustomShape(bpy.types.Operator):
 	bl_description = "Create a custom shape objects of the selected bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name =  bpy.props.StringProperty(name="Object name", default="For custom shape objects")
+	name =  bpy.props.StringProperty(name="Object name", default="CustomShape")
 	items = [
 		("1", "Line", "", 1),
 		("2", "Diamond", "", 2),
