@@ -279,6 +279,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Reproduction of images)**
         * アクティブな画像を複製します
         * ―(Duplicate the active picture)
+    * **UVグリッドを新規作成**
+    * **―(New UV grid)**
+        * WEBからUVグリッドをダウンロードし、画像として新規作成します
+        * ―(UV grid to download from the WEB, and create new images)
   
 * **UV/画像エディター > 「選択」メニュー**
 * **―(UV / image editor > select menu)**

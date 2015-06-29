@@ -1,7 +1,7 @@
 # UV/画像エディター > 「画像」メニュー
 
 import bpy
-import os, numpy
+import os, numpy, urllib
 
 ################
 # オペレーター #
@@ -577,6 +577,70 @@ class Duplicate(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class NewUVChecker(bpy.types.Operator):
+	bl_idname = "image.new_uv_checker"
+	bl_label = "New UV grid"
+	bl_description = "UV grid to download from the WEB, and create new images"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('UVCheckerMap01-1024.png', "UVCheckerMap01-1024.png", "", 1),
+		('UVCheckerMap02-1024.png', "UVCheckerMap02-1024.png", "", 2),
+		('UVCheckerMap03-1024.png', "UVCheckerMap03-1024.png", "", 3),
+		('UVCheckerMap04-1024.png', "UVCheckerMap04-1024.png", "", 4),
+		('UVCheckerMap05-1024.png', "UVCheckerMap05-1024.png", "", 5),
+		('UVCheckerMap06-1024.png', "UVCheckerMap06-1024.png", "", 6),
+		('UVCheckerMap07-1024.png', "UVCheckerMap07-1024.png", "", 7),
+		('UVCheckerMap08-1024.png', "UVCheckerMap08-1024.png", "", 8),
+		('UVCheckerMap09-1024.png', "UVCheckerMap09-1024.png", "", 9),
+		('UVCheckerMap10-1024.png', "UVCheckerMap10-1024.png", "", 10),
+		('UVCheckerMap11-1024.png', "UVCheckerMap11-1024.png", "", 11),
+		('UVCheckerMap12-1024.png', "UVCheckerMap12-1024.png", "", 12),
+		('UVCheckerMap13-1024.png', "UVCheckerMap13-1024.png", "", 13),
+		('UVCheckerMap14-1024.png', "UVCheckerMap14-1024.png", "", 14),
+		('UVCheckerMap15-1024.png', "UVCheckerMap15-1024.png", "", 15),
+		('UVCheckerMap16-1024.png', "UVCheckerMap16-1024.png", "", 16),
+		('UVCheckerMap17-1024.png', "UVCheckerMap17-1024.png", "", 17),
+		('UVCheckerMap01-512.png', "UVCheckerMap01-512.png", "", 18),
+		('UVCheckerMap02-512.png', "UVCheckerMap02-512.png", "", 19),
+		('UVCheckerMap03-512.png', "UVCheckerMap03-512.png", "", 20),
+		('UVCheckerMap04-512.png', "UVCheckerMap04-512.png", "", 21),
+		('UVCheckerMap05-512.png', "UVCheckerMap05-512.png", "", 22),
+		('UVCheckerMap06-512.png', "UVCheckerMap06-512.png", "", 23),
+		('UVCheckerMap07-512.png', "UVCheckerMap07-512.png", "", 24),
+		('UVCheckerMap08-512.png', "UVCheckerMap08-512.png", "", 25),
+		('UVCheckerMap09-512.png', "UVCheckerMap09-512.png", "", 26),
+		('UVCheckerMap10-512.png', "UVCheckerMap10-512.png", "", 27),
+		('UVCheckerMap11-512.png', "UVCheckerMap11-512.png", "", 28),
+		('UVCheckerMap12-512.png', "UVCheckerMap12-512.png", "", 29),
+		('UVCheckerMap13-512.png', "UVCheckerMap13-512.png", "", 30),
+		('UVCheckerMap14-512.png', "UVCheckerMap14-512.png", "", 31),
+		('UVCheckerMap15-512.png', "UVCheckerMap15-512.png", "", 32),
+		('UVCheckerMap16-512.png', "UVCheckerMap16-512.png", "", 33),
+		('UVCheckerMap17-512.png', "UVCheckerMap17-512.png", "", 34),
+		]
+	image_name = bpy.props.EnumProperty(items=items, name="")
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def execute(self, context):
+		base_url = "https://raw.githubusercontent.com/Arahnoid/UVChecker-map/master/UVCheckerMaps/"
+		temp_path = os.path.join(bpy.app.tempdir, self.image_name)
+		url = base_url + self.image_name
+		opener = urllib.request.build_opener()
+		try:
+			httpres = opener.open(url)
+		except urllib.error.HTTPError:
+			self.report(type={'ERROR'}, message="Failed to download file")
+			return {'CANCELLED'}
+		with open(temp_path, 'wb') as file:
+			file.write(httpres.read())
+		bpy.ops.image.open(filepath=temp_path)
+		bpy.ops.image.pack()
+		context.space_data.image.filepath = ""
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -611,6 +675,8 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
+		self.layout.separator()
+		self.layout.operator(NewUVChecker.bl_idname, icon='PLUGIN')
 		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1):
 			self.layout.separator()
 			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1)
