@@ -93,8 +93,7 @@ class FillOverrideColor(bpy.types.Operator):
 	bl_description = "All over the colors you specify the active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="Color", description="Color fill", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
-	alpha = bpy.props.FloatProperty(name="Transparency", description="Transparency", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='PERCENTAGE')
+	color = bpy.props.FloatVectorProperty(name="Color", description="Color fill", default=(1, 1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA', size=4)
 	
 	@classmethod
 	def poll(cls, context):
@@ -103,14 +102,16 @@ class FillOverrideColor(bpy.types.Operator):
 		if (len(context.edit_image.pixels) <= 0):
 			return False
 		return True
+	
 	def invoke(self, context, event):
 		wm = context.window_manager
 		return wm.invoke_props_dialog(self)
+	
 	def execute(self, context):
 		img = context.edit_image
-		pixel = list(self.color[:])
+		pixel = list(self.color[:3])
 		if (4 <= img.channels):
-			pixel.append(self.alpha)
+			pixel.append(self.color[-1])
 		img.pixels = pixel * (img.size[0] * img.size[1])
 		img.gl_free()
 		for area in context.screen.areas:
@@ -123,8 +124,7 @@ class FillColor(bpy.types.Operator):
 	bl_description = "All fill in the color you specify the active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="Color", description="Color fill", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
-	alpha = bpy.props.FloatProperty(name="Transparency", description="Transparency", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='PERCENTAGE')
+	color = bpy.props.FloatVectorProperty(name="Color", description="Color fill", default=(1, 1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA', size=4)
 	
 	@classmethod
 	def poll(cls, context):
@@ -137,9 +137,9 @@ class FillColor(bpy.types.Operator):
 		return context.window_manager.invoke_props_dialog(self)
 	def execute(self, context):
 		img = context.edit_image
-		color = self.color[:]
-		alpha = self.alpha
-		unalpha = 1.0 - alpha
+		color = self.color[:3]
+		alpha = self.color[-1]
+		unalpha = 1.0 - self.color[-1]
 		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
 		pixels = numpy.array(img.pixels).reshape(img_height * img_width, img_channel)
 		pixels[:,0] = (pixels[:,0] * unalpha) + (color[0] * alpha)
