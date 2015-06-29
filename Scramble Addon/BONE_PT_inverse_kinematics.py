@@ -9,7 +9,7 @@ import bpy
 class CopyIKSettings(bpy.types.Operator):
 	bl_idname = "pose.copy_ik_settings"
 	bl_label = "Copy the IK set"
-	bl_description = "Active bone IK Setup copies to other bones"
+	bl_description = "Copies of other selected bone IK settings Active"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	lock_ik_x = bpy.props.BoolProperty(name="Lock", default=True)

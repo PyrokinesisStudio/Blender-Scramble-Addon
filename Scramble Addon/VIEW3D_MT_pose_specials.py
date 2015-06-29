@@ -10,17 +10,17 @@ import re, math
 class CreateCustomShape(bpy.types.Operator):
 	bl_idname = "pose.create_custom_shape"
 	bl_label = "Create a custom shape"
-	bl_description = "Create a custom shape objects of the selected bone"
+	bl_description = "Creates a choice bone shape"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name =  bpy.props.StringProperty(name="Object name", default="CustomShape")
+	name =  bpy.props.StringProperty(name="The name", default="CustomShape")
 	items = [
 		("1", "Line", "", 1),
 		("2", "Diamond", "", 2),
 		]
 	shape = bpy.props.EnumProperty(items=items, name="Profile")
-	isObjectMode =  bpy.props.BoolProperty(name="To complete after the object mode", default=True)
-	isHide = bpy.props.BoolProperty(name="After hiding the armature", default=True)
+	isObjectMode =  bpy.props.BoolProperty(name="Enter object mode", default=True)
+	isHide = bpy.props.BoolProperty(name="Hide the armature", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -53,6 +53,7 @@ class CreateCustomShape(bpy.types.Operator):
 						context.scene.objects.link(meObj)
 						meObj.select = True
 						context.scene.objects.active = meObj
+						
 						meObj.draw_type = "WIRE"
 						meObj.show_x_ray = True
 						meObj.constraints.new('COPY_TRANSFORMS')
@@ -73,7 +74,7 @@ class CreateCustomShape(bpy.types.Operator):
 				if (self.isHide):
 					obj.hide = True
 			else:
-				self.report(type={'ERROR'}, message="Try running in pause mode")
+				self.report(type={'ERROR'}, message="Please run in pause mode")
 				return {'CANCELLED'}
 		else:
 			self.report(type={'ERROR'}, message="Active object is no armature")

@@ -133,13 +133,15 @@ class FillColor(bpy.types.Operator):
 		if (len(context.edit_image.pixels) <= 0):
 			return False
 		return True
+	
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
+	
 	def execute(self, context):
 		img = context.edit_image
 		color = self.color[:3]
 		alpha = self.color[-1]
-		unalpha = 1.0 - self.color[-1]
+		unalpha = 1.0 - alpha
 		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
 		pixels = numpy.array(img.pixels).reshape(img_height * img_width, img_channel)
 		pixels[:,0] = (pixels[:,0] * unalpha) + (color[0] * alpha)

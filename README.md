@@ -42,8 +42,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **―("Properties" areas ""Bourne"tab >"inverse kinematics (IK)"Panel)**
     * **このIK設定をコピー**
     * **―(Copy the IK set)**
-        * アクティブなボーンのIK設定を、他のボーンにコピーします
-        * ―(Active bone IK Setup copies to other bones)
+        * アクティブなボーンのIK設定を、他の選択ボーンにコピーします
+        * ―(Copies of other selected bone IK settings Active)
   
 * **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ボーングループ」パネル**
 * **―('Properties' area > armature data tab > bone groups Panel)**
@@ -53,7 +53,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Group active on bones and the bones of other hide)
     * **このボーングループのボーンを表示**
     * **―(Bones bones group show)**
-        * アクティブなボーングループを表示、もしくは非表示にします
+        * アクティブなボーングループを表示、もしくは隠します
         * ―(Active bone group show or hide)
   
 * **「プロパティ」エリア > 「カーブデータ」タブ > 「ジオメトリ」パネル**
@@ -1086,8 +1086,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **―(3D view > pause mode > 'W' key)**
     * **カスタムシェイプを作成**
     * **―(Create a custom shape)**
-        * 選択中のボーンのカスタムシェイプオブジェクトを作成します
-        * ―(Create a custom shape objects of the selected bone)
+        * 選択ボーンのカスタムシェイプを作成します
+        * ―(Creates a choice bone shape)
     * **ウェイトコピー用メッシュを作成**
     * **―(Create a mesh for weight copy)**
         * 選択中のボーンのウェイトコピーで使用するメッシュを作成します
