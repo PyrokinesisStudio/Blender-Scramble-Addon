@@ -38,6 +38,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ボーン名をクリップボードにコピーします
         * ―(To the Clipboard copies the bone name)
   
+* **「プロパティ」エリア > 「ボーン」タブ > 「インバースキネマティクス (IK)」パネル**
+* **―("Properties" areas ""Bourne"tab >"inverse kinematics (IK)"Panel)**
+    * **このIK設定をコピー**
+    * **―(Copy the IK set)**
+        * アクティブなボーンのIK設定を、他のボーンにコピーします
+        * ―(Active bone IK Setup copies to other bones)
+  
 * **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ボーングループ」パネル**
 * **―('Properties' area > armature data tab > bone groups Panel)**
     * **このボーングループのボーンのみ表示**
