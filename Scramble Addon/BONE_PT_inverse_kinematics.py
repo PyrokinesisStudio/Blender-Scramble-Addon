@@ -129,7 +129,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
-		row.operator(CopyIKSettings.bl_idname, icon='COPY_ID')
-		row.operator(ReverseMinMax.bl_idname, icon='ARROW_LEFTRIGHT')
+		row.operator(CopyIKSettings.bl_idname, icon='COPY_ID', text="Copy the IK set")
+		row.operator(ReverseMinMax.bl_idname, icon='ARROW_LEFTRIGHT', text="Flip angle limit")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

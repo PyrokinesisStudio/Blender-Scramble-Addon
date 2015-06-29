@@ -36,6 +36,8 @@
 "Xを反転","Flip X"
 "Yを反転","Flip Y"
 "Zを反転","Z invert"
+"IK設定をコピー","Copy the IK set"
+"制限角を反転","Flip angle limit"
 "このボーングループのボーンのみ表示","Show only bone bones group"
 "アクティブなボーングループのみを表示し、その他のボーンを隠します","Group active on bones and the bones of other hide"
 "反転","Flip"
