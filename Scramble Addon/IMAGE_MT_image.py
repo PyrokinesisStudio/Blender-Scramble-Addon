@@ -687,6 +687,38 @@ class Tiles(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class ResizeBlur(bpy.types.Operator):
+	bl_idname = "image.resize_blur"
+	bl_label = "Fast image blurring"
+	bl_description = "The active image blur fast do"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	accuracy = bpy.props.FloatProperty(name="Precision", default=50, min=1, max=99, soft_min=1, soft_max=99, step=0, precision=0, subtype='PERCENTAGE')
+	count = bpy.props.IntProperty(name="The number of times", default=10, min=1, max=100, soft_min=1, soft_max=100)
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
+		return True
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def execute(self, context):
+		img = context.edit_image
+		img_w, img_h = img.size[0], img.size[1]
+		small_w, small_h = round(img_w * self.accuracy * 0.01), round(img_h * self.accuracy * 0.01)
+		for i in range(self.count):
+			img.scale(small_w, small_h)
+			img.scale(img_w, img_h)
+		img.gl_free()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -756,7 +788,8 @@ def menu(self, context):
 		self.layout.operator(Resize.bl_idname, icon='PLUGIN', text="Zoom in / out")
 		self.layout.operator(Tiles.bl_idname, icon='PLUGIN', text="Lining up")
 		self.layout.operator(Normalize.bl_idname, icon='PLUGIN', text="Normalization")
-		self.layout.operator(BlurImage.bl_idname, icon='PLUGIN', text="Blur (Note heavy)")
+		self.layout.operator(ResizeBlur.bl_idname, icon='PLUGIN', text="Blur (high speed)")
+		self.layout.operator(BlurImage.bl_idname, icon='PLUGIN', text="Blur (slow)")
 		self.layout.separator()
 		self.layout.operator(Duplicate.bl_idname, icon='PLUGIN')
 		self.layout.operator(RenameImageFile.bl_idname, icon='PLUGIN')
