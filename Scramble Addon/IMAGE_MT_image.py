@@ -619,7 +619,8 @@ class NewUVChecker(bpy.types.Operator):
 		('UVCheckerMap16-512.png', "UVCheckerMap16-512.png", "", 33),
 		('UVCheckerMap17-512.png', "UVCheckerMap17-512.png", "", 34),
 		]
-	image_name = bpy.props.EnumProperty(items=items, name="")
+	image_name = bpy.props.EnumProperty(items=items, name="Image file")
+	name = bpy.props.StringProperty(name="The name", default="UVCheckerMap")
 	
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
@@ -639,6 +640,7 @@ class NewUVChecker(bpy.types.Operator):
 		bpy.ops.image.open(filepath=temp_path)
 		bpy.ops.image.pack()
 		context.space_data.image.filepath = ""
+		context.space_data.image.name = self.name
 		return {'FINISHED'}
 
 ################
