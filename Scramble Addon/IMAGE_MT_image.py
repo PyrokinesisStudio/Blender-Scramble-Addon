@@ -693,7 +693,7 @@ class ResizeBlur(bpy.types.Operator):
 	bl_description = "The active image blur fast do"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	accuracy = bpy.props.FloatProperty(name="Precision", default=50, min=1, max=99, soft_min=1, soft_max=99, step=0, precision=0, subtype='PERCENTAGE')
+	size = bpy.props.FloatProperty(name="The strength of the effect", default=50, min=1, max=99, soft_min=1, soft_max=99, step=0, precision=0, subtype='PERCENTAGE')
 	count = bpy.props.IntProperty(name="The number of times", default=10, min=1, max=100, soft_min=1, soft_max=100)
 	
 	@classmethod
@@ -710,7 +710,8 @@ class ResizeBlur(bpy.types.Operator):
 	def execute(self, context):
 		img = context.edit_image
 		img_w, img_h = img.size[0], img.size[1]
-		small_w, small_h = round(img_w * self.accuracy * 0.01), round(img_h * self.accuracy * 0.01)
+		small_w = round(img_w * (100 - self.size) * 0.01)
+		small_h = round(img_h * (100 - self.size) * 0.01)
 		for i in range(self.count):
 			img.scale(small_w, small_h)
 			img.scale(img_w, img_h)
