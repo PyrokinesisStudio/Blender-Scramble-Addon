@@ -57,12 +57,12 @@ class ToggleSmooth(bpy.types.Operator):
 				else:
 					bpy.ops.object.shade_smooth()
 		else:
-			self.report(type={"ERROR"}, message="Try mesh object to activate it.")
+			self.report(type={'ERROR'}, message="Try mesh object to activate it.")
 			return {'CANCELLED'}
 		if (is_smoothed):
-			self.report(type={"INFO"}, message="Mesh objects have flat")
+			self.report(type={'WARNING'}, message="Mesh objects have flat")
 		else:
-			self.report(type={"INFO"}, message="Mesh objects smoothly.")
+			self.report(type={'INFO'}, message="Mesh objects smoothly.")
 		return {'FINISHED'}
 
 class VertexGroupTransfer(bpy.types.Operator):
