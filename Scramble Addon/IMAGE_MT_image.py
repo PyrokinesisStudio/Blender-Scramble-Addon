@@ -584,40 +584,40 @@ class NewUVChecker(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('UVCheckerMap01-1024.png', "UVCheckerMap01-1024.png", "", 1),
-		('UVCheckerMap02-1024.png', "UVCheckerMap02-1024.png", "", 2),
-		('UVCheckerMap03-1024.png', "UVCheckerMap03-1024.png", "", 3),
-		('UVCheckerMap04-1024.png', "UVCheckerMap04-1024.png", "", 4),
-		('UVCheckerMap05-1024.png', "UVCheckerMap05-1024.png", "", 5),
-		('UVCheckerMap06-1024.png', "UVCheckerMap06-1024.png", "", 6),
-		('UVCheckerMap07-1024.png', "UVCheckerMap07-1024.png", "", 7),
-		('UVCheckerMap08-1024.png', "UVCheckerMap08-1024.png", "", 8),
-		('UVCheckerMap09-1024.png', "UVCheckerMap09-1024.png", "", 9),
-		('UVCheckerMap10-1024.png', "UVCheckerMap10-1024.png", "", 10),
-		('UVCheckerMap11-1024.png', "UVCheckerMap11-1024.png", "", 11),
-		('UVCheckerMap12-1024.png', "UVCheckerMap12-1024.png", "", 12),
-		('UVCheckerMap13-1024.png', "UVCheckerMap13-1024.png", "", 13),
-		('UVCheckerMap14-1024.png', "UVCheckerMap14-1024.png", "", 14),
-		('UVCheckerMap15-1024.png', "UVCheckerMap15-1024.png", "", 15),
-		('UVCheckerMap16-1024.png', "UVCheckerMap16-1024.png", "", 16),
-		('UVCheckerMap17-1024.png', "UVCheckerMap17-1024.png", "", 17),
-		('UVCheckerMap01-512.png', "UVCheckerMap01-512.png", "", 18),
-		('UVCheckerMap02-512.png', "UVCheckerMap02-512.png", "", 19),
-		('UVCheckerMap03-512.png', "UVCheckerMap03-512.png", "", 20),
-		('UVCheckerMap04-512.png', "UVCheckerMap04-512.png", "", 21),
-		('UVCheckerMap05-512.png', "UVCheckerMap05-512.png", "", 22),
-		('UVCheckerMap06-512.png', "UVCheckerMap06-512.png", "", 23),
-		('UVCheckerMap07-512.png', "UVCheckerMap07-512.png", "", 24),
-		('UVCheckerMap08-512.png', "UVCheckerMap08-512.png", "", 25),
-		('UVCheckerMap09-512.png', "UVCheckerMap09-512.png", "", 26),
-		('UVCheckerMap10-512.png', "UVCheckerMap10-512.png", "", 27),
-		('UVCheckerMap11-512.png', "UVCheckerMap11-512.png", "", 28),
-		('UVCheckerMap12-512.png', "UVCheckerMap12-512.png", "", 29),
-		('UVCheckerMap13-512.png', "UVCheckerMap13-512.png", "", 30),
-		('UVCheckerMap14-512.png', "UVCheckerMap14-512.png", "", 31),
-		('UVCheckerMap15-512.png', "UVCheckerMap15-512.png", "", 32),
-		('UVCheckerMap16-512.png', "UVCheckerMap16-512.png", "", 33),
-		('UVCheckerMap17-512.png', "UVCheckerMap17-512.png", "", 34),
+		('UVCheckerMap01-1024.png', "01 (1024x1024)", "", 1),
+		('UVCheckerMap02-1024.png', "02 (1024x1024)", "", 2),
+		('UVCheckerMap03-1024.png', "03 (1024x1024)", "", 3),
+		('UVCheckerMap04-1024.png', "04 (1024x1024)", "", 4),
+		('UVCheckerMap05-1024.png', "05 (1024x1024)", "", 5),
+		('UVCheckerMap06-1024.png', "06 (1024x1024)", "", 6),
+		('UVCheckerMap07-1024.png', "07 (1024x1024)", "", 7),
+		('UVCheckerMap08-1024.png', "08 (1024x1024)", "", 8),
+		('UVCheckerMap09-1024.png', "09 (1024x1024)", "", 9),
+		('UVCheckerMap10-1024.png', "10 (1024x1024)", "", 10),
+		('UVCheckerMap11-1024.png', "11 (1024x1024)", "", 11),
+		('UVCheckerMap12-1024.png', "12 (1024x1024)", "", 12),
+		('UVCheckerMap13-1024.png', "13 (1024x1024)", "", 13),
+		('UVCheckerMap14-1024.png', "14 (1024x1024)", "", 14),
+		('UVCheckerMap15-1024.png', "15 (1024x1024)", "", 15),
+		('UVCheckerMap16-1024.png', "16 (1024x1024)", "", 16),
+		('UVCheckerMap17-1024.png', "17 (1024x1024)", "", 17),
+		('UVCheckerMap01-512.png', "01 (512x512)", "", 18),
+		('UVCheckerMap02-512.png', "02 (512x512)", "", 19),
+		('UVCheckerMap03-512.png', "03 (512x512)", "", 20),
+		('UVCheckerMap04-512.png', "04 (512x512)", "", 21),
+		('UVCheckerMap05-512.png', "05 (512x512)", "", 22),
+		('UVCheckerMap06-512.png', "06 (512x512)", "", 23),
+		('UVCheckerMap07-512.png', "07 (512x512)", "", 24),
+		('UVCheckerMap08-512.png', "08 (512x512)", "", 25),
+		('UVCheckerMap09-512.png', "09 (512x512)", "", 26),
+		('UVCheckerMap10-512.png', "10 (512x512)", "", 27),
+		('UVCheckerMap11-512.png', "11 (512x512)", "", 28),
+		('UVCheckerMap12-512.png', "12 (512x512)", "", 29),
+		('UVCheckerMap13-512.png', "13 (512x512)", "", 30),
+		('UVCheckerMap14-512.png', "14 (512x512)", "", 31),
+		('UVCheckerMap15-512.png', "15 (512x512)", "", 32),
+		('UVCheckerMap16-512.png', "16 (512x512)", "", 33),
+		('UVCheckerMap17-512.png', "17 (512x512)", "", 34),
 		]
 	image_name = bpy.props.EnumProperty(items=items, name="Image file")
 	name = bpy.props.StringProperty(name="The name", default="UVCheckerMap")
@@ -627,7 +627,7 @@ class NewUVChecker(bpy.types.Operator):
 	
 	def execute(self, context):
 		base_url = "https://raw.githubusercontent.com/Arahnoid/UVChecker-map/master/UVCheckerMaps/"
-		temp_path = os.path.join(bpy.app.tempdir, self.image_name)
+		temp_path = os.path.join(bpy.app.tempdir, self.name)
 		url = base_url + self.image_name
 		opener = urllib.request.build_opener()
 		try:
@@ -640,7 +640,7 @@ class NewUVChecker(bpy.types.Operator):
 		bpy.ops.image.open(filepath=temp_path)
 		bpy.ops.image.pack()
 		context.space_data.image.filepath = ""
-		context.space_data.image.name = self.name
+		os.remove(temp_path)
 		return {'FINISHED'}
 
 ################
