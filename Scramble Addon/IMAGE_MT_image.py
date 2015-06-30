@@ -552,7 +552,7 @@ class Duplicate(bpy.types.Operator):
 	def execute(self, context):
 		src = context.edit_image
 		new = bpy.data.images.new(
-			name = 'temptemp',
+			name = src.name,
 			width = src.size[0],
 			height = src.size[1],
 			alpha = src.use_alpha,
@@ -563,7 +563,7 @@ class Duplicate(bpy.types.Operator):
 				new.pixels = src.pixels[:]
 				continue
 			elif (name == 'name'):
-				new.name = src.name + "_copy"
+				#new.name = src.name + "_copy"
 				continue
 			elif (name not in ['packed_files', 'packed_file', 'pack', 'mapping']):
 				continue
