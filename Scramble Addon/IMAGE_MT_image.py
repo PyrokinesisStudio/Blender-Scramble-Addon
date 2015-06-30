@@ -565,13 +565,19 @@ class Duplicate(bpy.types.Operator):
 			elif (name == 'name'):
 				new.name = src.name + "_copy"
 				continue
-			value = src.__getattribute__(name)
-			try:
-				new.__setattr__(name, value)[:]
-			except AttributeError:
-				pass
-			except TypeError:
-				new.__setattr__(name, value)
+			elif (name not in ['packed_files', 'packed_file', 'pack', 'mapping']):
+				continue
+			elif (name[0] != '_' and 'rna' not in name):
+				value = src.__getattribute__(name)
+				try:
+					new.__setattr__(name, value[:])
+				except AttributeError:
+					pass
+				except TypeError:
+					try:
+						new.__setattr__(name, value)
+					except:
+						pass
 		context.space_data.image = new
 		for area in context.screen.areas:
 			area.tag_redraw()
