@@ -745,15 +745,15 @@ class ExternalEditEXMenu(bpy.types.Menu):
 		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1):
 			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1)
 			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" In the open").index = 1
+			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name).index = 1
 		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_2):
 			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_2)
 			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" In the open").index = 2
+			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name).index = 2
 		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_3):
 			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_3)
 			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" In the open").index = 3
+			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name).index = 3
 
 class FillMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_image_fill"
