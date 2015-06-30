@@ -720,6 +720,46 @@ class ResizeBlur(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class NewNoise(bpy.types.Operator):
+	bl_idname = "image.new_noise"
+	bl_label = "Create a new image noise"
+	bl_description = "Add as a new picture noise picture"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	monochrome = bpy.props.BoolProperty(name="Black and white noise", default=False)
+	alpha_noise = bpy.props.BoolProperty(name="Alfano is", default=False)
+	name = bpy.props.StringProperty(name="The name", default="Noise")
+	width = bpy.props.IntProperty(name="Picture", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
+	height = bpy.props.IntProperty(name="Height", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
+	alpha = bpy.props.BoolProperty(name="Alpha", default=True)
+	float_buffer = bpy.props.BoolProperty(name="32-bit Float", default=False)
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def execute(self, context):
+		img = bpy.data.images.new(self.name, self.width, self.height, self.alpha, self.float_buffer)
+		width, height, channel = img.size[0], img.size[1], img.channels
+		pixels = numpy.array(img.pixels).reshape(width, height, channel)
+		if (self.monochrome):
+			values = numpy.random.rand(width, height)
+			pixels[:,:,0] = values.copy()
+			pixels[:,:,1] = values.copy()
+			pixels[:,:,2] = values.copy()
+		else:
+			pixels[:,:,0] = numpy.random.rand(width, height)
+			pixels[:,:,1] = numpy.random.rand(width, height)
+			pixels[:,:,2] = numpy.random.rand(width, height)
+		if (self.alpha_noise):
+			if (4 <= channel):
+				pixels[:,:,3] = numpy.random.rand(width, height)
+		img.pixels = pixels.flatten()
+		img.gl_free()
+		context.space_data.image = img
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -764,6 +804,14 @@ class FillMenu(bpy.types.Menu):
 		self.layout.operator(FillColor.bl_idname, icon='PLUGIN', text="Fill")
 		self.layout.operator(FillTransparency.bl_idname, icon='PLUGIN', text="Fill the transparent areas")
 
+class NewMenu(bpy.types.Menu):
+	bl_idname = "IMAGE_MT_image_new"
+	bl_label = "New images (enhanced)"
+	
+	def draw(self, context):
+		self.layout.operator(NewUVChecker.bl_idname, icon='PLUGIN', text="UV grid")
+		self.layout.operator(NewNoise.bl_idname, icon='PLUGIN', text="Noise")
+
 ################
 # メニュー追加 #
 ################
@@ -780,7 +828,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(NewUVChecker.bl_idname, icon='PLUGIN')
+		self.layout.menu(NewMenu.bl_idname, icon='PLUGIN')
 		self.layout.menu(ExternalEditEXMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
 		self.layout.menu(FillMenu.bl_idname, icon='PLUGIN')
