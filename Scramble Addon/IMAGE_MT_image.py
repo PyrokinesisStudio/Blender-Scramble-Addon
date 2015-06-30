@@ -1,7 +1,7 @@
 # UV/画像エディター > 「画像」メニュー
 
 import bpy
-import os, numpy, urllib
+import os, numpy, urllib, math
 
 ################
 # オペレーター #
@@ -643,6 +643,50 @@ class NewUVChecker(bpy.types.Operator):
 		os.remove(temp_path)
 		return {'FINISHED'}
 
+class Tiles(bpy.types.Operator):
+	bl_idname = "image.tiles"
+	bl_label = "Arrange images"
+	bl_description = "Arrange the active image to reduce"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	count = bpy.props.IntProperty(name="Number line", default=2, min=2, max=8, soft_min=2, soft_max=8)
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
+		return True
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def execute(self, context):
+		img = context.edit_image
+		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
+		small_w_f = img_width / self.count
+		small_h_f = img_height / self.count
+		small_w = math.ceil(small_w_f)
+		small_h = math.ceil(small_h_f)
+		img.scale(small_w, small_h)
+		small_pixels = numpy.array(img.pixels).reshape(small_w, small_h, img_channel)
+		img.scale(img_width, img_height)
+		pixels = numpy.array(img.pixels).reshape(img_width, img_height, img_channel)
+		for x in range(self.count):
+			for y in range(self.count):
+				min_x = x * round(small_w_f)
+				max_x = (x + 1) * round(small_w_f)
+				min_y = y * round(small_h_f)
+				max_y = (y + 1) * round(small_h_f)
+				w, h = max_x - min_x, max_y - min_y
+				pixels[min_x:max_x,min_y:max_y,:] = small_pixels[:w,:h,:]
+		img.pixels = pixels.flatten()
+		img.gl_free()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -653,14 +697,39 @@ class TransformMenu(bpy.types.Menu):
 	bl_description = "Image deformation processing menu."
 	
 	def draw(self, context):
-		self.layout.operator(Resize.bl_idname, icon='PLUGIN')
-		self.layout.separator()
 		self.layout.operator(ReverseWidthImage.bl_idname, icon='PLUGIN')
 		self.layout.operator(ReverseHeightImage.bl_idname, icon='PLUGIN')
 		self.layout.separator()
 		self.layout.operator(Rotate90Image.bl_idname, icon='PLUGIN')
 		self.layout.operator(Rotate180Image.bl_idname, icon='PLUGIN')
 		self.layout.operator(Rotate270Image.bl_idname, icon='PLUGIN')
+
+class ExternalEditEXMenu(bpy.types.Menu):
+	bl_idname = "IMAGE_MT_image_external_edit_ex"
+	bl_label = "External editor (enhanced)"
+	
+	def draw(self, context):
+		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1):
+			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1)
+			name, ext = os.path.splitext(path)
+			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" In the open").index = 1
+		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_2):
+			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_2)
+			name, ext = os.path.splitext(path)
+			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" In the open").index = 2
+		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_3):
+			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_3)
+			name, ext = os.path.splitext(path)
+			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" In the open").index = 3
+
+class FillMenu(bpy.types.Menu):
+	bl_idname = "IMAGE_MT_image_fill"
+	bl_label = "Paint"
+	
+	def draw(self, context):
+		self.layout.operator(FillOverrideColor.bl_idname, icon='PLUGIN', text="Override")
+		self.layout.operator(FillColor.bl_idname, icon='PLUGIN', text="Fill")
+		self.layout.operator(FillTransparency.bl_idname, icon='PLUGIN', text="Fill the transparent areas")
 
 ################
 # メニュー追加 #
@@ -679,27 +748,15 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
 		self.layout.operator(NewUVChecker.bl_idname, icon='PLUGIN')
-		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1):
-			self.layout.separator()
-			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1)
-			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" In the open").index = 1
-		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_2):
-			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_2)
-			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" In the open").index = 2
-		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_3):
-			path = os.path.basename(context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_3)
-			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEditEX.bl_idname, icon='PLUGIN', text=name+" In the open").index = 3
+		self.layout.menu(ExternalEditEXMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(FillOverrideColor.bl_idname, icon='PLUGIN')
-		self.layout.operator(FillColor.bl_idname, icon='PLUGIN')
-		self.layout.operator(FillTransparency.bl_idname, icon='PLUGIN')
-		self.layout.separator()
-		self.layout.operator(Normalize.bl_idname, icon='PLUGIN')
-		self.layout.operator(BlurImage.bl_idname, icon='PLUGIN')
+		self.layout.menu(FillMenu.bl_idname, icon='PLUGIN')
 		self.layout.menu(TransformMenu.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator(Resize.bl_idname, icon='PLUGIN', text="Zoom in / out")
+		self.layout.operator(Tiles.bl_idname, icon='PLUGIN', text="Lining up")
+		self.layout.operator(Normalize.bl_idname, icon='PLUGIN', text="Normalization")
+		self.layout.operator(BlurImage.bl_idname, icon='PLUGIN', text="Blur (Note heavy)")
 		self.layout.separator()
 		self.layout.operator(Duplicate.bl_idname, icon='PLUGIN')
 		self.layout.operator(RenameImageFile.bl_idname, icon='PLUGIN')

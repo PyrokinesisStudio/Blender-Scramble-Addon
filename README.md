@@ -283,6 +283,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(New UV grid)**
         * WEBからUVグリッドをダウンロードし、画像として新規作成します
         * ―(UV grid to download from the WEB, and create new images)
+    * **画像を並べる**
+    * **―(Arrange images)**
+        * アクティブな画像を小さくして並べます
+        * ―(Arrange the active image to reduce)
   
 * **UV/画像エディター > 「選択」メニュー**
 * **―(UV / image editor > select menu)**
