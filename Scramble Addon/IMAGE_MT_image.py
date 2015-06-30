@@ -760,6 +760,34 @@ class NewNoise(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class Decolorization(bpy.types.Operator):
+	bl_idname = "image.decolorization"
+	bl_label = "Bleached images"
+	bl_description = "The black and white image of active"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
+		return True
+	
+	def execute(self, context):
+		img = context.edit_image
+		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
+		pixels = numpy.array(img.pixels).reshape(img_height * img_width, img_channel)
+		values = (pixels[:,0] + pixels[:,1] + pixels[:,2]) / 3
+		pixels[:,0] = values.copy()
+		pixels[:,1] = values.copy()
+		pixels[:,2] = values.copy()
+		img.pixels = pixels.flatten()
+		img.gl_free()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -812,6 +840,31 @@ class NewMenu(bpy.types.Menu):
 		self.layout.operator(NewUVChecker.bl_idname, icon='PLUGIN', text="UV grid")
 		self.layout.operator(NewNoise.bl_idname, icon='PLUGIN', text="Noise")
 
+class ColorMenu(bpy.types.Menu):
+	bl_idname = "IMAGE_MT_image_color"
+	bl_label = "Color"
+	
+	def draw(self, context):
+		self.layout.operator(Normalize.bl_idname, icon='PLUGIN', text="Normalization")
+		self.layout.operator(Decolorization.bl_idname, icon='PLUGIN', text="Decolorization")
+
+class EditMenu(bpy.types.Menu):
+	bl_idname = "IMAGE_MT_image_edit"
+	bl_label = "Edit"
+	
+	def draw(self, context):
+		self.layout.operator(Duplicate.bl_idname, icon='PLUGIN', text="Copy")
+		self.layout.operator(Resize.bl_idname, icon='PLUGIN', text="Zoom in / out")
+		self.layout.operator(Tiles.bl_idname, icon='PLUGIN', text="Lining up")
+
+class FilterMenu(bpy.types.Menu):
+	bl_idname = "IMAGE_MT_image_filter"
+	bl_label = "Filter"
+	
+	def draw(self, context):
+		self.layout.operator(ResizeBlur.bl_idname, icon='PLUGIN', text="Blur (high speed)")
+		self.layout.operator(BlurImage.bl_idname, icon='PLUGIN', text="Blur (slow)")
+
 ################
 # メニュー追加 #
 ################
@@ -831,18 +884,13 @@ def menu(self, context):
 		self.layout.menu(NewMenu.bl_idname, icon='PLUGIN')
 		self.layout.menu(ExternalEditEXMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
+		self.layout.menu(EditMenu.bl_idname, icon='PLUGIN')
+		self.layout.menu(ColorMenu.bl_idname, icon='PLUGIN')
 		self.layout.menu(FillMenu.bl_idname, icon='PLUGIN')
 		self.layout.menu(TransformMenu.bl_idname, icon='PLUGIN')
+		self.layout.menu(FilterMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(Resize.bl_idname, icon='PLUGIN', text="Zoom in / out")
-		self.layout.operator(Tiles.bl_idname, icon='PLUGIN', text="Lining up")
-		self.layout.operator(Normalize.bl_idname, icon='PLUGIN', text="Normalization")
-		self.layout.operator(ResizeBlur.bl_idname, icon='PLUGIN', text="Blur (high speed)")
-		self.layout.operator(BlurImage.bl_idname, icon='PLUGIN', text="Blur (slow)")
-		self.layout.separator()
-		self.layout.operator(Duplicate.bl_idname, icon='PLUGIN')
 		self.layout.operator(RenameImageFile.bl_idname, icon='PLUGIN')
-		self.layout.separator()
 		self.layout.operator(RenameImageFileName.bl_idname, icon='PLUGIN')
 		self.layout.operator(AllRenameImageFileName.bl_idname, icon='PLUGIN')
 		self.layout.separator()

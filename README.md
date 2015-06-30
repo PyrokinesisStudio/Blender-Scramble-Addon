@@ -295,6 +295,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Create a new image noise)**
         * ノイズ画像を新規画像として追加します
         * ―(Add as a new picture noise picture)
+    * **画像を脱色**
+    * **―(Bleached images)**
+        * アクティブな画像をモノクロにします
+        * ―(The black and white image of active)
   
 * **UV/画像エディター > 「選択」メニュー**
 * **―(UV / image editor > select menu)**
