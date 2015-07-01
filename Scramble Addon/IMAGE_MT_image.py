@@ -676,17 +676,17 @@ class Tiles(bpy.types.Operator):
 		small_w = math.ceil(small_w_f)
 		small_h = math.ceil(small_h_f)
 		img.scale(small_w, small_h)
-		small_pixels = numpy.array(img.pixels).reshape(small_w, small_h, img_channel)
+		small_pixels = numpy.array(img.pixels).reshape(small_h, small_w, img_channel)
 		img.scale(img_width, img_height)
-		pixels = numpy.array(img.pixels).reshape(img_width, img_height, img_channel)
-		for x in range(self.count):
-			for y in range(self.count):
+		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
+		for y in range(self.count):
+			for x in range(self.count):
 				min_x = round(x * small_w_f)
 				max_x = round((x + 1) * small_w_f)
 				min_y = round(y * small_h_f)
 				max_y = round((y + 1) * small_h_f)
 				w, h = max_x - min_x, max_y - min_y
-				pixels[min_x:max_x,min_y:max_y,:] = small_pixels[:w,:h,:]
+				pixels[min_y:max_y,min_x:max_x,:] = small_pixels[:h,:w,:]
 		img.pixels = pixels.flatten()
 		img.gl_free()
 		for area in context.screen.areas:
