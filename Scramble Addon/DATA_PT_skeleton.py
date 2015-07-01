@@ -7,7 +7,7 @@ import bpy
 ################
 
 class ShowAllBoneLayers(bpy.types.Operator):
-	bl_idname = "armature.show_all_bone_layers"
+	bl_idname = "pose.show_all_bone_layers"
 	bl_label = "View all bone layer"
 	bl_description = "All the bone layer and then displays the"
 	bl_options = {'REGISTER'}
