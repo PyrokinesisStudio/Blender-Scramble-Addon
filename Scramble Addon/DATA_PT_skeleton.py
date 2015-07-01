@@ -26,10 +26,12 @@ class ShowAllBoneLayers(bpy.types.Operator):
 	def execute(self, context):
 		if (all(context.object.data.layers)):
 			context.object.data.layers = self.pre_layers[:]
+			self.report(type={'INFO'}, message="Unlock all layers display")
 		else:
 			self.pre_layers = context.object.data.layers[:]
 			for i in range(len(context.object.data.layers)):
 				context.object.data.layers[i] = True
+			self.report(type={'WARNING'}, message="All layers display")
 		return {'FINISHED'}
 
 ################
