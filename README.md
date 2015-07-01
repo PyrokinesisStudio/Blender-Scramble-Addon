@@ -299,6 +299,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Bleached images)**
         * アクティブな画像をモノクロにします
         * ―(The black and white image of active)
+    * **画像のサイズ変更**
+    * **―(Change the size of the image)**
+        * アクティブな画像のサイズを変更します
+        * ―(Change the size of the active image)
   
 * **UV/画像エディター > 「選択」メニュー**
 * **―(UV / image editor > select menu)**

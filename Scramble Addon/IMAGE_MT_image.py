@@ -794,6 +794,94 @@ class Decolorization(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class Clipping(bpy.types.Operator):
+	bl_idname = "image.clipping"
+	bl_label = "Change the size of the image"
+	bl_description = "Change the size of the active image"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	width = bpy.props.IntProperty(name="Picture", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
+	height = bpy.props.IntProperty(name="Height", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
+	items = [
+		('LEFT', "Left", "", 1),
+		('CENTER', "Central", "", 2),
+		('RIGHT', "Right", "", 3),
+		]
+	width_align = bpy.props.EnumProperty(items=items, name="Horizontal alignment")
+	items = [
+		('UP', "Shang", "", 1),
+		('CENTER', "Central", "", 2),
+		('DOWN', "Xia", "", 3),
+		]
+	height_align = bpy.props.EnumProperty(items=items, name="Vertical position")
+	fill_color = bpy.props.FloatVectorProperty(name="Color fill", default=(1, 1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=3, precision=2, subtype='COLOR_GAMMA', size=4)
+	
+	@classmethod
+	def poll(cls, context):
+		if (not context.edit_image):
+			return False
+		if (len(context.edit_image.pixels) <= 0):
+			return False
+		return True
+	
+	def invoke(self, context, event):
+		img = context.edit_image
+		self.width, self.height = img.size[0], img.size[1]
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def execute(self, context):
+		img = context.edit_image
+		img_width, img_height, img_channel = img.size[0], img.size[1], img.channels
+		pixels = numpy.array(img.pixels).reshape(img_height, img_width, img_channel)
+		new = numpy.empty([self.height, self.width, img_channel])
+		new[:,:] = self.fill_color[:img_channel]
+		new_w_min, new_w_max, w_min, w_max = None, None, None, None
+		if (self.width < img_width):
+			if (self.width_align == 'LEFT'):
+				w_max = self.width
+			elif (self.width_align == 'CENTER'):
+				i = int((img_width - self.width) / 2)
+				w_min = i
+				w_max = i + self.width
+			elif (self.width_align == 'RIGHT'):
+				w_min = img_width - self.width
+		elif (img_width < self.width):
+			if (self.width_align == 'LEFT'):
+				new_w_max = img_width
+			elif (self.width_align == 'CENTER'):
+				i = int((self.width - img_width) / 2)
+				new_w_min = i
+				new_w_max = i + img_width
+			elif (self.width_align == 'RIGHT'):
+				new_w_min = self.width - img_width
+		new_h_min, new_h_max, h_min, h_max = None, None, None, None
+		if (self.height < img_height):
+			if (self.height_align == 'UP'):
+				h_min = img_height - self.height
+			elif (self.height_align == 'CENTER'):
+				i = int((img_height - self.height) / 2)
+				h_min = i
+				h_max = i + self.height
+			elif (self.height_align == 'DOWN'):
+				h_max = self.height
+		elif (img_height < self.height):
+			if (self.height_align == 'UP'):
+				new_h_max = img_height
+			elif (self.height_align == 'CENTER'):
+				i = int((self.height - img_height) / 2)
+				new_h_min = i
+				new_h_max = i + img_height
+			elif (self.height_align == 'DOWN'):
+				new_h_min = self.height - img_height
+		new[new_h_min:new_h_max,new_w_min:new_w_max] = pixels[h_min:h_max,w_min:w_max]
+		pixels = new
+		img.scale(self.width, self.height)
+		img.pixels = pixels.flatten()
+		img.gl_free()
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -860,6 +948,7 @@ class EditMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.operator(Duplicate.bl_idname, icon='PLUGIN', text="Copy")
+		self.layout.operator(Clipping.bl_idname, icon='PLUGIN', text="Change the size")
 		self.layout.operator(Resize.bl_idname, icon='PLUGIN', text="Zoom in / out")
 		self.layout.operator(Tiles.bl_idname, icon='PLUGIN', text="Lining up")
 
