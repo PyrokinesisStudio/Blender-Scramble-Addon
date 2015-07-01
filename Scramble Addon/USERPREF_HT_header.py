@@ -863,7 +863,12 @@ class MoveKeyBindCategory(bpy.types.Operator):
 						for property_name in keymap_item.properties.keys():
 							target_keymap_item.properties[property_name] = keymap_item.properties[property_name]
 						keymap.keymap_items.remove(keymap_item)
-						bpy.ops.ui.close_key_map_items()
+						for keyconfig in context.window_manager.keyconfigs:
+							for keymap in keyconfig.keymaps:
+								keymap.show_expanded_children = False
+								keymap.show_expanded_items = False
+								for keymap_item in keymap.keymap_items:
+									keymap_item.show_expanded = False
 						target_keymap.show_expanded_children = True
 						target_keymap.show_expanded_items = True
 						target_keymap_item.show_expanded = True
