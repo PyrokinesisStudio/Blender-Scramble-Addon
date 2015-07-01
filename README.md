@@ -437,6 +437,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Only the vertices)**
         * 1頂点のみのメッシュオブジェクトを3Dカーソルの位置に追加します
         * ―(Only 1 vertex meshes 3D adds to the position of the cursor)
+    * **頂点グループごとに分離**
+    * **―(Isolated vertex groups)**
+        * 頂点グループの適用されている部分ごとに分離したメッシュ群を作成します
+        * ―(Create a separate each part of the vertex groups applied mesh group)
   
 * **情報 > 「レンダー」メニュー**
 * **―(Information > "render" menu)**

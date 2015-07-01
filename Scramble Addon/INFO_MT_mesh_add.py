@@ -1,6 +1,6 @@
 # 3Dビュー > オブジェクト/メッシュ編集モード > 「追加」メニュー > 「メッシュ」メニュー
 
-import bpy
+import bpy, bmesh
 import math
 
 ################
@@ -71,6 +71,75 @@ class AddVertexOnlyObject(bpy.types.Operator):
 		context.tool_settings.mesh_select_mode = (True, False, False)
 		return {'FINISHED'}
 
+class CreateVertexGroupSplits(bpy.types.Operator):
+	bl_idname = "mesh.create_vertex_group_splits"
+	bl_label = "Isolated vertex groups"
+	bl_description = "Create a separate each part of the vertex groups applied mesh group"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	threshold = bpy.props.FloatProperty(name="Turn threshold", default=0.5, min=0, max=1, soft_min=0, soft_max=1, step=3, precision=2)
+	delete_source = bpy.props.BoolProperty(name="Delete source", default=False)
+	
+	@classmethod
+	def poll(cls, context):
+		if (context.mode == 'OBJECT'):
+			for obj in context.selected_objects:
+				if (obj.type == 'MESH'):
+					if (len(obj.vertex_groups)):
+						return True
+		return False
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def execute(self, context):
+		for obj in context.selected_objects:
+			obj.select = False
+			if (obj.type != 'MESH'):
+				continue
+			me = obj.data
+			bm = bmesh.new()
+			bm.from_mesh(me)
+			for vertex_group in obj.vertex_groups:
+				new_verts = []
+				new_verts_index = []
+				new_faces = []
+				for index, vert in enumerate(bm.verts):
+					for group in me.vertices[index].groups:
+						if (obj.vertex_groups[group.group].name == vertex_group.name):
+							if (self.threshold <= group.weight):
+								new_verts.append(vert.co[:])
+								new_verts_index.append(index)
+							break
+				for face in bm.faces:
+					for vert in face.verts:
+						if (vert.index not in new_verts_index):
+							break
+					else:
+						faces = []
+						for vert in face.verts:
+							faces.append(new_verts_index.index(vert.index))
+						new_faces.append(faces)
+				if (len(new_verts) and len(new_faces)):
+					new_me = bpy.data.meshes.new(obj.name +":"+ vertex_group.name)
+					new_me.from_pydata(new_verts, [], new_faces)
+					new_obj = bpy.data.objects.new(obj.name +":"+ vertex_group.name, new_me)
+					context.scene.objects.link(new_obj)
+					new_obj.select = True
+					context.scene.objects.active = new_obj
+					new_obj.location = obj.location[:]
+					new_obj.rotation_mode = obj.rotation_mode
+					if (obj.rotation_mode == 'QUATERNION'):
+						new_obj.rotation_quaternion = obj.rotation_quaternion[:]
+					elif (obj.rotation_mode == 'AXIS_ANGLE'):
+						new_obj.rotation_axis_angle = obj.rotation_axis_angle[:]
+					else:
+						new_obj.rotation_euler = obj.rotation_euler[:]
+					new_obj.scale = obj.scale[:]
+			if (self.delete_source):
+				context.scene.objects.unlink(obj)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -87,8 +156,10 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(AddVertexOnlyObject.bl_idname, icon="PLUGIN")
-		self.layout.operator(AddSphereOnlySquare.bl_idname, icon="PLUGIN").location = context.space_data.cursor_location
+		self.layout.operator(AddVertexOnlyObject.bl_idname, icon='PLUGIN')
+		self.layout.operator(AddSphereOnlySquare.bl_idname, icon='PLUGIN').location = context.space_data.cursor_location
+		self.layout.separator()
+		self.layout.operator(CreateVertexGroupSplits.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
