@@ -113,6 +113,78 @@ class ReverseMinMax(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class CopyAxisSetting(bpy.types.Operator):
+	bl_idname = "pose.copy_axis_setting"
+	bl_label = "Copy to other axes axis settings"
+	bl_description = "Copy the other axis on one axis"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('x', "The x axis", "", 1),
+		('y', "Y軸", "", 2),
+		('z', "Z軸", "", 3),
+		]
+	source_axis = bpy.props.EnumProperty(items=items, name="Source-axis")
+	target_x = bpy.props.BoolProperty(name="X", default=True)
+	target_y = bpy.props.BoolProperty(name="To Y", default=True)
+	target_z = bpy.props.BoolProperty(name="To Z", default=True)
+	
+	lock_ik = bpy.props.BoolProperty(name="Lock", default=True)
+	ik_stiffness = bpy.props.BoolProperty(name="Rigid", default=True)
+	use_ik_limit = bpy.props.BoolProperty(name="Limit", default=True)
+	ik_min = bpy.props.BoolProperty(name="Smallest", default=True)
+	ik_max = bpy.props.BoolProperty(name="Biggest", default=True)
+	
+	@classmethod
+	def poll(cls, context):
+		if (context.active_pose_bone):
+			return True
+		return False
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def draw(self, context):
+		self.layout.prop(self, 'source_axis')
+		row = self.layout.row()
+		row.prop(self, 'target_x')
+		row.prop(self, 'target_y')
+		row.prop(self, 'target_z')
+		self.layout.label("Copying settings")
+		row = self.layout.row()
+		row.prop(self, 'lock_ik')
+		row.prop(self, 'ik_stiffness')
+		row = self.layout.row()
+		row.prop(self, 'use_ik_limit')
+		row.prop(self, 'ik_min')
+		row.prop(self, 'ik_max')
+	
+	def execute(self, context):
+		bone = context.active_pose_bone
+		source_axis = self.source_axis
+		for axis in ['x', 'y', 'z']:
+			if (source_axis == axis):
+				continue
+			if (self.__getattribute__('target_' + axis)):
+				if (self.lock_ik):
+					value = bone.__getattribute__('lock_ik_' + source_axis)
+					bone.__setattr__('lock_ik_' + axis, value)
+				if (self.ik_stiffness):
+					value = bone.__getattribute__('ik_stiffness_' + source_axis)
+					bone.__setattr__('ik_stiffness_' + axis, value)
+				if (self.use_ik_limit):
+					value = bone.__getattribute__('use_ik_limit_' + source_axis)
+					bone.__setattr__('use_ik_limit_' + axis, value)
+				if (self.ik_min):
+					value = bone.__getattribute__('ik_min_' + source_axis)
+					bone.__setattr__('ik_min_' + axis, value)
+				if (self.ik_max):
+					value = bone.__getattribute__('ik_max_' + source_axis)
+					bone.__setattr__('ik_max_' + axis, value)
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -131,5 +203,6 @@ def menu(self, context):
 		row = self.layout.row(align=True)
 		row.operator(CopyIKSettings.bl_idname, icon='COPY_ID', text="Copy the IK set")
 		row.operator(ReverseMinMax.bl_idname, icon='ARROW_LEFTRIGHT', text="Flip angle limit")
+		row.operator(CopyAxisSetting.bl_idname, icon='LINKED', text="Axis configuration copy")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

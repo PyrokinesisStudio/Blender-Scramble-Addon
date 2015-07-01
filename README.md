@@ -48,6 +48,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Flip the minimum / maximum angle)**
         * このボーンのIK設定の最小角と最大角を反転させます
         * ―(Reverses the minimum and maximum angle of IK setup this bone)
+    * **軸設定を他の軸にコピー**
+    * **―(Copy to other axes axis settings)**
+        * 1つの軸の設定を、他の軸にコピーします
+        * ―(Copy the other axis on one axis)
   
 * **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ボーングループ」パネル**
 * **―('Properties' area > armature data tab > bone groups Panel)**
