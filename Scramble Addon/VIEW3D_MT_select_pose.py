@@ -221,6 +221,7 @@ class SelectPath(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
+		bones = []
 		if (context.selected_bones):
 			if (2 == len(context.selected_bones)):
 				bones = context.selected_bones
