@@ -59,7 +59,8 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(SelectAxisOver.bl_idname, icon="PLUGIN")
+		self.layout.operator('pose.select_path', icon='PLUGIN')
+		self.layout.operator(SelectAxisOver.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

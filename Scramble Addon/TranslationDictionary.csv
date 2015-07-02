@@ -1355,6 +1355,8 @@
 "選択ボーンの子 → 子ボーンの子...と最後まで選択していきます","Select bones child-child child's bones. And we will select to the end"
 "ボーンの根本まで選択","Select the bone"
 "選択ボーンの親 → 親ボーンの親...と最後まで選択していきます","Choice bones parent → parent of parent bone. And we will select to the end"
+"ボーンの経路を選択","Select the route of bones"
+"2つの選択ボーンの経路を選択します","Select the select bones of two paths"
 "同じプロパティでまとめた可視ボーンをすべて選択する機能のメニューです","Ability to select all visible bones together with the same properties menu."
 "名前が対称","Mirror name"
 "メッシュに3Dカーソルをスナップ","3D cursor snap to mesh"

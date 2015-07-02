@@ -213,6 +213,49 @@ class SelectParentEnd(bpy.types.Operator):
 				target_bone.select = True
 		return {'FINISHED'}
 
+class SelectPath(bpy.types.Operator):
+	bl_idname = "pose.select_path"
+	bl_label = "Select the route of bones"
+	bl_description = "Select the select bones of two paths"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		if (context.selected_bones):
+			if (2 == len(context.selected_bones)):
+				bones = context.selected_bones
+		if (context.selected_pose_bones):
+			if (2 == len(context.selected_pose_bones)):
+				bones = context.selected_pose_bones
+		parents = []
+		for bone in bones:
+			parents.append(bone)
+			while (parents[-1].parent):
+				parents[-1] = parents[-1].parent
+		if (parents[0].name == parents[1].name):
+			return True
+		return False
+	
+	def execute(self, context):
+		obj = context.active_object
+		pose = obj.pose
+		arm = obj.data
+		parents = []
+		pre_mode = obj.mode
+		if (obj.mode == 'EDIT'):
+			bones = context.selected_bones
+		else:
+			bones = context.selected_pose_bones
+		for bone in bones:
+			parents.append([bone.name])
+			while (pose.bones[parents[-1][-1]].parent):
+				parents[-1].append(pose.bones[parents[-1][-1]].parent.name)
+		bpy.ops.object.mode_set(mode='OBJECT')
+		for bone_name in set(parents[0]) ^ set(parents[1]):
+			arm.bones[bone_name].select = True
+		bpy.ops.object.mode_set(mode=pre_mode)
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -223,13 +266,13 @@ class SelectGroupedMenu(bpy.types.Menu):
 	bl_description = "Ability to select all visible bones together with the same properties menu."
 	
 	def draw(self, context):
-		self.layout.operator('pose.select_grouped', text="Layer", icon="PLUGIN").type = 'LAYER'
-		self.layout.operator('pose.select_grouped', text="Group", icon="PLUGIN").type = 'GROUP'
-		self.layout.operator('pose.select_grouped', text="Keying set", icon="PLUGIN").type = 'KEYINGSET'
+		self.layout.operator('pose.select_grouped', text="Layer", icon='PLUGIN').type = 'LAYER'
+		self.layout.operator('pose.select_grouped', text="Group", icon='PLUGIN').type = 'GROUP'
+		self.layout.operator('pose.select_grouped', text="Keying set", icon='PLUGIN').type = 'KEYINGSET'
 		self.layout.separator()
-		self.layout.operator(SelectSameNameBones.bl_idname, text="Bone name", icon="PLUGIN")
-		self.layout.operator(SelectSymmetryNameBones.bl_idname, text="Mirror name", icon="PLUGIN")
-		self.layout.operator(SelectSameConstraintBone.bl_idname, text="Constraint", icon="PLUGIN")
+		self.layout.operator(SelectSameNameBones.bl_idname, text="Bone name", icon='PLUGIN')
+		self.layout.operator(SelectSymmetryNameBones.bl_idname, text="Mirror name", icon='PLUGIN')
+		self.layout.operator(SelectSameConstraintBone.bl_idname, text="Constraint", icon='PLUGIN')
 
 ################
 # メニュー追加 #
@@ -247,13 +290,15 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(SelectParentEnd.bl_idname, icon="PLUGIN")
-		self.layout.operator(SelectChildrenEnd.bl_idname, icon="PLUGIN")
+		self.layout.operator(SelectPath.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(SelectSerialNumberNameBone.bl_idname, icon="PLUGIN")
-		self.layout.operator(SelectMoveSymmetryNameBones.bl_idname, icon="PLUGIN")
+		self.layout.operator(SelectParentEnd.bl_idname, icon='PLUGIN')
+		self.layout.operator(SelectChildrenEnd.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.menu(SelectGroupedMenu.bl_idname, icon="PLUGIN")
+		self.layout.operator(SelectSerialNumberNameBone.bl_idname, icon='PLUGIN')
+		self.layout.operator(SelectMoveSymmetryNameBones.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		self.layout.menu(SelectGroupedMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

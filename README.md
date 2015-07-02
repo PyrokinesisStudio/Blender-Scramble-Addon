@@ -1268,6 +1268,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Select the bone)**
         * 選択ボーンの親 → 親ボーンの親...と最後まで選択していきます
         * ―(Choice bones parent → parent of parent bone. And we will select to the end)
+    * **ボーンの経路を選択**
+    * **―(Select the route of bones)**
+        * 2つの選択ボーンの経路を選択します
+        * ―(Select the select bones of two paths)
   
 * **3Dビュー > Shift+S**
 * **―(3Dビュー > Shift+S)**
