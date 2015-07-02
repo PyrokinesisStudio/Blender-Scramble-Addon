@@ -227,13 +227,14 @@ class SelectPath(bpy.types.Operator):
 		if (context.selected_pose_bones):
 			if (2 == len(context.selected_pose_bones)):
 				bones = context.selected_pose_bones
-		parents = []
-		for bone in bones:
-			parents.append(bone)
-			while (parents[-1].parent):
-				parents[-1] = parents[-1].parent
-		if (parents[0].name == parents[1].name):
-			return True
+		if (2 == len(bones)):
+			parents = []
+			for bone in bones:
+				parents.append(bone)
+				while (parents[-1].parent):
+					parents[-1] = parents[-1].parent
+			if (parents[0].name == parents[1].name):
+				return True
 		return False
 	
 	def execute(self, context):
