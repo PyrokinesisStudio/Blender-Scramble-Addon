@@ -18,8 +18,9 @@ class CopyBoneTransform(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		if (2 <= len(context.selected_pose_bones)):
-			return True
+		if (context.selected_pose_bones):
+			if (2 <= len(context.selected_pose_bones)):
+				return True
 		return False
 	
 	def execute(self, context):
