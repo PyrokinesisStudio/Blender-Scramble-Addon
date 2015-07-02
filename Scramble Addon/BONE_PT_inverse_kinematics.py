@@ -149,8 +149,16 @@ class CopyAxisSetting(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		if (context.active_pose_bone):
-			return True
+		bone = context.active_pose_bone
+		if (bone):
+			for setting in ['lock_ik', 'ik_stiffness', 'use_ik_limit', 'ik_min', 'ik_max']:
+				x = bone.__getattribute__(setting + '_x')
+				y = bone.__getattribute__(setting + '_y')
+				z = bone.__getattribute__(setting + '_z')
+				if (x == y == z):
+					pass
+				else:
+					return True
 		return False
 	
 	def invoke(self, context, event):
