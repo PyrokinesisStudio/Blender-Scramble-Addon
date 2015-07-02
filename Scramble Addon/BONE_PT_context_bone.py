@@ -67,48 +67,53 @@ class RenameMirrorActiveBone(bpy.types.Operator):
 		if (context.active_pose_bone):
 			bone = context.active_pose_bone
 		pre_name = bone.name
+		new_name = pre_name
 		for i in range(1):
 			if (bone.name[-1] == 'l'):
-				bone.name = bone.name[:-1] + 'r'
+				new_name = bone.name[:-1] + 'r'
 				break
 			if (bone.name[-1] == 'L'):
-				bone.name = bone.name[:-1] + 'R'
+				new_name = bone.name[:-1] + 'R'
 				break
 			if (bone.name[-1] == 'r'):
-				bone.name = bone.name[:-1] + 'l'
+				new_name = bone.name[:-1] + 'l'
 				break
 			if (bone.name[-1] == 'R'):
-				bone.name = bone.name[:-1] + 'L'
+				new_name = bone.name[:-1] + 'L'
 				break
 			
 			if (re.search(r'[\._][l]\.\d\d\d$', bone.name)):
-				bone.name = bone.name[:-5] + 'r' + bone.name[-4:]
+				new_name = bone.name[:-5] + 'r' + bone.name[-4:]
 				break
 			if (re.search(r'[\._][L]\.\d\d\d$', bone.name)):
-				bone.name = bone.name[:-5] + 'R' + bone.name[-4:]
+				new_name = bone.name[:-5] + 'R' + bone.name[-4:]
 				break
 			if (re.search(r'[\._][r]\.\d\d\d$', bone.name)):
-				bone.name = bone.name[:-5] + 'l' + bone.name[-4:]
+				new_name = bone.name[:-5] + 'l' + bone.name[-4:]
 				break
 			if (re.search(r'[\._][R]\.\d\d\d$', bone.name)):
-				bone.name = bone.name[:-5] + 'L' + bone.name[-4:]
+				new_name = bone.name[:-5] + 'L' + bone.name[-4:]
 				break
 			
 			if (re.search(r'[\._]right$', bone.name.lower())):
-				bone.name = bone.name[:-5] + 'left'
+				new_name = bone.name[:-5] + 'left'
 				break
 			if (re.search(r'[\._]left$', bone.name.lower())):
-				bone.name = bone.name[:-4] + 'right'
+				new_name = bone.name[:-4] + 'right'
 				break
 			
 			if (re.search(r'[\._]right\.\d\d\d$', bone.name.lower())):
-				bone.name = bone.name[:-9] + 'left' + bone.name[-4:]
+				new_name = bone.name[:-9] + 'left' + bone.name[-4:]
 				break
 			if (re.search(r'[\._]left\.\d\d\d$', bone.name.lower())):
-				bone.name = bone.name[:-8] + 'right' + bone.name[-4:]
+				new_name = bone.name[:-8] + 'right' + bone.name[-4:]
 				break
+		bone.name = new_name
 		if (pre_name != bone.name):
-			self.report(type={'INFO'}, message=pre_name + " => " + bone.name)
+			if (new_name == bone.name):
+				self.report(type={'INFO'}, message=pre_name + " => " + bone.name)
+			else:
+				self.report(type={'WARNING'}, message=pre_name + " => " + bone.name)
 		else:
 			self.report(type={'ERROR'}, message="No name change failed,")
 			return {'CANCELLED'}
