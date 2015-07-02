@@ -114,6 +114,50 @@ class RenameMirrorActiveBone(bpy.types.Operator):
 			return {'CANCELLED'}
 		return {'FINISHED'}
 
+class AppendActiveBoneName(bpy.types.Operator):
+	bl_idname = "pose.append_active_bone_name"
+	bl_label = "Add text to the bone name"
+	bl_description = "Adds a string to the active bone name"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	string = bpy.props.StringProperty(name="Append text")
+	
+	@classmethod
+	def poll(self, context):
+		if (context.active_bone):
+			return True
+		if (context.active_pose_bone):
+			return True
+		return False
+	
+	def execute(self, context):
+		if (context.active_bone):
+			bone = context.active_bone
+		if (context.active_pose_bone):
+			bone = context.active_pose_bone
+		bone.name = bone.name + self.string
+		return {'FINISHED'}
+################
+# サブメニュー #
+################
+
+class AppendNameMenu(bpy.types.Menu):
+	bl_idname = "BONE_PT_context_bone_append_name"
+	bl_label = "A new character,"
+	
+	def draw(self, context):
+		self.layout.operator(AppendActiveBoneName.bl_idname, text=".L").string = '.L'
+		self.layout.operator(AppendActiveBoneName.bl_idname, text=".R").string = '.R'
+		self.layout.separator()
+		self.layout.operator(AppendActiveBoneName.bl_idname, text="_L").string = '_L'
+		self.layout.operator(AppendActiveBoneName.bl_idname, text="_R").string = '_R'
+		self.layout.separator()
+		self.layout.operator(AppendActiveBoneName.bl_idname, text=".left").string = '.left'
+		self.layout.operator(AppendActiveBoneName.bl_idname, text=".right").string = '.right'
+		self.layout.separator()
+		self.layout.operator(AppendActiveBoneName.bl_idname, text="_left").string = '_left'
+		self.layout.operator(AppendActiveBoneName.bl_idname, text="_right").string = '_right'
+
 ################
 # メニュー追加 #
 ################
@@ -133,5 +177,6 @@ def menu(self, context):
 			row = self.layout.row(align=True)
 			row.operator(CopyBoneName.bl_idname, icon='COPYDOWN', text="To the Clipboard")
 			row.operator(RenameMirrorActiveBone.bl_idname, icon='MOD_MIRROR', text="Flip Horizontal")
+			row.menu(AppendNameMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
