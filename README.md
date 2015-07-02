@@ -53,6 +53,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 1つの軸の設定を、他の軸にコピーします
         * ―(Copy the other axis on one axis)
   
+* **「プロパティ」エリア > 「ボーン」タブ > 「トランスフォーム」パネル**
+* **―(Area "Properties" > "Bourne" tab > "transform" Panel)**
+    * **ボーンの変形をコピー**
+    * **―(Copy the bone deformation)**
+        * アクティブなボーンの変形情報を、他の選択ボーンにコピーします
+        * ―(Copy selected bones of other active bone deformation information)
+  
 * **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ボーングループ」パネル**
 * **―('Properties' area > armature data tab > bone groups Panel)**
     * **このボーングループのボーンのみ表示**
