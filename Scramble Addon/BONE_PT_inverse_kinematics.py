@@ -85,11 +85,23 @@ class ReverseMinMax(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		if (context.active_pose_bone):
-			return True
+		bone = context.active_pose_bone
+		if (bone):
+			for axis in ['x', 'y', 'z']:
+				diff = bone.__getattribute__('ik_min_' + axis) + bone.__getattribute__('ik_max_' + axis)
+				if (diff != 0):
+					return True
+			return False
 		return False
 	
 	def invoke(self, context, event):
+		bone = context.active_pose_bone
+		for axis in ['x', 'y', 'z']:
+			diff = bone.__getattribute__('ik_min_' + axis) + bone.__getattribute__('ik_max_' + axis)
+			if (diff != 0):
+				self.__setattr__('is_' + axis, True)
+			else:
+				self.__setattr__('is_' + axis, False)
 		return context.window_manager.invoke_props_dialog(self)
 	
 	def execute(self, context):
