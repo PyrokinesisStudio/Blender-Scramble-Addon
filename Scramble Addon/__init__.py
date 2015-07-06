@@ -96,6 +96,7 @@ if "bpy" in locals():
 	imp.reload(BONE_PT_inverse_kinematics)
 	imp.reload(BONE_PT_display)
 	imp.reload(BONE_PT_transform)
+	imp.reload(PHYSICS_PT_rigid_body)
 	#imp.reload(***)
 else:
 	from . import IMAGE_MT_image
@@ -175,6 +176,7 @@ else:
 	from . import BONE_PT_inverse_kinematics
 	from . import BONE_PT_display
 	from . import BONE_PT_transform
+	from . import PHYSICS_PT_rigid_body
 	#from . import ***
 import bpy
 
@@ -342,6 +344,7 @@ def register():
 	bpy.types.BONE_PT_inverse_kinematics.append(BONE_PT_inverse_kinematics.menu)
 	bpy.types.BONE_PT_display.append(BONE_PT_display.menu)
 	bpy.types.BONE_PT_transform.append(BONE_PT_transform.menu)
+	bpy.types.PHYSICS_PT_rigid_body.append(PHYSICS_PT_rigid_body.menu)
 	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
@@ -425,6 +428,7 @@ def unregister():
 	bpy.types.BONE_PT_inverse_kinematics.remove(BONE_PT_inverse_kinematics.menu)
 	bpy.types.BONE_PT_display.remove(BONE_PT_display.menu)
 	bpy.types.BONE_PT_transform.remove(BONE_PT_transform.menu)
+	bpy.types.PHYSICS_PT_rigid_body.remove(PHYSICS_PT_rigid_body.menu)
 	#bpy.types.***.remove(***.menu)
 
 # メイン関数

@@ -632,6 +632,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * この表示設定を他の選択オブジェクトにコピーします
         * ―(Copy the selected objects of other display settings)
   
+* **「プロパティ」エリア > 「物理演算」タブ > 「剛体」パネル**
+* **―("Properties" area: "Physics" tab > "rigid" Panel)**
+    * **剛体設定をコピー**
+    * **―(Copy the rigid set)**
+        * アクティブなオブジェクトの剛体設定を、他の選択オブジェクトにコピーします
+        * ―(Copy the selected objects of other rigid set of active objects)
+  
 * **プロパティ > ヘッダー**
 * **―(Properties > header)**
     * **プロパティタブを切り替え**

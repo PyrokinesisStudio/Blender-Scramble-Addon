@@ -637,6 +637,8 @@
 "透過","Through"
 "最高描画タイプ","Best drawing type"
 "オブジェクトカラー","Object color"
+"剛体設定をコピー","Copy the rigid set"
+"アクティブなオブジェクトの剛体設定を、他の選択オブジェクトにコピーします","Copy the selected objects of other rigid set of active objects"
 "プロパティタブを切り替え","Switch to properties tab"
 "プロパティのタブを順番に切り替えます","Turn switch Properties tab"
 "左へ","To the left"
