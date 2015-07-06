@@ -103,6 +103,57 @@ class ClearConstraintLimits(bpy.types.Operator):
 				rigid_const.__setattr__('limit_ang_' + axis + '_upper', 0.0)
 		return {'FINISHED'}
 
+class ReverseConstraintLimits(bpy.types.Operator):
+	bl_idname = "rigidbody.reverse_constraint_limits"
+	bl_label = "Flip the rigid constraints limited"
+	bl_description = "Minimum limit settings of the rigid constraints of the active object and reverses the maximum"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	is_lin_x = bpy.props.BoolProperty(name="X Mobile", default=True)
+	is_lin_y = bpy.props.BoolProperty(name="Y move", default=True)
+	is_lin_z = bpy.props.BoolProperty(name="Z move", default=True)
+	
+	is_ang_x = bpy.props.BoolProperty(name="X rotation", default=True)
+	is_ang_y = bpy.props.BoolProperty(name="Y rotation", default=True)
+	is_ang_z = bpy.props.BoolProperty(name="Z rotation", default=True)
+	
+	@classmethod
+	def poll(cls, context):
+		if context.active_object:
+			if context.active_object.rigid_body_constraint:
+				return True
+		return False
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def draw(self, context):
+		self.layout.label("Invert movement restrictions")
+		row = self.layout.row()
+		row.prop(self, 'is_lin_x', text="X")
+		row.prop(self, 'is_lin_y', text="Y")
+		row.prop(self, 'is_lin_z', text="Z")
+		self.layout.label("To reverse rotation restrictions")
+		row = self.layout.row()
+		row.prop(self, 'is_ang_x', text="X")
+		row.prop(self, 'is_ang_y', text="Y")
+		row.prop(self, 'is_ang_z', text="Z")
+	
+	def execute(self, context):
+		rigid_const = context.active_object.rigid_body_constraint
+		for axis in ['x', 'y', 'z']:
+			if self.__getattribute__('is_lin_' + axis):
+				lower = rigid_const.__getattribute__('limit_lin_' + axis + '_lower')
+				upper = rigid_const.__getattribute__('limit_lin_' + axis + '_upper')
+				rigid_const.__setattr__('limit_lin_' + axis + '_lower', -upper)
+				rigid_const.__setattr__('limit_lin_' + axis + '_upper', -lower)
+			if self.__getattribute__('is_ang_' + axis):
+				lower = rigid_const.__getattribute__('limit_ang_' + axis + '_lower')
+				upper = rigid_const.__getattribute__('limit_ang_' + axis + '_upper')
+				rigid_const.__setattr__('limit_ang_' + axis + '_lower', -upper)
+				rigid_const.__setattr__('limit_ang_' + axis + '_upper', -lower)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -121,7 +172,9 @@ def menu(self, context):
 		if context.active_object:
 			if context.active_object.rigid_body_constraint:
 				if context.active_object.rigid_body_constraint.type in ['GENERIC', 'GENERIC_SPRING']:
-					self.layout.operator(ClearConstraintLimits.bl_idname, icon='X')
+					row = self.layout.row(align=True)
+					row.operator(ClearConstraintLimits.bl_idname, icon='X', text="Limit initialization")
+					row.operator(ReverseConstraintLimits.bl_idname, icon='ARROW_LEFTRIGHT', text="Limit reverse")
 		self.layout.operator(CopyConstraintSetting.bl_idname, icon='LINKED')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

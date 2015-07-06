@@ -649,6 +649,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Initializes a rigid constraint limits)**
         * アクティブなオブジェクトの剛体コンストレイントの制限設定群を初期化します
         * ―(Initializes the rigid constraints of the active object limit settings group)
+    * **剛体コンストレイントの制限を反転**
+    * **―(Flip the rigid constraints limited)**
+        * アクティブなオブジェクトの剛体コンストレイントの制限設定の最小と最大を反転させます
+        * ―(Minimum limit settings of the rigid constraints of the active object and reverses the maximum)
   
 * **プロパティ > ヘッダー**
 * **―(Properties > header)**
