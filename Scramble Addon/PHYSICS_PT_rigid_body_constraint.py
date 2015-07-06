@@ -60,6 +60,8 @@ class ClearConstraintLimits(bpy.types.Operator):
 	bl_description = "Initializes the rigid constraints of the active object limit settings group"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	mode = bpy.props.StringProperty(name="Mode", default='', options={'SKIP_SAVE', 'HIDDEN'})
+	
 	is_lin_x = bpy.props.BoolProperty(name="X Mobile", default=True, options={'SKIP_SAVE'})
 	is_lin_y = bpy.props.BoolProperty(name="Y move", default=True, options={'SKIP_SAVE'})
 	is_lin_z = bpy.props.BoolProperty(name="Z move", default=True, options={'SKIP_SAVE'})
@@ -92,6 +94,8 @@ class ClearConstraintLimits(bpy.types.Operator):
 	
 	def execute(self, context):
 		rigid_const = context.active_object.rigid_body_constraint
+		if (self.mode != ''):
+			rigid_const.type = self.mode
 		for axis in ['x', 'y', 'z']:
 			if self.__getattribute__('is_lin_' + axis):
 				rigid_const.__setattr__('use_limit_lin_' + axis, True)
@@ -175,6 +179,10 @@ def menu(self, context):
 					row = self.layout.row(align=True)
 					row.operator(ClearConstraintLimits.bl_idname, icon='X', text="Limit initialization")
 					row.operator(ReverseConstraintLimits.bl_idname, icon='ARROW_LEFTRIGHT', text="Limit reverse")
+				elif context.active_object.rigid_body_constraint.type == 'FIXED':
+					row = self.layout.row(align=True)
+					row.operator(ClearConstraintLimits.bl_idname, icon='IPO_LINEAR', text="In General, initialize").mode = 'GENERIC'
+					row.operator(ClearConstraintLimits.bl_idname, icon='DRIVER', text="Generic initialization in the spring").mode = 'GENERIC_SPRING'
 		self.layout.operator(CopyConstraintSetting.bl_idname, icon='LINKED')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
