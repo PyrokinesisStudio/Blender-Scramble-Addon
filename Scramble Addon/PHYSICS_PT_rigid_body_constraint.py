@@ -60,13 +60,13 @@ class ClearConstraintLimits(bpy.types.Operator):
 	bl_description = "Initializes the rigid constraints of the active object limit settings group"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	is_lin_x = bpy.props.BoolProperty(name="X Mobile", default=True)
-	is_lin_y = bpy.props.BoolProperty(name="Y move", default=True)
-	is_lin_z = bpy.props.BoolProperty(name="Z move", default=True)
+	is_lin_x = bpy.props.BoolProperty(name="X Mobile", default=True, options={'SKIP_SAVE'})
+	is_lin_y = bpy.props.BoolProperty(name="Y move", default=True, options={'SKIP_SAVE'})
+	is_lin_z = bpy.props.BoolProperty(name="Z move", default=True, options={'SKIP_SAVE'})
 	
-	is_ang_x = bpy.props.BoolProperty(name="X rotation", default=True)
-	is_ang_y = bpy.props.BoolProperty(name="Y rotation", default=True)
-	is_ang_z = bpy.props.BoolProperty(name="Z rotation", default=True)
+	is_ang_x = bpy.props.BoolProperty(name="X rotation", default=True, options={'SKIP_SAVE'})
+	is_ang_y = bpy.props.BoolProperty(name="Y rotation", default=True, options={'SKIP_SAVE'})
+	is_ang_z = bpy.props.BoolProperty(name="Z rotation", default=True, options={'SKIP_SAVE'})
 	
 	@classmethod
 	def poll(cls, context):
@@ -109,13 +109,13 @@ class ReverseConstraintLimits(bpy.types.Operator):
 	bl_description = "Minimum limit settings of the rigid constraints of the active object and reverses the maximum"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	is_lin_x = bpy.props.BoolProperty(name="X Mobile", default=True)
-	is_lin_y = bpy.props.BoolProperty(name="Y move", default=True)
-	is_lin_z = bpy.props.BoolProperty(name="Z move", default=True)
+	is_lin_x = bpy.props.BoolProperty(name="X Mobile", default=False, options={'SKIP_SAVE'})
+	is_lin_y = bpy.props.BoolProperty(name="Y move", default=False, options={'SKIP_SAVE'})
+	is_lin_z = bpy.props.BoolProperty(name="Z move", default=False, options={'SKIP_SAVE'})
 	
-	is_ang_x = bpy.props.BoolProperty(name="X rotation", default=True)
-	is_ang_y = bpy.props.BoolProperty(name="Y rotation", default=True)
-	is_ang_z = bpy.props.BoolProperty(name="Z rotation", default=True)
+	is_ang_x = bpy.props.BoolProperty(name="X rotation", default=False, options={'SKIP_SAVE'})
+	is_ang_y = bpy.props.BoolProperty(name="Y rotation", default=False, options={'SKIP_SAVE'})
+	is_ang_z = bpy.props.BoolProperty(name="Z rotation", default=False, options={'SKIP_SAVE'})
 	
 	@classmethod
 	def poll(cls, context):
