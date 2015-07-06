@@ -12,7 +12,7 @@ class CopyConstraintSetting(bpy.types.Operator):
 	bl_description = "Copies selected objects for other rigid constraints on active object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	copy_target_objects = bpy.props.BoolProperty(name="Addressing objects to be copied", default=False)
+	copy_target_objects = bpy.props.BoolProperty(name="Copy object specification", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -24,6 +24,9 @@ class CopyConstraintSetting(bpy.types.Operator):
 	
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
+	
+	def draw(self, context):
+		self.layout.prop(self, 'copy_target_objects')
 	
 	def execute(self, context):
 		active_ob = context.active_object
@@ -74,6 +77,18 @@ class ClearConstraintLimits(bpy.types.Operator):
 	
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
+	
+	def draw(self, context):
+		self.layout.label("To initialize the transfer limit")
+		row = self.layout.row()
+		row.prop(self, 'is_lin_x', text="X")
+		row.prop(self, 'is_lin_y', text="Y")
+		row.prop(self, 'is_lin_z', text="Z")
+		self.layout.label("To initialize the rotation limit")
+		row = self.layout.row()
+		row.prop(self, 'is_ang_x', text="X")
+		row.prop(self, 'is_ang_y', text="Y")
+		row.prop(self, 'is_ang_z', text="Z")
 	
 	def execute(self, context):
 		rigid_const = context.active_object.rigid_body_constraint
