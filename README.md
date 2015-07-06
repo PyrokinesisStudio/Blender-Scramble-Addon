@@ -639,6 +639,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなオブジェクトの剛体設定を、他の選択オブジェクトにコピーします
         * ―(Copy the selected objects of other rigid set of active objects)
   
+* **「プロパティ」エリア > 「物理演算」タブ > 「剛体コンストレイント」パネル**
+* **―("Properties" area: "Physics" tab > rigid constraints Panel)**
+    * **剛体コンストレイント設定をコピー**
+    * **―(Copy sets rigid constraints)**
+        * アクティブなオブジェクトの剛体コンストレイント設定を、他の選択オブジェクトにコピーします
+        * ―(Copies selected objects for other rigid constraints on active object)
+  
 * **プロパティ > ヘッダー**
 * **―(Properties > header)**
     * **プロパティタブを切り替え**
