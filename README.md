@@ -645,6 +645,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Copy sets rigid constraints)**
         * アクティブなオブジェクトの剛体コンストレイント設定を、他の選択オブジェクトにコピーします
         * ―(Copies selected objects for other rigid constraints on active object)
+    * **剛体コンストレイントの制限を初期化**
+    * **―(Initializes a rigid constraint limits)**
+        * アクティブなオブジェクトの剛体コンストレイントの制限設定群を初期化します
+        * ―(Initializes the rigid constraints of the active object limit settings group)
   
 * **プロパティ > ヘッダー**
 * **―(Properties > header)**

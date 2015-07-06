@@ -51,6 +51,43 @@ class CopyConstraintSetting(bpy.types.Operator):
 		context.scene.objects.active = active_ob
 		return {'FINISHED'}
 
+class ClearConstraintLimits(bpy.types.Operator):
+	bl_idname = "rigidbody.clear_constraint_limits"
+	bl_label = "Initializes a rigid constraint limits"
+	bl_description = "Initializes the rigid constraints of the active object limit settings group"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	is_lin_x = bpy.props.BoolProperty(name="X Mobile", default=True)
+	is_lin_y = bpy.props.BoolProperty(name="Y move", default=True)
+	is_lin_z = bpy.props.BoolProperty(name="Z move", default=True)
+	
+	is_ang_x = bpy.props.BoolProperty(name="X rotation", default=True)
+	is_ang_y = bpy.props.BoolProperty(name="Y rotation", default=True)
+	is_ang_z = bpy.props.BoolProperty(name="Z rotation", default=True)
+	
+	@classmethod
+	def poll(cls, context):
+		if context.active_object:
+			if context.active_object.rigid_body_constraint:
+				return True
+		return False
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def execute(self, context):
+		rigid_const = context.active_object.rigid_body_constraint
+		for axis in ['x', 'y', 'z']:
+			if self.__getattribute__('is_lin_' + axis):
+				rigid_const.__setattr__('use_limit_lin_' + axis, True)
+				rigid_const.__setattr__('limit_lin_' + axis + '_lower', 0.0)
+				rigid_const.__setattr__('limit_lin_' + axis + '_upper', 0.0)
+			if self.__getattribute__('is_ang_' + axis):
+				rigid_const.__setattr__('use_limit_ang_' + axis, True)
+				rigid_const.__setattr__('limit_ang_' + axis + '_lower', 0.0)
+				rigid_const.__setattr__('limit_ang_' + axis + '_upper', 0.0)
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -66,6 +103,10 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
+		if context.active_object:
+			if context.active_object.rigid_body_constraint:
+				if context.active_object.rigid_body_constraint.type in ['GENERIC', 'GENERIC_SPRING']:
+					self.layout.operator(ClearConstraintLimits.bl_idname, icon='X')
 		self.layout.operator(CopyConstraintSetting.bl_idname, icon='LINKED')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
