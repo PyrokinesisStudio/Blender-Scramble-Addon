@@ -31,6 +31,8 @@ def menu(self, context):
 		self.layout.operator('pose.select_move_symmetry_name_bones', icon='PLUGIN')
 		self.layout.separator()
 		self.layout.menu('VIEW3D_MT_select_pose_grouped', icon='PLUGIN')
+		self.layout.separator()
+		self.layout.menu('VIEW3D_MT_select_pose_shortcuts', icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
