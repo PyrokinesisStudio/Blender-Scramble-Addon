@@ -70,10 +70,10 @@ class SelectMoveSymmetryNameBones(bpy.types.Operator):
 		if ob:
 			if ob.type == 'ARMATURE':
 				bones = []
-				if context.visible_bones:
-					bones = context.visible_bones[:]
-				if context.visible_pose_bones:
-					bones = context.visible_pose_bones[:]
+				if context.selected_bones:
+					bones = context.selected_bones[:]
+				if context.selected_pose_bones:
+					bones = context.selected_pose_bones[:]
 				for bone in bones:
 					mirror_name = cls.GetMirrorBoneName(cls, bone.name)
 					if mirror_name != bone.name:
@@ -121,12 +121,12 @@ class SelectSameConstraintBone(bpy.types.Operator):
 		ob = context.active_object
 		if ob:
 			if ob.type == 'ARMATURE':
-				bone = False
-				if context.active_pose_bone:
-					bone = context.active_pose_bone
-				if context.active_bone:
-					bone = context.active_bone
-				if bone:
+				bones = []
+				if context.selected_bones:
+					bones = context.selected_bones[:]
+				if context.selected_pose_bones:
+					bones = context.selected_pose_bones[:]
+				for bone in bones:
 					return True
 		return False
 	
@@ -159,12 +159,12 @@ class SelectSameNameBones(bpy.types.Operator):
 		ob = context.active_object
 		if ob:
 			if ob.type == 'ARMATURE':
-				bone = False
-				if context.active_pose_bone:
-					bone = context.active_pose_bone
-				if context.active_bone:
-					bone = context.active_bone
-				if bone:
+				bones = []
+				if context.selected_bones:
+					bones = context.selected_bones[:]
+				if context.selected_pose_bones:
+					bones = context.selected_pose_bones[:]
+				for bone in bones:
 					return True
 		return False
 	
@@ -213,10 +213,10 @@ class SelectSymmetryNameBones(bpy.types.Operator):
 		if ob:
 			if ob.type == 'ARMATURE':
 				bones = []
-				if context.visible_bones:
-					bones = context.visible_bones[:]
-				if context.visible_pose_bones:
-					bones = context.visible_pose_bones[:]
+				if context.selected_bones:
+					bones = context.selected_bones[:]
+				if context.selected_pose_bones:
+					bones = context.selected_pose_bones[:]
 				for bone in bones:
 					mirror_name = cls.GetMirrorBoneName(cls, bone.name)
 					if mirror_name != bone.name:
@@ -258,10 +258,10 @@ class SelectChildrenEnd(bpy.types.Operator):
 		if ob:
 			if ob.type == 'ARMATURE':
 				bones = []
-				if context.visible_bones:
-					bones = context.visible_bones[:]
-				if context.visible_pose_bones:
-					bones = context.visible_pose_bones[:]
+				if context.selected_bones:
+					bones = context.selected_bones[:]
+				if context.selected_pose_bones:
+					bones = context.selected_pose_bones[:]
 				for bone in bones:
 					return True
 		return False
@@ -298,10 +298,10 @@ class SelectParentEnd(bpy.types.Operator):
 		if ob:
 			if ob.type == 'ARMATURE':
 				bones = []
-				if context.visible_bones:
-					bones = context.visible_bones[:]
-				if context.visible_pose_bones:
-					bones = context.visible_pose_bones[:]
+				if context.selected_bones:
+					bones = context.selected_bones[:]
+				if context.selected_pose_bones:
+					bones = context.selected_pose_bones[:]
 				for bone in bones:
 					return True
 		return False
@@ -383,6 +383,20 @@ class SelectAxisOver(bpy.types.Operator):
 	direction = bpy.props.EnumProperty(items=items, name="Direction")
 	offset = bpy.props.FloatProperty(name="Offset", default=0, step=10, precision=3)
 	threshold = bpy.props.FloatProperty(name="Threshold", default=-0.0001, step=0.01, precision=4)
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'ARMATURE':
+				bones = []
+				if context.visible_bones:
+					bones = context.visible_bones[:]
+				if context.visible_pose_bones:
+					bones = context.visible_pose_bones[:]
+				for bone in bones:
+					return True
+		return False
 	
 	def execute(self, context):
 		obj = context.active_object
