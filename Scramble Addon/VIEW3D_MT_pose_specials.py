@@ -15,8 +15,8 @@ class CreateCustomShape(bpy.types.Operator):
 	
 	name =  bpy.props.StringProperty(name="The name", default="CustomShape")
 	items = [
-		("1", "Line", "", 1),
-		("2", "Diamond", "", 2),
+		('1', "Line", "", 1),
+		('2', "Diamond", "", 2),
 		]
 	shape = bpy.props.EnumProperty(items=items, name="Profile")
 	isObjectMode =  bpy.props.BoolProperty(name="Enter object mode", default=True)
@@ -24,65 +24,55 @@ class CreateCustomShape(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		if (context.selected_pose_bones):
-			if (1 <= len(context.selected_pose_bones)):
-				return True
+		obj = bpy.context.active_object
+		if obj.type == 'ARMATURE':
+			if obj.mode == 'POSE':
+				if 1 <= len(context.selected_pose_bones):
+					return True
 		return False
 	
 	def execute(self, context):
 		obj = bpy.context.active_object
 		meObjs = []
-		if (obj.type == "ARMATURE"):
-			if (obj.mode == "POSE"):
-				bpy.ops.object.mode_set(mode="OBJECT")
-				for bone in obj.data.bones:
-					if(bone.select == True):
-						bpy.ops.object.select_all(action="DESELECT")
-						
-						#context.scene.cursor_location = bone.head_local
-						bone.show_wire = True
-						
-						me = bpy.data.meshes.new(self.name)
-						if (self.shape == "1"):
-							me.from_pydata([(0,0,0), (0,1,0)], [(0,1)], [])
-						elif (self.shape == "2"):
-							me.from_pydata([(0,0,0), (0,1,0), (0.1,0.5,0), (0,0.5,0.1), (-0.1,0.5,0), (0,0.5,-0.1)], [(0,1), (0,2), (0,3), (0,4), (0,5), (1,2), (1,3), (1,4), (1,5), (2,3), (3,4), (4,5), (5,2)], [])
-						me.update()
-						meObj = bpy.data.objects.new(me.name, me)
-						meObj.data = me
-						context.scene.objects.link(meObj)
-						meObj.select = True
-						context.scene.objects.active = meObj
-						
-						meObj.draw_type = "WIRE"
-						meObj.show_x_ray = True
-						meObj.constraints.new('COPY_TRANSFORMS')
-						meObj.constraints[-1].target = obj
-						meObj.constraints[-1].subtarget = bone.name
-						bpy.ops.object.visual_transform_apply()
-						meObj.constraints.remove(meObj.constraints[-1])
-						obj.pose.bones[bone.name].custom_shape = meObj
-						len = bone.length
-						bpy.ops.transform.resize(value=(len, len, len))
-						meObjs.append(meObj)
-				bpy.ops.object.select_all(action="DESELECT")
-				obj.select = True
-				context.scene.objects.active = obj
-				bpy.ops.object.mode_set(mode="POSE")
-				if (self.isObjectMode or self.isHide):
-					bpy.ops.object.mode_set(mode="OBJECT")
-				if (self.isHide):
-					obj.hide = True
-			else:
-				self.report(type={'ERROR'}, message="Please run in pause mode")
-				return {'CANCELLED'}
-		else:
-			self.report(type={'ERROR'}, message="Active object is no armature")
-			return {'CANCELLED'}
+		bpy.ops.object.mode_set(mode='OBJECT')
+		for bone in obj.data.bones:
+			if(bone.select == True):
+				bpy.ops.object.select_all(action='DESELECT')
+				bone.show_wire = True
+				me = bpy.data.meshes.new(self.name)
+				if self.shape == '1':
+					me.from_pydata([(0,0,0), (0,1,0)], [(0,1)], [])
+				elif self.shape == '2':
+					me.from_pydata([(0,0,0), (0,1,0), (0.1,0.5,0), (0,0.5,0.1), (-0.1,0.5,0), (0,0.5,-0.1)], [(0,1), (0,2), (0,3), (0,4), (0,5), (1,2), (1,3), (1,4), (1,5), (2,3), (3,4), (4,5), (5,2)], [])
+				me.update()
+				meObj = bpy.data.objects.new(me.name, me)
+				meObj.data = me
+				context.scene.objects.link(meObj)
+				meObj.select = True
+				context.scene.objects.active = meObj
+				meObj.draw_type = 'WIRE'
+				meObj.show_x_ray = True
+				meObj.constraints.new('COPY_TRANSFORMS')
+				meObj.constraints[-1].target = obj
+				meObj.constraints[-1].subtarget = bone.name
+				bpy.ops.object.visual_transform_apply()
+				meObj.constraints.remove(meObj.constraints[-1])
+				obj.pose.bones[bone.name].custom_shape = meObj
+				len = bone.length
+				bpy.ops.transform.resize(value=(len, len, len))
+				meObjs.append(meObj)
+		bpy.ops.object.select_all(action='DESELECT')
+		obj.select = True
+		context.scene.objects.active = obj
+		bpy.ops.object.mode_set(mode='POSE')
+		if self.isObjectMode or self.isHide:
+			bpy.ops.object.mode_set(mode='OBJECT')
+		if self.isHide:
+			obj.hide = True
 		for obj in meObjs:
 			obj.select = True
 			context.scene.objects.active = obj
-		self.report(type={'INFO'}, message="Armature temporarily hidden.")
+		self.report(type={'INFO'}, message="Temporarily became hidden armature")
 		return {'FINISHED'}
 
 class CreateWeightCopyMesh(bpy.types.Operator):
@@ -93,59 +83,55 @@ class CreateWeightCopyMesh(bpy.types.Operator):
 	
 	name =  bpy.props.StringProperty(name="Name of object to create", default="Weight for objects")
 	items = [
-		("TAIL", "At the end", "", 1),
-		("HEAD", "The fundamental", "", 2),
+		('TAIL', "At the end", "", 1),
+		('HEAD', "The fundamental", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Position of the weight")
 	
+	@classmethod
+	def poll(cls, context):
+		obj = bpy.context.active_object
+		if obj.type == 'ARMATURE':
+			if obj.mode == 'POSE':
+				if 1 <= len(context.selected_pose_bones):
+					return True
+		return False
+	
 	def execute(self, context):
 		obj = bpy.context.active_object
-		if (obj.type == "ARMATURE"):
-			if (obj.mode == "POSE"):
-				bpy.ops.object.mode_set(mode="OBJECT")
-				bones = []
-				for bone in obj.data.bones:
-					if(bone.select and not bone.hide):
-						bones.append(bone)
-				me = bpy.data.meshes.new(self.name)
-				verts = []
-				edges = []
-				for bone in bones:
-					co = bone.tail_local
-					if (self.mode == "HEAD"):
-						co = bone.head_local
-					verts.append(co)
-					i = 0
-					for b in bones:
-						if (bone.parent):
-							if (bone.parent.name == b.name):
-								edges.append((len(verts)-1, i))
-								break
-						i += 1
-				me.from_pydata(verts, edges, [])
-				me.update()
-				meObj = bpy.data.objects.new(self.name, me)
-				meObj.data = me
-				context.scene.objects.link(meObj)
-				bpy.ops.object.select_all(action="DESELECT")
-				meObj.select = True
-				context.scene.objects.active = meObj
-				
-				i = 0
-				for bone in bones:
-					meObj.vertex_groups.new(bone.name)
-					meObj.vertex_groups[bone.name].add([i], 1.0, "REPLACE")
-					i += 1
-				
-				#bpy.ops.object.mode_set(mode="EDIT")
-				#bpy.ops.mesh.extrude_region_move(TRANSFORM_OT_translate={"value":(0, 0, 0.01)})
-				#bpy.ops.object.mode_set(mode="OBJECT")
-			else:
-				self.report(type={"ERROR"}, message="Try running in pause mode")
-				return {'CANCELLED'}
-		else:
-			self.report(type={"ERROR"}, message="Active object is no armature")
-			return {'CANCELLED'}
+		bpy.ops.object.mode_set(mode='OBJECT')
+		bones = []
+		for bone in obj.data.bones:
+			if(bone.select and not bone.hide):
+				bones.append(bone)
+		me = bpy.data.meshes.new(self.name)
+		verts = []
+		edges = []
+		for bone in bones:
+			co = bone.tail_local
+			if self.mode == 'HEAD':
+				co = bone.head_local
+			verts.append(co)
+			i = 0
+			for b in bones:
+				if bone.parent:
+					if bone.parent.name == b.name:
+						edges.append((len(verts)-1, i))
+						break
+				i += 1
+		me.from_pydata(verts, edges, [])
+		me.update()
+		meObj = bpy.data.objects.new(self.name, me)
+		meObj.data = me
+		context.scene.objects.link(meObj)
+		bpy.ops.object.select_all(action='DESELECT')
+		meObj.select = True
+		context.scene.objects.active = meObj
+		i = 0
+		for bone in bones:
+			meObj.vertex_groups.new(bone.name)
+			meObj.vertex_groups[bone.name].add([i], 1.0, 'REPLACE')
+			i += 1
 		return {'FINISHED'}
 
 class CopyBoneName(bpy.types.Operator):
@@ -156,8 +142,14 @@ class CopyBoneName(bpy.types.Operator):
 	
 	isObject = bpy.props.BoolProperty(name="Object name", default=False)
 	
+	@classmethod
+	def poll(cls, context):
+		if context.active_pose_bone:
+			return True
+		return False
+	
 	def execute(self, context):
-		if (self.isObject):
+		if self.isObject:
 			context.window_manager.clipboard = context.active_object.name + ":" + context.active_pose_bone.name
 		else:
 			context.window_manager.clipboard = context.active_pose_bone.name
@@ -171,28 +163,35 @@ class SplineGreasePencil(bpy.types.Operator):
 	
 	isRootReset = bpy.props.BoolProperty(name="Fundamental to its original position", default=False)
 	
-	def execute(self, context):
+	@classmethod
+	def poll(cls, context):
 		activeObj = context.active_object
 		i = 0
 		for bone in context.selected_pose_bones:
 			for bone2 in context.selected_pose_bones:
-				if (bone.parent):
-					if (bone.parent.name == bone2.name):
+				if bone.parent:
+					if bone.parent.name == bone2.name:
 						i += 1
 						break
-		if (i+1 < len(context.selected_pose_bones)):
-			self.report(type={"ERROR"}, message="Select Group of bones led to the chain, please run")
-			return {'CANCELLED'}
+		if i+1 < len(context.selected_pose_bones):
+			return False
+		if context.scene.grease_pencil:
+			if len(context.scene.grease_pencil.layers):
+				return True
+		return False
+	
+	def execute(self, context):
+		activeObj = context.active_object
 		bpy.ops.object.mode_set(mode='OBJECT')
 		bpy.ops.gpencil.convert(type='CURVE', use_timing_data=True)
 		for obj in context.selectable_objects:
-			if ("GP_Layer" in obj.name):
+			if "GP_Layer" in obj.name:
 				curveObj = obj
 		bpy.ops.object.mode_set(mode='POSE')
 		tails = []
 		for bone in context.selected_pose_bones:
-			if (len(bone.children) == 0):
-				const = bone.constraints.new("SPLINE_IK")
+			if len(bone.children) == 0:
+				const = bone.constraints.new('SPLINE_IK')
 				const.target = curveObj
 				const.use_curve_radius = False
 				const.use_y_stretch = False
@@ -200,10 +199,10 @@ class SplineGreasePencil(bpy.types.Operator):
 				tails.append((bone, const))
 			for child in bone.children:
 				for bone2 in context.selected_pose_bones:
-					if (child.name == bone2.name):
+					if child.name == bone2.name:
 						break
 				else:
-					const = bone.constraints.new("SPLINE_IK")
+					const = bone.constraints.new('SPLINE_IK')
 					const.target = curveObj
 					const.use_curve_radius = False
 					const.use_y_stretch = False
@@ -215,7 +214,7 @@ class SplineGreasePencil(bpy.types.Operator):
 			bone.constraints.remove(const)
 		bpy.ops.pose.scale_clear()
 		context.scene.objects.unlink(curveObj)
-		if (self.isRootReset):
+		if self.isRootReset:
 			bpy.ops.pose.loc_clear()
 		return {'FINISHED'}
 
@@ -229,25 +228,26 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 	pattern = bpy.props.StringProperty(name="Replacement front (in regular expressions)", default="^")
 	repl = bpy.props.StringProperty(name="Replacement", default="@")
 	
+	@classmethod
+	def poll(cls, context):
+		obj = bpy.context.active_object
+		if obj.type == 'ARMATURE':
+			if obj.mode == 'POSE':
+				if 1 <= len(context.selected_pose_bones):
+					return True
+		return False
+	
 	def execute(self, context):
 		obj = context.active_object
-		if (obj.type == "ARMATURE"):
-			if (obj.mode == "POSE"):
-				bones = context.selected_pose_bones
-				if (self.isAll):
-					bones = obj.pose.bones
-				for bone in bones:
-					try:
-						new_name = re.sub(self.pattern, self.repl, bone.name)
-					except:
-						continue
-					bone.name = new_name
-			else:
-				self.report(type={"ERROR"}, message="Try running in pause mode")
-				return {'CANCELLED'}
-		else:
-			self.report(type={"ERROR"}, message="Armature object is not")
-			return {'CANCELLED'}
+		bones = context.selected_pose_bones
+		if self.isAll:
+			bones = obj.pose.bones
+		for bone in bones:
+			try:
+				new_name = re.sub(self.pattern, self.repl, bone.name)
+			except:
+				continue
+			bone.name = new_name
 		return {'FINISHED'}
 
 class SetSlowParentBone(bpy.types.Operator):
@@ -267,6 +267,15 @@ class SetSlowParentBone(bpy.types.Operator):
 	slow_parent_offset = bpy.props.FloatProperty(name="Slow parent strength", default=5, min=0, max=100, soft_min=0, soft_max=100, step=50, precision=3)
 	is_use_driver = bpy.props.BoolProperty(name="Add a driver to the bone", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		obj = bpy.context.active_object
+		if obj.type == 'ARMATURE':
+			if obj.mode == 'POSE':
+				if 1 <= len(context.selected_pose_bones):
+					return True
+		return False
+	
 	def execute(self, context):
 		pre_cursor_location = context.space_data.cursor_location[:]
 		pre_active_pose_bone = context.active_pose_bone
@@ -274,10 +283,10 @@ class SetSlowParentBone(bpy.types.Operator):
 		arm = obj.data
 		bones = context.selected_pose_bones[:]
 		for bone in bones:
-			if (not bone.parent):
-				self.report(type={'WARNING'}, message="Bone \""+bone.name+"\"That has no parent, through the")
+			if not bone.parent:
+				self.report(type={'WARNING'}, message="Ignored " + bone.name)
 				continue
-			if (self.constraint == 'COPY_LOCATION'):
+			if self.constraint == 'COPY_LOCATION':
 				context.space_data.cursor_location = obj.matrix_world * arm.bones[bone.name].head_local
 			else:
 				context.space_data.cursor_location = obj.matrix_world * arm.bones[bone.name].tail_local
@@ -297,10 +306,10 @@ class SetSlowParentBone(bpy.types.Operator):
 			empty_obj.slow_parent_offset = self.slow_parent_offset
 			const = bone.constraints.new(self.constraint)
 			const.target = empty_obj
-			if (self.constraint == 'IK'):
+			if self.constraint == 'IK':
 				const.chain_count = 1
 			empty_obj.select = False
-			if (self.is_use_driver):
+			if self.is_use_driver:
 				bone["SlowParentOffset"] = self.slow_parent_offset
 				fcurve = empty_obj.driver_add('slow_parent_offset')
 				fcurve.driver.type = 'AVERAGE'
@@ -319,32 +328,38 @@ class RenameBoneNameEnd(bpy.types.Operator):
 	
 	reverse = bpy.props.BoolProperty(name="XXX.R => XXX_R", default=False)
 	
+	@classmethod
+	def poll(cls, context):
+		obj = bpy.context.active_object
+		if obj.type == 'ARMATURE':
+			if obj.mode == 'POSE':
+				if 1 <= len(context.selected_pose_bones):
+					return True
+		return False
+	
 	def execute(self, context):
-		if (not context.selected_pose_bones):
-			self.report(type={"ERROR"}, message="Select the bone in the pause mode, run")
-			return {"CANCELLED"}
 		rename_count = 0
 		for bone in context.selected_pose_bones:
 			pre_name = bone.name
-			if (not self.reverse):
+			if not self.reverse:
 				bone.name = re.sub(r'_L$', '.L', bone.name)
 				bone.name = re.sub(r'_l$', '.l', bone.name)
-				if (pre_name != bone.name):
+				if pre_name != bone.name:
 					continue
 				bone.name = re.sub(r'_R$', '.R', bone.name)
 				bone.name = re.sub(r'_r$', '.r', bone.name)
 			else:
 				bone.name = re.sub(r'\.L$', '_L', bone.name)
 				bone.name = re.sub(r'\.l$', '_l', bone.name)
-				if (pre_name != bone.name):
+				if pre_name != bone.name:
 					continue
 				bone.name = re.sub(r'\.R$', '_R', bone.name)
 				bone.name = re.sub(r'\.r$', '_r', bone.name)
-			if (pre_name != bone.name):
+			if pre_name != bone.name:
 				rename_count += 1
 		for area in context.screen.areas:
 			area.tag_redraw()
-		self.report(type={"INFO"}, message="Bone transformation has ended,"+str(rename_count)+"Each conversion.")
+		self.report(type={"INFO"}, message="Renamed " + str(rename_count))
 		return {'FINISHED'}
 
 class RenameBoneNameEndJapanese(bpy.types.Operator):
@@ -355,28 +370,34 @@ class RenameBoneNameEndJapanese(bpy.types.Operator):
 	
 	reverse = bpy.props.BoolProperty(name="XXX. R = 右XXX >", default=False)
 	
+	@classmethod
+	def poll(cls, context):
+		obj = bpy.context.active_object
+		if obj.type == 'ARMATURE':
+			if obj.mode == 'POSE':
+				if 1 <= len(context.selected_pose_bones):
+					return True
+		return False
+	
 	def execute(self, context):
-		if (not context.selected_pose_bones):
-			self.report(type={"ERROR"}, message="Select the bone in the pause mode, run")
-			return {"CANCELLED"}
 		rename_count = 0
 		for bone in context.selected_pose_bones:
 			pre_name = bone.name
-			if (not self.reverse):
-				if (re.search(r"[\._][rR]$", bone.name)):
+			if not self.reverse:
+				if re.search(r'[\._][rR]$', bone.name):
 					bone.name = "Right" + bone.name[:-2]
-				if (re.search(r"[\._][lL]$", bone.name)):
+				if re.search(r'[\._][lL]$', bone.name):
 					bone.name = "Left" + bone.name[:-2]
 			else:
-				if (re.search(r"^ Right", bone.name)):
+				if re.search(r"^ Right", bone.name):
 					bone.name = bone.name[1:] + "_R"
-				if (re.search(r"^ L", bone.name)):
+				if re.search(r"^ L", bone.name):
 					bone.name = bone.name[1:] + "_L"
-			if (pre_name != bone.name):
+			if pre_name != bone.name:
 				rename_count += 1
 		for area in context.screen.areas:
 			area.tag_redraw()
-		self.report(type={"INFO"}, message="Bone transformation has ended,"+str(rename_count)+"Each conversion.")
+		self.report(type={'INFO'}, message="Renamed " + str(rename_count))
 		return {'FINISHED'}
 
 class TogglePosePosition(bpy.types.Operator):
@@ -385,11 +406,15 @@ class TogglePosePosition(bpy.types.Operator):
 	bl_description = "Toggles the pause / rest position of the armature"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		obj = bpy.context.active_object
+		if obj.type == 'ARMATURE':
+			return True
+		return False
+	
 	def execute(self, context):
-		if (context.object.type != 'ARMATURE'):
-			self.report(type={'ERROR'}, message="Try in the armature.")
-			return {'CANCELLED'}
-		if (context.object.data.pose_position == 'POSE'):
+		if context.object.data.pose_position == 'POSE':
 			context.object.data.pose_position = 'REST'
 			self.report(type={'WARNING'}, message="Pause disabled")
 		else:
@@ -403,40 +428,49 @@ class CopyConstraintsMirror(bpy.types.Operator):
 	bl_description = "\"X.L\" If \"X.R\", \"X.R\" bone \"X.L\" name copy constraints"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		obj = bpy.context.active_object
+		if obj.type == 'ARMATURE':
+			if obj.mode == 'POSE':
+				if 1 <= len(context.selected_pose_bones):
+					return True
+		return False
+	
 	def execute(self, context):
 		def GetMirrorBoneName(name):
 			new_name = re.sub(r'([\._])L$', r"\1R", name)
-			if (new_name != name): return new_name
+			if new_name != name: return new_name
 			new_name = re.sub(r'([\._])l$', r"\1r", name)
-			if (new_name != name): return new_name
+			if new_name != name: return new_name
 			new_name = re.sub(r'([\._])R$', r"\1L", name)
-			if (new_name != name): return new_name
+			if new_name != name: return new_name
 			new_name = re.sub(r'([\._])r$', r"\1l", name)
-			if (new_name != name): return new_name
+			if new_name != name: return new_name
 			new_name = re.sub(r'([\._])L([\._]\d+)$', r"\1R\2", name)
-			if (new_name != name): return new_name
+			if new_name != name: return new_name
 			new_name = re.sub(r'([\._])l([\._]\d+)$', r"\1r\2", name)
-			if (new_name != name): return new_name
+			if new_name != name: return new_name
 			new_name = re.sub(r'([\._])R([\._]\d+)$', r"\1L\2", name)
-			if (new_name != name): return new_name
+			if new_name != name: return new_name
 			new_name = re.sub(r'([\._])r([\._]\d+)$', r"\1l\2", name)
-			if (new_name != name): return new_name
+			if new_name != name: return new_name
 			return name
 		for bone in context.selected_pose_bones:
 			try:
 				mirror_bone = context.active_object.pose.bones[GetMirrorBoneName(bone.name)]
 			except KeyError:
-				self.report(type={"WARNING"}, message=bone.name+"The ignores because bone-to-be does not exist")
+				self.report(type={'WARNING'}, message="Ignored " + bone.name)
 				continue
-			if (bone.name == mirror_bone.name):
-				self.report(type={"WARNING"}, message=bone.name+"The name that corresponds to the mirror, ignore")
+			if bone.name == mirror_bone.name:
+				self.report(type={'WARNING'}, message="Ignored " + bone.name)
 				continue
 			for const in mirror_bone.constraints[:]:
 				mirror_bone.constraints.remove(const)
 			for const in bone.constraints[:]:
 				new_const = mirror_bone.constraints.new(const.type)
 				for value_name in dir(new_const):
-					if (value_name[0] != '_'):
+					if value_name[0] != '_':
 						try:
 							new_const.__setattr__(value_name, const.__getattribute__(value_name))
 						except AttributeError:
@@ -456,6 +490,15 @@ class RemoveBoneNameSerialNumbers(bpy.types.Operator):
 	bl_label = "Remove the bone name serial number"
 	bl_description = "Try to get rid of the numbers from the bone names with sequential numbers, such as \"X.001\""
 	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		obj = bpy.context.active_object
+		if obj.type == 'ARMATURE':
+			if obj.mode == 'POSE':
+				if 1 <= len(context.selected_pose_bones):
+					return True
+		return False
 	
 	def execute(self, context):
 		for bone in context.selected_pose_bones:
@@ -489,18 +532,18 @@ class SetRigidBodyBone(bpy.types.Operator):
 	linear_damping = bpy.props.FloatProperty(name="Attenuation: move", default=0.04, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
 	angular_damping = bpy.props.FloatProperty(name="Attenuation: rotate", default=0.1, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
 	
+	@classmethod
+	def poll(cls, context):
+		obj = bpy.context.active_object
+		if obj.type == 'ARMATURE':
+			if obj.mode == 'POSE':
+				if 1 <= len(context.selected_pose_bones):
+					return True
+		return False
+	
 	def execute(self, context):
 		pre_active_obj = context.active_object
-		if (not pre_active_obj):
-			self.report(type={'ERROR'}, message="There is no active object")
-			return {'CANCELLED'}
-		if (pre_active_obj.type != 'ARMATURE'):
-			self.report(type={'ERROR'}, message="Run with an armature object")
-			return {'CANCELLED'}
 		pre_mode = pre_active_obj.mode
-		if (pre_mode != 'POSE'):
-			self.report(type={'ERROR'}, message="Please run in pause mode")
-			return {'CANCELLED'}
 		pre_cursor_location = context.space_data.cursor_location[:]
 		arm_obj = pre_active_obj
 		arm = arm_obj.data
@@ -512,8 +555,8 @@ class SetRigidBodyBone(bpy.types.Operator):
 		base_bone = None
 		bones = []
 		for bone in context.selected_pose_bones:
-			if (bone.parent):
-				if (not bone.parent.name in bone_names):
+			if bone.parent:
+				if not bone.parent.name in bone_names:
 					no_parent_bone = bone
 					base_bone = bone.parent
 					no_parent_count += 1
@@ -521,7 +564,7 @@ class SetRigidBodyBone(bpy.types.Operator):
 				no_parent_bone = bone
 				no_parent_count += 1
 			bones.append(bone)
-		if (no_parent_count != 1):
+		if no_parent_count != 1:
 			self.report(type={'ERROR'}, message="Please run then led a series of bones")
 			return {'CANCELLED'}
 		bpy.ops.object.mode_set(mode='OBJECT')
@@ -535,14 +578,14 @@ class SetRigidBodyBone(bpy.types.Operator):
 		obj.rigid_body.angular_damping = self.angular_damping
 		const = obj.constraints.new('COPY_TRANSFORMS')
 		const.target = arm_obj
-		if (base_bone):
+		if base_bone:
 			const.subtarget = base_bone.name
 		const.head_tail = 0.5
 		bpy.ops.object.select_all(action='DESELECT')
 		obj.select = True
 		bpy.ops.object.visual_transform_apply()
 		obj.constraints.remove(const)
-		if (base_bone):
+		if base_bone:
 			bone = arm.bones[base_bone.name]
 			obj.scale.y = (bone.head_local - bone.tail_local).length * 0.5
 			obj.scale.x, obj.scale.z = self.shape_size, self.shape_size
@@ -552,7 +595,7 @@ class SetRigidBodyBone(bpy.types.Operator):
 		obj.draw_type = 'WIRE'
 		arm_obj.select = True
 		context.scene.objects.active = arm_obj
-		if (base_bone):
+		if base_bone:
 			arm.bones.active = arm.bones[bone.name]
 			bpy.ops.object.mode_set(mode='POSE')
 			bpy.ops.object.parent_set(type='BONE')
@@ -630,10 +673,10 @@ class SetRigidBodyBone(bpy.types.Operator):
 			const.select = True
 			arm_obj.select = True
 			context.scene.objects.active = arm_obj
-			if (bone.parent):
-				if (bone.parent.name in bone_names):
+			if bone.parent:
+				if bone.parent.name in bone_names:
 					for a, b, c in pairs:
-						if (bone.parent.name == a.name):
+						if bone.parent.name == a.name:
 							const.rigid_body_constraint.object2 = b
 							arm.bones.active = arm.bones[bone.parent.name]
 							break
@@ -641,7 +684,7 @@ class SetRigidBodyBone(bpy.types.Operator):
 					const.rigid_body_constraint.object2 = base_obj
 			else:
 				const.rigid_body_constraint.object2 = base_obj
-			if (self.is_parent_shape):
+			if self.is_parent_shape:
 				bpy.ops.object.mode_set(mode='POSE')
 				bpy.ops.object.parent_set(type='BONE')
 				bpy.ops.object.mode_set(mode='OBJECT')
@@ -669,82 +712,82 @@ class SetIKRotationLimitByPose(bpy.types.Operator):
 	use_z = bpy.props.BoolProperty(name="Z-limits", default=True)
 	is_clear_rot = bpy.props.BoolProperty(name="Reset rotation pose", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		obj = bpy.context.active_object
+		if obj.type == 'ARMATURE':
+			if obj.mode == 'POSE':
+				if 1 <= len(context.selected_pose_bones):
+					return True
+		return False
+	
 	def execute(self, context):
 		pre_active_obj = context.active_object
-		if (not pre_active_obj):
-			self.report(type={'ERROR'}, message="There is no active object")
-			return {'CANCELLED'}
-		if (pre_active_obj.type != 'ARMATURE'):
-			self.report(type={'ERROR'}, message="Run with an armature object")
-			return {'CANCELLED'}
 		pre_mode = pre_active_obj.mode
-		if (pre_mode != 'POSE'):
-			self.report(type={'ERROR'}, message="Please run in pause mode")
-			return {'CANCELLED'}
 		for bone in context.selected_pose_bones:
 			pre_rotation_mode = bone.rotation_mode
 			bone.rotation_mode = 'ZYX'
 			rot = bone.rotation_euler.copy()
 			bone.rotation_mode = pre_rotation_mode
 			print(rot)
-			if (self.mode == 'IK'):
-				if (self.use_x):
+			if self.mode == 'IK':
+				if self.use_x:
 					bone.use_ik_limit_x = True
-					if (0 <= rot.x):
+					if 0 <= rot.x:
 						bone.ik_max_x = rot.x
-						if (self.use_reverse): bone.ik_min_x = -rot.x
+						if self.use_reverse: bone.ik_min_x = -rot.x
 					else:
 						bone.ik_min_x = rot.x
-						if (self.use_reverse): bone.ik_max_x = -rot.x
-				if (self.use_y):
+						if self.use_reverse: bone.ik_max_x = -rot.x
+				if self.use_y:
 					bone.use_ik_limit_y = True
-					if (0 <= rot.y):
+					if 0 <= rot.y:
 						bone.ik_max_y = rot.y
-						if (self.use_reverse): bone.ik_min_y = -rot.y
+						if self.use_reverse: bone.ik_min_y = -rot.y
 					else:
 						bone.ik_min_y = rot.y
-						if (self.use_reverse): bone.ik_max_y = -rot.y
-				if (self.use_z):
+						if self.use_reverse: bone.ik_max_y = -rot.y
+				if self.use_z:
 					bone.use_ik_limit_z = True
-					if (0 <= rot.z):
+					if 0 <= rot.z:
 						bone.ik_max_z = rot.z
-						if (self.use_reverse): bone.ik_min_z = -rot.z
+						if self.use_reverse: bone.ik_min_z = -rot.z
 					else:
 						bone.ik_min_z = rot.z
-						if (self.use_reverse): bone.ik_max_z = -rot.z
-			elif (self.mode == 'CONST'):
+						if self.use_reverse: bone.ik_max_z = -rot.z
+			elif self.mode == 'CONST':
 				rot_const = None
 				for const in bone.constraints:
-					if (const.type == 'LIMIT_ROTATION'):
+					if const.type == 'LIMIT_ROTATION':
 						rot_const = const
-				if (not rot_const):
+				if not rot_const:
 					rot_const = bone.constraints.new('LIMIT_ROTATION')
 				rot_const.owner_space = 'LOCAL'
-				if (self.use_x):
+				if self.use_x:
 					rot_const.use_limit_x = True
-					if (0 <= rot.x):
+					if 0 <= rot.x:
 						rot_const.max_x = rot.x
-						if (self.use_reverse): rot_const.min_x = -rot.x
+						if self.use_reverse: rot_const.min_x = -rot.x
 					else:
 						rot_const.min_x = rot.x
-						if (self.use_reverse): rot_const.max_x = -rot.x
-				if (self.use_y):
+						if self.use_reverse: rot_const.max_x = -rot.x
+				if self.use_y:
 					rot_const.use_limit_y = True
-					if (0 <= rot.y):
+					if 0 <= rot.y:
 						rot_const.max_y = rot.y
-						if (self.use_reverse): rot_const.min_y = -rot.y
+						if self.use_reverse: rot_const.min_y = -rot.y
 					else:
 						rot_const.min_y = rot.y
-						if (self.use_reverse): rot_const.max_y = -rot.y
-				if (self.use_z):
+						if self.use_reverse: rot_const.max_y = -rot.y
+				if self.use_z:
 					rot_const.use_limit_z = True
-					if (0 <= rot.z):
+					if 0 <= rot.z:
 						rot_const.max_z = rot.z
-						if (self.use_reverse): rot_const.min_z = -rot.z
+						if self.use_reverse: rot_const.min_z = -rot.z
 					else:
 						rot_const.min_z = rot.z
-						if (self.use_reverse): rot_const.max_z = -rot.z
-		if (self.is_clear_rot):
+						if self.use_reverse: rot_const.max_z = -rot.z
+		if self.is_clear_rot:
 			bpy.ops.pose.rot_clear()
 		for area in context.screen.areas:
 			area.tag_redraw()
