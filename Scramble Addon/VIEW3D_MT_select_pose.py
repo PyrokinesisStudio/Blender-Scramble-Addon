@@ -13,15 +13,30 @@ class SelectSerialNumberNameBone(bpy.types.Operator):
 	bl_description = "Select the name with a number X.001 in bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'ARMATURE':
+				bones = []
+				if context.visible_bones:
+					bones = context.visible_bones[:]
+				if context.visible_pose_bones:
+					bones = context.visible_pose_bones[:]
+				for bone in bones:
+					if re.search(r'\.\d+$', bone.name):
+						return True
+		return False
+	
 	def execute(self, context):
 		obj = context.active_object
-		if (obj.type != 'ARMATURE'):
-			self.report(type={"ERROR"}, message="Run with an armature object")
-			return {"CANCELLED"}
 		arm = obj.data
+		pre_mode = obj.mode
+		bpy.ops.object.mode_set(mode='POSE')
 		for bone in context.visible_pose_bones[:]:
 			if (re.search(r'\.\d+$', bone.name)):
 				arm.bones[bone.name].select = True
+		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
 class SelectMoveSymmetryNameBones(bpy.types.Operator):
@@ -30,48 +45,69 @@ class SelectMoveSymmetryNameBones(bpy.types.Operator):
 	bl_description = "If you choose X.R change selection to X.L, if X.L to X.R"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	def GetMirrorBoneName(self, name):
+		new_name = re.sub(r'([\._])L$', r"\1R", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])l$', r"\1r", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])R$', r"\1L", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])r$', r"\1l", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])L([\._]\d+)$', r"\1R\2", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])l([\._]\d+)$', r"\1r\2", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])R([\._]\d+)$', r"\1L\2", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])r([\._]\d+)$', r"\1l\2", name)
+		if (new_name != name): return new_name
+		return name
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'ARMATURE':
+				bones = []
+				if context.visible_bones:
+					bones = context.visible_bones[:]
+				if context.visible_pose_bones:
+					bones = context.visible_pose_bones[:]
+				for bone in bones:
+					mirror_name = cls.GetMirrorBoneName(cls, bone.name)
+					if mirror_name != bone.name:
+						try:
+							ob.data.bones[mirror_name]
+							return True
+						except KeyError:
+							pass
+		return False
+	
 	def execute(self, context):
-		def GetMirrorBoneName(name):
-			new_name = re.sub(r'([\._])L$', r"\1R", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])l$', r"\1r", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])R$', r"\1L", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])r$', r"\1l", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])L([\._]\d+)$', r"\1R\2", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])l([\._]\d+)$', r"\1r\2", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])R([\._]\d+)$', r"\1L\2", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])r([\._]\d+)$', r"\1l\2", name)
-			if (new_name != name): return new_name
-			return name
 		obj = context.active_object
-		if (obj.type != 'ARMATURE'):
-			self.report(type={"ERROR"}, message="Run with an armature object")
-			return {"CANCELLED"}
 		arm = obj.data
-		pre_selected_pose_bones = context.selected_pose_bones[:]
-		for bone in pre_selected_pose_bones[:]:
-			mirror_name = GetMirrorBoneName(bone.name)
+		pre_mode = obj.mode
+		bpy.ops.object.mode_set(mode='POSE')
+		for bone in context.selected_pose_bones[:]:
+			mirror_name = self.GetMirrorBoneName(bone.name)
 			if (mirror_name == bone.name):
-				self.report(type={"WARNING"}, message=bone.name+"The name that corresponds to the mirror, ignore")
+				self.report(type={'WARNING'}, message="Ignored " + bone.name)
 				continue
 			try:
-				arm.bones[mirror_name]
+				mirror_bone = arm.bones[mirror_name]
 			except KeyError:
-				self.report(type={"WARNING"}, message=bone.name+"The ignores because bone-to-be does not exist")
+				self.report(type={'WARNING'}, message="Ignored " + bone.name)
 				continue
-			arm.bones[mirror_name].select = True
-		for bone in pre_selected_pose_bones[:]:
+			mirror_bone.select = True
 			arm.bones[bone.name].select = False
+			arm.bones[bone.name].select_head = False
+			arm.bones[bone.name].select_tail = False
 		try:
-			arm.bones.active = arm.bones[GetMirrorBoneName(arm.bones.active.name)]
+			arm.bones.active = arm.bones[self.GetMirrorBoneName(arm.bones.active.name)]
 		except KeyError:
 			arm.bones.active = arm.bones[context.selected_pose_bones[0].name]
+		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
 class SelectSameConstraintBone(bpy.types.Operator):
@@ -80,21 +116,36 @@ class SelectSameConstraintBone(bpy.types.Operator):
 	bl_description = "Select additional bone with active bone and same kind of constraint."
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'ARMATURE':
+				bone = False
+				if context.active_pose_bone:
+					bone = context.active_pose_bone
+				if context.active_bone:
+					bone = context.active_bone
+				if bone:
+					return True
+		return False
+	
 	def execute(self, context):
-		active = context.active_pose_bone
-		activeConstraints = []
-		for const in active.constraints:
-			activeConstraints.append(const.type)
+		obj = context.active_object
+		arm = obj.data
+		pre_mode = obj.mode
+		bpy.ops.object.mode_set(mode='POSE')
+		active_bone = context.active_pose_bone
+		active_consts = []
+		for const in active_bone.constraints:
+			active_consts.append(const.type)
 		for bone in context.visible_pose_bones:
 			constraints = []
 			for const in bone.constraints:
 				constraints.append(const.type)
-			if (len(activeConstraints) == len(constraints)):
-				for i in range(len(constraints)):
-					if (activeConstraints[i] != constraints[i]):
-						break
-				else:
-					context.active_object.data.bones[bone.name].select = True
+			if (active_consts == constraints):
+				arm.bones[bone.name].select = True
+		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
 class SelectSameNameBones(bpy.types.Operator):
@@ -103,18 +154,32 @@ class SelectSameNameBones(bpy.types.Operator):
 	bl_description = "Regarding the bone names, such as X-X.001 X.002 with the same name, select"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'ARMATURE':
+				bone = False
+				if context.active_pose_bone:
+					bone = context.active_pose_bone
+				if context.active_bone:
+					bone = context.active_bone
+				if bone:
+					return True
+		return False
+	
 	def execute(self, context):
 		obj = context.active_object
-		if (obj.type != 'ARMATURE'):
-			self.report(type={"ERROR"}, message="Run with an armature object")
-			return {"CANCELLED"}
 		arm = obj.data
+		pre_mode = obj.mode
+		bpy.ops.object.mode_set(mode='POSE')
 		name_base = context.active_pose_bone.name
-		if (re.search(r'\.\d+$', name_base)):
-			name_base = re.search(r'^(.*)\.\d+$', name_base).groups()[0]
+		name_base = re.sub(r'\.\d+$', "", name_base)
 		for bone in context.visible_pose_bones[:]:
-			if (re.search('^'+name_base+r'\.\d+$', bone.name) or name_base == bone.name):
+			r = r'^' + name_base + r'\.\d+$'
+			if (re.search(r, bone.name) or name_base == bone.name):
 				arm.bones[bone.name].select = True
+		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
 class SelectSymmetryNameBones(bpy.types.Operator):
@@ -123,41 +188,62 @@ class SelectSymmetryNameBones(bpy.types.Operator):
 	bl_description = "If you select X.R X.L also selected X.R X.L if additional selection"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	def GetMirrorBoneName(self, name):
+		new_name = re.sub(r'([\._])L$', r"\1R", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])l$', r"\1r", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])R$', r"\1L", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])r$', r"\1l", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])L([\._]\d+)$', r"\1R\2", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])l([\._]\d+)$', r"\1r\2", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])R([\._]\d+)$', r"\1L\2", name)
+		if (new_name != name): return new_name
+		new_name = re.sub(r'([\._])r([\._]\d+)$', r"\1l\2", name)
+		if (new_name != name): return new_name
+		return name
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'ARMATURE':
+				bones = []
+				if context.visible_bones:
+					bones = context.visible_bones[:]
+				if context.visible_pose_bones:
+					bones = context.visible_pose_bones[:]
+				for bone in bones:
+					mirror_name = cls.GetMirrorBoneName(cls, bone.name)
+					if mirror_name != bone.name:
+						try:
+							ob.data.bones[mirror_name]
+							return True
+						except KeyError:
+							pass
+		return False
+	
 	def execute(self, context):
-		def GetMirrorBoneName(name):
-			new_name = re.sub(r'([\._])L$', r"\1R", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])l$', r"\1r", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])R$', r"\1L", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])r$', r"\1l", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])L([\._]\d+)$', r"\1R\2", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])l([\._]\d+)$', r"\1r\2", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])R([\._]\d+)$', r"\1L\2", name)
-			if (new_name != name): return new_name
-			new_name = re.sub(r'([\._])r([\._]\d+)$', r"\1l\2", name)
-			if (new_name != name): return new_name
-			return name
 		obj = context.active_object
-		if (obj.type != 'ARMATURE'):
-			self.report(type={"ERROR"}, message="Run with an armature object")
-			return {"CANCELLED"}
 		arm = obj.data
+		pre_mode = obj.mode
+		bpy.ops.object.mode_set(mode='POSE')
 		for bone in context.selected_pose_bones[:]:
-			mirror_name = GetMirrorBoneName(bone.name)
+			mirror_name = self.GetMirrorBoneName(bone.name)
 			if (mirror_name == bone.name):
-				self.report(type={"WARNING"}, message=bone.name+"The name that corresponds to the mirror, ignore")
+				self.report(type={'WARNING'}, message="Ignored " + bone.name)
 				continue
 			try:
 				arm.bones[mirror_name]
 			except KeyError:
-				self.report(type={"WARNING"}, message=bone.name+"The ignores because bone-to-be does not exist")
+				self.report(type={'WARNING'}, message="Ignored " + bone.name)
 				continue
 			arm.bones[mirror_name].select = True
+		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
 class SelectChildrenEnd(bpy.types.Operator):
@@ -166,17 +252,26 @@ class SelectChildrenEnd(bpy.types.Operator):
 	bl_description = "Select bones child-child child\'s bones. And we will select to the end"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'ARMATURE':
+				bones = []
+				if context.visible_bones:
+					bones = context.visible_bones[:]
+				if context.visible_pose_bones:
+					bones = context.visible_pose_bones[:]
+				for bone in bones:
+					return True
+		return False
+	
 	def execute(self, context):
 		obj = context.active_object
-		if (not obj):
-			self.report(type={'ERROR'}, message="There is no active object")
-			return {'CANCELLED'}
-		if (obj.type != 'ARMATURE'):
-			self.report(type={'ERROR'}, message="Run with an armature object")
-			return {'CANCELLED'}
 		arm = obj.data
-		selected_bones = context.selected_pose_bones[:]
-		for bone in selected_bones:
+		pre_mode = obj.mode
+		bpy.ops.object.mode_set(mode='POSE')
+		for bone in context.selected_pose_bones[:]:
 			bone_children = []
 			for b in arm.bones[bone.name].children[:]:
 				bone_children.append(b)
@@ -188,6 +283,7 @@ class SelectChildrenEnd(bpy.types.Operator):
 					bone_children.append(b)
 			for b in bone_children:
 				b.select = True
+		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
 class SelectParentEnd(bpy.types.Operator):
@@ -196,21 +292,31 @@ class SelectParentEnd(bpy.types.Operator):
 	bl_description = "Choice bones parent → parent of parent bone. And we will select to the end"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'ARMATURE':
+				bones = []
+				if context.visible_bones:
+					bones = context.visible_bones[:]
+				if context.visible_pose_bones:
+					bones = context.visible_pose_bones[:]
+				for bone in bones:
+					return True
+		return False
+	
 	def execute(self, context):
 		obj = context.active_object
-		if (not obj):
-			self.report(type={'ERROR'}, message="There is no active object")
-			return {'CANCELLED'}
-		if (obj.type != 'ARMATURE'):
-			self.report(type={'ERROR'}, message="Run with an armature object")
-			return {'CANCELLED'}
 		arm = obj.data
-		selected_bones = context.selected_pose_bones[:]
-		for bone in selected_bones:
+		pre_mode = obj.mode
+		bpy.ops.object.mode_set(mode='POSE')
+		for bone in context.selected_pose_bones[:]:
 			target_bone = arm.bones[bone.name]
 			while target_bone.parent:
 				target_bone = target_bone.parent
 				target_bone.select = True
+		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
 class SelectPath(bpy.types.Operator):
@@ -258,6 +364,44 @@ class SelectPath(bpy.types.Operator):
 		bpy.ops.object.mode_set(mode=pre_mode)
 		return {'FINISHED'}
 
+class SelectAxisOver(bpy.types.Operator):
+	bl_idname = "pose.select_axis_over"
+	bl_label = "Select the right half"
+	bl_description = "Select the right half of the bone (other settings are also available)"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('0', "X", "", 1),
+		('1', "Y", "", 2),
+		('2', "Z", "", 3),
+		]
+	axis = bpy.props.EnumProperty(items=items, name="Axis")
+	items = [
+		('-1', "-(Minus)", "", 1),
+		('1', "+ (Plus)", "", 2),
+		]
+	direction = bpy.props.EnumProperty(items=items, name="Direction")
+	offset = bpy.props.FloatProperty(name="Offset", default=0, step=10, precision=3)
+	threshold = bpy.props.FloatProperty(name="Threshold", default=-0.0001, step=0.01, precision=4)
+	
+	def execute(self, context):
+		obj = context.active_object
+		arm = obj.data
+		pre_mode = obj.mode
+		bpy.ops.object.mode_set(mode='POSE')
+		direction = int(self.direction)
+		offset = self.offset
+		threshold = self.threshold
+		for pbone in context.visible_pose_bones[:]:
+			bone = arm.bones[pbone.name]
+			hLoc = bone.head_local[int(self.axis)]
+			tLoc = bone.tail_local[int(self.axis)]
+			if (offset * direction <= hLoc * direction + threshold):
+				bone.select = True
+			if (offset * direction <= tLoc * direction + threshold):
+				bone.select = True
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -292,15 +436,15 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(SelectPath.bl_idname, icon='PLUGIN')
+		self.layout.operator('pose.select_path', icon='PLUGIN')
+		self.layout.operator('pose.select_parent_end', icon='PLUGIN')
+		self.layout.operator('pose.select_children_end', icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(SelectParentEnd.bl_idname, icon='PLUGIN')
-		self.layout.operator(SelectChildrenEnd.bl_idname, icon='PLUGIN')
+		self.layout.operator('pose.select_axis_over', icon='PLUGIN')
+		self.layout.operator('pose.select_serial_number_name_bone', icon='PLUGIN')
+		self.layout.operator('pose.select_move_symmetry_name_bones', icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(SelectSerialNumberNameBone.bl_idname, icon='PLUGIN')
-		self.layout.operator(SelectMoveSymmetryNameBones.bl_idname, icon='PLUGIN')
-		self.layout.separator()
-		self.layout.menu(SelectGroupedMenu.bl_idname, icon='PLUGIN')
+		self.layout.menu('VIEW3D_MT_select_pose_grouped', icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

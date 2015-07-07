@@ -6,43 +6,6 @@ import bpy
 # オペレーター #
 ################
 
-class SelectAxisOver(bpy.types.Operator):
-	bl_idname = "armature.select_axis_over"
-	bl_label = "Select the right half"
-	bl_description = "Select the right half of the bone (and other settings too)"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	items = [
-		("0", "The x axis", "", 1),
-		("1", "Y軸", "", 2),
-		("2", "Z軸", "", 3),
-		]
-	axis = bpy.props.EnumProperty(items=items, name="Axis")
-	items = [
-		("-1", "-(Minus)", "", 1),
-		("1", "+ (Plus)", "", 2),
-		]
-	direction = bpy.props.EnumProperty(items=items, name="Direction")
-	offset = bpy.props.FloatProperty(name="Offset", default=0, step=10, precision=3)
-	threshold = bpy.props.FloatProperty(name="Threshold", default=-0.0001, step=0.01, precision=4)
-	
-	def execute(self, context):
-		bpy.ops.object.mode_set(mode="OBJECT")
-		activeObj = context.active_object
-		arm = activeObj.data
-		direction = int(self.direction)
-		offset = self.offset
-		threshold = self.threshold
-		for bone in arm.bones:
-			hLoc = bone.head_local[int(self.axis)]
-			tLoc = bone.tail_local[int(self.axis)]
-			if (offset * direction <= hLoc * direction + threshold):
-				bone.select = True
-			if (offset * direction <= tLoc * direction + threshold):
-				bone.select = True
-		bpy.ops.object.mode_set(mode="EDIT")
-		return {'FINISHED'}
-
 ################
 # メニュー追加 #
 ################
@@ -60,7 +23,14 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
 		self.layout.operator('pose.select_path', icon='PLUGIN')
-		self.layout.operator(SelectAxisOver.bl_idname, icon='PLUGIN')
+		self.layout.operator('pose.select_parent_end', icon='PLUGIN')
+		self.layout.operator('pose.select_children_end', icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator('pose.select_axis_over', icon='PLUGIN')
+		self.layout.operator('pose.select_serial_number_name_bone', icon='PLUGIN')
+		self.layout.operator('pose.select_move_symmetry_name_bones', icon='PLUGIN')
+		self.layout.separator()
+		self.layout.menu('VIEW3D_MT_select_pose_grouped', icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

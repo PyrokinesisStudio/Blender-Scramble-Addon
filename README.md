@@ -1214,13 +1214,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 現在のボーンの回転状態を、IKやコンストレイントの回転制限へと設定します
         * ―(Rotational States of current bone sets to rotation limit constraints and IK)
   
-* **3Dビュー > アーマチュア編集モード > 「選択」メニュー**
-* **―(3D view > armature edit mode > select menu)**
-    * **右半分を選択**
-    * **―(Select the right half)**
-        * ボーン群の右半分を選択します(その他設定も有)
-        * ―(Select the right half of the bone (and other settings too))
-  
 * **3Dビュー > メッシュ編集モード > 「選択」メニュー**
 * **―(3D view > mesh edit mode > select menu)**
     * **X=0の頂点を選択**
@@ -1313,6 +1306,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Select the route of bones)**
         * 2つの選択ボーンの経路を選択します
         * ―(Select the select bones of two paths)
+    * **右半分を選択**
+    * **―(Select the right half)**
+        * ボーン群の右半分を選択します(その他設定も有り)
+        * ―(Select the right half of the bone (other settings are also available))
   
 * **3Dビュー > Shift+S**
 * **―(3Dビュー > Shift+S)**
