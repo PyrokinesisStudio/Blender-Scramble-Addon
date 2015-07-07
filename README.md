@@ -1310,6 +1310,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Select the right half)**
         * ボーン群の右半分を選択します(その他設定も有り)
         * ―(Select the right half of the bone (other settings are also available))
+    * **ボーンとその経路を選択**
+    * **―(Bone and its route selection)**
+        * カーソル部分のボーンを選択し、そこまでの経路も選択します
+        * ―(Select the path to it, select cursor part bone and)
   
 * **3Dビュー > Shift+S**
 * **―(3Dビュー > Shift+S)**

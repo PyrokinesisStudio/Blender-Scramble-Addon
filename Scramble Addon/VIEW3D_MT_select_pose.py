@@ -416,6 +416,60 @@ class SelectAxisOver(bpy.types.Operator):
 				bone.select = True
 		return {'FINISHED'}
 
+################################
+# ショートカット用オペレーター #
+################################
+
+class SelectOneAndPath(bpy.types.Operator):
+	bl_idname = "pose.select_one_and_path"
+	bl_label = "Bone and its route selection"
+	bl_description = "Select the path to it, select cursor part bone and"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	mouse_pos = bpy.props.IntVectorProperty(name="Mouse position", size=2, options={'HIDDEN'})
+	
+	@classmethod
+	def poll(cls, context):
+		bones = []
+		if context.selected_bones:
+			if len(context.selected_bones):
+				return True
+		if context.selected_pose_bones:
+			if len(context.selected_pose_bones):
+				return True
+		return False
+	
+	def invoke(self, context, event):
+		self.mouse_pos = event.mouse_region_x, event.mouse_region_y
+		return self.execute(context)
+	
+	def execute(self, context):
+		obj = context.active_object
+		pose = obj.pose
+		arm = obj.data
+		parents = []
+		pre_mode = obj.mode
+		if obj.mode == 'EDIT':
+			bones = [context.active_bone]
+		else:
+			bones = [context.active_pose_bone]
+		bpy.ops.view3d.select(location=self.mouse_pos, extend=True)
+		if obj.mode == 'EDIT':
+			bones.append(context.active_bone)
+		else:
+			bones.append(context.active_pose_bone)
+		if bones[0].name == bones[1].name:
+			return {'CANCELLED'}
+		for bone in bones:
+			parents.append([bone.name])
+			while (pose.bones[parents[-1][-1]].parent):
+				parents[-1].append(pose.bones[parents[-1][-1]].parent.name)
+		bpy.ops.object.mode_set(mode='OBJECT')
+		for bone_name in set(parents[0]) ^ set(parents[1]):
+			arm.bones[bone_name].select = True
+		bpy.ops.object.mode_set(mode=pre_mode)
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -433,6 +487,14 @@ class SelectGroupedMenu(bpy.types.Menu):
 		self.layout.operator(SelectSameNameBones.bl_idname, text="Bone name", icon='PLUGIN')
 		self.layout.operator(SelectSymmetryNameBones.bl_idname, text="Mirror name", icon='PLUGIN')
 		self.layout.operator(SelectSameConstraintBone.bl_idname, text="Constraint", icon='PLUGIN')
+
+class ShortcutsMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_select_pose_shortcuts"
+	bl_label = "Shortcut for registration"
+	bl_description = "Shortcuts and features that might come in handy"
+	
+	def draw(self, context):
+		self.layout.operator(SelectOneAndPath.bl_idname, icon='PLUGIN')
 
 ################
 # メニュー追加 #
@@ -459,6 +521,8 @@ def menu(self, context):
 		self.layout.operator('pose.select_move_symmetry_name_bones', icon='PLUGIN')
 		self.layout.separator()
 		self.layout.menu('VIEW3D_MT_select_pose_grouped', icon='PLUGIN')
+		self.layout.separator()
+		self.layout.menu('VIEW3D_MT_select_pose_shortcuts', icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
