@@ -821,6 +821,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('Clip Dopesheet Editor', "Clip deepseateditor", "", 76),
 		]
 	category = bpy.props.EnumProperty(items=items, name="Move to category")
+	source_delete = bpy.props.BoolProperty(name="Remove the original", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -862,16 +863,15 @@ class MoveKeyBindCategory(bpy.types.Operator):
 							key_modifier=keymap_item.key_modifier)
 						for property_name in keymap_item.properties.keys():
 							target_keymap_item.properties[property_name] = keymap_item.properties[property_name]
-						keymap.keymap_items.remove(keymap_item)
-						for keyconfig in context.window_manager.keyconfigs:
-							for keymap in keyconfig.keymaps:
-								keymap.show_expanded_children = False
-								keymap.show_expanded_items = False
-								for keymap_item in keymap.keymap_items:
-									keymap_item.show_expanded = False
+						if self.source_delete:
+							keymap.keymap_items.remove(keymap_item)
 						target_keymap.show_expanded_children = True
 						target_keymap.show_expanded_items = True
 						target_keymap_item.show_expanded = True
+						break
+				else:
+					continue
+				break
 		for area in context.screen.areas:
 			area.tag_redraw()
 		return {'FINISHED'}
