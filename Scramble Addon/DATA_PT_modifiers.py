@@ -12,6 +12,13 @@ class ApplyAllModifiers(bpy.types.Operator):
 	bl_description = "Applies to all modifiers of the selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				return True
+		return False
+	
 	def execute(self, context):
 		for obj in context.selected_objects:
 			for mod in obj.modifiers[:]:
@@ -23,6 +30,13 @@ class DeleteAllModifiers(bpy.types.Operator):
 	bl_label = "Remove all modifiers"
 	bl_description = "Remove all modifiers of the selected object"
 	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				return True
+		return False
 	
 	def execute(self, context):
 		for obj in context.selected_objects:
@@ -37,10 +51,17 @@ class ToggleApplyModifiersView(bpy.types.Operator):
 	bl_description = "Shows or hides the application to view all modifiers of the selected object"
 	bl_options = {'REGISTER'}
 	
+	@classmethod
+	def poll(cls, context):
+		if context.active_object:
+			for mod in context.active_object.modifiers:
+				return True
+		return False
+	
 	def execute(self, context):
 		is_apply = True
 		for mod in context.active_object.modifiers:
-			if (mod.show_viewport):
+			if mod.show_viewport:
 				is_apply = False
 				break
 		for obj in context.selected_objects:
@@ -64,12 +85,20 @@ class SyncShowModifiers(bpy.types.Operator):
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Calculus", default="0")
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				return True
+		return False
+	
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
+	
 	def execute(self, context):
 		for obj in context.selected_objects:
 			for mod in obj.modifiers:
-				if (int(self.mode)):
+				if int(self.mode):
 					mod.show_viewport = mod.show_render
 				else:
 					mod.show_render = mod.show_viewport
@@ -81,17 +110,24 @@ class ToggleAllShowExpanded(bpy.types.Operator):
 	bl_description = "Expand / collapse all modifiers of the active objects to the switch (toggle)"
 	bl_options = {'REGISTER'}
 	
+	@classmethod
+	def poll(cls, context):
+		if context.active_object:
+			for mod in context.active_object.modifiers:
+				return True
+		return False
+	
 	def execute(self, context):
 		obj = context.active_object
-		if (len(obj.modifiers)):
+		if len(obj.modifiers):
 			vs = 0
 			for mod in obj.modifiers:
-				if (mod.show_expanded):
+				if mod.show_expanded:
 					vs += 1
 				else:
 					vs -= 1
 			is_close = False
-			if (0 < vs):
+			if 0 < vs:
 				is_close = True
 			for mod in obj.modifiers:
 				mod.show_expanded = not is_close
@@ -114,19 +150,20 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		if (len(context.selected_objects) <= 1):
-			return False
-		return True
+		if 2 <= len(context.selected_objects):
+			return True
+		return False
+	
 	def execute(self, context):
 		pre_active_object = context.active_object
 		for obj in context.selected_objects:
 			context.scene.objects.active = obj
 			for mod in obj.modifiers[:]:
-				if (self.unapply_subsurf and mod.type == 'SUBSURF'):
+				if self.unapply_subsurf and mod.type == 'SUBSURF':
 					continue
-				if (self.unapply_armature and mod.type == 'ARMATURE'):
+				if self.unapply_armature and mod.type == 'ARMATURE':
 					continue
-				if (self.unapply_mirror and mod.type == 'MIRROR'):
+				if self.unapply_mirror and mod.type == 'MIRROR':
 					continue
 				bpy.ops.object.modifier_apply(apply_as='DATA', modifier=mod.name)
 		context.scene.objects.active = pre_active_object
@@ -139,26 +176,33 @@ class AutoRenameModifiers(bpy.types.Operator):
 	bl_description = "Rename the selected object modifier name refers to, for example,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				return True
+		return False
+	
 	def execute(self, context):
 		for obj in context.selected_objects:
 			for mod in obj.modifiers:
 				try:
-					if (mod.subtarget):
+					if mod.subtarget:
 						mod.name = mod.subtarget
 					continue
 				except AttributeError: pass
 				try:
-					if (mod.target):
+					if mod.target:
 						mod.name = mod.target.name
 					continue
 				except AttributeError: pass
 				try:
-					if (mod.object):
+					if mod.object:
 						mod.name = mod.object.name
 					continue
 				except AttributeError: pass
 				try:
-					if (mod.vertex_group):
+					if mod.vertex_group:
 						mod.name = mod.vertex_group
 					continue
 				except AttributeError: pass
@@ -175,20 +219,26 @@ class AddBoolean(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("INTERSECT", "Cross", "", 1),
-		("UNION", "Integration", "", 2),
-		("DIFFERENCE", "Difference", "", 3),
+		('INTERSECT', "Cross", "", 1),
+		('UNION', "Integration", "", 2),
+		('DIFFERENCE', "Difference", "", 3),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Calculus")
+	
+	@classmethod
+	def poll(cls, context):
+		if 2 <= len(context.selected_objects):
+			return True
+		return False
 	
 	def execute(self, context):
 		activeObj = context.active_object
 		for obj in context.selected_objects:
-			if (obj.type == "MESH" and activeObj.name != obj.name):
-				modi = activeObj.modifiers.new("Boolean", "BOOLEAN")
+			if obj.type == 'MESH' and activeObj.name != obj.name:
+				modi = activeObj.modifiers.new("Boolean", 'BOOLEAN')
 				modi.object = obj
 				modi.operation = self.mode
-				obj.draw_type = "BOUNDS"
+				obj.draw_type = 'BOUNDS'
 		return {'FINISHED'}
 
 class ApplyBoolean(bpy.types.Operator):
@@ -198,17 +248,23 @@ class ApplyBoolean(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("INTERSECT", "Cross", "", 1),
-		("UNION", "Integration", "", 2),
-		("DIFFERENCE", "Difference", "", 3),
+		('INTERSECT', "Cross", "", 1),
+		('UNION', "Integration", "", 2),
+		('DIFFERENCE', "Difference", "", 3),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Calculus")
+	
+	@classmethod
+	def poll(cls, context):
+		if 2 <= len(context.selected_objects):
+			return True
+		return False
 	
 	def execute(self, context):
 		activeObj = context.active_object
 		for obj in context.selected_objects:
-			if (obj.type == "MESH" and activeObj.name != obj.name):
-				modi = activeObj.modifiers.new("Boolean", "BOOLEAN")
+			if obj.type == 'MESH' and activeObj.name != obj.name:
+				modi = activeObj.modifiers.new("Boolean", 'BOOLEAN')
 				modi.object = obj
 				modi.operation = self.mode
 				bpy.ops.object.modifier_apply (modifier=modi.name)
@@ -230,11 +286,19 @@ class SetRenderSubsurfLevel(bpy.types.Operator):
 	
 	level = bpy.props.IntProperty(name="Split number", default=2, min=0, max=6)
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				if mod.type == 'SUBSURF':
+					return True
+		return False
+	
 	def execute(self, context):
 		for obj in context.selected_objects:
-			if (obj.type=="MESH" or obj.type=="CURVE" or obj.type=="SURFACE" or obj.type=="FONT" or obj.type=="LATTICE"):
+			if obj.type in ['MESH', 'CURVE', 'SURFACE', 'FONT', 'LATTICE']:
 				for modi in obj.modifiers:
-					if (modi.type == "SUBSURF"):
+					if modi.type == 'SUBSURF':
 						modi.render_levels = self.level
 		return {'FINISHED'}
 
@@ -245,17 +309,25 @@ class EqualizeSubsurfLevel(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("ToRender", "Preview-rendering", "", 1),
-		("ToPreview", "Rendering-preview", "", 2),
+		('ToRender', "Preview-rendering", "", 1),
+		('ToPreview', "Rendering-preview", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="How to set up")
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				if mod.type == 'SUBSURF':
+					return True
+		return False
+	
 	def execute(self, context):
 		for obj in context.selected_objects:
-			if (obj.type=="MESH" or obj.type=="CURVE" or obj.type=="SURFACE" or obj.type=="FONT" or obj.type=="LATTICE"):
+			if obj.type in ['MESH', 'CURVE', 'SURFACE', 'FONT', 'LATTICE']:
 				for modi in obj.modifiers:
-					if (modi.type == "SUBSURF"):
-						if (self.mode == "ToRender"):
+					if modi.type == 'SUBSURF':
+						if self.mode == 'ToRender':
 							modi.render_levels = modi.levels
 						else:
 							modi.levels = modi.render_levels
@@ -269,11 +341,19 @@ class SetSubsurfOptimalDisplay(bpy.types.Operator):
 	
 	mode =  bpy.props.BoolProperty(name="Optimized view")
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				if mod.type == 'SUBSURF':
+					return True
+		return False
+	
 	def execute(self, context):
 		for obj in context.selected_objects:
-			if (obj.type=="MESH" or obj.type=="CURVE" or obj.type=="SURFACE" or obj.type=="FONT" or obj.type=="LATTICE"):
+			if obj.type in ['MESH', 'CURVE', 'SURFACE', 'FONT', 'LATTICE']:
 				for modi in obj.modifiers:
-					if (modi.type == "SUBSURF"):
+					if modi.type == 'SUBSURF':
 						modi.show_only_control_edges = self.mode
 		return {'FINISHED'}
 
@@ -283,11 +363,19 @@ class DeleteSubsurf(bpy.types.Operator):
 	bl_description = "Removes the selected object subsurfmodifaia"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				if mod.type == 'SUBSURF':
+					return True
+		return False
+	
 	def execute(self, context):
 		for obj in context.selected_objects:
-			if (obj.type=="MESH" or obj.type=="CURVE" or obj.type=="SURFACE" or obj.type=="FONT" or obj.type=="LATTICE"):
+			if obj.type in ['MESH', 'CURVE', 'SURFACE', 'FONT', 'LATTICE']:
 				for modi in obj.modifiers:
-					if (modi.type == "SUBSURF"):
+					if modi.type == 'SUBSURF':
 						obj.modifiers.remove(modi)
 		return {'FINISHED'}
 
@@ -297,17 +385,22 @@ class AddSubsurf(bpy.types.Operator):
 	bl_description = "Add subsurfmodifaia to the selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	
 	subdivision_type = bpy.props.EnumProperty(items=[("CATMULL_CLARK", "Catmulclark", "", 1), ("SIMPLE", "Simple", "", 2)], name="Subdivision method")
 	levels = bpy.props.IntProperty(name="Number of views", default=2, min=0, max=6)
 	render_levels = bpy.props.IntProperty(name="Split number render", default=2, min=0, max=6)
 	use_subsurf_uv =  bpy.props.BoolProperty(name="Subdivided UVs", default=True)
 	show_only_control_edges =  bpy.props.BoolProperty(name="Optimized view")
 	
+	@classmethod
+	def poll(cls, context):
+		if len(context.selected_objects):
+			return True
+		return False
+	
 	def execute(self, context):
 		for obj in context.selected_objects:
-			if (obj.type=="MESH" or obj.type=="CURVE" or obj.type=="SURFACE" or obj.type=="FONT" or obj.type=="LATTICE"):
-				modi = obj.modifiers.new("Subsurf", "SUBSURF")
+			if obj.type in ['MESH', 'CURVE', 'SURFACE', 'FONT', 'LATTICE']:
+				modi = obj.modifiers.new("Subsurf", 'SUBSURF')
 				modi.subdivision_type = self.subdivision_type
 				modi.levels = self.levels
 				modi.render_levels = self.render_levels
@@ -327,12 +420,19 @@ class SetArmatureDeformPreserveVolume(bpy.types.Operator):
 	
 	use_deform_preserve_volume =  bpy.props.BoolProperty(name="Use the preserve volume", default=True)
 	
+	@classmethod
+	def poll(cls, context):
+		for obj in context.selected_objects:
+			for mod in obj.modifiers:
+				if mod.type == 'ARMATURE':
+					return True
+		return False
+	
 	def execute(self, context):
 		for obj in context.selected_objects:
-			if (obj.type == "MESH"):
-				for mod in obj.modifiers:
-					if (mod.type == 'ARMATURE'):
-						mod.use_deform_preserve_volume = self.use_deform_preserve_volume
+			for mod in obj.modifiers:
+				if mod.type == 'ARMATURE':
+					mod.use_deform_preserve_volume = self.use_deform_preserve_volume
 		return {'FINISHED'}
 
 ########################
@@ -358,32 +458,33 @@ class QuickCurveDeform(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		if (not context.object):
+		if not context.object:
 			return False
-		if (context.object.type != 'MESH'):
+		if context.object.type != 'MESH':
 			return False
-		if (len(context.selected_objects) != 2):
+		if len(context.selected_objects) != 2:
 			return False
 		for obj in context.selected_objects:
-			if (obj.type == 'CURVE'):
+			if obj.type == 'CURVE':
 				return True
 		return False
+	
 	def execute(self, context):
 		mesh_obj = context.active_object
-		if (mesh_obj.type != 'MESH'):
-			self.report(type={"ERROR"}, message="Please run the mesh object is active")
-			return {"CANCELLED"}
-		if (len(context.selected_objects) != 2):
-			self.report(type={"ERROR"}, message="By selecting only the two meshes, curves, please run")
-			return {"CANCELLED"}
+		if mesh_obj.type != 'MESH':
+			self.report(type={'ERROR'}, message="Please run the mesh object is active")
+			return {'CANCELLED'}
+		if len(context.selected_objects) != 2:
+			self.report(type={'ERROR'}, message="By selecting only the two meshes, curves, please run")
+			return {'CANCELLED'}
 		for obj in context.selected_objects:
-			if (mesh_obj.name != obj.name):
-				if (obj.type == 'CURVE'):
+			if mesh_obj.name != obj.name:
+				if obj.type == 'CURVE':
 					curve_obj = obj
 					break
 		else:
-			self.report(type={"ERROR"}, message="Curve objects run in the selected state")
-			return {"CANCELLED"}
+			self.report(type={'ERROR'}, message="Curve objects run in the selected state")
+			return {'CANCELLED'}
 		curve = curve_obj.data
 		pre_use_stretch = curve.use_stretch
 		pre_use_deform_bounds = curve.use_deform_bounds
@@ -431,6 +532,7 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 			if (obj.type == 'CURVE'):
 				return True
 		return False
+	
 	def execute(self, context):
 		mesh_obj = context.active_object
 		if (mesh_obj.type != 'MESH'):
