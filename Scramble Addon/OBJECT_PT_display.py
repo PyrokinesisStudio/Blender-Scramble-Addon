@@ -96,6 +96,16 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		self.layout.operator(CopyDisplaySetting.bl_idname, icon='MESH_UVSPHERE')
+		row = self.layout.row()
+		sub = row.row(align=True)
+		op = sub.operator('wm.context_set_string', icon='MESH_CUBE', text="")
+		op.data_path, op.value = 'active_object.draw_type', 'BOUNDS'
+		op = sub.operator('wm.context_set_string', icon='WIRE', text="")
+		op.data_path, op.value = 'active_object.draw_type', 'WIRE'
+		op = sub.operator('wm.context_set_string', icon='SOLID', text="")
+		op.data_path, op.value = 'active_object.draw_type', 'SOLID'
+		op = sub.operator('wm.context_set_string', icon='TEXTURE_SHADED', text="")
+		op.data_path, op.value = 'active_object.draw_type', 'TEXTURED'
+		row.operator(CopyDisplaySetting.bl_idname, icon='MESH_UVSPHERE')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

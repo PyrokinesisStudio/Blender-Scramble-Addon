@@ -638,10 +638,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Copy the rigid set)**
         * アクティブなオブジェクトの剛体設定を、他の選択オブジェクトにコピーします
         * ―(Copy the selected objects of other rigid set of active objects)
-    * **剛体ワールドの開始/終了フレームをセット**
-    * **―(Set start / end frames rigid world)**
-        * 剛体ワールドの開始/終了フレームをレンダリングの開始/終了フレームへと設定します
-        * ―(Start / end frame rigid world of sets to the start / end frame rendering)
   
 * **「プロパティ」エリア > 「物理演算」タブ > 「剛体コンストレイント」パネル**
 * **―("Properties" area: "Physics" tab > rigid constraints Panel)**
@@ -685,6 +681,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Recreate the rigid world)**
         * 設定は維持して剛体ワールドを作り直します
         * ―(Keep setting, recreate the rigid world)
+    * **剛体ワールドの開始/終了フレームをセット**
+    * **―(Set start / end frames rigid world)**
+        * 剛体ワールドの開始/終了フレームをレンダリングの開始/終了フレームへと設定します
+        * ―(Start / end frame rigid world of sets to the start / end frame rendering)
   
 * **プロパティ > 「テクスチャ」タブ > リスト右の▼**
 * **―(Properties > "texture" tab > the list right down:)**

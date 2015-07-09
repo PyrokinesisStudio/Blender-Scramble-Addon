@@ -41,33 +41,6 @@ class CopySetting(bpy.types.Operator):
 						pass
 		return {'FINISHED'}
 
-class SyncFrames(bpy.types.Operator):
-	bl_idname = "rigidbody.sync_frames"
-	bl_label = "Set start / end frames rigid world"
-	bl_description = "Start / end frame rigid world of sets to the start / end frame rendering"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	frame_margin = bpy.props.IntProperty(name="Margin", default=0, min=-999, max=999, soft_min=-999, soft_max=999)
-	
-	@classmethod
-	def poll(cls, context):
-		if context.scene.rigidbody_world:
-			if context.scene.rigidbody_world.point_cache:
-				return True
-		return False
-	
-	def invoke(self, context, event):
-		return context.window_manager.invoke_props_dialog(self)
-	
-	def execute(self, context):
-		rigidbody_world = context.scene.rigidbody_world
-		point_cache = rigidbody_world.point_cache
-		point_cache.frame_start = context.scene.frame_start - self.frame_margin
-		point_cache.frame_end = context.scene.frame_end + self.frame_margin
-		for area in context.screen.areas:
-			area.tag_redraw()
-		return {'FINISHED'}
-
 ################
 # メニュー追加 #
 ################
@@ -93,6 +66,6 @@ def menu(self, context):
 				row = self.layout.row(align=True)
 				row.prop(context.scene.rigidbody_world.point_cache, 'frame_start')
 				row.prop(context.scene.rigidbody_world.point_cache, 'frame_end')
-				row.operator(SyncFrames.bl_idname, icon='LINKED', text="")
+				row.operator('rigidbody.sync_frames', icon='LINKED', text="")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

@@ -188,5 +188,11 @@ def menu(self, context):
 		op.data_path = 'space_data.context'
 		op.value = 'SCENE'
 		row.operator(CopyConstraintSetting.bl_idname, icon='LINKED')
+		if context.scene.rigidbody_world:
+			if context.scene.rigidbody_world.point_cache:
+				row = self.layout.row(align=True)
+				row.prop(context.scene.rigidbody_world.point_cache, 'frame_start')
+				row.prop(context.scene.rigidbody_world.point_cache, 'frame_end')
+				row.operator('rigidbody.sync_frames', icon='LINKED', text="")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
