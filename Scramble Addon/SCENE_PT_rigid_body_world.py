@@ -55,6 +55,10 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		self.layout.operator(WorldReset.bl_idname, icon='PLUGIN')
+		row = self.layout.row(align=True)
+		row.operator(WorldReset.bl_idname, icon='PLUGIN')
+		op = row.operator('wm.context_set_string', icon='PHYSICS', text="")
+		op.data_path = 'space_data.context'
+		op.value = 'PHYSICS'
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

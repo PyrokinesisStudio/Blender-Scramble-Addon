@@ -83,7 +83,11 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		self.layout.operator(CopySetting.bl_idname, icon='LINKED')
+		row = self.layout.row(align=True)
+		op = row.operator('wm.context_set_string', icon='SCENE_DATA', text="")
+		op.data_path = 'space_data.context'
+		op.value = 'SCENE'
+		row.operator(CopySetting.bl_idname, icon='LINKED')
 		if context.scene.rigidbody_world:
 			if context.scene.rigidbody_world.point_cache:
 				row = self.layout.row(align=True)

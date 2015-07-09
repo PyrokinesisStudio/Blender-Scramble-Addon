@@ -183,6 +183,10 @@ def menu(self, context):
 					row = self.layout.row(align=True)
 					row.operator(ClearConstraintLimits.bl_idname, icon='IPO_LINEAR', text="In General, initialize").mode = 'GENERIC'
 					row.operator(ClearConstraintLimits.bl_idname, icon='DRIVER', text="Generic initialization in the spring").mode = 'GENERIC_SPRING'
-		self.layout.operator(CopyConstraintSetting.bl_idname, icon='LINKED')
+		row = self.layout.row(align=True)
+		op = row.operator('wm.context_set_string', icon='SCENE_DATA', text="")
+		op.data_path = 'space_data.context'
+		op.value = 'SCENE'
+		row.operator(CopyConstraintSetting.bl_idname, icon='LINKED')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
