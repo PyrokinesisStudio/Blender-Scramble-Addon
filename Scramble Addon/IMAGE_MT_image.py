@@ -735,7 +735,7 @@ class NewNoise(bpy.types.Operator):
 	monochrome = bpy.props.BoolProperty(name="Black and white noise", default=False)
 	alpha_noise = bpy.props.BoolProperty(name="Alfano is", default=False)
 	name = bpy.props.StringProperty(name="name", default="Noise")
-	width = bpy.props.IntProperty(name="Picture", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
+	width = bpy.props.IntProperty(name="Width", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
 	height = bpy.props.IntProperty(name="Height", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
 	alpha = bpy.props.BoolProperty(name="Alpha", default=True)
 	float_buffer = bpy.props.BoolProperty(name="32-bit Float", default=False)
@@ -800,7 +800,7 @@ class Clipping(bpy.types.Operator):
 	bl_description = "Change size of active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	width = bpy.props.IntProperty(name="Picture", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
+	width = bpy.props.IntProperty(name="Width", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
 	height = bpy.props.IntProperty(name="Height", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
 	items = [
 		('LEFT', "Left", "", 1),
@@ -809,9 +809,9 @@ class Clipping(bpy.types.Operator):
 		]
 	width_align = bpy.props.EnumProperty(items=items, name="Horizontal alignment")
 	items = [
-		('UP', "Shang", "", 1),
+		('UP', "Up", "", 1),
 		('CENTER', "Central", "", 2),
-		('DOWN', "Xia", "", 3),
+		('DOWN', "Down", "", 3),
 		]
 	height_align = bpy.props.EnumProperty(items=items, name="Vertical position")
 	fill_color = bpy.props.FloatVectorProperty(name="Color fill", default=(1, 1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=3, precision=2, subtype='COLOR_GAMMA', size=4)

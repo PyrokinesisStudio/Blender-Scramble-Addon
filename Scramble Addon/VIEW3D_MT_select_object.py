@@ -336,7 +336,7 @@ class SelectGroupedEX(bpy.types.Menu):
 		column = self.layout.column()
 		column.operator("object.select_grouped", text="Child").type = 'CHILDREN_RECURSIVE'
 		column.operator("object.select_grouped", text="Immediate children").type = 'CHILDREN'
-		column.operator("object.select_grouped", text="Kiss").type = 'PARENT'
+		column.operator("object.select_grouped", text="Parent").type = 'PARENT'
 		column.operator("object.select_grouped", text="Brother").type = 'SIBLINGS'
 		column.operator("object.select_grouped", text="Type").type = 'TYPE'
 		column.operator("object.select_grouped", text="Layer").type = 'LAYER'

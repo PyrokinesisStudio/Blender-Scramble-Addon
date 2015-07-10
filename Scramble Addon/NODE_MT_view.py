@@ -33,7 +33,7 @@ class TogglePanelsA(bpy.types.Operator):
 class TogglePanelsB(bpy.types.Operator):
 	bl_idname = "node.toggle_panels_b"
 	bl_label = "Toggle Panel (mode B)"
-	bl_description = "\"Panel both hide\" → show only tool shelf → show only properties → \"Panel both display\" for toggle"
+	bl_description = "\"Panel both hide\" => show only tool shelf => show only properties => \"Panel both display\" for toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -56,7 +56,7 @@ class TogglePanelsB(bpy.types.Operator):
 class TogglePanelsC(bpy.types.Operator):
 	bl_idname = "node.toggle_panels_c"
 	bl_label = "Toggle Panel (mode C)"
-	bl_description = "\"Panel both hide\" → \"show only tool shelf → show only properties. toggle"
+	bl_description = "\"Panel both hide\" => \"show only tool shelf => show only properties. toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):

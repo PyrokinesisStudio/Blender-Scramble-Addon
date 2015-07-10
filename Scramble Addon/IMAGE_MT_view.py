@@ -14,11 +14,11 @@ class Reset2DCursor(bpy.types.Operator):
 	
 	items = [
 		("C", "Central", "", 1),
-		("U", "Shang", "", 2),
+		("U", "Up", "", 2),
 		("RU", "On right", "", 3),
 		("R", "Right", "", 4),
 		("RD", "Lower right", "", 5),
-		("D", "Xia", "", 6),
+		("D", "Down", "", 6),
 		("LD", "Lower left", "", 7),
 		("L", "Left", "", 8),
 		("LU", "On left", "", 9),
@@ -78,7 +78,7 @@ class TogglePanelsA(bpy.types.Operator):
 class TogglePanelsB(bpy.types.Operator):
 	bl_idname = "image.toggle_panels_b"
 	bl_label = "Toggle Panel (mode B)"
-	bl_description = "\"Panel both hide\" → show only tool shelf → show only properties → \"Panel both display\" for toggle"
+	bl_description = "\"Panel both hide\" => show only tool shelf => show only properties => \"Panel both display\" for toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -101,7 +101,7 @@ class TogglePanelsB(bpy.types.Operator):
 class TogglePanelsC(bpy.types.Operator):
 	bl_idname = "image.toggle_panels_c"
 	bl_label = "Toggle Panel (mode C)"
-	bl_description = "\"Panel both hide\" → \"show only tool shelf → show only properties. toggle"
+	bl_description = "\"Panel both hide\" => \"show only tool shelf => show only properties. toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -141,9 +141,9 @@ class Reset2DCursorMenu(bpy.types.Menu):
 	bl_description = "Resets position of cursor"
 	
 	def draw(self, context):
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Shang").mode = 'U'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Up").mode = 'U'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Right").mode = 'R'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Xia").mode = 'D'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Down").mode = 'D'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Left").mode = 'L'
 		self.layout.separator()
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On right").mode = 'RU'

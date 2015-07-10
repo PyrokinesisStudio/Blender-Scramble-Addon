@@ -10,7 +10,7 @@ import re
 class SelectSerialNumberNameBone(bpy.types.Operator):
 	bl_idname = "pose.select_serial_number_name_bone"
 	bl_label = "Select numbered bone."
-	bl_description = "Select name with number like X.001 bone"
+	bl_description = "Select name with number like x.005 bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -151,7 +151,7 @@ class SelectSameConstraintBone(bpy.types.Operator):
 class SelectSameNameBones(bpy.types.Operator):
 	bl_idname = "pose.select_same_name_bones"
 	bl_label = "Select bone of same name."
-	bl_description = "Regarding bone names, such as X-X.001 X.002 with same name, select"
+	bl_description = "Regarding bone names, such as X-x.005 X.002 with same name, select"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -289,7 +289,7 @@ class SelectChildrenEnd(bpy.types.Operator):
 class SelectParentEnd(bpy.types.Operator):
 	bl_idname = "pose.select_parent_end"
 	bl_label = "Select bone"
-	bl_description = "Choice bones parent → parent of parent bone. And we will select to end"
+	bl_description = "Choice bones parent => parent of parent bone. And we will select to end"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

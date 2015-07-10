@@ -9,7 +9,7 @@ import bpy
 class ToggleMeshSelectMode(bpy.types.Operator):
 	bl_idname = "mesh.toggle_mesh_select_mode"
 	bl_label = "Mesh selection mode"
-	bl_description = "Mesh selection mode → top → side surface. Switch and"
+	bl_description = "Mesh selection mode => top => side surface. Switch and"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -45,7 +45,7 @@ class SelectModePie(bpy.types.Menu): #
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator("mesh.select_mode", text="Vertex", icon='VERTEXSEL').type = 'VERT'
-		self.layout.menu_pie().operator("mesh.select_mode", text="Noodles", icon='FACESEL').type = 'FACE'
+		self.layout.menu_pie().operator("mesh.select_mode", text="Face", icon='FACESEL').type = 'FACE'
 		self.layout.menu_pie().operator("mesh.select_mode", text="Edge", icon='EDGESEL').type = 'EDGE'
 
 class ProportionalPieOperator(bpy.types.Operator):

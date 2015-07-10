@@ -80,7 +80,7 @@ class SyncShowModifiers(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("1", "Rendering → view", "", 1),
+		("1", "Rendering => view", "", 1),
 		("0", "View-rendering", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Calculus", default="0")

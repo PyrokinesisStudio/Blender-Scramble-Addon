@@ -60,7 +60,7 @@ class TogglePanelsA(bpy.types.Operator):
 class TogglePanelsB(bpy.types.Operator):
 	bl_idname = "view3d.toggle_panels_b"
 	bl_label = "Toggle Panel (mode B)"
-	bl_description = "\"Panel both hide\" → show only tool shelf → show only properties → \"Panel both display\" for toggle"
+	bl_description = "\"Panel both hide\" => show only tool shelf => show only properties => \"Panel both display\" for toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -83,7 +83,7 @@ class TogglePanelsB(bpy.types.Operator):
 class TogglePanelsC(bpy.types.Operator):
 	bl_idname = "view3d.toggle_panels_c"
 	bl_label = "Toggle Panel (mode C)"
-	bl_description = "\"Panel both hide\" → \"show only tool shelf → show only properties. toggle"
+	bl_description = "\"Panel both hide\" => \"show only tool shelf => show only properties. toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -106,7 +106,7 @@ class TogglePanelsC(bpy.types.Operator):
 class ToggleViewportShadeA(bpy.types.Operator):
 	bl_idname = "view3d.toggle_viewport_shade_a"
 	bl_label = "Shading switch (mode A)"
-	bl_description = "\"Wireframe\", \"solid\" → \"texture\" shading... We will switch"
+	bl_description = "\"Wireframe\", \"solid\" => \"texture\" shading... We will switch"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -149,11 +149,11 @@ class ViewNumpadPie(bpy.types.Menu): #
 	def draw(self, context):
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="Left", icon="TRIA_LEFT").type = "LEFT"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="Right", icon="TRIA_RIGHT").type = "RIGHT"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="Xia", icon="TRIA_DOWN").type = "BOTTOM"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="Shang", icon="TRIA_UP").type = "TOP"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="Rear", icon="BBOX").type = "BACK"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="Down", icon="TRIA_DOWN").type = "BOTTOM"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="Up", icon="TRIA_UP").type = "TOP"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="Back", icon="BBOX").type = "BACK"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="Camera", icon="CAMERA_DATA").type = "CAMERA"
-		self.layout.menu_pie().operator("view3d.viewnumpad", text="Qian", icon="SOLID").type = "FRONT"
+		self.layout.menu_pie().operator("view3d.viewnumpad", text="Front", icon="SOLID").type = "FRONT"
 		self.layout.menu_pie().operator("view3d.view_persportho", text="Perspective projection and parallel projection", icon="BORDERMOVE")
 
 class ViewportShadePieOperator(bpy.types.Operator):

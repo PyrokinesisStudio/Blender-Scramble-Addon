@@ -120,7 +120,7 @@ class ReverseView(bpy.types.Operator):
 class ResetViewAndCursor(bpy.types.Operator):
 	bl_idname = "view3d.reset_view_and_cursor"
 	bl_label = "3D cursor with viewpoint at origin"
-	bl_description = "Perspective and 3D cursor position move to starting point (xjiz=0.0)"
+	bl_description = "Perspective and 3D cursor position move to starting point (XYZ=0.0)"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):

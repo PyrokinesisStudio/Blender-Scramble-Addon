@@ -18,7 +18,7 @@ class CreateCustomShape(bpy.types.Operator):
 		('1', "Line", "", 1),
 		('2', "Diamond", "", 2),
 		]
-	shape = bpy.props.EnumProperty(items=items, name="Profile")
+	shape = bpy.props.EnumProperty(items=items, name="Shape")
 	isObjectMode =  bpy.props.BoolProperty(name="Enter object mode", default=True)
 	isHide = bpy.props.BoolProperty(name="Hide armature", default=True)
 	
@@ -520,9 +520,9 @@ class SetRigidBodyBone(bpy.types.Operator):
 		('PLAIN_AXES', "Cross", "", 1),
 		('ARROWS', "Coordinate axes", "", 2),
 		('SINGLE_ARROW', "Arrow", "", 3),
-		('CIRCLE', "JPY", "", 4),
+		('CIRCLE', "Circle", "", 4),
 		('CUBE', "Cube", "", 5),
-		('SPHERE', "Ball", "", 6),
+		('SPHERE', "Sphere", "", 6),
 		('CONE', "Cone", "", 7),
 		('IMAGE', "Images", "", 8),
 		]
