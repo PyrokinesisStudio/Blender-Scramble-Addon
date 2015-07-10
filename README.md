@@ -164,13 +164,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ポーズライブラリ」パネル**
 * **―('Properties' area > armature data tab > pose library panel)**
     * **ポーズライブラリを並び替え**
-    * **―(Pose library sort.)**
+    * **―(Pose library sort)**
         * アクティブなポーズライブラリのポーズを並び替えます
         * ―(Sorts by posing for an active pose library)
     * **ポーズライブラリのポーズを最上部/最下部へ**
-    * **―(Top / bottom pose pose library)**
+    * **―(To top/bottom pose of library)**
         * アクティブなポーズライブラリのポーズを最上部、もしくは最下部へ移動させます
-        * ―(Posing in an active pose library moves to top or bottom)
+        * ―(Active pose of pose library moves to top/bottom)
   
 * **「プロパティ」エリア > 「オブジェクト」タブ > 「トランスフォーム」パネル**
 * **―(Area "Properties" > "object" tab > "transform" Panel)**
@@ -1193,9 +1193,9 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ボーン名の XXX.R => 右XXX を相互変換します
         * ―(Bone name XXX. R = > conversion right XXX)
     * **ポーズの有効/無効を切り替え**
-    * **―(Enable / disable pause switch)**
+    * **―(Enable/Disable pose)**
         * アーマチュアのポーズ位置/レスト位置を切り替えます
-        * ―(Toggles pause / rest position of armature)
+        * ―(Toggles pose/rest position of armature)
     * **対のボーンにコンストレイントをコピー**
     * **―(Copy constraints vs. Vaughan)**
         * 「X.L」なら「X.R」、「X.R」なら「X.L」の名前のボーンへとコンストレイントをコピーします
@@ -1209,7 +1209,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中の繋がったボーン群に、RigidBodyによる物理演算を設定します
         * ―(Sets by RigidBody physics led of selected bone set,)
     * **現ポーズを回転制限に**
-    * **―(Currently pose rotation limit)**
+    * **―(Now pose to rotation limit)**
         * 現在のボーンの回転状態を、IKやコンストレイントの回転制限へと設定します
         * ―(Current bone rotation sets to rotation limit constraints and IK)
   

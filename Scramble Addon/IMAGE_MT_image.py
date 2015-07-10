@@ -514,7 +514,7 @@ class Resize(bpy.types.Operator):
 		return None
 	
 	width = bpy.props.IntProperty(name="Width", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL', update=width_update)
-	height = bpy.props.IntProperty(name="Vertical size", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL', update=height_update)
+	height = bpy.props.IntProperty(name="Height", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL', update=height_update)
 	keep_ratio = bpy.props.BoolProperty(name="Keep ratio", default=True)
 	
 	@classmethod
@@ -626,7 +626,7 @@ class NewUVChecker(bpy.types.Operator):
 		('UVCheckerMap17-512.png', "17 (512x512)", "", 34),
 		]
 	image_name = bpy.props.EnumProperty(items=items, name="Image file")
-	name = bpy.props.StringProperty(name="name", default="UVCheckerMap")
+	name = bpy.props.StringProperty(name="Name", default="UVCheckerMap")
 	
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)
@@ -734,7 +734,7 @@ class NewNoise(bpy.types.Operator):
 	
 	monochrome = bpy.props.BoolProperty(name="Black and white noise", default=False)
 	alpha_noise = bpy.props.BoolProperty(name="Alfano is", default=False)
-	name = bpy.props.StringProperty(name="name", default="Noise")
+	name = bpy.props.StringProperty(name="Name", default="Noise")
 	width = bpy.props.IntProperty(name="Width", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
 	height = bpy.props.IntProperty(name="Height", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
 	alpha = bpy.props.BoolProperty(name="Alpha", default=True)
@@ -950,7 +950,7 @@ class EditMenu(bpy.types.Menu):
 		self.layout.operator(Duplicate.bl_idname, icon='PLUGIN', text="Copy")
 		self.layout.operator(Clipping.bl_idname, icon='PLUGIN', text="Change size")
 		self.layout.operator(Resize.bl_idname, icon='PLUGIN', text="Zoom in / out")
-		self.layout.operator(Tiles.bl_idname, icon='PLUGIN', text="Lining up")
+		self.layout.operator(Tiles.bl_idname, icon='PLUGIN', text="Tile")
 
 class FilterMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_image_filter"

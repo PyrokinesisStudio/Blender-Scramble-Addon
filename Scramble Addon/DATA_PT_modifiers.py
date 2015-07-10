@@ -673,7 +673,7 @@ def menu(self, context):
 				row.operator(DeleteAllModifiers.bl_idname, icon='X', text="Delete all")
 				row = col.row(align=True)
 				row.operator(ToggleApplyModifiersView.bl_idname, icon='RESTRICT_VIEW_OFF', text="View")
-				row.operator(ToggleAllShowExpanded.bl_idname, icon='FULLSCREEN_ENTER', text="Expand / collapse")
+				row.operator(ToggleAllShowExpanded.bl_idname, icon='FULLSCREEN_ENTER', text="Expand / Close")
 				row.operator(SyncShowModifiers.bl_idname, icon='LINKED', text="Use over the")
 		self.layout.menu(ModifierMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons['Scramble Addon'].preferences.use_disabled_menu):

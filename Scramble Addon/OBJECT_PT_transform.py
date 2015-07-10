@@ -24,9 +24,9 @@ def menu(self, context):
 		row = self.layout.row(align=True)
 		op = row.operator('object.make_link_transform', icon='MAN_TRANS', text="Copy location")
 		op.copy_location, op.copy_rotation, op.copy_scale = True, False, False
-		op = row.operator('object.make_link_transform', icon='MAN_ROT', text="Rotate copy")
+		op = row.operator('object.make_link_transform', icon='MAN_ROT', text="Copy rotation")
 		op.copy_location, op.copy_rotation, op.copy_scale = False, True, False
-		op = row.operator('object.make_link_transform', icon='MAN_SCALE', text="Extension of copy")
+		op = row.operator('object.make_link_transform', icon='MAN_SCALE', text="Copy scale")
 		op.copy_location, op.copy_rotation, op.copy_scale = False, False, True
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

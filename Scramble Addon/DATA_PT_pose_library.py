@@ -8,7 +8,7 @@ import bpy
 
 class MoveActivePose(bpy.types.Operator):
 	bl_idname = "poselib.move_active_pose"
-	bl_label = "Pose library sort."
+	bl_label = "Pose library sort"
 	bl_description = "Sorts by posing for an active pose library"
 	bl_options = {'REGISTER'}
 	
@@ -49,8 +49,8 @@ class MoveActivePose(bpy.types.Operator):
 
 class MoveActivePoseMost(bpy.types.Operator):
 	bl_idname = "poselib.move_active_pose_most"
-	bl_label = "Top / bottom pose pose library"
-	bl_description = "Posing in an active pose library moves to top or bottom"
+	bl_label = "To top/bottom pose of library"
+	bl_description = "Active pose of pose library moves to top/bottom"
 	bl_options = {'REGISTER'}
 	
 	is_top = bpy.props.BoolProperty(name="To top", default=False)

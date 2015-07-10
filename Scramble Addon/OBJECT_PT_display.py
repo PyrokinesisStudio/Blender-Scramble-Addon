@@ -12,7 +12,7 @@ class CopyDisplaySetting(bpy.types.Operator):
 	bl_description = "Copy selected objects of other display settings"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	copy_show_name = bpy.props.BoolProperty(name="name", default=True)
+	copy_show_name = bpy.props.BoolProperty(name="Name", default=True)
 	copy_show_axis = bpy.props.BoolProperty(name="Coordinate axes", default=True)
 	copy_show_wire = bpy.props.BoolProperty(name="Wire frame", default=True)
 	copy_show_all_edges = bpy.props.BoolProperty(name="See all sides", default=True)

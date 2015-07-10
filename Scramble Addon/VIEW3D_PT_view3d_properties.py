@@ -12,7 +12,7 @@ class SaveView(bpy.types.Operator):
 	bl_description = "Save current 3D view perspective"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	save_name = bpy.props.StringProperty(name="name", default="View saved games")
+	save_name = bpy.props.StringProperty(name="Name", default="View saved games")
 	
 	def execute(self, context):
 		data = ""

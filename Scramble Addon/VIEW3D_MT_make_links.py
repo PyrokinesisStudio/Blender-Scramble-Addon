@@ -50,7 +50,7 @@ class MakeLinkDisplaySetting(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isSameType = bpy.props.BoolProperty(name="Only objects of same type", default=True)
-	show_name = bpy.props.BoolProperty(name="name", default=True)
+	show_name = bpy.props.BoolProperty(name="Name", default=True)
 	show_axis = bpy.props.BoolProperty(name="Coordinate axes", default=True)
 	show_wire = bpy.props.BoolProperty(name="Wire frame", default=True)
 	show_all_edges = bpy.props.BoolProperty(name="See all sides", default=True)

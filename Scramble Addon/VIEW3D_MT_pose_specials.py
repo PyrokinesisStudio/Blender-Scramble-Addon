@@ -13,7 +13,7 @@ class CreateCustomShape(bpy.types.Operator):
 	bl_description = "Creates choice bone shape"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name =  bpy.props.StringProperty(name="name", default="CustomShape")
+	name =  bpy.props.StringProperty(name="Name", default="CustomShape")
 	items = [
 		('1', "Line", "", 1),
 		('2', "Diamond", "", 2),
@@ -402,8 +402,8 @@ class RenameBoneNameEndJapanese(bpy.types.Operator):
 
 class TogglePosePosition(bpy.types.Operator):
 	bl_idname = "pose.toggle_pose_position"
-	bl_label = "Enable / disable pause switch"
-	bl_description = "Toggles pause / rest position of armature"
+	bl_label = "Enable/Disable pose"
+	bl_description = "Toggles pose/rest position of armature"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -416,10 +416,10 @@ class TogglePosePosition(bpy.types.Operator):
 	def execute(self, context):
 		if context.object.data.pose_position == 'POSE':
 			context.object.data.pose_position = 'REST'
-			self.report(type={'WARNING'}, message="Pause disabled")
+			self.report(type={'WARNING'}, message="Pose disabled")
 		else:
 			context.object.data.pose_position = 'POSE'
-			self.report(type={'INFO'}, message="Pause active")
+			self.report(type={'INFO'}, message="Pose enabled")
 		return {'FINISHED'}
 
 class CopyConstraintsMirror(bpy.types.Operator):
@@ -697,7 +697,7 @@ class SetRigidBodyBone(bpy.types.Operator):
 
 class SetIKRotationLimitByPose(bpy.types.Operator):
 	bl_idname = "pose.set_ik_rotation_limit_by_pose"
-	bl_label = "Currently pose rotation limit"
+	bl_label = "Now pose to rotation limit"
 	bl_description = "Current bone rotation sets to rotation limit constraints and IK"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -710,7 +710,7 @@ class SetIKRotationLimitByPose(bpy.types.Operator):
 	use_x = bpy.props.BoolProperty(name="Limits of X axis", default=True)
 	use_y = bpy.props.BoolProperty(name="Limits of Y axis", default=True)
 	use_z = bpy.props.BoolProperty(name="Z-limits", default=True)
-	is_clear_rot = bpy.props.BoolProperty(name="Reset rotation pose", default=True)
+	is_clear_rot = bpy.props.BoolProperty(name="Reset pose rotation", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -848,9 +848,9 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.operator(CopyConstraintsMirror.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		text = "Pause position, switching current (rest position)"
+		text = "Pose position switch (rest position)"
 		if (context.object.data.pose_position == 'POSE'):
-			text = "Pose position switch pose position (current)"
+			text = "Pose position switch (pose position)"
 		self.layout.operator(TogglePosePosition.bl_idname, text=text, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.menu(SpecialsMenu.bl_idname, icon="PLUGIN")

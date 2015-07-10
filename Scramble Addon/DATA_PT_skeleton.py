@@ -50,7 +50,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
-		row.operator('pose.toggle_pose_position', icon='POSE_HLT', text="Enables or disables pause")
+		row.operator('pose.toggle_pose_position', icon='POSE_HLT', text="Enable/Disable pose")
 		row.operator(ShowAllBoneLayers.bl_idname, icon='RESTRICT_VIEW_OFF', text="All layers display")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

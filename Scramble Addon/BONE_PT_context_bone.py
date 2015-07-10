@@ -148,7 +148,7 @@ class AppendActiveBoneName(bpy.types.Operator):
 
 class AppendNameMenu(bpy.types.Menu):
 	bl_idname = "BONE_PT_context_bone_append_name"
-	bl_label = "A new character,"
+	bl_label = "New text"
 	
 	def draw(self, context):
 		self.layout.operator(AppendActiveBoneName.bl_idname, text=".L").string = '.L'

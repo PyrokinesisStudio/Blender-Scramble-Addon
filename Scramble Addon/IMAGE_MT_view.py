@@ -15,13 +15,13 @@ class Reset2DCursor(bpy.types.Operator):
 	items = [
 		("C", "Central", "", 1),
 		("U", "Up", "", 2),
-		("RU", "On right", "", 3),
+		("RU", "Top right", "", 3),
 		("R", "Right", "", 4),
-		("RD", "Lower right", "", 5),
+		("RD", "Down right", "", 5),
 		("D", "Down", "", 6),
-		("LD", "Lower left", "", 7),
+		("LD", "Down left", "", 7),
 		("L", "Left", "", 8),
-		("LU", "On left", "", 9),
+		("LU", "Top left", "", 9),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Location", default="LD")
 	
@@ -146,10 +146,10 @@ class Reset2DCursorMenu(bpy.types.Menu):
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Down").mode = 'D'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Left").mode = 'L'
 		self.layout.separator()
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On right").mode = 'RU'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Lower right").mode = 'RD'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Lower left").mode = 'LD'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On left").mode = 'LU'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Top right").mode = 'RU'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Down right").mode = 'RD'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Down left").mode = 'LD'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Top left").mode = 'LU'
 		self.layout.separator()
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Central").mode = 'C'
 
