@@ -1319,29 +1319,29 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **メッシュに3Dカーソルをスナップ**
     * **―(3D cursor snap to mesh)**
         * マウス下のメッシュ面上に3Dカーソルを移動させます(ショートカットに登録してお使い下さい)
-        * ―((Please use the shortcuts) mesh surface under the mouse move the 3D cursor)
+        * ―((Please use shortcuts) mesh surface under mouse move 3D cursor)
     * **視点位置に3Dカーソル移動**
     * **―(3D cursor view)**
         * 視点の中心位置に3Dカーソルを移動させます
-        * ―(Move the 3D cursor to the location of the center point of)
+        * ―(Move 3D cursor to location of center point of)
     * **3Dカーソルを非表示に(遥か遠くに)**
-    * **―(3D cursor invisible in the (distant))**
+    * **―(3D cursor invisible in (distant))**
         * 3Dカーソルを遥か遠くに移動させて非表示のように見せかけます
-        * ―(Pretend to hide the 3D cursor to move far far away)
+        * ―(Pretend to hide 3D cursor to move far far away)
   
 * **3Dビュー > メッシュ編集モード > 「U」キー**
 * **―(3D view > mesh edit mode > "U" key)**
     * **他のUVからコピー**
     * **―(Copied from other UV)**
         * 選択部分のアクティブなUV展開を、他のUVからコピーしてきます
-        * ―(Active UV unwrapping of the selection can be copied from other UV)
+        * ―(Active UV unwrapping of selection can be copied from other UV)
   
 * **3Dビュー > 「ビュー」メニュー**
 * **―(3D view > View menu)**
     * **グローバルビュー/ローカルビュー(非ズーム)**
     * **―(Global / local view (non-zoom))**
         * 選択したオブジェクトのみを表示し、視点の中央に配置します(ズームはしません)
-        * ―(Displays only the selected objects and the centered point of view doesn't (zoom))
+        * ―(Displays only selected objects and centered point of view doesn't (zoom))
     * **パネル表示切り替え(モードA)**
     * **―(Toggle Panel (mode A))**
         * プロパティ/ツールシェルフの「両方表示」/「両方非表示」をトグルします
@@ -1357,57 +1357,57 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **シェーディング切り替え(モードA)**
     * **―(Shading switch (mode A))**
         * シェーディングを 「ワイヤーフレーム」→「ソリッド」→「テクスチャ」... と切り替えていきます
-        * ―("Wireframe", "solid" → "texture" shading... We will switch)
+        * ―("Wireframe", "solid" => "texture" shading... We will switch)
     * **プリセットビュー**
     * **―(Preset views)**
         * プリセットビュー(テンキー1,3,7とか)のパイメニューです
-        * ―(Is a pie menu of preset views or (NUMPAD 1, 3, 7))
+        * ―(Is pie menu of preset views or (NUMPAD 1, 3, 7))
     * **シェーディング切り替え**
     * **―(Shading transitions)**
         * シェーディング切り替えパイメニューです
-        * ―(Is the shading switch pie)
+        * ―(Is shading switch pie)
     * **レイヤーのパイメニュー**
     * **―(Layer pie)**
         * レイヤー表示切り替えのパイメニューです
-        * ―(Is a pie menu toggle layer visibility)
+        * ―(Is pie menu toggle layer visibility)
   
 * **3Dビュー > 「ビュー」メニュー > 「視点を揃える」メニュー**
 * **―(3D view > View menu > align View menu)**
     * **選択部分を表示 (非ズーム)**
     * **―(Display selection (non-zoom))**
         * 選択中の物に3D視点の中心を合わせます(ズームはしません)
-        * ―(Selected ones over the center of the 3D perspective not (zoom))
+        * ―(Selected ones over center of 3D perspective not (zoom))
     * **視点を原点に**
-    * **―(Viewpoint at the origin)**
+    * **―(Viewpoint at origin)**
         * 3Dビューの視点を座標の中心に移動します
-        * ―(3D view perspective moves in the center of coordinates)
+        * ―(3D view perspective moves in center of coordinates)
     * **選択+視点の中心に**
-    * **―(At the center of the selection + POV)**
+    * **―(At center of selection + POV)**
         * マウス下の物を選択し視点の中心にします (Shiftを押しながらで追加選択)
-        * ―(Select the object under the mouse, in the heart of the point of view (SHIFT while additional choices))
+        * ―(Select object under mouse, in heart of point of view (SHIFT while additional choices))
     * **メッシュに視点をスナップ**
     * **―(Snap to point mesh)**
         * マウス下のメッシュ面上に視点の中心を移動させます(ショートカットに登録してお使い下さい)
-        * ―((Please use the shortcuts) move the center point of view mesh surface under the mouse)
+        * ―((Please use shortcuts) move center point of view mesh surface under mouse)
     * **ビューの反対側に**
-    * **―(On the other side of the view)**
+    * **―(On other side of view)**
         * 現在のビューの逆側へ回りこみます
-        * ―(Orbit to the reverse side of the current view)
+        * ―(Orbit to reverse side of current view)
     * **視点と3Dカーソルを原点に**
-    * **―(3D cursor with the viewpoint at the origin)**
+    * **―(3D cursor with viewpoint at origin)**
         * 視点と3Dカーソルの位置を原点(XYZ=0.0)に移動させます
-        * ―(Perspective and 3D cursor position move to the starting point (XYZ=0.0))
+        * ―(Perspective and 3D cursor position move to starting point (XYZ=0.0))
     * **メッシュに視点と3Dカーソルをスナップ**
     * **―(Perspective and 3D cursor snap to mesh)**
         * マウス下のメッシュ面上に視点と3Dカーソルを移動させます (ショートカットに登録してお使い下さい)
-        * ―((Please use the shortcuts) move the viewpoint and 3D cursor mesh surface under the mouse)
+        * ―((Please use shortcuts) move viewpoint and 3D cursor mesh surface under mouse)
   
 * **3Dビュー > 「ビュー」メニュー > 「視点を揃える」メニュー > 「アクティブに視点を揃える」メニュー**
 * **―(3D view > View menu > align View menu > menu align view active)**
     * **面を正面から見る**
-    * **―(Viewed from the front side)**
+    * **―(Viewed from front side)**
         * 選択中の面の法線方向から面を注視します
-        * ―(The watch face from the selected surface normal direction)
+        * ―(watch face from selected surface normal direction)
   
 * **「3Dビュー」エリア > プロパティ > レイヤーボタンがあるパネル**
 * **―(3D view area > properties > the layer button panel)**
@@ -1421,25 +1421,25 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **アクティブなテクスチャスロットを塗る**
     * **―(Apply active texture slot)**
         * アクティブなペイントスロットをアクティブなテクスチャスロットにします
-        * ―(The active texture slot slot active paint)
+        * ―(active texture slot slot active paint)
   
 * **UV/画像エディター > 「画像」メニュー**
 * **―(UV / image editor > image menu)**
     * **クイック編集 (拡張)**
     * **―(Quick Edit (extend))**
         * ユーザー設定のファイルタブで設定した追加の外部エディターでクイック編集を行います
-        * ―(Do the quick editing in an external editor of the additional files page of the custom)
+        * ―(Do quick editing in an external editor of additional files page of custom)
   
 * **「3Dビュー」エリア > 「プロパティ」パネル > 「ビュー」パネル**
 * **―(Area 3D view > properties panel > "view" Panel)**
     * **視点のセーブ**
     * **―(Save view)**
         * 現在の3Dビューの視点をセーブします
-        * ―(Save the current 3D view perspective)
+        * ―(Save current 3D view perspective)
     * **視点のロード**
     * **―(Point of load)**
         * 現在の3Dビューに視点をロードします
-        * ―(Load the current 3D view perspective)
+        * ―(Load current 3D view perspective)
     * **視点セーブを破棄**
     * **―(View save to discard)**
         * 全ての視点セーブデータを削除します
