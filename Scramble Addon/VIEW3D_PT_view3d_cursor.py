@@ -21,8 +21,8 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		col = self.layout.column(align=True)
-		col.operator('view3d.snap_cursor_to_selected', icon='PLUGIN', text="Cursor-choice products")
-		col.operator('view3d.snap_cursor_to_center', icon='PLUGIN', text="Reset cursors")
+		row = self.layout.row(align=True)
+		row.operator('view3d.snap_cursor_to_selected', icon='LAYER_ACTIVE', text="To selection of")
+		row.operator('view3d.snap_cursor_to_center', icon='X', text="Reset")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

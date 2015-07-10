@@ -73,7 +73,7 @@ class ObjectSelectPanel(bpy.types.Panel):
 				if (not group in groups):
 					groups.append(group)
 		row = self.layout.row(align=True)
-		row.operator('object.hide_view_clear', text="All Show", icon='RESTRICT_VIEW_OFF')
+		row.operator('object.hide_view_clear', text="Show all", icon='RESTRICT_VIEW_OFF')
 		row.operator(GroupLayers.bl_idname, text="Non-Group", icon='FILE').group = ''
 		col = self.layout.column(align=True)
 		for group in groups:
