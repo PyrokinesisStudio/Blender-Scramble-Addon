@@ -171,6 +171,8 @@
 "アクティブなポーズライブラリのポーズを最上部、もしくは最下部へ移動させます","Posing in an active pose library moves to the top or bottom"
 "最上部へ","To the top"
 "最下部へ","To the bottom"
+"シェイプキー名をオブジェクト名に","Shape key name in the object name"
+"シェイプキーの名前をオブジェクト名と同じにします","Same as object name the name of the shape key"
 "全ボーンレイヤーを表示","View all bone layer"
 "全てのボーンレイヤーをオンにして表示します","All the bone layer and then displays the"
 "直前のレイヤー情報","The last layer information"

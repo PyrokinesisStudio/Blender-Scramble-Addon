@@ -98,6 +98,7 @@ if "bpy" in locals():
 	imp.reload(BONE_PT_transform)
 	imp.reload(PHYSICS_PT_rigid_body)
 	imp.reload(PHYSICS_PT_rigid_body_constraint)
+	imp.reload(DATA_PT_shape_keys)
 	#imp.reload(***)
 else:
 	from . import IMAGE_MT_image
@@ -179,6 +180,7 @@ else:
 	from . import BONE_PT_transform
 	from . import PHYSICS_PT_rigid_body
 	from . import PHYSICS_PT_rigid_body_constraint
+	from . import DATA_PT_shape_keys
 	#from . import ***
 import bpy
 
@@ -348,6 +350,7 @@ def register():
 	bpy.types.BONE_PT_transform.append(BONE_PT_transform.menu)
 	bpy.types.PHYSICS_PT_rigid_body.append(PHYSICS_PT_rigid_body.menu)
 	bpy.types.PHYSICS_PT_rigid_body_constraint.append(PHYSICS_PT_rigid_body_constraint.menu)
+	bpy.types.DATA_PT_shape_keys.prepend(DATA_PT_shape_keys.menu_prepend)
 	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
@@ -433,6 +436,7 @@ def unregister():
 	bpy.types.BONE_PT_transform.remove(BONE_PT_transform.menu)
 	bpy.types.PHYSICS_PT_rigid_body.remove(PHYSICS_PT_rigid_body.menu)
 	bpy.types.PHYSICS_PT_rigid_body_constraint.remove(PHYSICS_PT_rigid_body_constraint.menu)
+	bpy.types.DATA_PT_shape_keys.remove(DATA_PT_shape_keys.menu_prepend)
 	#bpy.types.***.remove(***.menu)
 
 # メイン関数
