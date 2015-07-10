@@ -49,7 +49,7 @@ class RenameTextureFileName(bpy.types.Operator):
 class RemoveAllTextureSlots(bpy.types.Operator):
 	bl_idname = "texture.remove_all_texture_slots"
 	bl_label = "Texture slot, all in sky"
-	bl_description = "Empties all active material texture slots."
+	bl_description = "Empties all active material texture slots"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

@@ -92,7 +92,7 @@ class RemoveEmptyMaterialSlot(bpy.types.Operator):
 
 class SetTransparentBackSide(bpy.types.Operator):
 	bl_idname = "material.set_transparent_back_side"
-	bl_label = "Transparent back."
+	bl_label = "Transparent back"
 	bl_description = "Sets shader nodes transparently mesh back"
 	bl_options = {'REGISTER', 'UNDO'}
 	

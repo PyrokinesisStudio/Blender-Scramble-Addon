@@ -623,7 +623,7 @@ class SetRigidBodyBone(bpy.types.Operator):
 			obj.draw_type = 'WIRE'
 			const = arm_obj.pose.bones[bone.name].constraints.new('DAMPED_TRACK')
 			const.target = obj
-			obj.name = "剛"
+			obj.name = "RigidBody"
 			shape = obj
 			bpy.ops.rigidbody.object_add()
 			
@@ -800,7 +800,7 @@ class SetIKRotationLimitByPose(bpy.types.Operator):
 class BoneNameMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_pose_specials_bone_name"
 	bl_label = "Bone name"
-	bl_description = "Feature on bone name menu."
+	bl_description = "Feature on bone name menu"
 	
 	def draw(self, context):
 		self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")
@@ -817,7 +817,7 @@ class BoneNameMenu(bpy.types.Menu):
 class SpecialsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_pose_specials_specials"
 	bl_label = "Special processing"
-	bl_description = "Handling special functions menu."
+	bl_description = "Handling special functions menu"
 	
 	def draw(self, context):
 		self.layout.operator(SplineGreasePencil.bl_idname, icon="PLUGIN")

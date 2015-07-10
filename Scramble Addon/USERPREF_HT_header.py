@@ -166,9 +166,9 @@ class ShowShortcutHtml(bpy.types.Operator):
 					if (cfg.key_modifier != 'NONE'):
 						cfgStr = cfgStr + " " + cfg.key_modifier
 					if (cfgStr):
-						cfgStr = "(+" + cfgStr[1:] + ")　"
+						cfgStr = "(+" + cfgStr[1:] + ") "
 					if (cfg.any):
-						cfgStr = "(Always)　"
+						cfgStr = "(Always) "
 					modifierKeyStr = cfgStr
 					if (cfg.name):
 						if (cfg.idname == "wm.call_menu"):
@@ -839,7 +839,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 					if (keymap_item.show_expanded):
 						i += 1
 		if (i <= 0):
-			self.report(type={'ERROR'}, message="No assignment during deployment.")
+			self.report(type={'ERROR'}, message="No assignment during deployment")
 			return {'CANCELLED'}
 		if (2 <= i):
 			self.report(type={'ERROR'}, message="Try only one expansion assignments in the")
@@ -926,7 +926,7 @@ class ToggleDisabledMenu(bpy.types.Operator):
 class InputMenu(bpy.types.Menu):
 	bl_idname = "USERPREF_HT_header_input"
 	bl_label = "  Shortcut keys"
-	bl_description = "Operations related to shortcut menu."
+	bl_description = "Operations related to shortcut menu"
 	
 	def draw(self, context):
 		self.layout.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
@@ -941,7 +941,7 @@ class InputMenu(bpy.types.Menu):
 class AddonsMenu(bpy.types.Menu):
 	bl_idname = "USERPREF_HT_header_scramble_addon"
 	bl_label = "  Scramble Addon"
-	bl_description = "Operations involving scramble Addon menu."
+	bl_description = "Operations involving scramble Addon menu"
 	
 	def draw(self, context):
 		self.layout.operator(ToggleDisabledMenu.bl_idname, icon="PLUGIN")

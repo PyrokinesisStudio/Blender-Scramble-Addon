@@ -57,12 +57,12 @@ class ToggleSmooth(bpy.types.Operator):
 				else:
 					bpy.ops.object.shade_smooth()
 		else:
-			self.report(type={'ERROR'}, message="Try mesh object to activate it.")
+			self.report(type={'ERROR'}, message="Try mesh object to activate it")
 			return {'CANCELLED'}
 		if (is_smoothed):
-			self.report(type={'WARNING'}, message="Have flat mesh object.")
+			self.report(type={'WARNING'}, message="Have flat mesh object")
 		else:
-			self.report(type={'INFO'}, message="Mesh objects smoothly.")
+			self.report(type={'INFO'}, message="Mesh objects smoothly")
 		return {'FINISHED'}
 
 class VertexGroupTransfer(bpy.types.Operator):
@@ -905,7 +905,7 @@ class MoveBevelObject(bpy.types.Operator):
 					sub_point = obj.matrix_world * spline.points[i-1].co
 					tilt = spline.points[i].tilt
 				else:
-					self.report(type={'ERROR'}, message="Value of option is invalid.")
+					self.report(type={'ERROR'}, message="Value of option is invalid")
 					return {'CANCELLED'}
 			elif (spline.type == 'BEZIER'):
 				if (self.move_position == 'START'):
@@ -922,7 +922,7 @@ class MoveBevelObject(bpy.types.Operator):
 					sub_point = obj.matrix_world * spline.bezier_points[i-1].handle_left
 					tilt = spline.bezier_points[i].tilt
 				else:
-					self.report(type={'ERROR'}, message="Value of option is invalid.")
+					self.report(type={'ERROR'}, message="Value of option is invalid")
 					return {'CANCELLED'}
 			else:
 				self.report(type={'WARNING'}, message=obj.name+"Will ignore is curve type not supported")
@@ -959,7 +959,7 @@ class MoveBevelObject(bpy.types.Operator):
 class RenderHideMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_render_hide"
 	bl_label = "Rendering limits"
-	bl_description = "Menu object rendering limits involved."
+	bl_description = "Menu object rendering limits involved"
 	
 	def draw(self, context):
 		self.layout.operator(SetRenderHide.bl_idname, text="Limit choice of rendering", icon="PLUGIN").reverse = True
@@ -993,7 +993,7 @@ class ObjectNameMenu(bpy.types.Menu):
 class ObjectColorMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_object_color"
 	bl_label = "Object color"
-	bl_description = "Relationship between object color menu."
+	bl_description = "Relationship between object color menu"
 	
 	def draw(self, context):
 		self.layout.operator(ApplyObjectColor.bl_idname, icon="PLUGIN")
@@ -1019,7 +1019,7 @@ class CurveMenu(bpy.types.Menu):
 class SpecialsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_specials"
 	bl_label = "Special processing"
-	bl_description = "Processing special action menu."
+	bl_description = "Processing special action menu"
 	
 	def draw(self, context):
 		self.layout.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")

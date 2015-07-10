@@ -361,7 +361,7 @@ class SelectGroupedEX(bpy.types.Menu):
 class SelectMesh(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_object_mesh"
 	bl_label = "Selected characteristics of mesh"
-	bl_description = "Ability to select mesh object visualization menu."
+	bl_description = "Ability to select mesh object visualization menu"
 	
 	def draw(self, context):
 		self.layout.operator(SelectMeshFaceOnly.bl_idname, text="Terms and", icon="PLUGIN")

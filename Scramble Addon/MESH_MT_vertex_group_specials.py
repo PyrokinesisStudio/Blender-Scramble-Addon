@@ -183,7 +183,7 @@ class RemoveSpecifiedStringVertexGroups(bpy.types.Operator):
 					count += 1
 			self.report(type={'INFO'}, message=str(count)+"Removed vertex groups")
 		else:
-			self.report(type={'ERROR'}, message="Try on mesh object.")
+			self.report(type={'ERROR'}, message="Try on mesh object")
 			return {'CANCELLED'}
 		return {'FINISHED'}
 	def invoke(self, context, event):

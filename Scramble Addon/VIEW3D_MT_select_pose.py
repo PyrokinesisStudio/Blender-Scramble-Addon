@@ -9,7 +9,7 @@ import re
 
 class SelectSerialNumberNameBone(bpy.types.Operator):
 	bl_idname = "pose.select_serial_number_name_bone"
-	bl_label = "Select numbered bone."
+	bl_label = "Select numbered bone"
 	bl_description = "Select name with number like x.005 bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -112,8 +112,8 @@ class SelectMoveSymmetryNameBones(bpy.types.Operator):
 
 class SelectSameConstraintBone(bpy.types.Operator):
 	bl_idname = "pose.select_same_constraint_bone"
-	bl_label = "Select bone same constraints."
-	bl_description = "Select additional bone with active bone and same kind of constraint."
+	bl_label = "Select bone same constraints"
+	bl_description = "Select additional bone with active bone and same kind of constraint"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -150,7 +150,7 @@ class SelectSameConstraintBone(bpy.types.Operator):
 
 class SelectSameNameBones(bpy.types.Operator):
 	bl_idname = "pose.select_same_name_bones"
-	bl_label = "Select bone of same name."
+	bl_label = "Select bone of same name"
 	bl_description = "Regarding bone names, such as X-x.005 X.002 with same name, select"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -477,7 +477,7 @@ class SelectOneAndPath(bpy.types.Operator):
 class SelectGroupedMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_pose_grouped"
 	bl_label = "Selected relationship (extended)"
-	bl_description = "Ability to select all visible bones together with same properties menu."
+	bl_description = "Ability to select all visible bones together with same properties menu"
 	
 	def draw(self, context):
 		self.layout.operator('pose.select_grouped', text="Layer", icon='PLUGIN').type = 'LAYER'

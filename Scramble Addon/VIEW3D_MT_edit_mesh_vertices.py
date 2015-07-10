@@ -122,7 +122,7 @@ class QuickShrinkwrap(bpy.types.Operator):
 class SeparateEXMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_edit_mesh_separate_ex"
 	bl_label = "Separation of different objects (extended)"
-	bl_description = "Isolate to another object of extended menu."
+	bl_description = "Isolate to another object of extended menu"
 	
 	def draw(self, context):
 		self.layout.operator("mesh.separate", text="Selection of").type = 'SELECTED'

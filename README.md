@@ -382,7 +382,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 「最近使ったファイル」の一番上のファイルを開きます
         * ―(Opens file at top of "recent files")
     * **データ名をリネーム**
-    * **―(Data name to rename.)**
+    * **―(Data name to rename)**
         * 全てのデータを対象にしたリネームが可能です
         * ―(Rename using all of data is available)
     * **全ての「すべての辺を表示」をオン**
@@ -517,7 +517,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * このオブジェクトのマテリアルが割り当てられていないマテリアルスロットを全て削除します
         * ―(Delete all material of this object has not been assigned material slots)
     * **裏側を透明にする**
-    * **―(Transparent back.)**
+    * **―(Transparent back)**
         * メッシュの裏側が透明になるようにシェーダーノードを設定します
         * ―(Sets shader nodes transparently mesh back)
     * **スロットを一番上へ**
@@ -670,7 +670,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「プロパティ」エリア > 「レンダー」タブ > 「レンダー」パネル**
 * **―("Properties" area: "render" tab > "render" Panel)**
     * **バックグラウンドでレンダリング**
-    * **―(In background rendering.)**
+    * **―(In background rendering)**
         * コマンドラインから現在のblendファイルをレンダリングします
         * ―(Renders current blend file from command line)
   
@@ -694,7 +694,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **テクスチャスロットを全て空に**
     * **―(Texture slot, all in sky)**
         * アクティブなマテリアルの全てのテクスチャスロットを空にします
-        * ―(Empties all active material texture slots.)
+        * ―(Empties all active material texture slots)
     * **最上段へ**
     * **―(To top)**
         * アクティブなテクスチャスロットを一番上に移動させます
@@ -813,9 +813,9 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **3Dビュー > アーマチュア編集モード > 「W」キー**
 * **―(3D view > armature edit mode > 'W' key)**
     * **選択ボーンをミラーリング**
-    * **―(Select bones mirroring.)**
+    * **―(Select bones mirroring)**
         * 選択中のボーンを任意の軸でミラーリングします
-        * ―(Mirrored at any axes selected bone.)
+        * ―(Mirrored at any axes selected bone)
     * **ボーン名をクリップボードにコピー**
     * **―(Copy to Clipboard bone name)**
         * アクティブボーンの名前をクリップボードにコピーします
@@ -825,7 +825,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * (選択中の)ボーン名を正規表現に一致する部分で置換します
         * ―(In bone name (of choice) to match regular expression replace)
     * **反対位置にあるボーンをリネーム**
-    * **―(Vaughan is located opposite rename.)**
+    * **―(Vaughan is located opposite rename)**
         * 選択中ボーンのX軸反対側の位置にあるボーンを「○.R ○.L」のように対にします
         * ―(Bone is located opposite X axis selection in bone "1.R longs 1.L ' of so versus the)
   
@@ -1156,7 +1156,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **全ての選択不可を解除**
     * **―(Unlock all selectable)**
         * 全ての選択不可設定のボーンを選択可能にします
-        * ―(non-selection of all bone.)
+        * ―(non-selection of all bone)
   
 * **3Dビュー > ポーズモード > 「W」キー**
 * **―(3D view > pause mode > 'W' key)**
@@ -1274,7 +1274,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **3Dビュー > ポーズモード > 「選択」メニュー**
 * **―(3D view > pause mode > select menu)**
     * **連番の付いたボーンを選択**
-    * **―(Select numbered bone.)**
+    * **―(Select numbered bone)**
         * X.001 のように番号の付いた名前のボーンを選択します
         * ―(Select name with number like x.005 bone)
     * **対称のボーンへ選択を移動**
@@ -1282,11 +1282,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * X.Rを選択中ならX.Lへ選択を変更、X.LならX.Rへ
         * ―(If you select X.R change selection to X.L, X.L if to X.R)
     * **同じコンストレイントのボーンを選択**
-    * **―(Select bone same constraints.)**
+    * **―(Select bone same constraints)**
         * アクティブボーンと同じ種類のコンストレイントを持ったボーンを追加選択します
-        * ―(Select additional bone with active bone and same kind of constraint.)
+        * ―(Select additional bone with active bone and same kind of constraint)
     * **同じ名前のボーンを選択**
-    * **―(Select bone of same name.)**
+    * **―(Select bone of same name)**
         * X X.001 X.002 などのボーン名を同じ名前とみなして選択します
         * ―(Regarding bone names, such as X-x.005 X.002 with same name, select)
     * **名前が対称のボーンを追加選択**

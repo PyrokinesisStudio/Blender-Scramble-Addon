@@ -239,8 +239,8 @@ def menu(self, context):
 			text = text + " (Current constant value:" + str(context.scene.render.threads) + ")"
 		self.layout.operator(ToggleThreadsMode.bl_idname, text=text, icon="PLUGIN")
 		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
-		self.layout.prop_menu_enum(context.scene.render, 'antialiasing_samples', text="Anti-aliasing samples.", icon="PLUGIN")
-		self.layout.prop(context.scene.world.light_settings, 'samples', text="AO samples.", icon="PLUGIN")
+		self.layout.prop_menu_enum(context.scene.render, 'antialiasing_samples', text="Anti-aliasing samples", icon="PLUGIN")
+		self.layout.prop(context.scene.world.light_settings, 'samples', text="AO samples", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.menu(SimplifyRenderMenu.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):

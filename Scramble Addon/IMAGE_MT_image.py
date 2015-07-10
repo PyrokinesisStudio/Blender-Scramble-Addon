@@ -889,7 +889,7 @@ class Clipping(bpy.types.Operator):
 class TransformMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_image_transform"
 	bl_label = "Deformation"
-	bl_description = "Image deformation processing menu."
+	bl_description = "Image deformation processing menu"
 	
 	def draw(self, context):
 		self.layout.operator(ReverseWidthImage.bl_idname, icon='PLUGIN')

@@ -9,8 +9,8 @@ import re
 
 class CreateMirror(bpy.types.Operator):
 	bl_idname = "armature.create_mirror"
-	bl_label = "Select bones mirroring."
-	bl_description = "Mirrored at any axes selected bone."
+	bl_label = "Select bones mirroring"
+	bl_description = "Mirrored at any axes selected bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -105,7 +105,7 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 
 class RenameOppositeBone(bpy.types.Operator):
 	bl_idname = "armature.rename_opposite_bone"
-	bl_label = "Vaughan is located opposite rename."
+	bl_label = "Vaughan is located opposite rename"
 	bl_description = "Bone is located opposite X axis selection in bone \"1.R longs 1.L \' of so versus the"
 	bl_options = {'REGISTER', 'UNDO'}
 	

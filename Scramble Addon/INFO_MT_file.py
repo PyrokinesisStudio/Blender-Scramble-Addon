@@ -110,7 +110,7 @@ class LoadLastFile(bpy.types.Operator):
 
 class RenameDataBlocks(bpy.types.Operator):
 	bl_idname = "file.rename_data_blocks"
-	bl_label = "Data name to rename."
+	bl_label = "Data name to rename"
 	bl_description = "Rename using all of data is available"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -802,7 +802,7 @@ class AllSetPhysicsFrames(bpy.types.Operator):
 	startOffset = bpy.props.IntProperty(name="Starting offset", default=0, step=1)
 	endOffset = bpy.props.IntProperty(name="Starting offset", default=0, step=1)
 	
-	isRigidBody = bpy.props.BoolProperty(name="剛", default=True)
+	isRigidBody = bpy.props.BoolProperty(name="RigidBody", default=True)
 	isCloth = bpy.props.BoolProperty(name="Fabric (cloth)", default=True)
 	isSoftBody = bpy.props.BoolProperty(name="Soft body", default=True)
 	isFluid = bpy.props.BoolProperty(name="Fluid", default=True)

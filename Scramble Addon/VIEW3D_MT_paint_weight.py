@@ -180,7 +180,7 @@ class BlurWeight(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="There is no active object")
 			return {'CANCELLED'}
 		if (activeObj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="Try on mesh object.")
+			self.report(type={'ERROR'}, message="Try on mesh object")
 			return {'CANCELLED'}
 		pre_mode = activeObj.mode
 		bpy.ops.object.mode_set(mode='OBJECT')
@@ -252,8 +252,8 @@ def menu(self, context):
 		self.layout.operator(MargeSelectedVertexGroup.bl_idname, icon="PLUGIN")
 		self.layout.operator(RemoveSelectedVertexGroup.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(BlurWeight.bl_idname, text="Active blur.", icon="PLUGIN").mode = 'ACTIVE'
-		self.layout.operator(BlurWeight.bl_idname, text="Everything blurs.", icon="PLUGIN").mode = 'ALL'
+		self.layout.operator(BlurWeight.bl_idname, text="Active blur", icon="PLUGIN").mode = 'ACTIVE'
+		self.layout.operator(BlurWeight.bl_idname, text="Everything blurs", icon="PLUGIN").mode = 'ALL'
 		self.layout.separator()
 		self.layout.operator(VertexGroupAverageAll.bl_idname, icon="PLUGIN")
 		self.layout.separator()
