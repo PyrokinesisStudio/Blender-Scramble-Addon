@@ -1185,13 +1185,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中のボーンにスローペアレントを設定します
         * ―(Sets selected bone slow parent)
     * **ボーン名の XXX.R => XXX_R を相互変換**
-    * **―(Bone name XXX. R = > XXX_R juggling)**
+    * **―(Bone name XXX. R => XXX_R juggling)**
         * ボーン名の XXX.R => XXX_R を相互変換します
-        * ―(Bone name XXX. R = > conversion XXX_R)
+        * ―(Bone name XXX. R => conversion XXX_R)
     * **ボーン名の XXX.R => 右XXX を相互変換**
-    * **―(Bone name XXX. R = > juggling right xxx)**
+    * **―(Bone names XXX.R => 右XXX)**
         * ボーン名の XXX.R => 右XXX を相互変換します
-        * ―(Bone name XXX. R = > conversion right XXX)
+        * ―(Bone names XXX.R => 右XXX)
     * **ポーズの有効/無効を切り替え**
     * **―(Enable/Disable pose)**
         * アーマチュアのポーズ位置/レスト位置を切り替えます

@@ -322,8 +322,8 @@ class SetSlowParentBone(bpy.types.Operator):
 
 class RenameBoneNameEnd(bpy.types.Operator):
 	bl_idname = "pose.rename_bone_name_end"
-	bl_label = "Bone name XXX. R = > XXX_R juggling"
-	bl_description = "Bone name XXX. R = > conversion XXX_R"
+	bl_label = "Bone name XXX. R => XXX_R juggling"
+	bl_description = "Bone name XXX. R => conversion XXX_R"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	reverse = bpy.props.BoolProperty(name="XXX.R => XXX_R", default=False)
@@ -364,11 +364,11 @@ class RenameBoneNameEnd(bpy.types.Operator):
 
 class RenameBoneNameEndJapanese(bpy.types.Operator):
 	bl_idname = "pose.rename_bone_name_end_japanese"
-	bl_label = "Bone name XXX. R = > juggling right xxx"
-	bl_description = "Bone name XXX. R = > conversion right XXX"
+	bl_label = "Bone names XXX.R => 右XXX"
+	bl_description = "Bone names XXX.R => 右XXX"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	reverse = bpy.props.BoolProperty(name="XXX. R = 右XXX >", default=False)
+	reverse = bpy.props.BoolProperty(name="XXX.R => 右XXX", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -389,9 +389,9 @@ class RenameBoneNameEndJapanese(bpy.types.Operator):
 				if re.search(r'[\._][lL]$', bone.name):
 					bone.name = "Left" + bone.name[:-2]
 			else:
-				if re.search(r"^ Right", bone.name):
+				if re.search(r"^右", bone.name):
 					bone.name = bone.name[1:] + "_R"
-				if re.search(r"^ Left", bone.name):
+				if re.search(r"^左", bone.name):
 					bone.name = bone.name[1:] + "_L"
 			if pre_name != bone.name:
 				rename_count += 1
@@ -707,9 +707,9 @@ class SetIKRotationLimitByPose(bpy.types.Operator):
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Mode")
 	use_reverse = bpy.props.BoolProperty(name="Reversal of restrictions", default=True)
-	use_x = bpy.props.BoolProperty(name="Limits of X axis", default=True)
-	use_y = bpy.props.BoolProperty(name="Limits of Y axis", default=True)
-	use_z = bpy.props.BoolProperty(name="Z-limits", default=True)
+	use_x = bpy.props.BoolProperty(name="X axis Limit", default=True)
+	use_y = bpy.props.BoolProperty(name="Y axis Limit", default=True)
+	use_z = bpy.props.BoolProperty(name="Z axis Limit", default=True)
 	is_clear_rot = bpy.props.BoolProperty(name="Reset pose rotation", default=True)
 	
 	@classmethod
@@ -808,11 +808,11 @@ class BoneNameMenu(bpy.types.Menu):
 		self.layout.separator()
 		self.layout.operator(RemoveBoneNameSerialNumbers.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Filename substitution bone \"XXX_R = > XXX. R \"", icon="PLUGIN").reverse = False
-		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Bone name replace \"XXX. R = > XXX_R \"", icon="PLUGIN").reverse = True
+		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Filename substitution bone \"XXX_R => XXX. R \"", icon="PLUGIN").reverse = False
+		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Bone name replace \"XXX. R => XXX_R \"", icon="PLUGIN").reverse = True
 		self.layout.separator()
-		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Filename substitution bone \"XXX_R = > right XXX\"", icon="PLUGIN").reverse = False
-		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Bone name replace \"XXX right = > XXX_R\"", icon="PLUGIN").reverse = True
+		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Filename substitution bone \"XXX_R => right XXX\"", icon="PLUGIN").reverse = False
+		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Bone name replace \"XXX right => XXX_R\"", icon="PLUGIN").reverse = True
 
 class SpecialsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_pose_specials_specials"

@@ -29,7 +29,7 @@ class SelectBoundBoxSize(bpy.types.Operator):
 		('ALL', "All", "", 8),
 		]
 	select_type = bpy.props.EnumProperty(items=items, name="Selection type", default='MESH')
-	threshold = bpy.props.FloatProperty(name="Selection", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
+	threshold = bpy.props.FloatProperty(name="Selection range", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
 	
 	@classmethod
 	def poll(cls, context):
@@ -364,8 +364,8 @@ class SelectMesh(bpy.types.Menu):
 	bl_description = "Ability to select mesh object visualization menu"
 	
 	def draw(self, context):
-		self.layout.operator(SelectMeshFaceOnly.bl_idname, text="Terms and", icon="PLUGIN")
-		self.layout.operator(SelectMeshEdgeOnly.bl_idname, text="Sides only", icon="PLUGIN")
+		self.layout.operator(SelectMeshFaceOnly.bl_idname, text="Face only", icon="PLUGIN")
+		self.layout.operator(SelectMeshEdgeOnly.bl_idname, text="Edge only", icon="PLUGIN")
 		self.layout.operator(SelectMeshVertexOnly.bl_idname, text="Only vertices", icon="PLUGIN")
 		self.layout.operator(SelectMeshNone.bl_idname, text="Without even vertex", icon="PLUGIN")
 

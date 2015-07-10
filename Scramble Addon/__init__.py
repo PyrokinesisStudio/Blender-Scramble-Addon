@@ -219,7 +219,7 @@ class AddonPreferences(bpy.types.AddonPreferences):
 # 追加メニューの有効/無効
 class ToggleMenuEnable(bpy.types.Operator):
 	bl_idname = "wm.toggle_menu_enable"
-	bl_label = "Turn on or off additional items"
+	bl_label = "On/Off additional items"
 	bl_description = "ScrambleAddon-add menu toggles enabled / disabled"
 	bl_options = {'REGISTER', 'UNDO'}
 	
