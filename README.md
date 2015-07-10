@@ -535,14 +535,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Duplicate a shape key)**
         * アクティブなシェイプキーを複製します
         * ―(Duplicate the active shape key)
-    * **シェイプブロック名を調べる**
-    * **―(Examine the shape name)**
-        * シェイプブロックの名前を表示し、クリップボードにコピーします
-        * ―(Copy to the Clipboard, and then displays the name of the shape blocks)
-    * **シェイプブロックの名前をオブジェクト名に**
-    * **―(Block shape name in the object name)**
-        * シェイプブロックの名前をオブジェクト名と同じにします
-        * ―(Same as object name the name of the shape blocks)
     * **全てのシェイプにキーフレームを打つ**
     * **―(Hit the keyframes of all shapes)**
         * 現在のフレームに、全てのシェイプのキーフレームを挿入します

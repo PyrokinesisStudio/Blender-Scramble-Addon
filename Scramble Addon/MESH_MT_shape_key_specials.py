@@ -40,55 +40,6 @@ class CopyShape(bpy.types.Operator):
 				me.shape_keys.key_blocks[k].value = v
 		return {'FINISHED'}
 
-class ShowShapeBlockName(bpy.types.Operator):
-	bl_idname = "mesh.show_shape_block_name"
-	bl_label = "Examine the shape name"
-	bl_description = "Copy to the Clipboard, and then displays the name of the shape blocks"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	@classmethod
-	def poll(cls, context):
-		ob = context.active_object
-		if (ob):
-			if (ob.type == 'MESH'):
-				if (ob.data.shape_keys):
-					return True
-		return False
-	
-	def execute(self, context):
-		obj = context.active_object
-		if (obj.type == "MESH"):
-			shape_keys = obj.data.shape_keys
-			if (shape_keys != None):
-				self.report(type={"INFO"}, message=shape_keys.name)
-				context.window_manager.clipboard = shape_keys.name
-			else:
-				self.report(type={"ERROR"}, message="Shape key does not exist")
-		else:
-			self.report(type={"ERROR"}, message="Mesh objects are not")
-		return {'FINISHED'}
-
-class RenameShapeBlockName(bpy.types.Operator):
-	bl_idname = "mesh.rename_shape_block_name"
-	bl_label = "Block shape name in the object name"
-	bl_description = "Same as object name the name of the shape blocks"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	@classmethod
-	def poll(cls, context):
-		ob = context.active_object
-		if (ob):
-			if (ob.type == 'MESH'):
-				if (ob.data.shape_keys):
-					return True
-		return False
-	
-	def execute(self, context):
-		obj = context.active_object
-		me = obj.data
-		me.shape_keys.name = obj.name
-		return {'FINISHED'}
-
 class InsertKeyframeAllShapes(bpy.types.Operator):
 	bl_idname = "mesh.insert_keyframe_all_shapes"
 	bl_label = "Hit the keyframes of all shapes"
@@ -198,9 +149,6 @@ def menu(self, context):
 		self.layout.operator(ShapeKeyApplyRemoveAll.bl_idname, icon='PLUGIN')
 		self.layout.separator()
 		self.layout.operator(InsertKeyframeAllShapes.bl_idname, icon='PLUGIN')
-		self.layout.separator()
-		self.layout.operator(ShowShapeBlockName.bl_idname, icon='PLUGIN')
-		self.layout.operator(RenameShapeBlockName.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
