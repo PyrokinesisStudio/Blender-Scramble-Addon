@@ -132,9 +132,9 @@ class CopyAxisSetting(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('x', "The x axis", "", 1),
-		('y', "Y軸", "", 2),
-		('z', "Z軸", "", 3),
+		('x', "X axis", "", 1),
+		('y', "Y axis", "", 2),
+		('z', "Z axis", "", 3),
 		]
 	source_axis = bpy.props.EnumProperty(items=items, name="Source-axis")
 	target_x = bpy.props.BoolProperty(name="X", default=True)

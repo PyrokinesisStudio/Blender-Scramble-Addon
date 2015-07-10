@@ -78,9 +78,9 @@ class ToggleMirrorModifier(bpy.types.Operator):
 	bl_description = "Delete if not Miller modifier added, Yes"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	use_x = bpy.props.BoolProperty(name="The x axis", default=True)
-	use_y = bpy.props.BoolProperty(name="Y軸", default=False)
-	use_z = bpy.props.BoolProperty(name="Z軸", default=False)
+	use_x = bpy.props.BoolProperty(name="X axis", default=True)
+	use_y = bpy.props.BoolProperty(name="Y axis", default=False)
+	use_z = bpy.props.BoolProperty(name="Z axis", default=False)
 	use_mirror_merge = bpy.props.BoolProperty(name="Combination", default=True)
 	use_clip = bpy.props.BoolProperty(name="Clipping", default=False)
 	use_mirror_vertex_groups = bpy.props.BoolProperty(name="Vertex group mirror", default=False)
