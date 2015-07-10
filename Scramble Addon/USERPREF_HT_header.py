@@ -172,15 +172,15 @@ class ShowShortcutHtml(bpy.types.Operator):
 					modifierKeyStr = cfgStr
 					if (cfg.name):
 						if (cfg.idname == "wm.call_menu"):
-							cfgStr = cfgStr + "「" + cfg.properties.name + "\"Call menu"
+							cfgStr = cfgStr + "「" + cfg.properties.name + "」Call menu"
 						elif (cfg.idname == "wm.context_set_enum"):
-							cfgStr = cfgStr + "「" + cfg.properties.data_path + "\"\'" + cfg.properties.value + "\"To change"
+							cfgStr = cfgStr + "「" + cfg.properties.data_path + "」to「" + cfg.properties.value + "」To change"
 						elif (cfg.idname == "wm.context_toggle"):
-							cfgStr = cfgStr + "「" + cfg.properties.data_path + "\"switch"
+							cfgStr = cfgStr + "「" + cfg.properties.data_path + "」switch"
 						elif (cfg.idname == "wm.context_toggle_enum"):
-							cfgStr = cfgStr + "「" + cfg.properties.data_path + "\"\'" + cfg.properties.value_1 + "\"And\"" + cfg.properties.value_2 + "\"To switch"
+							cfgStr = cfgStr + "「" + cfg.properties.data_path + "」to「" + cfg.properties.value_1 + "」And「" + cfg.properties.value_2 + "」To switch"
 						elif (cfg.idname == "wm.context_menu_enum"):
-							cfgStr = cfgStr + "「" + cfg.properties.data_path + "\"Call menu"
+							cfgStr = cfgStr + "「" + cfg.properties.data_path + "」Call menu"
 						else:
 							cfgStr = cfgStr + cfg.name
 					else:
