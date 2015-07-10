@@ -1005,7 +1005,7 @@ class ParentMenu(bpy.types.Menu):
 	bl_description = "Is menu of parent-child relationship"
 	
 	def draw(self, context):
-		self.layout.operator(ParentSetApplyModifiers.bl_idname, icon="PLUGIN", text="Modifiers apply = &gt; + vertex (triangle)").type = 'VERTEX_TRI'
+		self.layout.operator(ParentSetApplyModifiers.bl_idname, icon="PLUGIN", text="Modifiers apply = > + vertex (triangle)").type = 'VERTEX_TRI'
 
 class CurveMenu(bpy.types.Menu):
 	bl_idname = "view3d_mt_object_specials_curve"

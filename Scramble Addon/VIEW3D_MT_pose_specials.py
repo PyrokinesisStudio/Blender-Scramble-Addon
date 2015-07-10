@@ -322,8 +322,8 @@ class SetSlowParentBone(bpy.types.Operator):
 
 class RenameBoneNameEnd(bpy.types.Operator):
 	bl_idname = "pose.rename_bone_name_end"
-	bl_label = "Bone name XXX. R = &gt; XXX_R juggling"
-	bl_description = "Bone name XXX. R = &gt; conversion XXX_R"
+	bl_label = "Bone name XXX. R = > XXX_R juggling"
+	bl_description = "Bone name XXX. R = > conversion XXX_R"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	reverse = bpy.props.BoolProperty(name="XXX.R => XXX_R", default=False)
@@ -364,8 +364,8 @@ class RenameBoneNameEnd(bpy.types.Operator):
 
 class RenameBoneNameEndJapanese(bpy.types.Operator):
 	bl_idname = "pose.rename_bone_name_end_japanese"
-	bl_label = "Bone name XXX. R = &gt; juggling right xxx"
-	bl_description = "Bone name XXX. R = &gt; conversion right XXX"
+	bl_label = "Bone name XXX. R = > juggling right xxx"
+	bl_description = "Bone name XXX. R = > conversion right XXX"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	reverse = bpy.props.BoolProperty(name="XXX. R = 右XXX >", default=False)
@@ -808,11 +808,11 @@ class BoneNameMenu(bpy.types.Menu):
 		self.layout.separator()
 		self.layout.operator(RemoveBoneNameSerialNumbers.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Filename substitution bone \"XXX_R = &gt; XXX. R \"", icon="PLUGIN").reverse = False
-		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Bone name replace \"XXX. R = &gt; XXX_R \"", icon="PLUGIN").reverse = True
+		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Filename substitution bone \"XXX_R = > XXX. R \"", icon="PLUGIN").reverse = False
+		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Bone name replace \"XXX. R = > XXX_R \"", icon="PLUGIN").reverse = True
 		self.layout.separator()
-		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Filename substitution bone \"XXX_R = &gt; right XXX\"", icon="PLUGIN").reverse = False
-		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Bone name replace \"XXX right = &gt; XXX_R\"", icon="PLUGIN").reverse = True
+		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Filename substitution bone \"XXX_R = > right XXX\"", icon="PLUGIN").reverse = False
+		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Bone name replace \"XXX right = > XXX_R\"", icon="PLUGIN").reverse = True
 
 class SpecialsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_pose_specials_specials"
