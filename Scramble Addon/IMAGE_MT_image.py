@@ -923,7 +923,7 @@ class FillMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.operator(FillOverrideColor.bl_idname, icon='PLUGIN', text="Override")
-		self.layout.operator(FillColor.bl_idname, icon='PLUGIN', text="Fill")
+		self.layout.operator(FillColor.bl_idname, icon='PLUGIN', text="Paint out")
 		self.layout.operator(FillTransparency.bl_idname, icon='PLUGIN', text="Fill transparent areas")
 
 class NewMenu(bpy.types.Menu):

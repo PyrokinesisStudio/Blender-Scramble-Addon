@@ -139,7 +139,7 @@ class CopyAxisSetting(bpy.types.Operator):
 	source_axis = bpy.props.EnumProperty(items=items, name="Source-axis")
 	target_x = bpy.props.BoolProperty(name="To X", default=True)
 	target_y = bpy.props.BoolProperty(name="To Y", default=True)
-	target_z = bpy.props.BoolProperty(name="To Z\"", default=True)
+	target_z = bpy.props.BoolProperty(name="To Z", default=True)
 	
 	lock_ik = bpy.props.BoolProperty(name="Lock", default=True)
 	ik_stiffness = bpy.props.BoolProperty(name="Rigid", default=True)

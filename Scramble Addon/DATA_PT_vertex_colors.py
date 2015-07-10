@@ -174,7 +174,7 @@ def menu(self, context):
 				sub = row.row(align=True)
 				sub.operator(MoveActiveVertexColor.bl_idname, icon='TRIA_UP', text="").mode = 'UP'
 				sub.operator(MoveActiveVertexColor.bl_idname, icon='TRIA_DOWN', text="").mode = 'DOWN'
-				row.operator(VertexColorSet.bl_idname, icon='BRUSH_DATA', text="Fill")
+				row.operator(VertexColorSet.bl_idname, icon='BRUSH_DATA', text="Paint out")
 		row.menu(SubMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
