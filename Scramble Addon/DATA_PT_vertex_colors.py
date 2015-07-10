@@ -8,13 +8,13 @@ import bpy
 
 class MoveActiveVertexColor(bpy.types.Operator):
 	bl_idname = "object.move_active_vertex_color"
-	bl_label = "Move the vertex color"
-	bl_description = "Move the vertex color of active objects, sorts"
+	bl_label = "Move vertex color"
+	bl_description = "Move vertex color of active objects, sorts"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('UP', "To the top", "", 1),
-		('DOWN', "To the bottom", "", 2),
+		('UP', "To top", "", 1),
+		('DOWN', "To bottom", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Direction", default="UP")
 	
@@ -69,8 +69,8 @@ class MoveActiveVertexColor(bpy.types.Operator):
 
 class VertexColorSet(bpy.types.Operator):
 	bl_idname = "object.vertex_color_set"
-	bl_label = "Fill the vertex color"
-	bl_description = "Vertex color of the active object with the specified color fills"
+	bl_label = "Fill vertex color"
+	bl_description = "Vertex color of active object with specified color fills"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	color = bpy.props.FloatVectorProperty(name="Vertex color", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=3, precision=10, subtype='COLOR_GAMMA')

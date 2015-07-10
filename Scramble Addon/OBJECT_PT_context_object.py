@@ -8,8 +8,8 @@ import bpy
 
 class DataNameToObjectName(bpy.types.Operator):
 	bl_idname = "object.data_name_to_object_name"
-	bl_label = "Object names in the data name"
-	bl_description = "Set the data name linked to object name"
+	bl_label = "Object names in data name"
+	bl_description = "Set data name linked to object name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -27,8 +27,8 @@ class DataNameToObjectName(bpy.types.Operator):
 
 class ObjectNameToDataName(bpy.types.Operator):
 	bl_idname = "object.object_name_to_data_name"
-	bl_label = "Data name in the object name"
-	bl_description = "Sets the data linked to the object name"
+	bl_label = "Data name in object name"
+	bl_description = "Sets data linked to object name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -46,8 +46,8 @@ class ObjectNameToDataName(bpy.types.Operator):
 
 class CopyObjectName(bpy.types.Operator):
 	bl_idname = "object.copy_object_name"
-	bl_label = "Copy the object name"
-	bl_description = "Copy to the Clipboard object name"
+	bl_label = "Copy object name"
+	bl_description = "Copy to Clipboard object name"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -64,8 +64,8 @@ class CopyObjectName(bpy.types.Operator):
 
 class CopyDataName(bpy.types.Operator):
 	bl_idname = "object.copy_data_name"
-	bl_label = "Copy the data name"
-	bl_description = "Copies data to the Clipboard"
+	bl_label = "Copy data name"
+	bl_description = "Copies data to Clipboard"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -99,7 +99,7 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
 		row.alignment = 'RIGHT'
-		row.label("To the Clipboard", icon='COPYDOWN')
+		row.label("To Clipboard", icon='COPYDOWN')
 		row.operator('object.copy_object_name', icon='OBJECT_DATAMODE', text="")
 		if (context.active_bone or context.active_pose_bone):
 			row.operator('object.copy_bone_name', icon='BONE_DATA', text="")

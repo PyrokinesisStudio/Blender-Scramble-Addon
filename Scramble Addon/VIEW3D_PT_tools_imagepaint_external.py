@@ -10,7 +10,7 @@ import os
 class ProjectEditEX(bpy.types.Operator):
 	bl_idname = "image.project_edit_ex"
 	bl_label = "Quick Edit (extend)"
-	bl_description = "Do the quick editing in an external editor of the additional files page of the custom"
+	bl_description = "Do quick editing in an external editor of additional files page of custom"
 	bl_options = {'REGISTER'}
 	
 	index = bpy.props.IntProperty(name="Number to use", default=1, min=1, max=3, soft_min=1, soft_max=3)

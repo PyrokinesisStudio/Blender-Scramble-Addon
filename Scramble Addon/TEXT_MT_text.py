@@ -10,7 +10,7 @@ import os, subprocess
 class ExternalEdit(bpy.types.Operator):
 	bl_idname = "text.external_edit"
 	bl_label = "Edit with external editor"
-	bl_description = "Open the text in an external editor you set on the files page of the custom"
+	bl_description = "Open text in an external editor you set on files page of custom"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	index = bpy.props.IntProperty(name="Number to use", default=1, min=1, max=3, soft_min=1, soft_max=3)
@@ -52,15 +52,15 @@ def menu(self, context):
 		if (context.user_preferences.addons["Scramble Addon"].preferences.text_editor_path_1):
 			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.text_editor_path_1)
 			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEdit.bl_idname, icon="PLUGIN", text=name+" In the open").index = 1
+			self.layout.operator(ExternalEdit.bl_idname, icon="PLUGIN", text=name+" In open").index = 1
 		if (context.user_preferences.addons["Scramble Addon"].preferences.text_editor_path_2):
 			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.text_editor_path_2)
 			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEdit.bl_idname, icon="PLUGIN", text=name+" In the open").index = 2
+			self.layout.operator(ExternalEdit.bl_idname, icon="PLUGIN", text=name+" In open").index = 2
 		if (context.user_preferences.addons["Scramble Addon"].preferences.text_editor_path_3):
 			path = os.path.basename(context.user_preferences.addons["Scramble Addon"].preferences.text_editor_path_3)
 			name, ext = os.path.splitext(path)
-			self.layout.operator(ExternalEdit.bl_idname, icon="PLUGIN", text=name+" In the open").index = 3
+			self.layout.operator(ExternalEdit.bl_idname, icon="PLUGIN", text=name+" In open").index = 3
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

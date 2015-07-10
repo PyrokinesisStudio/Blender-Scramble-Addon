@@ -11,7 +11,7 @@ import collections
 class LocalViewEx(bpy.types.Operator):
 	bl_idname = "view3d.local_view_ex"
 	bl_label = "Global view and local views (non-zoom)"
-	bl_description = "And show only selected objects, center point of the Zoom (is not)"
+	bl_description = "And show only selected objects, center point of Zoom (is not)"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -36,7 +36,7 @@ class LocalViewEx(bpy.types.Operator):
 class TogglePanelsA(bpy.types.Operator):
 	bl_idname = "view3d.toggle_panels_a"
 	bl_label = "Toggle Panel (mode A)"
-	bl_description = "The properties/tool shelf \"both display\" / \"both hide\" toggle"
+	bl_description = "properties/tool shelf \"both display\" / \"both hide\" toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -125,7 +125,7 @@ class ToggleViewportShadeA(bpy.types.Operator):
 class PieMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_view_pie"
 	bl_label = "Pie menu"
-	bl_description = "Is the pie between the 3D view"
+	bl_description = "Is pie between 3D view"
 	
 	def draw(self, context):
 		self.layout.operator(ViewNumpadPieOperator.bl_idname, icon="PLUGIN")
@@ -159,7 +159,7 @@ class ViewNumpadPie(bpy.types.Menu): #
 class ViewportShadePieOperator(bpy.types.Operator):
 	bl_idname = "view3d.viewport_shade_pie_operator"
 	bl_label = "Shading transitions"
-	bl_description = "Is the shading switch pie"
+	bl_description = "Is shading switch pie"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -168,7 +168,7 @@ class ViewportShadePieOperator(bpy.types.Operator):
 class ViewportShadePie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_view_pie_viewport_shade"
 	bl_label = "Shading transitions"
-	bl_description = "Is the shading switch pie"
+	bl_description = "Is shading switch pie"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Bounding box", icon="BBOX").mode = "BOUNDBOX"

@@ -8,11 +8,11 @@ import bpy
 
 class RenameTextureFileName(bpy.types.Operator):
 	bl_idname = "texture.rename_texture_file_name"
-	bl_label = "Image file name to use the texture name"
-	bl_description = "The file name of the external images using the name of the active texture"
+	bl_label = "Image file name to use texture name"
+	bl_description = "file name of external images using name of active texture"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isExt = bpy.props.BoolProperty(name="Including the extension", default=True)
+	isExt = bpy.props.BoolProperty(name="Including extension", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -48,7 +48,7 @@ class RenameTextureFileName(bpy.types.Operator):
 
 class RemoveAllTextureSlots(bpy.types.Operator):
 	bl_idname = "texture.remove_all_texture_slots"
-	bl_label = "Texture slot, all in the sky"
+	bl_label = "Texture slot, all in sky"
 	bl_description = "Empties all active material texture slots"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -70,8 +70,8 @@ class RemoveAllTextureSlots(bpy.types.Operator):
 
 class SlotMoveTop(bpy.types.Operator):
 	bl_idname = "texture.slot_move_top"
-	bl_label = "To the top"
-	bl_description = "Move the active texture slot at the top"
+	bl_label = "To top"
+	bl_description = "Move active texture slot at top"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -99,8 +99,8 @@ class SlotMoveTop(bpy.types.Operator):
 
 class SlotMoveBottom(bpy.types.Operator):
 	bl_idname = "texture.slot_move_bottom"
-	bl_label = "To the bottom"
-	bl_description = "Move the active texture slot at the bottom"
+	bl_label = "To bottom"
+	bl_description = "Move active texture slot at bottom"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -164,7 +164,7 @@ class RemoveUnenabledSlots(bpy.types.Operator):
 
 class TruncateEmptySlots(bpy.types.Operator):
 	bl_idname = "texture.truncate_empty_slots"
-	bl_label = "Cut the texture slot empty"
+	bl_label = "Cut texture slot empty"
 	bl_description = "No texture is assigned an empty texture slots will be filled, truncated"
 	bl_options = {'REGISTER', 'UNDO'}
 	

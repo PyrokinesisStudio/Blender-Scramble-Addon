@@ -8,8 +8,8 @@ import bpy
 
 class ShowTextureImage(bpy.types.Operator):
 	bl_idname = "texture.show_texture_image"
-	bl_label = "Texture images show in the UV / image editor"
-	bl_description = "Image is used in the active texture shows the UV / image editor"
+	bl_label = "Texture images show in UV / image editor"
+	bl_description = "Image is used in active texture shows UV / image editor"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -75,7 +75,7 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		self.layout.operator(ShowTextureImage.bl_idname, icon='PLUGIN', text="In the UV / image editor show pictures")
+		self.layout.operator(ShowTextureImage.bl_idname, icon='PLUGIN', text="In UV / image editor show pictures")
 		self.layout.operator(StartTexturePaint.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

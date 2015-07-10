@@ -40,8 +40,8 @@ class InvertHide(bpy.types.Operator):
 
 class HideVertexOnly(bpy.types.Operator):
 	bl_idname = "mesh.hide_vertex_only"
-	bl_label = "Hide only the top"
-	bl_description = "To hide the selected vertices, the fixed"
+	bl_label = "Hide only top"
+	bl_description = "To hide selected vertices, fixed"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -59,8 +59,8 @@ class HideVertexOnly(bpy.types.Operator):
 
 class HideParts(bpy.types.Operator):
 	bl_idname = "mesh.hide_parts"
-	bl_label = "Hide the selected parts"
-	bl_description = "Hides the mesh part more than 1 vertex is selected"
+	bl_label = "Hide selected parts"
+	bl_description = "Hides mesh part more than 1 vertex is selected"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	unselected = bpy.props.BoolProperty(name="Non-select Division", default=False)
@@ -90,8 +90,8 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(HideParts.bl_idname, icon="PLUGIN", text="Hide the selected parts").unselected = False
-		self.layout.operator(HideParts.bl_idname, icon="PLUGIN", text="Hide the unselected parts").unselected = True
+		self.layout.operator(HideParts.bl_idname, icon="PLUGIN", text="Hide selected parts").unselected = False
+		self.layout.operator(HideParts.bl_idname, icon="PLUGIN", text="Hide unselected parts").unselected = True
 		self.layout.separator()
 		self.layout.operator(InvertHide.bl_idname, icon="PLUGIN")
 		self.layout.separator()

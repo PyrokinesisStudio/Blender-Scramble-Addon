@@ -93,7 +93,7 @@ class RemoveEmptyMaterialSlot(bpy.types.Operator):
 class SetTransparentBackSide(bpy.types.Operator):
 	bl_idname = "material.set_transparent_back_side"
 	bl_label = "Transparent back."
-	bl_description = "Sets the shader nodes transparently mesh back"
+	bl_description = "Sets shader nodes transparently mesh back"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -127,8 +127,8 @@ class SetTransparentBackSide(bpy.types.Operator):
 
 class MoveMaterialSlotTop(bpy.types.Operator):
 	bl_idname = "material.move_material_slot_top"
-	bl_label = "Slot to the top"
-	bl_description = "Move the active material slots on top"
+	bl_label = "Slot to top"
+	bl_description = "Move active material slots on top"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -149,8 +149,8 @@ class MoveMaterialSlotTop(bpy.types.Operator):
 
 class MoveMaterialSlotBottom(bpy.types.Operator):
 	bl_idname = "material.move_material_slot_bottom"
-	bl_label = "Slots to the bottom"
-	bl_description = "Move the active material slot at the bottom"
+	bl_label = "Slots to bottom"
+	bl_description = "Move active material slot at bottom"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -187,7 +187,7 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
 		self.layout.operator(MoveMaterialSlotTop.bl_idname, icon='PLUGIN', text="Back to top")
-		self.layout.operator(MoveMaterialSlotBottom.bl_idname, icon='PLUGIN', text="To the bottom")
+		self.layout.operator(MoveMaterialSlotBottom.bl_idname, icon='PLUGIN', text="To bottom")
 		self.layout.separator()
 		self.layout.operator(RemoveAllMaterialSlot.bl_idname, icon='PLUGIN')
 		self.layout.operator(RemoveEmptyMaterialSlot.bl_idname, icon='PLUGIN')

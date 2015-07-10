@@ -15,17 +15,17 @@ import xml.etree.ElementTree as ElementTree
 
 class ChangeUserPreferencesTab(bpy.types.Operator):
 	bl_idname = "ui.change_user_preferences_tab"
-	bl_label = "Switch to the custom tab"
-	bl_description = "Cycles the user settings tab"
+	bl_label = "Switch to custom tab"
+	bl_description = "Cycles user settings tab"
 	bl_options = {'REGISTER'}
 	
-	is_left = bpy.props.BoolProperty(name="To the left", default=False)
+	is_left = bpy.props.BoolProperty(name="To left", default=False)
 	
 	def execute(self, context):
 		tabs = ['INTERFACE', 'EDITING', 'INPUT', 'ADDONS', 'THEMES', 'FILES', 'SYSTEM']
 		now_tab = context.user_preferences.active_section
 		if (now_tab not in tabs):
-			self.report(type={'ERROR'}, message="Is the current tab is unexpected")
+			self.report(type={'ERROR'}, message="Is current tab is unexpected")
 			return {'CANCELLED'}
 		if (self.is_left):
 			tabs.reverse()
@@ -49,7 +49,7 @@ class SearchKeyBind(bpy.types.Operator):
 	def execute(self, context):
 		keymap = context.window_manager.keyconfigs.addon.keymaps['temp'].keymap_items[0]
 		if (keymap.type == 'NONE'):
-			self.report(type={'ERROR'}, message="Set the search key is empty")
+			self.report(type={'ERROR'}, message="Set search key is empty")
 			return {'CANCELLED'}
 		filter_str = keymap.type
 		if (not keymap.any):
@@ -70,7 +70,7 @@ class SearchKeyBind(bpy.types.Operator):
 class ClearFilterText(bpy.types.Operator):
 	bl_idname = "ui.clear_filter_text"
 	bl_label = "Clear Search shortcuts"
-	bl_description = "Remove the string used to search for shortcuts"
+	bl_description = "Remove string used to search for shortcuts"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -87,7 +87,7 @@ class ClearFilterText(bpy.types.Operator):
 class CloseKeyMapItems(bpy.types.Operator):
 	bl_idname = "ui.close_key_map_items"
 	bl_label = "Close all game"
-	bl_description = "Collapses all the game menu"
+	bl_description = "Collapses all game menu"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -116,7 +116,7 @@ class CloseKeyMapItems(bpy.types.Operator):
 class ShowShortcutHtml(bpy.types.Operator):
 	bl_idname = "system.show_shortcut_html"
 	bl_label = "View in browser shortcut list"
-	bl_description = "Please see the browser all shortcuts in Blender"
+	bl_description = "Please see browser all shortcuts in Blender"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -176,7 +176,7 @@ class ShowShortcutHtml(bpy.types.Operator):
 						elif (cfg.idname == "wm.context_set_enum"):
 							cfgStr = cfgStr + "「" + cfg.properties.data_path + "\"\'" + cfg.properties.value + "\"To change"
 						elif (cfg.idname == "wm.context_toggle"):
-							cfgStr = cfgStr + "「" + cfg.properties.data_path + "\"The switch"
+							cfgStr = cfgStr + "「" + cfg.properties.data_path + "\"switch"
 						elif (cfg.idname == "wm.context_toggle_enum"):
 							cfgStr = cfgStr + "「" + cfg.properties.data_path + "\"\'" + cfg.properties.value_1 + "\"And\"" + cfg.properties.value_2 + "\"To switch"
 						elif (cfg.idname == "wm.context_menu_enum"):
@@ -270,17 +270,17 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('View3D Dolly Modal', "3D Bewdley modal", "", 52),
 		('Graph Editor Generic', "General graph", "", 53),
 		('Graph Editor', "Graph Editor", "", 54),
-		('Image Generic', "The general picture", "", 55),
+		('Image Generic', "general picture", "", 55),
 		('Image', "Images", "", 56),
-		('Node Generic', "The General node", "", 57),
+		('Node Generic', "General node", "", 57),
 		('Node Editor', "Nordeditor", "", 58),
 		('File Browser', "File browser", "", 59),
 		('File Browser Main', "File browser main", "", 60),
 		('File Browser Buttons', "Filebrowser-Botan", "", 61),
 		('Dopesheet', "Dope sheet", "", 62),
-		('NLA Generic', "The NLA General", "", 63),
+		('NLA Generic', "NLA General", "", 63),
 		('NLA Channels', "NLA channels", "", 64),
-		('NLA Editor', "The NLA Editor", "", 65),
+		('NLA Editor', "NLA Editor", "", 65),
 		('Text Generic', "General text", "", 66),
 		('Text', "Text", "", 67),
 		('SequencerCommon', "Sequencer-common", "", 68),
@@ -408,15 +408,15 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('F19', "F19", "", 111),
 		('PAUSE', "Pause key", "", 112),
 		('INSERT', "Insert key", "", 113),
-		('HOME', "The home key", "", 114),
+		('HOME', "home key", "", 114),
 		('PAGE_UP', "PageUp key", "", 115),
 		('PAGE_DOWN', "Page down key", "", 116),
 		('END', "End key", "", 117),
 		]
 	type = bpy.props.EnumProperty(items=items, name="Input keys")
-	shift = bpy.props.BoolProperty(name="The SHIFT key is a modifier", default=False)
+	shift = bpy.props.BoolProperty(name="SHIFT key is a modifier", default=False)
 	ctrl = bpy.props.BoolProperty(name="CTRL modifier keys to", default=False)
-	alt = bpy.props.BoolProperty(name="The ALT key is a modifier", default=False)
+	alt = bpy.props.BoolProperty(name="ALT key is a modifier", default=False)
 	
 	def execute(self, context):
 		keymap_item = context.window_manager.keyconfigs.user.keymaps[self.key_map].keymap_items.new(self.command, self.type, 'PRESS', False, self.shift, self.ctrl, self.alt)
@@ -504,7 +504,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 class ShowEmptyShortcuts(bpy.types.Operator):
 	bl_idname = "view3d.show_empty_shortcuts"
 	bl_label = "Without assigning shortcut list"
-	bl_description = "Displays the key assignments in the current editing mode without information area"
+	bl_description = "Displays key assignments in current editing mode without information area"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -559,7 +559,7 @@ class ShowEmptyShortcuts(bpy.types.Operator):
 								key_binds[item.type] = item.idname
 							elif (item.any):
 								key_binds[item.type] = item.idname
-		self.report(type={'INFO'}, message = permits[-1]+"Free mode, assign the following")
+		self.report(type={'INFO'}, message = permits[-1]+"Free mode, assign following")
 		for key, value in key_binds.items():
 			if (not value):
 				self.report(type={'INFO'}, message = key_names[key]+" ")
@@ -567,8 +567,8 @@ class ShowEmptyShortcuts(bpy.types.Operator):
 
 class ImportKeyConfigXml(bpy.types.Operator):
 	bl_idname = "file.import_key_config_xml"
-	bl_label = "Import XML in the game"
-	bl_description = "The game reads in XML format"
+	bl_label = "Import XML in game"
+	bl_description = "game reads in XML format"
 	bl_options = {'REGISTER'}
 	
 	filepath = bpy.props.StringProperty(subtype='FILE_PATH')
@@ -591,10 +591,10 @@ class ImportKeyConfigXml(bpy.types.Operator):
 			return {'CANCELLED'}
 		try:
 			if (root.attrib['Version'] != '1.2'):
-				self.report(type={'ERROR'}, message="Does not correspond to the version of the Blender game XML file")
+				self.report(type={'ERROR'}, message="Does not correspond to version of Blender game XML file")
 				return {'CANCELLED'}
 		except KeyError:
-			self.report(type={'ERROR'}, message="Could not determine the version of the Blender game XML file")
+			self.report(type={'ERROR'}, message="Could not determine version of Blender game XML file")
 			return {'CANCELLED'}
 		for key_config_elem in root.findall('KeyConfig'):
 			key_config_name = key_config_elem.attrib['name']
@@ -738,7 +738,7 @@ class ExportKeyConfigXml(bpy.types.Operator):
 
 class MoveKeyBindCategory(bpy.types.Operator):
 	bl_idname = "ui.move_key_bind_category"
-	bl_label = "Move the key assignments that expand the categories"
+	bl_label = "Move key assignments that expand categories"
 	bl_description = "Move key assignments that expand into other categories"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -797,17 +797,17 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('View3D Dolly Modal', "3D Bewdley modal", "", 52),
 		('Graph Editor Generic', "General graph", "", 53),
 		('Graph Editor', "Graph Editor", "", 54),
-		('Image Generic', "The general picture", "", 55),
+		('Image Generic', "general picture", "", 55),
 		('Image', "Images", "", 56),
-		('Node Generic', "The General node", "", 57),
+		('Node Generic', "General node", "", 57),
 		('Node Editor', "Nordeditor", "", 58),
 		('File Browser', "File browser", "", 59),
 		('File Browser Main', "File browser main", "", 60),
 		('File Browser Buttons', "Filebrowser-Botan", "", 61),
 		('Dopesheet', "Dope sheet", "", 62),
-		('NLA Generic', "The NLA General", "", 63),
+		('NLA Generic', "NLA General", "", 63),
 		('NLA Channels', "NLA channels", "", 64),
-		('NLA Editor', "The NLA Editor", "", 65),
+		('NLA Editor', "NLA Editor", "", 65),
 		('Text Generic', "General text", "", 66),
 		('Text', "Text", "", 67),
 		('SequencerCommon', "Sequencer-common", "", 68),
@@ -821,7 +821,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('Clip Dopesheet Editor', "Clip deepseateditor", "", 76),
 		]
 	category = bpy.props.EnumProperty(items=items, name="Move to category")
-	source_delete = bpy.props.BoolProperty(name="Remove the original", default=True)
+	source_delete = bpy.props.BoolProperty(name="Remove original", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -904,13 +904,13 @@ class UpdateScrambleAddon(bpy.types.Operator):
 					uzf.write(zf.read(f))
 					uzf.close()
 		zf.close()
-		self.report(type={"INFO"}, message="Please restart the Blender updated add-ons")
+		self.report(type={"INFO"}, message="Please restart Blender updated add-ons")
 		return {'FINISHED'}
 
 class ToggleDisabledMenu(bpy.types.Operator):
 	bl_idname = "wm.toggle_disabled_menu"
 	bl_label = "Toggle on/off additional items"
-	bl_description = "Turns on/off additional items button at the end of the menu by ScrambleAddon"
+	bl_description = "Turns on/off additional items button at end of menu by ScrambleAddon"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -926,7 +926,7 @@ class ToggleDisabledMenu(bpy.types.Operator):
 class InputMenu(bpy.types.Menu):
 	bl_idname = "USERPREF_HT_header_input"
 	bl_label = "　Shortcut keys"
-	bl_description = "Operations related to the shortcut menu."
+	bl_description = "Operations related to shortcut menu."
 	
 	def draw(self, context):
 		self.layout.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
@@ -941,7 +941,7 @@ class InputMenu(bpy.types.Menu):
 class AddonsMenu(bpy.types.Menu):
 	bl_idname = "USERPREF_HT_header_scramble_addon"
 	bl_label = "　Scramble Addon"
-	bl_description = "Operations involving the scramble Addon menu."
+	bl_description = "Operations involving scramble Addon menu."
 	
 	def draw(self, context):
 		self.layout.operator(ToggleDisabledMenu.bl_idname, icon="PLUGIN")

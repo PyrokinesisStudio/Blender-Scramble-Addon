@@ -8,14 +8,14 @@ import bpy
 
 class SelectAxisLimit(bpy.types.Operator):
 	bl_idname = "mesh.select_axis_limit"
-	bl_label = "Select the vertex of X = 0"
-	bl_description = "Select the vertex of X = 0"
+	bl_label = "Select vertex of X = 0"
+	bl_description = "Select vertex of X = 0"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
 		("0", "X axis", "", 1),
 		("1", "Y axis", "", 2),
-		("2", "Z axis", "", 3),
+		("2", "Z axi", "", 3),
 		]
 	axis = bpy.props.EnumProperty(items=items, name="Axis")
 	offset = bpy.props.FloatProperty(name="Offset", default=0.0, step=10, precision=3)
@@ -38,14 +38,14 @@ class SelectAxisLimit(bpy.types.Operator):
 
 class SelectAxisOver(bpy.types.Operator):
 	bl_idname = "mesh.select_axis_over"
-	bl_label = "Select the right half"
-	bl_description = "Select the right half of the mesh (other settings too)"
+	bl_label = "Select right half"
+	bl_description = "Select right half of mesh (other settings too)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
 		("0", "X axis", "", 1),
 		("1", "Y axis", "", 2),
-		("2", "Z axis", "", 3),
+		("2", "Z axi", "", 3),
 		]
 	axis = bpy.props.EnumProperty(items=items, name="Axis")
 	items = [

@@ -9,7 +9,7 @@ import bpy
 class CellMenuSeparateEX(bpy.types.Operator):
 	bl_idname = "mesh.cell_menu_separate_ex"
 	bl_label = "Separation of different objects (extended)"
-	bl_description = "Isolate to another object of the call the extended menu"
+	bl_description = "Isolate to another object of call extended menu"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -19,7 +19,7 @@ class CellMenuSeparateEX(bpy.types.Operator):
 class SeparateSelectedEX(bpy.types.Operator):
 	bl_idname = "mesh.separate_selected_ex"
 	bl_label = "Choice of (active isolated-side)"
-	bl_description = "After \"in the choice of separation\" enters edit mode for the separation side"
+	bl_description = "After \"in choice of separation\" enters edit mode for separation side"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -41,7 +41,7 @@ class SeparateSelectedEX(bpy.types.Operator):
 class DuplicateNewParts(bpy.types.Operator):
 	bl_idname = "mesh.duplicate_new_parts"
 	bl_label = "A selection of reproduction and new objects"
-	bl_description = "Enters edit mode, replication and selection to the new object from"
+	bl_description = "Enters edit mode, replication and selection to new object from"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -64,11 +64,11 @@ class DuplicateNewParts(bpy.types.Operator):
 class QuickShrinkwrap(bpy.types.Operator):
 	bl_idname = "mesh.quick_shrinkwrap"
 	bl_label = "Quick shrink wrap"
-	bl_description = "Another one you mesh the selected vertices pettanko was bonds, who"
+	bl_description = "Another one you mesh selected vertices pettanko was bonds, who"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('NEAREST_SURFACEPOINT', "The closest surface point", "", 1),
+		('NEAREST_SURFACEPOINT', "closest surface point", "", 1),
 		('PROJECT', "Projection", "", 2),
 		('NEAREST_VERTEX', "Nearest vertex", "", 3),
 		]
@@ -98,7 +98,7 @@ class QuickShrinkwrap(bpy.types.Operator):
 				selected_verts.append(vert.index)
 		if (len(selected_verts) <= 0):
 			bpy.ops.object.mode_set(mode=pre_mode)
-			self.report(type={'ERROR'}, message="One run, select the vertex more than")
+			self.report(type={'ERROR'}, message="One run, select vertex more than")
 			return {'CANCELLED'}
 		new_vg.add(selected_verts, 1.0, 'REPLACE')
 		new_mod = active_obj.modifiers.new("temp", 'SHRINKWRAP')
@@ -122,15 +122,15 @@ class QuickShrinkwrap(bpy.types.Operator):
 class SeparateEXMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_edit_mesh_separate_ex"
 	bl_label = "Separation of different objects (extended)"
-	bl_description = "Isolate to another object of the extended menu."
+	bl_description = "Isolate to another object of extended menu."
 	
 	def draw(self, context):
 		self.layout.operator("mesh.separate", text="Selection of").type = 'SELECTED'
 		self.layout.operator(SeparateSelectedEX.bl_idname, icon="PLUGIN")
 		self.layout.operator(DuplicateNewParts.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator("mesh.separate", text="In the material").type = 'MATERIAL'
-		self.layout.operator("mesh.separate", text="In the isolated structural parts").type = 'LOOSE'
+		self.layout.operator("mesh.separate", text="In material").type = 'MATERIAL'
+		self.layout.operator("mesh.separate", text="In isolated structural parts").type = 'LOOSE'
 
 # メニューのオン/オフの判定
 def IsMenuEnable(self_id):

@@ -12,7 +12,7 @@ class CopyAllMaterialNode(bpy.types.Operator):
 	bl_description = "Copies of other material shader nodes are displayed"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOnlySelected = bpy.props.BoolProperty(name="Only the selected object", default=False)
+	isOnlySelected = bpy.props.BoolProperty(name="Only selected object", default=False)
 	isOnlyUseNode = bpy.props.BoolProperty(name="Only used for those nodes", default=False)
 	
 	@classmethod
@@ -72,7 +72,7 @@ class CopyAllMaterialNode(bpy.types.Operator):
 	
 	def invoke(self, context, event):
 		if (context.space_data.tree_type != 'ShaderNodeTree'):
-			self.report(type={"ERROR"}, message="Please run the shader nodes")
+			self.report(type={"ERROR"}, message="Please run shader nodes")
 			return {"CANCELLED"}
 		wm = context.window_manager
 		return wm.invoke_props_dialog(self)

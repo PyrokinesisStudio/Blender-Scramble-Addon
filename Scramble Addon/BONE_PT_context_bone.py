@@ -10,7 +10,7 @@ import re
 class CopyBoneName(bpy.types.Operator):
 	bl_idname = "object.copy_bone_name"
 	bl_label = "Copy to Clipboard bone name"
-	bl_description = "To the Clipboard copies the bone name"
+	bl_description = "To Clipboard copies bone name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -34,8 +34,8 @@ class CopyBoneName(bpy.types.Operator):
 
 class RenameMirrorActiveBone(bpy.types.Operator):
 	bl_idname = "pose.rename_mirror_active_bone"
-	bl_label = "Flip the bone name"
-	bl_description = "The bone name Active Flip"
+	bl_label = "Flip bone name"
+	bl_description = "bone name Active Flip"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def CheckIsMirror(name):
@@ -121,8 +121,8 @@ class RenameMirrorActiveBone(bpy.types.Operator):
 
 class AppendActiveBoneName(bpy.types.Operator):
 	bl_idname = "pose.append_active_bone_name"
-	bl_label = "Add text to the bone name"
-	bl_description = "Adds a string to the active bone name"
+	bl_label = "Add text to bone name"
+	bl_description = "Adds a string to active bone name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	string = bpy.props.StringProperty(name="Append text")
@@ -180,7 +180,7 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		if (context.edit_bone or context.bone):
 			row = self.layout.row(align=True)
-			row.operator(CopyBoneName.bl_idname, icon='COPYDOWN', text="To the Clipboard")
+			row.operator(CopyBoneName.bl_idname, icon='COPYDOWN', text="To Clipboard")
 			row.operator(RenameMirrorActiveBone.bl_idname, icon='MOD_MIRROR', text="Flip Horizontal")
 			row.menu(AppendNameMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):

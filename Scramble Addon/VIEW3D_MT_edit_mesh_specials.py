@@ -8,8 +8,8 @@ import bpy
 
 class PaintSelectedVertexColor(bpy.types.Operator):
 	bl_idname = "mesh.paint_selected_vertex_color"
-	bl_label = "Fill the selected vertex vertex color"
-	bl_description = "Active vertex colors for the selected vertices with specified color fills"
+	bl_label = "Fill selected vertex vertex color"
+	bl_description = "Active vertex colors for selected vertices with specified color fills"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	color = bpy.props.FloatVectorProperty(name="Color", default=(1, 1, 1), step=1, precision=3, subtype='COLOR_GAMMA', min=0, max=1, soft_min=0, soft_max=1)
@@ -29,8 +29,8 @@ class PaintSelectedVertexColor(bpy.types.Operator):
 
 class SelectTopShape(bpy.types.Operator):
 	bl_idname = "mesh.select_top_shape"
-	bl_label = "Select the shape on the top of"
-	bl_description = "Schipke is at the top of the list, select"
+	bl_label = "Select shape on top of"
+	bl_description = "Schipke is at top of list, select"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -39,8 +39,8 @@ class SelectTopShape(bpy.types.Operator):
 
 class ToggleShowCage(bpy.types.Operator):
 	bl_idname = "mesh.toggle_show_cage"
-	bl_label = "Transition modifiers apply to the editing cage"
-	bl_description = "Toggles whether to apply modifiers to total en bloc spondylectomy in the editing"
+	bl_label = "Transition modifiers apply to editing cage"
+	bl_description = "Toggles whether to apply modifiers to total en bloc spondylectomy in editing"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -80,14 +80,14 @@ class ToggleMirrorModifier(bpy.types.Operator):
 	
 	use_x = bpy.props.BoolProperty(name="X axis", default=True)
 	use_y = bpy.props.BoolProperty(name="Y axis", default=False)
-	use_z = bpy.props.BoolProperty(name="Z axis", default=False)
+	use_z = bpy.props.BoolProperty(name="Z axi", default=False)
 	use_mirror_merge = bpy.props.BoolProperty(name="Combination", default=True)
 	use_clip = bpy.props.BoolProperty(name="Clipping", default=False)
 	use_mirror_vertex_groups = bpy.props.BoolProperty(name="Vertex group mirror", default=False)
 	use_mirror_u = bpy.props.BoolProperty(name="Texture U mirror", default=False)
 	use_mirror_v = bpy.props.BoolProperty(name="Texture V Miller", default=False)
 	merge_threshold = bpy.props.FloatProperty(name="Combined distance", default=0.001, min=0, max=1, soft_min=0, soft_max=1, step=0.01, precision=6)
-	is_top = bpy.props.BoolProperty(name="Add at the top", default=True)
+	is_top = bpy.props.BoolProperty(name="Add at top", default=True)
 	
 	def execute(self, context):
 		activeObj = context.active_object
@@ -125,8 +125,8 @@ class ToggleMirrorModifier(bpy.types.Operator):
 
 class SelectedVertexGroupAverage(bpy.types.Operator):
 	bl_idname = "mesh.selected_vertex_group_average"
-	bl_label = "Fill the selected vertex in average weighted"
-	bl_description = "Fills the selected vertex, vertices weighted average"
+	bl_label = "Fill selected vertex in average weighted"
+	bl_description = "Fills selected vertex, vertices weighted average"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	strength = bpy.props.FloatProperty(name="Mix strength", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)

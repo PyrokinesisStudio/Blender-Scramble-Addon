@@ -9,7 +9,7 @@ import bpy
 class BoneGroupOnlyShow(bpy.types.Operator):
 	bl_idname = "pose.bone_group_only_show"
 	bl_label = "Show only bone bones group"
-	bl_description = "Group active on bones and the bones of other hide"
+	bl_description = "Group active on bones and bones of other hide"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	reverse = bpy.props.BoolProperty(name="Flip", default=False)

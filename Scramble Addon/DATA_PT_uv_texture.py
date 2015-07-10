@@ -9,7 +9,7 @@ import bpy
 class RenameSpecificNameUV(bpy.types.Operator):
 	bl_idname = "object.rename_specific_name_uv"
 	bl_label = "Bulk Rename with UV"
-	bl_description = "Renames the selected objects within designated UV together"
+	bl_description = "Renames selected objects within designated UV together"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	source_name =  bpy.props.StringProperty(name="UV name rename", default="Past UV")
@@ -36,10 +36,10 @@ class RenameSpecificNameUV(bpy.types.Operator):
 class DeleteSpecificNameUV(bpy.types.Operator):
 	bl_idname = "object.delete_specific_name_uv"
 	bl_label = "Bulk delete name UV"
-	bl_description = "Removes the selected object UV of the same name as the specified"
+	bl_description = "Removes selected object UV of same name as specified"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name =  bpy.props.StringProperty(name="Remove the UV name", default="UV")
+	name =  bpy.props.StringProperty(name="Remove UV name", default="UV")
 	
 	@classmethod
 	def poll(cls, context):
@@ -61,7 +61,7 @@ class DeleteSpecificNameUV(bpy.types.Operator):
 
 class RenameUV(bpy.types.Operator):
 	bl_idname = "object.rename_uv"
-	bl_label = "Rename the UV"
+	bl_label = "Rename UV"
 	bl_description = "Renames active UV (UV texture also changes accordingly)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -94,14 +94,14 @@ class RenameUV(bpy.types.Operator):
 						if (slot != None):
 							if (slot.uv_layer == preName):
 									slot.uv_layer = uv.name
-									self.report(type={"INFO"}, message="Material \""+mat.name+"\"The fixed UV designation")
+									self.report(type={"INFO"}, message="Material \""+mat.name+"\"fixed UV designation")
 					for me2 in bpy.data.meshes:
 						for mat2 in me2.materials:
 							if (mat2):
 								if (mat.name == mat2.name):
 									try:
 										me2.uv_layers[preName].name = uv.name
-										self.report(type={"INFO"}, message="Mesh \""+me2.name+"\"The fixed UV designation")
+										self.report(type={"INFO"}, message="Mesh \""+me2.name+"\"fixed UV designation")
 									except KeyError: pass
 		else:
 			self.report(type={'ERROR'}, message="Mesh objects are not")
@@ -121,10 +121,10 @@ class RenameUV(bpy.types.Operator):
 class DeleteEmptyUV(bpy.types.Operator):
 	bl_idname = "object.delete_empty_uv"
 	bl_label = "Remove unused UV"
-	bl_description = "Active object material (the UV is used in other parts disappear) delete unused UV total"
+	bl_description = "Active object material (UV is used in other parts disappear) delete unused UV total"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isAllSelected =  bpy.props.BoolProperty(name="All the selected mesh", default=False)
+	isAllSelected =  bpy.props.BoolProperty(name="All selected mesh", default=False)
 	
 	def execute(self, context):
 		objs = [context.active_object]
@@ -155,12 +155,12 @@ class DeleteEmptyUV(bpy.types.Operator):
 class MoveActiveUV(bpy.types.Operator):
 	bl_idname = "object.move_active_uv"
 	bl_label = "Move to UV"
-	bl_description = "Sorts, by moving the active object\'s UV"
+	bl_description = "Sorts, by moving active object\'s UV"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('UP', "To the top", "", 1),
-		('DOWN', "To the bottom", "", 2),
+		('UP', "To top", "", 1),
+		('DOWN', "To bottom", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Direction", default="UP")
 	

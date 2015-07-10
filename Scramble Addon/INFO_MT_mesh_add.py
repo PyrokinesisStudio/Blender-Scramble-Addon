@@ -50,8 +50,8 @@ class AddSphereOnlySquare(bpy.types.Operator):
 
 class AddVertexOnlyObject(bpy.types.Operator):
 	bl_idname = "mesh.add_vertex_only_object"
-	bl_label = "Only the vertices"
-	bl_description = "Only 1 vertex meshes 3D adds to the position of the cursor"
+	bl_label = "Only vertices"
+	bl_description = "Only 1 vertex meshes 3D adds to position of cursor"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -74,7 +74,7 @@ class AddVertexOnlyObject(bpy.types.Operator):
 class CreateVertexGroupSplits(bpy.types.Operator):
 	bl_idname = "mesh.create_vertex_group_splits"
 	bl_label = "Isolated vertex groups"
-	bl_description = "Create a separate each part of the vertex groups applied mesh group"
+	bl_description = "Create a separate each part of vertex groups applied mesh group"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	threshold = bpy.props.FloatProperty(name="Turn threshold", default=0.5, min=0, max=1, soft_min=0, soft_max=1, step=3, precision=2)

@@ -9,8 +9,8 @@ import re
 
 class RemoveEmptyVertexGroups(bpy.types.Operator):
 	bl_idname = "mesh.remove_empty_vertex_groups"
-	bl_label = "Delete the empty vertex groups"
-	bl_description = "Remove the weights assigned to the mesh vertex groups"
+	bl_label = "Delete empty vertex groups"
+	bl_description = "Remove weights assigned to mesh vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -38,7 +38,7 @@ class RemoveEmptyVertexGroups(bpy.types.Operator):
 
 class AddOppositeVertexGroups(bpy.types.Operator):
 	bl_idname = "mesh.add_opposite_vertex_groups"
-	bl_label = "Add the empty vertex group versus the mirror"
+	bl_label = "Add empty vertex group versus mirror"
 	bl_description = ". L... R, add new bone bones according to mandate rule in Miller vs. empty"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -81,8 +81,8 @@ class AddOppositeVertexGroups(bpy.types.Operator):
 
 class SelectVertexGroupsTop(bpy.types.Operator):
 	bl_idname = "mesh.select_vertex_groups_top"
-	bl_label = "Select the top"
-	bl_description = "Select the item at the top of the vertex groups"
+	bl_label = "Select top"
+	bl_description = "Select item at top of vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -99,8 +99,8 @@ class SelectVertexGroupsTop(bpy.types.Operator):
 		return {'FINISHED'}
 class SelectVertexGroupsBottom(bpy.types.Operator):
 	bl_idname = "mesh.select_vertex_groups_bottom"
-	bl_label = "At the bottom, select"
-	bl_description = "Select the item at the bottom of the vertex groups"
+	bl_label = "At bottom, select"
+	bl_description = "Select item at bottom of vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -118,8 +118,8 @@ class SelectVertexGroupsBottom(bpy.types.Operator):
 
 class MoveVertexGroupTop(bpy.types.Operator):
 	bl_idname = "mesh.move_vertex_group_top"
-	bl_label = "To the top"
-	bl_description = "Move to the top active vertex groups"
+	bl_label = "To top"
+	bl_description = "Move to top active vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -138,8 +138,8 @@ class MoveVertexGroupTop(bpy.types.Operator):
 
 class MoveVertexGroupBottom(bpy.types.Operator):
 	bl_idname = "mesh.move_vertex_group_bottom"
-	bl_label = "To the bottom"
-	bl_description = "Move to the bottom vertex group active"
+	bl_label = "To bottom"
+	bl_description = "Move to bottom vertex group active"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -159,10 +159,10 @@ class MoveVertexGroupBottom(bpy.types.Operator):
 class RemoveSpecifiedStringVertexGroups(bpy.types.Operator):
 	bl_idname = "mesh.remove_specified_string_vertex_groups"
 	bl_label = "Delete a vertex group that contains a specific string"
-	bl_description = "Removes all vertex group names contains the specified string"
+	bl_description = "Removes all vertex group names contains specified string"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	string = bpy.props.StringProperty(name="Part of the name that you want to delete", default="")
+	string = bpy.props.StringProperty(name="Part of name that you want to delete", default="")
 	
 	@classmethod
 	def poll(cls, context):
@@ -181,9 +181,9 @@ class RemoveSpecifiedStringVertexGroups(bpy.types.Operator):
 				if (self.string in vg.name):
 					obj.vertex_groups.remove(vg)
 					count += 1
-			self.report(type={'INFO'}, message=str(count)+"Removed the vertex groups")
+			self.report(type={'INFO'}, message=str(count)+"Removed vertex groups")
 		else:
-			self.report(type={'ERROR'}, message="Please run the mesh object")
+			self.report(type={'ERROR'}, message="Please run mesh object")
 			return {'CANCELLED'}
 		return {'FINISHED'}
 	def invoke(self, context, event):

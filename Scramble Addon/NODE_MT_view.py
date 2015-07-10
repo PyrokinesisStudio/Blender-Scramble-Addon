@@ -9,7 +9,7 @@ import bpy
 class TogglePanelsA(bpy.types.Operator):
 	bl_idname = "node.toggle_panels_a"
 	bl_label = "Toggle Panel (mode A)"
-	bl_description = "The properties/tool shelf \"both display\" / \"both hide\" toggle"
+	bl_description = "properties/tool shelf \"both display\" / \"both hide\" toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):

@@ -9,7 +9,7 @@ import sys, subprocess
 
 class SetRenderResolutionPercentage(bpy.types.Operator):
 	bl_idname = "render.set_render_resolution_percentage"
-	bl_label = "Set the magnification of the resolution"
+	bl_label = "Set magnification of resolution"
 	bl_description = "Set to be rendered settings resolution percentage?"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -21,8 +21,8 @@ class SetRenderResolutionPercentage(bpy.types.Operator):
 
 class SetRenderSlot(bpy.types.Operator):
 	bl_idname = "render.set_render_slot"
-	bl_label = "Set the render slots"
-	bl_description = "Sets a slot to save the rendering result"
+	bl_label = "Set render slots"
+	bl_description = "Sets a slot to save rendering result"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	slot = bpy.props.IntProperty(name="Slot", default=1, min=0, max=100, soft_min=0, soft_max=100, step=1)
@@ -36,7 +36,7 @@ class SetRenderSlot(bpy.types.Operator):
 class ToggleThreadsMode(bpy.types.Operator):
 	bl_idname = "render.toggle_threads_mode"
 	bl_label = "Switching threads"
-	bl_description = "Switch the thread number of CPUS used to render"
+	bl_description = "Switch thread number of CPUS used to render"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	threads = bpy.props.IntProperty(name="Number of threads", default=1, min=1, max=16, soft_min=1, soft_max=16, step=1)
@@ -57,8 +57,8 @@ class ToggleThreadsMode(bpy.types.Operator):
 
 class SetAllSubsurfRenderLevels(bpy.types.Operator):
 	bl_idname = "render.set_all_subsurf_render_levels"
-	bl_label = "Set the Subsurf levels during rendering"
-	bl_description = "Together sets the granularity of Subsurf applied during rendering"
+	bl_label = "Set Subsurf levels during rendering"
+	bl_description = "Together sets granularity of Subsurf applied during rendering"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -87,8 +87,8 @@ class SetAllSubsurfRenderLevels(bpy.types.Operator):
 
 class SyncAllSubsurfRenderLevels(bpy.types.Operator):
 	bl_idname = "render.sync_all_subsurf_render_levels"
-	bl_label = "Sync preview value when rendering the Subsurf levels"
-	bl_description = "Granularity of Subsurf applied during the rendering of all objects set to level in the preview"
+	bl_label = "Sync preview value when rendering Subsurf levels"
+	bl_description = "Granularity of Subsurf applied during rendering of all objects set to level in preview"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	level_offset = bpy.props.IntProperty(name="Subdivision-level offset", default=0, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
@@ -136,8 +136,8 @@ class RenderResolutionPercentageMenu(bpy.types.Menu):
 
 class SimplifyRenderMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_simplify"
-	bl_label = "Simplification of the render"
-	bl_description = "The simplified settings"
+	bl_label = "Simplification of render"
+	bl_description = "simplified settings"
 	
 	def draw(self, context):
 		self.layout.prop(context.scene.render, "use_simplify", icon="PLUGIN")
@@ -151,7 +151,7 @@ class SimplifyRenderMenu(bpy.types.Menu):
 class SlotsRenderMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_slots"
 	bl_label = "Render slots"
-	bl_description = "Change the slot to save the rendering result"
+	bl_description = "Change slot to save rendering result"
 	
 	def draw(self, context):
 		for i in range(len(bpy.data.images["Render Result"].render_slots)):
@@ -160,7 +160,7 @@ class SlotsRenderMenu(bpy.types.Menu):
 class ShadeingMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_shadeing"
 	bl_label = "Use shading"
-	bl_description = "The shading on/off"
+	bl_description = "shading on/off"
 	
 	def draw(self, context):
 		self.layout.prop(context.scene.render, 'use_textures', icon="PLUGIN")
@@ -195,7 +195,7 @@ class SubsurfMenu(bpy.types.Menu):
 		operator.mode = 'ABSOLUTE'
 		operator.levels = 3
 		self.layout.separator()
-		self.layout.operator(SyncAllSubsurfRenderLevels.bl_idname, text="Synchronize the preview value", icon="PLUGIN")
+		self.layout.operator(SyncAllSubsurfRenderLevels.bl_idname, text="Synchronize preview value", icon="PLUGIN")
 
 ################
 # メニュー追加 #
@@ -223,13 +223,13 @@ def menu(self, context):
 		self.layout.prop_menu_enum(context.scene.render.image_settings, 'file_format', text="File formats", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.prop(context.scene, 'frame_start', text="Start frame", icon="PLUGIN")
-		self.layout.prop(context.scene, 'frame_end', text="The final frame", icon="PLUGIN")
+		self.layout.prop(context.scene, 'frame_end', text="final frame", icon="PLUGIN")
 		self.layout.prop(context.scene, 'frame_step', text="Step frame", icon="PLUGIN")
 		self.layout.prop(context.scene.render, 'fps', text="FPS", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.prop(context.scene.render, 'use_antialiasing', text="Use anti-aliasing", icon="PLUGIN")
 		self.layout.prop(context.scene.world.light_settings, 'use_ambient_occlusion', text="AO", icon="PLUGIN")
-		self.layout.prop(context.scene.render, 'use_freestyle', text="Using the FreeStyle", icon="PLUGIN")
+		self.layout.prop(context.scene.render, 'use_freestyle', text="Using FreeStyle", icon="PLUGIN")
 		self.layout.menu(ShadeingMenu.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		text = ToggleThreadsMode.bl_label

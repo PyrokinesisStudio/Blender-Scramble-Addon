@@ -8,7 +8,7 @@ import bpy
 
 class CopyIKSettings(bpy.types.Operator):
 	bl_idname = "pose.copy_ik_settings"
-	bl_label = "Copy the IK set"
+	bl_label = "Copy IK set"
 	bl_description = "Copies of other selected bone IK settings Active"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -75,8 +75,8 @@ class CopyIKSettings(bpy.types.Operator):
 
 class ReverseMinMax(bpy.types.Operator):
 	bl_idname = "pose.reverse_min_max"
-	bl_label = "Flip the minimum / maximum angle"
-	bl_description = "Reverses the minimum and maximum angle of IK setup this bone"
+	bl_label = "Flip minimum / maximum angle"
+	bl_description = "Reverses minimum and maximum angle of IK setup this bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	is_x = bpy.props.BoolProperty(name="Flip X", default=False)
@@ -128,18 +128,18 @@ class ReverseMinMax(bpy.types.Operator):
 class CopyAxisSetting(bpy.types.Operator):
 	bl_idname = "pose.copy_axis_setting"
 	bl_label = "Copy to other axes axis settings"
-	bl_description = "Copy the other axis on one axis"
+	bl_description = "Copy other axis on one axis"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
 		('x', "X axis", "", 1),
 		('y', "Y axis", "", 2),
-		('z', "Z axis", "", 3),
+		('z', "Z axi", "", 3),
 		]
 	source_axis = bpy.props.EnumProperty(items=items, name="Source-axis")
-	target_x = bpy.props.BoolProperty(name="X", default=True)
+	target_x = bpy.props.BoolProperty(name="To X", default=True)
 	target_y = bpy.props.BoolProperty(name="To Y", default=True)
-	target_z = bpy.props.BoolProperty(name="To Z", default=True)
+	target_z = bpy.props.BoolProperty(name="To Z\"", default=True)
 	
 	lock_ik = bpy.props.BoolProperty(name="Lock", default=True)
 	ik_stiffness = bpy.props.BoolProperty(name="Rigid", default=True)
@@ -221,7 +221,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
-		row.operator(CopyIKSettings.bl_idname, icon='COPY_ID', text="Copy the IK set")
+		row.operator(CopyIKSettings.bl_idname, icon='COPY_ID', text="Copy IK set")
 		row.operator(ReverseMinMax.bl_idname, icon='ARROW_LEFTRIGHT', text="Flip angle limit")
 		row.operator(CopyAxisSetting.bl_idname, icon='LINKED', text="Axis configuration copy")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):

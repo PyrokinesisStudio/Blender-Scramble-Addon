@@ -9,7 +9,7 @@ import bpy, bmesh
 class ConvertMesh(bpy.types.Operator):
 	bl_idname = "uv.convert_mesh"
 	bl_label = "Convert UV to mesh"
-	bl_description = "Converts the new mesh to UV active"
+	bl_description = "Converts new mesh to UV active"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):

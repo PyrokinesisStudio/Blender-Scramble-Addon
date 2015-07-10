@@ -8,20 +8,20 @@ import bpy
 
 class Reset2DCursor(bpy.types.Operator):
 	bl_idname = "image.reset_2d_cursor"
-	bl_label = "Reset the position of the cursor"
-	bl_description = "2D cursor moves in the lower left"
+	bl_label = "Reset position of cursor"
+	bl_description = "2D cursor moves in lower left"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
 		("C", "Central", "", 1),
 		("U", "Shang", "", 2),
-		("RU", "On the upper right", "", 3),
+		("RU", "On upper right", "", 3),
 		("R", "Right", "", 4),
 		("RD", "Lower right", "", 5),
 		("D", "Xia", "", 6),
 		("LD", "Lower left", "", 7),
 		("L", "Left", "", 8),
-		("LU", "On the top left", "", 9),
+		("LU", "On top left", "", 9),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Location", default="LD")
 	
@@ -54,7 +54,7 @@ class Reset2DCursor(bpy.types.Operator):
 class TogglePanelsA(bpy.types.Operator):
 	bl_idname = "image.toggle_panels_a"
 	bl_label = "Toggle Panel (mode A)"
-	bl_description = "The properties/tool shelf \"both display\" / \"both hide\" toggle"
+	bl_description = "properties/tool shelf \"both display\" / \"both hide\" toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -137,8 +137,8 @@ class ShortcutsMenu(bpy.types.Menu):
 
 class Reset2DCursorMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_view_reset_2d_cursor"
-	bl_label = "Reset the position of the cursor"
-	bl_description = "Resets the position of the cursor"
+	bl_label = "Reset position of cursor"
+	bl_description = "Resets position of cursor"
 	
 	def draw(self, context):
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Shang").mode = 'U'
@@ -146,10 +146,10 @@ class Reset2DCursorMenu(bpy.types.Menu):
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Xia").mode = 'D'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Left").mode = 'L'
 		self.layout.separator()
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On the upper right").mode = 'RU'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On upper right").mode = 'RU'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Lower right").mode = 'RD'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Lower left").mode = 'LD'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On the top left").mode = 'LU'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On top left").mode = 'LU'
 		self.layout.separator()
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Central").mode = 'C'
 

@@ -9,8 +9,8 @@ import bmesh
 
 class DeleteBySelectMode(bpy.types.Operator):
 	bl_idname = "mesh.delete_by_select_mode"
-	bl_label = "Delete the selection mode and the same element"
-	bl_description = "Same mesh selection mode of the current element (vertices, sides and faces) remove"
+	bl_label = "Delete selection mode and same element"
+	bl_description = "Same mesh selection mode of current element (vertices, sides and faces) remove"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -25,7 +25,7 @@ class DeleteBySelectMode(bpy.types.Operator):
 
 class DeleteHideMesh(bpy.types.Operator):
 	bl_idname = "mesh.delete_hide_mesh"
-	bl_label = "Remove the covering"
+	bl_label = "Remove covering"
 	bl_description = "Delete all are mesh"
 	bl_options = {'REGISTER', 'UNDO'}
 	

@@ -8,7 +8,7 @@ import bpy
 
 class TransformApplyAll(bpy.types.Operator):
 	bl_idname = "object.transform_apply_all"
-	bl_label = "Apply the position / rotation / Pan"
+	bl_label = "Apply position / rotation / Pan"
 	bl_description = "Applies to object position / rotation / Pan"
 	bl_options = {'REGISTER', 'UNDO'}
 	

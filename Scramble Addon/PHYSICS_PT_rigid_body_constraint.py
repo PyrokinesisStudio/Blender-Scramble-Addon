@@ -57,7 +57,7 @@ class CopyConstraintSetting(bpy.types.Operator):
 class ClearConstraintLimits(bpy.types.Operator):
 	bl_idname = "rigidbody.clear_constraint_limits"
 	bl_label = "Initializes a rigid constraint limits"
-	bl_description = "Initializes the rigid constraints of the active object limit settings group"
+	bl_description = "Initializes rigid constraints of active object limit settings group"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	mode = bpy.props.StringProperty(name="Mode", default='', options={'SKIP_SAVE', 'HIDDEN'})
@@ -81,12 +81,12 @@ class ClearConstraintLimits(bpy.types.Operator):
 		return context.window_manager.invoke_props_dialog(self)
 	
 	def draw(self, context):
-		self.layout.label("To initialize the transfer limit")
+		self.layout.label("To initialize transfer limit")
 		row = self.layout.row()
 		row.prop(self, 'is_lin_x', text="X")
 		row.prop(self, 'is_lin_y', text="Y")
 		row.prop(self, 'is_lin_z', text="Z")
-		self.layout.label("To initialize the rotation limit")
+		self.layout.label("To initialize rotation limit")
 		row = self.layout.row()
 		row.prop(self, 'is_ang_x', text="X")
 		row.prop(self, 'is_ang_y', text="Y")
@@ -109,8 +109,8 @@ class ClearConstraintLimits(bpy.types.Operator):
 
 class ReverseConstraintLimits(bpy.types.Operator):
 	bl_idname = "rigidbody.reverse_constraint_limits"
-	bl_label = "Flip the rigid constraints limited"
-	bl_description = "Minimum limit settings of the rigid constraints of the active object and reverses the maximum"
+	bl_label = "Flip rigid constraints limited"
+	bl_description = "Minimum limit settings of rigid constraints of active object and reverses maximum"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	is_lin_x = bpy.props.BoolProperty(name="X Mobile", default=False, options={'SKIP_SAVE'})
@@ -182,7 +182,7 @@ def menu(self, context):
 				elif context.active_object.rigid_body_constraint.type == 'FIXED':
 					row = self.layout.row(align=True)
 					row.operator(ClearConstraintLimits.bl_idname, icon='IPO_LINEAR', text="In General, initialize").mode = 'GENERIC'
-					row.operator(ClearConstraintLimits.bl_idname, icon='DRIVER', text="Generic initialization in the spring").mode = 'GENERIC_SPRING'
+					row.operator(ClearConstraintLimits.bl_idname, icon='DRIVER', text="Generic initialization in spring").mode = 'GENERIC_SPRING'
 		row = self.layout.row(align=True)
 		op = row.operator('wm.context_set_string', icon='SCENE_DATA', text="")
 		op.data_path = 'space_data.context'

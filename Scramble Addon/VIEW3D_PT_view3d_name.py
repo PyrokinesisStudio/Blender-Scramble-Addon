@@ -23,7 +23,7 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
 		row.alignment = 'RIGHT'
-		row.label("To the Clipboard", icon='COPYDOWN')
+		row.label("To Clipboard", icon='COPYDOWN')
 		row.operator('object.copy_object_name', icon='OBJECT_DATAMODE', text="")
 		if (context.active_bone or context.active_pose_bone):
 			row.operator('object.copy_bone_name', icon='BONE_DATA', text="")

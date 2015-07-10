@@ -62,7 +62,7 @@ class CreateMirror(bpy.types.Operator):
 class CopyBoneName(bpy.types.Operator):
 	bl_idname = "armature.copy_bone_name"
 	bl_label = "Copy to Clipboard bone name"
-	bl_description = "Copies the Clipboard the name of active bone"
+	bl_description = "Copies Clipboard name of active bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isObject = bpy.props.BoolProperty(name="Object name", default=False)
@@ -76,8 +76,8 @@ class CopyBoneName(bpy.types.Operator):
 
 class RenameBoneRegularExpression(bpy.types.Operator):
 	bl_idname = "armature.rename_bone_regular_expression"
-	bl_label = "Replace the bone names in regular expressions"
-	bl_description = "In the bone name (of choice) to match regular expression replace"
+	bl_label = "Replace bone names in regular expressions"
+	bl_description = "In bone name (of choice) to match regular expression replace"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isAll = bpy.props.BoolProperty(name="Including non-select all", default=False)
@@ -105,11 +105,11 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 
 class RenameOppositeBone(bpy.types.Operator):
 	bl_idname = "armature.rename_opposite_bone"
-	bl_label = "Bones in the opposite position, rename."
-	bl_description = "Bone is located opposite the X axis selection in bone \"1.R 1 longs.L \' of so versus the"
+	bl_label = "Bones in opposite position, rename."
+	bl_description = "Bone is located opposite X axis selection in bone \"1.R 1 longs.L \' of so versus the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	threshold = bpy.props.FloatProperty(name="At the threshold", default=0.00001, min=0, soft_min=0, step=0.001, precision=5)
+	threshold = bpy.props.FloatProperty(name="At threshold", default=0.00001, min=0, soft_min=0, step=0.001, precision=5)
 	
 	def execute(self, context):
 		obj = context.active_object

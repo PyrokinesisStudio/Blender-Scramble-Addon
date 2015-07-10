@@ -9,7 +9,7 @@ import bpy
 class SnapMesh3DCursor(bpy.types.Operator):
 	bl_idname = "view3d.snap_mesh_3d_cursor"
 	bl_label = "3D cursor snap to mesh"
-	bl_description = "(Please use the shortcuts) mesh surface under the mouse move the 3D cursor"
+	bl_description = "(Please use shortcuts) mesh surface under mouse move 3D cursor"
 	bl_options = {'REGISTER'}
 	
 	mouse_co = bpy.props.IntVectorProperty(name="Mouse position", size=2)
@@ -42,7 +42,7 @@ class SnapMesh3DCursor(bpy.types.Operator):
 class Move3DCursorToViewLocation(bpy.types.Operator):
 	bl_idname = "view3d.move_3d_cursor_to_view_location"
 	bl_label = "3D Navigation view"
-	bl_description = "Move the 3D cursor center position of"
+	bl_description = "Move 3D cursor center position of"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -51,8 +51,8 @@ class Move3DCursorToViewLocation(bpy.types.Operator):
 
 class Move3DCursorFar(bpy.types.Operator):
 	bl_idname = "view3d.move_3d_cursor_far"
-	bl_label = "3D cursor invisible in the (distant)"
-	bl_description = "Pretend to hide the 3D cursor to move far far away"
+	bl_label = "3D cursor invisible in (distant)"
+	bl_description = "Pretend to hide 3D cursor to move far far away"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):

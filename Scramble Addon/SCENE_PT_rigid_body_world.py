@@ -8,8 +8,8 @@ import bpy
 
 class WorldReset(bpy.types.Operator):
 	bl_idname = "rigidbody.world_reset"
-	bl_label = "Recreate the rigid world"
-	bl_description = "Keep setting, recreate the rigid world"
+	bl_label = "Recreate rigid world"
+	bl_description = "Keep setting, recreate rigid world"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -43,7 +43,7 @@ class WorldReset(bpy.types.Operator):
 class SyncFrames(bpy.types.Operator):
 	bl_idname = "rigidbody.sync_frames"
 	bl_label = "Set start / end frames rigid world"
-	bl_description = "Start / end frame rigid world of sets to the start / end frame rendering"
+	bl_description = "Start / end frame rigid world of sets to start / end frame rendering"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	frame_margin = bpy.props.IntProperty(name="Margin", default=0, min=-999, max=999, soft_min=-999, soft_max=999)

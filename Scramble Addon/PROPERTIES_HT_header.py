@@ -12,7 +12,7 @@ class ChangeContextTab(bpy.types.Operator):
 	bl_description = "Turn switch Properties tab"
 	bl_options = {'REGISTER'}
 	
-	is_left = bpy.props.BoolProperty(name="To the left", default=False)
+	is_left = bpy.props.BoolProperty(name="To left", default=False)
 	
 	def execute(self, context):
 		space_data = None
@@ -26,12 +26,12 @@ class ChangeContextTab(bpy.types.Operator):
 					continue
 				break
 		if (not space_data):
-			self.report(type={'ERROR'}, message="Cannot find the properties area")
+			self.report(type={'ERROR'}, message="Cannot find properties area")
 			return {'CANCELLED'}
 		now_tab = space_data.context
 		tabs = ['RENDER', 'RENDER_LAYER', 'SCENE', 'WORLD', 'OBJECT', 'CONSTRAINT', 'MODIFIER', 'DATA', 'BONE', 'BONE_CONSTRAINT', 'MATERIAL', 'TEXTURE', 'PARTICLES', 'PHYSICS']
 		if (now_tab not in tabs):
-			self.report(type={'ERROR'}, message="Is the current tab is unexpected")
+			self.report(type={'ERROR'}, message="Is current tab is unexpected")
 			return {'CANCELLED'}
 		if (self.is_left):
 			tabs.reverse()

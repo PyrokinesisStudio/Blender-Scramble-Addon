@@ -17,7 +17,7 @@ class PieMenu(bpy.types.Menu):
 class AreaTypePieOperator(bpy.types.Operator):
 	bl_idname = "wm.area_type_pie_operator"
 	bl_label = "Editor type"
-	bl_description = "Change the editor type pie menu is"
+	bl_description = "Change editor type pie menu is"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -26,7 +26,7 @@ class AreaTypePieOperator(bpy.types.Operator):
 class AreaTypePie(bpy.types.Menu): #
 	bl_idname = "INFO_MT_window_pie_area_type"
 	bl_label = "Editor type"
-	bl_description = "Change the editor type pie menu is"
+	bl_description = "Change editor type pie menu is"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Text editor", icon="TEXT").type = "TEXT_EDITOR"
@@ -42,17 +42,17 @@ class AreaTypePie(bpy.types.Menu): #
 class AreaTypePieAnim(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie_area_type_anim"
 	bl_label = "Editor type (animation)"
-	bl_description = "Is a pie menu change the editor type (animation related)"
+	bl_description = "Is a pie menu change editor type (animation related)"
 	
 	def draw(self, context):
-		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="The NLA Editor", icon="NLA").type = "NLA_EDITOR"
+		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="NLA Editor", icon="NLA").type = "NLA_EDITOR"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Dope sheet", icon="ACTION").type = "DOPESHEET_EDITOR"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Graph Editor", icon="IPO").type = "GRAPH_EDITOR"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Timeline", icon="TIME").type = "TIMELINE"
 class AreaTypePieOther(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie_area_type_other"
 	bl_label = "Editor type (other)"
-	bl_description = "Is a pie menu change the editor type (other)"
+	bl_description = "Is a pie menu change editor type (other)"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Logic Editor", icon="LOGIC").type = "LOGIC_EDITOR"
@@ -64,8 +64,8 @@ class AreaTypePieOther(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="User settings", icon="PREFERENCES").type = "USER_PREFERENCES"
 class SetAreaType(bpy.types.Operator): #
 	bl_idname = "wm.set_area_type"
-	bl_label = "Change the editor type"
-	bl_description = "Change the editor type"
+	bl_label = "Change editor type"
+	bl_description = "Change editor type"
 	bl_options = {'REGISTER'}
 	
 	type = bpy.props.StringProperty(name="Area type")

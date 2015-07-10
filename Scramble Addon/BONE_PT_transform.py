@@ -8,7 +8,7 @@ import bpy
 
 class CopyBoneTransform(bpy.types.Operator):
 	bl_idname = "pose.copy_bone_transform"
-	bl_label = "Copy the bone deformation"
+	bl_label = "Copy bone deformation"
 	bl_description = "Copy selected bones of other active bone deformation information"
 	bl_options = {'REGISTER', 'UNDO'}
 	

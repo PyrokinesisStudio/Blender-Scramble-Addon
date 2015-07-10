@@ -12,8 +12,8 @@ import bpy
 
 class SetBoneNames(bpy.types.Operator):
 	bl_idname = "pose.set_bone_names"
-	bl_label = "Set the bone name"
-	bl_description = "The name of the selected bone sets together"
+	bl_label = "Set bone name"
+	bl_description = "name of selected bone sets together"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	name =  bpy.props.StringProperty(name="Bone name", default="Bone")
@@ -31,8 +31,8 @@ class SetBoneNames(bpy.types.Operator):
 
 class SetCurvedBones(bpy.types.Operator):
 	bl_idname = "pose.set_curved_bones"
-	bl_label = "Set the curve ban"
-	bl_description = "The selected bone curve born setting"
+	bl_label = "Set curve ban"
+	bl_description = "selected bone curve born setting"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	bbone_segments = bpy.props.IntProperty(name="Segment", default=1, min=1, soft_min=1)
@@ -50,8 +50,8 @@ class SetCurvedBones(bpy.types.Operator):
 
 class SetBoneRoll(bpy.types.Operator):
 	bl_idname = "pose.set_bone_roll"
-	bl_label = "Set the roll"
-	bl_description = "Sets the selected bone roll"
+	bl_label = "Set roll"
+	bl_description = "Sets selected bone roll"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	roll = bpy.props.FloatProperty(name="Roll", default=0, step=10, precision=3)
@@ -67,7 +67,7 @@ class LinkIKSetting(bpy.types.Operator):
 	bl_description = "Copy selected bone of other active bone IK settings (speed limitations)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isX = bpy.props.BoolProperty(name="Set the X axis", default=True)
+	isX = bpy.props.BoolProperty(name="Set X axis", default=True)
 	isY = bpy.props.BoolProperty(name="Y axis settings", default=True)
 	isZ = bpy.props.BoolProperty(name="Z axis settings", default=True)
 	isStretch = bpy.props.BoolProperty(name="Stretch settings", default=True)
@@ -101,14 +101,14 @@ class LinkIKSetting(bpy.types.Operator):
 class SetIKPoleTarget(bpy.types.Operator):
 	bl_idname = "pose.set_ik_pole_target"
 	bl_label = "Paul targeting IK"
-	bl_description = "Chose the second Paul target of active bone IK bones sets"
+	bl_description = "Chose second Paul target of active bone IK bones sets"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
 		activeObj = context.active_object
 		activeBone = context.active_pose_bone
 		if (len(context.selected_pose_bones) != 2):
-			self.report(type={"ERROR"}, message="2 Select the bone and try")
+			self.report(type={"ERROR"}, message="2 Select bone and try")
 			return {"CANCELLED"}
 		for bone in context.selected_pose_bones:
 			if (activeBone.name != bone.name):
@@ -125,14 +125,14 @@ class SetIKPoleTarget(bpy.types.Operator):
 
 class SetIKChainLength(bpy.types.Operator):
 	bl_idname = "pose.set_ik_chain_length"
-	bl_label = "Set the length of the IK chain"
-	bl_description = "Second choice of active bone IK chain length to length to the bones and set the"
+	bl_label = "Set length of IK chain"
+	bl_description = "Second choice of active bone IK chain length to length to bones and set the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
 		activeBone = context.active_pose_bone
 		if (len(context.selected_pose_bones) != 2):
-			self.report(type={"ERROR"}, message="2 Select the bone and try")
+			self.report(type={"ERROR"}, message="2 Select bone and try")
 			return {"CANCELLED"}
 		targetBone = None
 		for bone in context.selected_pose_bones:
@@ -151,7 +151,7 @@ class SetIKChainLength(bpy.types.Operator):
 				i = 0
 				break
 		if (i == 0):
-			self.report(type={"ERROR"}, message="Could not get the chain well")
+			self.report(type={"ERROR"}, message="Could not get chain well")
 			return {"CANCELLED"}
 		ik = None
 		for const in activeBone.constraints:

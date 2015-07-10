@@ -9,10 +9,10 @@ import bpy
 class SaveView(bpy.types.Operator):
 	bl_idname = "view3d.save_view"
 	bl_label = "Save view"
-	bl_description = "Save the current 3D view perspective"
+	bl_description = "Save current 3D view perspective"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	save_name = bpy.props.StringProperty(name="The name", default="View saved games")
+	save_name = bpy.props.StringProperty(name="name", default="View saved games")
 	
 	def execute(self, context):
 		data = ""
@@ -23,7 +23,7 @@ class SaveView(bpy.types.Operator):
 				save_name = line.split(':')[0]
 			except ValueError:
 				context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = ""
-				self.report(type={'ERROR'}, message="Failed to load of the SaveGame resets")
+				self.report(type={'ERROR'}, message="Failed to load of SaveGame resets")
 				return {'CANCELLED'}
 			if (str(self.save_name) == save_name):
 				continue
@@ -45,7 +45,7 @@ class SaveView(bpy.types.Operator):
 class LoadView(bpy.types.Operator):
 	bl_idname = "view3d.load_view"
 	bl_label = "Point of load"
-	bl_description = "Load the current 3D view perspective"
+	bl_description = "Load current 3D view perspective"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	index = bpy.props.StringProperty(name="View saved names", default="View saved games")
@@ -58,7 +58,7 @@ class LoadView(bpy.types.Operator):
 				index, loc, rot, distance, view_perspective = line.split(':')
 			except ValueError:
 				context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = ""
-				self.report(type={'ERROR'}, message="Failed to load of the SaveGame resets")
+				self.report(type={'ERROR'}, message="Failed to load of SaveGame resets")
 				return {'CANCELLED'}
 			if (str(self.index) == index):
 				for i, v in enumerate(loc.split(',')):

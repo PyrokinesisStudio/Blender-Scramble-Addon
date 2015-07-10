@@ -25,7 +25,7 @@ class RegisterBlendFile(bpy.types.Operator):
 	def execute(self, context):
 		winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\.blend", winreg.REG_SZ, 'blend_auto_file')
 		winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\blend_auto_file\shell\open\command", winreg.REG_SZ, '"'+sys.argv[0]+'" "%1"')
-		self.report(type={"INFO"}, message="the executable file associated with a.blend file")
+		self.report(type={"INFO"}, message="executable file associated with a.blend file")
 		return {'FINISHED'}
 
 class RegisterBlendBackupFiles(bpy.types.Operator):
@@ -48,7 +48,7 @@ class RegisterBlendBackupFiles(bpy.types.Operator):
 		for i in range(self.max):
 			i += 1
 			winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\.blend"+str(i), winreg.REG_SZ, 'blend1_auto_file')
-		self.report(type={"INFO"}, message="The executable file associated with a backup file")
+		self.report(type={"INFO"}, message="executable file associated with a backup file")
 		return {'FINISHED'}
 
 ################

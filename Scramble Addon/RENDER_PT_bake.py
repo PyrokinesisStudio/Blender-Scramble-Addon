@@ -12,7 +12,7 @@ class NewBakeImage(bpy.types.Operator):
 	bl_description = "New images used to bake quickly, is available"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name = bpy.props.StringProperty(name="The name", default="Bake")
+	name = bpy.props.StringProperty(name="name", default="Bake")
 	width = bpy.props.IntProperty(name="Picture", default=1024, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
 	height = bpy.props.IntProperty(name="Height", default=1024, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
 	alpha = bpy.props.BoolProperty(name="Alpha", default=True)

@@ -10,7 +10,7 @@ import os, shutil
 class ResaveAllImage(bpy.types.Operator):
 	bl_idname = "image.resave_all_image"
 	bl_label = "Resave textures folder, all images"
-	bl_description = "All external files referenced by image data to resave the textures folder"
+	bl_description = "All external files referenced by image data to resave textures folder"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -29,13 +29,13 @@ class ResaveAllImage(bpy.types.Operator):
 					img.unpack()
 				except RuntimeError:
 					pass
-		self.report(type={"INFO"}, message="repaired and stored in the textures folder")
+		self.report(type={"INFO"}, message="repaired and stored in textures folder")
 		return {'FINISHED'}
 
 class IsolationTexturesUnusedFiles(bpy.types.Operator):
 	bl_idname = "image.isolation_textures_unused_files"
-	bl_label = "isolate unused files in the textures folder"
-	bl_description = "Files in a textures folder with the Blend files, do not use isolates them in a backup folder"
+	bl_label = "isolate unused files in textures folder"
+	bl_description = "Files in a textures folder with Blend files, do not use isolates them in a backup folder"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -72,7 +72,7 @@ class IsolationTexturesUnusedFiles(bpy.types.Operator):
 class OpenRecentFiles(bpy.types.Operator):
 	bl_idname = "wm.open_recent_files"
 	bl_label = "Open text in \"recent files\""
-	bl_description = "Open the \"recent files\" in Blender text editor"
+	bl_description = "Open \"recent files\" in Blender text editor"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -104,7 +104,7 @@ class OpenRecentFiles(bpy.types.Operator):
 class OpenBookmarkText(bpy.types.Operator):
 	bl_idname = "wm.open_bookmark_text"
 	bl_label = "Open text in \"bookmarks\""
-	bl_description = "Blender text editor open the file browser bookmarks"
+	bl_description = "Blender text editor open file browser bookmarks"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):

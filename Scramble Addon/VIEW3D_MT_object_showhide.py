@@ -9,7 +9,7 @@ import bpy
 class InvertHide(bpy.types.Operator):
 	bl_idname = "object.invert_hide"
 	bl_label = "Show / hide flip"
-	bl_description = "Flips the object\'s view state and non-State"
+	bl_description = "Flips object\'s view state and non-State"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -29,7 +29,7 @@ class InvertHide(bpy.types.Operator):
 class HideOnlyType(bpy.types.Operator):
 	bl_idname = "object.hide_only_mesh"
 	bl_label = "Hide only specific types of objects"
-	bl_description = "Hides the object of a specific type are displayed"
+	bl_description = "Hides object of a specific type are displayed"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -56,7 +56,7 @@ class HideOnlyType(bpy.types.Operator):
 class HideExceptType(bpy.types.Operator):
 	bl_idname = "object.hide_except_mesh"
 	bl_label = "Non-specific types of objects to hide"
-	bl_description = "Hides the object non-specific type that is displayed"
+	bl_description = "Hides object non-specific type that is displayed"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -72,7 +72,7 @@ class HideExceptType(bpy.types.Operator):
 		("LAMP", "Lamp", "", 10),
 		("SPEAKER", "Speakers", "", 11),
 		]
-	type = bpy.props.EnumProperty(items=items, name="Leave the object type")
+	type = bpy.props.EnumProperty(items=items, name="Leave object type")
 	
 	def execute(self, context):
 		for obj in context.selectable_objects:

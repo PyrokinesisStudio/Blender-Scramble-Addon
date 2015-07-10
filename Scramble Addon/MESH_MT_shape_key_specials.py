@@ -9,7 +9,7 @@ import bpy
 class CopyShape(bpy.types.Operator):
 	bl_idname = "mesh.copy_shape"
 	bl_label = "Duplicate a shape key"
-	bl_description = "Duplicate the active shape key"
+	bl_description = "Duplicate active shape key"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -42,8 +42,8 @@ class CopyShape(bpy.types.Operator):
 
 class InsertKeyframeAllShapes(bpy.types.Operator):
 	bl_idname = "mesh.insert_keyframe_all_shapes"
-	bl_label = "Hit the keyframes of all shapes"
-	bl_description = "Inserts a keyframe for all shapes on the current frame"
+	bl_label = "Hit keyframes of all shapes"
+	bl_description = "Inserts a keyframe for all shapes on current frame"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -64,8 +64,8 @@ class InsertKeyframeAllShapes(bpy.types.Operator):
 
 class SelectShapeTop(bpy.types.Operator):
 	bl_idname = "object.select_shape_top"
-	bl_label = "Select the top"
-	bl_description = "Select the top shape key"
+	bl_label = "Select top"
+	bl_description = "Select top shape key"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -84,8 +84,8 @@ class SelectShapeTop(bpy.types.Operator):
 
 class SelectShapeBottom(bpy.types.Operator):
 	bl_idname = "object.select_shape_bottom"
-	bl_label = "Select the bottom row"
-	bl_description = "Select the bottom shape key"
+	bl_label = "Select bottom row"
+	bl_description = "Select bottom shape key"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -104,8 +104,8 @@ class SelectShapeBottom(bpy.types.Operator):
 
 class ShapeKeyApplyRemoveAll(bpy.types.Operator):
 	bl_idname = "object.shape_key_apply_remove_all"
-	bl_label = "Remove all shape and holds the shape of the current"
-	bl_description = "Remove all shape key while maintaining the shape of the mesh current"
+	bl_label = "Remove all shape and holds shape of current"
+	bl_description = "Remove all shape key while maintaining shape of mesh current"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

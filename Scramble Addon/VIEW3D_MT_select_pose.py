@@ -10,7 +10,7 @@ import re
 class SelectSerialNumberNameBone(bpy.types.Operator):
 	bl_idname = "pose.select_serial_number_name_bone"
 	bl_label = "Select a numbered bone."
-	bl_description = "Select the name with a number X.001 in bone"
+	bl_description = "Select name with a number X.001 in bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -112,7 +112,7 @@ class SelectMoveSymmetryNameBones(bpy.types.Operator):
 
 class SelectSameConstraintBone(bpy.types.Operator):
 	bl_idname = "pose.select_same_constraint_bone"
-	bl_label = "Select the bone of the same constraints"
+	bl_label = "Select bone of same constraints"
 	bl_description = "Select additional bone with active bone and same kind of constraint."
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -150,8 +150,8 @@ class SelectSameConstraintBone(bpy.types.Operator):
 
 class SelectSameNameBones(bpy.types.Operator):
 	bl_idname = "pose.select_same_name_bones"
-	bl_label = "Select the bone of the same name."
-	bl_description = "Regarding the bone names, such as X-X.001 X.002 with the same name, select"
+	bl_label = "Select bone of same name."
+	bl_description = "Regarding bone names, such as X-X.001 X.002 with same name, select"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -248,8 +248,8 @@ class SelectSymmetryNameBones(bpy.types.Operator):
 
 class SelectChildrenEnd(bpy.types.Operator):
 	bl_idname = "pose.select_children_end"
-	bl_label = "Until the end of the bone"
-	bl_description = "Select bones child-child child\'s bones. And we will select to the end"
+	bl_label = "Until end of bone"
+	bl_description = "Select bones child-child child\'s bones. And we will select to end"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -288,7 +288,7 @@ class SelectChildrenEnd(bpy.types.Operator):
 
 class SelectParentEnd(bpy.types.Operator):
 	bl_idname = "pose.select_parent_end"
-	bl_label = "Select the bone"
+	bl_label = "Select bone"
 	bl_description = "Choice bones parent → parent of parent bone. And we will select to the end"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -321,8 +321,8 @@ class SelectParentEnd(bpy.types.Operator):
 
 class SelectPath(bpy.types.Operator):
 	bl_idname = "pose.select_path"
-	bl_label = "Select the route of bones"
-	bl_description = "Select the select bones of two paths"
+	bl_label = "Select route of bones"
+	bl_description = "Select select bones of two paths"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -366,8 +366,8 @@ class SelectPath(bpy.types.Operator):
 
 class SelectAxisOver(bpy.types.Operator):
 	bl_idname = "pose.select_axis_over"
-	bl_label = "Select the right half"
-	bl_description = "Select the right half of the bone (other settings are also available)"
+	bl_label = "Select right half"
+	bl_description = "Select right half of bone (other settings are also available)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -423,7 +423,7 @@ class SelectAxisOver(bpy.types.Operator):
 class SelectOneAndPath(bpy.types.Operator):
 	bl_idname = "pose.select_one_and_path"
 	bl_label = "Bone and its route selection"
-	bl_description = "Select the path to it, select cursor part bone and"
+	bl_description = "Select path to it, select cursor part bone and"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	mouse_pos = bpy.props.IntVectorProperty(name="Mouse position", size=2, options={'HIDDEN'})
@@ -477,7 +477,7 @@ class SelectOneAndPath(bpy.types.Operator):
 class SelectGroupedMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_pose_grouped"
 	bl_label = "Selected relationship (extended)"
-	bl_description = "Ability to select all visible bones together with the same properties menu."
+	bl_description = "Ability to select all visible bones together with same properties menu."
 	
 	def draw(self, context):
 		self.layout.operator('pose.select_grouped', text="Layer", icon='PLUGIN').type = 'LAYER'

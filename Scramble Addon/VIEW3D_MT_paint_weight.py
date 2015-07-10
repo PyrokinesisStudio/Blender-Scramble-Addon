@@ -9,11 +9,11 @@ import bpy, bmesh
 class MargeSelectedVertexGroup(bpy.types.Operator):
 	bl_idname = "paint.marge_selected_vertex_group"
 	bl_label = "Synthesis of weights with each other"
-	bl_description = "The synthetic weights of the selected bone and the same vertex groups"
+	bl_description = "synthetic weights of selected bone and same vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isNewVertGroup = bpy.props.BoolProperty(name="Create a new vertex group", default=False)
-	ext = bpy.props.StringProperty(name="At the end of the new vertex group names", default="... And the synthetic")
+	ext = bpy.props.StringProperty(name="At end of new vertex group names", default="... And synthetic")
 	
 	def execute(self, context):
 		obj = context.active_object
@@ -41,7 +41,7 @@ class MargeSelectedVertexGroup(bpy.types.Operator):
 class RemoveSelectedVertexGroup(bpy.types.Operator):
 	bl_idname = "paint.remove_selected_vertex_group"
 	bl_label = "Subtraction of weight between"
-	bl_description = "Subtracts the weight of the selected bone and the same vertex groups"
+	bl_description = "Subtracts weight of selected bone and same vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -65,8 +65,8 @@ class RemoveSelectedVertexGroup(bpy.types.Operator):
 
 class VertexGroupAverageAll(bpy.types.Operator):
 	bl_idname = "mesh.vertex_group_average_all"
-	bl_label = "Fill in the average weight of all vertices"
-	bl_description = "The average weight of all, fills all the vertices"
+	bl_label = "Fill in average weight of all vertices"
+	bl_description = "average weight of all, fills all vertices"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	strength = bpy.props.FloatProperty(name="Strength", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
@@ -107,8 +107,8 @@ class VertexGroupAverageAll(bpy.types.Operator):
 
 class ApplyDynamicPaint(bpy.types.Operator):
 	bl_idname = "mesh.apply_dynamic_paint"
-	bl_label = "Paint the objects overlap"
-	bl_description = "I painted the weight of the portion that overlaps the other selected objects"
+	bl_label = "Paint objects overlap"
+	bl_description = "I painted weight of portion that overlaps other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isNew = bpy.props.BoolProperty(name="New vertex group", default=False)
@@ -162,7 +162,7 @@ class ApplyDynamicPaint(bpy.types.Operator):
 class BlurWeight(bpy.types.Operator):
 	bl_idname = "mesh.blur_weight"
 	bl_label = "Vertex group blur"
-	bl_description = "Blurs the active or all vertex groups"
+	bl_description = "Blurs active or all vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -171,7 +171,7 @@ class BlurWeight(bpy.types.Operator):
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Target", default='ACTIVE')
 	blur_count = bpy.props.IntProperty(name="Repeat count", default=10, min=1, max=100, soft_min=1, soft_max=100, step=1)
-	use_clean = bpy.props.BoolProperty(name="Remove the weight of 0.0", default=True)
+	use_clean = bpy.props.BoolProperty(name="Remove weight of 0.0", default=True)
 	
 	
 	def execute(self, context):
@@ -180,7 +180,7 @@ class BlurWeight(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="There is no active object")
 			return {'CANCELLED'}
 		if (activeObj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="Please run the mesh object")
+			self.report(type={'ERROR'}, message="Please run mesh object")
 			return {'CANCELLED'}
 		pre_mode = activeObj.mode
 		bpy.ops.object.mode_set(mode='OBJECT')

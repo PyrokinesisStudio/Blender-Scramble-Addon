@@ -8,8 +8,8 @@ import bpy, bmesh
 
 class MakeLinkObjectName(bpy.types.Operator):
 	bl_idname = "object.make_link_object_name"
-	bl_label = "To the same object name"
-	bl_description = "Name of the active object links to other selected objects"
+	bl_label = "To same object name"
+	bl_description = "Name of active object links to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -28,8 +28,8 @@ class MakeLinkObjectName(bpy.types.Operator):
 
 class MakeLinkLayer(bpy.types.Operator):
 	bl_idname = "object.make_link_layer"
-	bl_label = "In the same layer"
-	bl_description = "The link active object layers to other selected objects"
+	bl_label = "In same layer"
+	bl_description = "link active object layers to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -45,12 +45,12 @@ class MakeLinkLayer(bpy.types.Operator):
 
 class MakeLinkDisplaySetting(bpy.types.Operator):
 	bl_idname = "object.make_link_display_setting"
-	bl_label = "Visibility of objects to the same"
-	bl_description = "Copy the settings of the display panel of the active object to other selected objects"
+	bl_label = "Visibility of objects to same"
+	bl_description = "Copy settings of display panel of active object to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isSameType = bpy.props.BoolProperty(name="Only objects of the same type", default=True)
-	show_name = bpy.props.BoolProperty(name="The name", default=True)
+	isSameType = bpy.props.BoolProperty(name="Only objects of same type", default=True)
+	show_name = bpy.props.BoolProperty(name="name", default=True)
 	show_axis = bpy.props.BoolProperty(name="Coordinate axes", default=True)
 	show_wire = bpy.props.BoolProperty(name="Wire frame", default=True)
 	show_all_edges = bpy.props.BoolProperty(name="See all sides", default=True)
@@ -98,8 +98,8 @@ class MakeLinkDisplaySetting(bpy.types.Operator):
 
 class MakeLinkUVNames(bpy.types.Operator):
 	bl_idname = "object.make_link_uv_names"
-	bl_label = "Link to UV map of the sky"
-	bl_description = "Empties the Add UV active objects to other objects"
+	bl_label = "Link to UV map of sky"
+	bl_description = "Empties Add UV active objects to other objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -128,7 +128,7 @@ class MakeLinkUVNames(bpy.types.Operator):
 
 class MakeLinkArmaturePose(bpy.types.Operator):
 	bl_idname = "object.make_link_armature_pose"
-	bl_label = "Link motion of the armature"
+	bl_label = "Link motion of armature"
 	bl_description = "By constraints on other selected armature mimic active armature movement"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -166,7 +166,7 @@ class MakeLinkArmaturePose(bpy.types.Operator):
 class MakeLinkSoftbodySettings(bpy.types.Operator):
 	bl_idname = "object.make_link_softbody_settings"
 	bl_label = "Links for soft body"
-	bl_description = "Sets the active object soft copies to other selected objects"
+	bl_description = "Sets active object soft copies to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -217,7 +217,7 @@ class MakeLinkSoftbodySettings(bpy.types.Operator):
 class MakeLinkClothSettings(bpy.types.Operator):
 	bl_idname = "object.make_link_cloth_settings"
 	bl_label = "Links for cross-"
-	bl_description = "Cloth simulation for the active object copies to other selected objects"
+	bl_description = "Cloth simulation for active object copies to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -272,7 +272,7 @@ class MakeLinkClothSettings(bpy.types.Operator):
 class MakeLinkTransform(bpy.types.Operator):
 	bl_idname = "object.make_link_transform"
 	bl_label = "Link to deformation"
-	bl_description = "Information of the active object copies to other selected objects"
+	bl_description = "Information of active object copies to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	copy_location = bpy.props.BoolProperty(name="Location", default=True)
@@ -348,7 +348,7 @@ def menu(self, context):
 		self.layout.operator(MakeLinkClothSettings.bl_idname, text="Cross set", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(MakeLinkUVNames.bl_idname, text="Free UV", icon="PLUGIN")
-		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="Movement of the armature", icon="PLUGIN")
+		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="Movement of armature", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

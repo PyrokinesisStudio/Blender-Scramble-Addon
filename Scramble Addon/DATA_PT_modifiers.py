@@ -9,7 +9,7 @@ import bpy
 class ApplyAllModifiers(bpy.types.Operator):
 	bl_idname = "object.apply_all_modifiers"
 	bl_label = "All modifiers applied"
-	bl_description = "Applies to all modifiers of the selected object"
+	bl_description = "Applies to all modifiers of selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -28,7 +28,7 @@ class ApplyAllModifiers(bpy.types.Operator):
 class DeleteAllModifiers(bpy.types.Operator):
 	bl_idname = "object.delete_all_modifiers"
 	bl_label = "Remove all modifiers"
-	bl_description = "Remove all modifiers of the selected object"
+	bl_description = "Remove all modifiers of selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -47,8 +47,8 @@ class DeleteAllModifiers(bpy.types.Operator):
 
 class ToggleApplyModifiersView(bpy.types.Operator):
 	bl_idname = "object.toggle_apply_modifiers_view"
-	bl_label = "Modifiers apply to the view switching"
-	bl_description = "Shows or hides the application to view all modifiers of the selected object"
+	bl_label = "Modifiers apply to view switching"
+	bl_description = "Shows or hides application to view all modifiers of selected object"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -70,13 +70,13 @@ class ToggleApplyModifiersView(bpy.types.Operator):
 		if is_apply:
 			self.report(type={"INFO"}, message="Applying modifiers to view")
 		else:
-			self.report(type={"INFO"}, message="Unregistered modifiers apply to the view")
+			self.report(type={"INFO"}, message="Unregistered modifiers apply to view")
 		return {'FINISHED'}
 
 class SyncShowModifiers(bpy.types.Operator):
 	bl_idname = "object.sync_show_modifiers"
 	bl_label = "Synchronized modifier use"
-	bl_description = "The synchronized modifier used when rendering the selection / view"
+	bl_description = "synchronized modifier used when rendering selection / view"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -107,7 +107,7 @@ class SyncShowModifiers(bpy.types.Operator):
 class ToggleAllShowExpanded(bpy.types.Operator):
 	bl_idname = "wm.toggle_all_show_expanded"
 	bl_label = "All modifiers expand / collapse toggle"
-	bl_description = "Expand / collapse all modifiers of the active objects to the switch (toggle)"
+	bl_description = "Expand / collapse all modifiers of active objects to switch (toggle)"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -141,11 +141,11 @@ class ToggleAllShowExpanded(bpy.types.Operator):
 class ApplyModifiersAndJoin(bpy.types.Operator):
 	bl_idname = "object.apply_modifiers_and_join"
 	bl_label = "Modifiers apply + integration"
-	bl_description = "The integration from the object\'s modifiers to apply all"
+	bl_description = "integration from object\'s modifiers to apply all"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	unapply_subsurf = bpy.props.BoolProperty(name="Excluding the Subsurf", default=True)
-	unapply_armature = bpy.props.BoolProperty(name="Except the armature", default=True)
+	unapply_subsurf = bpy.props.BoolProperty(name="Excluding Subsurf", default=True)
+	unapply_armature = bpy.props.BoolProperty(name="Except armature", default=True)
 	unapply_mirror = bpy.props.BoolProperty(name="Except for mirrors", default=False)
 	
 	@classmethod
@@ -173,7 +173,7 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 class AutoRenameModifiers(bpy.types.Operator):
 	bl_idname = "object.auto_rename_modifiers"
 	bl_label = "Modifier name auto-rename."
-	bl_description = "Rename the selected object modifier name refers to, for example,"
+	bl_description = "Rename selected object modifier name refers to, for example,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -243,7 +243,7 @@ class AddBoolean(bpy.types.Operator):
 
 class ApplyBoolean(bpy.types.Operator):
 	bl_idname = "object.apply_boolean"
-	bl_label = "Apply the Boolean"
+	bl_label = "Apply Boolean"
 	bl_description = "Active objects for other Boolean objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -281,7 +281,7 @@ class ApplyBoolean(bpy.types.Operator):
 class SetRenderSubsurfLevel(bpy.types.Operator):
 	bl_idname = "object.set_render_subsurf_level"
 	bl_label = "Rendering subdivision number"
-	bl_description = "Sets the number of subdivisions during rendering of the selected object subsurfmodifaia"
+	bl_description = "Sets number of subdivisions during rendering of selected object subsurfmodifaia"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	level = bpy.props.IntProperty(name="Split number", default=2, min=0, max=6)
@@ -304,8 +304,8 @@ class SetRenderSubsurfLevel(bpy.types.Operator):
 
 class EqualizeSubsurfLevel(bpy.types.Operator):
 	bl_idname = "object.equalize_subsurf_level"
-	bl_label = "Equivalent to a subdivision of the preview rendering"
-	bl_description = "Set in the same subdivision of the subsurfmodifaia of the selected object when you preview and rendering time"
+	bl_label = "Equivalent to a subdivision of preview rendering"
+	bl_description = "Set in same subdivision of subsurfmodifaia of selected object when you preview and rendering time"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -335,8 +335,8 @@ class EqualizeSubsurfLevel(bpy.types.Operator):
 
 class SetSubsurfOptimalDisplay(bpy.types.Operator):
 	bl_idname = "object.set_subsurf_optimal_display"
-	bl_label = "Set the defragmentation display"
-	bl_description = "Sets optimization for the subsurfmodifaia of the selected object"
+	bl_label = "Set defragmentation display"
+	bl_description = "Sets optimization for subsurfmodifaia of selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	mode =  bpy.props.BoolProperty(name="Optimized view")
@@ -360,7 +360,7 @@ class SetSubsurfOptimalDisplay(bpy.types.Operator):
 class DeleteSubsurf(bpy.types.Operator):
 	bl_idname = "object.delete_subsurf"
 	bl_label = "Delete select Subsurf"
-	bl_description = "Removes the selected object subsurfmodifaia"
+	bl_description = "Removes selected object subsurfmodifaia"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -382,7 +382,7 @@ class DeleteSubsurf(bpy.types.Operator):
 class AddSubsurf(bpy.types.Operator):
 	bl_idname = "object.add_subsurf"
 	bl_label = "Add a Subsurf on selected objects"
-	bl_description = "Add subsurfmodifaia to the selected object"
+	bl_description = "Add subsurfmodifaia to selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	subdivision_type = bpy.props.EnumProperty(items=[("CATMULL_CLARK", "Catmulclark", "", 1), ("SIMPLE", "Simple", "", 2)], name="Subdivision method")
@@ -414,11 +414,11 @@ class AddSubsurf(bpy.types.Operator):
 
 class SetArmatureDeformPreserveVolume(bpy.types.Operator):
 	bl_idname = "object.set_armature_deform_preserve_volume"
-	bl_label = "Set keep up the volume the armature"
-	bl_description = "Maintain volume in the armtuamodifaia of the selected objects together off and on the"
+	bl_label = "Set keep up volume armature"
+	bl_description = "Maintain volume in armtuamodifaia of selected objects together off and on the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	use_deform_preserve_volume =  bpy.props.BoolProperty(name="Use the preserve volume", default=True)
+	use_deform_preserve_volume =  bpy.props.BoolProperty(name="Use preserve volume", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -442,7 +442,7 @@ class SetArmatureDeformPreserveVolume(bpy.types.Operator):
 class QuickCurveDeform(bpy.types.Operator):
 	bl_idname = "object.quick_curve_deform"
 	bl_label = "Quick curve deformation"
-	bl_description = "Quickly apply the curve modifier"
+	bl_description = "Quickly apply curve modifier"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -472,10 +472,10 @@ class QuickCurveDeform(bpy.types.Operator):
 	def execute(self, context):
 		mesh_obj = context.active_object
 		if mesh_obj.type != 'MESH':
-			self.report(type={'ERROR'}, message="Please run the mesh object is active")
+			self.report(type={'ERROR'}, message="Please run mesh object is active")
 			return {'CANCELLED'}
 		if len(context.selected_objects) != 2:
-			self.report(type={'ERROR'}, message="By selecting only the two meshes, curves, please run")
+			self.report(type={'ERROR'}, message="By selecting only two meshes, curves, please run")
 			return {'CANCELLED'}
 		for obj in context.selected_objects:
 			if mesh_obj.name != obj.name:
@@ -483,7 +483,7 @@ class QuickCurveDeform(bpy.types.Operator):
 					curve_obj = obj
 					break
 		else:
-			self.report(type={'ERROR'}, message="Curve objects run in the selected state")
+			self.report(type={'ERROR'}, message="Curve objects run in selected state")
 			return {'CANCELLED'}
 		curve = curve_obj.data
 		pre_use_stretch = curve.use_stretch
@@ -505,7 +505,7 @@ class QuickCurveDeform(bpy.types.Operator):
 class QuickArrayAndCurveDeform(bpy.types.Operator):
 	bl_idname = "object.quick_array_and_curve_deform"
 	bl_label = "Quick array replication + curve deformation"
-	bl_description = "Quickly apply the curve modifier with the modifiers array replication"
+	bl_description = "Quickly apply curve modifier with modifiers array replication"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -536,10 +536,10 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 	def execute(self, context):
 		mesh_obj = context.active_object
 		if (mesh_obj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="Please run the mesh object is active")
+			self.report(type={'ERROR'}, message="Please run mesh object is active")
 			return {'CANCELLED'}
 		if (len(context.selected_objects) != 2):
-			self.report(type={'ERROR'}, message="By selecting only the two meshes, curves, please run")
+			self.report(type={'ERROR'}, message="By selecting only two meshes, curves, please run")
 			return {'CANCELLED'}
 		for obj in context.selected_objects:
 			if (mesh_obj.name != obj.name):
@@ -547,7 +547,7 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 					curve_obj = obj
 					break
 		else:
-			self.report(type={'ERROR'}, message="Curve objects run in the selected state")
+			self.report(type={'ERROR'}, message="Curve objects run in selected state")
 			return {'CANCELLED'}
 		curve = curve_obj.data
 		pre_use_stretch = curve.use_stretch
@@ -608,7 +608,7 @@ class ModifierMenu(bpy.types.Menu):
 class SubsurfMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_subsurf"
 	bl_label = "Save surf related"
-	bl_description = "Is the relationship between subsurface operations"
+	bl_description = "Is relationship between subsurface operations"
 	
 	def draw(self, context):
 		self.layout.operator(AddSubsurf.bl_idname, icon='PLUGIN')
@@ -621,7 +621,7 @@ class SubsurfMenu(bpy.types.Menu):
 class BooleanMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_boolean"
 	bl_label = "Boolean related"
-	bl_description = "Is the relationship between Boolean operations"
+	bl_description = "Is relationship between Boolean operations"
 	
 	def draw(self, context):
 		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (cross)").mode = "INTERSECT"
