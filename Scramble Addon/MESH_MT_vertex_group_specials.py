@@ -39,7 +39,7 @@ class RemoveEmptyVertexGroups(bpy.types.Operator):
 class AddOppositeVertexGroups(bpy.types.Operator):
 	bl_idname = "mesh.add_opposite_vertex_groups"
 	bl_label = "Add empty vertex group versus mirror"
-	bl_description = ". L... R, add new bone bones according to mandate rule in Miller vs. empty"
+	bl_description = ". L... R, add an empty pair of bones according to mandate rule in Miller\'s new born"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -81,7 +81,7 @@ class AddOppositeVertexGroups(bpy.types.Operator):
 
 class SelectVertexGroupsTop(bpy.types.Operator):
 	bl_idname = "mesh.select_vertex_groups_top"
-	bl_label = "Select top"
+	bl_label = "At top, select"
 	bl_description = "Select item at top of vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -158,11 +158,11 @@ class MoveVertexGroupBottom(bpy.types.Operator):
 
 class RemoveSpecifiedStringVertexGroups(bpy.types.Operator):
 	bl_idname = "mesh.remove_specified_string_vertex_groups"
-	bl_label = "Delete a vertex group that contains a specific string"
+	bl_label = "Delete vertex groups that contain specific text"
 	bl_description = "Removes all vertex group names contains specified string"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	string = bpy.props.StringProperty(name="Part of name that you want to delete", default="")
+	string = bpy.props.StringProperty(name="Part of name you want to delete", default="")
 	
 	@classmethod
 	def poll(cls, context):
@@ -183,7 +183,7 @@ class RemoveSpecifiedStringVertexGroups(bpy.types.Operator):
 					count += 1
 			self.report(type={'INFO'}, message=str(count)+"Removed vertex groups")
 		else:
-			self.report(type={'ERROR'}, message="Please run mesh object")
+			self.report(type={'ERROR'}, message="Try on mesh object.")
 			return {'CANCELLED'}
 		return {'FINISHED'}
 	def invoke(self, context, event):

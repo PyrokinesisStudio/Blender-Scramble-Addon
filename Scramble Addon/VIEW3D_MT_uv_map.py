@@ -15,7 +15,7 @@ class CopyOtherUVMenuOperator(bpy.types.Operator): #
 	def execute(self, context):
 		obj = context.active_object
 		if (obj.type != 'MESH'):
-			self.report(type={"ERROR"}, message="Please run mesh object")
+			self.report(type={"ERROR"}, message="Try on mesh object.")
 			return {"CANCELLED"}
 		if (len(obj.data.uv_layers) < 2):
 			self.report(type={"ERROR"}, message="UV number is run in two or more")
@@ -35,7 +35,7 @@ class CopyOtherUVMenu(bpy.types.Menu):
 class CopyOtherUV(bpy.types.Operator):
 	bl_idname = "uv.copy_other_uv"
 	bl_label = "Copied from other UV"
-	bl_description = "Deploying an active UV selection will copy from other UV"
+	bl_description = "Active UV unwrapping of selection can be copied from other UV"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	uv = bpy.props.StringProperty(name="Copy source UV")

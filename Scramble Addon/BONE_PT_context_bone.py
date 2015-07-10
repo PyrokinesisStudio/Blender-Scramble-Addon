@@ -122,7 +122,7 @@ class RenameMirrorActiveBone(bpy.types.Operator):
 class AppendActiveBoneName(bpy.types.Operator):
 	bl_idname = "pose.append_active_bone_name"
 	bl_label = "Add text to bone name"
-	bl_description = "Adds a string to active bone name"
+	bl_description = "Adds string to active bone name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	string = bpy.props.StringProperty(name="Append text")

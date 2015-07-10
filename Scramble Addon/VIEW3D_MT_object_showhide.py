@@ -29,7 +29,7 @@ class InvertHide(bpy.types.Operator):
 class HideOnlyType(bpy.types.Operator):
 	bl_idname = "object.hide_only_mesh"
 	bl_label = "Hide only specific types of objects"
-	bl_description = "Hides object of a specific type are displayed"
+	bl_description = "Hides object of specific type are displayed"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [

@@ -35,13 +35,13 @@ class InvertHide(bpy.types.Operator):
 					f.hide = False
 			bpy.ops.object.mode_set(mode="EDIT")
 		else:
-			self.report(type={"ERROR"}, message="Running on a mesh object is active")
+			self.report(type={"ERROR"}, message="Running on mesh object is active")
 		return {'FINISHED'}
 
 class HideVertexOnly(bpy.types.Operator):
 	bl_idname = "mesh.hide_vertex_only"
 	bl_label = "Hide only top"
-	bl_description = "To hide selected vertices, fixed"
+	bl_description = "To hide selected vertices,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -54,13 +54,13 @@ class HideVertexOnly(bpy.types.Operator):
 					vert.hide = True
 			bpy.ops.object.mode_set(mode="EDIT")
 		else:
-			self.report(type={"ERROR"}, message="Running on a mesh object is active")
+			self.report(type={"ERROR"}, message="Running on mesh object is active")
 		return {'FINISHED'}
 
 class HideParts(bpy.types.Operator):
 	bl_idname = "mesh.hide_parts"
 	bl_label = "Hide selected parts"
-	bl_description = "Hides mesh part more than 1 vertex is selected"
+	bl_description = "Hides mesh part has selected more than one top"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	unselected = bpy.props.BoolProperty(name="Non-select Division", default=False)

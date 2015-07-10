@@ -8,7 +8,7 @@ import bpy
 
 class RenameTextureFileName(bpy.types.Operator):
 	bl_idname = "texture.rename_texture_file_name"
-	bl_label = "Image file name to use texture name"
+	bl_label = "Image file names using texture name"
 	bl_description = "file name of external images using name of active texture"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -49,7 +49,7 @@ class RenameTextureFileName(bpy.types.Operator):
 class RemoveAllTextureSlots(bpy.types.Operator):
 	bl_idname = "texture.remove_all_texture_slots"
 	bl_label = "Texture slot, all in sky"
-	bl_description = "Empties all active material texture slots"
+	bl_description = "Empties all active material texture slots."
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -100,7 +100,7 @@ class SlotMoveTop(bpy.types.Operator):
 class SlotMoveBottom(bpy.types.Operator):
 	bl_idname = "texture.slot_move_bottom"
 	bl_label = "To bottom"
-	bl_description = "Move active texture slot at bottom"
+	bl_description = "Move active texture slot to bottom"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

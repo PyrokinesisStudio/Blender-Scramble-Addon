@@ -9,7 +9,7 @@ import bpy
 class RemoveNoAssignMaterial(bpy.types.Operator):
 	bl_idname = "material.remove_no_assign_material"
 	bl_label = "Delete non-assignment material"
-	bl_description = "Delete all one assigned to a surface material"
+	bl_description = "Delete all one assigned to surface material"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -66,7 +66,7 @@ class RemoveAllMaterialSlot(bpy.types.Operator):
 
 class RemoveEmptyMaterialSlot(bpy.types.Operator):
 	bl_idname = "material.remove_empty_material_slot"
-	bl_label = "Delete empty material slots"
+	bl_label = "Empty slot material removal"
 	bl_description = "Delete all material of this object has not been assigned material slots"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -128,7 +128,7 @@ class SetTransparentBackSide(bpy.types.Operator):
 class MoveMaterialSlotTop(bpy.types.Operator):
 	bl_idname = "material.move_material_slot_top"
 	bl_label = "Slot to top"
-	bl_description = "Move active material slots on top"
+	bl_description = "Active material slots on top moves"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

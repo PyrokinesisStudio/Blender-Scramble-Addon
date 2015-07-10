@@ -9,7 +9,7 @@ import bpy, bmesh
 class CopyPieOperator(bpy.types.Operator):
 	bl_idname = "object.copy_pie_operator"
 	bl_label = "Copy"
-	bl_description = "Pie of copy of object is"
+	bl_description = "Pie object copy is"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -18,7 +18,7 @@ class CopyPieOperator(bpy.types.Operator):
 class CopyPie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_copy"
 	bl_label = "Copy"
-	bl_description = "Pie of copy of object is"
+	bl_description = "Pie object copy is"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator("view3d.copybuffer", icon="COPY_ID")
@@ -27,7 +27,7 @@ class CopyPie(bpy.types.Menu):
 class ObjectModePieOperator(bpy.types.Operator):
 	bl_idname = "object.object_mode_pie_operator"
 	bl_label = "Interactive objects"
-	bl_description = "Is a pie menu objects in interactive mode"
+	bl_description = "Is pie menu objects in interactive mode"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -36,7 +36,7 @@ class ObjectModePieOperator(bpy.types.Operator):
 class ObjectModePie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_object_mode"
 	bl_label = "Interactive objects"
-	bl_description = "Is a pie menu objects in interactive mode"
+	bl_description = "Is pie menu objects in interactive mode"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Pose", icon="POSE_HLT").mode = "POSE"
@@ -49,7 +49,7 @@ class ObjectModePie(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Vertex paint", icon="VPAINT_HLT").mode = "VERTEX_PAINT"
 class SetObjectMode(bpy.types.Operator): #
 	bl_idname = "object.set_object_mode"
-	bl_label = "Sets interactive mode"
+	bl_label = "Set interactive object"
 	bl_description = "Sets interactive mode of object"
 	bl_options = {'REGISTER'}
 	
@@ -68,7 +68,7 @@ class SetObjectMode(bpy.types.Operator): #
 class SubdivisionSetPieOperator(bpy.types.Operator):
 	bl_idname = "object.subdivision_set_pie_operator"
 	bl_label = "Save surf set"
-	bl_description = "Is a pie menu to set Subsurf levels"
+	bl_description = "Is pie menu to set Subsurf levels"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -77,7 +77,7 @@ class SubdivisionSetPieOperator(bpy.types.Operator):
 class SubdivisionSetPie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_subdivision_set"
 	bl_label = "Save surf set"
-	bl_description = "Is a pie menu to set Subsurf levels"
+	bl_description = "Is pie menu to set Subsurf levels"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator("object.subdivision_set", text="Level: 2", icon="MOD_SUBSURF").level = 2
@@ -91,7 +91,7 @@ class SubdivisionSetPie(bpy.types.Menu):
 class DrawTypePieOperator(bpy.types.Operator):
 	bl_idname = "object.draw_type_pie_operator"
 	bl_label = "Best drawing type"
-	bl_description = "Is a pie menu to set up drawing type"
+	bl_description = "Is pie menu to set up drawing type"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -100,7 +100,7 @@ class DrawTypePieOperator(bpy.types.Operator):
 class DrawTypePie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_draw_type"
 	bl_label = "Best drawing type"
-	bl_description = "Is a pie menu to set up drawing type"
+	bl_description = "Is pie menu to set up drawing type"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetDrawType.bl_idname, text="Bound", icon="BBOX").type = "BOUNDS"
@@ -127,7 +127,7 @@ class SetDrawType(bpy.types.Operator): #
 class DeleteUnmassage(bpy.types.Operator):
 	bl_idname = "object.delete_unmassage"
 	bl_label = "Delete without confirmation"
-	bl_description = "delete objects without displaying a confirmation message when you delete"
+	bl_description = "Deletes object without displaying confirmation message when deleting"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	use_global = bpy.props.BoolProperty(name="Delete whole", default=False)
@@ -145,7 +145,7 @@ class DeleteUnmassage(bpy.types.Operator):
 class PieMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_menu"
 	bl_label = "Pie menu"
-	bl_description = "Is a pie on object action menu"
+	bl_description = "Is pie on object action menu"
 	
 	def draw(self, context):
 		self.layout.operator(CopyPieOperator.bl_idname, icon="PLUGIN")

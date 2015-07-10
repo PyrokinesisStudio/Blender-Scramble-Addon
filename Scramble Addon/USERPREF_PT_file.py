@@ -13,8 +13,8 @@ except:
 
 class RegisterBlendFile(bpy.types.Operator):
 	bl_idname = "system.register_blend_file"
-	bl_label = "the.blend file associated with this version"
-	bl_description = "(WindowsOS only).blend file associates a Blender run file"
+	bl_label = ".blend file associated with this version"
+	bl_description = "(WindowsOS only) associated with Blender running file.blend file"
 	bl_options = {'REGISTER'}
 	
 	@classmethod
@@ -48,7 +48,7 @@ class RegisterBlendBackupFiles(bpy.types.Operator):
 		for i in range(self.max):
 			i += 1
 			winreg.SetValue(winreg.HKEY_CURRENT_USER, r"Software\Classes\.blend"+str(i), winreg.REG_SZ, 'blend1_auto_file')
-		self.report(type={"INFO"}, message="executable file associated with a backup file")
+		self.report(type={"INFO"}, message="executable file associated with backup file")
 		return {'FINISHED'}
 
 ################

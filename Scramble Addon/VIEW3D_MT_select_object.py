@@ -28,7 +28,7 @@ class SelectBoundBoxSize(bpy.types.Operator):
 		('LATTICE', "Lattice", "", 7),
 		('ALL', "All", "", 8),
 		]
-	select_type = bpy.props.EnumProperty(items=items, name="Select type", default='MESH')
+	select_type = bpy.props.EnumProperty(items=items, name="Selection type", default='MESH')
 	threshold = bpy.props.FloatProperty(name="Selection", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
 	
 	@classmethod
@@ -94,7 +94,7 @@ class SelectGroupedName(bpy.types.Operator):
 
 class SelectGroupedMaterial(bpy.types.Operator):
 	bl_idname = "object.select_grouped_material"
-	bl_label = "Select an object of same material structure"
+	bl_label = "Select an object of same material"
 	bl_description = "Select active object material structure and same visible objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -114,7 +114,7 @@ class SelectGroupedMaterial(bpy.types.Operator):
 
 class SelectGroupedModifiers(bpy.types.Operator):
 	bl_idname = "object.select_grouped_modifiers"
-	bl_label = "Select same modifier structure objects"
+	bl_label = "Select same modifier structure object"
 	bl_description = "Select same modifier of active objects visible objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -169,7 +169,7 @@ class SelectGroupedArmatureTarget(bpy.types.Operator):
 			return set(target)
 		active_armature_targets = GetArmatureTarget(context.active_object)
 		if (len(active_armature_targets) == 0):
-			self.report(type={"ERROR"}, message="No active object armtuamodifaia")
+			self.report(type={"ERROR"}, message="Armtuamodifaia has no active object")
 			return {"CANCELLED"}
 		active_type = context.active_object.type
 		for obj in context.selectable_objects:
@@ -200,7 +200,7 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 		('ALL', "All", "", 8),
 		('SAME', "Same type", "", 9),
 		]
-	select_type = bpy.props.EnumProperty(items=items, name="Select type", default='SAME')
+	select_type = bpy.props.EnumProperty(items=items, name="Selection type", default='SAME')
 	size_multi = bpy.props.FloatProperty(name="Standard size offset", default=1.0, min=0, max=10, soft_min=0, soft_max=10, step=10, precision=3)
 	
 	def execute(self, context):
@@ -245,8 +245,8 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 
 class SelectMeshFaceOnly(bpy.types.Operator):
 	bl_idname = "object.select_mesh_face_only"
-	bl_label = "Choose a surface mesh"
-	bl_description = "Select a mesh surface at least one"
+	bl_label = "Choose surface mesh"
+	bl_description = "Select mesh surface is at least one"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -266,7 +266,7 @@ class SelectMeshFaceOnly(bpy.types.Operator):
 class SelectMeshEdgeOnly(bpy.types.Operator):
 	bl_idname = "object.select_mesh_edge_only"
 	bl_label = "Select only side mesh"
-	bl_description = "Surface, select only side mesh"
+	bl_description = "Terms, select only side mesh"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -285,7 +285,7 @@ class SelectMeshEdgeOnly(bpy.types.Operator):
 
 class SelectMeshVertexOnly(bpy.types.Operator):
 	bl_idname = "object.select_mesh_vertex_only"
-	bl_label = "Select mesh vertices only"
+	bl_label = "Select only vertices of mesh"
 	bl_description = "Surfaces and edges, select mesh vertices only"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -360,14 +360,14 @@ class SelectGroupedEX(bpy.types.Menu):
 
 class SelectMesh(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_object_mesh"
-	bl_label = "Selected characteristics of a mesh"
+	bl_label = "Selected characteristics of mesh"
 	bl_description = "Ability to select mesh object visualization menu."
 	
 	def draw(self, context):
 		self.layout.operator(SelectMeshFaceOnly.bl_idname, text="Terms and", icon="PLUGIN")
 		self.layout.operator(SelectMeshEdgeOnly.bl_idname, text="Sides only", icon="PLUGIN")
 		self.layout.operator(SelectMeshVertexOnly.bl_idname, text="Only vertices", icon="PLUGIN")
-		self.layout.operator(SelectMeshNone.bl_idname, text="Even vertex no", icon="PLUGIN")
+		self.layout.operator(SelectMeshNone.bl_idname, text="Without even vertex", icon="PLUGIN")
 
 ################
 # メニュー追加 #
@@ -385,7 +385,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Choose small ones", icon="PLUGIN").mode = 'SMALL'
+		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Select small ones", icon="PLUGIN").mode = 'SMALL'
 		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Choose big ones", icon="PLUGIN").mode = 'LARGE'
 		self.layout.separator()
 		self.layout.menu(SelectMesh.bl_idname, icon="PLUGIN")

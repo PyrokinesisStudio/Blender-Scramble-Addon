@@ -132,7 +132,7 @@ class ToggleAllShowExpanded(bpy.types.Operator):
 			for mod in obj.modifiers:
 				mod.show_expanded = not is_close
 		else:
-			self.report(type={'WARNING'}, message="Not a single modifier")
+			self.report(type={'WARNING'}, message="Not single modifier")
 			return {'CANCELLED'}
 		for area in context.screen.areas:
 			area.tag_redraw()
@@ -144,7 +144,7 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 	bl_description = "integration from object\'s modifiers to apply all"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	unapply_subsurf = bpy.props.BoolProperty(name="Excluding Subsurf", default=True)
+	unapply_subsurf = bpy.props.BoolProperty(name="Except for Subsurf", default=True)
 	unapply_armature = bpy.props.BoolProperty(name="Except armature", default=True)
 	unapply_mirror = bpy.props.BoolProperty(name="Except for mirrors", default=False)
 	
@@ -172,7 +172,7 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 
 class AutoRenameModifiers(bpy.types.Operator):
 	bl_idname = "object.auto_rename_modifiers"
-	bl_label = "Modifier name auto-rename."
+	bl_label = "Rename in Auto modifier name"
 	bl_description = "Rename selected object modifier name refers to, for example,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -214,7 +214,7 @@ class AutoRenameModifiers(bpy.types.Operator):
 
 class AddBoolean(bpy.types.Operator):
 	bl_idname = "object.add_boolean"
-	bl_label = "Add a Boolean"
+	bl_label = "Add Boolean"
 	bl_description = "Additional Boolean selected objects to an active object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -244,7 +244,7 @@ class AddBoolean(bpy.types.Operator):
 class ApplyBoolean(bpy.types.Operator):
 	bl_idname = "object.apply_boolean"
 	bl_label = "Apply Boolean"
-	bl_description = "Active objects for other Boolean objects"
+	bl_description = "Apply to Boolean objects and other active objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -280,11 +280,11 @@ class ApplyBoolean(bpy.types.Operator):
 
 class SetRenderSubsurfLevel(bpy.types.Operator):
 	bl_idname = "object.set_render_subsurf_level"
-	bl_label = "Rendering subdivision number"
+	bl_label = "Set number of subdivision when rendering"
 	bl_description = "Sets number of subdivisions during rendering of selected object subsurfmodifaia"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	level = bpy.props.IntProperty(name="Split number", default=2, min=0, max=6)
+	level = bpy.props.IntProperty(name="Number of divisions", default=2, min=0, max=6)
 	
 	@classmethod
 	def poll(cls, context):
@@ -304,7 +304,7 @@ class SetRenderSubsurfLevel(bpy.types.Operator):
 
 class EqualizeSubsurfLevel(bpy.types.Operator):
 	bl_idname = "object.equalize_subsurf_level"
-	bl_label = "Equivalent to a subdivision of preview rendering"
+	bl_label = "Equivalent to subdivision of preview rendering"
 	bl_description = "Set in same subdivision of subsurfmodifaia of selected object when you preview and rendering time"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -335,8 +335,8 @@ class EqualizeSubsurfLevel(bpy.types.Operator):
 
 class SetSubsurfOptimalDisplay(bpy.types.Operator):
 	bl_idname = "object.set_subsurf_optimal_display"
-	bl_label = "Set defragmentation display"
-	bl_description = "Sets optimization for subsurfmodifaia of selected object"
+	bl_label = "Sets optimization"
+	bl_description = "Sets optimization of subsurfmodifaia of selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	mode =  bpy.props.BoolProperty(name="Optimized view")
@@ -359,7 +359,7 @@ class SetSubsurfOptimalDisplay(bpy.types.Operator):
 
 class DeleteSubsurf(bpy.types.Operator):
 	bl_idname = "object.delete_subsurf"
-	bl_label = "Delete select Subsurf"
+	bl_label = "Delete objects select Subsurf"
 	bl_description = "Removes selected object subsurfmodifaia"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -381,13 +381,13 @@ class DeleteSubsurf(bpy.types.Operator):
 
 class AddSubsurf(bpy.types.Operator):
 	bl_idname = "object.add_subsurf"
-	bl_label = "Add a Subsurf on selected objects"
+	bl_label = "Add Subsurf on selected objects"
 	bl_description = "Add subsurfmodifaia to selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	subdivision_type = bpy.props.EnumProperty(items=[("CATMULL_CLARK", "Catmulclark", "", 1), ("SIMPLE", "Simple", "", 2)], name="Subdivision method")
 	levels = bpy.props.IntProperty(name="Number of views", default=2, min=0, max=6)
-	render_levels = bpy.props.IntProperty(name="Split number render", default=2, min=0, max=6)
+	render_levels = bpy.props.IntProperty(name="Number of render", default=2, min=0, max=6)
 	use_subsurf_uv =  bpy.props.BoolProperty(name="Subdivided UVs", default=True)
 	show_only_control_edges =  bpy.props.BoolProperty(name="Optimized view")
 	
@@ -414,8 +414,8 @@ class AddSubsurf(bpy.types.Operator):
 
 class SetArmatureDeformPreserveVolume(bpy.types.Operator):
 	bl_idname = "object.set_armature_deform_preserve_volume"
-	bl_label = "Set keep up volume armature"
-	bl_description = "Maintain volume in armtuamodifaia of selected objects together off and on the"
+	bl_label = "Keep volume armature together set"
+	bl_description = "Armtuamodifaia selected objects keep volume together off and on the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	use_deform_preserve_volume =  bpy.props.BoolProperty(name="Use preserve volume", default=True)
@@ -517,7 +517,7 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 		('NEG_Z', "-Z", "", 6),
 		]
 	deform_axis = bpy.props.EnumProperty(items=items, name="Axial deformation")
-	use_merge_vertices = bpy.props.BoolProperty(name="Vertex binding", default=True)
+	use_merge_vertices = bpy.props.BoolProperty(name="Welding vertices together", default=True)
 	is_apply = bpy.props.BoolProperty(name="Modifiers applied", default=False)
 	
 	@classmethod
@@ -624,18 +624,18 @@ class BooleanMenu(bpy.types.Menu):
 	bl_description = "Is relationship between Boolean operations"
 	
 	def draw(self, context):
-		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (cross)").mode = "INTERSECT"
+		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (groin)").mode = "INTERSECT"
 		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (integrated)").mode = "UNION"
 		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (diff)").mode = "DIFFERENCE"
 		self.layout.separator()
-		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (cross)").mode = "INTERSECT"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (groin)").mode = "INTERSECT"
 		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (integrated)").mode = "UNION"
 		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (diff)").mode = "DIFFERENCE"
 
 class ArmatureMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_armature"
 	bl_label = "Armature connection"
-	bl_description = "Armature connection operation"
+	bl_description = "Is working with armatures"
 	
 	def draw(self, context):
 		self.layout.operator(SetArmatureDeformPreserveVolume.bl_idname, icon='PLUGIN')
@@ -643,7 +643,7 @@ class ArmatureMenu(bpy.types.Menu):
 class CurveMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_curve"
 	bl_label = "Relationship between curves"
-	bl_description = "Operation of curve relationships"
+	bl_description = "Is working with curves"
 	
 	def draw(self, context):
 		self.layout.operator(QuickCurveDeform.bl_idname, icon='PLUGIN')

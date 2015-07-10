@@ -22,7 +22,7 @@ class SetRenderResolutionPercentage(bpy.types.Operator):
 class SetRenderSlot(bpy.types.Operator):
 	bl_idname = "render.set_render_slot"
 	bl_label = "Set render slots"
-	bl_description = "Sets a slot to save rendering result"
+	bl_description = "Sets slot to save rendering results"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	slot = bpy.props.IntProperty(name="Slot", default=1, min=0, max=100, soft_min=0, soft_max=100, step=1)
@@ -36,7 +36,7 @@ class SetRenderSlot(bpy.types.Operator):
 class ToggleThreadsMode(bpy.types.Operator):
 	bl_idname = "render.toggle_threads_mode"
 	bl_label = "Switching threads"
-	bl_description = "Switch thread number of CPUS used to render"
+	bl_description = "Toggles thread number of CPUS used to render"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	threads = bpy.props.IntProperty(name="Number of threads", default=1, min=1, max=16, soft_min=1, soft_max=16, step=1)
@@ -88,7 +88,7 @@ class SetAllSubsurfRenderLevels(bpy.types.Operator):
 class SyncAllSubsurfRenderLevels(bpy.types.Operator):
 	bl_idname = "render.sync_all_subsurf_render_levels"
 	bl_label = "Sync preview value when rendering Subsurf levels"
-	bl_description = "Granularity of Subsurf applied during rendering of all objects set to level in preview"
+	bl_description = "Granularity of Subsurf apply when rendering entire object sets level in preview"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	level_offset = bpy.props.IntProperty(name="Subdivision-level offset", default=0, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
@@ -137,7 +137,7 @@ class RenderResolutionPercentageMenu(bpy.types.Menu):
 class SimplifyRenderMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_simplify"
 	bl_label = "Simplification of render"
-	bl_description = "simplified settings"
+	bl_description = "simplified rendering settings"
 	
 	def draw(self, context):
 		self.layout.prop(context.scene.render, "use_simplify", icon="PLUGIN")
@@ -151,7 +151,7 @@ class SimplifyRenderMenu(bpy.types.Menu):
 class SlotsRenderMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_slots"
 	bl_label = "Render slots"
-	bl_description = "Change slot to save rendering result"
+	bl_description = "Change slot to save rendering results"
 	
 	def draw(self, context):
 		for i in range(len(bpy.data.images["Render Result"].render_slots)):
@@ -172,10 +172,10 @@ class ShadeingMenu(bpy.types.Menu):
 class SubsurfMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_subsurf"
 	bl_label = "All Subsurf levels of granularity"
-	bl_description = "All objects save surf subdivision level sets together"
+	bl_description = "Setting Subsurf subdivision level of all objects at once"
 	
 	def draw(self, context):
-		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="Subdivision + 1", icon="PLUGIN")
+		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="subdivision + 1", icon="PLUGIN")
 		operator.mode = 'RELATIVE'
 		operator.levels = 1
 		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="Subdivision-1", icon="PLUGIN")
@@ -213,12 +213,12 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.prop(context.scene.render, 'resolution_x', text="RES X", icon="PLUGIN")
+		self.layout.prop(context.scene.render, 'resolution_x', text="Resolution X", icon="PLUGIN")
 		self.layout.prop(context.scene.render, 'resolution_y', text="RES Y", icon="PLUGIN")
 		self.layout.menu(RenderResolutionPercentageMenu.bl_idname, text="Render size (currently:"+str(context.scene.render.resolution_percentage)+"%)", icon="PLUGIN")
 		for img in bpy.data.images:
 			if (img.type == 'RENDER_RESULT'):
-				self.layout.menu(SlotsRenderMenu.bl_idname, text="Render slot (slot:"+str(img.render_slots.active_index+1)+")", icon="PLUGIN")
+				self.layout.menu(SlotsRenderMenu.bl_idname, text="Render slots (slot:"+str(img.render_slots.active_index+1)+")", icon="PLUGIN")
 				break
 		self.layout.prop_menu_enum(context.scene.render.image_settings, 'file_format', text="File formats", icon="PLUGIN")
 		self.layout.separator()
@@ -234,7 +234,7 @@ def menu(self, context):
 		self.layout.separator()
 		text = ToggleThreadsMode.bl_label
 		if (context.scene.render.threads_mode == 'AUTO'):
-			text = text + " (Currently automatic detection)"
+			text = text + " (Now auto-sensing)"
 		else:
 			text = text + " (Current constant value:" + str(context.scene.render.threads) + ")"
 		self.layout.operator(ToggleThreadsMode.bl_idname, text=text, icon="PLUGIN")

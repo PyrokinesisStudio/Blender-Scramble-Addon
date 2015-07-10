@@ -56,7 +56,7 @@ class CreateMirror(bpy.types.Operator):
 			else:
 				self.report(type={"ERROR"}, message="Please perform in edit mode")
 		else:
-			self.report(type={"ERROR"}, message="Armature object is not")
+			self.report(type={"ERROR"}, message="Not an armature object")
 		return {'FINISHED'}
 
 class CopyBoneName(bpy.types.Operator):
@@ -65,7 +65,7 @@ class CopyBoneName(bpy.types.Operator):
 	bl_description = "Copies Clipboard name of active bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isObject = bpy.props.BoolProperty(name="Object name", default=False)
+	isObject = bpy.props.BoolProperty(name="Object names", default=False)
 	
 	def execute(self, context):
 		if (self.isObject):
@@ -81,8 +81,8 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isAll = bpy.props.BoolProperty(name="Including non-select all", default=False)
-	pattern = bpy.props.StringProperty(name="Replacement front (in regular expressions)", default="^")
-	repl = bpy.props.StringProperty(name="Replacement", default="@")
+	pattern = bpy.props.StringProperty(name="Before replacement (in regular expressions)", default="^")
+	repl = bpy.props.StringProperty(name="After replacement", default="@")
 	
 	def execute(self, context):
 		obj = context.active_object
@@ -100,16 +100,16 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 			else:
 				self.report(type={"ERROR"}, message="Please perform in edit mode")
 		else:
-			self.report(type={"ERROR"}, message="Armature object is not")
+			self.report(type={"ERROR"}, message="Not an armature object")
 		return {'FINISHED'}
 
 class RenameOppositeBone(bpy.types.Operator):
 	bl_idname = "armature.rename_opposite_bone"
-	bl_label = "Bones in opposite position, rename."
-	bl_description = "Bone is located opposite X axis selection in bone \"1.R 1 longs.L \' of so versus the"
+	bl_label = "Vaughan is located opposite rename."
+	bl_description = "Bone is located opposite X axis selection in bone \"1.R longs 1.L \' of so versus the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	threshold = bpy.props.FloatProperty(name="At threshold", default=0.00001, min=0, soft_min=0, step=0.001, precision=5)
+	threshold = bpy.props.FloatProperty(name="Threshold position", default=0.00001, min=0, soft_min=0, step=0.001, precision=5)
 	
 	def execute(self, context):
 		obj = context.active_object
@@ -142,7 +142,7 @@ class RenameOppositeBone(bpy.types.Operator):
 			else:
 				self.report(type={"ERROR"}, message="Please perform in edit mode")
 		else:
-			self.report(type={"ERROR"}, message="Armature object is not")
+			self.report(type={"ERROR"}, message="Not an armature object")
 		return {'FINISHED'}
 		return {'FINISHED'}
 

@@ -12,7 +12,7 @@ class RenameSpecificNameUV(bpy.types.Operator):
 	bl_description = "Renames selected objects within designated UV together"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	source_name =  bpy.props.StringProperty(name="UV name rename", default="Past UV")
+	source_name =  bpy.props.StringProperty(name="UV name to rename the", default="Past UV")
 	replace_name =  bpy.props.StringProperty(name="New UV name", default="New UV")
 	
 	@classmethod
@@ -23,7 +23,7 @@ class RenameSpecificNameUV(bpy.types.Operator):
 	def execute(self, context):
 		for obj in context.selected_objects:
 			if (obj.type != 'MESH'):
-				self.report(type={'WARNING'}, message=obj.name+" A mesh object, ignore")
+				self.report(type={'WARNING'}, message=obj.name+" mesh object, ignore")
 				continue
 			me = obj.data
 			for uv in me.uv_textures[:]:
@@ -36,7 +36,7 @@ class RenameSpecificNameUV(bpy.types.Operator):
 class DeleteSpecificNameUV(bpy.types.Operator):
 	bl_idname = "object.delete_specific_name_uv"
 	bl_label = "Bulk delete name UV"
-	bl_description = "Removes selected object UV of same name as specified"
+	bl_description = "Removes selection from UV same name as specified"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	name =  bpy.props.StringProperty(name="Remove UV name", default="UV")
@@ -49,7 +49,7 @@ class DeleteSpecificNameUV(bpy.types.Operator):
 	def execute(self, context):
 		for obj in context.selected_objects:
 			if (obj.type != 'MESH'):
-				self.report(type={'WARNING'}, message=obj.name+" A mesh object, ignore")
+				self.report(type={'WARNING'}, message=obj.name+" mesh object, ignore")
 				continue
 			me = obj.data
 			for uv in me.uv_textures:
@@ -94,14 +94,14 @@ class RenameUV(bpy.types.Operator):
 						if (slot != None):
 							if (slot.uv_layer == preName):
 									slot.uv_layer = uv.name
-									self.report(type={"INFO"}, message="Material \""+mat.name+"\"fixed UV designation")
+									self.report(type={"INFO"}, message="Material \""+mat.name+"\"designation UV fixed")
 					for me2 in bpy.data.meshes:
 						for mat2 in me2.materials:
 							if (mat2):
 								if (mat.name == mat2.name):
 									try:
 										me2.uv_layers[preName].name = uv.name
-										self.report(type={"INFO"}, message="Mesh \""+me2.name+"\"fixed UV designation")
+										self.report(type={"INFO"}, message="Mesh \""+me2.name+"\"designation UV fixed")
 									except KeyError: pass
 		else:
 			self.report(type={'ERROR'}, message="Mesh objects are not")
@@ -121,7 +121,7 @@ class RenameUV(bpy.types.Operator):
 class DeleteEmptyUV(bpy.types.Operator):
 	bl_idname = "object.delete_empty_uv"
 	bl_label = "Remove unused UV"
-	bl_description = "Active object material (UV is used in other parts disappear) delete unused UV total"
+	bl_description = "Active object material (UV is used in other parts disappear) delete unused UV coordinates to all"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isAllSelected =  bpy.props.BoolProperty(name="All selected mesh", default=False)

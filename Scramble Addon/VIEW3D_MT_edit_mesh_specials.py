@@ -8,7 +8,7 @@ import bpy
 
 class PaintSelectedVertexColor(bpy.types.Operator):
 	bl_idname = "mesh.paint_selected_vertex_color"
-	bl_label = "Fill selected vertex vertex color"
+	bl_label = "Fill selected vertices vertex color"
 	bl_description = "Active vertex colors for selected vertices with specified color fills"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -83,7 +83,7 @@ class ToggleMirrorModifier(bpy.types.Operator):
 	use_z = bpy.props.BoolProperty(name="Z axi", default=False)
 	use_mirror_merge = bpy.props.BoolProperty(name="Combination", default=True)
 	use_clip = bpy.props.BoolProperty(name="Clipping", default=False)
-	use_mirror_vertex_groups = bpy.props.BoolProperty(name="Vertex group mirror", default=False)
+	use_mirror_vertex_groups = bpy.props.BoolProperty(name="Vertex group mirrors", default=False)
 	use_mirror_u = bpy.props.BoolProperty(name="Texture U mirror", default=False)
 	use_mirror_v = bpy.props.BoolProperty(name="Texture V Miller", default=False)
 	merge_threshold = bpy.props.FloatProperty(name="Combined distance", default=0.001, min=0, max=1, soft_min=0, soft_max=1, step=0.01, precision=6)
@@ -125,7 +125,7 @@ class ToggleMirrorModifier(bpy.types.Operator):
 
 class SelectedVertexGroupAverage(bpy.types.Operator):
 	bl_idname = "mesh.selected_vertex_group_average"
-	bl_label = "Fill selected vertex in average weighted"
+	bl_label = "Fill selected vertices in average weighted"
 	bl_description = "Fills selected vertex, vertices weighted average"
 	bl_options = {'REGISTER', 'UNDO'}
 	

@@ -9,7 +9,7 @@ import bpy, bmesh
 class MakeLinkObjectName(bpy.types.Operator):
 	bl_idname = "object.make_link_object_name"
 	bl_label = "To same object name"
-	bl_description = "Name of active object links to other selected objects"
+	bl_description = "Link name of active object to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -46,7 +46,7 @@ class MakeLinkLayer(bpy.types.Operator):
 class MakeLinkDisplaySetting(bpy.types.Operator):
 	bl_idname = "object.make_link_display_setting"
 	bl_label = "Visibility of objects to same"
-	bl_description = "Copy settings of display panel of active object to other selected objects"
+	bl_description = "Copy settings panel of active object to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isSameType = bpy.props.BoolProperty(name="Only objects of same type", default=True)
@@ -98,8 +98,8 @@ class MakeLinkDisplaySetting(bpy.types.Operator):
 
 class MakeLinkUVNames(bpy.types.Operator):
 	bl_idname = "object.make_link_uv_names"
-	bl_label = "Link to UV map of sky"
-	bl_description = "Empties Add UV active objects to other objects"
+	bl_label = "Link to UV map blank"
+	bl_description = "Empty, add UV active objects to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -165,7 +165,7 @@ class MakeLinkArmaturePose(bpy.types.Operator):
 
 class MakeLinkSoftbodySettings(bpy.types.Operator):
 	bl_idname = "object.make_link_softbody_settings"
-	bl_label = "Links for soft body"
+	bl_label = "Link to soft setting"
 	bl_description = "Sets active object soft copies to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -344,7 +344,7 @@ def menu(self, context):
 		self.layout.operator(MakeLinkLayer.bl_idname, text="Layer", icon="PLUGIN")
 		self.layout.operator(MakeLinkDisplaySetting.bl_idname, text="Display settings", icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="Soft body set", icon="PLUGIN")
+		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="Soft set", icon="PLUGIN")
 		self.layout.operator(MakeLinkClothSettings.bl_idname, text="Cross set", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(MakeLinkUVNames.bl_idname, text="Free UV", icon="PLUGIN")

@@ -12,7 +12,7 @@ import bpy
 
 class DeleteUnmassage(bpy.types.Operator):
 	bl_idname = "armature.delete_unmassage"
-	bl_label = "Remove bones with no confirmation"
+	bl_label = "Remove bone with no confirmation"
 	bl_description = "Remove bones with no verification"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -22,7 +22,7 @@ class DeleteUnmassage(bpy.types.Operator):
 
 class Move3DCursor(bpy.types.Operator):
 	bl_idname = "armature.move_3d_cursor"
-	bl_label = "Bones intact to position 3D cursor"
+	bl_label = "Bones intact to position of 3D cursor"
 	bl_description = "Position of relative born tail (even root), bone, 3 D move cursor position"
 	bl_options = {'REGISTER', 'UNDO'}
 	

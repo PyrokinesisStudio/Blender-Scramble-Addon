@@ -41,8 +41,8 @@ class SnapMesh3DCursor(bpy.types.Operator):
 
 class Move3DCursorToViewLocation(bpy.types.Operator):
 	bl_idname = "view3d.move_3d_cursor_to_view_location"
-	bl_label = "3D Navigation view"
-	bl_description = "Move 3D cursor center position of"
+	bl_label = "3D cursor view"
+	bl_description = "Move 3D cursor to location of center point of"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):

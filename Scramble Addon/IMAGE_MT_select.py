@@ -10,7 +10,7 @@ import bmesh
 class SelectSeamEdge(bpy.types.Operator):
 	bl_idname = "uv.select_seam_edge"
 	bl_label = "Select vertices are isolated"
-	bl_description = "Select vertex are separated by seams"
+	bl_description = "Select vertices are isolated by seam"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):

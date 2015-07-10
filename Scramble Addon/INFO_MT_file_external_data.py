@@ -29,13 +29,13 @@ class ResaveAllImage(bpy.types.Operator):
 					img.unpack()
 				except RuntimeError:
 					pass
-		self.report(type={"INFO"}, message="repaired and stored in textures folder")
+		self.report(type={"INFO"}, message="fixed and stored in textures folder")
 		return {'FINISHED'}
 
 class IsolationTexturesUnusedFiles(bpy.types.Operator):
 	bl_idname = "image.isolation_textures_unused_files"
 	bl_label = "isolate unused files in textures folder"
-	bl_description = "Files in a textures folder with Blend files, do not use isolates them in a backup folder"
+	bl_description = "Files in textures folder with Blend files, do not use isolates them in backup folder"
 	bl_options = {'REGISTER'}
 	
 	@classmethod

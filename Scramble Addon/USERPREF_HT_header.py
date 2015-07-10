@@ -116,7 +116,7 @@ class CloseKeyMapItems(bpy.types.Operator):
 class ShowShortcutHtml(bpy.types.Operator):
 	bl_idname = "system.show_shortcut_html"
 	bl_label = "View in browser shortcut list"
-	bl_description = "Please see browser all shortcuts in Blender"
+	bl_description = "Can confirm Blender all shortcuts in browser"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -208,7 +208,7 @@ class ShowShortcutHtml(bpy.types.Operator):
 
 class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	bl_idname = "wm.register_last_command_keyconfig"
-	bl_label = "Last command create shortcut"
+	bl_label = "last command create shortcut"
 	bl_description = "Last command create shortcut"
 	bl_options = {'REGISTER'}
 	
@@ -233,7 +233,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('Object Mode', "Object mode", "", 15),
 		('Paint Curve', "Paint curves", "", 16),
 		('Curve', "Curve", "", 17),
-		('Image Paint', "Paint a picture", "", 18),
+		('Image Paint', "Paint picture", "", 18),
 		('Vertex Paint', "Vertex paint", "", 19),
 		('Weight Paint', "Weight paint", "", 20),
 		('Sculpt', "Sculpt", "", 21),
@@ -297,7 +297,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	items = [
 		('LEFTMOUSE', "Left click", "", 1),
 		('MIDDLEMOUSE', "Click wheel", "", 2),
-		('RIGHTMOUSE', "Right click", "", 3),
+		('RIGHTMOUSE', "Right-click the", "", 3),
 		('BUTTON4MOUSE', "4-button mouse", "", 4),
 		('BUTTON5MOUSE', "5-button mouse", "", 5),
 		('BUTTON6MOUSE', "Mouse 6 button", "", 6),
@@ -411,12 +411,12 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('HOME', "home key", "", 114),
 		('PAGE_UP', "PageUp key", "", 115),
 		('PAGE_DOWN', "Page down key", "", 116),
-		('END', "End key", "", 117),
+		('END', "end key", "", 117),
 		]
 	type = bpy.props.EnumProperty(items=items, name="Input keys")
-	shift = bpy.props.BoolProperty(name="SHIFT key is a modifier", default=False)
+	shift = bpy.props.BoolProperty(name="Hold down SHIFT key is modifier", default=False)
 	ctrl = bpy.props.BoolProperty(name="CTRL modifier keys to", default=False)
-	alt = bpy.props.BoolProperty(name="ALT key is a modifier", default=False)
+	alt = bpy.props.BoolProperty(name="ALT key is modifier", default=False)
 	
 	def execute(self, context):
 		keymap_item = context.window_manager.keyconfigs.user.keymaps[self.key_map].keymap_items.new(self.command, self.type, 'PRESS', False, self.shift, self.ctrl, self.alt)
@@ -504,7 +504,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 class ShowEmptyShortcuts(bpy.types.Operator):
 	bl_idname = "view3d.show_empty_shortcuts"
 	bl_label = "Without assigning shortcut list"
-	bl_description = "Displays key assignments in current editing mode without information area"
+	bl_description = "Information area shows key assignments in current editing mode without"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -587,7 +587,7 @@ class ImportKeyConfigXml(bpy.types.Operator):
 			return {'CANCELLED'}
 		root = tree.getroot()
 		if (root.tag != 'BlenderKeyConfig'):
-			self.report(type={'ERROR'}, message="This file is not a Blender game XML file")
+			self.report(type={'ERROR'}, message="This file is not Blender game XML file")
 			return {'CANCELLED'}
 		try:
 			if (root.attrib['Version'] != '1.2'):
@@ -670,7 +670,7 @@ class ImportKeyConfigXml(bpy.types.Operator):
 
 class ExportKeyConfigXml(bpy.types.Operator):
 	bl_idname = "file.export_key_config_xml"
-	bl_label = "Export XML in a game"
+	bl_label = "Export XML in game"
 	bl_description = "Game save in XML format"
 	bl_options = {'REGISTER'}
 	
@@ -760,7 +760,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('Object Mode', "Object mode", "", 15),
 		('Paint Curve', "Paint curves", "", 16),
 		('Curve', "Curve", "", 17),
-		('Image Paint', "Paint a picture", "", 18),
+		('Image Paint', "Paint picture", "", 18),
 		('Vertex Paint', "Vertex paint", "", 19),
 		('Weight Paint', "Weight paint", "", 20),
 		('Sculpt', "Sculpt", "", 21),
@@ -910,7 +910,7 @@ class UpdateScrambleAddon(bpy.types.Operator):
 class ToggleDisabledMenu(bpy.types.Operator):
 	bl_idname = "wm.toggle_disabled_menu"
 	bl_label = "Toggle on/off additional items"
-	bl_description = "Turns on/off additional items button at end of menu by ScrambleAddon"
+	bl_description = "Show or hide turn on/off additional items button at end of menu by ScrambleAddon"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -932,7 +932,7 @@ class InputMenu(bpy.types.Menu):
 		self.layout.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
 		self.layout.operator(ShowEmptyShortcuts.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="Last command create shortcut", icon="PLUGIN").is_clipboard = False
+		self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="last command create shortcut", icon="PLUGIN").is_clipboard = False
 		self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="Clipboard command create shortcut", icon="PLUGIN").is_clipboard = True
 		self.layout.separator()
 		self.layout.operator(ImportKeyConfigXml.bl_idname, icon="PLUGIN")

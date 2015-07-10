@@ -63,7 +63,7 @@ class AllRenameImageFileName(bpy.types.Operator):
 
 class ReloadAllImage(bpy.types.Operator):
 	bl_idname = "image.reload_all_image"
-	bl_label = "Load all images"
+	bl_label = "Reload all pictures"
 	bl_description = "Reloads all image data referring to external file"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -121,7 +121,7 @@ class FillOverrideColor(bpy.types.Operator):
 class FillColor(bpy.types.Operator):
 	bl_idname = "image.fill_color"
 	bl_label = "Fill with color"
-	bl_description = "All fill in color you specify active image"
+	bl_description = "Fill with color image active all"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	color = bpy.props.FloatVectorProperty(name="Color", description="Color fill", default=(1, 1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA', size=4)
@@ -351,7 +351,7 @@ class ReverseWidthImage(bpy.types.Operator):
 class ReverseHeightImage(bpy.types.Operator):
 	bl_idname = "image.reverse_height_image"
 	bl_label = "Flip vertically"
-	bl_description = "Active image flips vertical"
+	bl_description = "Inverts active image in vertical direction"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -728,8 +728,8 @@ class ResizeBlur(bpy.types.Operator):
 
 class NewNoise(bpy.types.Operator):
 	bl_idname = "image.new_noise"
-	bl_label = "Create a new image noise"
-	bl_description = "Add as a new picture noise picture"
+	bl_label = "Create new image noise"
+	bl_description = "Add as new picture noise picture"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	monochrome = bpy.props.BoolProperty(name="Black and white noise", default=False)

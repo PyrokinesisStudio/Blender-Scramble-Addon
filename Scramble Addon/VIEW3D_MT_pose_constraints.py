@@ -9,10 +9,10 @@ import bpy
 class ConstraintIKToLimitRotation(bpy.types.Operator):
 	bl_idname = "pose.constraint_ik_to_limit_rotation"
 	bl_label = "Constraints of IK rotation restrictions"
-	bl_description = "Copy rotation constraint restrictions IK rotation limit settings"
+	bl_description = "Copy rotation constraint restrictions IK rotation restriction settings"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isAdd = bpy.props.BoolProperty(name="If not add a constraint", default=True)
+	isAdd = bpy.props.BoolProperty(name="If not add constraint", default=True)
 	isLocal = bpy.props.BoolProperty(name="Local space", default=True)
 	
 	def execute(self, context):

@@ -9,19 +9,19 @@ import bpy
 class Reset2DCursor(bpy.types.Operator):
 	bl_idname = "image.reset_2d_cursor"
 	bl_label = "Reset position of cursor"
-	bl_description = "2D cursor moves in lower left"
+	bl_description = "2D cursor moves to lower-left corner"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
 		("C", "Central", "", 1),
 		("U", "Shang", "", 2),
-		("RU", "On upper right", "", 3),
+		("RU", "On right", "", 3),
 		("R", "Right", "", 4),
 		("RD", "Lower right", "", 5),
 		("D", "Xia", "", 6),
 		("LD", "Lower left", "", 7),
 		("L", "Left", "", 8),
-		("LU", "On top left", "", 9),
+		("LU", "On left", "", 9),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Location", default="LD")
 	
@@ -78,7 +78,7 @@ class TogglePanelsA(bpy.types.Operator):
 class TogglePanelsB(bpy.types.Operator):
 	bl_idname = "image.toggle_panels_b"
 	bl_label = "Toggle Panel (mode B)"
-	bl_description = "\"Panel both hide\" → show only the tool shelf → show only properties → \"Panel both display\" for toggle"
+	bl_description = "\"Panel both hide\" → show only tool shelf → show only properties → \"Panel both display\" for toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -101,7 +101,7 @@ class TogglePanelsB(bpy.types.Operator):
 class TogglePanelsC(bpy.types.Operator):
 	bl_idname = "image.toggle_panels_c"
 	bl_label = "Toggle Panel (mode C)"
-	bl_description = "\"Panel both hide\" → \"show only the tool shelf → show only the properties. The toggle"
+	bl_description = "\"Panel both hide\" → \"show only tool shelf → show only properties. toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -128,7 +128,7 @@ class TogglePanelsC(bpy.types.Operator):
 class ShortcutsMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_view_shortcuts"
 	bl_label = "Shortcut for registration"
-	bl_description = "Shortcuts and features that might come in handy"
+	bl_description = "Registering shortcut feature that might come in handy"
 	
 	def draw(self, context):
 		self.layout.operator(TogglePanelsA.bl_idname, icon="PLUGIN")
@@ -146,10 +146,10 @@ class Reset2DCursorMenu(bpy.types.Menu):
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Xia").mode = 'D'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Left").mode = 'L'
 		self.layout.separator()
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On upper right").mode = 'RU'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On right").mode = 'RU'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Lower right").mode = 'RD'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Lower left").mode = 'LD'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On top left").mode = 'LU'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="On left").mode = 'LU'
 		self.layout.separator()
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Central").mode = 'C'
 

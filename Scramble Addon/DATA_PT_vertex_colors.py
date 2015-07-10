@@ -33,7 +33,7 @@ class MoveActiveVertexColor(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="There is no active object")
 			return {'CANCELLED'}
 		if (obj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="This is not a mesh object")
+			self.report(type={'ERROR'}, message="This is not mesh object")
 			return {'CANCELLED'}
 		me = obj.data
 		if (len(me.vertex_colors) <= 1):
@@ -90,7 +90,7 @@ class VertexColorSet(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="There is no active object")
 			return {'CANCELLED'}
 		if (obj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="This is not a mesh object")
+			self.report(type={'ERROR'}, message="This is not mesh object")
 			return {'CANCELLED'}
 		me = obj.data
 		active_col = me.vertex_colors.active
@@ -112,8 +112,8 @@ class VertexColorSet(bpy.types.Operator):
 
 class AddVertexColorSelectedObject(bpy.types.Operator):
 	bl_idname = "object.add_vertex_color_selected_object"
-	bl_label = "Bulk add vertex color"
-	bl_description = "Specify color and name all selected mesh object, adds a vertex color"
+	bl_label = "Bulk add vertex colors"
+	bl_description = "Specify color and name all selected mesh object, adds vertex color"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	name = bpy.props.StringProperty(name="Vertex color names", default="Col")

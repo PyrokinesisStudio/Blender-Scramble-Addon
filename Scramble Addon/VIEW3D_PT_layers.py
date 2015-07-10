@@ -9,7 +9,7 @@ import bpy
 class GroupLayers(bpy.types.Operator):
 	bl_idname = "object.group_layers"
 	bl_label = "Toggle show / hide groups"
-	bl_description = "Group show / hide toggles"
+	bl_description = "Switch Show / Hide group has"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	group = bpy.props.StringProperty(name="Group name")

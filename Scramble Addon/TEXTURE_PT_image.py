@@ -34,8 +34,8 @@ class ShowTextureImage(bpy.types.Operator):
 
 class StartTexturePaint(bpy.types.Operator):
 	bl_idname = "texture.start_texture_paint"
-	bl_label = "This texture is a texture paint"
-	bl_description = "Active texture provides a texture paint"
+	bl_label = "This texture is texture paint"
+	bl_description = "Active texture provides texture paint"
 	bl_options = {'REGISTER'}
 	
 	@classmethod

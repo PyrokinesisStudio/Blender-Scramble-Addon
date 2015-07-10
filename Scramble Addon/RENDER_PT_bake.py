@@ -17,7 +17,7 @@ class NewBakeImage(bpy.types.Operator):
 	height = bpy.props.IntProperty(name="Height", default=1024, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL')
 	alpha = bpy.props.BoolProperty(name="Alpha", default=True)
 	float = bpy.props.BoolProperty(name="32-bit Float", default=False)
-	show_image = bpy.props.BoolProperty(name="Make a picture", default=True)
+	show_image = bpy.props.BoolProperty(name="Make picture", default=True)
 	
 	@classmethod
 	def poll(cls, context):

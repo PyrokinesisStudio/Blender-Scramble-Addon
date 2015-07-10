@@ -18,7 +18,7 @@ class CellMenuSeparateEX(bpy.types.Operator):
 
 class SeparateSelectedEX(bpy.types.Operator):
 	bl_idname = "mesh.separate_selected_ex"
-	bl_label = "Choice of (active isolated-side)"
+	bl_label = "Select product (active isolated-side)"
 	bl_description = "After \"in choice of separation\" enters edit mode for separation side"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -64,7 +64,7 @@ class DuplicateNewParts(bpy.types.Operator):
 class QuickShrinkwrap(bpy.types.Operator):
 	bl_idname = "mesh.quick_shrinkwrap"
 	bl_label = "Quick shrink wrap"
-	bl_description = "Another one you mesh selected vertices pettanko was bonds, who"
+	bl_description = "Another one you mesh selected vertices pettanko!, glue"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -130,7 +130,7 @@ class SeparateEXMenu(bpy.types.Menu):
 		self.layout.operator(DuplicateNewParts.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator("mesh.separate", text="In material").type = 'MATERIAL'
-		self.layout.operator("mesh.separate", text="In isolated structural parts").type = 'LOOSE'
+		self.layout.operator("mesh.separate", text="Isolated structural parts").type = 'LOOSE'
 
 # メニューのオン/オフの判定
 def IsMenuEnable(self_id):

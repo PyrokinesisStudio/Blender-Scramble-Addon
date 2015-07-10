@@ -10,8 +10,8 @@ import collections
 
 class LocalViewEx(bpy.types.Operator):
 	bl_idname = "view3d.local_view_ex"
-	bl_label = "Global view and local views (non-zoom)"
-	bl_description = "And show only selected objects, center point of Zoom (is not)"
+	bl_label = "Global / local view (non-zoom)"
+	bl_description = "Displays only selected objects and centered point of view doesn\'t (zoom)"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -60,7 +60,7 @@ class TogglePanelsA(bpy.types.Operator):
 class TogglePanelsB(bpy.types.Operator):
 	bl_idname = "view3d.toggle_panels_b"
 	bl_label = "Toggle Panel (mode B)"
-	bl_description = "\"Panel both hide\" → show only the tool shelf → show only properties → \"Panel both display\" for toggle"
+	bl_description = "\"Panel both hide\" → show only tool shelf → show only properties → \"Panel both display\" for toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -83,7 +83,7 @@ class TogglePanelsB(bpy.types.Operator):
 class TogglePanelsC(bpy.types.Operator):
 	bl_idname = "view3d.toggle_panels_c"
 	bl_label = "Toggle Panel (mode C)"
-	bl_description = "\"Panel both hide\" → \"show only the tool shelf → show only the properties. The toggle"
+	bl_description = "\"Panel both hide\" → \"show only tool shelf → show only properties. toggle"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -135,7 +135,7 @@ class PieMenu(bpy.types.Menu):
 class ViewNumpadPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.view_numpad_pie_operator"
 	bl_label = "Preset views"
-	bl_description = "Is a pie menu of preset views or (NUMPAD 1, 3, 7)"
+	bl_description = "Is pie menu of preset views or (NUMPAD 1, 3, 7)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -144,7 +144,7 @@ class ViewNumpadPieOperator(bpy.types.Operator):
 class ViewNumpadPie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_view_pie_view_numpad"
 	bl_label = "Preset views"
-	bl_description = "Is a pie menu of preset views or (NUMPAD 1, 3, 7)"
+	bl_description = "Is pie menu of preset views or (NUMPAD 1, 3, 7)"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="Left", icon="TRIA_LEFT").type = "LEFT"
@@ -192,7 +192,7 @@ class SetViewportShade(bpy.types.Operator): #
 class LayerPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.layer_pie_operator"
 	bl_label = "Layer pie"
-	bl_description = "Is a pie menu toggle layer visibility"
+	bl_description = "Is pie menu toggle layer visibility"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -201,13 +201,13 @@ class LayerPieOperator(bpy.types.Operator):
 class LayerPie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_layer"
 	bl_label = "Layer pie"
-	bl_description = "Is a pie menu toggle layer visibility"
+	bl_description = "Is pie menu toggle layer visibility"
 	
 	def draw(self, context):
 		box = self.layout.box()
 		column = box.column()
 		row = column.row()
-		row.label(text="Select layer switch (shift + add choice + CTRL in semi-selection + Alt half-clear)", icon='PLUGIN')
+		row.label(text="Select layer switch (shift + add choice + CTRL semi-selection + ALT half-clear)", icon='PLUGIN')
 		row = column.row()
 		operator = row.operator(LayerPieRun.bl_idname, text="01", icon=self.GetIcon(0))
 		operator.nr = 1
@@ -281,7 +281,7 @@ class LayerPie(bpy.types.Menu):
 class LayerPieRun(bpy.types.Operator): #
 	bl_idname = "view3d.layer_pie_run"
 	bl_label = "Layer pie"
-	bl_description = "Shows or hides layer (shift + add choice + CTRL in semi-selection + Alt half-clear)"
+	bl_description = "Shows or hides layer (shift + add choice + CTRL semi-selection + ALT half-clear)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	nr = bpy.props.IntProperty(name="Layer number")
@@ -336,7 +336,7 @@ class LayerPieRun(bpy.types.Operator): #
 class ShortcutsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_view_shortcuts"
 	bl_label = "Shortcut for registration"
-	bl_description = "Shortcuts and features that might come in handy"
+	bl_description = "Registering shortcut feature that might come in handy"
 	
 	def draw(self, context):
 		self.layout.operator(LocalViewEx.bl_idname, icon="PLUGIN")

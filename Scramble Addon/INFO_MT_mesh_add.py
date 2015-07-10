@@ -10,10 +10,10 @@ import math
 class AddSphereOnlySquare(bpy.types.Operator):
 	bl_idname = "mesh.add_sphere_only_square"
 	bl_label = "Rectangle polygon sphere"
-	bl_description = "Adds a spherical mesh is composed only of quadrilateral polygon"
+	bl_description = "Add sphere mesh is composed only of quadrilateral polygon"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	level = bpy.props.IntProperty(name="Split number", default=2, step=1, min=1, max=6, soft_min=1, soft_max=6)
+	level = bpy.props.IntProperty(name="Number of divisions", default=2, step=1, min=1, max=6, soft_min=1, soft_max=6)
 	radius = bpy.props.FloatProperty(name="RADIUS (roughly)", default=1.0, step=10, precision=3, min=0.001, max=100, soft_min=0.001, soft_max=100)
 	view_align = bpy.props.BoolProperty(name="Align view", default=False)
 	location = bpy.props.FloatVectorProperty(name="Location", default=(0.0, 0.0, 0.0), step=10, precision=3, subtype='XYZ', min=-100, max=100, soft_min=-100, soft_max=100)
@@ -74,7 +74,7 @@ class AddVertexOnlyObject(bpy.types.Operator):
 class CreateVertexGroupSplits(bpy.types.Operator):
 	bl_idname = "mesh.create_vertex_group_splits"
 	bl_label = "Isolated vertex groups"
-	bl_description = "Create a separate each part of vertex groups applied mesh group"
+	bl_description = "Create separate each part of vertex groups applied mesh group"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	threshold = bpy.props.FloatProperty(name="Turn threshold", default=0.5, min=0, max=1, soft_min=0, soft_max=1, step=3, precision=2)

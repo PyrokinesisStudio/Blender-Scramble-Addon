@@ -8,7 +8,7 @@ import bpy
 
 class SelectAxisLimit(bpy.types.Operator):
 	bl_idname = "mesh.select_axis_limit"
-	bl_label = "Select vertex of X = 0"
+	bl_label = "Select vertex X = 0"
 	bl_description = "Select vertex of X = 0"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -38,7 +38,7 @@ class SelectAxisLimit(bpy.types.Operator):
 
 class SelectAxisOver(bpy.types.Operator):
 	bl_idname = "mesh.select_axis_over"
-	bl_label = "Select right half"
+	bl_label = "Choose right half"
 	bl_description = "Select right half of mesh (other settings too)"
 	bl_options = {'REGISTER', 'UNDO'}
 	

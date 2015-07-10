@@ -22,7 +22,7 @@ class ToggleMeshSelectMode(bpy.types.Operator):
 			self.report(type={"INFO"}, message="Face selection mode")
 		else:
 			context.tool_settings.mesh_select_mode = (False, True, False)
-			self.report(type={"INFO"}, message="\"Edge\" mode")
+			self.report(type={"INFO"}, message="\' select mode")
 		return {'FINISHED'}
 
 ################
@@ -32,7 +32,7 @@ class ToggleMeshSelectMode(bpy.types.Operator):
 class SelectModePieOperator(bpy.types.Operator):
 	bl_idname = "mesh.select_mode_pie_operator"
 	bl_label = "Mesh selection mode"
-	bl_description = "Is a pie menu selection of mesh"
+	bl_description = "Is pie menu selection of mesh"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -41,7 +41,7 @@ class SelectModePieOperator(bpy.types.Operator):
 class SelectModePie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_edit_mesh_pie_select_mode"
 	bl_label = "Mesh selection mode"
-	bl_description = "Is a pie menu selection of mesh"
+	bl_description = "Is pie menu selection of mesh"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator("mesh.select_mode", text="Vertex", icon='VERTEXSEL').type = 'VERT'
@@ -51,7 +51,7 @@ class SelectModePie(bpy.types.Menu): #
 class ProportionalPieOperator(bpy.types.Operator):
 	bl_idname = "mesh.proportional_pie_operator"
 	bl_label = "Proportional edit"
-	bl_description = "Is a pie menu proportional edit"
+	bl_description = "Is pie menu proportional edit"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -63,7 +63,7 @@ class ProportionalPieOperator(bpy.types.Operator):
 class ProportionalPie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_edit_mesh_pie_proportional"
 	bl_label = "Proportional edit"
-	bl_description = "Is a pie menu proportional edit"
+	bl_description = "Is pie menu proportional edit"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetProportionalEdit.bl_idname, text="Enabling", icon="PROP_ON").mode = "ENABLED"
@@ -88,7 +88,7 @@ class SetProportionalEdit(bpy.types.Operator): #
 class PieMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_edit_mesh_pie_menu"
 	bl_label = "Pie menu"
-	bl_description = "Is a pie on mesh editing"
+	bl_description = "Is pie on mesh editing"
 	
 	def draw(self, context):
 		self.layout.operator(SelectModePieOperator.bl_idname, icon="PLUGIN")

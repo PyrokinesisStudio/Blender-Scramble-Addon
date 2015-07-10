@@ -9,8 +9,8 @@ import re
 
 class SelectSerialNumberNameBone(bpy.types.Operator):
 	bl_idname = "pose.select_serial_number_name_bone"
-	bl_label = "Select a numbered bone."
-	bl_description = "Select name with a number X.001 in bone"
+	bl_label = "Select numbered bone."
+	bl_description = "Select name with number like X.001 bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -42,7 +42,7 @@ class SelectSerialNumberNameBone(bpy.types.Operator):
 class SelectMoveSymmetryNameBones(bpy.types.Operator):
 	bl_idname = "pose.select_move_symmetry_name_bones"
 	bl_label = "Symmetrical bones move selection"
-	bl_description = "If you choose X.R change selection to X.L, if X.L to X.R"
+	bl_description = "If you select X.R change selection to X.L, X.L if to X.R"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def GetMirrorBoneName(self, name):
@@ -112,7 +112,7 @@ class SelectMoveSymmetryNameBones(bpy.types.Operator):
 
 class SelectSameConstraintBone(bpy.types.Operator):
 	bl_idname = "pose.select_same_constraint_bone"
-	bl_label = "Select bone of same constraints"
+	bl_label = "Select bone same constraints."
 	bl_description = "Select additional bone with active bone and same kind of constraint."
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -184,8 +184,8 @@ class SelectSameNameBones(bpy.types.Operator):
 
 class SelectSymmetryNameBones(bpy.types.Operator):
 	bl_idname = "pose.select_symmetry_name_bones"
-	bl_label = "Select Add name of symmetrical bone"
-	bl_description = "If you select X.R X.L also selected X.R X.L if additional selection"
+	bl_label = "Select Add name symmetrical bone"
+	bl_description = "If you select X.R X.L also selected X.R X.L you select additional"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def GetMirrorBoneName(self, name):
@@ -248,7 +248,7 @@ class SelectSymmetryNameBones(bpy.types.Operator):
 
 class SelectChildrenEnd(bpy.types.Operator):
 	bl_idname = "pose.select_children_end"
-	bl_label = "Until end of bone"
+	bl_label = "Select to end of bone"
 	bl_description = "Select bones child-child child\'s bones. And we will select to end"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -289,7 +289,7 @@ class SelectChildrenEnd(bpy.types.Operator):
 class SelectParentEnd(bpy.types.Operator):
 	bl_idname = "pose.select_parent_end"
 	bl_label = "Select bone"
-	bl_description = "Choice bones parent → parent of parent bone. And we will select to the end"
+	bl_description = "Choice bones parent → parent of parent bone. And we will select to end"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -366,7 +366,7 @@ class SelectPath(bpy.types.Operator):
 
 class SelectAxisOver(bpy.types.Operator):
 	bl_idname = "pose.select_axis_over"
-	bl_label = "Select right half"
+	bl_label = "Choose right half"
 	bl_description = "Select right half of bone (other settings are also available)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -491,7 +491,7 @@ class SelectGroupedMenu(bpy.types.Menu):
 class ShortcutsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_pose_shortcuts"
 	bl_label = "Shortcut for registration"
-	bl_description = "Shortcuts and features that might come in handy"
+	bl_description = "Registering shortcut feature that might come in handy"
 	
 	def draw(self, context):
 		self.layout.operator(SelectOneAndPath.bl_idname, icon='PLUGIN')

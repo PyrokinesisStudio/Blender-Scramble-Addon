@@ -9,11 +9,11 @@ import bpy, bmesh
 class MargeSelectedVertexGroup(bpy.types.Operator):
 	bl_idname = "paint.marge_selected_vertex_group"
 	bl_label = "Synthesis of weights with each other"
-	bl_description = "synthetic weights of selected bone and same vertex groups"
+	bl_description = "Weight of selected bone and same vertex group merges"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isNewVertGroup = bpy.props.BoolProperty(name="Create a new vertex group", default=False)
-	ext = bpy.props.StringProperty(name="At end of new vertex group names", default="... And synthetic")
+	isNewVertGroup = bpy.props.BoolProperty(name="Create new vertex group", default=False)
+	ext = bpy.props.StringProperty(name="At end of new vertex group names", default="... Such as synthetic")
 	
 	def execute(self, context):
 		obj = context.active_object
@@ -66,7 +66,7 @@ class RemoveSelectedVertexGroup(bpy.types.Operator):
 class VertexGroupAverageAll(bpy.types.Operator):
 	bl_idname = "mesh.vertex_group_average_all"
 	bl_label = "Fill in average weight of all vertices"
-	bl_description = "average weight of all, fills all vertices"
+	bl_description = "In average weight of all, fills all vertices"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	strength = bpy.props.FloatProperty(name="Strength", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
@@ -180,7 +180,7 @@ class BlurWeight(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="There is no active object")
 			return {'CANCELLED'}
 		if (activeObj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="Please run mesh object")
+			self.report(type={'ERROR'}, message="Try on mesh object.")
 			return {'CANCELLED'}
 		pre_mode = activeObj.mode
 		bpy.ops.object.mode_set(mode='OBJECT')

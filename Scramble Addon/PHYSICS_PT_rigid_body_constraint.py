@@ -56,7 +56,7 @@ class CopyConstraintSetting(bpy.types.Operator):
 
 class ClearConstraintLimits(bpy.types.Operator):
 	bl_idname = "rigidbody.clear_constraint_limits"
-	bl_label = "Initializes a rigid constraint limits"
+	bl_label = "Initializes rigid constraint limits"
 	bl_description = "Initializes rigid constraints of active object limit settings group"
 	bl_options = {'REGISTER', 'UNDO'}
 	

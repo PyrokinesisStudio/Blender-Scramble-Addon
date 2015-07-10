@@ -76,7 +76,7 @@ class LoadView(bpy.types.Operator):
 class DeleteViewSavedata(bpy.types.Operator):
 	bl_idname = "view3d.delete_view_savedata"
 	bl_label = "View save to discard"
-	bl_description = "Removes all viewpoints save data"
+	bl_description = "Removes all viewpoints save"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

@@ -9,7 +9,7 @@ import bpy
 class PieMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie"
 	bl_label = "Pie menu"
-	bl_description = "Is a pie menu window relationship"
+	bl_description = "Is pie between window"
 	
 	def draw(self, context):
 		self.layout.operator(AreaTypePieOperator.bl_idname, icon="PLUGIN")
@@ -42,7 +42,7 @@ class AreaTypePie(bpy.types.Menu): #
 class AreaTypePieAnim(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie_area_type_anim"
 	bl_label = "Editor type (animation)"
-	bl_description = "Is a pie menu change editor type (animation related)"
+	bl_description = "Is pie menu change editor type (animation related)"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="NLA Editor", icon="NLA").type = "NLA_EDITOR"
@@ -52,7 +52,7 @@ class AreaTypePieAnim(bpy.types.Menu):
 class AreaTypePieOther(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie_area_type_other"
 	bl_label = "Editor type (other)"
-	bl_description = "Is a pie menu change editor type (other)"
+	bl_description = "Is pie menu change editor type (other)"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Logic Editor", icon="LOGIC").type = "LOGIC_EDITOR"
@@ -81,7 +81,7 @@ class SetAreaType(bpy.types.Operator): #
 class ToggleJapaneseInterface(bpy.types.Operator):
 	bl_idname = "wm.toggle_japanese_interface"
 	bl_label = "English UI, Japanese switch"
-	bl_description = "Japan language with English interface switch"
+	bl_description = "Switch interface English, Japan,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
