@@ -94,14 +94,14 @@ class RenameUV(bpy.types.Operator):
 						if (slot != None):
 							if (slot.uv_layer == preName):
 									slot.uv_layer = uv.name
-									self.report(type={"INFO"}, message="Material \""+mat.name+"\"designation UV fixed")
+									self.report(type={"INFO"}, message="Material 「"+mat.name+"\"designation UV fixed")
 					for me2 in bpy.data.meshes:
 						for mat2 in me2.materials:
 							if (mat2):
 								if (mat.name == mat2.name):
 									try:
 										me2.uv_layers[preName].name = uv.name
-										self.report(type={"INFO"}, message="Mesh \""+me2.name+"\"designation UV fixed")
+										self.report(type={"INFO"}, message="Mesh 「"+me2.name+"\"designation UV fixed")
 									except KeyError: pass
 		else:
 			self.report(type={'ERROR'}, message="Mesh objects are not")

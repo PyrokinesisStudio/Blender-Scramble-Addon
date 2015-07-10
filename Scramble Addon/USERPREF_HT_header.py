@@ -925,7 +925,7 @@ class ToggleDisabledMenu(bpy.types.Operator):
 
 class InputMenu(bpy.types.Menu):
 	bl_idname = "USERPREF_HT_header_input"
-	bl_label = "　Shortcut keys"
+	bl_label = "  Shortcut keys"
 	bl_description = "Operations related to shortcut menu."
 	
 	def draw(self, context):
@@ -940,7 +940,7 @@ class InputMenu(bpy.types.Menu):
 
 class AddonsMenu(bpy.types.Menu):
 	bl_idname = "USERPREF_HT_header_scramble_addon"
-	bl_label = "　Scramble Addon"
+	bl_label = "  Scramble Addon"
 	bl_description = "Operations involving scramble Addon menu."
 	
 	def draw(self, context):
