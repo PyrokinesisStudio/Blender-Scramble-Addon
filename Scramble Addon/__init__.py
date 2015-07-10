@@ -189,9 +189,9 @@ class AddonPreferences(bpy.types.AddonPreferences):
 	bl_idname = __name__
 	
 	disabled_menu = bpy.props.StringProperty(name="Invalid menu", default="")
-	use_disabled_menu = bpy.props.BoolProperty(name="Turn on/off additional items hidden", default=False)
-	view_savedata = bpy.props.StringProperty(name="View saved games", default="")
-	key_config_xml_path = bpy.props.StringProperty(name="XML game pass", default="BlenderKeyConfig.xml")
+	use_disabled_menu = bpy.props.BoolProperty(name="\"On/Off additional items\" hidden", default=False)
+	view_savedata = bpy.props.StringProperty(name="View save data", default="")
+	key_config_xml_path = bpy.props.StringProperty(name="XML config path", default="BlenderKeyConfig.xml")
 	
 	image_editor_path_1 = bpy.props.StringProperty(name="Path of image-editing software 1", default="", subtype='FILE_PATH')
 	image_editor_path_2 = bpy.props.StringProperty(name="Path of image-editing software 2", default="", subtype='FILE_PATH')
@@ -220,7 +220,7 @@ class AddonPreferences(bpy.types.AddonPreferences):
 class ToggleMenuEnable(bpy.types.Operator):
 	bl_idname = "wm.toggle_menu_enable"
 	bl_label = "On/Off additional items"
-	bl_description = "ScrambleAddon-add menu toggles enabled / disabled"
+	bl_description = "Extra menu of ScrambleAddon toggle Enable/Disable"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	id = bpy.props.StringProperty()

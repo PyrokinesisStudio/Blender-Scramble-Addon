@@ -83,7 +83,7 @@ class CreateWeightCopyMesh(bpy.types.Operator):
 	
 	name =  bpy.props.StringProperty(name="Name of object to create", default="Weight for objects")
 	items = [
-		('TAIL', "At end", "", 1),
+		('TAIL', "End", "", 1),
 		('HEAD', "fundamental", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Position of weight")

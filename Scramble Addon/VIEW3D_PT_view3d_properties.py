@@ -12,7 +12,7 @@ class SaveView(bpy.types.Operator):
 	bl_description = "Save current 3D view perspective"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	save_name = bpy.props.StringProperty(name="Name", default="View saved games")
+	save_name = bpy.props.StringProperty(name="Name", default="View save data")
 	
 	def execute(self, context):
 		data = ""
@@ -23,7 +23,7 @@ class SaveView(bpy.types.Operator):
 				save_name = line.split(':')[0]
 			except ValueError:
 				context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = ""
-				self.report(type={'ERROR'}, message="Failed to load of SaveGame resets")
+				self.report(type={'ERROR'}, message="Failed load view, reseted save data")
 				return {'CANCELLED'}
 			if (str(self.save_name) == save_name):
 				continue
@@ -44,11 +44,11 @@ class SaveView(bpy.types.Operator):
 
 class LoadView(bpy.types.Operator):
 	bl_idname = "view3d.load_view"
-	bl_label = "Point of load"
-	bl_description = "Load current 3D view perspective"
+	bl_label = "Load view"
+	bl_description = "Load to current 3D view perspective"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	index = bpy.props.StringProperty(name="View saved names", default="View saved games")
+	index = bpy.props.StringProperty(name="View save data name", default="View save data")
 	
 	def execute(self, context):
 		for line in context.user_preferences.addons["Scramble Addon"].preferences.view_savedata.split('|'):
@@ -58,7 +58,7 @@ class LoadView(bpy.types.Operator):
 				index, loc, rot, distance, view_perspective = line.split(':')
 			except ValueError:
 				context.user_preferences.addons["Scramble Addon"].preferences.view_savedata = ""
-				self.report(type={'ERROR'}, message="Failed to load of SaveGame resets")
+				self.report(type={'ERROR'}, message="Failed load view, reseted save data")
 				return {'CANCELLED'}
 			if (str(self.index) == index):
 				for i, v in enumerate(loc.split(',')):
@@ -70,13 +70,13 @@ class LoadView(bpy.types.Operator):
 				self.report(type={'INFO'}, message=str(self.index))
 				break
 		else:
-			self.report(type={'WARNING'}, message="Saved game does not exist")
+			self.report(type={'WARNING'}, message="Save data does not exist")
 		return {'FINISHED'}
 
 class DeleteViewSavedata(bpy.types.Operator):
 	bl_idname = "view3d.delete_view_savedata"
-	bl_label = "View save to discard"
-	bl_description = "Removes all viewpoints save"
+	bl_label = "Delete view save"
+	bl_description = "Removes all view save data"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -113,7 +113,7 @@ def menu(self, context):
 			col.operator(DeleteViewSavedata.bl_idname, icon="PLUGIN")
 		if (context.user_preferences.addons["Scramble Addon"].preferences.view_savedata):
 			col = box.column(align=True)
-			col.label(text="View save to load", icon='PLUGIN')
+			col.label(text="Load view save data", icon='PLUGIN')
 			for line in context.user_preferences.addons["Scramble Addon"].preferences.view_savedata.split('|'):
 				if (line == ""):
 					continue

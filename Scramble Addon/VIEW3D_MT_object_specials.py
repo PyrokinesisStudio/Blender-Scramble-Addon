@@ -182,7 +182,7 @@ class CreateVertexToMetaball(bpy.types.Operator):
 	
 	name = bpy.props.StringProperty(name="Metaball name", default="Mball")
 	size = bpy.props.FloatProperty(name="Size", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=1, precision=3)
-	resolution = bpy.props.FloatProperty(name="RES", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=0.5, precision=3)
+	resolution = bpy.props.FloatProperty(name="Resolution", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=0.5, precision=3)
 	isUseVg = bpy.props.BoolProperty(name="Vertex group size", default=False)
 	
 	@classmethod
@@ -832,8 +832,8 @@ class MoveBevelObject(bpy.types.Operator):
 	
 	items = [
 		('START', "Top", "", 1),
-		('END', "At end", "", 2),
-		('CENTER', "Centre", "", 3),
+		('END', "End", "", 2),
+		('CENTER', "Center", "", 3),
 		]
 	move_position = bpy.props.EnumProperty(items=items, name="Moving location", default='END')
 	use_duplicate = bpy.props.BoolProperty(name="Duplicate bevel", default=True)

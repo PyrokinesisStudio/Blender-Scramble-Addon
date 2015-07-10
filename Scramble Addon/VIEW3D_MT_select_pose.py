@@ -378,7 +378,7 @@ class SelectAxisOver(bpy.types.Operator):
 	axis = bpy.props.EnumProperty(items=items, name="Axis")
 	items = [
 		('-1', "-(Minus)", "", 1),
-		('1', "+ (Plus)", "", 2),
+		('1', "+(Plus)", "", 2),
 		]
 	direction = bpy.props.EnumProperty(items=items, name="Direction")
 	offset = bpy.props.FloatProperty(name="Offset", default=0, step=10, precision=3)

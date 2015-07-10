@@ -1437,13 +1437,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 現在の3Dビューの視点をセーブします
         * ―(Save current 3D view perspective)
     * **視点のロード**
-    * **―(Point of load)**
+    * **―(Load view)**
         * 現在の3Dビューに視点をロードします
-        * ―(Load current 3D view perspective)
+        * ―(Load to current 3D view perspective)
     * **視点セーブを破棄**
-    * **―(View save to discard)**
+    * **―(Delete view save)**
         * 全ての視点セーブデータを削除します
-        * ―(Removes all viewpoints save)
+        * ―(Removes all view save data)
   
 # ライセンス (License)
 Copyright (c) 2015 saidenka.  

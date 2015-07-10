@@ -67,9 +67,9 @@ class LinkIKSetting(bpy.types.Operator):
 	bl_description = "Copies to other selected bone bone active IK settings (rotation limits, etc)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isX = bpy.props.BoolProperty(name="Set X axis", default=True)
-	isY = bpy.props.BoolProperty(name="Y axis settings", default=True)
-	isZ = bpy.props.BoolProperty(name="Z axis settings", default=True)
+	isX = bpy.props.BoolProperty(name="X axis setting", default=True)
+	isY = bpy.props.BoolProperty(name="Y axis setting", default=True)
+	isZ = bpy.props.BoolProperty(name="Z axis setting", default=True)
 	isStretch = bpy.props.BoolProperty(name="Stretch settings", default=True)
 	
 	def execute(self, context):

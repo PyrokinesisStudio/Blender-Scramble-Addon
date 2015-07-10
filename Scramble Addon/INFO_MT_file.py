@@ -803,7 +803,7 @@ class AllSetPhysicsFrames(bpy.types.Operator):
 	endOffset = bpy.props.IntProperty(name="Starting offset", default=0, step=1)
 	
 	isRigidBody = bpy.props.BoolProperty(name="RigidBody", default=True)
-	isCloth = bpy.props.BoolProperty(name="Fabric (cloth)", default=True)
+	isCloth = bpy.props.BoolProperty(name="Cloth", default=True)
 	isSoftBody = bpy.props.BoolProperty(name="Soft body", default=True)
 	isFluid = bpy.props.BoolProperty(name="Fluid", default=True)
 	isDynamicPaint = bpy.props.BoolProperty(name="Dynamic paint", default=True)

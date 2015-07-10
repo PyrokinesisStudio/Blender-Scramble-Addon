@@ -347,7 +347,7 @@ def menu(self, context):
 		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="Soft set", icon="PLUGIN")
 		self.layout.operator(MakeLinkClothSettings.bl_idname, text="Cross set", icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(MakeLinkUVNames.bl_idname, text="Free UV", icon="PLUGIN")
+		self.layout.operator(MakeLinkUVNames.bl_idname, text="Empty UV", icon="PLUGIN")
 		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="Movement of armature", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()

@@ -178,7 +178,7 @@ class SubsurfMenu(bpy.types.Menu):
 		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="subdivision + 1", icon="PLUGIN")
 		operator.mode = 'RELATIVE'
 		operator.levels = 1
-		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="Subdivision-1", icon="PLUGIN")
+		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="Subdivision - 1", icon="PLUGIN")
 		operator.mode = 'RELATIVE'
 		operator.levels = -1
 		self.layout.separator()
@@ -214,7 +214,7 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
 		self.layout.prop(context.scene.render, 'resolution_x', text="Resolution X", icon="PLUGIN")
-		self.layout.prop(context.scene.render, 'resolution_y', text="RES Y", icon="PLUGIN")
+		self.layout.prop(context.scene.render, 'resolution_y', text="Resolution Y", icon="PLUGIN")
 		self.layout.menu(RenderResolutionPercentageMenu.bl_idname, text="Render size (currently:"+str(context.scene.render.resolution_percentage)+"%)", icon="PLUGIN")
 		for img in bpy.data.images:
 			if (img.type == 'RENDER_RESULT'):
