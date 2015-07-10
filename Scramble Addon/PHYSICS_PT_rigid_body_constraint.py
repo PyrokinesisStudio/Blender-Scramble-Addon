@@ -62,7 +62,7 @@ class ClearConstraintLimits(bpy.types.Operator):
 	
 	mode = bpy.props.StringProperty(name="Mode", default='', options={'SKIP_SAVE', 'HIDDEN'})
 	
-	is_lin_x = bpy.props.BoolProperty(name="X Mobile", default=True, options={'SKIP_SAVE'})
+	is_lin_x = bpy.props.BoolProperty(name="X move", default=True, options={'SKIP_SAVE'})
 	is_lin_y = bpy.props.BoolProperty(name="Y move", default=True, options={'SKIP_SAVE'})
 	is_lin_z = bpy.props.BoolProperty(name="Z move", default=True, options={'SKIP_SAVE'})
 	
@@ -81,12 +81,12 @@ class ClearConstraintLimits(bpy.types.Operator):
 		return context.window_manager.invoke_props_dialog(self)
 	
 	def draw(self, context):
-		self.layout.label("To initialize transfer limit")
+		self.layout.label("Clear move limit")
 		row = self.layout.row()
 		row.prop(self, 'is_lin_x', text="X")
 		row.prop(self, 'is_lin_y', text="Y")
 		row.prop(self, 'is_lin_z', text="Z")
-		self.layout.label("To initialize rotation limit")
+		self.layout.label("Clear rotate limit")
 		row = self.layout.row()
 		row.prop(self, 'is_ang_x', text="X")
 		row.prop(self, 'is_ang_y', text="Y")
@@ -113,7 +113,7 @@ class ReverseConstraintLimits(bpy.types.Operator):
 	bl_description = "Minimum limit settings of rigid constraints of active object and reverses maximum"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	is_lin_x = bpy.props.BoolProperty(name="X Mobile", default=False, options={'SKIP_SAVE'})
+	is_lin_x = bpy.props.BoolProperty(name="X move", default=False, options={'SKIP_SAVE'})
 	is_lin_y = bpy.props.BoolProperty(name="Y move", default=False, options={'SKIP_SAVE'})
 	is_lin_z = bpy.props.BoolProperty(name="Z move", default=False, options={'SKIP_SAVE'})
 	
@@ -132,12 +132,12 @@ class ReverseConstraintLimits(bpy.types.Operator):
 		return context.window_manager.invoke_props_dialog(self)
 	
 	def draw(self, context):
-		self.layout.label("Invert movement restrictions")
+		self.layout.label("Invert move limit")
 		row = self.layout.row()
 		row.prop(self, 'is_lin_x', text="X")
 		row.prop(self, 'is_lin_y', text="Y")
 		row.prop(self, 'is_lin_z', text="Z")
-		self.layout.label("To reverse rotation restrictions")
+		self.layout.label("Invert rotate limit")
 		row = self.layout.row()
 		row.prop(self, 'is_ang_x', text="X")
 		row.prop(self, 'is_ang_y', text="Y")
@@ -177,12 +177,12 @@ def menu(self, context):
 			if context.active_object.rigid_body_constraint:
 				if context.active_object.rigid_body_constraint.type in ['GENERIC', 'GENERIC_SPRING']:
 					row = self.layout.row(align=True)
-					row.operator(ClearConstraintLimits.bl_idname, icon='X', text="Limit initialization")
+					row.operator(ClearConstraintLimits.bl_idname, icon='X', text="Limit clear")
 					row.operator(ReverseConstraintLimits.bl_idname, icon='ARROW_LEFTRIGHT', text="Limit reverse")
 				elif context.active_object.rigid_body_constraint.type == 'FIXED':
 					row = self.layout.row(align=True)
-					row.operator(ClearConstraintLimits.bl_idname, icon='IPO_LINEAR', text="In General, initialize").mode = 'GENERIC'
-					row.operator(ClearConstraintLimits.bl_idname, icon='DRIVER', text="Generic initialization in spring").mode = 'GENERIC_SPRING'
+					row.operator(ClearConstraintLimits.bl_idname, icon='IPO_LINEAR', text="initialize generic").mode = 'GENERIC'
+					row.operator(ClearConstraintLimits.bl_idname, icon='DRIVER', text="Clear Generic Spring").mode = 'GENERIC_SPRING'
 		row = self.layout.row(align=True)
 		op = row.operator('wm.context_set_string', icon='SCENE_DATA', text="")
 		op.data_path = 'space_data.context'

@@ -16,7 +16,7 @@ class CreateCustomShape(bpy.types.Operator):
 	name =  bpy.props.StringProperty(name="Name", default="CustomShape")
 	items = [
 		('1', "Line", "", 1),
-		('2', "Diamond", "", 2),
+		('2', "Rhombus", "", 2),
 		]
 	shape = bpy.props.EnumProperty(items=items, name="Shape")
 	isObjectMode =  bpy.props.BoolProperty(name="Enter object mode", default=True)
@@ -84,7 +84,7 @@ class CreateWeightCopyMesh(bpy.types.Operator):
 	name =  bpy.props.StringProperty(name="Name of object to create", default="Weight for objects")
 	items = [
 		('TAIL', "End", "", 1),
-		('HEAD', "fundamental", "", 2),
+		('HEAD', "Root", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Position of weight")
 	
@@ -140,7 +140,7 @@ class CopyBoneName(bpy.types.Operator):
 	bl_description = "Copies Clipboard name of active bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isObject = bpy.props.BoolProperty(name="Object names", default=False)
+	isObject = bpy.props.BoolProperty(name="And object name", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -161,7 +161,7 @@ class SplineGreasePencil(bpy.types.Operator):
 	bl_description = "Select bones linked like chain of threading to grease pencil, pose"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isRootReset = bpy.props.BoolProperty(name="Fundamental to its original position", default=False)
+	isRootReset = bpy.props.BoolProperty(name="Reset root", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -224,9 +224,9 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 	bl_description = "In bone name (of choice) to match regular expression replace"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isAll = bpy.props.BoolProperty(name="Including non-select all", default=False)
-	pattern = bpy.props.StringProperty(name="Before replacement (in regular expressions)", default="^")
-	repl = bpy.props.StringProperty(name="After replacement", default="@")
+	isAll = bpy.props.BoolProperty(name="Include non-select", default=False)
+	pattern = bpy.props.StringProperty(name="Before replace (regular expressions)", default="^")
+	repl = bpy.props.StringProperty(name="After replace", default="@")
 	
 	@classmethod
 	def poll(cls, context):
@@ -257,13 +257,13 @@ class SetSlowParentBone(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('DAMPED_TRACK', "Decay tracks", "", 1),
+		('DAMPED_TRACK', "Damp track", "", 1),
 		('IK', "IK", "", 2),
 		('STRETCH_TO', "Stretch", "", 3),
 		('COPY_LOCATION', "Copy location", "", 4),
 		]
-	constraint = bpy.props.EnumProperty(items=items, name="Constraint")
-	radius = bpy.props.FloatProperty(name="size of empty", default=0.5, min=0.01, max=10, soft_min=0.01, soft_max=10, step=10, precision=3)
+	constraint = bpy.props.EnumProperty(items=items, name="Constraints")
+	radius = bpy.props.FloatProperty(name="Empty size", default=0.5, min=0.01, max=10, soft_min=0.01, soft_max=10, step=10, precision=3)
 	slow_parent_offset = bpy.props.FloatProperty(name="Slow parent strength", default=5, min=0, max=100, soft_min=0, soft_max=100, step=50, precision=3)
 	is_use_driver = bpy.props.BoolProperty(name="Add driver to bone", default=True)
 	
@@ -509,28 +509,28 @@ class RemoveBoneNameSerialNumbers(bpy.types.Operator):
 
 class SetRigidBodyBone(bpy.types.Operator):
 	bl_idname = "pose.set_rigid_body_bone"
-	bl_label = "Set physical operations"
+	bl_label = "Set physical"
 	bl_description = "Sets by RigidBody physics led of selected bone set,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	shape_size = bpy.props.FloatProperty(name="Shape size", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
-	shape_level = bpy.props.IntProperty(name="Shape granular", default=3, min=1, max=6, soft_min=1, soft_max=6)
+	shape_level = bpy.props.IntProperty(name="Shape subsurf", default=3, min=1, max=6, soft_min=1, soft_max=6)
 	constraints_size = bpy.props.FloatProperty(name="Rigid constraint size", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
 	items = [
 		('PLAIN_AXES', "Cross", "", 1),
-		('ARROWS', "Coordinate axes", "", 2),
+		('ARROWS', "Axis", "", 2),
 		('SINGLE_ARROW', "Arrow", "", 3),
 		('CIRCLE', "Circle", "", 4),
 		('CUBE', "Cube", "", 5),
 		('SPHERE', "Sphere", "", 6),
 		('CONE', "Cone", "", 7),
-		('IMAGE', "Images", "", 8),
+		('IMAGE', "Image", "", 8),
 		]
 	empty_draw_type = bpy.props.EnumProperty(items=items, name="Rigid constraint display", default='SPHERE')
 	is_parent_shape = bpy.props.BoolProperty(name="Track shape rigid constraints", default=False)
 	rot_limit = bpy.props.FloatProperty(name="Rotation limit", default=90, min=0, max=360, soft_min=0, soft_max=360, step=1, precision=3)
-	linear_damping = bpy.props.FloatProperty(name="Attenuation: move", default=0.04, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
-	angular_damping = bpy.props.FloatProperty(name="Attenuation: rotate the", default=0.1, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
+	linear_damping = bpy.props.FloatProperty(name="Damping: Move", default=0.04, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
+	angular_damping = bpy.props.FloatProperty(name="Damping: Rotate", default=0.1, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
 	
 	@classmethod
 	def poll(cls, context):
@@ -603,7 +603,7 @@ class SetRigidBodyBone(bpy.types.Operator):
 			bpy.ops.object.parent_set(type='OBJECT', keep_transform=True)
 		bpy.ops.object.mode_set(mode='OBJECT')
 		base_obj = obj
-		base_obj.name = "剛 basis points"
+		base_obj.name = "Rigid origin"
 		pairs = []
 		for bone in bones:
 			bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=self.shape_level, size=1, view_align=False, enter_editmode=False, location=(0, 0, 0), rotation=(0, 0, 0))
@@ -702,11 +702,11 @@ class SetIKRotationLimitByPose(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('IK', "IK rotation restrictions", "", 1),
+		('IK', "IK rotation limit", "", 1),
 		('CONST', "Rotation limit constraints", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Mode")
-	use_reverse = bpy.props.BoolProperty(name="Reversal of restrictions", default=True)
+	use_reverse = bpy.props.BoolProperty(name="Reverse limit", default=True)
 	use_x = bpy.props.BoolProperty(name="X axis Limit", default=True)
 	use_y = bpy.props.BoolProperty(name="Y axis Limit", default=True)
 	use_z = bpy.props.BoolProperty(name="Z axis Limit", default=True)

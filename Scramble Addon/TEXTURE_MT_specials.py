@@ -12,7 +12,7 @@ class RenameTextureFileName(bpy.types.Operator):
 	bl_description = "file name of external images using name of active texture"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isExt = bpy.props.BoolProperty(name="Including extension", default=True)
+	isExt = bpy.props.BoolProperty(name="Include extension", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -139,7 +139,7 @@ class RemoveUnenabledSlots(bpy.types.Operator):
 	bl_description = "Removes all textures have turned off"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	is_truncate = bpy.props.BoolProperty(name="Cut back on", default=True)
+	is_truncate = bpy.props.BoolProperty(name="Cut", default=True)
 	
 	@classmethod
 	def poll(cls, context):

@@ -28,7 +28,7 @@ class MakeLinkObjectName(bpy.types.Operator):
 
 class MakeLinkLayer(bpy.types.Operator):
 	bl_idname = "object.make_link_layer"
-	bl_label = "In same layer"
+	bl_label = "Set same layer"
 	bl_description = "link active object layers to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -51,15 +51,15 @@ class MakeLinkDisplaySetting(bpy.types.Operator):
 	
 	isSameType = bpy.props.BoolProperty(name="Only objects of same type", default=True)
 	show_name = bpy.props.BoolProperty(name="Name", default=True)
-	show_axis = bpy.props.BoolProperty(name="Coordinate axes", default=True)
+	show_axis = bpy.props.BoolProperty(name="Axis", default=True)
 	show_wire = bpy.props.BoolProperty(name="Wire frame", default=True)
-	show_all_edges = bpy.props.BoolProperty(name="See all sides", default=True)
+	show_all_edges = bpy.props.BoolProperty(name="Show all edges", default=True)
 	show_bounds = bpy.props.BoolProperty(name="Bound", default=True)
 	show_texture_space = bpy.props.BoolProperty(name="Texture space", default=True)
-	show_x_ray = bpy.props.BoolProperty(name="X rays", default=True)
-	show_transparent = bpy.props.BoolProperty(name="Through", default=True)
-	draw_bounds_type = bpy.props.BoolProperty(name="Types of bounces", default=True)
-	draw_type = bpy.props.BoolProperty(name="Best drawing type", default=True)
+	show_x_ray = bpy.props.BoolProperty(name="X-ray", default=True)
+	show_transparent = bpy.props.BoolProperty(name="Alpha", default=True)
+	draw_bounds_type = bpy.props.BoolProperty(name="Bound type", default=True)
+	draw_type = bpy.props.BoolProperty(name="Maximum Draw Type", default=True)
 	color = bpy.props.BoolProperty(name="Object color", default=True)
 	
 	@classmethod
@@ -216,7 +216,7 @@ class MakeLinkSoftbodySettings(bpy.types.Operator):
 
 class MakeLinkClothSettings(bpy.types.Operator):
 	bl_idname = "object.make_link_cloth_settings"
-	bl_label = "Links for cross-"
+	bl_label = "Link cloth setting"
 	bl_description = "Cloth simulation for active object copies to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -271,7 +271,7 @@ class MakeLinkClothSettings(bpy.types.Operator):
 
 class MakeLinkTransform(bpy.types.Operator):
 	bl_idname = "object.make_link_transform"
-	bl_label = "Link to deformation"
+	bl_label = "Link transform"
 	bl_description = "Information of active object copies to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -308,7 +308,7 @@ class MakeLinkTransform(bpy.types.Operator):
 
 class TransformMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_make_links_transform"
-	bl_label = "Deformation"
+	bl_label = "Transform"
 	bl_description = "Links to information about transform objects"
 	
 	def draw(self, context):
@@ -342,10 +342,10 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.operator(MakeLinkObjectName.bl_idname, text="Object name", icon="PLUGIN")
 		self.layout.operator(MakeLinkLayer.bl_idname, text="Layer", icon="PLUGIN")
-		self.layout.operator(MakeLinkDisplaySetting.bl_idname, text="Display settings", icon="PLUGIN")
+		self.layout.operator(MakeLinkDisplaySetting.bl_idname, text="Display setting", icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="Soft set", icon="PLUGIN")
-		self.layout.operator(MakeLinkClothSettings.bl_idname, text="Cross set", icon="PLUGIN")
+		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="SoftBody setting", icon="PLUGIN")
+		self.layout.operator(MakeLinkClothSettings.bl_idname, text="Cloth setting", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(MakeLinkUVNames.bl_idname, text="Empty UV", icon="PLUGIN")
 		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="Movement of armature", icon="PLUGIN")

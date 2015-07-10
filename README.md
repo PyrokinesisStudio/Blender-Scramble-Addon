@@ -38,33 +38,33 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ボーン名をクリップボードにコピーします
         * ―(To Clipboard copies bone name)
     * **ボーン名を左右反転**
-    * **―(Flip bone name)**
+    * **―(Mirror bone name)**
         * アクティブなボーン名を左右反転します
         * ―(bone name Active Flip)
     * **ボーン名に文字列を追加**
-    * **―(Add text to bone name)**
+    * **―(Add text bone name)**
         * アクティブなボーン名に文字列を追加します
         * ―(Adds string to active bone name)
   
 * **「プロパティ」エリア > 「ボーン」タブ > 「インバースキネマティクス (IK)」パネル**
 * **―("Properties" areas ""Bourne"tab >"inverse kinematics (IK)"Panel)**
     * **このIK設定をコピー**
-    * **―(Copy IK set)**
+    * **―(Copy IK setting)**
         * アクティブなボーンのIK設定を、他の選択ボーンにコピーします
         * ―(Copies of other selected bone IK settings Active)
     * **最小/最大角を反転**
-    * **―(Flip minimum / maximum angle)**
+    * **―(Invert minimum/maximum angle)**
         * このボーンのIK設定の最小角と最大角を反転させます
         * ―(Reverses minimum and maximum angle of IK setup this bone)
     * **軸設定を他の軸にコピー**
-    * **―(Copy to other axes axis settings)**
+    * **―(Copy axis-setting to other axis)**
         * 1つの軸の設定を、他の軸にコピーします
         * ―(Copy other axis on one axis)
   
 * **「プロパティ」エリア > 「ボーン」タブ > 「トランスフォーム」パネル**
 * **―(Area "Properties" > "Bourne" tab > "transform" Panel)**
     * **ボーンの変形をコピー**
-    * **―(Copy bone deformation)**
+    * **―(Copy bone transform)**
         * アクティブなボーンの変形情報を、他の選択ボーンにコピーします
         * ―(Copy selected bones of other active bone deformation information)
   
@@ -82,18 +82,18 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「プロパティ」エリア > 「カーブデータ」タブ > 「ジオメトリ」パネル**
 * **―('Properties' area > see these curves"tab >"geometry"Panel)**
     * **テーパー指定コピー**
-    * **―(Taper specified copy)**
+    * **―(Copy taper object)**
         * アクティブカーブオブジェクトに指定されているテーパーオブジェクトを、他の選択カーブオブジェクトにコピーします
         * ―(Tapered object that is specified in active curve object copies to other selection curves)
     * **ベベル指定コピー**
-    * **―(Bevel given copies)**
+    * **―(Copy bevel object)**
         * アクティブカーブオブジェクトに指定されているベベルオブジェクトを、他の選択カーブオブジェクトにコピーします
         * ―(Bevel object that is specified in active curve object copies to other selection curves)
   
 * **「プロパティ」エリア > 「モディファイア」タブ**
 * **―(Area properties > tab "modifiers")**
     * **全モディファイア適用**
-    * **―(All modifiers applied)**
+    * **―(Apply all modifiers)**
         * 選択オブジェクトの全てのモディファイアを適用します
         * ―(Applies to all modifiers of selected object)
     * **全モディファイア削除**
@@ -137,7 +137,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択したオブジェクトのサブサーフモディファイアのプレビュー時とレンダリング時の細分化数を同じに設定します
         * ―(Set in same subdivision of subsurfmodifaia of selected object when you preview and rendering time)
     * **最適化表示を設定**
-    * **―(Sets optimization)**
+    * **―(Set optimization)**
         * 選択したオブジェクトのサブサーフモディファイアの最適化表示を設定します
         * ―(Sets optimization of subsurfmodifaia of selected object)
     * **選択オブジェクトのサブサーフを削除**
@@ -153,7 +153,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択したオブジェクトのアーマチュアモディファイアの「体積を維持」をまとめてオン/オフします
         * ―(Armtuamodifaia selected objects keep volume together off and on the)
     * **クイックカーブ変形**
-    * **―(Quick curve deformation)**
+    * **―(Quick curve transform)**
         * すばやくカーブモディファイアを適用します
         * ―(Quickly apply curve modifier)
     * **クイック配列複製+カーブ変形**
@@ -189,7 +189,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **プロパティ > "メッシュデータ"タブ > "UVマップ"パネル**
 * **―(Properties > "data mesh" tab > "UV map" Panel)**
     * **まとめてUVをリネーム**
-    * **―(Bulk Rename with UV)**
+    * **―(Altogether rename UV)**
         * 選択オブジェクト内の指定UVをまとめて改名します
         * ―(Renames selected objects within designated UV together)
     * **まとめて指定名のUVを削除**
@@ -205,7 +205,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなオブジェクトのマテリアルで未使用なUVを全削除します(他の部分に使われているUVは消してしまいます)
         * ―(Active object material (UV is used in other parts disappear) delete unused UV coordinates to all)
     * **UVを移動**
-    * **―(Move to UV)**
+    * **―(Move UV)**
         * アクティブなオブジェクトのUVを移動して並び替えます
         * ―(Sorts, by moving active object's UV)
   
@@ -220,7 +220,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなオブジェクトの頂点色を指定色で塗り潰します
         * ―(Vertex color of active object with specified color fills)
     * **頂点カラーを一括追加**
-    * **―(Bulk add vertex colors)**
+    * **―(Altogether add vertex colors)**
         * 選択中のメッシュオブジェクト全てに色と名前を指定して頂点カラーを追加します
         * ―(Specify color and name all selected mesh object, adds vertex color)
   
@@ -246,11 +246,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 全ての画像の名前を、使用している外部画像のファイル名にします
         * ―(names of all images using external image file name)
     * **全ての画像を再読み込み**
-    * **―(Reload all pictures)**
+    * **―(Reload all images)**
         * 外部ファイルを参照している画像データを全て読み込み直します
         * ―(Reloads all image data referring to external file)
     * **指定色で上書き**
-    * **―(Over specified color)**
+    * **―(Override color)**
         * アクティブな画像を指定した色で全て上書きします
         * ―(All over colors you specify active image)
     * **指定色で塗り潰す**
@@ -258,11 +258,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブな画像を指定した色で全て塗り潰します
         * ―(Fill with color image active all)
     * **透明部分を塗り潰し**
-    * **―(Fill with transparency)**
+    * **―(Fill transparent)**
         * アクティブな画像の透明部分を指定色で塗り潰します
         * ―(transparent parts of image are active in specified color fills)
     * **画像の正規化**
-    * **―(Image normalization)**
+    * **―(Normalize image)**
         * アクティブな画像を正規化します
         * ―(Normalizes active image)
     * **画像ファイル名を変更**
@@ -298,11 +298,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ユーザー設定のファイルタブで設定した追加の外部エディターで画像を開きます
         * ―(Open image in an external editor of additional files page of custom)
     * **画像の拡大/縮小**
-    * **―(Image zoom in / out)**
+    * **―(Image zoom in/out)**
         * アクティブな画像をリサイズします
         * ―(Active image resizing)
     * **画像の複製**
-    * **―(Reproduction of images)**
+    * **―(Copy image)**
         * アクティブな画像を複製します
         * ―(Duplicate active picture)
     * **UVグリッドを新規作成**
@@ -310,7 +310,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * WEBからUVグリッドをダウンロードし、画像として新規作成します
         * ―(UV grid to download from WEB, and create new images)
     * **画像を並べる**
-    * **―(Arrange images)**
+    * **―(Tile image)**
         * アクティブな画像を小さくして並べます
         * ―(Arrange active image to reduce)
     * **画像の高速ぼかし**
@@ -318,11 +318,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブな画像に高速なぼかし処理を行います
         * ―(active image blur fast do)
     * **ノイズ画像を新規作成**
-    * **―(Create new image noise)**
+    * **―(Create new noise image)**
         * ノイズ画像を新規画像として追加します
         * ―(Add as new picture noise picture)
     * **画像を脱色**
-    * **―(Bleached images)**
+    * **―(Decolorization)**
         * アクティブな画像をモノクロにします
         * ―(black and white image of active)
     * **画像のサイズ変更**
@@ -333,7 +333,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **UV/画像エディター > 「選択」メニュー**
 * **―(UV / image editor > select menu)**
     * **分離している頂点を選択**
-    * **―(Select vertices are isolated)**
+    * **―(Select vertex isolated)**
         * シームによって分離している頂点を選択します
         * ―(Select vertices are isolated by seam)
   
@@ -374,7 +374,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 復元するために自動的に保存したファイルの最新ファイルを開きます
         * ―(Open latest file in order to restore automatically saved file)
     * **確認せずに上書き保存**
-    * **―(Save without prompting)**
+    * **―(Save without confirm)**
         * 確認メッセージを表示せずに上書き保存します
         * ―(Save changes without displaying confirmation message)
     * **最後に使ったファイルを開く**
@@ -382,7 +382,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 「最近使ったファイル」の一番上のファイルを開きます
         * ―(Opens file at top of "recent files")
     * **データ名をリネーム**
-    * **―(Data name to rename)**
+    * **―(Rename data name)**
         * 全てのデータを対象にしたリネームが可能です
         * ―(Rename using all of data is available)
     * **全ての「すべての辺を表示」をオン**
@@ -456,22 +456,22 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **3Dビュー > オブジェクト/メッシュ編集モード > 「追加」メニュー > 「メッシュ」メニュー**
 * **―(3D view > object / mesh edit mode > "add" menu > "mesh" menu)**
     * **四角ポリゴン球**
-    * **―(Rectangle polygon sphere)**
+    * **―(Square polygon sphere)**
         * 四角ポリゴンのみで構成された球体メッシュを追加します
         * ―(Add sphere mesh is composed only of quadrilateral polygon)
     * **頂点のみ**
-    * **―(Only vertices)**
+    * **―(Only vertex)**
         * 1頂点のみのメッシュオブジェクトを3Dカーソルの位置に追加します
         * ―(Only 1 vertex meshes 3D adds to position of cursor)
     * **頂点グループごとに分離**
-    * **―(Isolated vertex groups)**
+    * **―(Isolate by vertex groups)**
         * 頂点グループの適用されている部分ごとに分離したメッシュ群を作成します
         * ―(Create separate each part of vertex groups applied mesh group)
   
 * **情報 > 「レンダー」メニュー**
 * **―(Information > "render" menu)**
     * **解像度の倍率を設定**
-    * **―(Set magnification of resolution)**
+    * **―(Set multi of resolution)**
         * 設定解像度の何パーセントの大きさでレンダリングするか設定します
         * ―(Set to be rendered settings resolution percentage?)
     * **レンダースロットを設定**
@@ -479,7 +479,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * レンダリング結果を保存するスロットを設定します
         * ―(Sets slot to save rendering results)
     * **スレッド数を切り替え**
-    * **―(Switching threads)**
+    * **―(Switch thread numver)**
         * レンダリングに使用するCPUのスレッド数を切り替えます
         * ―(Toggles thread number of CPUS used to render)
     * **レンダリング時のサブサーフレベルをまとめて設定**
@@ -517,7 +517,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * このオブジェクトのマテリアルが割り当てられていないマテリアルスロットを全て削除します
         * ―(Delete all material of this object has not been assigned material slots)
     * **裏側を透明にする**
-    * **―(Transparent back)**
+    * **―(Set transparent face back)**
         * メッシュの裏側が透明になるようにシェーダーノードを設定します
         * ―(Sets shader nodes transparently mesh back)
     * **スロットを一番上へ**
@@ -525,7 +525,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなマテリアルスロットを一番上に移動させます
         * ―(Active material slots on top moves)
     * **スロットを一番下へ**
-    * **―(Slots to bottom)**
+    * **―(Slot to bottom)**
         * アクティブなマテリアルスロットを一番下に移動させます
         * ―(Move active material slot at bottom)
   
@@ -540,11 +540,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 現在のフレームに、全てのシェイプのキーフレームを挿入します
         * ―(Inserts keyframe for all shapes on current frame)
     * **最上段を選択**
-    * **―(Select top level)**
+    * **―(Select top)**
         * 一番上のシェイプキーを選択します
         * ―(Select top-most shape key)
     * **最下段を選択**
-    * **―(At bottom, select)**
+    * **―(Select bottom)**
         * 一番下のシェイプキーを選択します
         * ―(Select bottom shape key)
     * **現在の形状を保持して全シェイプ削除**
@@ -563,11 +563,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * .L .R などミラーの命令規則に従って付けられたボーンの対になる空の新規ボーンを追加します
         * ―(. L... R, add an empty pair of bones according to mandate rule in Miller's new born)
     * **一番上を選択**
-    * **―(At top, select)**
+    * **―(Select top)**
         * 頂点グループの一番上の項目を選択します
         * ―(Select item at top of vertex groups)
     * **一番下を選択**
-    * **―(At bottom, select)**
+    * **―(Select bottom)**
         * 頂点グループの一番下の項目を選択します
         * ―(Select item at bottom of vertex groups)
     * **最上段へ**
@@ -627,14 +627,14 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「プロパティ」エリア > 「オブジェクト」タブ > 「表示」パネル**
 * **―(Area "Properties" > "object" tab > "Panel")**
     * **表示設定をコピー**
-    * **―(Copy display settings)**
+    * **―(Copy display setting)**
         * この表示設定を他の選択オブジェクトにコピーします
         * ―(Copy selected objects of other display settings)
   
 * **「プロパティ」エリア > 「物理演算」タブ > 「剛体」パネル**
 * **―("Properties" area: "Physics" tab > "rigid" Panel)**
     * **剛体設定をコピー**
-    * **―(Copy rigid set)**
+    * **―(Copy rigid body setting)**
         * アクティブなオブジェクトの剛体設定を、他の選択オブジェクトにコピーします
         * ―(Copy selected objects of other rigid set of active objects)
   
@@ -663,7 +663,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「プロパティ」エリア > 「レンダー」タブ > 「ベイク」パネル**
 * **―("Properties" area: "render" tab > "bake" Panel)**
     * **ベイク用の画像を作成**
-    * **―(Create images for bake)**
+    * **―(Add image for bake)**
         * ベイクに使う新規画像を素早く用意可能です
         * ―(New images used to bake quickly, is available)
   
@@ -744,7 +744,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **メニューに表示されないコマンド**
 * **―(Missing menu commands)**
     * **最後までスクロール**
-    * **―(Scroll to end)**
+    * **―(Scroll end)**
         * 画面の一番下までスクロールします
         * ―(Scroll to bottom of screen)
   
@@ -755,7 +755,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ユーザー設定のタブを順番に切り替えます
         * ―(Cycles user settings tab)
     * **キーバインド検索**
-    * **―(Search key bindings)**
+    * **―(Search key bind)**
         * 設定したキーバインドに一致する割り当てを検索します
         * ―(Find matching key bindings you set assignment)
     * **ショートカット検索をクリア**
@@ -840,7 +840,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中のボーンのカーブボーン設定をします
         * ―(Bones of selected curve born sets)
     * **ロールをまとめて設定**
-    * **―(Set roll)**
+    * **―(Set rolls)**
         * 選択中のボーンのロールを設定します
         * ―(Sets selected bone roll)
     * **アクティブのIK設定(回転制限等)をコピー**
@@ -889,18 +889,18 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 現在のメッシュ選択モードと同じ要素(頂点・辺・面)を削除します
         * ―(Same mesh selection mode of current element (vertex and side and side) remove)
     * **隠している部分を削除**
-    * **―(Remove covering)**
+    * **―(Remove hiding)**
         * 隠している状態のメッシュを全て削除します
         * ―(Delete all are mesh)
   
 * **3Dビュー > メッシュ編集モード > 「メッシュ」メニュー > 「表示/隠す」メニュー**
 * **―(3D view > mesh edit mode > mesh menu > show / hide menu)**
     * **表示/隠すを反転**
-    * **―(Show / hide flip)**
+    * **―(Invert Show/Hide)**
         * 表示状態と非表示状態を反転させます
         * ―(Flip display and non-display state)
     * **頂点のみを隠す**
-    * **―(Hide only top)**
+    * **―(Hide only vertex)**
         * 選択状態の頂点のみを隠して固定します
         * ―(To hide selected vertices,)
     * **選択しているパーツを隠す**
@@ -957,7 +957,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 他の選択オブジェクトにアクティブオブジェクトの名前をリンクします
         * ―(Link name of active object to other selected objects)
     * **レイヤーを同じに**
-    * **―(In same layer)**
+    * **―(Set same layer)**
         * 他の選択オブジェクトにアクティブオブジェクトのレイヤーをリンクします
         * ―(link active object layers to other selected objects)
     * **オブジェクトの表示設定を同じに**
@@ -977,11 +977,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブオブジェクトのソフトボディの設定を、他の選択オブジェクトにコピーします
         * ―(Sets active object soft copies to other selected objects)
     * **クロスの設定をリンク**
-    * **―(Links for cross-)**
+    * **―(Link cloth setting)**
         * アクティブオブジェクトのクロスシミュレーション設定を、他の選択オブジェクトにコピーします
         * ―(Cloth simulation for active object copies to other selected objects)
     * **変形をリンク**
-    * **―(Link to deformation)**
+    * **―(Link transform)**
         * アクティブオブジェクトの変形情報を、他の選択オブジェクトにコピーします
         * ―(Information of active object copies to other selected objects)
   
@@ -996,11 +996,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * オブジェクト対話モードのパイメニューです
         * ―(Is pie menu objects in interactive mode)
     * **サブサーフ設定**
-    * **―(Save surf set)**
+    * **―(Subsurf setting)**
         * サブサーフのレベルを設定するパイメニューです
         * ―(Is pie menu to set Subsurf levels)
     * **最高描画タイプ**
-    * **―(Best drawing type)**
+    * **―(Maximum Draw Type)**
         * 最高描画タイプを設定するパイメニューです
         * ―(Is pie menu to set up drawing type)
     * **確認せずに削除**
@@ -1018,7 +1018,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **3Dビュー > オブジェクトモード > 「オブジェクト」メニュー > 「表示/隠す」メニュー**
 * **―(3D view > mode > object menu > show / hide menu)**
     * **表示/隠すを反転**
-    * **―(Show / hide flip)**
+    * **―(Invert Show/Hide)**
         * オブジェクトの表示状態と非表示状態を反転させます
         * ―(Flips object's view state and non-State)
     * **特定の種類のオブジェクトのみを隠す**
@@ -1041,7 +1041,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中のメッシュオブジェクトのスムーズ/フラット状態を切り替えます
         * ―(Toggles selected mesh object smooth / flat state)
     * **頂点グループの転送**
-    * **―(Transport for vertex group)**
+    * **―(Transfer vertex group)**
         * アクティブなメッシュに他の選択メッシュの頂点グループを転送します
         * ―(Transfers to other selected mesh vertex group active mesh)
     * **全頂点の平均ウェイトで塗り潰す**
@@ -1081,11 +1081,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 全てのオブジェクトの選択不可設定を解除します(逆も可)
         * ―(Removes all non-select settings (vice versa))
     * **非選択物の選択を制限**
-    * **―(Limit selection of non-selection)**
+    * **―(Limit select to non-selected)**
         * 選択物以外のオブジェクトを選択出来なくします
         * ―(Cannot select object other than selection of)
     * **選択物の選択を制限**
-    * **―(Limited selection of options)**
+    * **―(Limit select)**
         * 選択中のオブジェクトを選択出来なくします
         * ―(Can't select selected object)
     * **オブジェクト名を正規表現で置換**
@@ -1120,11 +1120,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **3Dビュー > ウェイトペイントモード > 「ウェイト」メニュー**
 * **―(3D view > weight paint mode > "weight" menu)**
     * **ウェイト同士の合成**
-    * **―(Synthesis of weights with each other)**
+    * **―(Combine weights)**
         * 選択中のボーンと同じ頂点グループのウェイトを合成します
         * ―(Weight of selected bone and same vertex group merges)
     * **ウェイト同士の減算**
-    * **―(Subtraction of weight between)**
+    * **―(Subtraction weights)**
         * 選択中のボーンと同じ頂点グループのウェイトを減算します
         * ―(Subtracts weight of selected bone and same vertex groups)
     * **全頂点の平均ウェイトで塗り潰す**
@@ -1154,7 +1154,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択しているボーンを選択不可能にします
         * ―(Choose bone has selected impossible)
     * **全ての選択不可を解除**
-    * **―(Unlock all selectable)**
+    * **―(Unlock all unselect)**
         * 全ての選択不可設定のボーンを選択可能にします
         * ―(non-selection of all bone)
   
@@ -1205,7 +1205,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 「X.001」など、連番の付いたボーン名から数字を取り除くのを試みます
         * ―(Attempts to get rid of numbers from bone with sequential number, such as "X.001")
     * **物理演算を設定**
-    * **―(Set physical operations)**
+    * **―(Set physical)**
         * 選択中の繋がったボーン群に、RigidBodyによる物理演算を設定します
         * ―(Sets by RigidBody physics led of selected bone set,)
     * **現ポーズを回転制限に**
@@ -1216,11 +1216,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **3Dビュー > メッシュ編集モード > 「選択」メニュー**
 * **―(3D view > mesh edit mode > select menu)**
     * **X=0の頂点を選択**
-    * **―(Select vertex X = 0)**
+    * **―(Select vertex X=0)**
         * X=0の頂点を選択する
         * ―(Select vertex of X = 0)
     * **右半分を選択**
-    * **―(Choose right half)**
+    * **―(Select right half)**
         * メッシュの右半分を選択します(その他設定も有)
         * ―(Select right half of mesh (other settings too))
   
@@ -1294,19 +1294,19 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * X.Rを選択中ならX.Lも追加選択、X.LならX.Rも選択
         * ―(If you select X.R X.L also selected X.R X.L you select additional)
     * **ボーンの末端まで選択**
-    * **―(Select to end of bone)**
+    * **―(Select end of bone)**
         * 選択ボーンの子 → 子ボーンの子...と最後まで選択していきます
         * ―(Select bones child-child child's bones. And we will select to end)
     * **ボーンの根本まで選択**
-    * **―(Select bone)**
+    * **―(Select root of bone)**
         * 選択ボーンの親 → 親ボーンの親...と最後まで選択していきます
         * ―(Choice bones parent => parent of parent bone. And we will select to end)
     * **ボーンの経路を選択**
-    * **―(Select route of bones)**
+    * **―(Select path of bones)**
         * 2つの選択ボーンの経路を選択します
         * ―(Select select bones of two paths)
     * **右半分を選択**
-    * **―(Choose right half)**
+    * **―(Select right half)**
         * ボーン群の右半分を選択します(その他設定も有り)
         * ―(Select right half of bone (other settings are also available))
     * **ボーンとその経路を選択**
@@ -1332,7 +1332,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **3Dビュー > メッシュ編集モード > 「U」キー**
 * **―(3D view > mesh edit mode > "U" key)**
     * **他のUVからコピー**
-    * **―(Copied from other UV)**
+    * **―(Copy from other UV)**
         * 選択部分のアクティブなUV展開を、他のUVからコピーしてきます
         * ―(Active UV unwrapping of selection can be copied from other UV)
   
@@ -1359,7 +1359,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * シェーディングを 「ワイヤーフレーム」→「ソリッド」→「テクスチャ」... と切り替えていきます
         * ―("Wireframe", "solid" => "texture" shading... We will switch)
     * **プリセットビュー**
-    * **―(Preset views)**
+    * **―(Preset view)**
         * プリセットビュー(テンキー1,3,7とか)のパイメニューです
         * ―(Is pie menu of preset views or (NUMPAD 1, 3, 7))
     * **シェーディング切り替え**
@@ -1382,7 +1382,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 3Dビューの視点を座標の中心に移動します
         * ―(3D view perspective moves in center of coordinates)
     * **選択+視点の中心に**
-    * **―(At center of selection + POV)**
+    * **―(Select and Set view center)**
         * マウス下の物を選択し視点の中心にします (Shiftを押しながらで追加選択)
         * ―(Select object under mouse, in heart of point of view (SHIFT while additional choices))
     * **メッシュに視点をスナップ**
@@ -1390,7 +1390,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * マウス下のメッシュ面上に視点の中心を移動させます(ショートカットに登録してお使い下さい)
         * ―((Please use shortcuts) move center point of view mesh surface under mouse)
     * **ビューの反対側に**
-    * **―(On other side of view)**
+    * **―(Invert view)**
         * 現在のビューの逆側へ回りこみます
         * ―(Orbit to reverse side of current view)
     * **視点と3Dカーソルを原点に**
@@ -1405,7 +1405,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **3Dビュー > 「ビュー」メニュー > 「視点を揃える」メニュー > 「アクティブに視点を揃える」メニュー**
 * **―(3D view > View menu > align View menu > menu align view active)**
     * **面を正面から見る**
-    * **―(Viewed from front side)**
+    * **―(View front)**
         * 選択中の面の法線方向から面を注視します
         * ―(watch face from selected surface normal direction)
   

@@ -34,7 +34,7 @@ class CopyBoneName(bpy.types.Operator):
 
 class RenameMirrorActiveBone(bpy.types.Operator):
 	bl_idname = "pose.rename_mirror_active_bone"
-	bl_label = "Flip bone name"
+	bl_label = "Mirror bone name"
 	bl_description = "bone name Active Flip"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -121,11 +121,11 @@ class RenameMirrorActiveBone(bpy.types.Operator):
 
 class AppendActiveBoneName(bpy.types.Operator):
 	bl_idname = "pose.append_active_bone_name"
-	bl_label = "Add text to bone name"
+	bl_label = "Add text bone name"
 	bl_description = "Adds string to active bone name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	string = bpy.props.StringProperty(name="Append text")
+	string = bpy.props.StringProperty(name="Add text")
 	
 	@classmethod
 	def poll(self, context):
@@ -181,7 +181,7 @@ def menu(self, context):
 		if (context.edit_bone or context.bone):
 			row = self.layout.row(align=True)
 			row.operator(CopyBoneName.bl_idname, icon='COPYDOWN', text="To Clipboard")
-			row.operator(RenameMirrorActiveBone.bl_idname, icon='MOD_MIRROR', text="Flip Horizontal")
+			row.operator(RenameMirrorActiveBone.bl_idname, icon='MOD_MIRROR', text="Invert horizontal")
 			row.menu(AppendNameMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

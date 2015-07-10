@@ -50,7 +50,7 @@ class SetCurvedBones(bpy.types.Operator):
 
 class SetBoneRoll(bpy.types.Operator):
 	bl_idname = "pose.set_bone_roll"
-	bl_label = "Set roll"
+	bl_label = "Set rolls"
 	bl_description = "Sets selected bone roll"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -70,7 +70,7 @@ class LinkIKSetting(bpy.types.Operator):
 	isX = bpy.props.BoolProperty(name="X axis setting", default=True)
 	isY = bpy.props.BoolProperty(name="Y axis setting", default=True)
 	isZ = bpy.props.BoolProperty(name="Z axis setting", default=True)
-	isStretch = bpy.props.BoolProperty(name="Stretch settings", default=True)
+	isStretch = bpy.props.BoolProperty(name="Stretch setting", default=True)
 	
 	def execute(self, context):
 		activeBone = context.active_pose_bone

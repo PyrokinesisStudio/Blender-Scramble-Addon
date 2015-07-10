@@ -61,7 +61,7 @@ class ObjectSelectPanel(bpy.types.Panel):
 				col = self.layout.column()
 				col.scale_y = 0.7
 				col.prop(context.object.data, 'layers', text="")
-		self.layout.label(text="Group layers")
+		self.layout.label(text="Layers by Groups")
 		objs = []
 		for obj in bpy.data.objects:
 			for i in range(len(obj.layers)):

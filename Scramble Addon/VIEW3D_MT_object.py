@@ -43,7 +43,7 @@ class ObjectModePie(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Sculpt", icon="SCULPTMODE_HLT").mode = "SCULPT"
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Weight paint", icon="WPAINT_HLT").mode = "WEIGHT_PAINT"
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Object", icon="OBJECT_DATAMODE").mode = "OBJECT"
-		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Particle Editor", icon="PARTICLEMODE").mode = "PARTICLE_EDIT"
+		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Particle Edit", icon="PARTICLEMODE").mode = "PARTICLE_EDIT"
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Edit", icon="EDITMODE_HLT").mode = "EDIT"
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Texture paint", icon="TPAINT_HLT").mode = "TEXTURE_PAINT"
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Vertex paint", icon="VPAINT_HLT").mode = "VERTEX_PAINT"
@@ -67,7 +67,7 @@ class SetObjectMode(bpy.types.Operator): #
 
 class SubdivisionSetPieOperator(bpy.types.Operator):
 	bl_idname = "object.subdivision_set_pie_operator"
-	bl_label = "Save surf set"
+	bl_label = "Subsurf setting"
 	bl_description = "Is pie menu to set Subsurf levels"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -76,7 +76,7 @@ class SubdivisionSetPieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class SubdivisionSetPie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_subdivision_set"
-	bl_label = "Save surf set"
+	bl_label = "Subsurf setting"
 	bl_description = "Is pie menu to set Subsurf levels"
 	
 	def draw(self, context):
@@ -90,7 +90,7 @@ class SubdivisionSetPie(bpy.types.Menu):
 
 class DrawTypePieOperator(bpy.types.Operator):
 	bl_idname = "object.draw_type_pie_operator"
-	bl_label = "Best drawing type"
+	bl_label = "Maximum Draw Type"
 	bl_description = "Is pie menu to set up drawing type"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -99,7 +99,7 @@ class DrawTypePieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class DrawTypePie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_draw_type"
-	bl_label = "Best drawing type"
+	bl_label = "Maximum Draw Type"
 	bl_description = "Is pie menu to set up drawing type"
 	
 	def draw(self, context):
@@ -109,7 +109,7 @@ class DrawTypePie(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetDrawType.bl_idname, text="Texture", icon="POTATO").type = "TEXTURED"
 class SetDrawType(bpy.types.Operator): #
 	bl_idname = "object.set_draw_type"
-	bl_label = "Setting maximum drawing type"
+	bl_label = "Setting maximum Drawing Type"
 	bl_description = "Sets maximum drawing type"
 	bl_options = {'REGISTER'}
 	
@@ -130,11 +130,11 @@ class DeleteUnmassage(bpy.types.Operator):
 	bl_description = "Deletes object without displaying confirmation message when deleting"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	use_global = bpy.props.BoolProperty(name="Delete whole", default=False)
+	use_global = bpy.props.BoolProperty(name="Delete all", default=False)
 	
 	def execute(self, context):
 		if (context.active_object):
-			self.report(type={"INFO"}, message=context.active_object.name+"Such as deleted")
+			self.report(type={"INFO"}, message=context.active_object.name+" such as deleted")
 		bpy.ops.object.delete(use_global=self.use_global)
 		return {'FINISHED'}
 
@@ -155,7 +155,7 @@ class PieMenu(bpy.types.Menu):
 
 class ShortcutMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_shortcut"
-	bl_label = "Shortcut for registration"
+	bl_label = "by Shortcuts"
 	bl_description = "Looks useful functions is to register shortcut"
 	
 	def draw(self, context):

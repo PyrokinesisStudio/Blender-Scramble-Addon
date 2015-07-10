@@ -9,7 +9,7 @@ import sys, subprocess
 
 class SetRenderResolutionPercentage(bpy.types.Operator):
 	bl_idname = "render.set_render_resolution_percentage"
-	bl_label = "Set magnification of resolution"
+	bl_label = "Set multi of resolution"
 	bl_description = "Set to be rendered settings resolution percentage?"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -35,7 +35,7 @@ class SetRenderSlot(bpy.types.Operator):
 
 class ToggleThreadsMode(bpy.types.Operator):
 	bl_idname = "render.toggle_threads_mode"
-	bl_label = "Switching threads"
+	bl_label = "Switch thread numver"
 	bl_description = "Toggles thread number of CPUS used to render"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -66,7 +66,7 @@ class SetAllSubsurfRenderLevels(bpy.types.Operator):
 		('RELATIVE', "Relative value", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Setting mode")
-	levels = bpy.props.IntProperty(name="Level of granularity", default=2, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
+	levels = bpy.props.IntProperty(name="Level of Subsurf", default=2, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
 	
 	def execute(self, context):
 		for obj in bpy.data.objects:
@@ -159,7 +159,7 @@ class SlotsRenderMenu(bpy.types.Menu):
 
 class ShadeingMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_shadeing"
-	bl_label = "Use shading"
+	bl_label = "Used shading"
 	bl_description = "shading on/off"
 	
 	def draw(self, context):
@@ -195,7 +195,7 @@ class SubsurfMenu(bpy.types.Menu):
 		operator.mode = 'ABSOLUTE'
 		operator.levels = 3
 		self.layout.separator()
-		self.layout.operator(SyncAllSubsurfRenderLevels.bl_idname, text="Synchronize preview value", icon="PLUGIN")
+		self.layout.operator(SyncAllSubsurfRenderLevels.bl_idname, text="Sync preview value", icon="PLUGIN")
 
 ################
 # メニュー追加 #
@@ -220,15 +220,15 @@ def menu(self, context):
 			if (img.type == 'RENDER_RESULT'):
 				self.layout.menu(SlotsRenderMenu.bl_idname, text="Render slots (slot:"+str(img.render_slots.active_index+1)+")", icon="PLUGIN")
 				break
-		self.layout.prop_menu_enum(context.scene.render.image_settings, 'file_format', text="File formats", icon="PLUGIN")
+		self.layout.prop_menu_enum(context.scene.render.image_settings, 'file_format', text="File format", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.prop(context.scene, 'frame_start', text="Start frame", icon="PLUGIN")
-		self.layout.prop(context.scene, 'frame_end', text="final frame", icon="PLUGIN")
-		self.layout.prop(context.scene, 'frame_step', text="Step frame", icon="PLUGIN")
+		self.layout.prop(context.scene, 'frame_end', text="End frame", icon="PLUGIN")
+		self.layout.prop(context.scene, 'frame_step', text="Frame step", icon="PLUGIN")
 		self.layout.prop(context.scene.render, 'fps', text="FPS", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.prop(context.scene.render, 'use_antialiasing', text="Use anti-aliasing", icon="PLUGIN")
-		self.layout.prop(context.scene.world.light_settings, 'use_ambient_occlusion', text="AO", icon="PLUGIN")
+		self.layout.prop(context.scene.world.light_settings, 'use_ambient_occlusion', text="Use AO", icon="PLUGIN")
 		self.layout.prop(context.scene.render, 'use_freestyle', text="Using FreeStyle", icon="PLUGIN")
 		self.layout.menu(ShadeingMenu.bl_idname, icon="PLUGIN")
 		self.layout.separator()

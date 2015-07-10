@@ -134,7 +134,7 @@ class PieMenu(bpy.types.Menu):
 
 class ViewNumpadPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.view_numpad_pie_operator"
-	bl_label = "Preset views"
+	bl_label = "Preset view"
 	bl_description = "Is pie menu of preset views or (NUMPAD 1, 3, 7)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -143,7 +143,7 @@ class ViewNumpadPieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class ViewNumpadPie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_view_pie_view_numpad"
-	bl_label = "Preset views"
+	bl_label = "Preset view"
 	bl_description = "Is pie menu of preset views or (NUMPAD 1, 3, 7)"
 	
 	def draw(self, context):
@@ -154,7 +154,7 @@ class ViewNumpadPie(bpy.types.Menu): #
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="Back", icon="BBOX").type = "BACK"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="Camera", icon="CAMERA_DATA").type = "CAMERA"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="Front", icon="SOLID").type = "FRONT"
-		self.layout.menu_pie().operator("view3d.view_persportho", text="Perspective projection and parallel projection", icon="BORDERMOVE")
+		self.layout.menu_pie().operator("view3d.view_persportho", text="Perspective/Parallel", icon="BORDERMOVE")
 
 class ViewportShadePieOperator(bpy.types.Operator):
 	bl_idname = "view3d.viewport_shade_pie_operator"
@@ -286,8 +286,8 @@ class LayerPieRun(bpy.types.Operator): #
 	
 	nr = bpy.props.IntProperty(name="Layer number")
 	extend = bpy.props.BoolProperty(name="Select extension", default=False)
-	half = bpy.props.BoolProperty(name="Half selection", default=False)
-	unhalf = bpy.props.BoolProperty(name="Half-clear", default=False)
+	half = bpy.props.BoolProperty(name="Half select", default=False)
+	unhalf = bpy.props.BoolProperty(name="Half-Unselect", default=False)
 	
 	def execute(self, context):
 		nr = self.nr - 1
@@ -335,7 +335,7 @@ class LayerPieRun(bpy.types.Operator): #
 
 class ShortcutsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_view_shortcuts"
-	bl_label = "Shortcut for registration"
+	bl_label = "by Shortcuts"
 	bl_description = "Registering shortcut feature that might come in handy"
 	
 	def draw(self, context):

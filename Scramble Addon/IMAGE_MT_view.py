@@ -13,7 +13,7 @@ class Reset2DCursor(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("C", "Central", "", 1),
+		("C", "Center", "", 1),
 		("U", "Up", "", 2),
 		("RU", "Top right", "", 3),
 		("R", "Right", "", 4),
@@ -127,7 +127,7 @@ class TogglePanelsC(bpy.types.Operator):
 
 class ShortcutsMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_view_shortcuts"
-	bl_label = "Shortcut for registration"
+	bl_label = "by Shortcuts"
 	bl_description = "Registering shortcut feature that might come in handy"
 	
 	def draw(self, context):
@@ -151,7 +151,7 @@ class Reset2DCursorMenu(bpy.types.Menu):
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Down left").mode = 'LD'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Top left").mode = 'LU'
 		self.layout.separator()
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Central").mode = 'C'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Center").mode = 'C'
 
 ################
 # メニュー追加 #

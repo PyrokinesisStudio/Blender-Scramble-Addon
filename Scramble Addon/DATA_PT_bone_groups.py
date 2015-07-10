@@ -12,7 +12,7 @@ class BoneGroupOnlyShow(bpy.types.Operator):
 	bl_description = "Group active on bones and bones of other hide"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	reverse = bpy.props.BoolProperty(name="Flip", default=False)
+	reverse = bpy.props.BoolProperty(name="Invert", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -54,7 +54,7 @@ class BoneGroupShow(bpy.types.Operator):
 	bl_description = "Active bone group show or hide"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	reverse = bpy.props.BoolProperty(name="Flip", default=False)
+	reverse = bpy.props.BoolProperty(name="Invert", default=False)
 	
 	@classmethod
 	def poll(cls, context):

@@ -82,7 +82,7 @@ class TogglePanelsC(bpy.types.Operator):
 
 class ShortcutsMenu(bpy.types.Menu):
 	bl_idname = "NODE_MT_view_shortcuts"
-	bl_label = "Shortcut for registration"
+	bl_label = "by Shortcuts"
 	bl_description = "Registering shortcut feature that might come in handy"
 	
 	def draw(self, context):

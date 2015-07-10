@@ -66,7 +66,7 @@ class IsolationTexturesUnusedFiles(bpy.types.Operator):
 					src = path
 					dst = os.path.join(path, backup_dir, name)
 					shutil.move(src, dst)
-					self.report(type={'INFO'}, message=name+"Isolation")
+					self.report(type={'INFO'}, message=name+"Isolate")
 		return {'FINISHED'}
 
 class OpenRecentFiles(bpy.types.Operator):

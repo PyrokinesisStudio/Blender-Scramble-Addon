@@ -15,7 +15,7 @@ class RenderBackground(bpy.types.Operator):
 	
 	is_quit = bpy.props.BoolProperty(name="Quit Blender", default=True)
 	items = [
-		('IMAGE', "Stills", "", 1),
+		('IMAGE', "Image", "", 1),
 		('ANIME', "Animation", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Setting mode", default='IMAGE')

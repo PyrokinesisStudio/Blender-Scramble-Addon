@@ -44,15 +44,15 @@ class ResetView(bpy.types.Operator):
 
 class SelectAndView(bpy.types.Operator):
 	bl_idname = "view3d.select_and_view"
-	bl_label = "At center of selection + POV"
+	bl_label = "Select and Set view center"
 	bl_description = "Select object under mouse, in heart of point of view (SHIFT while additional choices)"
 	bl_options = {'REGISTER'}
 	
 	items = [
 		("view_selected_ex", "No zoom", "", 1),
-		("view_selected", "To zoom", "", 2),
+		("view_selected", "Zoom", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="How to change perspective")
+	mode = bpy.props.EnumProperty(items=items, name="How to change view")
 	mouse_loc = bpy.props.IntVectorProperty(name="Mouse position", size=2)
 	isExtend = bpy.props.BoolProperty(name="Select additional", default=False)
 	
@@ -107,7 +107,7 @@ class SnapMeshView(bpy.types.Operator):
 
 class ReverseView(bpy.types.Operator):
 	bl_idname = "view3d.reverse_view"
-	bl_label = "On other side of view"
+	bl_label = "Invert view"
 	bl_description = "Orbit to reverse side of current view"
 	bl_options = {'REGISTER'}
 	

@@ -8,7 +8,7 @@ import bpy
 
 class CopyTaperObject(bpy.types.Operator):
 	bl_idname = "curve.copy_taper_object"
-	bl_label = "Taper specified copy"
+	bl_label = "Copy taper object"
 	bl_description = "Tapered object that is specified in active curve object copies to other selection curves"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -33,7 +33,7 @@ class CopyTaperObject(bpy.types.Operator):
 
 class CopyBevelObject(bpy.types.Operator):
 	bl_idname = "curve.copy_bevel_object"
-	bl_label = "Bevel given copies"
+	bl_label = "Copy bevel object"
 	bl_description = "Bevel object that is specified in active curve object copies to other selection curves"
 	bl_options = {'REGISTER', 'UNDO'}
 	

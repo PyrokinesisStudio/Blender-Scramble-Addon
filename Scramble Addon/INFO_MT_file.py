@@ -62,7 +62,7 @@ class RecoverLatestAutoSave(bpy.types.Operator):
 
 class SaveMainfileUnmassage(bpy.types.Operator):
 	bl_idname = "wm.save_mainfile_unmassage"
-	bl_label = "Save without prompting"
+	bl_label = "Save without confirm"
 	bl_description = "Save changes without displaying confirmation message"
 	bl_options = {'REGISTER'}
 	
@@ -75,7 +75,7 @@ class SaveMainfileUnmassage(bpy.types.Operator):
 	def execute(self, context):
 		if (bpy.data.filepath != ""):
 			bpy.ops.wm.save_mainfile()
-			self.report(type={"INFO"}, message=bpy.path.basename(bpy.data.filepath)+" Has been saved")
+			self.report(type={"INFO"}, message=bpy.path.basename(bpy.data.filepath)+" saved")
 		else:
 			self.report(type={"ERROR"}, message="To save your find")
 		return {'FINISHED'}
@@ -110,7 +110,7 @@ class LoadLastFile(bpy.types.Operator):
 
 class RenameDataBlocks(bpy.types.Operator):
 	bl_idname = "file.rename_data_blocks"
-	bl_label = "Data name to rename"
+	bl_label = "Rename data name"
 	bl_description = "Rename using all of data is available"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -122,7 +122,7 @@ class RenameDataBlocks(bpy.types.Operator):
 	fonts = bpy.props.BoolProperty(name="Font", default=False)
 	grease_pencil = bpy.props.BoolProperty(name="Grease pencil", default=False)
 	groups = bpy.props.BoolProperty(name="Group", default=False)
-	images = bpy.props.BoolProperty(name="Images", default=False)
+	images = bpy.props.BoolProperty(name="Image", default=False)
 	lamps = bpy.props.BoolProperty(name="Lamp", default=False)
 	lattices = bpy.props.BoolProperty(name="Lattice", default=False)
 	libraries = bpy.props.BoolProperty(name="Library", default=False)
@@ -131,7 +131,7 @@ class RenameDataBlocks(bpy.types.Operator):
 	materials = bpy.props.BoolProperty(name="Material", default=False)
 	meshes = bpy.props.BoolProperty(name="Mesh", default=False)
 	metaballs = bpy.props.BoolProperty(name="Metaballs", default=False)
-	movieclips = bpy.props.BoolProperty(name="Movie clips", default=False)
+	movieclips = bpy.props.BoolProperty(name="Movie clip", default=False)
 	node_groups = bpy.props.BoolProperty(name="Node groups", default=False)
 	objects = bpy.props.BoolProperty(name="Object", default=False)
 	palettes = bpy.props.BoolProperty(name="Palette", default=False)
@@ -141,29 +141,29 @@ class RenameDataBlocks(bpy.types.Operator):
 	scripts = bpy.props.BoolProperty(name="Script", default=False)
 	shape_keys = bpy.props.BoolProperty(name="Shape key", default=False)
 	sounds = bpy.props.BoolProperty(name="Sound", default=False)
-	speakers = bpy.props.BoolProperty(name="Speakers", default=False)
+	speakers = bpy.props.BoolProperty(name="Speaker", default=False)
 	texts = bpy.props.BoolProperty(name="Text", default=False)
 	textures = bpy.props.BoolProperty(name="Texture", default=False)
 	window_managers = bpy.props.BoolProperty(name="Window manager", default=False)
 	worlds = bpy.props.BoolProperty(name="World", default=False)
 	
 	modifiers = bpy.props.BoolProperty(name="Modifier", default=False)
-	constraints = bpy.props.BoolProperty(name="Constraint", default=False)
+	constraints = bpy.props.BoolProperty(name="Constraints", default=False)
 	
-	vertex_groups = bpy.props.BoolProperty(name="Vertex groups", default=False)
+	vertex_groups = bpy.props.BoolProperty(name="Vertex group", default=False)
 	uvs = bpy.props.BoolProperty(name="UV", default=False)
 	vertex_colors = bpy.props.BoolProperty(name="Vertex color", default=False)
 	
 	bones = bpy.props.BoolProperty(name="Bone", default=False)
-	bone_constraints = bpy.props.BoolProperty(name="Bone constraint", default=False)
+	bone_constraints = bpy.props.BoolProperty(name="Bone constraints", default=False)
 	
-	prefix = bpy.props.StringProperty(name="Add to top", default="")
-	suffix = bpy.props.StringProperty(name="Add at end", default="")
+	prefix = bpy.props.StringProperty(name="Add top", default="")
+	suffix = bpy.props.StringProperty(name="Add end", default="")
 	
-	source = bpy.props.StringProperty(name="Before replacement", default="")
-	replace = bpy.props.StringProperty(name="After replacement", default="")
+	source = bpy.props.StringProperty(name="Before replace", default="")
+	replace = bpy.props.StringProperty(name="After replace", default="")
 	
-	selected_only = bpy.props.BoolProperty(name="Selected objects only", default=False)
+	selected_only = bpy.props.BoolProperty(name="Selected object only", default=False)
 	show_log = bpy.props.BoolProperty(name="Show log", default=True)
 	
 	def draw(self, context):
@@ -187,7 +187,7 @@ class RenameDataBlocks(bpy.types.Operator):
 		row = self.layout.row()
 		row.prop(self, 'bones')
 		row.prop(self, 'bone_constraints')
-		self.layout.label(text="Renaming settings")
+		self.layout.label(text="Renaming setting")
 		row = self.layout.row()
 		row.prop(self, 'prefix')
 		row.prop(self, 'suffix')
@@ -395,7 +395,7 @@ class AllOnShowAllEdges(bpy.types.Operator):
 	bl_description = "Show all sides of all objects (can be off) turn display settings"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOn = bpy.props.BoolProperty(name="To turn on", default=True)
+	isOn = bpy.props.BoolProperty(name="On", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -425,10 +425,10 @@ class AllSetDrawType(bpy.types.Operator):
 		("EMPTY", "Empty", "", 8),
 		("CAMERA", "Camera", "", 9),
 		("LAMP", "Lamp", "", 10),
-		("SPEAKER", "Speakers", "", 11),
+		("SPEAKER", "Speaker", "", 11),
 		("ALL", "All objects", "", 12),
 		]
-	objType = bpy.props.EnumProperty(items=items, name="type of object")
+	objType = bpy.props.EnumProperty(items=items, name="Object type")
 	items = [
 		("TEXTURED", "Texture", "", 1),
 		("SOLID", "Solid", "", 2),
@@ -483,7 +483,7 @@ class AllSetMaterialReceiveTransparent(bpy.types.Operator):
 	bl_description = "You to receive semi-transparent shadow? \"about whether all material (off) on the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOff = bpy.props.BoolProperty(name="Turn off the", default=False)
+	isOff = bpy.props.BoolProperty(name="Off", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -502,7 +502,7 @@ class AllSetMaterialColorRamp(bpy.types.Operator):
 	bl_description = "Color ramp settings of active material is all material other (only selected objects are allowed) to copy"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOnlySelected = bpy.props.BoolProperty(name="Only selected object", default=False)
+	isOnlySelected = bpy.props.BoolProperty(name="Selected object only", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -556,7 +556,7 @@ class AllSetMaterialFreestyleColor(bpy.types.Operator):
 	bl_description = "FreeStyle material active color for all materials other (only selected objects are allowed) to copy"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOnlySelected = bpy.props.BoolProperty(name="Only selected object", default=False)
+	isOnlySelected = bpy.props.BoolProperty(name="Selected object only", default=False)
 	isColor = bpy.props.BoolProperty(name="Color", default=True)
 	isAlpha = bpy.props.BoolProperty(name="Alpha", default=True)
 	
@@ -605,7 +605,7 @@ class AllSetMaterialFreestyleColorByDiffuse(bpy.types.Operator):
 	bl_description = "All material (only selected objects are allowed) for FreeStyle line color of material diffuse color + blend to replace"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOnlySelected = bpy.props.BoolProperty(name="Only selected object", default=False)
+	isOnlySelected = bpy.props.BoolProperty(name="Selected object only", default=False)
 	blendColor = bpy.props.FloatVectorProperty(name="Blend color", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype="COLOR")
 	items = [
 		("MIX", "Mix", "", 1),
@@ -613,7 +613,7 @@ class AllSetMaterialFreestyleColorByDiffuse(bpy.types.Operator):
 		("SCREEN", "Screen", "", 3),
 		]
 	blendMode = bpy.props.EnumProperty(items=items, name="Blend mode")
-	blendValue = bpy.props.FloatProperty(name="Blends strength", default=0.5, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
+	blendValue = bpy.props.FloatProperty(name="Blend strength", default=0.5, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
 	
 	@classmethod
 	def poll(cls, context):
@@ -653,8 +653,8 @@ class AllSetMaterialObjectColor(bpy.types.Operator):
 	bl_description = "Sets color of all material objects or off the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	use_object_color = bpy.props.BoolProperty(name="On / off", default=True)
-	only_selected = bpy.props.BoolProperty(name="Only selected object", default=False)
+	use_object_color = bpy.props.BoolProperty(name="On/Off", default=True)
+	only_selected = bpy.props.BoolProperty(name="Selected object only", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -693,10 +693,10 @@ class AllSetBumpMethod(bpy.types.Operator):
 		("BUMP_ORIGINAL", "Original", "", 1),
 		("BUMP_COMPATIBLE", "Compatibility", "", 2),
 		("BUMP_LOW_QUALITY", "Low quality", "", 3),
-		("BUMP_MEDIUM_QUALITY", "Quality", "", 4),
-		("BUMP_BEST_QUALITY", "Highest quality", "", 5),
+		("BUMP_MEDIUM_QUALITY", "Normal quality", "", 4),
+		("BUMP_BEST_QUALITY", "High quality", "", 5),
 		]
-	method = bpy.props.EnumProperty(items=items, name="Quality bump", default="BUMP_BEST_QUALITY")
+	method = bpy.props.EnumProperty(items=items, name="Bump quality", default="BUMP_BEST_QUALITY")
 	
 	@classmethod
 	def poll(cls, context):
@@ -722,7 +722,7 @@ class AllRenameTextureFileName(bpy.types.Operator):
 	bl_description = "names of all textures use external image file name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isExt = bpy.props.BoolProperty(name="Including extension", default=True)
+	isExt = bpy.props.BoolProperty(name="Include extension", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -754,7 +754,7 @@ class FixEmptyTextureUVLayer(bpy.types.Operator):
 	bl_description = "Under active UV texture UV specified fields is linked to an empty mesh object fills"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isSelectedOnly = bpy.props.BoolProperty(name="Only selected object", default=False)
+	isSelectedOnly = bpy.props.BoolProperty(name="Selected object only", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -799,8 +799,8 @@ class AllSetPhysicsFrames(bpy.types.Operator):
 	bl_description = "Assign render start / end frames portions to set start / end frames, such as physics"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	startOffset = bpy.props.IntProperty(name="Starting offset", default=0, step=1)
-	endOffset = bpy.props.IntProperty(name="Starting offset", default=0, step=1)
+	startOffset = bpy.props.IntProperty(name="Start offset", default=0, step=1)
+	endOffset = bpy.props.IntProperty(name="Start offset", default=0, step=1)
 	
 	isRigidBody = bpy.props.BoolProperty(name="RigidBody", default=True)
 	isCloth = bpy.props.BoolProperty(name="Cloth", default=True)
@@ -901,7 +901,7 @@ class EntireProcessTextureMenu(bpy.types.Menu):
 
 class EntireProcessImageMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_image"
-	bl_label = "Images"
+	bl_label = "Image"
 	bl_description = "Is set of all image processing features"
 	
 	def draw(self, context):
@@ -909,7 +909,7 @@ class EntireProcessImageMenu(bpy.types.Menu):
 
 class EntireProcessPhysicsMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_physics"
-	bl_label = "Physical operation"
+	bl_label = "Physical"
 	bl_description = "Is relationship between physical operation of data processing functions"
 	
 	def draw(self, context):

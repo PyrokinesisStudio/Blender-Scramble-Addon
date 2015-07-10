@@ -125,11 +125,11 @@ class SeparateEXMenu(bpy.types.Menu):
 	bl_description = "Isolate to another object of extended menu"
 	
 	def draw(self, context):
-		self.layout.operator("mesh.separate", text="Selection of").type = 'SELECTED'
+		self.layout.operator("mesh.separate", text="Selected").type = 'SELECTED'
 		self.layout.operator(SeparateSelectedEX.bl_idname, icon="PLUGIN")
 		self.layout.operator(DuplicateNewParts.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator("mesh.separate", text="In material").type = 'MATERIAL'
+		self.layout.operator("mesh.separate", text="To material").type = 'MATERIAL'
 		self.layout.operator("mesh.separate", text="Isolated structural parts").type = 'LOOSE'
 
 # メニューのオン/オフの判定

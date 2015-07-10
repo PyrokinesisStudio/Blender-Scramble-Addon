@@ -19,10 +19,10 @@ class ToggleMeshSelectMode(bpy.types.Operator):
 			self.report(type={"INFO"}, message="Vertex select mode")
 		elif (mode[1]):
 			context.tool_settings.mesh_select_mode = (False, False, True)
-			self.report(type={"INFO"}, message="Face selection mode")
+			self.report(type={"INFO"}, message="Face select mode")
 		else:
 			context.tool_settings.mesh_select_mode = (False, True, False)
-			self.report(type={"INFO"}, message="\' select mode")
+			self.report(type={"INFO"}, message="edge select mode")
 		return {'FINISHED'}
 
 ################
@@ -66,7 +66,7 @@ class ProportionalPie(bpy.types.Menu): #
 	bl_description = "Is pie menu proportional edit"
 	
 	def draw(self, context):
-		self.layout.menu_pie().operator(SetProportionalEdit.bl_idname, text="Enabling", icon="PROP_ON").mode = "ENABLED"
+		self.layout.menu_pie().operator(SetProportionalEdit.bl_idname, text="Enable", icon="PROP_ON").mode = "ENABLED"
 		self.layout.menu_pie().operator(SetProportionalEdit.bl_idname, text="Projection (2D)", icon="PROP_ON").mode = "PROJECTED"
 		self.layout.menu_pie().operator(SetProportionalEdit.bl_idname, text="Connection", icon="PROP_CON").mode = "CONNECTED"
 class SetProportionalEdit(bpy.types.Operator): #
@@ -96,7 +96,7 @@ class PieMenu(bpy.types.Menu):
 
 class ShortcutMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_edit_mesh_shortcut"
-	bl_label = "Shortcut for registration"
+	bl_label = "by Shortcuts"
 	bl_description = "Looks useful functions is to register shortcut"
 	
 	def draw(self, context):

@@ -8,7 +8,7 @@ import bpy
 
 class InvertHide(bpy.types.Operator):
 	bl_idname = "object.invert_hide"
-	bl_label = "Show / hide flip"
+	bl_label = "Invert Show/Hide"
 	bl_description = "Flips object\'s view state and non-State"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -43,7 +43,7 @@ class HideOnlyType(bpy.types.Operator):
 		("EMPTY", "Empty", "", 8),
 		("CAMERA", "Camera", "", 9),
 		("LAMP", "Lamp", "", 10),
-		("SPEAKER", "Speakers", "", 11),
+		("SPEAKER", "Speaker", "", 11),
 		]
 	type = bpy.props.EnumProperty(items=items, name="Hide object type")
 	
@@ -70,7 +70,7 @@ class HideExceptType(bpy.types.Operator):
 		("EMPTY", "Empty", "", 8),
 		("CAMERA", "Camera", "", 9),
 		("LAMP", "Lamp", "", 10),
-		("SPEAKER", "Speakers", "", 11),
+		("SPEAKER", "Speaker", "", 11),
 		]
 	type = bpy.props.EnumProperty(items=items, name="Leave object type")
 	

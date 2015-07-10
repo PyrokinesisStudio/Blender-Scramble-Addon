@@ -81,7 +81,7 @@ class AddOppositeVertexGroups(bpy.types.Operator):
 
 class SelectVertexGroupsTop(bpy.types.Operator):
 	bl_idname = "mesh.select_vertex_groups_top"
-	bl_label = "At top, select"
+	bl_label = "Select top"
 	bl_description = "Select item at top of vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -99,7 +99,7 @@ class SelectVertexGroupsTop(bpy.types.Operator):
 		return {'FINISHED'}
 class SelectVertexGroupsBottom(bpy.types.Operator):
 	bl_idname = "mesh.select_vertex_groups_bottom"
-	bl_label = "At bottom, select"
+	bl_label = "Select bottom"
 	bl_description = "Select item at bottom of vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -162,7 +162,7 @@ class RemoveSpecifiedStringVertexGroups(bpy.types.Operator):
 	bl_description = "Removes all vertex group names contains specified string"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	string = bpy.props.StringProperty(name="Part of name you want to delete", default="")
+	string = bpy.props.StringProperty(name="Part of name deleteing", default="")
 	
 	@classmethod
 	def poll(cls, context):

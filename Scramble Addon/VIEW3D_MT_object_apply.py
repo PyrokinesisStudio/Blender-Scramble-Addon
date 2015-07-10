@@ -33,7 +33,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		operator = self.layout.operator(TransformApplyAll.bl_idname, text="Position and rotation with Pan", icon="PLUGIN")
+		operator = self.layout.operator(TransformApplyAll.bl_idname, text="Location & Rotation & Scale", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

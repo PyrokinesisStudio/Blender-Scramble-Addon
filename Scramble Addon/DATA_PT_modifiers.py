@@ -8,7 +8,7 @@ import bpy
 
 class ApplyAllModifiers(bpy.types.Operator):
 	bl_idname = "object.apply_all_modifiers"
-	bl_label = "All modifiers applied"
+	bl_label = "Apply all modifiers"
 	bl_description = "Applies to all modifiers of selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -83,7 +83,7 @@ class SyncShowModifiers(bpy.types.Operator):
 		("1", "Rendering => view", "", 1),
 		("0", "View-rendering", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="Calculus", default="0")
+	mode = bpy.props.EnumProperty(items=items, name="Calculate", default="0")
 	
 	@classmethod
 	def poll(cls, context):
@@ -144,9 +144,9 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 	bl_description = "integration from object\'s modifiers to apply all"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	unapply_subsurf = bpy.props.BoolProperty(name="Except for Subsurf", default=True)
+	unapply_subsurf = bpy.props.BoolProperty(name="Except Subsurf", default=True)
 	unapply_armature = bpy.props.BoolProperty(name="Except armature", default=True)
-	unapply_mirror = bpy.props.BoolProperty(name="Except for mirrors", default=False)
+	unapply_mirror = bpy.props.BoolProperty(name="Except mirror", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -219,11 +219,11 @@ class AddBoolean(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('INTERSECT', "Cross", "", 1),
-		('UNION', "Integration", "", 2),
+		('INTERSECT', "Intersect", "", 1),
+		('UNION', "Union", "", 2),
 		('DIFFERENCE', "Difference", "", 3),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="Calculus")
+	mode = bpy.props.EnumProperty(items=items, name="Calculate")
 	
 	@classmethod
 	def poll(cls, context):
@@ -248,11 +248,11 @@ class ApplyBoolean(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('INTERSECT', "Cross", "", 1),
-		('UNION', "Integration", "", 2),
+		('INTERSECT', "Intersect", "", 1),
+		('UNION', "Union", "", 2),
 		('DIFFERENCE', "Difference", "", 3),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="Calculus")
+	mode = bpy.props.EnumProperty(items=items, name="Calculate")
 	
 	@classmethod
 	def poll(cls, context):
@@ -335,7 +335,7 @@ class EqualizeSubsurfLevel(bpy.types.Operator):
 
 class SetSubsurfOptimalDisplay(bpy.types.Operator):
 	bl_idname = "object.set_subsurf_optimal_display"
-	bl_label = "Sets optimization"
+	bl_label = "Set optimization"
 	bl_description = "Sets optimization of subsurfmodifaia of selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -386,9 +386,9 @@ class AddSubsurf(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	subdivision_type = bpy.props.EnumProperty(items=[("CATMULL_CLARK", "Catmulclark", "", 1), ("SIMPLE", "Simple", "", 2)], name="Subdivision method")
-	levels = bpy.props.IntProperty(name="Number of views", default=2, min=0, max=6)
+	levels = bpy.props.IntProperty(name="Number of view", default=2, min=0, max=6)
 	render_levels = bpy.props.IntProperty(name="Number of render", default=2, min=0, max=6)
-	use_subsurf_uv =  bpy.props.BoolProperty(name="Subdivided UVs", default=True)
+	use_subsurf_uv =  bpy.props.BoolProperty(name="Subdivide UV", default=True)
 	show_only_control_edges =  bpy.props.BoolProperty(name="Optimized view")
 	
 	@classmethod
@@ -441,7 +441,7 @@ class SetArmatureDeformPreserveVolume(bpy.types.Operator):
 
 class QuickCurveDeform(bpy.types.Operator):
 	bl_idname = "object.quick_curve_deform"
-	bl_label = "Quick curve deformation"
+	bl_label = "Quick curve transform"
 	bl_description = "Quickly apply curve modifier"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -453,8 +453,8 @@ class QuickCurveDeform(bpy.types.Operator):
 		('NEG_Y', "-Y", "", 5),
 		('NEG_Z', "-Z", "", 6),
 		]
-	deform_axis = bpy.props.EnumProperty(items=items, name="Axial deformation")
-	is_apply = bpy.props.BoolProperty(name="Modifiers applied", default=False)
+	deform_axis = bpy.props.EnumProperty(items=items, name="Axis deformation")
+	is_apply = bpy.props.BoolProperty(name="Apply modifiers", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -516,9 +516,9 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 		('NEG_Y', "-Y", "", 5),
 		('NEG_Z', "-Z", "", 6),
 		]
-	deform_axis = bpy.props.EnumProperty(items=items, name="Axial deformation")
-	use_merge_vertices = bpy.props.BoolProperty(name="Welding vertices together", default=True)
-	is_apply = bpy.props.BoolProperty(name="Modifiers applied", default=False)
+	deform_axis = bpy.props.EnumProperty(items=items, name="Axis deformation")
+	use_merge_vertices = bpy.props.BoolProperty(name="Combine vertices", default=True)
+	is_apply = bpy.props.BoolProperty(name="Apply modifiers", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -594,7 +594,7 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 
 class ModifierMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_specials"
-	bl_label = "Modifier action"
+	bl_label = "Modifier actions"
 	bl_description = "Is working with modifiers"
 	
 	def draw(self, context):
@@ -607,7 +607,7 @@ class ModifierMenu(bpy.types.Menu):
 
 class SubsurfMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_subsurf"
-	bl_label = "Save surf related"
+	bl_label = "Subsurf"
 	bl_description = "Is relationship between subsurface operations"
 	
 	def draw(self, context):
@@ -620,7 +620,7 @@ class SubsurfMenu(bpy.types.Menu):
 
 class BooleanMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_boolean"
-	bl_label = "Boolean related"
+	bl_label = "Boolean"
 	bl_description = "Is relationship between Boolean operations"
 	
 	def draw(self, context):
@@ -634,7 +634,7 @@ class BooleanMenu(bpy.types.Menu):
 
 class ArmatureMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_armature"
-	bl_label = "Armature connection"
+	bl_label = "Armature"
 	bl_description = "Is working with armatures"
 	
 	def draw(self, context):
@@ -642,8 +642,8 @@ class ArmatureMenu(bpy.types.Menu):
 
 class CurveMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_curve"
-	bl_label = "Relationship between curves"
-	bl_description = "Is working with curves"
+	bl_label = "Curve"
+	bl_description = "Curve operators"
 	
 	def draw(self, context):
 		self.layout.operator(QuickCurveDeform.bl_idname, icon='PLUGIN')

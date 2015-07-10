@@ -248,7 +248,7 @@ class SelectSymmetryNameBones(bpy.types.Operator):
 
 class SelectChildrenEnd(bpy.types.Operator):
 	bl_idname = "pose.select_children_end"
-	bl_label = "Select to end of bone"
+	bl_label = "Select end of bone"
 	bl_description = "Select bones child-child child\'s bones. And we will select to end"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -288,7 +288,7 @@ class SelectChildrenEnd(bpy.types.Operator):
 
 class SelectParentEnd(bpy.types.Operator):
 	bl_idname = "pose.select_parent_end"
-	bl_label = "Select bone"
+	bl_label = "Select root of bone"
 	bl_description = "Choice bones parent => parent of parent bone. And we will select to end"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -321,7 +321,7 @@ class SelectParentEnd(bpy.types.Operator):
 
 class SelectPath(bpy.types.Operator):
 	bl_idname = "pose.select_path"
-	bl_label = "Select route of bones"
+	bl_label = "Select path of bones"
 	bl_description = "Select select bones of two paths"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -366,7 +366,7 @@ class SelectPath(bpy.types.Operator):
 
 class SelectAxisOver(bpy.types.Operator):
 	bl_idname = "pose.select_axis_over"
-	bl_label = "Choose right half"
+	bl_label = "Select right half"
 	bl_description = "Select right half of bone (other settings are also available)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -476,7 +476,7 @@ class SelectOneAndPath(bpy.types.Operator):
 
 class SelectGroupedMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_pose_grouped"
-	bl_label = "Selected relationship (extended)"
+	bl_label = "Select by relation (Extra)"
 	bl_description = "Ability to select all visible bones together with same properties menu"
 	
 	def draw(self, context):
@@ -486,11 +486,11 @@ class SelectGroupedMenu(bpy.types.Menu):
 		self.layout.separator()
 		self.layout.operator(SelectSameNameBones.bl_idname, text="Bone name", icon='PLUGIN')
 		self.layout.operator(SelectSymmetryNameBones.bl_idname, text="Mirror name", icon='PLUGIN')
-		self.layout.operator(SelectSameConstraintBone.bl_idname, text="Constraint", icon='PLUGIN')
+		self.layout.operator(SelectSameConstraintBone.bl_idname, text="Constraints", icon='PLUGIN')
 
 class ShortcutsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_pose_shortcuts"
-	bl_label = "Shortcut for registration"
+	bl_label = "by Shortcuts"
 	bl_description = "Registering shortcut feature that might come in handy"
 	
 	def draw(self, context):

@@ -8,7 +8,7 @@ import bpy
 
 class CopyOtherUVMenuOperator(bpy.types.Operator): #
 	bl_idname = "uv.copy_other_uv_menu_operator"
-	bl_label = "Copied from other UV"
+	bl_label = "Copy from other UV"
 	bl_description = "Active UV unwrapping can be copied from other UV"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -24,7 +24,7 @@ class CopyOtherUVMenuOperator(bpy.types.Operator): #
 		return {'FINISHED'}
 class CopyOtherUVMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_uv_map_copy_other"
-	bl_label = "Copied from other UV"
+	bl_label = "Copy from other UV"
 	bl_description = "Active UV unwrapping can be copied from other UV"
 	
 	def draw(self, context):
@@ -34,11 +34,11 @@ class CopyOtherUVMenu(bpy.types.Menu):
 				self.layout.operator(CopyOtherUV.bl_idname, text=uv.name, icon="PLUGIN").uv = uv.name
 class CopyOtherUV(bpy.types.Operator):
 	bl_idname = "uv.copy_other_uv"
-	bl_label = "Copied from other UV"
+	bl_label = "Copy from other UV"
 	bl_description = "Active UV unwrapping of selection can be copied from other UV"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	uv = bpy.props.StringProperty(name="Copy source UV")
+	uv = bpy.props.StringProperty(name="Source UV")
 	
 	def execute(self, context):
 		obj = context.active_object

@@ -8,27 +8,27 @@ import bpy
 
 class CopyIKSettings(bpy.types.Operator):
 	bl_idname = "pose.copy_ik_settings"
-	bl_label = "Copy IK set"
+	bl_label = "Copy IK setting"
 	bl_description = "Copies of other selected bone IK settings Active"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	lock_ik_x = bpy.props.BoolProperty(name="Lock", default=True)
-	ik_stiffness_x = bpy.props.BoolProperty(name="Rigid", default=True)
+	ik_stiffness_x = bpy.props.BoolProperty(name="Stiffness", default=True)
 	use_ik_limit_x = bpy.props.BoolProperty(name="Limit", default=True)
-	ik_min_x = bpy.props.BoolProperty(name="Smallest", default=True)
-	ik_max_x = bpy.props.BoolProperty(name="Biggest", default=True)
+	ik_min_x = bpy.props.BoolProperty(name="Minimum", default=True)
+	ik_max_x = bpy.props.BoolProperty(name="Maximum", default=True)
 	
 	lock_ik_y = bpy.props.BoolProperty(name="Lock", default=True)
-	ik_stiffness_y = bpy.props.BoolProperty(name="Rigid", default=True)
+	ik_stiffness_y = bpy.props.BoolProperty(name="Stiffness", default=True)
 	use_ik_limit_y = bpy.props.BoolProperty(name="Limit", default=True)
-	ik_min_y = bpy.props.BoolProperty(name="Smallest", default=True)
-	ik_max_y = bpy.props.BoolProperty(name="Biggest", default=True)
+	ik_min_y = bpy.props.BoolProperty(name="Minimum", default=True)
+	ik_max_y = bpy.props.BoolProperty(name="Maximum", default=True)
 	
 	lock_ik_z = bpy.props.BoolProperty(name="Lock", default=True)
-	ik_stiffness_z = bpy.props.BoolProperty(name="Rigid", default=True)
+	ik_stiffness_z = bpy.props.BoolProperty(name="Stiffness", default=True)
 	use_ik_limit_z = bpy.props.BoolProperty(name="Limit", default=True)
-	ik_min_z = bpy.props.BoolProperty(name="Smallest", default=True)
-	ik_max_z = bpy.props.BoolProperty(name="Biggest", default=True)
+	ik_min_z = bpy.props.BoolProperty(name="Minimum", default=True)
+	ik_max_z = bpy.props.BoolProperty(name="Maximum", default=True)
 	
 	ik_stretch = bpy.props.BoolProperty(name="Stretch", default=True)
 	
@@ -75,7 +75,7 @@ class CopyIKSettings(bpy.types.Operator):
 
 class ReverseMinMax(bpy.types.Operator):
 	bl_idname = "pose.reverse_min_max"
-	bl_label = "Flip minimum / maximum angle"
+	bl_label = "Invert minimum/maximum angle"
 	bl_description = "Reverses minimum and maximum angle of IK setup this bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -127,7 +127,7 @@ class ReverseMinMax(bpy.types.Operator):
 
 class CopyAxisSetting(bpy.types.Operator):
 	bl_idname = "pose.copy_axis_setting"
-	bl_label = "Copy to other axes axis settings"
+	bl_label = "Copy axis-setting to other axis"
 	bl_description = "Copy other axis on one axis"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -136,16 +136,16 @@ class CopyAxisSetting(bpy.types.Operator):
 		('y', "Y axis", "", 2),
 		('z', "Z axi", "", 3),
 		]
-	source_axis = bpy.props.EnumProperty(items=items, name="Source-axis")
+	source_axis = bpy.props.EnumProperty(items=items, name="Source axis")
 	target_x = bpy.props.BoolProperty(name="To X", default=True)
 	target_y = bpy.props.BoolProperty(name="To Y", default=True)
 	target_z = bpy.props.BoolProperty(name="To Z", default=True)
 	
 	lock_ik = bpy.props.BoolProperty(name="Lock", default=True)
-	ik_stiffness = bpy.props.BoolProperty(name="Rigid", default=True)
+	ik_stiffness = bpy.props.BoolProperty(name="Stiffness", default=True)
 	use_ik_limit = bpy.props.BoolProperty(name="Limit", default=True)
-	ik_min = bpy.props.BoolProperty(name="Smallest", default=True)
-	ik_max = bpy.props.BoolProperty(name="Biggest", default=True)
+	ik_min = bpy.props.BoolProperty(name="Minimum", default=True)
+	ik_max = bpy.props.BoolProperty(name="Maximum", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -170,7 +170,7 @@ class CopyAxisSetting(bpy.types.Operator):
 		row.prop(self, 'target_x')
 		row.prop(self, 'target_y')
 		row.prop(self, 'target_z')
-		self.layout.label("Copying settings")
+		self.layout.label("Copy setting")
 		row = self.layout.row()
 		row.prop(self, 'lock_ik')
 		row.prop(self, 'ik_stiffness')
@@ -221,8 +221,8 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
-		row.operator(CopyIKSettings.bl_idname, icon='COPY_ID', text="Copy IK set")
-		row.operator(ReverseMinMax.bl_idname, icon='ARROW_LEFTRIGHT', text="Flip angle limit")
-		row.operator(CopyAxisSetting.bl_idname, icon='LINKED', text="Axis configuration copy")
+		row.operator(CopyIKSettings.bl_idname, icon='COPY_ID', text="Copy IK setting")
+		row.operator(ReverseMinMax.bl_idname, icon='ARROW_LEFTRIGHT', text="Invert angle limit")
+		row.operator(CopyAxisSetting.bl_idname, icon='LINKED', text="Axis config copy")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

@@ -14,7 +14,7 @@ class MoveActiveVertexColor(bpy.types.Operator):
 	
 	items = [
 		('UP', "To up", "", 1),
-		('DOWN', "To bottom", "", 2),
+		('DOWN', "To Down", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Direction", default="UP")
 	
@@ -37,7 +37,7 @@ class MoveActiveVertexColor(bpy.types.Operator):
 			return {'CANCELLED'}
 		me = obj.data
 		if (len(me.vertex_colors) <= 1):
-			self.report(type={'ERROR'}, message="Vertex depth is less than one")
+			self.report(type={'ERROR'}, message="Vertex color is less than one")
 			return {'CANCELLED'}
 		if (self.mode == 'UP'):
 			if (me.vertex_colors.active_index <= 0):
@@ -95,7 +95,7 @@ class VertexColorSet(bpy.types.Operator):
 		me = obj.data
 		active_col = me.vertex_colors.active
 		if (not active_col):
-			self.report(type={'ERROR'}, message="Vertex color does not exist")
+			self.report(type={'ERROR'}, message="Vertex color not exist")
 			return {'CANCELLED'}
 		return context.window_manager.invoke_props_dialog(self)
 	
@@ -112,11 +112,11 @@ class VertexColorSet(bpy.types.Operator):
 
 class AddVertexColorSelectedObject(bpy.types.Operator):
 	bl_idname = "object.add_vertex_color_selected_object"
-	bl_label = "Bulk add vertex colors"
+	bl_label = "Altogether add vertex colors"
 	bl_description = "Specify color and name all selected mesh object, adds vertex color"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name = bpy.props.StringProperty(name="Vertex color names", default="Col")
+	name = bpy.props.StringProperty(name="Vertex color name", default="Col")
 	color = bpy.props.FloatVectorProperty(name="Vertex color", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	
 	@classmethod

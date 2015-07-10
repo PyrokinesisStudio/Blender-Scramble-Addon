@@ -14,10 +14,10 @@ class SelectBoundBoxSize(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('LARGE', "Choose big ones", "", 1),
-		('SMALL', "Choose small ones", "", 2),
+		('LARGE', "Select big", "", 1),
+		('SMALL', "Select small", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="Selection mode")
+	mode = bpy.props.EnumProperty(items=items, name="Select mode")
 	items = [
 		('MESH', "Mesh", "", 1),
 		('CURVE', "Curve", "", 2),
@@ -28,7 +28,7 @@ class SelectBoundBoxSize(bpy.types.Operator):
 		('LATTICE', "Lattice", "", 7),
 		('ALL', "All", "", 8),
 		]
-	select_type = bpy.props.EnumProperty(items=items, name="Selection type", default='MESH')
+	select_type = bpy.props.EnumProperty(items=items, name="Select type", default='MESH')
 	threshold = bpy.props.FloatProperty(name="Selection range", default=50, min=0, max=100, soft_min=0, soft_max=100, step=100, precision=1, subtype='PERCENTAGE')
 	
 	@classmethod
@@ -184,11 +184,11 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('LARGER', "Choose bigger ones", "", 1),
-		('SMALLER', "Choose smaller ones", "", 2),
+		('LARGER', "Select bigger", "", 1),
+		('SMALLER', "Select smaller", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="Selection mode")
-	select_same_size = bpy.props.BoolProperty(name="Also choose same size", default=True)
+	mode = bpy.props.EnumProperty(items=items, name="Select mode")
+	select_same_size = bpy.props.BoolProperty(name="Select same size", default=True)
 	items = [
 		('MESH', "Mesh", "", 1),
 		('CURVE', "Curve", "", 2),
@@ -200,7 +200,7 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 		('ALL', "All", "", 8),
 		('SAME', "Same type", "", 9),
 		]
-	select_type = bpy.props.EnumProperty(items=items, name="Selection type", default='SAME')
+	select_type = bpy.props.EnumProperty(items=items, name="Select type", default='SAME')
 	size_multi = bpy.props.FloatProperty(name="Standard size offset", default=1.0, min=0, max=10, soft_min=0, soft_max=10, step=10, precision=3)
 	
 	def execute(self, context):
@@ -329,7 +329,7 @@ class SelectMeshNone(bpy.types.Operator):
 
 class SelectGroupedEX(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_object_grouped_ex"
-	bl_label = "Selected relationship (extended)"
+	bl_label = "Select by relation (Extra)"
 	bl_description = "Select all visible objects grouped by properties"
 	
 	def draw(self, context):
@@ -347,26 +347,26 @@ class SelectGroupedEX(bpy.types.Menu):
 		column.operator("object.select_grouped", text="Keying set").type = 'KEYINGSET'
 		column.operator("object.select_grouped", text="Lamp type").type = 'LAMP_TYPE'
 		column.separator()
-		column.operator(SelectGroupedSizeThan.bl_idname, text="Greater than", icon="PLUGIN").mode = 'LARGER'
-		column.operator(SelectGroupedSizeThan.bl_idname, text="Less than", icon="PLUGIN").mode = 'SMALLER'
+		column.operator(SelectGroupedSizeThan.bl_idname, text="Bigger than", icon="PLUGIN").mode = 'LARGER'
+		column.operator(SelectGroupedSizeThan.bl_idname, text="Smaller than", icon="PLUGIN").mode = 'SMALLER'
 		column.separator()
 		column.operator(SelectGroupedName.bl_idname, text="Object name", icon="PLUGIN")
 		column.operator(SelectGroupedMaterial.bl_idname, text="Material", icon="PLUGIN")
 		column.operator(SelectGroupedModifiers.bl_idname, text="Modifier", icon="PLUGIN")
-		column.operator(SelectGroupedSubsurfLevel.bl_idname, text="Subsurf levels", icon="PLUGIN")
-		column.operator(SelectGroupedArmatureTarget.bl_idname, text="Same armature deformation", icon="PLUGIN")
+		column.operator(SelectGroupedSubsurfLevel.bl_idname, text="Subsurf level", icon="PLUGIN")
+		column.operator(SelectGroupedArmatureTarget.bl_idname, text="Same armature transform", icon="PLUGIN")
 		if (not context.object):
 			column.enabled = False
 
 class SelectMesh(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_object_mesh"
-	bl_label = "Selected characteristics of mesh"
+	bl_label = "Select characteristics of mesh"
 	bl_description = "Ability to select mesh object visualization menu"
 	
 	def draw(self, context):
 		self.layout.operator(SelectMeshFaceOnly.bl_idname, text="Face only", icon="PLUGIN")
 		self.layout.operator(SelectMeshEdgeOnly.bl_idname, text="Edge only", icon="PLUGIN")
-		self.layout.operator(SelectMeshVertexOnly.bl_idname, text="Only vertices", icon="PLUGIN")
+		self.layout.operator(SelectMeshVertexOnly.bl_idname, text="Only vertex", icon="PLUGIN")
 		self.layout.operator(SelectMeshNone.bl_idname, text="Without even vertex", icon="PLUGIN")
 
 ################
@@ -385,8 +385,8 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Select small ones", icon="PLUGIN").mode = 'SMALL'
-		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Choose big ones", icon="PLUGIN").mode = 'LARGE'
+		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Select small", icon="PLUGIN").mode = 'SMALL'
+		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Select big", icon="PLUGIN").mode = 'LARGE'
 		self.layout.separator()
 		self.layout.menu(SelectMesh.bl_idname, icon="PLUGIN")
 		self.layout.menu(SelectGroupedEX.bl_idname, icon="PLUGIN")

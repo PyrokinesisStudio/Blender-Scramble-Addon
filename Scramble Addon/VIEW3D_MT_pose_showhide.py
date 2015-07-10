@@ -21,7 +21,7 @@ class HideSelectBones(bpy.types.Operator):
 
 class HideSelectAllReset(bpy.types.Operator):
 	bl_idname = "armature.hide_select_all_reset"
-	bl_label = "Unlock all selectable"
+	bl_label = "Unlock all unselect"
 	bl_description = "non-selection of all bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	

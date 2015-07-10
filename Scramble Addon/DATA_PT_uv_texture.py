@@ -8,11 +8,11 @@ import bpy
 
 class RenameSpecificNameUV(bpy.types.Operator):
 	bl_idname = "object.rename_specific_name_uv"
-	bl_label = "Bulk Rename with UV"
+	bl_label = "Altogether rename UV"
 	bl_description = "Renames selected objects within designated UV together"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	source_name =  bpy.props.StringProperty(name="UV name to rename the", default="Past UV")
+	source_name =  bpy.props.StringProperty(name="rename UV name", default="Past UV")
 	replace_name =  bpy.props.StringProperty(name="New UV name", default="New UV")
 	
 	@classmethod
@@ -154,13 +154,13 @@ class DeleteEmptyUV(bpy.types.Operator):
 
 class MoveActiveUV(bpy.types.Operator):
 	bl_idname = "object.move_active_uv"
-	bl_label = "Move to UV"
+	bl_label = "Move UV"
 	bl_description = "Sorts, by moving active object\'s UV"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
 		('UP', "To up", "", 1),
-		('DOWN', "To bottom", "", 2),
+		('DOWN', "To Down", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Direction", default="UP")
 	
@@ -224,7 +224,7 @@ class MoveActiveUV(bpy.types.Operator):
 class UVMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_uv"
 	bl_label = "UV operations"
-	bl_description = "UV related operations"
+	bl_description = "UV operations"
 	
 	def draw(self, context):
 		self.layout.operator(DeleteEmptyUV.bl_idname, icon="PLUGIN")

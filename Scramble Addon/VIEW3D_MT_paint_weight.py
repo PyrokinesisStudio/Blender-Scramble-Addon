@@ -8,12 +8,12 @@ import bpy, bmesh
 
 class MargeSelectedVertexGroup(bpy.types.Operator):
 	bl_idname = "paint.marge_selected_vertex_group"
-	bl_label = "Synthesis of weights with each other"
+	bl_label = "Combine weights"
 	bl_description = "Weight of selected bone and same vertex group merges"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isNewVertGroup = bpy.props.BoolProperty(name="Create new vertex group", default=False)
-	ext = bpy.props.StringProperty(name="At end of new vertex group names", default="... Such as synthetic")
+	ext = bpy.props.StringProperty(name="At end of new vertex group names", default="... Such as combine")
 	
 	def execute(self, context):
 		obj = context.active_object
@@ -40,7 +40,7 @@ class MargeSelectedVertexGroup(bpy.types.Operator):
 
 class RemoveSelectedVertexGroup(bpy.types.Operator):
 	bl_idname = "paint.remove_selected_vertex_group"
-	bl_label = "Subtraction of weight between"
+	bl_label = "Subtraction weights"
 	bl_description = "Subtracts weight of selected bone and same vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -111,14 +111,14 @@ class ApplyDynamicPaint(bpy.types.Operator):
 	bl_description = "I painted weight of portion that overlaps other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isNew = bpy.props.BoolProperty(name="New vertex group", default=False)
-	distance = bpy.props.FloatProperty(name="Distances", default=1.0, min=0, max=100, soft_min=0, soft_max=100, step=10, precision=3)
+	isNew = bpy.props.BoolProperty(name="To new vertex group", default=False)
+	distance = bpy.props.FloatProperty(name="Distance", default=1.0, min=0, max=100, soft_min=0, soft_max=100, step=10, precision=3)
 	items = [
 		("ADD", "Add", "", 1),
-		("SUBTRACT", "Subtraction", "", 2),
-		("REPLACE", "Replacement", "", 3),
+		("SUBTRACT", "Sub", "", 2),
+		("REPLACE", "Replace", "", 3),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="How to fill")
+	mode = bpy.props.EnumProperty(items=items, name="Fill method")
 	
 	def execute(self, context):
 		activeObj = context.active_object
@@ -166,7 +166,7 @@ class BlurWeight(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('ACTIVE', "Only active", "", 1),
+		('ACTIVE', "Active only", "", 1),
 		('ALL', "All", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Target", default='ACTIVE')
@@ -252,8 +252,8 @@ def menu(self, context):
 		self.layout.operator(MargeSelectedVertexGroup.bl_idname, icon="PLUGIN")
 		self.layout.operator(RemoveSelectedVertexGroup.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(BlurWeight.bl_idname, text="Active blur", icon="PLUGIN").mode = 'ACTIVE'
-		self.layout.operator(BlurWeight.bl_idname, text="Everything blurs", icon="PLUGIN").mode = 'ALL'
+		self.layout.operator(BlurWeight.bl_idname, text="Blur active", icon="PLUGIN").mode = 'ACTIVE'
+		self.layout.operator(BlurWeight.bl_idname, text="Blur all", icon="PLUGIN").mode = 'ALL'
 		self.layout.separator()
 		self.layout.operator(VertexGroupAverageAll.bl_idname, icon="PLUGIN")
 		self.layout.separator()

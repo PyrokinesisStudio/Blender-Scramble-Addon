@@ -8,7 +8,7 @@ import bpy
 
 class InvertHide(bpy.types.Operator):
 	bl_idname = "mesh.invert_hide"
-	bl_label = "Show / hide flip"
+	bl_label = "Invert Show/Hide"
 	bl_description = "Flip display and non-display state"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -40,7 +40,7 @@ class InvertHide(bpy.types.Operator):
 
 class HideVertexOnly(bpy.types.Operator):
 	bl_idname = "mesh.hide_vertex_only"
-	bl_label = "Hide only top"
+	bl_label = "Hide only vertex"
 	bl_description = "To hide selected vertices,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -63,7 +63,7 @@ class HideParts(bpy.types.Operator):
 	bl_description = "Hides mesh part has selected more than one top"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	unselected = bpy.props.BoolProperty(name="Non-select Division", default=False)
+	unselected = bpy.props.BoolProperty(name="Non-select parts", default=False)
 	
 	def execute(self, context):
 		isSelecteds = []

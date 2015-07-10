@@ -8,7 +8,7 @@ import bpy
 
 class CopySetting(bpy.types.Operator):
 	bl_idname = "rigidbody.copy_setting"
-	bl_label = "Copy rigid set"
+	bl_label = "Copy rigid body setting"
 	bl_description = "Copy selected objects of other rigid set of active objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	

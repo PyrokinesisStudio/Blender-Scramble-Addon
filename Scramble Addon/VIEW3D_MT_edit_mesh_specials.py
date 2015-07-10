@@ -81,13 +81,13 @@ class ToggleMirrorModifier(bpy.types.Operator):
 	use_x = bpy.props.BoolProperty(name="X axis", default=True)
 	use_y = bpy.props.BoolProperty(name="Y axis", default=False)
 	use_z = bpy.props.BoolProperty(name="Z axi", default=False)
-	use_mirror_merge = bpy.props.BoolProperty(name="Combination", default=True)
+	use_mirror_merge = bpy.props.BoolProperty(name="Combine", default=True)
 	use_clip = bpy.props.BoolProperty(name="Clipping", default=False)
-	use_mirror_vertex_groups = bpy.props.BoolProperty(name="Vertex group mirrors", default=False)
+	use_mirror_vertex_groups = bpy.props.BoolProperty(name="Vertex group mirror", default=False)
 	use_mirror_u = bpy.props.BoolProperty(name="Texture U mirror", default=False)
-	use_mirror_v = bpy.props.BoolProperty(name="Texture V Miller", default=False)
-	merge_threshold = bpy.props.FloatProperty(name="Combined distance", default=0.001, min=0, max=1, soft_min=0, soft_max=1, step=0.01, precision=6)
-	is_top = bpy.props.BoolProperty(name="Add at top", default=True)
+	use_mirror_v = bpy.props.BoolProperty(name="Texture V mirror", default=False)
+	merge_threshold = bpy.props.FloatProperty(name="Combine distance", default=0.001, min=0, max=1, soft_min=0, soft_max=1, step=0.01, precision=6)
+	is_top = bpy.props.BoolProperty(name="Add top", default=True)
 	
 	def execute(self, context):
 		activeObj = context.active_object
