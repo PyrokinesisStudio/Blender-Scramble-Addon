@@ -1276,7 +1276,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **連番の付いたボーンを選択**
     * **―(Select numbered bone)**
         * X.001 のように番号の付いた名前のボーンを選択します
-        * ―(Select name with number like x.005 bone)
+        * ―(Select bones with number names (example x.001))
     * **対称のボーンへ選択を移動**
     * **―(Symmetrical bones move selection)**
         * X.Rを選択中ならX.Lへ選択を変更、X.LならX.Rへ
@@ -1288,7 +1288,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **同じ名前のボーンを選択**
     * **―(Select bone of same name)**
         * X X.001 X.002 などのボーン名を同じ名前とみなして選択します
-        * ―(Regarding bone names, such as X-x.005 X.002 with same name, select)
+        * ―(Select bones same names (example X X.001 X.002))
     * **名前が対称のボーンを追加選択**
     * **―(Select Add name symmetrical bone)**
         * X.Rを選択中ならX.Lも追加選択、X.LならX.Rも選択
