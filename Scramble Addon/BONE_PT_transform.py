@@ -14,7 +14,7 @@ class CopyBoneTransform(bpy.types.Operator):
 	
 	copy_location = bpy.props.BoolProperty(name="Location", default=True)
 	copy_rotation = bpy.props.BoolProperty(name="Rotation", default=True)
-	copy_scale = bpy.props.BoolProperty(name="Zoom in / out", default=True)
+	copy_scale = bpy.props.BoolProperty(name="Scale", default=True)
 	
 	@classmethod
 	def poll(cls, context):

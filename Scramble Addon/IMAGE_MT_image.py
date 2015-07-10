@@ -939,7 +939,7 @@ class ColorMenu(bpy.types.Menu):
 	bl_label = "Color"
 	
 	def draw(self, context):
-		self.layout.operator(Normalize.bl_idname, icon='PLUGIN', text="Normalization")
+		self.layout.operator(Normalize.bl_idname, icon='PLUGIN', text="Normalize")
 		self.layout.operator(Decolorization.bl_idname, icon='PLUGIN', text="Decolorization")
 
 class EditMenu(bpy.types.Menu):
@@ -949,7 +949,7 @@ class EditMenu(bpy.types.Menu):
 	def draw(self, context):
 		self.layout.operator(Duplicate.bl_idname, icon='PLUGIN', text="Copy")
 		self.layout.operator(Clipping.bl_idname, icon='PLUGIN', text="Change size")
-		self.layout.operator(Resize.bl_idname, icon='PLUGIN', text="Zoom in / out")
+		self.layout.operator(Resize.bl_idname, icon='PLUGIN', text="Scale")
 		self.layout.operator(Tiles.bl_idname, icon='PLUGIN', text="Tile")
 
 class FilterMenu(bpy.types.Menu):

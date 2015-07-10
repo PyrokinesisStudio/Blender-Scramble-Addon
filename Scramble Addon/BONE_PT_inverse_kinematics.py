@@ -79,8 +79,8 @@ class ReverseMinMax(bpy.types.Operator):
 	bl_description = "Reverses minimum and maximum angle of IK setup this bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	is_x = bpy.props.BoolProperty(name="Flip X", default=False)
-	is_y = bpy.props.BoolProperty(name="Flip Y", default=False)
+	is_x = bpy.props.BoolProperty(name="X invert", default=False)
+	is_y = bpy.props.BoolProperty(name="Y invert", default=False)
 	is_z = bpy.props.BoolProperty(name="Z invert", default=False)
 	
 	@classmethod

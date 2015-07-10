@@ -30,7 +30,7 @@ def menu(self, context):
 		row.operator('object.copy_data_name', icon='EDITMODE_HLT', text="")
 		row = self.layout.row(align=True)
 		row.alignment = 'RIGHT'
-		row.label("Name synchronization", icon='LINKED')
+		row.label("Name sync", icon='LINKED')
 		row.operator('object.object_name_to_data_name', icon='TRIA_DOWN_BAR', text="")
 		row.operator('object.data_name_to_object_name', icon='TRIA_UP_BAR', text="")
 		self.layout.template_ID(context.object, 'data')

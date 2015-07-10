@@ -311,7 +311,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('C', "C key", "", 14),
 		('D', "D key", "", 15),
 		('E', "E key", "", 16),
-		('F', "F keys", "", 17),
+		('F', "F key", "", 17),
 		('G', "G key", "", 18),
 		('H', "H key", "", 19),
 		('I', "I key", "", 20),

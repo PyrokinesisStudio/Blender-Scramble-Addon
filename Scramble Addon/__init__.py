@@ -193,13 +193,13 @@ class AddonPreferences(bpy.types.AddonPreferences):
 	view_savedata = bpy.props.StringProperty(name="View saved games", default="")
 	key_config_xml_path = bpy.props.StringProperty(name="XML game pass", default="BlenderKeyConfig.xml")
 	
-	image_editor_path_1 = bpy.props.StringProperty(name="Pass 1 of image-editing software", default="", subtype='FILE_PATH')
-	image_editor_path_2 = bpy.props.StringProperty(name="Pass 2 of image-editing software", default="", subtype='FILE_PATH')
-	image_editor_path_3 = bpy.props.StringProperty(name="Path 3 image editing software", default="", subtype='FILE_PATH')
+	image_editor_path_1 = bpy.props.StringProperty(name="Path of image-editing software 1", default="", subtype='FILE_PATH')
+	image_editor_path_2 = bpy.props.StringProperty(name="Path of image-editing software 2", default="", subtype='FILE_PATH')
+	image_editor_path_3 = bpy.props.StringProperty(name="Path of image-editing software 3", default="", subtype='FILE_PATH')
 	
-	text_editor_path_1 = bpy.props.StringProperty(name="Path 1 text editing software", default="", subtype='FILE_PATH')
-	text_editor_path_2 = bpy.props.StringProperty(name="Pass 2 of text editing software", default="", subtype='FILE_PATH')
-	text_editor_path_3 = bpy.props.StringProperty(name="Path 3 text editing software", default="", subtype='FILE_PATH')
+	text_editor_path_1 = bpy.props.StringProperty(name="Path text-editing software 1", default="", subtype='FILE_PATH')
+	text_editor_path_2 = bpy.props.StringProperty(name="Path text-editing software 2", default="", subtype='FILE_PATH')
+	text_editor_path_3 = bpy.props.StringProperty(name="Path text-editing software 3", default="", subtype='FILE_PATH')
 	
 	def draw(self, context):
 		layout = self.layout

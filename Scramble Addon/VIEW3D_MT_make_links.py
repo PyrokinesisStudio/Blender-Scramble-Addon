@@ -277,7 +277,7 @@ class MakeLinkTransform(bpy.types.Operator):
 	
 	copy_location = bpy.props.BoolProperty(name="Location", default=True)
 	copy_rotation = bpy.props.BoolProperty(name="Rotation", default=True)
-	copy_scale = bpy.props.BoolProperty(name="Zoom in / out", default=True)
+	copy_scale = bpy.props.BoolProperty(name="Scale", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -319,7 +319,7 @@ class TransformMenu(bpy.types.Menu):
 		op.copy_location, op.copy_rotation, op.copy_scale = True, False, False
 		op = self.layout.operator(MakeLinkTransform.bl_idname, text="Rotation", icon='PLUGIN')
 		op.copy_location, op.copy_rotation, op.copy_scale = False, True, False
-		op = self.layout.operator(MakeLinkTransform.bl_idname, text="Zoom in / out", icon='PLUGIN')
+		op = self.layout.operator(MakeLinkTransform.bl_idname, text="Scale", icon='PLUGIN')
 		op.copy_location, op.copy_rotation, op.copy_scale = False, False, True
 
 ################

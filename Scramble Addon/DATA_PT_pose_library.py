@@ -12,7 +12,7 @@ class MoveActivePose(bpy.types.Operator):
 	bl_description = "Sorts by posing for an active pose library"
 	bl_options = {'REGISTER'}
 	
-	is_up = bpy.props.BoolProperty(name="To top", default=False)
+	is_up = bpy.props.BoolProperty(name="To up", default=False)
 	
 	@classmethod
 	def poll(cls, context):

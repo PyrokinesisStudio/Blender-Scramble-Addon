@@ -624,13 +624,13 @@ class BooleanMenu(bpy.types.Menu):
 	bl_description = "Is relationship between Boolean operations"
 	
 	def draw(self, context):
-		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (groin)").mode = "INTERSECT"
-		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (integrated)").mode = "UNION"
-		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (diff)").mode = "DIFFERENCE"
+		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (Intersect)").mode = "INTERSECT"
+		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (Union)").mode = "UNION"
+		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (Difference)").mode = "DIFFERENCE"
 		self.layout.separator()
-		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (groin)").mode = "INTERSECT"
-		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (integrated)").mode = "UNION"
-		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (diff)").mode = "DIFFERENCE"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (Intersect)").mode = "INTERSECT"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (Union)").mode = "UNION"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (Difference)").mode = "DIFFERENCE"
 
 class ArmatureMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_armature"
@@ -669,12 +669,12 @@ def menu(self, context):
 				col = self.layout.column(align=True)
 				row = col.row(align=True)
 				row.operator(AutoRenameModifiers.bl_idname, icon='SCRIPT', text="Rename all")
-				row.operator(ApplyAllModifiers.bl_idname, icon='IMPORT', text="All applicable")
+				row.operator(ApplyAllModifiers.bl_idname, icon='IMPORT', text="Apply all")
 				row.operator(DeleteAllModifiers.bl_idname, icon='X', text="Delete all")
 				row = col.row(align=True)
 				row.operator(ToggleApplyModifiersView.bl_idname, icon='RESTRICT_VIEW_OFF', text="View")
 				row.operator(ToggleAllShowExpanded.bl_idname, icon='FULLSCREEN_ENTER', text="Expand / Close")
-				row.operator(SyncShowModifiers.bl_idname, icon='LINKED', text="Use over the")
+				row.operator(SyncShowModifiers.bl_idname, icon='LINKED', text="Use sync")
 		self.layout.menu(ModifierMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons['Scramble Addon'].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

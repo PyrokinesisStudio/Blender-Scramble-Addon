@@ -159,7 +159,7 @@ class MoveActiveUV(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('UP', "To top", "", 1),
+		('UP', "To up", "", 1),
 		('DOWN', "To bottom", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Direction", default="UP")
