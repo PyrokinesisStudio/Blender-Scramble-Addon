@@ -168,7 +168,7 @@ class RenameDataBlocks(bpy.types.Operator):
 	
 	def draw(self, context):
 		data_names = ['objects', 'meshes', 'curves', 'metaballs', 'fonts', 'armatures', 'lattices', 'cameras', 'lamps', 'speakers', 'materials', 'textures', 'images', 'actions', 'brushes', 'grease_pencil', 'groups', 'libraries', 'linestyles', 'masks', 'movieclips', 'node_groups', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'texts', 'window_managers', 'worlds']
-		self.layout.label(text="To rename data to check")
+		self.layout.label(text="Check rename data")
 		for i, data_name in enumerate(data_names):
 			if (i % 2 == 0):
 				row = self.layout.row()
@@ -410,7 +410,7 @@ class AllOnShowAllEdges(bpy.types.Operator):
 
 class AllSetDrawType(bpy.types.Operator):
 	bl_idname = "object.all_set_draw_type"
-	bl_label = "All best drawing type schemes"
+	bl_label = "Set all maximum drawing type"
 	bl_description = "Best drawing types for all objects in bulk set"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -685,7 +685,7 @@ class AllSetMaterialObjectColor(bpy.types.Operator):
 
 class AllSetBumpMethod(bpy.types.Operator):
 	bl_idname = "texture.all_set_bump_method"
-	bl_label = "Set bump of all quality"
+	bl_label = "Set all bump of quality"
 	bl_description = "Bump-map texture of all quality sets in bulk"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -737,7 +737,7 @@ class AllRenameTextureFileName(bpy.types.Operator):
 		for tex in  bpy.data.textures:
 			if (tex.type == "IMAGE"):
 				if (not tex.image):
-					self.report(type={'WARNING'}, message=tex.name+"image is not specified")
+					self.report(type={'WARNING'}, message=tex.name+"of image is not specified")
 					continue
 				if (tex.image.filepath_raw != ""):
 					name = bpy.path.basename(tex.image.filepath_raw)
@@ -855,7 +855,7 @@ class AllSetPhysicsFrames(bpy.types.Operator):
 
 class EntireProcessMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process"
-	bl_label = "Whole process (use care)"
+	bl_label = "All Manage (use care)"
 	bl_description = "Is all data processing functions"
 	
 	def draw(self, context):
@@ -902,7 +902,7 @@ class EntireProcessTextureMenu(bpy.types.Menu):
 class EntireProcessImageMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_image"
 	bl_label = "Image"
-	bl_description = "Is set of all image processing features"
+	bl_description = "Set all image setting"
 	
 	def draw(self, context):
 		self.layout.operator('image.all_rename_image_file_name', icon='PLUGIN')

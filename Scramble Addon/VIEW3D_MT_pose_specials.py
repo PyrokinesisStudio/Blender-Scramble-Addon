@@ -81,7 +81,7 @@ class CreateWeightCopyMesh(bpy.types.Operator):
 	bl_description = "Creates mesh to use with copy of selected bone weight"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name =  bpy.props.StringProperty(name="Name of create object", default="Weight for objects")
+	name =  bpy.props.StringProperty(name="Name of create object", default="Object for weight copy")
 	items = [
 		('TAIL', "End", "", 1),
 		('HEAD', "Root", "", 2),
@@ -515,7 +515,7 @@ class SetRigidBodyBone(bpy.types.Operator):
 	
 	shape_size = bpy.props.FloatProperty(name="Shape size", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
 	shape_level = bpy.props.IntProperty(name="Shape subsurf", default=3, min=1, max=6, soft_min=1, soft_max=6)
-	constraints_size = bpy.props.FloatProperty(name="Rigid constraint size", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
+	constraints_size = bpy.props.FloatProperty(name="RigidConstraints size", default=0.1, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
 	items = [
 		('PLAIN_AXES', "Cross", "", 1),
 		('ARROWS', "Axis", "", 2),
@@ -703,7 +703,7 @@ class SetIKRotationLimitByPose(bpy.types.Operator):
 	
 	items = [
 		('IK', "IK rotation limit", "", 1),
-		('CONST', "Rotation limit constraints", "", 2),
+		('CONST', "Constraints rotation limit", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Mode")
 	use_reverse = bpy.props.BoolProperty(name="Reverse limit", default=True)

@@ -8,7 +8,7 @@ import bpy
 
 class ViewSelectedEX(bpy.types.Operator):
 	bl_idname = "view3d.view_selected_ex"
-	bl_label = "Display selection (non-zoom)"
+	bl_label = "Show selected (non-zoom)"
 	bl_description = "Selected ones over center of 3D perspective not (zoom)"
 	bl_options = {'REGISTER'}
 	

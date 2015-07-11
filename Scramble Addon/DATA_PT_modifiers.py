@@ -309,8 +309,8 @@ class EqualizeSubsurfLevel(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('ToRender', "Preview-rendering", "", 1),
-		('ToPreview', "Rendering-preview", "", 2),
+		('ToRender', "Preview => Rendering", "", 1),
+		('ToPreview', "Rendering => Preview", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="How to set up")
 	
@@ -504,7 +504,7 @@ class QuickCurveDeform(bpy.types.Operator):
 
 class QuickArrayAndCurveDeform(bpy.types.Operator):
 	bl_idname = "object.quick_array_and_curve_deform"
-	bl_label = "Quick array replication + curve deformation"
+	bl_label = "Quick Array + Curve Transform"
 	bl_description = "Quickly apply curve modifier with modifiers array replication"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -595,7 +595,7 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 class ModifierMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_specials"
 	bl_label = "Modifier actions"
-	bl_description = "Is working with modifiers"
+	bl_description = "Modifiers"
 	
 	def draw(self, context):
 		self.layout.menu(SubsurfMenu.bl_idname, icon='PLUGIN')
@@ -608,7 +608,7 @@ class ModifierMenu(bpy.types.Menu):
 class SubsurfMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_subsurf"
 	bl_label = "Subsurf"
-	bl_description = "Is relationship between subsurface operations"
+	bl_description = "Subsurface Operations"
 	
 	def draw(self, context):
 		self.layout.operator(AddSubsurf.bl_idname, icon='PLUGIN')

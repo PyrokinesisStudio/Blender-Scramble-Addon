@@ -66,7 +66,7 @@ class RemoveAllMaterialSlot(bpy.types.Operator):
 
 class RemoveEmptyMaterialSlot(bpy.types.Operator):
 	bl_idname = "material.remove_empty_material_slot"
-	bl_label = "Empty slot material removal"
+	bl_label = "Remove empty material slots"
 	bl_description = "Delete all material of this object has not been assigned material slots"
 	bl_options = {'REGISTER', 'UNDO'}
 	

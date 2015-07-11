@@ -9,7 +9,7 @@ import os, numpy, urllib, math
 
 class RenameImageFileName(bpy.types.Operator):
 	bl_idname = "image.rename_image_file_name"
-	bl_label = "Using name of image file name"
+	bl_label = "Image name from file name"
 	bl_description = "External images are using name of active image file name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -196,7 +196,7 @@ class FillTransparency(bpy.types.Operator):
 class Normalize(bpy.types.Operator):
 	bl_idname = "image.normalize"
 	bl_label = "Normalize image"
-	bl_description = "Normalizes active image"
+	bl_description = "Normalize active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -261,8 +261,8 @@ class RenameImageFile(bpy.types.Operator):
 # ながとさんに協力して頂きました、感謝！
 class BlurImage(bpy.types.Operator):
 	bl_idname = "image.blur_image"
-	bl_label = "(Note heavy) blurs an image"
-	bl_description = "Blurs an image of active"
+	bl_label = "Blur image (Note heavy)"
+	bl_description = "Blur active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	strength = bpy.props.IntProperty(name="Blur strength", default=10, min=1, max=100, soft_min=1, soft_max=100)
@@ -459,7 +459,7 @@ class Rotate270Image(bpy.types.Operator):
 
 class ExternalEditEX(bpy.types.Operator):
 	bl_idname = "image.external_edit_ex"
-	bl_label = "Editing in an external editor (enhanced)"
+	bl_label = "Edit by external editor (Advance)"
 	bl_description = "Open image in an external editor of additional files page of custom"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -539,7 +539,7 @@ class Resize(bpy.types.Operator):
 class Duplicate(bpy.types.Operator):
 	bl_idname = "image.duplicate"
 	bl_label = "Copy image"
-	bl_description = "Duplicate active picture"
+	bl_description = "Duplicate active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

@@ -184,7 +184,7 @@ class SelectSameNameBones(bpy.types.Operator):
 
 class SelectSymmetryNameBones(bpy.types.Operator):
 	bl_idname = "pose.select_symmetry_name_bones"
-	bl_label = "Select Add name symmetrical bone"
+	bl_label = "Select add name symmetrical bone"
 	bl_description = "If you select X.R X.L also selected X.R X.L you select additional"
 	bl_options = {'REGISTER', 'UNDO'}
 	

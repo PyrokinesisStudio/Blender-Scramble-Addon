@@ -33,7 +33,7 @@ class VertexGroupTransferWeightObjmode(bpy.types.Operator):
 
 class ToggleSmooth(bpy.types.Operator):
 	bl_idname = "object.toggle_smooth"
-	bl_label = "Toggle smooth/flat"
+	bl_label = "Toggle Smooth/Flat"
 	bl_description = "Toggles selected mesh object smooth / flat state"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -362,7 +362,7 @@ class CreateVertexGroupsArmature(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	armature_name = bpy.props.StringProperty(name="Armature name", default="Armature")
-	use_vertex_group_name = bpy.props.BoolProperty(name="Bone name vertex group names", default=True)
+	use_vertex_group_name = bpy.props.BoolProperty(name="Bone name to vertex group name", default=True)
 	bone_length = bpy.props.FloatProperty(name="Bone length", default=0.5, min=0, max=10, soft_min=0, soft_max=10, step=1, precision=3)
 	
 	@classmethod
@@ -496,7 +496,7 @@ class CreateSolidifyEdge(bpy.types.Operator):
 
 class SetRenderHide(bpy.types.Operator):
 	bl_idname = "object.set_render_hide"
-	bl_label = "Limit choice of rendering"
+	bl_label = "Limit rendering selected"
 	bl_description = "setting does not render selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -962,10 +962,10 @@ class RenderHideMenu(bpy.types.Menu):
 	bl_description = "Menu object rendering limits involved"
 	
 	def draw(self, context):
-		self.layout.operator(SetRenderHide.bl_idname, text="Limit choice of rendering", icon="PLUGIN").reverse = True
+		self.layout.operator(SetRenderHide.bl_idname, text="Limit rendering selected", icon="PLUGIN").reverse = True
 		self.layout.operator('object.isolate_type_render')
 		self.layout.separator()
-		self.layout.operator(SetRenderHide.bl_idname, text="Allow selection of rendering", icon="PLUGIN").reverse = False
+		self.layout.operator(SetRenderHide.bl_idname, text="Allow rendering selected", icon="PLUGIN").reverse = False
 		self.layout.operator('object.hide_render_clear_all')
 		self.layout.separator()
 		self.layout.operator(SyncRenderHide.bl_idname, icon="PLUGIN")

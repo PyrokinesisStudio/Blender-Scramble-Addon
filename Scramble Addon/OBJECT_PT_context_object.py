@@ -8,7 +8,7 @@ import bpy
 
 class DataNameToObjectName(bpy.types.Operator):
 	bl_idname = "object.data_name_to_object_name"
-	bl_label = "Object names in data name"
+	bl_label = "Object name to data name"
 	bl_description = "Set data name linked to object name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -27,7 +27,7 @@ class DataNameToObjectName(bpy.types.Operator):
 
 class ObjectNameToDataName(bpy.types.Operator):
 	bl_idname = "object.object_name_to_data_name"
-	bl_label = "Data name in object name"
+	bl_label = "Data name to object name"
 	bl_description = "Sets data linked to object name"
 	bl_options = {'REGISTER', 'UNDO'}
 	

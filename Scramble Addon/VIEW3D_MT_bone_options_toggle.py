@@ -31,7 +31,7 @@ class SetBoneNames(bpy.types.Operator):
 
 class SetCurvedBones(bpy.types.Operator):
 	bl_idname = "pose.set_curved_bones"
-	bl_label = "Set curve ban"
+	bl_label = "Set curve bones"
 	bl_description = "Bones of selected curve born sets"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -100,7 +100,7 @@ class LinkIKSetting(bpy.types.Operator):
 
 class SetIKPoleTarget(bpy.types.Operator):
 	bl_idname = "pose.set_ik_pole_target"
-	bl_label = "Paul targeting IK"
+	bl_label = "Set pole target of IK"
 	bl_description = "Chose second Paul target of active bone IK bones sets"
 	bl_options = {'REGISTER', 'UNDO'}
 	

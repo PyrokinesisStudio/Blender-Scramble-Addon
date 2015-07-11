@@ -180,7 +180,7 @@ class ViewportShadePie(bpy.types.Menu): #
 class SetViewportShade(bpy.types.Operator): #
 	bl_idname = "view3d.set_viewport_shade"
 	bl_label = "Shading Switch"
-	bl_description = "Toggles shading"
+	bl_description = "Toggle shading"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	mode = bpy.props.StringProperty(name="Shading", default="SOLID")

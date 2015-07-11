@@ -79,7 +79,7 @@ class SelectBoundBoxSize(bpy.types.Operator):
 
 class SelectGroupedName(bpy.types.Operator):
 	bl_idname = "object.select_grouped_name"
-	bl_label = "Select object with same name"
+	bl_label = "Select object same name"
 	bl_description = "Select visible object of active object with same name, such as (X.001 X X.002)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -305,7 +305,7 @@ class SelectMeshVertexOnly(bpy.types.Operator):
 
 class SelectMeshNone(bpy.types.Operator):
 	bl_idname = "object.select_mesh_none"
-	bl_label = "Select no mesh even vertex"
+	bl_label = "Select mesh even non vertex"
 	bl_description = "Surface and edge and select mesh object vertex is not empty"
 	bl_options = {'REGISTER', 'UNDO'}
 	

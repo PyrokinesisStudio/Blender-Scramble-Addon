@@ -31,7 +31,7 @@ class ChangeContextTab(bpy.types.Operator):
 		now_tab = space_data.context
 		tabs = ['RENDER', 'RENDER_LAYER', 'SCENE', 'WORLD', 'OBJECT', 'CONSTRAINT', 'MODIFIER', 'DATA', 'BONE', 'BONE_CONSTRAINT', 'MATERIAL', 'TEXTURE', 'PARTICLES', 'PHYSICS']
 		if (now_tab not in tabs):
-			self.report(type={'ERROR'}, message="Is current tab is unexpected")
+			self.report(type={'ERROR'}, message="Unexpected tab now")
 			return {'CANCELLED'}
 		if (self.is_left):
 			tabs.reverse()

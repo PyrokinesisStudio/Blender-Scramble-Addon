@@ -15,7 +15,7 @@ import xml.etree.ElementTree as ElementTree
 
 class ChangeUserPreferencesTab(bpy.types.Operator):
 	bl_idname = "ui.change_user_preferences_tab"
-	bl_label = "Switch to custom tab"
+	bl_label = "Switch user prefences tab"
 	bl_description = "Cycles user settings tab"
 	bl_options = {'REGISTER'}
 	
@@ -25,7 +25,7 @@ class ChangeUserPreferencesTab(bpy.types.Operator):
 		tabs = ['INTERFACE', 'EDITING', 'INPUT', 'ADDONS', 'THEMES', 'FILES', 'SYSTEM']
 		now_tab = context.user_preferences.active_section
 		if (now_tab not in tabs):
-			self.report(type={'ERROR'}, message="Is current tab is unexpected")
+			self.report(type={'ERROR'}, message="Unexpected tab now")
 			return {'CANCELLED'}
 		if (self.is_left):
 			tabs.reverse()
@@ -69,7 +69,7 @@ class SearchKeyBind(bpy.types.Operator):
 
 class ClearFilterText(bpy.types.Operator):
 	bl_idname = "ui.clear_filter_text"
-	bl_label = "Clear Search shortcuts"
+	bl_label = "Clear search shortcuts"
 	bl_description = "Remove string used to search for shortcuts"
 	bl_options = {'REGISTER'}
 	
@@ -86,7 +86,7 @@ class ClearFilterText(bpy.types.Operator):
 
 class CloseKeyMapItems(bpy.types.Operator):
 	bl_idname = "ui.close_key_map_items"
-	bl_label = "Close all game"
+	bl_label = "Close all key configs"
 	bl_description = "Collapses all game menu"
 	bl_options = {'REGISTER'}
 	
@@ -247,7 +247,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('3D View', "3D view", "", 29),
 		('Outliner', "Outliner", "", 30),
 		('Info', "Info", "", 31),
-		('View3D Gesture Circle', "3 D Burgess Cha circle", "", 32),
+		('View3D Gesture Circle', "3D Burgess Cha circle", "", 32),
 		('Gesture Border', "Gesture boundary", "", 33),
 		('Gesture Zoom Border', "Zoom gesture border", "", 34),
 		('Gesture Straight Line', "Gesture lines", "", 35),
@@ -291,7 +291,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('Clip', "Clip", "", 73),
 		('Clip Editor', "Clip Editor", "", 74),
 		('Clip Graph Editor', "Clip graph editor", "", 75),
-		('Clip Dopesheet Editor', "Clip deepseateditor", "", 76),
+		('Clip Dopesheet Editor', "Clip Deepseat Editor", "", 76),
 		]
 	key_map = bpy.props.EnumProperty(items=items, name="Effective area")
 	items = [
@@ -774,7 +774,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('3D View', "3D view", "", 29),
 		('Outliner', "Outliner", "", 30),
 		('Info', "Info", "", 31),
-		('View3D Gesture Circle', "3 D Burgess Cha circle", "", 32),
+		('View3D Gesture Circle', "3D Burgess Cha circle", "", 32),
 		('Gesture Border', "Gesture boundary", "", 33),
 		('Gesture Zoom Border', "Zoom gesture border", "", 34),
 		('Gesture Straight Line', "Gesture lines", "", 35),
@@ -818,7 +818,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('Clip', "Clip", "", 73),
 		('Clip Editor', "Clip Editor", "", 74),
 		('Clip Graph Editor', "Clip graph editor", "", 75),
-		('Clip Dopesheet Editor', "Clip deepseateditor", "", 76),
+		('Clip Dopesheet Editor', "Clip Deepseat Editor", "", 76),
 		]
 	category = bpy.props.EnumProperty(items=items, name="Move category")
 	source_delete = bpy.props.BoolProperty(name="Remove original", default=True)

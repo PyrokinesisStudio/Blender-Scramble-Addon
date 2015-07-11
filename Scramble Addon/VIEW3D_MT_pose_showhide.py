@@ -8,7 +8,7 @@ import bpy
 
 class HideSelectBones(bpy.types.Operator):
 	bl_idname = "armature.hide_select_bones"
-	bl_label = "What is selected in selection"
+	bl_label = "Selected to Unselectible"
 	bl_description = "Choose bone has selected impossible"
 	bl_options = {'REGISTER', 'UNDO'}
 	

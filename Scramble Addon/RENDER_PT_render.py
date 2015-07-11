@@ -9,7 +9,7 @@ import sys, subprocess
 
 class RenderBackground(bpy.types.Operator):
 	bl_idname = "render.render_background"
-	bl_label = "In background rendering"
+	bl_label = "Background Rendering"
 	bl_description = "Renders current blend file from command line"
 	bl_options = {'REGISTER'}
 	

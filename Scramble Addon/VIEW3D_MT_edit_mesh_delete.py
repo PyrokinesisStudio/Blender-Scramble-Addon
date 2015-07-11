@@ -9,7 +9,7 @@ import bmesh
 
 class DeleteBySelectMode(bpy.types.Operator):
 	bl_idname = "mesh.delete_by_select_mode"
-	bl_label = "Removes selection mode and same element"
+	bl_label = "Remove same element to selection mode"
 	bl_description = "Same mesh selection mode of current element (vertex and side and side) remove"
 	bl_options = {'REGISTER', 'UNDO'}
 	

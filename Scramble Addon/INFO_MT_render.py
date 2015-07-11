@@ -215,7 +215,7 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.prop(context.scene.render, 'resolution_x', text="Resolution X", icon="PLUGIN")
 		self.layout.prop(context.scene.render, 'resolution_y', text="Resolution Y", icon="PLUGIN")
-		self.layout.menu(RenderResolutionPercentageMenu.bl_idname, text="Render size (currently:"+str(context.scene.render.resolution_percentage)+"%)", icon="PLUGIN")
+		self.layout.menu(RenderResolutionPercentageMenu.bl_idname, text="RenderSize (Now:"+str(context.scene.render.resolution_percentage)+"%)", icon="PLUGIN")
 		for img in bpy.data.images:
 			if (img.type == 'RENDER_RESULT'):
 				self.layout.menu(SlotsRenderMenu.bl_idname, text="Render slots (slot:"+str(img.render_slots.active_index+1)+")", icon="PLUGIN")

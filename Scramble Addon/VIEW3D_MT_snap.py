@@ -41,7 +41,7 @@ class SnapMesh3DCursor(bpy.types.Operator):
 
 class Move3DCursorToViewLocation(bpy.types.Operator):
 	bl_idname = "view3d.move_3d_cursor_to_view_location"
-	bl_label = "3D cursor view"
+	bl_label = "3D cursor to view"
 	bl_description = "Move 3D cursor to location of center point of"
 	bl_options = {'REGISTER'}
 	
@@ -77,7 +77,7 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.operator(Move3DCursorToViewLocation.bl_idname, text="Cursor => View Positon", icon="PLUGIN")
 		self.layout.operator(Move3DCursorFar.bl_idname, text="Cursor to hide (to)", icon="PLUGIN")
-		self.layout.operator(SnapMesh3DCursor.bl_idname, text="Cursor => mesh surface", icon="PLUGIN")
+		self.layout.operator(SnapMesh3DCursor.bl_idname, text="Cursor => Mesh surface", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

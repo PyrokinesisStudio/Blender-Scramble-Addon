@@ -63,7 +63,7 @@ class DuplicateNewParts(bpy.types.Operator):
 
 class QuickShrinkwrap(bpy.types.Operator):
 	bl_idname = "mesh.quick_shrinkwrap"
-	bl_label = "Quick shrink wrap"
+	bl_label = "Quick Shrinkwrap"
 	bl_description = "Another one you mesh selected vertices pettanko!, glue"
 	bl_options = {'REGISTER', 'UNDO'}
 	

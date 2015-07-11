@@ -56,7 +56,7 @@ class AreaTypePieOther(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Logic Editor", icon="LOGIC").type = "LOGIC_EDITOR"
-		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Video sequence editor", icon="SEQUENCE").type = "SEQUENCE_EDITOR"
+		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Video Sequence Editor", icon="SEQUENCE").type = "SEQUENCE_EDITOR"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Video Clip Editor", icon="RENDER_ANIMATION").type = "CLIP_EDITOR"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="File browser", icon="FILESEL").type = "FILE_BROWSER"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Python console", icon="CONSOLE").type = "CONSOLE"
@@ -80,7 +80,7 @@ class SetAreaType(bpy.types.Operator): #
 
 class ToggleJapaneseInterface(bpy.types.Operator):
 	bl_idname = "wm.toggle_japanese_interface"
-	bl_label = "English UI, Japanese switch"
+	bl_label = "Switch UI English/Japanese"
 	bl_description = "Switch interface English, Japan,"
 	bl_options = {'REGISTER', 'UNDO'}
 	

@@ -8,7 +8,7 @@ import bpy
 
 class ToggleMeshSelectMode(bpy.types.Operator):
 	bl_idname = "mesh.toggle_mesh_select_mode"
-	bl_label = "Mesh selection mode"
+	bl_label = "Switch mesh select mode"
 	bl_description = "Mesh selection mode => top => side surface. Switch and"
 	bl_options = {'REGISTER'}
 	

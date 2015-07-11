@@ -49,7 +49,7 @@ class ObjectModePie(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Vertex paint", icon="VPAINT_HLT").mode = "VERTEX_PAINT"
 class SetObjectMode(bpy.types.Operator): #
 	bl_idname = "object.set_object_mode"
-	bl_label = "Set interactive object"
+	bl_label = "Set object modes"
 	bl_description = "Sets interactive mode of object"
 	bl_options = {'REGISTER'}
 	
@@ -110,7 +110,7 @@ class DrawTypePie(bpy.types.Menu):
 class SetDrawType(bpy.types.Operator): #
 	bl_idname = "object.set_draw_type"
 	bl_label = "Setting maximum Drawing Type"
-	bl_description = "Sets maximum drawing type"
+	bl_description = "Set maximum drawing type"
 	bl_options = {'REGISTER'}
 	
 	type = bpy.props.StringProperty(name="Drawing type", default="OBJECT")
