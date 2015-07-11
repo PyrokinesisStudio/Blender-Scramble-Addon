@@ -122,16 +122,6 @@ class ToggleViewportShadeA(bpy.types.Operator):
 # パイメニュー #
 ################
 
-class PieMenu(bpy.types.Menu):
-	bl_idname = "VIEW3D_MT_view_pie"
-	bl_label = "Pie menu"
-	bl_description = "Is pie between 3D view"
-	
-	def draw(self, context):
-		self.layout.operator(ViewNumpadPieOperator.bl_idname, icon="PLUGIN")
-		self.layout.operator(ViewportShadePieOperator.bl_idname, icon="PLUGIN")
-		self.layout.operator(LayerPieOperator.bl_idname, text="Layer", icon="PLUGIN")
-
 class ViewNumpadPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.view_numpad_pie_operator"
 	bl_label = "Preset view"
@@ -329,6 +319,56 @@ class LayerPieRun(bpy.types.Operator): #
 			self.unhalf = False
 		return self.execute(context)
 
+class PanelPieOperator(bpy.types.Operator):
+	bl_idname = "view3d.panel_pie_operator"
+	bl_label = "Pie menu switch panel"
+	bl_description = "Is pie menu toggle Panel"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		bpy.ops.wm.call_menu_pie(name=PanelPie.bl_idname)
+		return {'FINISHED'}
+class PanelPie(bpy.types.Menu): #
+	bl_idname = "VIEW3D_MT_view_pie_panel"
+	bl_label = "Pie menu switch panel"
+	bl_description = "Is pie menu toggle Panel"
+	
+	def draw(self, context):
+		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Only tool shelf", icon='TRIA_LEFT')
+		op.properties, op.toolshelf = False, True
+		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Only properties", icon='TRIA_RIGHT')
+		op.properties, op.toolshelf = True, False
+		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Both show", icon='ARROW_LEFTRIGHT')
+		op.properties, op.toolshelf = True, True
+		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Non-express", icon='RESTRICT_VIEW_ON')
+		op.properties, op.toolshelf = False, False
+class RunPanelPie(bpy.types.Operator): #
+	bl_idname = "view3d.run_panel_pie"
+	bl_label = "Pie menu switch panel"
+	bl_description = "Is pie menu toggle Panel"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	properties = bpy.props.BoolProperty(name="Property")
+	toolshelf = bpy.props.BoolProperty(name="Tool shelf")
+	
+	def execute(self, context):
+		properties = self.properties
+		toolshelf = self.toolshelf
+		for region in context.area.regions:
+			if (region.type == 'UI'):
+				properties = False
+				if (1 < region.width):
+					properties = True
+			if (region.type == 'TOOLS'):
+				toolshelf = False
+				if (1 < region.width):
+					toolshelf = True
+		if (properties != self.properties):
+			bpy.ops.view3d.properties()
+		if (toolshelf != self.toolshelf):
+			bpy.ops.view3d.toolshelf()
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -339,13 +379,24 @@ class ShortcutsMenu(bpy.types.Menu):
 	bl_description = "Registering shortcut feature that might come in handy"
 	
 	def draw(self, context):
-		self.layout.operator(LocalViewEx.bl_idname, icon="PLUGIN")
+		self.layout.operator(LocalViewEx.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(TogglePanelsA.bl_idname, icon="PLUGIN")
-		self.layout.operator(TogglePanelsB.bl_idname, icon="PLUGIN")
-		self.layout.operator(TogglePanelsC.bl_idname, icon="PLUGIN")
+		self.layout.operator(TogglePanelsA.bl_idname, icon='PLUGIN')
+		self.layout.operator(TogglePanelsB.bl_idname, icon='PLUGIN')
+		self.layout.operator(TogglePanelsC.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(ToggleViewportShadeA.bl_idname, icon="PLUGIN")
+		self.layout.operator(ToggleViewportShadeA.bl_idname, icon='PLUGIN')
+
+class PieMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_view_pie"
+	bl_label = "Pie menu"
+	bl_description = "Is pie between 3D view"
+	
+	def draw(self, context):
+		self.layout.operator(ViewNumpadPieOperator.bl_idname, icon='PLUGIN')
+		self.layout.operator(ViewportShadePieOperator.bl_idname, icon='PLUGIN')
+		self.layout.operator(LayerPieOperator.bl_idname, text="Layer", icon='PLUGIN')
+		self.layout.operator(PanelPieOperator.bl_idname, text="Panel switch", icon='PLUGIN')
 
 ################
 # メニュー追加 #
@@ -363,8 +414,8 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.menu(ShortcutsMenu.bl_idname, icon="PLUGIN")
-		self.layout.menu(PieMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(ShortcutsMenu.bl_idname, icon='PLUGIN')
+		self.layout.menu(PieMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
