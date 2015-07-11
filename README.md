@@ -1371,7 +1371,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * レイヤー表示切り替えのパイメニューです
         * ―(Is pie menu toggle layer visibility)
     * **パネル切り替えのパイメニュー**
-    * **―(Pie menu switch panel)**
+    * **―(Switch panel pie menu)**
         * パネル表示切り替えのパイメニューです
         * ―(Is pie menu toggle Panel)
   

@@ -321,7 +321,7 @@ class LayerPieRun(bpy.types.Operator): #
 
 class PanelPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.panel_pie_operator"
-	bl_label = "Pie menu switch panel"
+	bl_label = "Switch panel pie menu"
 	bl_description = "Is pie menu toggle Panel"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -330,7 +330,7 @@ class PanelPieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class PanelPie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_view_pie_panel"
-	bl_label = "Pie menu switch panel"
+	bl_label = "Switch panel pie menu"
 	bl_description = "Is pie menu toggle Panel"
 	
 	def draw(self, context):
@@ -338,18 +338,18 @@ class PanelPie(bpy.types.Menu): #
 		op.properties, op.toolshelf = False, True
 		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Only properties", icon='TRIA_RIGHT')
 		op.properties, op.toolshelf = True, False
-		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Both show", icon='ARROW_LEFTRIGHT')
+		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Double Sided", icon='ARROW_LEFTRIGHT')
 		op.properties, op.toolshelf = True, True
-		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Non-express", icon='RESTRICT_VIEW_ON')
+		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Hide", icon='RESTRICT_VIEW_ON')
 		op.properties, op.toolshelf = False, False
 class RunPanelPie(bpy.types.Operator): #
 	bl_idname = "view3d.run_panel_pie"
-	bl_label = "Pie menu switch panel"
+	bl_label = "Switch panel pie menu"
 	bl_description = "Is pie menu toggle Panel"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	properties = bpy.props.BoolProperty(name="Property")
-	toolshelf = bpy.props.BoolProperty(name="Tool shelf")
+	toolshelf = bpy.props.BoolProperty(name="Tool Shelf")
 	
 	def execute(self, context):
 		properties = self.properties
