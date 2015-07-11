@@ -70,7 +70,7 @@ def menu(self, context):
 		split = self.layout.split(percentage=0.7)
 		split_sub = split.split(percentage=0.95)
 		col = split_sub.column()
-		col.label(text="Image Editor: Advanced")
+		col.label(text="Image Editor: Advance")
 		col.prop(context.user_preferences.addons["Scramble Addon"].preferences, 'image_editor_path_1', text="")
 		col.prop(context.user_preferences.addons["Scramble Addon"].preferences, 'image_editor_path_2', text="")
 		col.prop(context.user_preferences.addons["Scramble Addon"].preferences, 'image_editor_path_3', text="")

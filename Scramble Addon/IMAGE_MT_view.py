@@ -8,7 +8,7 @@ import bpy
 
 class Reset2DCursor(bpy.types.Operator):
 	bl_idname = "image.reset_2d_cursor"
-	bl_label = "Reset position of cursor"
+	bl_label = "Reset cursor position"
 	bl_description = "2D cursor moves to lower-left corner"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -137,7 +137,7 @@ class ShortcutsMenu(bpy.types.Menu):
 
 class Reset2DCursorMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_view_reset_2d_cursor"
-	bl_label = "Reset position of cursor"
+	bl_label = "Reset cursor position"
 	bl_description = "Resets position of cursor"
 	
 	def draw(self, context):

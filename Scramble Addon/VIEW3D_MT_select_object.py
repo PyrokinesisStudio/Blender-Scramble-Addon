@@ -245,7 +245,7 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 
 class SelectMeshFaceOnly(bpy.types.Operator):
 	bl_idname = "object.select_mesh_face_only"
-	bl_label = "Choose surface mesh"
+	bl_label = "Select face exist mesh"
 	bl_description = "Select mesh surface is at least one"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -265,7 +265,7 @@ class SelectMeshFaceOnly(bpy.types.Operator):
 
 class SelectMeshEdgeOnly(bpy.types.Operator):
 	bl_idname = "object.select_mesh_edge_only"
-	bl_label = "Select only side mesh"
+	bl_label = "Select edge only mesh"
 	bl_description = "Terms, select only side mesh"
 	bl_options = {'REGISTER', 'UNDO'}
 	

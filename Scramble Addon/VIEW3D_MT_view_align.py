@@ -71,7 +71,7 @@ class SelectAndView(bpy.types.Operator):
 
 class SnapMeshView(bpy.types.Operator):
 	bl_idname = "view3d.snap_mesh_view"
-	bl_label = "Snap to point mesh"
+	bl_label = "Snap view to mesh"
 	bl_description = "(Please use shortcuts) move center point of view mesh surface under mouse"
 	bl_options = {'MACRO'}
 	

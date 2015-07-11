@@ -21,7 +21,7 @@ class SetRenderResolutionPercentage(bpy.types.Operator):
 
 class SetRenderSlot(bpy.types.Operator):
 	bl_idname = "render.set_render_slot"
-	bl_label = "Set render slots"
+	bl_label = "Set render slot"
 	bl_description = "Sets slot to save rendering results"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -171,7 +171,7 @@ class ShadeingMenu(bpy.types.Menu):
 
 class SubsurfMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_subsurf"
-	bl_label = "All Subsurf levels of granularity"
+	bl_label = "All Subsurf levels"
 	bl_description = "Setting Subsurf subdivision level of all objects at once"
 	
 	def draw(self, context):
@@ -229,7 +229,7 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.prop(context.scene.render, 'use_antialiasing', text="Use anti-aliasing", icon="PLUGIN")
 		self.layout.prop(context.scene.world.light_settings, 'use_ambient_occlusion', text="Use AO", icon="PLUGIN")
-		self.layout.prop(context.scene.render, 'use_freestyle', text="Using FreeStyle", icon="PLUGIN")
+		self.layout.prop(context.scene.render, 'use_freestyle', text="Use FreeStyle", icon="PLUGIN")
 		self.layout.menu(ShadeingMenu.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		text = ToggleThreadsMode.bl_label

@@ -76,7 +76,7 @@ class CopyBoneName(bpy.types.Operator):
 
 class RenameBoneRegularExpression(bpy.types.Operator):
 	bl_idname = "armature.rename_bone_regular_expression"
-	bl_label = "Replace bone names in regular expressions"
+	bl_label = "Replace bone names by regular expression"
 	bl_description = "In bone name (of choice) to match regular expression replace"
 	bl_options = {'REGISTER', 'UNDO'}
 	

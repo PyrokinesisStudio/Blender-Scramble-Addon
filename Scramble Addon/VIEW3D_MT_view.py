@@ -158,7 +158,7 @@ class ViewNumpadPie(bpy.types.Menu): #
 
 class ViewportShadePieOperator(bpy.types.Operator):
 	bl_idname = "view3d.viewport_shade_pie_operator"
-	bl_label = "Shading transitions"
+	bl_label = "Shading Switch"
 	bl_description = "Is shading switch pie"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -167,7 +167,7 @@ class ViewportShadePieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class ViewportShadePie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_view_pie_viewport_shade"
-	bl_label = "Shading transitions"
+	bl_label = "Shading Switch"
 	bl_description = "Is shading switch pie"
 	
 	def draw(self, context):
@@ -179,7 +179,7 @@ class ViewportShadePie(bpy.types.Menu): #
 		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Material", icon="MATERIAL").mode = "MATERIAL"
 class SetViewportShade(bpy.types.Operator): #
 	bl_idname = "view3d.set_viewport_shade"
-	bl_label = "Shading transitions"
+	bl_label = "Shading Switch"
 	bl_description = "Toggles shading"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -191,7 +191,7 @@ class SetViewportShade(bpy.types.Operator): #
 
 class LayerPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.layer_pie_operator"
-	bl_label = "Layer pie"
+	bl_label = "Layer Pie Menu"
 	bl_description = "Is pie menu toggle layer visibility"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -200,7 +200,7 @@ class LayerPieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class LayerPie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_layer"
-	bl_label = "Layer pie"
+	bl_label = "Layer Pie Menu"
 	bl_description = "Is pie menu toggle layer visibility"
 	
 	def draw(self, context):
@@ -280,7 +280,7 @@ class LayerPie(bpy.types.Menu):
 			return 'BLANK1'
 class LayerPieRun(bpy.types.Operator): #
 	bl_idname = "view3d.layer_pie_run"
-	bl_label = "Layer pie"
+	bl_label = "Layer Pie Menu"
 	bl_description = "Shows or hides layer (shift + add choice + CTRL semi-selection + ALT half-clear)"
 	bl_options = {'REGISTER', 'UNDO'}
 	

@@ -8,7 +8,7 @@ import bpy
 
 class UseActiveUV(bpy.types.Operator):
 	bl_idname = "texture.use_active_uv"
-	bl_label = "Using Active UV"
+	bl_label = "Use Active UV"
 	bl_description = "Active UV mesh used in this slot"
 	bl_options = {'REGISTER', 'UNDO'}
 	

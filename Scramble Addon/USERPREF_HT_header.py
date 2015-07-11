@@ -222,13 +222,13 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('View2D', "2D view", "", 4),
 		('Frames', "Frame", "", 5),
 		('Header', "Header", "", 6),
-		('View2D Buttons List', "2-D view buttons list", "", 7),
+		('View2D Buttons List', "2D view buttons list", "", 7),
 		('Property Editor', "Property editor", "", 8),
 		('3D View Generic', "3D view general", "", 9),
 		('Grease Pencil', "Grease pencil", "", 10),
 		('Grease Pencil Stroke Edit Mode', "Grease pencil stroke edit mode", "", 11),
 		('Face Mask', "Face mask", "", 12),
-		('Weight Paint Vertex Selection', "Weight painting vertex selection", "", 13),
+		('Weight Paint Vertex Selection', "Select weight painting vertex", "", 13),
 		('Pose', "Pose", "", 14),
 		('Object Mode', "Object mode", "", 15),
 		('Paint Curve', "Paint curve", "", 16),
@@ -253,7 +253,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('Gesture Straight Line', "Gesture lines", "", 35),
 		('Standard Modal Map', "Common modal map", "", 36),
 		('Animation', "Animation", "", 37),
-		('Animation Channels', "Animation channel", "", 38),
+		('Animation Channels', "Animation Channel", "", 38),
 		('Knife Tool Modal Map', "Knife modal map", "", 39),
 		('UV Editor', "UV Editor", "", 40),
 		('Transform Modal Map', "Transform modal map", "", 41),
@@ -266,7 +266,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('View3D Walk Modal', "3D view walk modal", "", 48),
 		('View3D Rotate Modal', "3D view rotation modal", "", 49),
 		('View3D Move Modal', "3D view mobile modal", "", 50),
-		('View3D Zoom Modal', "3D views me modal", "", 51),
+		('View3D Zoom Modal', "3D views zoom modal", "", 51),
 		('View3D Dolly Modal', "3D Bewdley modal", "", 52),
 		('Graph Editor Generic', "Graph general", "", 53),
 		('Graph Editor', "Graph Editor", "", 54),
@@ -276,7 +276,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('Node Editor', "Node editor", "", 58),
 		('File Browser', "File browser", "", 59),
 		('File Browser Main', "File browser main", "", 60),
-		('File Browser Buttons', "Filebrowser-Botan", "", 61),
+		('File Browser Buttons', "File browser button", "", 61),
 		('Dopesheet', "Dope sheet", "", 62),
 		('NLA Generic', "NLA general", "", 63),
 		('NLA Channels', "NLA channel", "", 64),
@@ -290,7 +290,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('Console', "Console", "", 72),
 		('Clip', "Clip", "", 73),
 		('Clip Editor', "Clip Editor", "", 74),
-		('Clip Graph Editor', "Clip grapheditor", "", 75),
+		('Clip Graph Editor', "Clip graph editor", "", 75),
 		('Clip Dopesheet Editor', "Clip deepseateditor", "", 76),
 		]
 	key_map = bpy.props.EnumProperty(items=items, name="Effective area")
@@ -414,7 +414,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('END', "End key", "", 117),
 		]
 	type = bpy.props.EnumProperty(items=items, name="Input keys")
-	shift = bpy.props.BoolProperty(name="Hold down SHIFT key is modifier", default=False)
+	shift = bpy.props.BoolProperty(name="Shift key is modifier", default=False)
 	ctrl = bpy.props.BoolProperty(name="Set Ctrl modifier keys", default=False)
 	alt = bpy.props.BoolProperty(name="Alt key is modifier", default=False)
 	
@@ -749,13 +749,13 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('View2D', "2D view", "", 4),
 		('Frames', "Frame", "", 5),
 		('Header', "Header", "", 6),
-		('View2D Buttons List', "2-D view buttons list", "", 7),
+		('View2D Buttons List', "2D view buttons list", "", 7),
 		('Property Editor', "Property editor", "", 8),
 		('3D View Generic', "3D view general", "", 9),
 		('Grease Pencil', "Grease pencil", "", 10),
 		('Grease Pencil Stroke Edit Mode', "Grease pencil stroke edit mode", "", 11),
 		('Face Mask', "Face mask", "", 12),
-		('Weight Paint Vertex Selection', "Weight painting vertex selection", "", 13),
+		('Weight Paint Vertex Selection', "Select weight painting vertex", "", 13),
 		('Pose', "Pose", "", 14),
 		('Object Mode', "Object mode", "", 15),
 		('Paint Curve', "Paint curve", "", 16),
@@ -780,7 +780,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('Gesture Straight Line', "Gesture lines", "", 35),
 		('Standard Modal Map', "Common modal map", "", 36),
 		('Animation', "Animation", "", 37),
-		('Animation Channels', "Animation channel", "", 38),
+		('Animation Channels', "Animation Channel", "", 38),
 		('Knife Tool Modal Map', "Knife modal map", "", 39),
 		('UV Editor', "UV Editor", "", 40),
 		('Transform Modal Map', "Transform modal map", "", 41),
@@ -793,7 +793,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('View3D Walk Modal', "3D view walk modal", "", 48),
 		('View3D Rotate Modal', "3D view rotation modal", "", 49),
 		('View3D Move Modal', "3D view mobile modal", "", 50),
-		('View3D Zoom Modal', "3D views me modal", "", 51),
+		('View3D Zoom Modal', "3D views zoom modal", "", 51),
 		('View3D Dolly Modal', "3D Bewdley modal", "", 52),
 		('Graph Editor Generic', "Graph general", "", 53),
 		('Graph Editor', "Graph Editor", "", 54),
@@ -803,7 +803,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('Node Editor', "Node editor", "", 58),
 		('File Browser', "File browser", "", 59),
 		('File Browser Main', "File browser main", "", 60),
-		('File Browser Buttons', "Filebrowser-Botan", "", 61),
+		('File Browser Buttons', "File browser button", "", 61),
 		('Dopesheet', "Dope sheet", "", 62),
 		('NLA Generic', "NLA general", "", 63),
 		('NLA Channels', "NLA channel", "", 64),
@@ -817,7 +817,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('Console', "Console", "", 72),
 		('Clip', "Clip", "", 73),
 		('Clip Editor', "Clip Editor", "", 74),
-		('Clip Graph Editor', "Clip grapheditor", "", 75),
+		('Clip Graph Editor', "Clip graph editor", "", 75),
 		('Clip Dopesheet Editor', "Clip deepseateditor", "", 76),
 		]
 	category = bpy.props.EnumProperty(items=items, name="Move category")
@@ -925,7 +925,7 @@ class ToggleDisabledMenu(bpy.types.Operator):
 
 class InputMenu(bpy.types.Menu):
 	bl_idname = "USERPREF_HT_header_input"
-	bl_label = "  Shortcut keys"
+	bl_label = "  ShortcutKeys"
 	bl_description = "Operations related to shortcut menu"
 	
 	def draw(self, context):

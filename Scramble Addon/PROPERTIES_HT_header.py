@@ -8,7 +8,7 @@ import bpy
 
 class ChangeContextTab(bpy.types.Operator):
 	bl_idname = "buttons.change_context_tab"
-	bl_label = "Switch to properties tab"
+	bl_label = "Switch properties tab"
 	bl_description = "Turn switch Properties tab"
 	bl_options = {'REGISTER'}
 	

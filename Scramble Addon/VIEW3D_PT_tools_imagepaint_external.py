@@ -9,7 +9,7 @@ import os
 
 class ProjectEditEX(bpy.types.Operator):
 	bl_idname = "image.project_edit_ex"
-	bl_label = "Quick Edit (extend)"
+	bl_label = "Quick Edit (Advance)"
 	bl_description = "Do quick editing in an external editor of additional files page of custom"
 	bl_options = {'REGISTER'}
 	

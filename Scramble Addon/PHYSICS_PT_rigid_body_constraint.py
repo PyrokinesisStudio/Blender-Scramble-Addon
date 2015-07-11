@@ -12,7 +12,7 @@ class CopyConstraintSetting(bpy.types.Operator):
 	bl_description = "Copies selected objects for other rigid constraints on active object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	copy_target_objects = bpy.props.BoolProperty(name="Copy object specification", default=False)
+	copy_target_objects = bpy.props.BoolProperty(name="Copy object targeted", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -181,8 +181,8 @@ def menu(self, context):
 					row.operator(ReverseConstraintLimits.bl_idname, icon='ARROW_LEFTRIGHT', text="Limit reverse")
 				elif context.active_object.rigid_body_constraint.type == 'FIXED':
 					row = self.layout.row(align=True)
-					row.operator(ClearConstraintLimits.bl_idname, icon='IPO_LINEAR', text="initialize generic").mode = 'GENERIC'
-					row.operator(ClearConstraintLimits.bl_idname, icon='DRIVER', text="Clear Generic Spring").mode = 'GENERIC_SPRING'
+					row.operator(ClearConstraintLimits.bl_idname, icon='IPO_LINEAR', text="Initialize Generic").mode = 'GENERIC'
+					row.operator(ClearConstraintLimits.bl_idname, icon='DRIVER', text="Initialize Generic Spring").mode = 'GENERIC_SPRING'
 		row = self.layout.row(align=True)
 		op = row.operator('wm.context_set_string', icon='SCENE_DATA', text="")
 		op.data_path = 'space_data.context'

@@ -13,7 +13,7 @@ class CopyAllMaterialNode(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isOnlySelected = bpy.props.BoolProperty(name="Selected object only", default=False)
-	isOnlyUseNode = bpy.props.BoolProperty(name="Only used for those nodes", default=False)
+	isOnlyUseNode = bpy.props.BoolProperty(name="Only used nodes", default=False)
 	
 	@classmethod
 	def poll(cls, context):

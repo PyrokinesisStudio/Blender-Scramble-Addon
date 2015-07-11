@@ -29,7 +29,7 @@ class PaintSelectedVertexColor(bpy.types.Operator):
 
 class SelectTopShape(bpy.types.Operator):
 	bl_idname = "mesh.select_top_shape"
-	bl_label = "Select shape on top of"
+	bl_label = "Select shape at top"
 	bl_description = "Schipke is at top of list, select"
 	bl_options = {'REGISTER', 'UNDO'}
 	

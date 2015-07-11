@@ -12,7 +12,7 @@ import bpy
 
 class SetBoneNames(bpy.types.Operator):
 	bl_idname = "pose.set_bone_names"
-	bl_label = "Set bone name"
+	bl_label = "Set bone names"
 	bl_description = "name of selected bone sets together"
 	bl_options = {'REGISTER', 'UNDO'}
 	

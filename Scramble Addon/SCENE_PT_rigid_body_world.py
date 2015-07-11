@@ -8,7 +8,7 @@ import bpy
 
 class WorldReset(bpy.types.Operator):
 	bl_idname = "rigidbody.world_reset"
-	bl_label = "Recreate rigid world"
+	bl_label = "Recreate RigidBody World"
 	bl_description = "Keep setting, recreate rigid world"
 	bl_options = {'REGISTER', 'UNDO'}
 	

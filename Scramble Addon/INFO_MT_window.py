@@ -57,7 +57,7 @@ class AreaTypePieOther(bpy.types.Menu):
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Logic Editor", icon="LOGIC").type = "LOGIC_EDITOR"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Video sequence editor", icon="SEQUENCE").type = "SEQUENCE_EDITOR"
-		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Video clip Editor", icon="RENDER_ANIMATION").type = "CLIP_EDITOR"
+		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Video Clip Editor", icon="RENDER_ANIMATION").type = "CLIP_EDITOR"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="File browser", icon="FILESEL").type = "FILE_BROWSER"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Python console", icon="CONSOLE").type = "CONSOLE"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Info", icon="INFO").type = "INFO"

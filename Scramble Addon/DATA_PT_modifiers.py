@@ -75,13 +75,13 @@ class ToggleApplyModifiersView(bpy.types.Operator):
 
 class SyncShowModifiers(bpy.types.Operator):
 	bl_idname = "object.sync_show_modifiers"
-	bl_label = "Synchronized modifier use"
+	bl_label = "Sync modifiers use"
 	bl_description = "synchronized modifier used when rendering selection / view"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
 		("1", "Rendering => view", "", 1),
-		("0", "View-rendering", "", 2),
+		("0", "View => Rendering", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Calculate", default="0")
 	
@@ -140,7 +140,7 @@ class ToggleAllShowExpanded(bpy.types.Operator):
 
 class ApplyModifiersAndJoin(bpy.types.Operator):
 	bl_idname = "object.apply_modifiers_and_join"
-	bl_label = "Modifiers apply + integration"
+	bl_label = "Apply modifiers + join"
 	bl_description = "integration from object\'s modifiers to apply all"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -621,7 +621,7 @@ class SubsurfMenu(bpy.types.Menu):
 class BooleanMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_boolean"
 	bl_label = "Boolean"
-	bl_description = "Is relationship between Boolean operations"
+	bl_description = "Boolean operations"
 	
 	def draw(self, context):
 		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (Intersect)").mode = "INTERSECT"
@@ -635,7 +635,7 @@ class BooleanMenu(bpy.types.Menu):
 class ArmatureMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_armature"
 	bl_label = "Armature"
-	bl_description = "Is working with armatures"
+	bl_description = "Armatures"
 	
 	def draw(self, context):
 		self.layout.operator(SetArmatureDeformPreserveVolume.bl_idname, icon='PLUGIN')

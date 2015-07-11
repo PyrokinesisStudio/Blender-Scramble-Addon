@@ -8,7 +8,7 @@ import bpy, bmesh
 
 class MakeLinkObjectName(bpy.types.Operator):
 	bl_idname = "object.make_link_object_name"
-	bl_label = "To same object name"
+	bl_label = "Sync object name"
 	bl_description = "Link name of active object to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -98,7 +98,7 @@ class MakeLinkDisplaySetting(bpy.types.Operator):
 
 class MakeLinkUVNames(bpy.types.Operator):
 	bl_idname = "object.make_link_uv_names"
-	bl_label = "Link to UV map blank"
+	bl_label = "Link empty UV map"
 	bl_description = "Empty, add UV active objects to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	

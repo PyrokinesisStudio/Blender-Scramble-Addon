@@ -26,7 +26,7 @@ class CopyPie(bpy.types.Menu):
 
 class ObjectModePieOperator(bpy.types.Operator):
 	bl_idname = "object.object_mode_pie_operator"
-	bl_label = "Interactive objects"
+	bl_label = "object modes"
 	bl_description = "Is pie menu objects in interactive mode"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -35,7 +35,7 @@ class ObjectModePieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class ObjectModePie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_object_mode"
-	bl_label = "Interactive objects"
+	bl_label = "object modes"
 	bl_description = "Is pie menu objects in interactive mode"
 	
 	def draw(self, context):

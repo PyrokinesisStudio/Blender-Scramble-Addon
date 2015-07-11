@@ -130,7 +130,7 @@ class SeparateEXMenu(bpy.types.Menu):
 		self.layout.operator(DuplicateNewParts.bl_idname, icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator("mesh.separate", text="To material").type = 'MATERIAL'
-		self.layout.operator("mesh.separate", text="Isolated structural parts").type = 'LOOSE'
+		self.layout.operator("mesh.separate", text="Isolated parts").type = 'LOOSE'
 
 # メニューのオン/オフの判定
 def IsMenuEnable(self_id):

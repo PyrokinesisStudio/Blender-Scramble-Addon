@@ -9,7 +9,7 @@ import re, math
 
 class CreateCustomShape(bpy.types.Operator):
 	bl_idname = "pose.create_custom_shape"
-	bl_label = "Create custom shape"
+	bl_label = "Create CustomShape"
 	bl_description = "Creates choice bone shape"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -81,7 +81,7 @@ class CreateWeightCopyMesh(bpy.types.Operator):
 	bl_description = "Creates mesh to use with copy of selected bone weight"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name =  bpy.props.StringProperty(name="Name of object to create", default="Weight for objects")
+	name =  bpy.props.StringProperty(name="Name of create object", default="Weight for objects")
 	items = [
 		('TAIL', "End", "", 1),
 		('HEAD', "Root", "", 2),
@@ -220,7 +220,7 @@ class SplineGreasePencil(bpy.types.Operator):
 
 class RenameBoneRegularExpression(bpy.types.Operator):
 	bl_idname = "pose.rename_bone_regular_expression"
-	bl_label = "Replace bone names in regular expressions"
+	bl_label = "Replace bone names by regular expression"
 	bl_description = "In bone name (of choice) to match regular expression replace"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -252,7 +252,7 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 
 class SetSlowParentBone(bpy.types.Operator):
 	bl_idname = "pose.set_slow_parent_bone"
-	bl_label = "Set slow parent"
+	bl_label = "Set SlowParent"
 	bl_description = "Sets selected bone slow parent"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -264,7 +264,7 @@ class SetSlowParentBone(bpy.types.Operator):
 		]
 	constraint = bpy.props.EnumProperty(items=items, name="Constraints")
 	radius = bpy.props.FloatProperty(name="Empty size", default=0.5, min=0.01, max=10, soft_min=0.01, soft_max=10, step=10, precision=3)
-	slow_parent_offset = bpy.props.FloatProperty(name="Slow parent strength", default=5, min=0, max=100, soft_min=0, soft_max=100, step=50, precision=3)
+	slow_parent_offset = bpy.props.FloatProperty(name="SlowParent strength", default=5, min=0, max=100, soft_min=0, soft_max=100, step=50, precision=3)
 	is_use_driver = bpy.props.BoolProperty(name="Add driver to bone", default=True)
 	
 	@classmethod
@@ -509,7 +509,7 @@ class RemoveBoneNameSerialNumbers(bpy.types.Operator):
 
 class SetRigidBodyBone(bpy.types.Operator):
 	bl_idname = "pose.set_rigid_body_bone"
-	bl_label = "Set physical"
+	bl_label = "Set rigid body"
 	bl_description = "Sets by RigidBody physics led of selected bone set,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -526,7 +526,7 @@ class SetRigidBodyBone(bpy.types.Operator):
 		('CONE', "Cone", "", 7),
 		('IMAGE', "Image", "", 8),
 		]
-	empty_draw_type = bpy.props.EnumProperty(items=items, name="Rigid constraint display", default='SPHERE')
+	empty_draw_type = bpy.props.EnumProperty(items=items, name="Show RigidConstraints", default='SPHERE')
 	is_parent_shape = bpy.props.BoolProperty(name="Track shape rigid constraints", default=False)
 	rot_limit = bpy.props.FloatProperty(name="Rotation limit", default=90, min=0, max=360, soft_min=0, soft_max=360, step=1, precision=3)
 	linear_damping = bpy.props.FloatProperty(name="Damping: Move", default=0.04, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)

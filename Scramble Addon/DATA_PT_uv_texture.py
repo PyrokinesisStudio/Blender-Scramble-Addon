@@ -35,7 +35,7 @@ class RenameSpecificNameUV(bpy.types.Operator):
 
 class DeleteSpecificNameUV(bpy.types.Operator):
 	bl_idname = "object.delete_specific_name_uv"
-	bl_label = "Bulk delete name UV"
+	bl_label = "Delete UVs specify name"
 	bl_description = "Removes selection from UV same name as specified"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -94,14 +94,14 @@ class RenameUV(bpy.types.Operator):
 						if (slot != None):
 							if (slot.uv_layer == preName):
 									slot.uv_layer = uv.name
-									self.report(type={"INFO"}, message="Material 「"+mat.name+"\"designation UV fixed")
+									self.report(type={"INFO"}, message="Material 「"+mat.name+"] target UV fixed")
 					for me2 in bpy.data.meshes:
 						for mat2 in me2.materials:
 							if (mat2):
 								if (mat.name == mat2.name):
 									try:
 										me2.uv_layers[preName].name = uv.name
-										self.report(type={"INFO"}, message="Mesh 「"+me2.name+"\"designation UV fixed")
+										self.report(type={"INFO"}, message="Mesh 「"+me2.name+"] target UV fixed")
 									except KeyError: pass
 		else:
 			self.report(type={'ERROR'}, message="Mesh objects are not")

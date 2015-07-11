@@ -13,7 +13,7 @@ class MargeSelectedVertexGroup(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isNewVertGroup = bpy.props.BoolProperty(name="Create new vertex group", default=False)
-	ext = bpy.props.StringProperty(name="At end of new vertex group names", default="... Such as combine")
+	ext = bpy.props.StringProperty(name="End of new vertex group name", default="... Such as combine")
 	
 	def execute(self, context):
 		obj = context.active_object

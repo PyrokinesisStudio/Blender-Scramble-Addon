@@ -12,7 +12,7 @@ import bpy
 
 class DeleteUnmassage(bpy.types.Operator):
 	bl_idname = "armature.delete_unmassage"
-	bl_label = "Remove bone with no confirmation"
+	bl_label = "Delete bone without confirm"
 	bl_description = "Remove bones with no verification"
 	bl_options = {'REGISTER', 'UNDO'}
 	

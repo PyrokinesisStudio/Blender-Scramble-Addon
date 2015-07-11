@@ -72,7 +72,7 @@ class HideExceptType(bpy.types.Operator):
 		("LAMP", "Lamp", "", 10),
 		("SPEAKER", "Speaker", "", 11),
 		]
-	type = bpy.props.EnumProperty(items=items, name="Leave object type")
+	type = bpy.props.EnumProperty(items=items, name="Extract object type")
 	
 	def execute(self, context):
 		for obj in context.selectable_objects:

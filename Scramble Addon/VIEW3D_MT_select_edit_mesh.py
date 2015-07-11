@@ -9,7 +9,7 @@ import bpy
 class SelectAxisLimit(bpy.types.Operator):
 	bl_idname = "mesh.select_axis_limit"
 	bl_label = "Select vertex X=0"
-	bl_description = "Select vertex of X = 0"
+	bl_description = "Select vertex of X=0"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [

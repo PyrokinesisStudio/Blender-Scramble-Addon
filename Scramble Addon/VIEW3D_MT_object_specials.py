@@ -13,7 +13,7 @@ class VertexGroupTransferWeightObjmode(bpy.types.Operator):
 	bl_description = "From mesh during selection of other active forwarding weight paint"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isDeleteWeights = bpy.props.BoolProperty(name="Weight all deleted from the", default=True)
+	isDeleteWeights = bpy.props.BoolProperty(name="Befere delete all weights", default=True)
 	items = [
 		('WT_BY_INDEX', "Index of vertex", "", 1),
 		('WT_BY_NEAREST_VERTEX', "Nearest vertex", "", 2),
@@ -72,7 +72,7 @@ class VertexGroupTransfer(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	vertex_group_remove_all = bpy.props.BoolProperty(name="Delete all vertex groups first", default=False)
-	vertex_group_clean = bpy.props.BoolProperty(name="Clean of vertex groups", default=True)
+	vertex_group_clean = bpy.props.BoolProperty(name="Clean vertex groups", default=True)
 	vertex_group_delete = bpy.props.BoolProperty(name="No assignment of vertex group delete", default=True)
 	
 	@classmethod
@@ -176,14 +176,14 @@ class VertexGroupAverageAll(bpy.types.Operator):
 
 class CreateVertexToMetaball(bpy.types.Operator):
 	bl_idname = "object.create_vertex_to_metaball"
-	bl_label = "Top hook metaballs"
+	bl_label = "Hook metaballs"
 	bl_description = "Have made new metaballs to vertices of selected mesh object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	name = bpy.props.StringProperty(name="Metaball name", default="Mball")
 	size = bpy.props.FloatProperty(name="Size", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=1, precision=3)
 	resolution = bpy.props.FloatProperty(name="Resolution", default=0.1, min=0.001, max=10, soft_min=0.001, soft_max=10, step=0.5, precision=3)
-	isUseVg = bpy.props.BoolProperty(name="Vertex group size", default=False)
+	isUseVg = bpy.props.BoolProperty(name="Size from vertex group", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -302,8 +302,8 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 			if (obj.type != 'MESH'):
 				self.report(type={'INFO'}, message=obj.name+"mesh object ignored")
 				continue
-			arm = bpy.data.armatures.new(obj.name+"armature to imitate")
-			arm_obj = bpy.data.objects.new(obj.name+"armature to imitate", arm)
+			arm = bpy.data.armatures.new(obj.name+" armature imitate")
+			arm_obj = bpy.data.objects.new(obj.name+" armature imitate", arm)
 			context.scene.objects.link(arm_obj)
 			context.scene.objects.active = arm_obj
 			bpy.ops.object.mode_set(mode='EDIT')
@@ -419,7 +419,7 @@ class CreateSolidifyEdge(bpy.types.Operator):
 	thickness = bpy.props.FloatProperty(name="Thickness of lines", default=0.01, min=0, max=1, soft_min=0, soft_max=1, step=0.1, precision=3)
 	color = bpy.props.FloatVectorProperty(name="Line color", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	use_rim = bpy.props.BoolProperty(name="Fill face to edge", default=False)
-	show_backface_culling = bpy.props.BoolProperty(name="Select to hide on back", default=True)
+	show_backface_culling = bpy.props.BoolProperty(name="On Backface Culling", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -545,7 +545,7 @@ class SyncRenderHide(bpy.types.Operator):
 
 class AllResetHideSelect(bpy.types.Operator):
 	bl_idname = "object.all_reset_hide_select"
-	bl_label = "Clears all selected limits"
+	bl_label = "Clear all selected limits"
 	bl_description = "Removes all non-select settings (vice versa)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -905,7 +905,7 @@ class MoveBevelObject(bpy.types.Operator):
 					sub_point = obj.matrix_world * spline.points[i-1].co
 					tilt = spline.points[i].tilt
 				else:
-					self.report(type={'ERROR'}, message="Value of option is invalid")
+					self.report(type={'ERROR'}, message="Option value is invalid")
 					return {'CANCELLED'}
 			elif (spline.type == 'BEZIER'):
 				if (self.move_position == 'START'):
@@ -922,7 +922,7 @@ class MoveBevelObject(bpy.types.Operator):
 					sub_point = obj.matrix_world * spline.bezier_points[i-1].handle_left
 					tilt = spline.bezier_points[i].tilt
 				else:
-					self.report(type={'ERROR'}, message="Value of option is invalid")
+					self.report(type={'ERROR'}, message="Option value is invalid")
 					return {'CANCELLED'}
 			else:
 				self.report(type={'WARNING'}, message=obj.name+"Will ignore is curve type not supported")
@@ -1002,7 +1002,7 @@ class ObjectColorMenu(bpy.types.Menu):
 class ParentMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_parent"
 	bl_label = "Parent/Child relation"
-	bl_description = "Is menu of parent-child relationship"
+	bl_description = "Parent/Child menu"
 	
 	def draw(self, context):
 		self.layout.operator(ParentSetApplyModifiers.bl_idname, icon="PLUGIN", text="Modifiers apply => + vertex (triangle)").type = 'VERTEX_TRI'

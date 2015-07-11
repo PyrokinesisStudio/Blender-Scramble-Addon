@@ -75,7 +75,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(Move3DCursorToViewLocation.bl_idname, text="Cursor-position", icon="PLUGIN")
+		self.layout.operator(Move3DCursorToViewLocation.bl_idname, text="Cursor => View Positon", icon="PLUGIN")
 		self.layout.operator(Move3DCursorFar.bl_idname, text="Cursor to hide (to)", icon="PLUGIN")
 		self.layout.operator(SnapMesh3DCursor.bl_idname, text="Cursor => mesh surface", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):

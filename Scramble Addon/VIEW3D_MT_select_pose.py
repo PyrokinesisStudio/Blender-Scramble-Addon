@@ -41,7 +41,7 @@ class SelectSerialNumberNameBone(bpy.types.Operator):
 
 class SelectMoveSymmetryNameBones(bpy.types.Operator):
 	bl_idname = "pose.select_move_symmetry_name_bones"
-	bl_label = "Symmetrical bones move selection"
+	bl_label = "Symmetrical bones move select"
 	bl_description = "If you select X.R change selection to X.L, X.L if to X.R"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -422,7 +422,7 @@ class SelectAxisOver(bpy.types.Operator):
 
 class SelectOneAndPath(bpy.types.Operator):
 	bl_idname = "pose.select_one_and_path"
-	bl_label = "Bone and its route selection"
+	bl_label = "Select bone and path"
 	bl_description = "Select path to it, select cursor part bone and"
 	bl_options = {'REGISTER', 'UNDO'}
 	
