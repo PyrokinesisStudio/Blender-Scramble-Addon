@@ -73,7 +73,7 @@ class VertexGroupTransfer(bpy.types.Operator):
 	
 	vertex_group_remove_all = bpy.props.BoolProperty(name="Delete all vertex groups first", default=False)
 	vertex_group_clean = bpy.props.BoolProperty(name="Clean vertex groups", default=True)
-	vertex_group_delete = bpy.props.BoolProperty(name="No assignment of vertex group delete", default=True)
+	vertex_group_delete = bpy.props.BoolProperty(name="Delete no-assignment vertex group", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -123,7 +123,7 @@ class VertexGroupTransfer(bpy.types.Operator):
 
 class VertexGroupAverageAll(bpy.types.Operator):
 	bl_idname = "mesh.vertex_group_average_all_2"
-	bl_label = "Fill in average weight of all vertices"
+	bl_label = "Fill average weight of all vertices"
 	bl_description = "In average weight of all, fills all vertices"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -614,7 +614,7 @@ class SetHideSelect(bpy.types.Operator):
 
 class RenameObjectRegularExpression(bpy.types.Operator):
 	bl_idname = "object.rename_object_regular_expression"
-	bl_label = "Replace object names in regular expressions"
+	bl_label = "Replace object names by regular expression"
 	bl_description = "Name of currently selected object replace with regular expressions"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -826,7 +826,7 @@ class CreateRopeMesh(bpy.types.Operator):
 
 class MoveBevelObject(bpy.types.Operator):
 	bl_idname = "object.move_bevel_object"
-	bl_label = "Beveled objects that move section"
+	bl_label = "Bevel object move section"
 	bl_description = "Curve beveled objects that move and selection curve section"
 	bl_options = {'REGISTER', 'UNDO'}
 	

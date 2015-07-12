@@ -825,7 +825,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * (選択中の)ボーン名を正規表現に一致する部分で置換します
         * ―(In bone name (of choice) to match regular expression replace)
     * **反対位置にあるボーンをリネーム**
-    * **―(Vaughan is located opposite rename)**
+    * **―(Rename bone symmetry position)**
         * 選択中ボーンのX軸反対側の位置にあるボーンを「○.R ○.L」のように対にします
         * ―(Bone is located opposite X axis selection in bone "1.R longs 1.L ' of so versus the)
   
@@ -911,7 +911,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **3Dビュー > メッシュ編集モード > 「W」キー**
 * **―(3D view > mesh edit mode > 'W' key)**
     * **選択頂点の頂点カラーを塗り潰す**
-    * **―(Fill selected vertices vertex color)**
+    * **―(Paint out selected vertex color)**
         * 選択中の頂点のアクティブ頂点カラーを指定色で塗り潰します
         * ―(Active vertex colors for selected vertices with specified color fills)
     * **一番上のシェイプを選択**
@@ -923,7 +923,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 編集中のメッシュケージにモディファイアを適用するかを切り替えます
         * ―(Toggles whether to apply modifiers to total en bloc spondylectomy in editing)
     * **ミラーモディファイアを切り替え**
-    * **―(Toggle Miller modifier)**
+    * **―(Toggle Mirror modifiers)**
         * ミラーモディファイアが無ければ追加、有れば削除します
         * ―(Delete if not Miller modifier added, Yes)
     * **選択頂点を平均ウェイトで塗り潰す**
@@ -934,15 +934,15 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **3Dビュー > メッシュ編集モード > 「Ctrl+V」キー**
 * **―(3D view > mesh edit mode > Ctrl + V keys)**
     * **別オブジェクトに分離 (拡張)**
-    * **―(Separation of different objects (extended))**
+    * **―(Separate (Advance))**
         * 「別オブジェクトに分離」の拡張メニューを呼び出します
         * ―(Isolate to another object of call extended menu)
     * **選択物 (分離側をアクティブ)**
-    * **―(Select product (active isolated-side))**
+    * **―(Selected (Activate isolated-side))**
         * 「選択物で分離」した後に分離した側のエディトモードに入ります
         * ―(After "in choice of separation" enters edit mode for separation side)
     * **選択部を複製/新オブジェクトに**
-    * **―(A selection of reproduction and new objects)**
+    * **―(Duplicate Selected parts and to new object)**
         * 選択部分を複製・分離し新オブジェクトにしてからエディトモードに入ります
         * ―(Enters edit mode, replication and selection to new object from)
     * **クイック・シュリンクラップ**
@@ -961,7 +961,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 他の選択オブジェクトにアクティブオブジェクトのレイヤーをリンクします
         * ―(link active object layers to other selected objects)
     * **オブジェクトの表示設定を同じに**
-    * **―(Visibility of objects to same)**
+    * **―(Make same objects display setting)**
         * 他の選択オブジェクトにアクティブオブジェクトの表示パネルの設定をコピーします
         * ―(Copy settings panel of active object to other selected objects)
     * **空のUVマップをリンク**
@@ -1045,7 +1045,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなメッシュに他の選択メッシュの頂点グループを転送します
         * ―(Transfers to other selected mesh vertex group active mesh)
     * **全頂点の平均ウェイトで塗り潰す**
-    * **―(Fill in average weight of all vertices)**
+    * **―(Fill average weight of all vertices)**
         * 全てのウェイトの平均で、全ての頂点を塗り潰します
         * ―(In average weight of all, fills all vertices)
     * **頂点にメタボールをフック**
@@ -1089,7 +1089,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中のオブジェクトを選択出来なくします
         * ―(Can't select selected object)
     * **オブジェクト名を正規表現で置換**
-    * **―(Replace object names in regular expressions)**
+    * **―(Replace object names by regular expression)**
         * 選択中のオブジェクトの名前を正規表現で置換します
         * ―(Name of currently selected object replace with regular expressions)
     * **オブジェクト名とデータ名を同じにする**
@@ -1113,7 +1113,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなカーブオブジェクトに沿ったロープや蛇のようなメッシュを新規作成します
         * ―(Creates mesh like rope along curve object is active or snake new)
     * **ベベルオブジェクトを断面に移動**
-    * **―(Beveled objects that move section)**
+    * **―(Bevel object move section)**
         * カーブに設定されているベベルオブジェクトを選択カーブの断面へと移動させます
         * ―(Curve beveled objects that move and selection curve section)
   
@@ -1128,7 +1128,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中のボーンと同じ頂点グループのウェイトを減算します
         * ―(Subtracts weight of selected bone and same vertex groups)
     * **全頂点の平均ウェイトで塗り潰す**
-    * **―(Fill in average weight of all vertices)**
+    * **―(Fill average weight of all vertices)**
         * 全てのウェイトの平均で、全ての頂点を塗り潰します
         * ―(In average weight of all, fills all vertices)
     * **オブジェクトが重なっている部分を塗る**

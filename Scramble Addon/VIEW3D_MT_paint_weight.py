@@ -65,7 +65,7 @@ class RemoveSelectedVertexGroup(bpy.types.Operator):
 
 class VertexGroupAverageAll(bpy.types.Operator):
 	bl_idname = "mesh.vertex_group_average_all"
-	bl_label = "Fill in average weight of all vertices"
+	bl_label = "Fill average weight of all vertices"
 	bl_description = "In average weight of all, fills all vertices"
 	bl_options = {'REGISTER', 'UNDO'}
 	

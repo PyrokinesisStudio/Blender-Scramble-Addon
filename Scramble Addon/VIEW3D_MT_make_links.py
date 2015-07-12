@@ -45,7 +45,7 @@ class MakeLinkLayer(bpy.types.Operator):
 
 class MakeLinkDisplaySetting(bpy.types.Operator):
 	bl_idname = "object.make_link_display_setting"
-	bl_label = "Visibility of objects to same"
+	bl_label = "Make same objects display setting"
 	bl_description = "Copy settings panel of active object to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	

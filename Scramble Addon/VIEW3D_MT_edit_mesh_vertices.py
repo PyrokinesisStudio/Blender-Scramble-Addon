@@ -8,7 +8,7 @@ import bpy
 
 class CellMenuSeparateEX(bpy.types.Operator):
 	bl_idname = "mesh.cell_menu_separate_ex"
-	bl_label = "Separation of different objects (extended)"
+	bl_label = "Separate (Advance)"
 	bl_description = "Isolate to another object of call extended menu"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -18,7 +18,7 @@ class CellMenuSeparateEX(bpy.types.Operator):
 
 class SeparateSelectedEX(bpy.types.Operator):
 	bl_idname = "mesh.separate_selected_ex"
-	bl_label = "Select product (active isolated-side)"
+	bl_label = "Selected (Activate isolated-side)"
 	bl_description = "After \"in choice of separation\" enters edit mode for separation side"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -40,7 +40,7 @@ class SeparateSelectedEX(bpy.types.Operator):
 
 class DuplicateNewParts(bpy.types.Operator):
 	bl_idname = "mesh.duplicate_new_parts"
-	bl_label = "A selection of reproduction and new objects"
+	bl_label = "Duplicate Selected parts and to new object"
 	bl_description = "Enters edit mode, replication and selection to new object from"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -121,7 +121,7 @@ class QuickShrinkwrap(bpy.types.Operator):
 
 class SeparateEXMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_edit_mesh_separate_ex"
-	bl_label = "Separation of different objects (extended)"
+	bl_label = "Separate (Advance)"
 	bl_description = "Isolate to another object of extended menu"
 	
 	def draw(self, context):

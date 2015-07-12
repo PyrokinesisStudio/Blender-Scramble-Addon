@@ -8,7 +8,7 @@ import bpy
 
 class PaintSelectedVertexColor(bpy.types.Operator):
 	bl_idname = "mesh.paint_selected_vertex_color"
-	bl_label = "Fill selected vertices vertex color"
+	bl_label = "Paint out selected vertex color"
 	bl_description = "Active vertex colors for selected vertices with specified color fills"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -67,14 +67,14 @@ class ToggleShowCage(bpy.types.Operator):
 		if (newMode == 0):
 			self.report(type={'INFO'}, message="Display / adaptation of cage both have been cleared")
 		if (newMode == 1):
-			self.report(type={'INFO'}, message="Only cage you\'ve turned")
+			self.report(type={'INFO'}, message="On only cage view")
 		if (newMode == 2):
 			self.report(type={'INFO'}, message="Show cage / adaptation, both turned")
 		return {'FINISHED'}
 
 class ToggleMirrorModifier(bpy.types.Operator):
 	bl_idname = "mesh.toggle_mirror_modifier"
-	bl_label = "Toggle Miller modifier"
+	bl_label = "Toggle Mirror modifiers"
 	bl_description = "Delete if not Miller modifier added, Yes"
 	bl_options = {'REGISTER', 'UNDO'}
 	

@@ -839,7 +839,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 					if (keymap_item.show_expanded):
 						i += 1
 		if (i <= 0):
-			self.report(type={'ERROR'}, message="No assignment during deployment")
+			self.report(type={'ERROR'}, message="Unfolding assignment does not exist")
 			return {'CANCELLED'}
 		if (2 <= i):
 			self.report(type={'ERROR'}, message="Try only one expansion assignments in the")
