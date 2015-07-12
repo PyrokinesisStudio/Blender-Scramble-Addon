@@ -181,7 +181,7 @@ def menu(self, context):
 		if (context.edit_bone or context.bone):
 			row = self.layout.row(align=True)
 			row.operator(CopyBoneName.bl_idname, icon='COPYDOWN', text="To Clipboard")
-			row.operator(RenameMirrorActiveBone.bl_idname, icon='MOD_MIRROR', text="Invert horizontal")
+			row.operator(RenameMirrorActiveBone.bl_idname, icon='MOD_MIRROR', text="Invert Mirror Name")
 			row.menu(AppendNameMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

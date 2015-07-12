@@ -385,9 +385,9 @@ class RenameBoneNameEndJapanese(bpy.types.Operator):
 			pre_name = bone.name
 			if not self.reverse:
 				if re.search(r'[\._][rR]$', bone.name):
-					bone.name = "Right" + bone.name[:-2]
+					bone.name = chr(21491) + bone.name[:-2]
 				if re.search(r'[\._][lL]$', bone.name):
-					bone.name = "Left" + bone.name[:-2]
+					bone.name = chr(24038) + bone.name[:-2]
 			else:
 				if re.search(r"^右", bone.name):
 					bone.name = bone.name[1:] + "_R"
@@ -811,8 +811,8 @@ class BoneNameMenu(bpy.types.Menu):
 		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Filename substitution bone \"XXX_R => XXX. R \"", icon="PLUGIN").reverse = False
 		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Bone name replace \"XXX. R => XXX_R \"", icon="PLUGIN").reverse = True
 		self.layout.separator()
-		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Filename substitution bone \"XXX_R => right XXX\"", icon="PLUGIN").reverse = False
-		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Bone name replace \"XXX right => XXX_R\"", icon="PLUGIN").reverse = True
+		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Replace bone name \"XXX_R => 右XXX\"", icon="PLUGIN").reverse = False
+		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Replace bone name \"右XXX => XXX_R\"", icon="PLUGIN").reverse = True
 
 class SpecialsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_pose_specials_specials"
