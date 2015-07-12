@@ -504,7 +504,7 @@ class ExternalEditEX(bpy.types.Operator):
 class Resize(bpy.types.Operator):
 	bl_idname = "image.resize"
 	bl_label = "Image zoom in/out"
-	bl_description = "Active image resizing"
+	bl_description = "Resize active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def width_update(self, context):

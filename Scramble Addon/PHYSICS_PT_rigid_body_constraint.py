@@ -8,7 +8,7 @@ import bpy
 
 class CopyConstraintSetting(bpy.types.Operator):
 	bl_idname = "rigidbody.copy_constraint_setting"
-	bl_label = "Copy sets rigid constraints"
+	bl_label = "Copy rigidbody constraints settings"
 	bl_description = "Copies selected objects for other rigid constraints on active object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -109,7 +109,7 @@ class ClearConstraintLimits(bpy.types.Operator):
 
 class ReverseConstraintLimits(bpy.types.Operator):
 	bl_idname = "rigidbody.reverse_constraint_limits"
-	bl_label = "Flip rigid constraints limited"
+	bl_label = "Invert rigidbody constraints limits"
 	bl_description = "Minimum limit settings of rigid constraints of active object and reverses maximum"
 	bl_options = {'REGISTER', 'UNDO'}
 	

@@ -137,7 +137,7 @@ class RenderResolutionPercentageMenu(bpy.types.Menu):
 class SimplifyRenderMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_simplify"
 	bl_label = "Simplification of render"
-	bl_description = "simplified rendering settings"
+	bl_description = "Simplify rendering settings"
 	
 	def draw(self, context):
 		self.layout.prop(context.scene.render, "use_simplify", icon="PLUGIN")

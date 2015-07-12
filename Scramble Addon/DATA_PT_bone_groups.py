@@ -50,7 +50,7 @@ class BoneGroupOnlyShow(bpy.types.Operator):
 
 class BoneGroupShow(bpy.types.Operator):
 	bl_idname = "pose.bone_group_show"
-	bl_label = "Bones bones group show"
+	bl_label = "Show bone in bone group"
 	bl_description = "Active bone group show or hide"
 	bl_options = {'REGISTER', 'UNDO'}
 	

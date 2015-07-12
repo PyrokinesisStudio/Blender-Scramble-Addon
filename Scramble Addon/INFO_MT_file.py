@@ -391,7 +391,7 @@ class RenameDataBlocks(bpy.types.Operator):
 
 class AllOnShowAllEdges(bpy.types.Operator):
 	bl_idname = "object.all_on_show_all_edges"
-	bl_label = "All show all sides turn"
+	bl_label = "All on \"Draw All Edges\""
 	bl_description = "Show all sides of all objects (can be off) turn display settings"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -517,7 +517,7 @@ class AllSetMaterialColorRamp(bpy.types.Operator):
 	def execute(self, context):
 		activeMat = context.active_object.active_material
 		if (not activeMat):
-			self.report(type={"ERROR"}, message="No active")
+			self.report(type={"ERROR"}, message="None active material")
 			return {"CANCELLED"}
 		mats = []
 		if (self.isOnlySelected):
@@ -573,7 +573,7 @@ class AllSetMaterialFreestyleColor(bpy.types.Operator):
 	def execute(self, context):
 		activeMat = context.active_object.active_material
 		if (not activeMat):
-			self.report(type={"ERROR"}, message="No active")
+			self.report(type={"ERROR"}, message="None active material")
 			return {"CANCELLED"}
 		mats = []
 		if (self.isOnlySelected):
@@ -856,7 +856,7 @@ class AllSetPhysicsFrames(bpy.types.Operator):
 class EntireProcessMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process"
 	bl_label = "All Manage (use care)"
-	bl_description = "Is all data processing functions"
+	bl_description = "All data processing functions"
 	
 	def draw(self, context):
 		self.layout.operator(RenameDataBlocks.bl_idname, icon='PLUGIN')

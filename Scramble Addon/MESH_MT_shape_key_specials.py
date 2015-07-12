@@ -65,7 +65,7 @@ class InsertKeyframeAllShapes(bpy.types.Operator):
 class SelectShapeTop(bpy.types.Operator):
 	bl_idname = "object.select_shape_top"
 	bl_label = "Select top"
-	bl_description = "Select top-most shape key"
+	bl_description = "Select top shape key"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

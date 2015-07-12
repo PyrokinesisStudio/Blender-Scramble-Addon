@@ -8,7 +8,7 @@ import bpy
 
 class SyncShapeKeysName(bpy.types.Operator):
 	bl_idname = "mesh.sync_shape_keys_name"
-	bl_label = "Shape key name in object name"
+	bl_label = "Shape key name from object name"
 	bl_description = "Same as object name name of shape key"
 	bl_options = {'REGISTER', 'UNDO'}
 	

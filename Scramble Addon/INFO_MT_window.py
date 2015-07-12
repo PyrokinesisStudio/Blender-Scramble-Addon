@@ -9,7 +9,7 @@ import bpy
 class PieMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie"
 	bl_label = "Pie menu"
-	bl_description = "Is pie between window"
+	bl_description = "Window pie menus"
 	
 	def draw(self, context):
 		self.layout.operator(AreaTypePieOperator.bl_idname, icon="PLUGIN")

@@ -61,7 +61,7 @@ class CreateMirror(bpy.types.Operator):
 
 class CopyBoneName(bpy.types.Operator):
 	bl_idname = "armature.copy_bone_name"
-	bl_label = "Copy to Clipboard bone name"
+	bl_label = "Bone name to Clipboard"
 	bl_description = "Copies Clipboard name of active bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	

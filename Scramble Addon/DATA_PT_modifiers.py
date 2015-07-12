@@ -132,7 +132,7 @@ class ToggleAllShowExpanded(bpy.types.Operator):
 			for mod in obj.modifiers:
 				mod.show_expanded = not is_close
 		else:
-			self.report(type={'WARNING'}, message="Not single modifier")
+			self.report(type={'WARNING'}, message="None modifiers")
 			return {'CANCELLED'}
 		for area in context.screen.areas:
 			area.tag_redraw()
@@ -172,7 +172,7 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 
 class AutoRenameModifiers(bpy.types.Operator):
 	bl_idname = "object.auto_rename_modifiers"
-	bl_label = "Rename in Auto modifier name"
+	bl_label = "Auto rename modifier names"
 	bl_description = "Rename selected object modifier name refers to, for example,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
