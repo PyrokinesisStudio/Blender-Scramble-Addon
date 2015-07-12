@@ -323,7 +323,7 @@ class PanelPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.panel_pie_operator"
 	bl_label = "Switch panel pie menu"
 	bl_description = "Is pie menu toggle Panel"
-	bl_options = {'REGISTER', 'UNDO'}
+	bl_options = {'MACRO'}
 	
 	def execute(self, context):
 		bpy.ops.wm.call_menu_pie(name=PanelPie.bl_idname)
@@ -346,7 +346,7 @@ class RunPanelPie(bpy.types.Operator): #
 	bl_idname = "view3d.run_panel_pie"
 	bl_label = "Switch panel pie menu"
 	bl_description = "Is pie menu toggle Panel"
-	bl_options = {'REGISTER', 'UNDO'}
+	bl_options = {'MACRO'}
 	
 	properties = bpy.props.BoolProperty(name="Property")
 	toolshelf = bpy.props.BoolProperty(name="Tool Shelf")
