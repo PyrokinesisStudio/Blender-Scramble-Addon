@@ -126,6 +126,44 @@ class ShapeKeyApplyRemoveAll(bpy.types.Operator):
 		bpy.ops.object.shape_key_remove(all=True)
 		return {'FINISHED'}
 
+class AddLinkDriverShapeKeys(bpy.types.Operator):
+	bl_idname = "object.add_link_driver_shape_keys"
+	bl_label = "Shape key together with same name in driver link"
+	bl_description = "Behavior of selection of other shape key drivers link active object"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'MESH':
+				if ob.data.shape_keys:
+					for obj in context.selected_objects:
+						if ob.name == obj.name:
+							continue
+						if obj.type == 'MESH':
+							if obj.data.shape_keys:
+								return True
+		return False
+	
+	def execute(self, context):
+		active_ob = context.active_object
+		active_key = active_ob.data.shape_keys
+		for ob in context.selected_objects:
+			if active_ob.name == ob.name:
+				continue
+			key = ob.data.shape_keys
+			for shape in key.key_blocks:
+				if shape.name in active_key.key_blocks.keys():
+					driver = key.driver_add('key_blocks["' + shape.name + '"].value').driver
+					driver.type = 'AVERAGE'
+					variable = driver.variables.new()
+					target = variable.targets[0]
+					target.id_type = 'KEY'
+					target.id = active_key
+					target.data_path = 'key_blocks["' + shape.name + '"].value'
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -149,6 +187,7 @@ def menu(self, context):
 		self.layout.operator(ShapeKeyApplyRemoveAll.bl_idname, icon='PLUGIN')
 		self.layout.separator()
 		self.layout.operator(InsertKeyframeAllShapes.bl_idname, icon='PLUGIN')
+		self.layout.operator(AddLinkDriverShapeKeys.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

@@ -1203,6 +1203,8 @@
 "現在のフレームに、全てのシェイプのキーフレームを挿入します","Inserts keyframe for all shapes on current frame"
 "現在の形状を保持して全シェイプ削除","Remove all shape and holds shape of current"
 "現在のメッシュの形状を保持しながら全シェイプキーを削除します","Remove all shape key while maintaining shape of current mesh"
+"同名のシェイプキー同士をドライバでリンク","Shape key together with same name in driver link"
+"他の選択オブジェクトのシェイプキーの動作を、アクティブなオブジェクトにドライバでリンクします","Behavior of selection of other shape key drivers link active object"
 "メッシュにウェイトが割り当てられていない頂点グループを削除します","Remove weights assigned to mesh vertex groups"
 "ミラーの対になる空頂点グループを追加","Add empty vertex group versus mirror"
 ".L .R などミラーの命令規則に従って付けられたボーンの対になる空の新規ボーンを追加します",". L... R, add an empty pair of bones according to mandate rule in Miller's new born"

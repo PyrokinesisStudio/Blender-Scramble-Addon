@@ -551,6 +551,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Remove all shape and holds shape of current)**
         * 現在のメッシュの形状を保持しながら全シェイプキーを削除します
         * ―(Remove all shape key while maintaining shape of current mesh)
+    * **同名のシェイプキー同士をドライバでリンク**
+    * **―(Shape key together with same name in driver link)**
+        * 他の選択オブジェクトのシェイプキーの動作を、アクティブなオブジェクトにドライバでリンクします
+        * ―(Behavior of selection of other shape key drivers link active object)
   
 * **プロパティ > 「オブジェクトデータ」タブ > 頂点グループ一覧右の▼**
 * **―(Properties > object data tab > vertex group list right down:)**
