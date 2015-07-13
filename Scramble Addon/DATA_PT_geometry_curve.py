@@ -141,13 +141,13 @@ def menu(self, context):
 			if data.bevel_object or data.taper_object:
 				row = self.layout.split(percentage=0.5)
 				if data.taper_object:
-					sub = row.row()
+					sub = row.row(align=True)
 					sub.operator(ActivateTaperObject.bl_idname, icon='PARTICLE_PATH', text="")
 					sub.prop(data.taper_object.data, 'resolution_u')
 				else:
 					row.label("")
 				if data.bevel_object:
-					sub = row.row()
+					sub = row.row(align=True)
 					sub.operator(ActivateBevelObject.bl_idname, icon='OUTLINER_OB_SURFACE', text="")
 					sub.prop(data.bevel_object.data, 'resolution_u')
 				else:
