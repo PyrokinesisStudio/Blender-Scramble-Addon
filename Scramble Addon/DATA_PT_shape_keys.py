@@ -45,5 +45,6 @@ def menu_prepend(self, context):
 					row = self.layout.row()
 					row.template_ID(context.active_object.data, 'shape_keys')
 					row.operator(SyncShapeKeysName.bl_idname, icon='OBJECT_DATA', text="")
+					row.operator('object.select_shape_top', icon='TRIA_UP_BAR', text="")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
