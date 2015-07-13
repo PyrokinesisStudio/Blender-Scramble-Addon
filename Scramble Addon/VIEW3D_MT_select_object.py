@@ -83,6 +83,12 @@ class SelectGroupedName(bpy.types.Operator):
 	bl_description = "Select visible object of active object with same name, such as (X.001 X X.002)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if context.active_object:
+			return True
+		return False
+	
 	def execute(self, context):
 		name_base = context.active_object.name
 		if (re.search(r'\.\d+$', name_base)):
@@ -97,6 +103,12 @@ class SelectGroupedMaterial(bpy.types.Operator):
 	bl_label = "Select an object of same material"
 	bl_description = "Select active object material structure and same visible objects"
 	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		if context.active_object:
+			return True
+		return False
 	
 	def execute(self, context):
 		def GetMaterialList(slots):
@@ -118,6 +130,12 @@ class SelectGroupedModifiers(bpy.types.Operator):
 	bl_description = "Select same modifier of active objects visible objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	@classmethod
+	def poll(cls, context):
+		if context.active_object:
+			return True
+		return False
+	
 	def execute(self, context):
 		def GetModifiersString(obj):
 			str = ""
@@ -136,6 +154,12 @@ class SelectGroupedSubsurfLevel(bpy.types.Operator):
 	bl_label = "Select Subsurf levels same object"
 	bl_description = "Select Subsurf levels of active objects have same visible objects"
 	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		if context.active_object:
+			return True
+		return False
 	
 	def execute(self, context):
 		def GetSubsurfLevel(obj):
@@ -156,6 +180,12 @@ class SelectGroupedArmatureTarget(bpy.types.Operator):
 	bl_label = "Select objects that transform in same armature"
 	bl_description = "Select visible objects are transformed in an active object with same armature"
 	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		if context.active_object:
+			return True
+		return False
 	
 	def execute(self, context):
 		def GetArmatureTarget(obj):
@@ -202,6 +232,12 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 		]
 	select_type = bpy.props.EnumProperty(items=items, name="Select type", default='SAME')
 	size_multi = bpy.props.FloatProperty(name="Standard size offset", default=1.0, min=0, max=10, soft_min=0, soft_max=10, step=10, precision=3)
+	
+	@classmethod
+	def poll(cls, context):
+		if context.active_object:
+			return True
+		return False
 	
 	def execute(self, context):
 		def GetSize(obj):
@@ -255,6 +291,7 @@ class SelectMeshFaceOnly(bpy.types.Operator):
 			if (obj.type == 'MESH'):
 				return True
 		return False
+	
 	def execute(self, context):
 		for obj in context.selectable_objects:
 			if (obj.type == 'MESH'):
@@ -275,6 +312,7 @@ class SelectMeshEdgeOnly(bpy.types.Operator):
 			if (obj.type == 'MESH'):
 				return True
 		return False
+	
 	def execute(self, context):
 		for obj in context.selectable_objects:
 			if (obj.type == 'MESH'):
@@ -295,6 +333,7 @@ class SelectMeshVertexOnly(bpy.types.Operator):
 			if (obj.type == 'MESH'):
 				return True
 		return False
+	
 	def execute(self, context):
 		for obj in context.selectable_objects:
 			if (obj.type == 'MESH'):
@@ -315,6 +354,7 @@ class SelectMeshNone(bpy.types.Operator):
 			if (obj.type == 'MESH'):
 				return True
 		return False
+	
 	def execute(self, context):
 		for obj in context.selectable_objects:
 			if (obj.type == 'MESH'):
