@@ -1029,6 +1029,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
   
 * **3Dビュー > オブジェクトモード > 「オブジェクト」メニュー > 「表示/隠す」メニュー**
 * **―(3D view > mode > object menu > show / hide menu)**
+    * **隠したものを表示 (非選択)**
+    * **―(View ladies ' (non-selected))**
+        * 隠していたオブジェクトを再び表示します、選択はしません
+        * ―(Does not display objects were hidden again, select)
     * **表示/隠すを反転**
     * **―(Invert Show/Hide)**
         * オブジェクトの表示状態と非表示状態を反転させます

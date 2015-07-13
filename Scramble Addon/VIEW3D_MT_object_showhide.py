@@ -6,6 +6,22 @@ import bpy
 # オペレーター #
 ################
 
+class hide_view_clear_unselect(bpy.types.Operator):
+	bl_idname = "object.hide_view_clear_unselect"
+	bl_label = "View ladies \' (non-selected)"
+	bl_description = "Does not display objects were hidden again, select"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	def execute(self, context):
+		pre_selectable_objects = []
+		for ob in context.selectable_objects:
+			pre_selectable_objects.append(ob.name)
+		bpy.ops.object.hide_view_clear()
+		for ob in context.selectable_objects:
+			if ob.name not in pre_selectable_objects:
+				ob.select = False
+		return {'FINISHED'}
+
 class InvertHide(bpy.types.Operator):
 	bl_idname = "object.invert_hide"
 	bl_label = "Invert Show/Hide"
@@ -96,6 +112,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
+		self.layout.operator(hide_view_clear_unselect.bl_idname, icon='PLUGIN')
 		self.layout.operator(InvertHide.bl_idname, icon='PLUGIN')
 		self.layout.separator()
 		self.layout.operator(HideOnlyType.bl_idname, icon='PLUGIN')

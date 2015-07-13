@@ -1364,6 +1364,8 @@
 "削除する時の確認メッセージを表示せずにオブジェクトを削除します","Deletes object without displaying confirmation message when deleting"
 "オブジェクト操作に関するパイメニューです","Is pie on object action menu"
 "オブジェクトの位置/回転/拡縮を適用します","Applies to object position / rotation / Pan"
+"隠したものを表示 (非選択)","View ladies ' (non-selected)"
+"隠していたオブジェクトを再び表示します、選択はしません","Does not display objects were hidden again, select"
 "オブジェクトの表示状態と非表示状態を反転させます","Flips object's view state and non-State"
 "特定の種類のオブジェクトのみを隠す","Hide only specific types of objects"
 "表示されている特定タイプのオブジェクトを隠します","Hides object of specific type are displayed"
