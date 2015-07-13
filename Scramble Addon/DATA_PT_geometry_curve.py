@@ -64,6 +64,54 @@ class CopyBevelObject(bpy.types.Operator):
 					obj.data.bevel_object = active_obj.data.bevel_object
 		return {'FINISHED'}
 
+class ActivateTaperObject(bpy.types.Operator):
+	bl_idname = "curve.activate_taper_object"
+	bl_label = "Tapered object, activate"
+	bl_description = "curve is specified as tapered object"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob.type == 'CURVE':
+			if ob.data.taper_object:
+				return True
+		return False
+	
+	def execute(self, context):
+		ob = context.active_object.data.taper_object
+		ob.select = True
+		ob.hide = False
+		context.scene.objects.active = ob
+		for i, b in enumerate(ob.layers):
+			if b:
+				context.scene.layers[i] = True
+		return {'FINISHED'}
+
+class ActivateBevelObject(bpy.types.Operator):
+	bl_idname = "curve.activate_bevel_object"
+	bl_label = "Activate bevel object"
+	bl_description = "curve is specified as beveled objects"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob.type == 'CURVE':
+			if ob.data.bevel_object:
+				return True
+		return False
+	
+	def execute(self, context):
+		ob = context.active_object.data.bevel_object
+		ob.select = True
+		ob.hide = False
+		context.scene.objects.active = ob
+		for i, b in enumerate(ob.layers):
+			if b:
+				context.scene.layers[i] = True
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -91,13 +139,17 @@ def menu(self, context):
 		if context.active_object:
 			data = context.active_object.data
 			if data.bevel_object or data.taper_object:
-				row = self.layout.row()
+				row = self.layout.split(percentage=0.5)
 				if data.taper_object:
-					row.prop(data.taper_object.data, 'resolution_u')
+					sub = row.row()
+					sub.operator(ActivateTaperObject.bl_idname, icon='PARTICLE_PATH', text="")
+					sub.prop(data.taper_object.data, 'resolution_u')
 				else:
 					row.label("")
 				if data.bevel_object:
-					row.prop(data.bevel_object.data, 'resolution_u')
+					sub = row.row()
+					sub.operator(ActivateBevelObject.bl_idname, icon='OUTLINER_OB_SURFACE', text="")
+					sub.prop(data.bevel_object.data, 'resolution_u')
 				else:
 					row.label("")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
