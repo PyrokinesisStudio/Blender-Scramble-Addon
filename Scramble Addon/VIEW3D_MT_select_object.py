@@ -36,6 +36,7 @@ class SelectBoundBoxSize(bpy.types.Operator):
 		for obj in context.selectable_objects:
 			return True
 		return False
+	
 	def execute(self, context):
 		context.scene.update()
 		max_volume = -1
@@ -71,6 +72,24 @@ class SelectBoundBoxSize(bpy.types.Operator):
 					obj.select = True
 		if (min_obj and self.mode == 'SMALL'):
 			min_obj.select = True
+		return {'FINISHED'}
+
+class UnselectUnactiveObjects(bpy.types.Operator):
+	bl_idname = "object.unselect_unactive_objects"
+	bl_label = "Non-active, non-selection"
+	bl_description = "Uncheck everything except for active object"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		if context.active_object:
+			return True
+		return False
+	
+	def execute(self, context):
+		for ob in bpy.data.objects:
+			ob.select = False
+		context.active_object.select = True
 		return {'FINISHED'}
 
 ############################
@@ -387,14 +406,14 @@ class SelectGroupedEX(bpy.types.Menu):
 		column.operator("object.select_grouped", text="Keying set").type = 'KEYINGSET'
 		column.operator("object.select_grouped", text="Lamp type").type = 'LAMP_TYPE'
 		column.separator()
-		column.operator(SelectGroupedSizeThan.bl_idname, text="Bigger than", icon="PLUGIN").mode = 'LARGER'
-		column.operator(SelectGroupedSizeThan.bl_idname, text="Smaller than", icon="PLUGIN").mode = 'SMALLER'
+		column.operator(SelectGroupedSizeThan.bl_idname, text="Bigger than", icon='PLUGIN').mode = 'LARGER'
+		column.operator(SelectGroupedSizeThan.bl_idname, text="Smaller than", icon='PLUGIN').mode = 'SMALLER'
 		column.separator()
-		column.operator(SelectGroupedName.bl_idname, text="Object name", icon="PLUGIN")
-		column.operator(SelectGroupedMaterial.bl_idname, text="Material", icon="PLUGIN")
-		column.operator(SelectGroupedModifiers.bl_idname, text="Modifier", icon="PLUGIN")
-		column.operator(SelectGroupedSubsurfLevel.bl_idname, text="Subsurf level", icon="PLUGIN")
-		column.operator(SelectGroupedArmatureTarget.bl_idname, text="Same armature transform", icon="PLUGIN")
+		column.operator(SelectGroupedName.bl_idname, text="Object name", icon='PLUGIN')
+		column.operator(SelectGroupedMaterial.bl_idname, text="Material", icon='PLUGIN')
+		column.operator(SelectGroupedModifiers.bl_idname, text="Modifier", icon='PLUGIN')
+		column.operator(SelectGroupedSubsurfLevel.bl_idname, text="Subsurf level", icon='PLUGIN')
+		column.operator(SelectGroupedArmatureTarget.bl_idname, text="Same armature transform", icon='PLUGIN')
 		if (not context.object):
 			column.enabled = False
 
@@ -404,10 +423,10 @@ class SelectMesh(bpy.types.Menu):
 	bl_description = "Ability to select mesh object visualization menu"
 	
 	def draw(self, context):
-		self.layout.operator(SelectMeshFaceOnly.bl_idname, text="Face only", icon="PLUGIN")
-		self.layout.operator(SelectMeshEdgeOnly.bl_idname, text="Edge only", icon="PLUGIN")
-		self.layout.operator(SelectMeshVertexOnly.bl_idname, text="Only vertex", icon="PLUGIN")
-		self.layout.operator(SelectMeshNone.bl_idname, text="Without even vertex", icon="PLUGIN")
+		self.layout.operator(SelectMeshFaceOnly.bl_idname, text="Face only", icon='PLUGIN')
+		self.layout.operator(SelectMeshEdgeOnly.bl_idname, text="Edge only", icon='PLUGIN')
+		self.layout.operator(SelectMeshVertexOnly.bl_idname, text="Only vertex", icon='PLUGIN')
+		self.layout.operator(SelectMeshNone.bl_idname, text="Without even vertex", icon='PLUGIN')
 
 ################
 # メニュー追加 #
@@ -425,11 +444,13 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Select small", icon="PLUGIN").mode = 'SMALL'
-		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Select big", icon="PLUGIN").mode = 'LARGE'
+		self.layout.operator(UnselectUnactiveObjects.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.menu(SelectMesh.bl_idname, icon="PLUGIN")
-		self.layout.menu(SelectGroupedEX.bl_idname, icon="PLUGIN")
+		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Select small", icon='PLUGIN').mode = 'SMALL'
+		self.layout.operator(SelectBoundBoxSize.bl_idname, text="Select big", icon='PLUGIN').mode = 'LARGE'
+		self.layout.separator()
+		self.layout.menu(SelectMesh.bl_idname, icon='PLUGIN')
+		self.layout.menu(SelectGroupedEX.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

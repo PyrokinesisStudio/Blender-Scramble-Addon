@@ -1242,6 +1242,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(In size compared to object)**
         * 最大オブジェクトに対して大きい、もしくは小さいオブジェクトを選択します
         * ―(Select maximum objects larger or smaller objects)
+    * **アクティブ以外を非選択に**
+    * **―(Non-active, non-selection)**
+        * アクティブオブジェクト以外の全てを非選択にします
+        * ―(Uncheck everything except for active object)
     * **同じ名前のオブジェクトを選択**
     * **―(Select object same name)**
         * アクティブなオブジェクトと同じ名前 (X X.001 X.002など) の可視オブジェクトを選択します
