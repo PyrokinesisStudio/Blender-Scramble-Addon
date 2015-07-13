@@ -14,15 +14,19 @@ class CopyTaperObject(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		if (not context.object):
+		if not context.object:
 			return False
-		if (context.object.type != 'CURVE'):
+		if context.object.type != 'CURVE':
 			return False
 		for obj in context.selected_objects:
-			if (obj.name != context.object.name):
-				if (obj.type == 'CURVE'):
-					return True
+			if obj.name != context.object.name:
+				if obj.type == 'CURVE':
+					src = context.object.data.taper_object.name if context.object.data.taper_object else ""
+					trg = obj.data.taper_object.name if obj.data.taper_object else ""
+					if src != trg:
+						return True
 		return False
+	
 	def execute(self, context):
 		active_obj = context.object
 		for obj in context.selected_objects:
@@ -39,15 +43,19 @@ class CopyBevelObject(bpy.types.Operator):
 	
 	@classmethod
 	def poll(cls, context):
-		if (not context.object):
+		if not context.object:
 			return False
-		if (context.object.type != 'CURVE'):
+		if context.object.type != 'CURVE':
 			return False
 		for obj in context.selected_objects:
-			if (obj.name != context.object.name):
-				if (obj.type == 'CURVE'):
-					return True
+			if obj.name != context.object.name:
+				if obj.type == 'CURVE':
+					src = context.object.data.bevel_object.name if context.object.data.bevel_object else ""
+					trg = obj.data.bevel_object.name if obj.data.bevel_object else ""
+					if src != trg:
+						return True
 		return False
+	
 	def execute(self, context):
 		active_obj = context.object
 		for obj in context.selected_objects:
@@ -78,7 +86,7 @@ def menu(self, context):
 					i += 1
 			if (2 <= i):
 				row = self.layout.row()
-				row.operator(CopyTaperObject.bl_idname, icon='PLUGIN')
-				row.operator(CopyBevelObject.bl_idname, icon='PLUGIN')
+				row.operator(CopyTaperObject.bl_idname, icon='COPY_ID')
+				row.operator(CopyBevelObject.bl_idname, icon='COPY_ID')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
