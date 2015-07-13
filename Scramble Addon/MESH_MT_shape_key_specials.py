@@ -132,6 +132,8 @@ class AddLinkDriverShapeKeys(bpy.types.Operator):
 	bl_description = "Behavior of selection of other shape key drivers link active object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
+	add_shape_key = bpy.props.BoolProperty(name="Add missing shape", default=True)
+	
 	@classmethod
 	def poll(cls, context):
 		ob = context.active_object
@@ -146,6 +148,12 @@ class AddLinkDriverShapeKeys(bpy.types.Operator):
 								return True
 		return False
 	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def draw(self, context):
+		self.layout.prop(self, 'add_shape_key')
+	
 	def execute(self, context):
 		active_ob = context.active_object
 		active_key = active_ob.data.shape_keys
@@ -154,6 +162,10 @@ class AddLinkDriverShapeKeys(bpy.types.Operator):
 				continue
 			key = ob.data.shape_keys
 			for shape in key.key_blocks:
+				if shape.name not in active_key.key_blocks.keys():
+					if self.add_shape_key:
+						bpy.ops.object.shape_key_add(from_mix=False)
+						active_key.key_blocks[-1].name = shape.name
 				if shape.name in active_key.key_blocks.keys():
 					driver = key.driver_add('key_blocks["' + shape.name + '"].value').driver
 					driver.type = 'AVERAGE'
