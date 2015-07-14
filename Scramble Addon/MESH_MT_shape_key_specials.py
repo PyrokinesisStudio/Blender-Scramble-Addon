@@ -176,6 +176,37 @@ class AddLinkDriverShapeKeys(bpy.types.Operator):
 					target.data_path = 'key_blocks["' + shape.name + '"].value'
 		return {'FINISHED'}
 
+class mute_all_shape_keys(bpy.types.Operator):
+	bl_idname = "object.mute_all_shape_keys"
+	bl_label = "Disable / enable remove all shapes"
+	bl_description = "All shape key to disable or enable the"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	items = [
+		('ENABLE', "Valid", "", 1),
+		('DISABLE', "Invalid", "", 2),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="Mode")
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'MESH':
+				if ob.data.shape_keys:
+					if len(ob.data.shape_keys.key_blocks):
+						return True
+		return False
+	
+	def execute(self, context):
+		ob = context.active_object
+		for key in ob.data.shape_keys.key_blocks:
+			if self.mode == 'ENABLE':
+				key.mute = False
+			elif self.mode == 'DISABLE':
+				key.mute = True
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -194,6 +225,9 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.operator(SelectShapeTop.bl_idname, icon='PLUGIN')
 		self.layout.operator(SelectShapeBottom.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator(mute_all_shape_keys.bl_idname, icon='PLUGIN', text="All off").mode = 'DISABLE'
+		self.layout.operator(mute_all_shape_keys.bl_idname, icon='PLUGIN', text="All enabled").mode = 'ENABLE'
 		self.layout.separator()
 		self.layout.operator(CopyShape.bl_idname, icon='PLUGIN')
 		self.layout.operator(ShapeKeyApplyRemoveAll.bl_idname, icon='PLUGIN')
