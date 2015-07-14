@@ -563,8 +563,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Shape key together with same name in driver link)**
         * 他の選択オブジェクトのシェイプキーの動作を、アクティブなオブジェクトにドライバでリンクします
         * ―(Behavior of selection of other shape key drivers link active object)
-    * **全シェイプ削除を無効/有効化**
-    * **―(Disable / enable remove all shapes)**
+    * **全シェイプを無効化/有効化**
+    * **―(Disable / enable all shapes)**
         * 全てのシェイプキーを無効化、もしくは有効化します
         * ―(All shape key to disable or enable the)
   

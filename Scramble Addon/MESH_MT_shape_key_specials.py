@@ -178,7 +178,7 @@ class AddLinkDriverShapeKeys(bpy.types.Operator):
 
 class mute_all_shape_keys(bpy.types.Operator):
 	bl_idname = "object.mute_all_shape_keys"
-	bl_label = "Disable / enable remove all shapes"
+	bl_label = "Disable / enable all shapes"
 	bl_description = "All shape key to disable or enable the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
