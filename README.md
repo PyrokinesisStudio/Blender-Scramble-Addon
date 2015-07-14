@@ -81,14 +81,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
   
 * **「プロパティ」エリア > 「カーブデータ」タブ > 「ジオメトリ」パネル**
 * **―('Properties' area > see these curves"tab >"geometry"Panel)**
-    * **テーパー指定コピー**
-    * **―(Copy taper object)**
-        * アクティブカーブオブジェクトに指定されているテーパーオブジェクトを、他の選択カーブオブジェクトにコピーします
-        * ―(Tapered object that is specified in active curve object copies to other selection curves)
-    * **ベベル指定コピー**
-    * **―(Copy bevel object)**
-        * アクティブカーブオブジェクトに指定されているベベルオブジェクトを、他の選択カーブオブジェクトにコピーします
-        * ―(Bevel object that is specified in active curve object copies to other selection curves)
+    * **ジオメトリ設定をコピー**
+    * **―(Copy geometry settings)**
+        * アクティブなカーブオブジェクトのジオメトリパネルの設定を、他の選択カーブにコピーします
+        * ―(Copy selection curve of other settings panel geometry of curve object is active)
     * **テーパーオブジェクトをアクティブに**
     * **―(Tapered object, activate)**
         * テーパーオブジェクトとして指定されているカーブをアクティブにします
