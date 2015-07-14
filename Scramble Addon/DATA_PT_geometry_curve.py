@@ -199,13 +199,6 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		if 2 <= len(context.selected_objects):
-			i = 0
-			for obj in context.selected_objects:
-				if obj.type == 'CURVE':
-					i += 1
-			if 2 <= i:
-				self.layout.operator(copy_geometry_settings.bl_idname, icon='COPY_ID')
 		if context.active_object:
 			data = context.active_object.data
 			if data.bevel_object or data.taper_object:
@@ -222,5 +215,12 @@ def menu(self, context):
 					sub.prop(data.bevel_object.data, 'resolution_u')
 				else:
 					row.label("")
+		if 2 <= len(context.selected_objects):
+			i = 0
+			for obj in context.selected_objects:
+				if obj.type == 'CURVE':
+					i += 1
+			if 2 <= i:
+				self.layout.operator(copy_geometry_settings.bl_idname, icon='COPY_ID')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
