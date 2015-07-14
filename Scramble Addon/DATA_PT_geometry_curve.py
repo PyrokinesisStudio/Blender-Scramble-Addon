@@ -184,6 +184,66 @@ class ActivateBevelObject(bpy.types.Operator):
 				context.scene.layers[i] = True
 		return {'FINISHED'}
 
+class activate_taper_parent_object(bpy.types.Operator):
+	bl_idname = "curve.activate_taper_parent_object"
+	bl_label = "Used as taper curve to activate"
+	bl_description = "Activates curve as tapered object using this curve"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		for curve in bpy.data.curves:
+			target_name = curve.taper_object.name if curve.taper_object else ""
+			if target_name == ob.name:
+				return True
+		return False
+	
+	def execute(self, context):
+		active_ob = context.active_object
+		for ob in bpy.data.objects:
+			if ob.type == 'CURVE':
+				curve = ob.data
+				target_name = curve.taper_object.name if curve.taper_object else ""
+				if active_ob.name == target_name:
+					ob.select = True
+					ob.hide = False
+					context.scene.objects.active = ob
+					for i, b in enumerate(ob.layers):
+						if b:
+							context.scene.layers[i] = True
+		return {'FINISHED'}
+
+class activate_bevel_parent_object(bpy.types.Operator):
+	bl_idname = "curve.activate_bevel_parent_object"
+	bl_label = "As bevel curve to activate"
+	bl_description = "Activates curve as beveled objects using this curve"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		for curve in bpy.data.curves:
+			target_name = curve.bevel_object.name if curve.bevel_object else ""
+			if target_name == ob.name:
+				return True
+		return False
+	
+	def execute(self, context):
+		active_ob = context.active_object
+		for ob in bpy.data.objects:
+			if ob.type == 'CURVE':
+				curve = ob.data
+				target_name = curve.bevel_object.name if curve.bevel_object else ""
+				if active_ob.name == target_name:
+					ob.select = True
+					ob.hide = False
+					context.scene.objects.active = ob
+					for i, b in enumerate(ob.layers):
+						if b:
+							context.scene.layers[i] = True
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -215,6 +275,29 @@ def menu(self, context):
 					sub.prop(data.bevel_object.data, 'resolution_u')
 				else:
 					row.label("")
+		
+		flag = [False, False]
+		ob = context.active_object
+		for curve in bpy.data.curves:
+			target_name = curve.taper_object.name if curve.taper_object else ""
+			if target_name == ob.name:
+				flag[0] = True
+			target_name = curve.bevel_object.name if curve.bevel_object else ""
+			if target_name == ob.name:
+				flag[1] = True
+			if any(flag):
+				break
+		if any(flag):
+			row = self.layout.split(percentage=0.5)
+			if flag[0]:
+				row.operator(activate_taper_parent_object.bl_idname, icon='PARTICLE_PATH', text="Active parent taper")
+			else:
+				row.label("")
+			if flag[1]:
+				row.operator(activate_bevel_parent_object.bl_idname, icon='OUTLINER_OB_SURFACE', text="Active parent bevel")
+			else:
+				row.label("")
+		
 		if 2 <= len(context.selected_objects):
 			i = 0
 			for obj in context.selected_objects:
