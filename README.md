@@ -82,7 +82,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「プロパティ」エリア > 「カーブデータ」タブ > 「ジオメトリ」パネル**
 * **―('Properties' area > see these curves"tab >"geometry"Panel)**
     * **ジオメトリ設定をコピー**
-    * **―(Copy geometry settings)**
+    * **―(Copy Geometry Settings)**
         * アクティブなカーブオブジェクトのジオメトリパネルの設定を、他の選択カーブにコピーします
         * ―(Copy selection curve of other settings panel geometry of curve object is active)
     * **テーパーオブジェクトをアクティブに**
@@ -560,7 +560,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 他の選択オブジェクトのシェイプキーの動作を、アクティブなオブジェクトにドライバでリンクします
         * ―(Behavior of selection of other shape key drivers link active object)
     * **全シェイプを無効化/有効化**
-    * **―(Disable / enable all shapes)**
+    * **―(Disable/Enable all shapes)**
         * 全てのシェイプキーを無効化、もしくは有効化します
         * ―(All shape key to disable or enable the)
   
@@ -1030,7 +1030,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **3Dビュー > オブジェクトモード > 「オブジェクト」メニュー > 「表示/隠す」メニュー**
 * **―(3D view > mode > object menu > show / hide menu)**
     * **隠したものを表示 (非選択)**
-    * **―(View ladies ' (non-selected))**
+    * **―(Show Hidden (non-select))**
         * 隠していたオブジェクトを再び表示します、選択はしません
         * ―(Does not display objects were hidden again, select)
     * **表示/隠すを反転**
@@ -1247,7 +1247,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 最大オブジェクトに対して大きい、もしくは小さいオブジェクトを選択します
         * ―(Select maximum objects larger or smaller objects)
     * **アクティブ以外を非選択に**
-    * **―(Non-active, non-selection)**
+    * **―(Non-active to non-select)**
         * アクティブオブジェクト以外の全てを非選択にします
         * ―(Uncheck everything except for active object)
     * **同じ名前のオブジェクトを選択**

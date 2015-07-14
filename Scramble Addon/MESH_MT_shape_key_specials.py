@@ -132,7 +132,7 @@ class AddLinkDriverShapeKeys(bpy.types.Operator):
 	bl_description = "Behavior of selection of other shape key drivers link active object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	add_shape_key = bpy.props.BoolProperty(name="Add missing shape", default=True)
+	add_shape_key = bpy.props.BoolProperty(name="Add missing shapes", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -178,13 +178,13 @@ class AddLinkDriverShapeKeys(bpy.types.Operator):
 
 class mute_all_shape_keys(bpy.types.Operator):
 	bl_idname = "object.mute_all_shape_keys"
-	bl_label = "Disable / enable all shapes"
+	bl_label = "Disable/Enable all shapes"
 	bl_description = "All shape key to disable or enable the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('ENABLE', "Valid", "", 1),
-		('DISABLE', "Invalid", "", 2),
+		('ENABLE', "Enabled", "", 1),
+		('DISABLE', "Disabled", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Mode")
 	
@@ -226,8 +226,8 @@ def menu(self, context):
 		self.layout.operator(SelectShapeTop.bl_idname, icon='PLUGIN')
 		self.layout.operator(SelectShapeBottom.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(mute_all_shape_keys.bl_idname, icon='PLUGIN', text="All off").mode = 'DISABLE'
-		self.layout.operator(mute_all_shape_keys.bl_idname, icon='PLUGIN', text="All enabled").mode = 'ENABLE'
+		self.layout.operator(mute_all_shape_keys.bl_idname, icon='PLUGIN', text="All disable").mode = 'DISABLE'
+		self.layout.operator(mute_all_shape_keys.bl_idname, icon='PLUGIN', text="All enable").mode = 'ENABLE'
 		self.layout.separator()
 		self.layout.operator(CopyShape.bl_idname, icon='PLUGIN')
 		self.layout.operator(ShapeKeyApplyRemoveAll.bl_idname, icon='PLUGIN')

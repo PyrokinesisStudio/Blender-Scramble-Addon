@@ -76,7 +76,7 @@ class SelectBoundBoxSize(bpy.types.Operator):
 
 class UnselectUnactiveObjects(bpy.types.Operator):
 	bl_idname = "object.unselect_unactive_objects"
-	bl_label = "Non-active, non-selection"
+	bl_label = "Non-active to non-select"
 	bl_description = "Uncheck everything except for active object"
 	bl_options = {'REGISTER', 'UNDO'}
 	

@@ -8,12 +8,12 @@ import bpy
 
 class copy_geometry_settings(bpy.types.Operator):
 	bl_idname = "curve.copy_geometry_settings"
-	bl_label = "Copy geometry settings"
+	bl_label = "Copy Geometry Settings"
 	bl_description = "Copy selection curve of other settings panel geometry of curve object is active"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	offset = bpy.props.BoolProperty(name="Offset", default=True)
-	extrude = bpy.props.BoolProperty(name="Extrusion", default=True)
+	extrude = bpy.props.BoolProperty(name="Extrude", default=True)
 	bevel_depth = bpy.props.BoolProperty(name="Depth", default=True)
 	bevel_resolution = bpy.props.BoolProperty(name="Resolution", default=True)
 	taper_object = bpy.props.BoolProperty(name="Taper", default=True)
@@ -21,9 +21,9 @@ class copy_geometry_settings(bpy.types.Operator):
 	bevel_factor_mapping_start = bpy.props.BoolProperty(name="Start method", default=True)
 	bevel_factor_start = bpy.props.BoolProperty(name="Start", default=True)
 	bevel_factor_mapping_end = bpy.props.BoolProperty(name="End method", default=True)
-	bevel_factor_end = bpy.props.BoolProperty(name="Exit", default=True)
-	use_map_taper = bpy.props.BoolProperty(name="Tapered mapping", default=True)
-	use_fill_caps = bpy.props.BoolProperty(name="At Phil", default=True)
+	bevel_factor_end = bpy.props.BoolProperty(name="End", default=True)
+	use_map_taper = bpy.props.BoolProperty(name="Map Taper", default=True)
+	use_fill_caps = bpy.props.BoolProperty(name="Fill Caps", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -78,7 +78,7 @@ class copy_geometry_settings(bpy.types.Operator):
 	
 	def draw(self, context):
 		row = self.layout.row()
-		row.label("Variant:")
+		row.label("Modification:")
 		row.label("Bevel:")
 		row = self.layout.row()
 		row.prop(self, 'offset')
@@ -87,12 +87,12 @@ class copy_geometry_settings(bpy.types.Operator):
 		row.prop(self, 'extrude')
 		row.prop(self, 'bevel_resolution')
 		row = self.layout.row()
-		row.label("Object:")
+		row.label("Objects:")
 		row = self.layout.row()
 		row.prop(self, 'taper_object')
 		row.prop(self, 'bevel_object')
 		row = self.layout.row()
-		row.label("Bevel factor:")
+		row.label("Bevel Factor:")
 		row = self.layout.row()
 		row.prop(self, 'bevel_factor_mapping_start')
 		row.prop(self, 'bevel_factor_start')

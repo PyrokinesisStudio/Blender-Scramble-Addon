@@ -8,7 +8,7 @@ import bpy
 
 class hide_view_clear_unselect(bpy.types.Operator):
 	bl_idname = "object.hide_view_clear_unselect"
-	bl_label = "View ladies \' (non-selected)"
+	bl_label = "Show Hidden (non-select)"
 	bl_description = "Does not display objects were hidden again, select"
 	bl_options = {'REGISTER', 'UNDO'}
 	
