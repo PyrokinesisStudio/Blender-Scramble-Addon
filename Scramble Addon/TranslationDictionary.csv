@@ -1086,6 +1086,7 @@
 "ベベルオブジェクトとして指定されているカーブをアクティブにします","curve is specified as beveled objects"
 "テーパーとして使っているカーブをアクティブに","Used as taper curve to activate"
 "このカーブをテーパーオブジェクトとして使っているカーブをアクティブにします","Activates curve as tapered object using this curve"
+"複数見つかりました","Found more than one"
 "ベベルとして使っているカーブをアクティブに","As bevel curve to activate"
 "このカーブをベベルオブジェクトとして使っているカーブをアクティブにします","Activates curve as beveled objects using this curve"
 "テーパー親アクティブ","Active parent taper"

@@ -200,6 +200,7 @@ class activate_taper_parent_object(bpy.types.Operator):
 		return False
 	
 	def execute(self, context):
+		count = 0
 		active_ob = context.active_object
 		for ob in bpy.data.objects:
 			if ob.type == 'CURVE':
@@ -212,6 +213,9 @@ class activate_taper_parent_object(bpy.types.Operator):
 					for i, b in enumerate(ob.layers):
 						if b:
 							context.scene.layers[i] = True
+					count += 1
+		if 2 <= count:
+			self.report(type={'WARNING'}, message="Found more than one")
 		return {'FINISHED'}
 
 class activate_bevel_parent_object(bpy.types.Operator):
@@ -230,6 +234,7 @@ class activate_bevel_parent_object(bpy.types.Operator):
 		return False
 	
 	def execute(self, context):
+		count = 0
 		active_ob = context.active_object
 		for ob in bpy.data.objects:
 			if ob.type == 'CURVE':
@@ -242,6 +247,9 @@ class activate_bevel_parent_object(bpy.types.Operator):
 					for i, b in enumerate(ob.layers):
 						if b:
 							context.scene.layers[i] = True
+					count += 1
+		if 2 <= count:
+			self.report(type={'WARNING'}, message="Found more than one")
 		return {'FINISHED'}
 
 ################
