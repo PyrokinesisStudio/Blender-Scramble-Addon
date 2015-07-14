@@ -69,7 +69,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		if (context.scene.render.bake_type == 'AO'):
-			self.layout.prop(context.scene.world.light_settings, 'samples', icon='PLUGIN', text="AO samples")
-		self.layout.operator(NewBakeImage.bl_idname, icon='PLUGIN')
+			self.layout.prop(context.scene.world.light_settings, 'samples', text="AO samples")
+		self.layout.operator(NewBakeImage.bl_idname, icon='IMAGE_DATA')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
