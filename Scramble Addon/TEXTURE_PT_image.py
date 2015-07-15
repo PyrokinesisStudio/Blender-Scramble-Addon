@@ -76,7 +76,7 @@ def IsMenuEnable(self_id):
 # メニューを登録する関数
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
-		self.layout.operator(ShowTextureImage.bl_idname, icon='PLUGIN', text="Show image UV/Image editor")
-		self.layout.operator(StartTexturePaint.bl_idname, icon='PLUGIN')
+		self.layout.operator(ShowTextureImage.bl_idname, icon='IMAGE_COL', text="Show image UV/Image editor")
+		self.layout.operator(StartTexturePaint.bl_idname, icon='TPAINT_HLT')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
