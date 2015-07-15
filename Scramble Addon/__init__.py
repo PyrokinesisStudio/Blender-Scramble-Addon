@@ -101,6 +101,7 @@ if "bpy" in locals():
 	imp.reload(VIEW3D_PT_view3d_name)
 	imp.reload(VIEW3D_PT_view3d_properties)
 	imp.reload(undisplay_commands)
+	imp.reload(DATA_PT_shape_curve)
 	#imp.reload(***)
 else:
 	from . import BONE_PT_context_bone
@@ -184,6 +185,7 @@ else:
 	from . import VIEW3D_PT_view3d_name
 	from . import VIEW3D_PT_view3d_properties
 	from . import undisplay_commands
+	from . import DATA_PT_shape_curve
 	#from . import ***
 import bpy
 
@@ -355,6 +357,7 @@ def register():
 	bpy.types.VIEW3D_PT_view3d_cursor.append(VIEW3D_PT_view3d_cursor.menu)
 	bpy.types.VIEW3D_PT_view3d_name.append(VIEW3D_PT_view3d_name.menu)
 	bpy.types.VIEW3D_PT_view3d_properties.append(VIEW3D_PT_view3d_properties.menu)
+	bpy.types.DATA_PT_shape_curve.append(DATA_PT_shape_curve.menu)
 	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
@@ -442,6 +445,7 @@ def unregister():
 	bpy.types.VIEW3D_PT_view3d_cursor.remove(VIEW3D_PT_view3d_cursor.menu)
 	bpy.types.VIEW3D_PT_view3d_name.remove(VIEW3D_PT_view3d_name.menu)
 	bpy.types.VIEW3D_PT_view3d_properties.remove(VIEW3D_PT_view3d_properties.menu)
+	bpy.types.DATA_PT_shape_curve.remove(DATA_PT_shape_curve.menu)
 	#bpy.types.***.remove(***.menu)
 
 # メイン関数

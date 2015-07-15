@@ -184,6 +184,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなポーズライブラリのポーズを最上部、もしくは最下部へ移動させます
         * ―(Active pose of pose library moves to top/bottom)
   
+* **「プロパティ」エリア > 「カーブデータ」タブ > 「シェイプ」パネル**
+* **―('Properties' area > see these curves"tab >"shapes"Panel)**
+    * **シェイプ設定をコピー**
+    * **―(Copy shape settings)**
+        * アクティブなカーブのシェイプ設定を、他の選択カーブにコピーします
+        * ―(Copy selected curve other active curve shape settings)
+  
 * **「プロパティ」エリア > 「オブジェクト」タブ > 「トランスフォーム」パネル**
 * **―(Area "Properties" > "object" tab > "transform" Panel)**
     * **シェイプキー名をオブジェクト名に**
