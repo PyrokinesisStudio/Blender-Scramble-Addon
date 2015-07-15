@@ -19,7 +19,7 @@ class CreateCustomShape(bpy.types.Operator):
 		('2', "Rhombus", "", 2),
 		]
 	shape = bpy.props.EnumProperty(items=items, name="Shape")
-	isObjectMode =  bpy.props.BoolProperty(name="Enter object mode", default=True)
+	isObjectMode =  bpy.props.BoolProperty(name="Enter Object Mode", default=True)
 	isHide = bpy.props.BoolProperty(name="Hide Armature", default=True)
 	
 	@classmethod
@@ -86,7 +86,7 @@ class CreateWeightCopyMesh(bpy.types.Operator):
 		('TAIL', "End", "", 1),
 		('HEAD', "Root", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="Position of weight")
+	mode = bpy.props.EnumProperty(items=items, name="Position Of Weight")
 	
 	@classmethod
 	def poll(cls, context):
@@ -140,7 +140,7 @@ class CopyBoneName(bpy.types.Operator):
 	bl_description = "Copies Clipboard name of active bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isObject = bpy.props.BoolProperty(name="And object name", default=False)
+	isObject = bpy.props.BoolProperty(name="And Object Name", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -509,7 +509,7 @@ class RemoveBoneNameSerialNumbers(bpy.types.Operator):
 
 class SetRigidBodyBone(bpy.types.Operator):
 	bl_idname = "pose.set_rigid_body_bone"
-	bl_label = "Set rigid body"
+	bl_label = "Set Rigid Body"
 	bl_description = "Sets by RigidBody physics led of selected bone set,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -702,15 +702,15 @@ class SetIKRotationLimitByPose(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('IK', "IK rotation limit", "", 1),
-		('CONST', "Constraints rotation limit", "", 2),
+		('IK', "IK Rotation Limit", "", 1),
+		('CONST', "Constraints Rotation Limit", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Mode")
 	use_reverse = bpy.props.BoolProperty(name="Reverse Limit", default=True)
-	use_x = bpy.props.BoolProperty(name="X axis Limit", default=True)
-	use_y = bpy.props.BoolProperty(name="Y axis Limit", default=True)
-	use_z = bpy.props.BoolProperty(name="Z axis Limit", default=True)
-	is_clear_rot = bpy.props.BoolProperty(name="Reset pose rotation", default=True)
+	use_x = bpy.props.BoolProperty(name="X Axis Limit", default=True)
+	use_y = bpy.props.BoolProperty(name="Y Axis Limit", default=True)
+	use_z = bpy.props.BoolProperty(name="Z Axis Limit", default=True)
+	is_clear_rot = bpy.props.BoolProperty(name="Reset Pose Rotation", default=True)
 	
 	@classmethod
 	def poll(cls, context):

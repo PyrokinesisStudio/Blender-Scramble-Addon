@@ -9,7 +9,7 @@ import bmesh
 
 class SelectSeamEdge(bpy.types.Operator):
 	bl_idname = "uv.select_seam_edge"
-	bl_label = "Select vertex isolated"
+	bl_label = "Select Vertex Isolated"
 	bl_description = "Select vertices are isolated by seam"
 	bl_options = {'REGISTER', 'UNDO'}
 	

@@ -8,7 +8,7 @@ import bpy, bmesh
 
 class MakeLinkObjectName(bpy.types.Operator):
 	bl_idname = "object.make_link_object_name"
-	bl_label = "Sync object name"
+	bl_label = "Sync Object Name"
 	bl_description = "Link name of active object to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -28,7 +28,7 @@ class MakeLinkObjectName(bpy.types.Operator):
 
 class MakeLinkLayer(bpy.types.Operator):
 	bl_idname = "object.make_link_layer"
-	bl_label = "Set same layer"
+	bl_label = "Set Same Layer"
 	bl_description = "link active object layers to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -53,7 +53,7 @@ class MakeLinkDisplaySetting(bpy.types.Operator):
 	show_name = bpy.props.BoolProperty(name="Name", default=True)
 	show_axis = bpy.props.BoolProperty(name="Axis", default=True)
 	show_wire = bpy.props.BoolProperty(name="Wire Frame", default=True)
-	show_all_edges = bpy.props.BoolProperty(name="Show all edges", default=True)
+	show_all_edges = bpy.props.BoolProperty(name="Show All Edges", default=True)
 	show_bounds = bpy.props.BoolProperty(name="Bound", default=True)
 	show_texture_space = bpy.props.BoolProperty(name="Texture Space", default=True)
 	show_x_ray = bpy.props.BoolProperty(name="X-ray", default=True)
@@ -165,7 +165,7 @@ class MakeLinkArmaturePose(bpy.types.Operator):
 
 class MakeLinkSoftbodySettings(bpy.types.Operator):
 	bl_idname = "object.make_link_softbody_settings"
-	bl_label = "Link softbody setting"
+	bl_label = "Link Softbody Setting"
 	bl_description = "Sets active object soft copies to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -216,7 +216,7 @@ class MakeLinkSoftbodySettings(bpy.types.Operator):
 
 class MakeLinkClothSettings(bpy.types.Operator):
 	bl_idname = "object.make_link_cloth_settings"
-	bl_label = "Link cloth setting"
+	bl_label = "Link Cloth Setting"
 	bl_description = "Cloth simulation for active object copies to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -348,7 +348,7 @@ def menu(self, context):
 		self.layout.operator(MakeLinkClothSettings.bl_idname, text="Cloth Setting", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(MakeLinkUVNames.bl_idname, text="Empty UV", icon="PLUGIN")
-		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="Movement of armature", icon="PLUGIN")
+		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="Movement Of Armature", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

@@ -76,7 +76,7 @@ class SelectBoundBoxSize(bpy.types.Operator):
 
 class UnselectUnactiveObjects(bpy.types.Operator):
 	bl_idname = "object.unselect_unactive_objects"
-	bl_label = "Non-active to non-select"
+	bl_label = "Non-active To Non-select"
 	bl_description = "Uncheck everything except for active object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -237,7 +237,7 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 		('SMALLER', "Select Smaller", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Select Mode")
-	select_same_size = bpy.props.BoolProperty(name="Select same size", default=True)
+	select_same_size = bpy.props.BoolProperty(name="Select Same Size", default=True)
 	items = [
 		('MESH', "Mesh", "", 1),
 		('CURVE', "Curve", "", 2),
@@ -250,7 +250,7 @@ class SelectGroupedSizeThan(bpy.types.Operator):
 		('SAME', "Same Type", "", 9),
 		]
 	select_type = bpy.props.EnumProperty(items=items, name="Select Type", default='SAME')
-	size_multi = bpy.props.FloatProperty(name="Standard size offset", default=1.0, min=0, max=10, soft_min=0, soft_max=10, step=10, precision=3)
+	size_multi = bpy.props.FloatProperty(name="Standard Size Offset", default=1.0, min=0, max=10, soft_min=0, soft_max=10, step=10, precision=3)
 	
 	@classmethod
 	def poll(cls, context):
@@ -413,7 +413,7 @@ class SelectGroupedEX(bpy.types.Menu):
 		column.operator(SelectGroupedMaterial.bl_idname, text="Material", icon='PLUGIN')
 		column.operator(SelectGroupedModifiers.bl_idname, text="Modifier", icon='PLUGIN')
 		column.operator(SelectGroupedSubsurfLevel.bl_idname, text="Subsurf Level", icon='PLUGIN')
-		column.operator(SelectGroupedArmatureTarget.bl_idname, text="Same armature transform", icon='PLUGIN')
+		column.operator(SelectGroupedArmatureTarget.bl_idname, text="Same Armature Transform", icon='PLUGIN')
 		if (not context.object):
 			column.enabled = False
 
@@ -426,7 +426,7 @@ class SelectMesh(bpy.types.Menu):
 		self.layout.operator(SelectMeshFaceOnly.bl_idname, text="Face Only", icon='PLUGIN')
 		self.layout.operator(SelectMeshEdgeOnly.bl_idname, text="Edge Only", icon='PLUGIN')
 		self.layout.operator(SelectMeshVertexOnly.bl_idname, text="Only Vertex", icon='PLUGIN')
-		self.layout.operator(SelectMeshNone.bl_idname, text="Without even vertex", icon='PLUGIN')
+		self.layout.operator(SelectMeshNone.bl_idname, text="Without Even Vertex", icon='PLUGIN')
 
 ################
 # メニュー追加 #

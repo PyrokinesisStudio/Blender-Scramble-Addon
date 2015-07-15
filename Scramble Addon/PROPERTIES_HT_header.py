@@ -8,7 +8,7 @@ import bpy
 
 class ChangeContextTab(bpy.types.Operator):
 	bl_idname = "buttons.change_context_tab"
-	bl_label = "Switch properties tab"
+	bl_label = "Switch Properties Tab"
 	bl_description = "Turn switch Properties tab"
 	bl_options = {'REGISTER'}
 	
@@ -31,7 +31,7 @@ class ChangeContextTab(bpy.types.Operator):
 		now_tab = space_data.context
 		tabs = ['RENDER', 'RENDER_LAYER', 'SCENE', 'WORLD', 'OBJECT', 'CONSTRAINT', 'MODIFIER', 'DATA', 'BONE', 'BONE_CONSTRAINT', 'MATERIAL', 'TEXTURE', 'PARTICLES', 'PHYSICS']
 		if (now_tab not in tabs):
-			self.report(type={'ERROR'}, message="Unexpected tab now")
+			self.report(type={'ERROR'}, message="Unexpected Tab Now")
 			return {'CANCELLED'}
 		if (self.is_left):
 			tabs.reverse()

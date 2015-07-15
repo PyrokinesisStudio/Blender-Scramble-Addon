@@ -18,7 +18,7 @@ class CellMenuSeparateEX(bpy.types.Operator):
 
 class SeparateSelectedEX(bpy.types.Operator):
 	bl_idname = "mesh.separate_selected_ex"
-	bl_label = "Selected (Activate isolated-side)"
+	bl_label = "Selected (Activate Isolated-side)"
 	bl_description = "After \"in choice of separation\" enters edit mode for separation side"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -68,7 +68,7 @@ class QuickShrinkwrap(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('NEAREST_SURFACEPOINT', "closest surface point", "", 1),
+		('NEAREST_SURFACEPOINT', "Closest Surface Point", "", 1),
 		('PROJECT', "Projection", "", 2),
 		('NEAREST_VERTEX', "Nearest Vertex", "", 3),
 		]

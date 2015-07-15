@@ -80,7 +80,7 @@ def menu(self, context):
 		col.prop(context.user_preferences.addons["Scramble Addon"].preferences, 'text_editor_path_3', text="")
 		
 		col = split.column()
-		col.label(text="Association (Windows only)")
+		col.label(text="File Associations (Windows Only)")
 		col.operator(RegisterBlendFile.bl_idname, icon='PLUGIN')
 		col.operator(RegisterBlendBackupFiles.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):

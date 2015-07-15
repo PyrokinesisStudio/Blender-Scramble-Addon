@@ -12,7 +12,7 @@ class CopyConstraintSetting(bpy.types.Operator):
 	bl_description = "Copies selected objects for other rigid constraints on active object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	copy_target_objects = bpy.props.BoolProperty(name="Copy object targeted", default=False)
+	copy_target_objects = bpy.props.BoolProperty(name="Copy Object Targeted", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -81,12 +81,12 @@ class ClearConstraintLimits(bpy.types.Operator):
 		return context.window_manager.invoke_props_dialog(self)
 	
 	def draw(self, context):
-		self.layout.label("Clear move limit")
+		self.layout.label("Clear Move Limit")
 		row = self.layout.row()
 		row.prop(self, 'is_lin_x', text="X")
 		row.prop(self, 'is_lin_y', text="Y")
 		row.prop(self, 'is_lin_z', text="Z")
-		self.layout.label("Clear rotate limit")
+		self.layout.label("Clear Rotate Limit")
 		row = self.layout.row()
 		row.prop(self, 'is_ang_x', text="X")
 		row.prop(self, 'is_ang_y', text="Y")
@@ -132,12 +132,12 @@ class ReverseConstraintLimits(bpy.types.Operator):
 		return context.window_manager.invoke_props_dialog(self)
 	
 	def draw(self, context):
-		self.layout.label("Invert move limit")
+		self.layout.label("Invert Move Limit")
 		row = self.layout.row()
 		row.prop(self, 'is_lin_x', text="X")
 		row.prop(self, 'is_lin_y', text="Y")
 		row.prop(self, 'is_lin_z', text="Z")
-		self.layout.label("Invert rotate limit")
+		self.layout.label("Invert Rotate Limit")
 		row = self.layout.row()
 		row.prop(self, 'is_ang_x', text="X")
 		row.prop(self, 'is_ang_y', text="Y")

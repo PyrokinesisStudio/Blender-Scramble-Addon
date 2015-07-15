@@ -46,7 +46,7 @@ class ObjectNameToDataName(bpy.types.Operator):
 
 class CopyObjectName(bpy.types.Operator):
 	bl_idname = "object.copy_object_name"
-	bl_label = "Copy object name"
+	bl_label = "Copy Object Name"
 	bl_description = "Copy to Clipboard object name"
 	bl_options = {'REGISTER'}
 	
@@ -64,7 +64,7 @@ class CopyObjectName(bpy.types.Operator):
 
 class CopyDataName(bpy.types.Operator):
 	bl_idname = "object.copy_data_name"
-	bl_label = "Copy data name"
+	bl_label = "Copy Data Name"
 	bl_description = "Copies data to Clipboard"
 	bl_options = {'REGISTER'}
 	

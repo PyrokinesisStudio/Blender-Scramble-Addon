@@ -8,7 +8,7 @@ import bpy
 
 class CopyIKSettings(bpy.types.Operator):
 	bl_idname = "pose.copy_ik_settings"
-	bl_label = "Copy IK setting"
+	bl_label = "Copy IK Setting"
 	bl_description = "Copies of other selected bone IK settings Active"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -75,7 +75,7 @@ class CopyIKSettings(bpy.types.Operator):
 
 class ReverseMinMax(bpy.types.Operator):
 	bl_idname = "pose.reverse_min_max"
-	bl_label = "Invert minimum/maximum angle"
+	bl_label = "Invert Minimum/maximum Angle"
 	bl_description = "Reverses minimum and maximum angle of IK setup this bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -221,8 +221,8 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
-		row.operator(CopyIKSettings.bl_idname, icon='COPY_ID', text="Copy IK setting")
-		row.operator(ReverseMinMax.bl_idname, icon='ARROW_LEFTRIGHT', text="Invert angle limit")
-		row.operator(CopyAxisSetting.bl_idname, icon='LINKED', text="Axis config copy")
+		row.operator(CopyIKSettings.bl_idname, icon='COPY_ID', text="Copy IK Setting")
+		row.operator(ReverseMinMax.bl_idname, icon='ARROW_LEFTRIGHT', text="Invert Angle Limit")
+		row.operator(CopyAxisSetting.bl_idname, icon='LINKED', text="Axis Config Copy")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

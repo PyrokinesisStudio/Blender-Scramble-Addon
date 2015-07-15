@@ -29,7 +29,7 @@ class RestartBlender(bpy.types.Operator):
 
 class RecoverLatestAutoSave(bpy.types.Operator):
 	bl_idname = "wm.recover_latest_auto_save"
-	bl_label = "Load last AutoSave"
+	bl_label = "Load Last AutoSave"
 	bl_description = "Open latest file in order to restore automatically saved file"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -62,7 +62,7 @@ class RecoverLatestAutoSave(bpy.types.Operator):
 
 class SaveMainfileUnmassage(bpy.types.Operator):
 	bl_idname = "wm.save_mainfile_unmassage"
-	bl_label = "Save without confirm"
+	bl_label = "Save Without Confirm"
 	bl_description = "Save changes without displaying confirmation message"
 	bl_options = {'REGISTER'}
 	
@@ -110,7 +110,7 @@ class LoadLastFile(bpy.types.Operator):
 
 class RenameDataBlocks(bpy.types.Operator):
 	bl_idname = "file.rename_data_blocks"
-	bl_label = "Rename data names"
+	bl_label = "Rename Data Names"
 	bl_description = "Rename using all of data is available"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -163,12 +163,12 @@ class RenameDataBlocks(bpy.types.Operator):
 	source = bpy.props.StringProperty(name="Before Replace", default="")
 	replace = bpy.props.StringProperty(name="After Replace", default="")
 	
-	selected_only = bpy.props.BoolProperty(name="Selected object only", default=False)
+	selected_only = bpy.props.BoolProperty(name="Selected Object Only", default=False)
 	show_log = bpy.props.BoolProperty(name="Show Log", default=True)
 	
 	def draw(self, context):
 		data_names = ['objects', 'meshes', 'curves', 'metaballs', 'fonts', 'armatures', 'lattices', 'cameras', 'lamps', 'speakers', 'materials', 'textures', 'images', 'actions', 'brushes', 'grease_pencil', 'groups', 'libraries', 'linestyles', 'masks', 'movieclips', 'node_groups', 'palettes', 'particles', 'scenes', 'screens', 'scripts', 'shape_keys', 'sounds', 'texts', 'window_managers', 'worlds']
-		self.layout.label(text="Check rename data")
+		self.layout.label(text="Check Rename Data")
 		for i, data_name in enumerate(data_names):
 			if (i % 2 == 0):
 				row = self.layout.row()
@@ -455,7 +455,7 @@ class AllRenameObjectData(bpy.types.Operator):
 	bl_description = "Replaces object name that linked all object data (mesh data, etc.) name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isSelected = bpy.props.BoolProperty(name="Only selected object", default=False)
+	isSelected = bpy.props.BoolProperty(name="Only Selected Object", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -502,7 +502,7 @@ class AllSetMaterialColorRamp(bpy.types.Operator):
 	bl_description = "Color ramp settings of active material is all material other (only selected objects are allowed) to copy"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOnlySelected = bpy.props.BoolProperty(name="Selected object only", default=False)
+	isOnlySelected = bpy.props.BoolProperty(name="Selected Object Only", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -517,7 +517,7 @@ class AllSetMaterialColorRamp(bpy.types.Operator):
 	def execute(self, context):
 		activeMat = context.active_object.active_material
 		if (not activeMat):
-			self.report(type={"ERROR"}, message="None active material")
+			self.report(type={"ERROR"}, message="None Active Material")
 			return {"CANCELLED"}
 		mats = []
 		if (self.isOnlySelected):
@@ -556,7 +556,7 @@ class AllSetMaterialFreestyleColor(bpy.types.Operator):
 	bl_description = "FreeStyle material active color for all materials other (only selected objects are allowed) to copy"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOnlySelected = bpy.props.BoolProperty(name="Selected object only", default=False)
+	isOnlySelected = bpy.props.BoolProperty(name="Selected Object Only", default=False)
 	isColor = bpy.props.BoolProperty(name="Color", default=True)
 	isAlpha = bpy.props.BoolProperty(name="Alpha", default=True)
 	
@@ -573,7 +573,7 @@ class AllSetMaterialFreestyleColor(bpy.types.Operator):
 	def execute(self, context):
 		activeMat = context.active_object.active_material
 		if (not activeMat):
-			self.report(type={"ERROR"}, message="None active material")
+			self.report(type={"ERROR"}, message="None Active Material")
 			return {"CANCELLED"}
 		mats = []
 		if (self.isOnlySelected):
@@ -605,7 +605,7 @@ class AllSetMaterialFreestyleColorByDiffuse(bpy.types.Operator):
 	bl_description = "All material (only selected objects are allowed) for FreeStyle line color of material diffuse color + blend to replace"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOnlySelected = bpy.props.BoolProperty(name="Selected object only", default=False)
+	isOnlySelected = bpy.props.BoolProperty(name="Selected Object Only", default=False)
 	blendColor = bpy.props.FloatVectorProperty(name="Blend Color", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype="COLOR")
 	items = [
 		("MIX", "Mix", "", 1),
@@ -654,7 +654,7 @@ class AllSetMaterialObjectColor(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	use_object_color = bpy.props.BoolProperty(name="On/Off", default=True)
-	only_selected = bpy.props.BoolProperty(name="Selected object only", default=False)
+	only_selected = bpy.props.BoolProperty(name="Selected Object Only", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -754,7 +754,7 @@ class FixEmptyTextureUVLayer(bpy.types.Operator):
 	bl_description = "Under active UV texture UV specified fields is linked to an empty mesh object fills"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isSelectedOnly = bpy.props.BoolProperty(name="Selected object only", default=False)
+	isSelectedOnly = bpy.props.BoolProperty(name="Selected Object Only", default=False)
 	
 	@classmethod
 	def poll(cls, context):

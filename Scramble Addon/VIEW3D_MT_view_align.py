@@ -8,7 +8,7 @@ import bpy
 
 class ViewSelectedEX(bpy.types.Operator):
 	bl_idname = "view3d.view_selected_ex"
-	bl_label = "Show selected (non-zoom)"
+	bl_label = "Show Selected (non-zoom)"
 	bl_description = "Selected ones over center of 3D perspective not (zoom)"
 	bl_options = {'REGISTER'}
 	
@@ -31,7 +31,7 @@ class ViewSelectedEX(bpy.types.Operator):
 
 class ResetView(bpy.types.Operator):
 	bl_idname = "view3d.reset_view"
-	bl_label = "Viewpoint at origin"
+	bl_label = "Viewpoint At Origin"
 	bl_description = "3D view perspective moves in center of coordinates"
 	bl_options = {'REGISTER', 'UNDO'}
 	

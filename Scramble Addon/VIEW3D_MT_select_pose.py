@@ -9,7 +9,7 @@ import re
 
 class SelectSerialNumberNameBone(bpy.types.Operator):
 	bl_idname = "pose.select_serial_number_name_bone"
-	bl_label = "Select numbered bone"
+	bl_label = "Select Numbered Bone"
 	bl_description = "Select bones with number names (example x.001)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -366,7 +366,7 @@ class SelectPath(bpy.types.Operator):
 
 class SelectAxisOver(bpy.types.Operator):
 	bl_idname = "pose.select_axis_over"
-	bl_label = "Select right half"
+	bl_label = "Select Right Half"
 	bl_description = "Select right half of bone (other settings are also available)"
 	bl_options = {'REGISTER', 'UNDO'}
 	

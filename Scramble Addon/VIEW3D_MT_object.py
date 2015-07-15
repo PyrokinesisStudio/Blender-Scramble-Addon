@@ -49,7 +49,7 @@ class ObjectModePie(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Vertex Paint", icon="VPAINT_HLT").mode = "VERTEX_PAINT"
 class SetObjectMode(bpy.types.Operator): #
 	bl_idname = "object.set_object_mode"
-	bl_label = "Set object modes"
+	bl_label = "Set Object Modes"
 	bl_description = "Sets interactive mode of object"
 	bl_options = {'REGISTER'}
 	
@@ -126,7 +126,7 @@ class SetDrawType(bpy.types.Operator): #
 
 class DeleteUnmassage(bpy.types.Operator):
 	bl_idname = "object.delete_unmassage"
-	bl_label = "Delete without confirmation"
+	bl_label = "Delete Without Confirmation"
 	bl_description = "Deletes object without displaying confirmation message when deleting"
 	bl_options = {'REGISTER', 'UNDO'}
 	

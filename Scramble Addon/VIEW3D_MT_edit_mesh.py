@@ -16,13 +16,13 @@ class ToggleMeshSelectMode(bpy.types.Operator):
 		mode = context.tool_settings.mesh_select_mode
 		if (mode[2]):
 			context.tool_settings.mesh_select_mode = (True, False, False)
-			self.report(type={"INFO"}, message="Vertex select mode")
+			self.report(type={"INFO"}, message="Vertex Select Mode")
 		elif (mode[1]):
 			context.tool_settings.mesh_select_mode = (False, False, True)
-			self.report(type={"INFO"}, message="Face select mode")
+			self.report(type={"INFO"}, message="Face Select Mode")
 		else:
 			context.tool_settings.mesh_select_mode = (False, True, False)
-			self.report(type={"INFO"}, message="edge select mode")
+			self.report(type={"INFO"}, message="Edge Select Mode")
 		return {'FINISHED'}
 
 ################
@@ -31,8 +31,8 @@ class ToggleMeshSelectMode(bpy.types.Operator):
 
 class SelectModePieOperator(bpy.types.Operator):
 	bl_idname = "mesh.select_mode_pie_operator"
-	bl_label = "Mesh selection mode"
-	bl_description = "Is pie menu selection of mesh"
+	bl_label = "Mesh Selection Mode"
+	bl_description = "Mesh select pie menu"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):
@@ -40,8 +40,8 @@ class SelectModePieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class SelectModePie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_edit_mesh_pie_select_mode"
-	bl_label = "Mesh selection mode"
-	bl_description = "Is pie menu selection of mesh"
+	bl_label = "Mesh Selection Mode"
+	bl_description = "Mesh select pie menu"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator("mesh.select_mode", text="Vertex", icon='VERTEXSEL').type = 'VERT'

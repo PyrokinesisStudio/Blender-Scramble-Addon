@@ -22,7 +22,7 @@ class CreanEX(bpy.types.Operator):
 	bl_description = "Remove keyframe duplicates for all actions"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	keep_fcurves = bpy.props.BoolProperty(name="Except one key", default=False)
+	keep_fcurves = bpy.props.BoolProperty(name="Except One Key", default=False)
 	threshold = bpy.props.FloatProperty(name="Threshold", default=0.00001, min=0, max=1, soft_min=0, soft_max=1, step=0.001, precision=5)
 	
 	def execute(self, context):

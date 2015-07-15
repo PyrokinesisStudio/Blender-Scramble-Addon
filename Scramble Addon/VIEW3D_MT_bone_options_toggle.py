@@ -12,7 +12,7 @@ import bpy
 
 class SetBoneNames(bpy.types.Operator):
 	bl_idname = "pose.set_bone_names"
-	bl_label = "Set bone names"
+	bl_label = "Set Bone Names"
 	bl_description = "name of selected bone sets together"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -31,7 +31,7 @@ class SetBoneNames(bpy.types.Operator):
 
 class SetCurvedBones(bpy.types.Operator):
 	bl_idname = "pose.set_curved_bones"
-	bl_label = "Set curve bones"
+	bl_label = "Set Curve Bones"
 	bl_description = "Bones of selected curve born sets"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -67,9 +67,9 @@ class LinkIKSetting(bpy.types.Operator):
 	bl_description = "Copies to other selected bone bone active IK settings (rotation limits, etc)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isX = bpy.props.BoolProperty(name="X axis setting", default=True)
-	isY = bpy.props.BoolProperty(name="Y axis setting", default=True)
-	isZ = bpy.props.BoolProperty(name="Z axis setting", default=True)
+	isX = bpy.props.BoolProperty(name="X Axis Setting", default=True)
+	isY = bpy.props.BoolProperty(name="Y Axis Setting", default=True)
+	isZ = bpy.props.BoolProperty(name="Z Axis Setting", default=True)
 	isStretch = bpy.props.BoolProperty(name="Stretch Setting", default=True)
 	
 	def execute(self, context):

@@ -74,7 +74,7 @@ class ToggleShowCage(bpy.types.Operator):
 
 class ToggleMirrorModifier(bpy.types.Operator):
 	bl_idname = "mesh.toggle_mirror_modifier"
-	bl_label = "Toggle Mirror modifiers"
+	bl_label = "Toggle Mirror Modifiers"
 	bl_description = "Delete if not Miller modifier added, Yes"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -83,9 +83,9 @@ class ToggleMirrorModifier(bpy.types.Operator):
 	use_z = bpy.props.BoolProperty(name="Z Axis", default=False)
 	use_mirror_merge = bpy.props.BoolProperty(name="Combine", default=True)
 	use_clip = bpy.props.BoolProperty(name="Clipping", default=False)
-	use_mirror_vertex_groups = bpy.props.BoolProperty(name="Vertex group mirror", default=False)
-	use_mirror_u = bpy.props.BoolProperty(name="Texture U mirror", default=False)
-	use_mirror_v = bpy.props.BoolProperty(name="Texture V mirror", default=False)
+	use_mirror_vertex_groups = bpy.props.BoolProperty(name="Vertex Group Mirror", default=False)
+	use_mirror_u = bpy.props.BoolProperty(name="Texture U Mirror", default=False)
+	use_mirror_v = bpy.props.BoolProperty(name="Texture V Mirror", default=False)
 	merge_threshold = bpy.props.FloatProperty(name="Combine Distance", default=0.001, min=0, max=1, soft_min=0, soft_max=1, step=0.01, precision=6)
 	is_top = bpy.props.BoolProperty(name="Add Top", default=True)
 	
@@ -125,7 +125,7 @@ class ToggleMirrorModifier(bpy.types.Operator):
 
 class SelectedVertexGroupAverage(bpy.types.Operator):
 	bl_idname = "mesh.selected_vertex_group_average"
-	bl_label = "Fill selected vertices in average weighted"
+	bl_label = "Fill selected vertices average weight"
 	bl_description = "Fills selected vertex, vertices weighted average"
 	bl_options = {'REGISTER', 'UNDO'}
 	

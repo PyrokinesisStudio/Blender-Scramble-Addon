@@ -25,7 +25,7 @@ class ChangeUserPreferencesTab(bpy.types.Operator):
 		tabs = ['INTERFACE', 'EDITING', 'INPUT', 'ADDONS', 'THEMES', 'FILES', 'SYSTEM']
 		now_tab = context.user_preferences.active_section
 		if (now_tab not in tabs):
-			self.report(type={'ERROR'}, message="Unexpected tab now")
+			self.report(type={'ERROR'}, message="Unexpected Tab Now")
 			return {'CANCELLED'}
 		if (self.is_left):
 			tabs.reverse()
@@ -42,7 +42,7 @@ class ChangeUserPreferencesTab(bpy.types.Operator):
 
 class SearchKeyBind(bpy.types.Operator):
 	bl_idname = "ui.search_key_bind"
-	bl_label = "Search key bind"
+	bl_label = "Search Key Bind"
 	bl_description = "Find matching key bindings you set assignment"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -69,7 +69,7 @@ class SearchKeyBind(bpy.types.Operator):
 
 class ClearFilterText(bpy.types.Operator):
 	bl_idname = "ui.clear_filter_text"
-	bl_label = "Clear search shortcuts"
+	bl_label = "Clear Search Shortcuts"
 	bl_description = "Remove string used to search for shortcuts"
 	bl_options = {'REGISTER'}
 	
@@ -212,9 +212,9 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	bl_description = "Last command create shortcut"
 	bl_options = {'REGISTER'}
 	
-	is_clipboard = bpy.props.BoolProperty(name="(Do not change)")
-	command = bpy.props.StringProperty(name="(Do not change)")
-	sub_command = bpy.props.StringProperty(name="(Do not change)")
+	is_clipboard = bpy.props.BoolProperty(name="(Do Not Change)")
+	command = bpy.props.StringProperty(name="(Do Not Change)")
+	sub_command = bpy.props.StringProperty(name="(Do Not Change)")
 	items = [
 		('Window', "Window", "", 1),
 		('Screen', "Screen", "", 2),
@@ -224,7 +224,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('Header', "Header", "", 6),
 		('View2D Buttons List', "2D view buttons list", "", 7),
 		('Property Editor', "Property Editor", "", 8),
-		('3D View Generic', "3D view general", "", 9),
+		('3D View Generic', "3D View General", "", 9),
 		('Grease Pencil', "Grease Pencil", "", 10),
 		('Grease Pencil Stroke Edit Mode', "Grease pencil stroke edit mode", "", 11),
 		('Face Mask', "Face Mask", "", 12),
@@ -249,16 +249,16 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('Info', "Info", "", 31),
 		('View3D Gesture Circle', "3D Burgess Cha circle", "", 32),
 		('Gesture Border', "Gesture Boundary", "", 33),
-		('Gesture Zoom Border', "Zoom gesture border", "", 34),
+		('Gesture Zoom Border', "Zoom Gesture Border", "", 34),
 		('Gesture Straight Line', "Gesture Lines", "", 35),
-		('Standard Modal Map', "Common modal map", "", 36),
+		('Standard Modal Map', "Common Modal Map", "", 36),
 		('Animation', "Animation", "", 37),
 		('Animation Channels', "Animation Channel", "", 38),
-		('Knife Tool Modal Map', "Knife modal map", "", 39),
+		('Knife Tool Modal Map', "Knife Modal Map", "", 39),
 		('UV Editor', "UV Editor", "", 40),
-		('Transform Modal Map', "Transform modal map", "", 41),
+		('Transform Modal Map', "Transform Modal Map", "", 41),
 		('UV Sculpt', "UV Sculpt", "", 42),
-		('Paint Stroke Modal', "Paint stroke modal", "", 43),
+		('Paint Stroke Modal', "Paint Stroke Modal", "", 43),
 		('Mask Editing', "Mask Edit", "", 44),
 		('Markers', "Marker", "", 45),
 		('Timeline', "Timeline", "", 46),
@@ -267,7 +267,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('View3D Rotate Modal', "3D view rotation modal", "", 49),
 		('View3D Move Modal', "3D view mobile modal", "", 50),
 		('View3D Zoom Modal', "3D views zoom modal", "", 51),
-		('View3D Dolly Modal', "3D Bewdley modal", "", 52),
+		('View3D Dolly Modal', "3D Bewdley Modal", "", 52),
 		('Graph Editor Generic', "Graph General", "", 53),
 		('Graph Editor', "Graph Editor", "", 54),
 		('Image Generic', "Images General", "", 55),
@@ -275,8 +275,8 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('Node Generic', "Node General", "", 57),
 		('Node Editor', "Node Editor", "", 58),
 		('File Browser', "File Browser", "", 59),
-		('File Browser Main', "File browser main", "", 60),
-		('File Browser Buttons', "File browser button", "", 61),
+		('File Browser Main', "File Browser Main", "", 60),
+		('File Browser Buttons', "File Browser Button", "", 61),
 		('Dopesheet', "DopeSheet", "", 62),
 		('NLA Generic', "NLA General", "", 63),
 		('NLA Channels', "NLA Channel", "", 64),
@@ -290,7 +290,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('Console', "Console", "", 72),
 		('Clip', "Clip", "", 73),
 		('Clip Editor', "Clip Editor", "", 74),
-		('Clip Graph Editor', "Clip graph editor", "", 75),
+		('Clip Graph Editor', "Clip Graph Editor", "", 75),
 		('Clip Dopesheet Editor', "Clip Deepseat Editor", "", 76),
 		]
 	key_map = bpy.props.EnumProperty(items=items, name="Effective Area")
@@ -298,12 +298,12 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('LEFTMOUSE', "Left Click", "", 1),
 		('MIDDLEMOUSE', "Click Wheel", "", 2),
 		('RIGHTMOUSE', "Right Click", "", 3),
-		('BUTTON4MOUSE', "Mouse button 4", "", 4),
-		('BUTTON5MOUSE', "Mouse button 5", "", 5),
-		('BUTTON6MOUSE', "Mouse button 6", "", 6),
-		('BUTTON7MOUSE', "Mouse button 7", "", 7),
+		('BUTTON4MOUSE', "Mouse Button 4", "", 4),
+		('BUTTON5MOUSE', "Mouse Button 5", "", 5),
+		('BUTTON6MOUSE', "Mouse Button 6", "", 6),
+		('BUTTON7MOUSE', "Mouse Button 7", "", 7),
 		('MOUSEMOVE', "Mouse Movement", "", 8),
-		('INBETWEEN_MOUSEMOVE', "Mouse moving border", "", 9),
+		('INBETWEEN_MOUSEMOVE', "Mouse Moving Border", "", 9),
 		('WHEELUPMOUSE', "Wheel Up", "", 10),
 		('WHEELDOWNMOUSE', "Wheel Down", "", 11),
 		('A', "A Key", "", 12),
@@ -503,7 +503,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 
 class ShowEmptyShortcuts(bpy.types.Operator):
 	bl_idname = "view3d.show_empty_shortcuts"
-	bl_label = "Without assigning shortcut list"
+	bl_label = "Non-Assigning Shortcuts List"
 	bl_description = "Information area shows key assignments in current editing mode without"
 	bl_options = {'REGISTER'}
 	
@@ -751,7 +751,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('Header', "Header", "", 6),
 		('View2D Buttons List', "2D view buttons list", "", 7),
 		('Property Editor', "Property Editor", "", 8),
-		('3D View Generic', "3D view general", "", 9),
+		('3D View Generic', "3D View General", "", 9),
 		('Grease Pencil', "Grease Pencil", "", 10),
 		('Grease Pencil Stroke Edit Mode', "Grease pencil stroke edit mode", "", 11),
 		('Face Mask', "Face Mask", "", 12),
@@ -776,16 +776,16 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('Info', "Info", "", 31),
 		('View3D Gesture Circle', "3D Burgess Cha circle", "", 32),
 		('Gesture Border', "Gesture Boundary", "", 33),
-		('Gesture Zoom Border', "Zoom gesture border", "", 34),
+		('Gesture Zoom Border', "Zoom Gesture Border", "", 34),
 		('Gesture Straight Line', "Gesture Lines", "", 35),
-		('Standard Modal Map', "Common modal map", "", 36),
+		('Standard Modal Map', "Common Modal Map", "", 36),
 		('Animation', "Animation", "", 37),
 		('Animation Channels', "Animation Channel", "", 38),
-		('Knife Tool Modal Map', "Knife modal map", "", 39),
+		('Knife Tool Modal Map', "Knife Modal Map", "", 39),
 		('UV Editor', "UV Editor", "", 40),
-		('Transform Modal Map', "Transform modal map", "", 41),
+		('Transform Modal Map', "Transform Modal Map", "", 41),
 		('UV Sculpt', "UV Sculpt", "", 42),
-		('Paint Stroke Modal', "Paint stroke modal", "", 43),
+		('Paint Stroke Modal', "Paint Stroke Modal", "", 43),
 		('Mask Editing', "Mask Edit", "", 44),
 		('Markers', "Marker", "", 45),
 		('Timeline', "Timeline", "", 46),
@@ -794,7 +794,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('View3D Rotate Modal', "3D view rotation modal", "", 49),
 		('View3D Move Modal', "3D view mobile modal", "", 50),
 		('View3D Zoom Modal', "3D views zoom modal", "", 51),
-		('View3D Dolly Modal', "3D Bewdley modal", "", 52),
+		('View3D Dolly Modal', "3D Bewdley Modal", "", 52),
 		('Graph Editor Generic', "Graph General", "", 53),
 		('Graph Editor', "Graph Editor", "", 54),
 		('Image Generic', "Images General", "", 55),
@@ -802,8 +802,8 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('Node Generic', "Node General", "", 57),
 		('Node Editor', "Node Editor", "", 58),
 		('File Browser', "File Browser", "", 59),
-		('File Browser Main', "File browser main", "", 60),
-		('File Browser Buttons', "File browser button", "", 61),
+		('File Browser Main', "File Browser Main", "", 60),
+		('File Browser Buttons', "File Browser Button", "", 61),
 		('Dopesheet', "DopeSheet", "", 62),
 		('NLA Generic', "NLA General", "", 63),
 		('NLA Channels', "NLA Channel", "", 64),
@@ -817,7 +817,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('Console', "Console", "", 72),
 		('Clip', "Clip", "", 73),
 		('Clip Editor', "Clip Editor", "", 74),
-		('Clip Graph Editor', "Clip graph editor", "", 75),
+		('Clip Graph Editor', "Clip Graph Editor", "", 75),
 		('Clip Dopesheet Editor', "Clip Deepseat Editor", "", 76),
 		]
 	category = bpy.props.EnumProperty(items=items, name="Move Category")

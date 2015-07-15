@@ -40,7 +40,7 @@ class InvertHide(bpy.types.Operator):
 
 class HideVertexOnly(bpy.types.Operator):
 	bl_idname = "mesh.hide_vertex_only"
-	bl_label = "Hide only vertex"
+	bl_label = "Hide Only Vertex"
 	bl_description = "To hide selected vertices,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -59,7 +59,7 @@ class HideVertexOnly(bpy.types.Operator):
 
 class HideParts(bpy.types.Operator):
 	bl_idname = "mesh.hide_parts"
-	bl_label = "Hide selected parts"
+	bl_label = "Hide Selected Parts"
 	bl_description = "Hides mesh part has selected more than one top"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -90,8 +90,8 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(HideParts.bl_idname, icon="PLUGIN", text="Hide selected parts").unselected = False
-		self.layout.operator(HideParts.bl_idname, icon="PLUGIN", text="Hide unselected parts").unselected = True
+		self.layout.operator(HideParts.bl_idname, icon="PLUGIN", text="Hide Selected Parts").unselected = False
+		self.layout.operator(HideParts.bl_idname, icon="PLUGIN", text="Hide Unselected Parts").unselected = True
 		self.layout.separator()
 		self.layout.operator(InvertHide.bl_idname, icon="PLUGIN")
 		self.layout.separator()

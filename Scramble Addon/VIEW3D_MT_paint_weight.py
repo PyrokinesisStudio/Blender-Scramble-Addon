@@ -161,7 +161,7 @@ class ApplyDynamicPaint(bpy.types.Operator):
 
 class BlurWeight(bpy.types.Operator):
 	bl_idname = "mesh.blur_weight"
-	bl_label = "Vertex group blur"
+	bl_label = "Vertex Group Blur"
 	bl_description = "Blurs active or all vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	

@@ -8,7 +8,7 @@ import bpy
 
 class SnapMesh3DCursor(bpy.types.Operator):
 	bl_idname = "view3d.snap_mesh_3d_cursor"
-	bl_label = "3D cursor snap to mesh"
+	bl_label = "3D Cursor Snap to Mesh"
 	bl_description = "(Please use shortcuts) mesh surface under mouse move 3D cursor"
 	bl_options = {'REGISTER'}
 	
@@ -76,7 +76,7 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
 		self.layout.operator(Move3DCursorToViewLocation.bl_idname, text="Cursor => View Positon", icon="PLUGIN")
-		self.layout.operator(Move3DCursorFar.bl_idname, text="Cursor to hide (to)", icon="PLUGIN")
+		self.layout.operator(Move3DCursorFar.bl_idname, text="Hide Cursor (Move Far)", icon="PLUGIN")
 		self.layout.operator(SnapMesh3DCursor.bl_idname, text="Cursor => Mesh surface", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()

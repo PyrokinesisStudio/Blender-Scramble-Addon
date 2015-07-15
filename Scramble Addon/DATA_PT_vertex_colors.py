@@ -8,7 +8,7 @@ import bpy
 
 class MoveActiveVertexColor(bpy.types.Operator):
 	bl_idname = "object.move_active_vertex_color"
-	bl_label = "Move vertex color"
+	bl_label = "Move Vertex Color"
 	bl_description = "Move vertex color of active objects, sorts"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -69,7 +69,7 @@ class MoveActiveVertexColor(bpy.types.Operator):
 
 class VertexColorSet(bpy.types.Operator):
 	bl_idname = "object.vertex_color_set"
-	bl_label = "Fill vertex color"
+	bl_label = "Fill Vertex Color"
 	bl_description = "Vertex color of active object with specified color fills"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -116,7 +116,7 @@ class AddVertexColorSelectedObject(bpy.types.Operator):
 	bl_description = "Specify color and name all selected mesh object, adds vertex color"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	name = bpy.props.StringProperty(name="Vertex color name", default="Col")
+	name = bpy.props.StringProperty(name="Vertex Color Name", default="Col")
 	color = bpy.props.FloatVectorProperty(name="Vertex Color", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	
 	@classmethod
@@ -147,7 +147,7 @@ class AddVertexColorSelectedObject(bpy.types.Operator):
 
 class SubMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_vertex_colors_sub_menu"
-	bl_label = "Vertex color operation"
+	bl_label = "Vertex Color Operation"
 	bl_description = "About working with vertex colors menu"
 	
 	def draw(self, context):

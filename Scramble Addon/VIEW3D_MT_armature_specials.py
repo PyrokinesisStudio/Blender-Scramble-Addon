@@ -9,7 +9,7 @@ import re
 
 class CreateMirror(bpy.types.Operator):
 	bl_idname = "armature.create_mirror"
-	bl_label = "Select bones mirroring"
+	bl_label = "Select Bones Mirroring"
 	bl_description = "Mirrored at any axes selected bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -54,7 +54,7 @@ class CreateMirror(bpy.types.Operator):
 				context.space_data.pivot_point = prePivotPoint
 				context.object.data.use_mirror_x = preUseMirror
 			else:
-				self.report(type={"ERROR"}, message="Please perform in edit mode")
+				self.report(type={"ERROR"}, message="Please run in edit mode")
 		else:
 			self.report(type={"ERROR"}, message="Not an armature object")
 		return {'FINISHED'}
@@ -65,7 +65,7 @@ class CopyBoneName(bpy.types.Operator):
 	bl_description = "Copies Clipboard name of active bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isObject = bpy.props.BoolProperty(name="And object name", default=False)
+	isObject = bpy.props.BoolProperty(name="And Object Name", default=False)
 	
 	def execute(self, context):
 		if (self.isObject):
@@ -98,7 +98,7 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 						continue
 					bone.name = new_name
 			else:
-				self.report(type={"ERROR"}, message="Please perform in edit mode")
+				self.report(type={"ERROR"}, message="Please run in edit mode")
 		else:
 			self.report(type={"ERROR"}, message="Not an armature object")
 		return {'FINISHED'}
@@ -109,7 +109,7 @@ class RenameOppositeBone(bpy.types.Operator):
 	bl_description = "Bone is located opposite X axis selection in bone \"1.R longs 1.L \' of so versus the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	threshold = bpy.props.FloatProperty(name="Position of threshold", default=0.00001, min=0, soft_min=0, step=0.001, precision=5)
+	threshold = bpy.props.FloatProperty(name="Position Of Threshold", default=0.00001, min=0, soft_min=0, step=0.001, precision=5)
 	
 	def execute(self, context):
 		obj = context.active_object
@@ -140,7 +140,7 @@ class RenameOppositeBone(bpy.types.Operator):
 				bpy.ops.object.mode_set(mode='EDIT')
 				bpy.ops.armature.flip_names()
 			else:
-				self.report(type={"ERROR"}, message="Please perform in edit mode")
+				self.report(type={"ERROR"}, message="Please run in edit mode")
 		else:
 			self.report(type={"ERROR"}, message="Not an armature object")
 		return {'FINISHED'}

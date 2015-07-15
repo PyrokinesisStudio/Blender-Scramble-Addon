@@ -9,7 +9,7 @@ import bpy
 class PieMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie"
 	bl_label = "Pie Menu"
-	bl_description = "Window pie menus"
+	bl_description = "Window Pie Menus"
 	
 	def draw(self, context):
 		self.layout.operator(AreaTypePieOperator.bl_idname, icon="PLUGIN")
@@ -51,7 +51,7 @@ class AreaTypePieAnim(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Timeline", icon="TIME").type = "TIMELINE"
 class AreaTypePieOther(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie_area_type_other"
-	bl_label = "Editor type (other)"
+	bl_label = "Editor Type (other)"
 	bl_description = "Is pie menu change editor type (other)"
 	
 	def draw(self, context):
@@ -64,8 +64,8 @@ class AreaTypePieOther(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="User Setting", icon="PREFERENCES").type = "USER_PREFERENCES"
 class SetAreaType(bpy.types.Operator): #
 	bl_idname = "wm.set_area_type"
-	bl_label = "Change editor type"
-	bl_description = "Change editor type"
+	bl_label = "Change Editor Type"
+	bl_description = "Change Editor Type"
 	bl_options = {'REGISTER'}
 	
 	type = bpy.props.StringProperty(name="Area Type")

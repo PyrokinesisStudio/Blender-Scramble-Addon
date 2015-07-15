@@ -8,14 +8,14 @@ import bpy
 
 class CopyDisplaySetting(bpy.types.Operator):
 	bl_idname = "object.copy_display_setting"
-	bl_label = "Copy display setting"
+	bl_label = "Copy Display Setting"
 	bl_description = "Copy selected objects of other display settings"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	copy_show_name = bpy.props.BoolProperty(name="Name", default=True)
 	copy_show_axis = bpy.props.BoolProperty(name="Axis", default=True)
 	copy_show_wire = bpy.props.BoolProperty(name="Wire Frame", default=True)
-	copy_show_all_edges = bpy.props.BoolProperty(name="Show all edges", default=True)
+	copy_show_all_edges = bpy.props.BoolProperty(name="Show All Edges", default=True)
 	copy_show_bounds = bpy.props.BoolProperty(name="Bound", default=True)
 	copy_draw_bounds_type = bpy.props.BoolProperty(name="Bound Type", default=True)
 	copy_show_texture_space = bpy.props.BoolProperty(name="Texture Space", default=True)

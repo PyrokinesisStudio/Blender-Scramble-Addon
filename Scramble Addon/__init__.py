@@ -193,8 +193,8 @@ class AddonPreferences(bpy.types.AddonPreferences):
 	
 	disabled_menu = bpy.props.StringProperty(name="Invalid Menu", default="")
 	use_disabled_menu = bpy.props.BoolProperty(name="\"On/Off additional items\" hidden", default=False)
-	view_savedata = bpy.props.StringProperty(name="View save data", default="")
-	key_config_xml_path = bpy.props.StringProperty(name="XML config path", default="BlenderKeyConfig.xml")
+	view_savedata = bpy.props.StringProperty(name="View Save Data", default="")
+	key_config_xml_path = bpy.props.StringProperty(name="XML Config Path", default="BlenderKeyConfig.xml")
 	
 	image_editor_path_1 = bpy.props.StringProperty(name="Path of image-editing software 1", default="", subtype='FILE_PATH')
 	image_editor_path_2 = bpy.props.StringProperty(name="Path of image-editing software 2", default="", subtype='FILE_PATH')
@@ -222,7 +222,7 @@ class AddonPreferences(bpy.types.AddonPreferences):
 # 追加メニューの有効/無効
 class ToggleMenuEnable(bpy.types.Operator):
 	bl_idname = "wm.toggle_menu_enable"
-	bl_label = "On/Off additional items"
+	bl_label = "On/Off Additional Items"
 	bl_description = "Extra menu of ScrambleAddon toggle Enable/Disable"
 	bl_options = {'REGISTER', 'UNDO'}
 	

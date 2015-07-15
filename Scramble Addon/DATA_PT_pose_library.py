@@ -8,7 +8,7 @@ import bpy
 
 class MoveActivePose(bpy.types.Operator):
 	bl_idname = "poselib.move_active_pose"
-	bl_label = "Pose library sort"
+	bl_label = "Pose Library Sort"
 	bl_description = "Sorts by posing for an active pose library"
 	bl_options = {'REGISTER'}
 	

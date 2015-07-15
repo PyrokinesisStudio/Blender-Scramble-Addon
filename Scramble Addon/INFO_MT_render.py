@@ -13,7 +13,7 @@ class SetRenderResolutionPercentage(bpy.types.Operator):
 	bl_description = "Set to be rendered settings resolution percentage?"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	size = bpy.props.IntProperty(name="Render size (%)", default=100, min=1, max=1000, soft_min=1, soft_max=1000, step=1)
+	size = bpy.props.IntProperty(name="Render Size (%)", default=100, min=1, max=1000, soft_min=1, soft_max=1000, step=1)
 	
 	def execute(self, context):
 		context.scene.render.resolution_percentage = self.size
@@ -21,7 +21,7 @@ class SetRenderResolutionPercentage(bpy.types.Operator):
 
 class SetRenderSlot(bpy.types.Operator):
 	bl_idname = "render.set_render_slot"
-	bl_label = "Set render slot"
+	bl_label = "Set Render Slot"
 	bl_description = "Sets slot to save rendering results"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -35,11 +35,11 @@ class SetRenderSlot(bpy.types.Operator):
 
 class ToggleThreadsMode(bpy.types.Operator):
 	bl_idname = "render.toggle_threads_mode"
-	bl_label = "Switch use threads"
+	bl_label = "Switch Use Threads"
 	bl_description = "Toggles thread number of CPUS used to render"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	threads = bpy.props.IntProperty(name="Number of threads", default=1, min=1, max=16, soft_min=1, soft_max=16, step=1)
+	threads = bpy.props.IntProperty(name="Number Of Threads", default=1, min=1, max=16, soft_min=1, soft_max=16, step=1)
 	
 	def execute(self, context):
 		if (context.scene.render.threads_mode == 'AUTO'):
@@ -66,7 +66,7 @@ class SetAllSubsurfRenderLevels(bpy.types.Operator):
 		('RELATIVE', "Relative Value", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Setting Mode")
-	levels = bpy.props.IntProperty(name="Level of Subsurf", default=2, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
+	levels = bpy.props.IntProperty(name="Level Of Subsurf", default=2, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
 	
 	def execute(self, context):
 		for obj in bpy.data.objects:
@@ -79,7 +79,7 @@ class SetAllSubsurfRenderLevels(bpy.types.Operator):
 					elif (self.mode == 'RELATIVE'):
 						mod.render_levels += self.levels
 					else:
-						self.report(type={'ERROR'}, message="Invalid setting value")
+						self.report(type={'ERROR'}, message="Invalid Setting Value")
 						return {'CANCELLED'}
 		for area in context.screen.areas:
 			area.tag_redraw()
@@ -112,7 +112,7 @@ class SyncAllSubsurfRenderLevels(bpy.types.Operator):
 
 class RenderResolutionPercentageMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_resolution_percentage"
-	bl_label = "Render size (%)"
+	bl_label = "Render Size (%)"
 	bl_description = "Set to be rendered settings resolution percentage?"
 	
 	def draw(self, context):
@@ -136,8 +136,8 @@ class RenderResolutionPercentageMenu(bpy.types.Menu):
 
 class SimplifyRenderMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_simplify"
-	bl_label = "Simplification of render"
-	bl_description = "Simplify rendering settings"
+	bl_label = "Simplification Of Render"
+	bl_description = "Simplify Rendering Settings"
 	
 	def draw(self, context):
 		self.layout.prop(context.scene.render, "use_simplify", icon="PLUGIN")
@@ -171,11 +171,11 @@ class ShadeingMenu(bpy.types.Menu):
 
 class SubsurfMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_subsurf"
-	bl_label = "All Subsurf levels"
+	bl_label = "All Subsurf Levels"
 	bl_description = "Setting Subsurf subdivision level of all objects at once"
 	
 	def draw(self, context):
-		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="subdivision + 1", icon="PLUGIN")
+		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="Subdivision + 1", icon="PLUGIN")
 		operator.mode = 'RELATIVE'
 		operator.levels = 1
 		operator = self.layout.operator(SetAllSubsurfRenderLevels.bl_idname, text="Subdivision - 1", icon="PLUGIN")
@@ -195,7 +195,7 @@ class SubsurfMenu(bpy.types.Menu):
 		operator.mode = 'ABSOLUTE'
 		operator.levels = 3
 		self.layout.separator()
-		self.layout.operator(SyncAllSubsurfRenderLevels.bl_idname, text="Sync preview value", icon="PLUGIN")
+		self.layout.operator(SyncAllSubsurfRenderLevels.bl_idname, text="Sync Preview Value", icon="PLUGIN")
 
 ################
 # メニュー追加 #
@@ -234,7 +234,7 @@ def menu(self, context):
 		self.layout.separator()
 		text = ToggleThreadsMode.bl_label
 		if (context.scene.render.threads_mode == 'AUTO'):
-			text = text + " (Now auto-sensing)"
+			text = text + " (Now Auto-sensing)"
 		else:
 			text = text + " (Current constant value:" + str(context.scene.render.threads) + ")"
 		self.layout.operator(ToggleThreadsMode.bl_idname, text=text, icon="PLUGIN")

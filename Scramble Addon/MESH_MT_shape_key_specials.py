@@ -8,7 +8,7 @@ import bpy
 
 class CopyShape(bpy.types.Operator):
 	bl_idname = "mesh.copy_shape"
-	bl_label = "Duplicate shape key"
+	bl_label = "Duplicate Shape Key"
 	bl_description = "Duplicate active shape key"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -132,7 +132,7 @@ class AddLinkDriverShapeKeys(bpy.types.Operator):
 	bl_description = "Behavior of selection of other shape key drivers link active object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	add_shape_key = bpy.props.BoolProperty(name="Add missing shapes", default=True)
+	add_shape_key = bpy.props.BoolProperty(name="Add Missing Shapes", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -178,7 +178,7 @@ class AddLinkDriverShapeKeys(bpy.types.Operator):
 
 class mute_all_shape_keys(bpy.types.Operator):
 	bl_idname = "object.mute_all_shape_keys"
-	bl_label = "Disable/Enable all shapes"
+	bl_label = "Disable/Enable All Shapes"
 	bl_description = "All shape key to disable or enable the"
 	bl_options = {'REGISTER', 'UNDO'}
 	

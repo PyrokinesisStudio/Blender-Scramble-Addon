@@ -12,8 +12,8 @@ class CopyAllMaterialNode(bpy.types.Operator):
 	bl_description = "Copies of other material shader nodes are displayed"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isOnlySelected = bpy.props.BoolProperty(name="Selected object only", default=False)
-	isOnlyUseNode = bpy.props.BoolProperty(name="Only used nodes", default=False)
+	isOnlySelected = bpy.props.BoolProperty(name="Selected Object Only", default=False)
+	isOnlyUseNode = bpy.props.BoolProperty(name="Only Used Nodes", default=False)
 	
 	@classmethod
 	def poll(cls, context):

@@ -63,7 +63,7 @@ class AllRenameImageFileName(bpy.types.Operator):
 
 class ReloadAllImage(bpy.types.Operator):
 	bl_idname = "image.reload_all_image"
-	bl_label = "Reload all images"
+	bl_label = "Reload All Images"
 	bl_description = "Reloads all image data referring to external file"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -120,7 +120,7 @@ class FillOverrideColor(bpy.types.Operator):
 
 class FillColor(bpy.types.Operator):
 	bl_idname = "image.fill_color"
-	bl_label = "Fill with color"
+	bl_label = "Fill With Color"
 	bl_description = "Fill with color image active all"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -196,7 +196,7 @@ class FillTransparency(bpy.types.Operator):
 class Normalize(bpy.types.Operator):
 	bl_idname = "image.normalize"
 	bl_label = "Normalize Image"
-	bl_description = "Normalize active image"
+	bl_description = "Normalize Active Image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -232,7 +232,7 @@ class RenameImageFile(bpy.types.Operator):
 	bl_description = "Change file name of active image"
 	bl_options = {'REGISTER'}
 	
-	new_name = bpy.props.StringProperty(name="New file name")
+	new_name = bpy.props.StringProperty(name="New File Name")
 	
 	@classmethod
 	def poll(cls, context):
@@ -263,7 +263,7 @@ class RenameImageFile(bpy.types.Operator):
 class BlurImage(bpy.types.Operator):
 	bl_idname = "image.blur_image"
 	bl_label = "Blur image (Note heavy)"
-	bl_description = "Blur active image"
+	bl_description = "Blur Active Image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	strength = bpy.props.IntProperty(name="Blur Strength", default=10, min=1, max=100, soft_min=1, soft_max=100)
@@ -382,7 +382,7 @@ class ReverseHeightImage(bpy.types.Operator):
 
 class Rotate90Image(bpy.types.Operator):
 	bl_idname = "image.rotate_90_image"
-	bl_label = "Rotate 90 degrees"
+	bl_label = "Rotate 90 Degrees"
 	bl_description = "Active image rotates 90 °"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -410,7 +410,7 @@ class Rotate90Image(bpy.types.Operator):
 
 class Rotate180Image(bpy.types.Operator):
 	bl_idname = "image.rotate_180_image"
-	bl_label = "Rotate 180 degrees"
+	bl_label = "Rotate 180 Degrees"
 	bl_description = "Active image rotates 180 °"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -439,7 +439,7 @@ class Rotate180Image(bpy.types.Operator):
 
 class Rotate270Image(bpy.types.Operator):
 	bl_idname = "image.rotate_270_image"
-	bl_label = "Rotate 270 degrees"
+	bl_label = "Rotate 270 Degrees"
 	bl_description = "Active image rotates 270 degrees"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -471,7 +471,7 @@ class ExternalEditEX(bpy.types.Operator):
 	bl_description = "Open image in an external editor of additional files page of custom"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	index = bpy.props.IntProperty(name="Number of use", default=1, min=1, max=3, soft_min=1, soft_max=3)
+	index = bpy.props.IntProperty(name="Number Of Use", default=1, min=1, max=3, soft_min=1, soft_max=3)
 	
 	@classmethod
 	def poll(cls, context):
@@ -484,7 +484,7 @@ class ExternalEditEX(bpy.types.Operator):
 	def execute(self, context):
 		img = context.edit_image
 		if (not img):
-			self.report(type={'ERROR'}, message="Image not found")
+			self.report(type={'ERROR'}, message="Image Not Found")
 			return {'CANCELLED'}
 		if (img.filepath == ""):
 			self.report(type={'ERROR'}, message="Cannot find image path")
@@ -504,7 +504,7 @@ class ExternalEditEX(bpy.types.Operator):
 class Resize(bpy.types.Operator):
 	bl_idname = "image.resize"
 	bl_label = "Resize Image"
-	bl_description = "Resize active image"
+	bl_description = "Resize Active Image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def width_update(self, context):
@@ -549,7 +549,7 @@ class Resize(bpy.types.Operator):
 class Duplicate(bpy.types.Operator):
 	bl_idname = "image.duplicate"
 	bl_label = "Copy Image"
-	bl_description = "Duplicate active image"
+	bl_description = "Duplicate Active Image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -596,7 +596,7 @@ class Duplicate(bpy.types.Operator):
 
 class NewUVChecker(bpy.types.Operator):
 	bl_idname = "image.new_uv_checker"
-	bl_label = "New UV grid"
+	bl_label = "New UV Grid"
 	bl_description = "UV grid to download from WEB, and create new images"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -666,7 +666,7 @@ class Tiles(bpy.types.Operator):
 	bl_description = "Arrange active image to reduce"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	count = bpy.props.IntProperty(name="Number of tile", default=2, min=2, max=8, soft_min=2, soft_max=8)
+	count = bpy.props.IntProperty(name="Number Of Tile", default=2, min=2, max=8, soft_min=2, soft_max=8)
 	
 	@classmethod
 	def poll(cls, context):
@@ -706,7 +706,7 @@ class Tiles(bpy.types.Operator):
 
 class ResizeBlur(bpy.types.Operator):
 	bl_idname = "image.resize_blur"
-	bl_label = "Blur image fast"
+	bl_label = "Blur Image Fast"
 	bl_description = "active image blur fast do"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -900,7 +900,7 @@ class Clipping(bpy.types.Operator):
 class TransformMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_image_transform"
 	bl_label = "Transform"
-	bl_description = "Image transform menu"
+	bl_description = "Image Transform Menu"
 	
 	def draw(self, context):
 		self.layout.operator(ReverseWidthImage.bl_idname, icon='PLUGIN')
@@ -912,7 +912,7 @@ class TransformMenu(bpy.types.Menu):
 
 class ExternalEditEXMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_image_external_edit_ex"
-	bl_label = "External editor (Extra)"
+	bl_label = "External Editor (Extra)"
 	
 	def draw(self, context):
 		if (context.user_preferences.addons['Scramble Addon'].preferences.image_editor_path_1):
@@ -939,7 +939,7 @@ class FillMenu(bpy.types.Menu):
 
 class NewMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_image_new"
-	bl_label = "New images (Extra)"
+	bl_label = "New Images (Extra)"
 	
 	def draw(self, context):
 		self.layout.operator(NewUVChecker.bl_idname, icon='PLUGIN', text="UV Grid")
@@ -968,7 +968,7 @@ class FilterMenu(bpy.types.Menu):
 	bl_label = "Filter"
 	
 	def draw(self, context):
-		self.layout.operator(ResizeBlur.bl_idname, icon='PLUGIN', text="Blur (high speed)")
+		self.layout.operator(ResizeBlur.bl_idname, icon='PLUGIN', text="Blur (high Speed)")
 		self.layout.operator(BlurImage.bl_idname, icon='PLUGIN', text="Blur (slow)")
 
 ################

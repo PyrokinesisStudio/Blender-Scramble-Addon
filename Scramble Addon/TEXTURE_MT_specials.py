@@ -135,7 +135,7 @@ class SlotMoveBottom(bpy.types.Operator):
 
 class RemoveUnenabledSlots(bpy.types.Operator):
 	bl_idname = "texture.remove_unenabled_slots"
-	bl_label = "Remove invalid texture"
+	bl_label = "Remove Invalid Texture"
 	bl_description = "Removes all textures have turned off"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -194,7 +194,7 @@ class TruncateEmptySlots(bpy.types.Operator):
 
 class RemoveFollowingSlots(bpy.types.Operator):
 	bl_idname = "texture.remove_following_slots"
-	bl_label = "Delete below here"
+	bl_label = "Delete Below Here"
 	bl_description = "Remove all active texture slot below"
 	bl_options = {'REGISTER', 'UNDO'}
 	

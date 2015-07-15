@@ -8,7 +8,7 @@ import bpy
 
 class ApplyAllModifiers(bpy.types.Operator):
 	bl_idname = "object.apply_all_modifiers"
-	bl_label = "Apply all modifiers"
+	bl_label = "Apply All Modifiers"
 	bl_description = "Applies to all modifiers of selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -27,7 +27,7 @@ class ApplyAllModifiers(bpy.types.Operator):
 
 class DeleteAllModifiers(bpy.types.Operator):
 	bl_idname = "object.delete_all_modifiers"
-	bl_label = "Remove all modifiers"
+	bl_label = "Remove All Modifiers"
 	bl_description = "Remove all modifiers of selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -75,12 +75,12 @@ class ToggleApplyModifiersView(bpy.types.Operator):
 
 class SyncShowModifiers(bpy.types.Operator):
 	bl_idname = "object.sync_show_modifiers"
-	bl_label = "Sync modifiers use"
+	bl_label = "Sync Modifiers Use"
 	bl_description = "synchronized modifier used when rendering selection / view"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		("1", "Rendering => view", "", 1),
+		("1", "Rendering => View", "", 1),
 		("0", "View => Rendering", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Calculate", default="0")
@@ -284,7 +284,7 @@ class SetRenderSubsurfLevel(bpy.types.Operator):
 	bl_description = "Sets number of subdivisions during rendering of selected object subsurfmodifaia"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	level = bpy.props.IntProperty(name="Number of divisions", default=2, min=0, max=6)
+	level = bpy.props.IntProperty(name="Number Of Divisions", default=2, min=0, max=6)
 	
 	@classmethod
 	def poll(cls, context):
@@ -386,8 +386,8 @@ class AddSubsurf(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	subdivision_type = bpy.props.EnumProperty(items=[("CATMULL_CLARK", "Catmulclark", "", 1), ("SIMPLE", "Simple", "", 2)], name="Subdivision Method")
-	levels = bpy.props.IntProperty(name="Number of view", default=2, min=0, max=6)
-	render_levels = bpy.props.IntProperty(name="Number of render", default=2, min=0, max=6)
+	levels = bpy.props.IntProperty(name="Number Of View", default=2, min=0, max=6)
+	render_levels = bpy.props.IntProperty(name="Number Of Render", default=2, min=0, max=6)
 	use_subsurf_uv =  bpy.props.BoolProperty(name="Subdivide UV", default=True)
 	show_only_control_edges =  bpy.props.BoolProperty(name="Optimized View")
 	
@@ -418,7 +418,7 @@ class SetArmatureDeformPreserveVolume(bpy.types.Operator):
 	bl_description = "Armtuamodifaia selected objects keep volume together off and on the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	use_deform_preserve_volume =  bpy.props.BoolProperty(name="Use preserve volume", default=True)
+	use_deform_preserve_volume =  bpy.props.BoolProperty(name="Use Preserve Volume", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -441,7 +441,7 @@ class SetArmatureDeformPreserveVolume(bpy.types.Operator):
 
 class QuickCurveDeform(bpy.types.Operator):
 	bl_idname = "object.quick_curve_deform"
-	bl_label = "Quick curve transform"
+	bl_label = "Quick Curve Transform"
 	bl_description = "Quickly apply curve modifier"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -628,9 +628,9 @@ class BooleanMenu(bpy.types.Menu):
 		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (Union)").mode = "UNION"
 		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (Difference)").mode = "DIFFERENCE"
 		self.layout.separator()
-		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (Intersect)").mode = "INTERSECT"
-		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (Union)").mode = "UNION"
-		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean apply (Difference)").mode = "DIFFERENCE"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean Apply (Intersect)").mode = "INTERSECT"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean Apply (Union)").mode = "UNION"
+		self.layout.operator(ApplyBoolean.bl_idname, icon='PLUGIN', text="Boolean Apply (Difference)").mode = "DIFFERENCE"
 
 class ArmatureMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_armature"

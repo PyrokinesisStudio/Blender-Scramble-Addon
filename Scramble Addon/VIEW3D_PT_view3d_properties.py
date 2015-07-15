@@ -12,7 +12,7 @@ class SaveView(bpy.types.Operator):
 	bl_description = "Save current 3D view perspective"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	save_name = bpy.props.StringProperty(name="Name", default="View save data")
+	save_name = bpy.props.StringProperty(name="Name", default="View Save Data")
 	
 	def execute(self, context):
 		data = ""
@@ -48,7 +48,7 @@ class LoadView(bpy.types.Operator):
 	bl_description = "Load to current 3D view perspective"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	index = bpy.props.StringProperty(name="View save data name", default="View save data")
+	index = bpy.props.StringProperty(name="View save data name", default="View Save Data")
 	
 	def execute(self, context):
 		for line in context.user_preferences.addons["Scramble Addon"].preferences.view_savedata.split('|'):
@@ -75,7 +75,7 @@ class LoadView(bpy.types.Operator):
 
 class DeleteViewSavedata(bpy.types.Operator):
 	bl_idname = "view3d.delete_view_savedata"
-	bl_label = "Delete view save"
+	bl_label = "Delete View Save"
 	bl_description = "Removes all view save data"
 	bl_options = {'REGISTER', 'UNDO'}
 	

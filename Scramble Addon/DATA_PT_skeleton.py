@@ -14,7 +14,7 @@ class ShowAllBoneLayers(bpy.types.Operator):
 	
 	layers = [False] * 32
 	layers[0] = True
-	pre_layers = bpy.props.BoolVectorProperty(name="Last layer information", size=32, default=layers[:])
+	pre_layers = bpy.props.BoolVectorProperty(name="Last Layer Information", size=32, default=layers[:])
 	
 	@classmethod
 	def poll(cls, context):
@@ -26,12 +26,12 @@ class ShowAllBoneLayers(bpy.types.Operator):
 	def execute(self, context):
 		if (all(context.object.data.layers)):
 			context.object.data.layers = self.pre_layers[:]
-			self.report(type={'INFO'}, message="Unshow all layers")
+			self.report(type={'INFO'}, message="Unshow All Layers")
 		else:
 			self.pre_layers = context.object.data.layers[:]
 			for i in range(len(context.object.data.layers)):
 				context.object.data.layers[i] = True
-			self.report(type={'WARNING'}, message="Show all layers")
+			self.report(type={'WARNING'}, message="Show All Layers")
 		return {'FINISHED'}
 
 ################
@@ -51,6 +51,6 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
 		row.operator('pose.toggle_pose_position', icon='POSE_HLT', text="Enable/Disable Pose")
-		row.operator(ShowAllBoneLayers.bl_idname, icon='RESTRICT_VIEW_OFF', text="Show all layers")
+		row.operator(ShowAllBoneLayers.bl_idname, icon='RESTRICT_VIEW_OFF', text="Show All Layers")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

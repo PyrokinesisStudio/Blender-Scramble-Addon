@@ -334,7 +334,7 @@ class PanelPie(bpy.types.Menu): #
 	bl_description = "Is pie menu toggle Panel"
 	
 	def draw(self, context):
-		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Only tool shelf", icon='TRIA_LEFT')
+		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Only Tool Shelf", icon='TRIA_LEFT')
 		op.properties, op.toolshelf = False, True
 		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Only Properties", icon='TRIA_RIGHT')
 		op.properties, op.toolshelf = True, False

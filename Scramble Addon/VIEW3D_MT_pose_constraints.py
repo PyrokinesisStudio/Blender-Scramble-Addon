@@ -8,7 +8,7 @@ import bpy
 
 class ConstraintIKToLimitRotation(bpy.types.Operator):
 	bl_idname = "pose.constraint_ik_to_limit_rotation"
-	bl_label = "Constraints of IK rotation restrictions"
+	bl_label = "IK Rotation Limit to Constraints"
 	bl_description = "Copy rotation constraint restrictions IK rotation restriction settings"
 	bl_options = {'REGISTER', 'UNDO'}
 	

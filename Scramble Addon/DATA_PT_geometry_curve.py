@@ -162,7 +162,7 @@ class ActivateTaperObject(bpy.types.Operator):
 
 class ActivateBevelObject(bpy.types.Operator):
 	bl_idname = "curve.activate_bevel_object"
-	bl_label = "Activate bevel object"
+	bl_label = "Activate Bevel Object"
 	bl_description = "curve is specified as beveled objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
