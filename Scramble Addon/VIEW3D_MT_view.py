@@ -124,7 +124,7 @@ class ToggleViewportShadeA(bpy.types.Operator):
 
 class ViewNumpadPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.view_numpad_pie_operator"
-	bl_label = "Preset view"
+	bl_label = "Preset View"
 	bl_description = "Is pie menu of preset views or (NUMPAD 1, 3, 7)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -133,7 +133,7 @@ class ViewNumpadPieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class ViewNumpadPie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_view_pie_view_numpad"
-	bl_label = "Preset view"
+	bl_label = "Preset View"
 	bl_description = "Is pie menu of preset views or (NUMPAD 1, 3, 7)"
 	
 	def draw(self, context):
@@ -144,7 +144,7 @@ class ViewNumpadPie(bpy.types.Menu): #
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="Back", icon="BBOX").type = "BACK"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="Camera", icon="CAMERA_DATA").type = "CAMERA"
 		self.layout.menu_pie().operator("view3d.viewnumpad", text="Front", icon="SOLID").type = "FRONT"
-		self.layout.menu_pie().operator("view3d.view_persportho", text="Perspective/Parallel", icon="BORDERMOVE")
+		self.layout.menu_pie().operator("view3d.view_persportho", text="Perspective/Orthographic", icon="BORDERMOVE")
 
 class ViewportShadePieOperator(bpy.types.Operator):
 	bl_idname = "view3d.viewport_shade_pie_operator"
@@ -161,16 +161,16 @@ class ViewportShadePie(bpy.types.Menu): #
 	bl_description = "Is shading switch pie"
 	
 	def draw(self, context):
-		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Bounding box", icon="BBOX").mode = "BOUNDBOX"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Bounding Box", icon="BBOX").mode = "BOUNDBOX"
 		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Render", icon="SMOOTH").mode = "RENDERED"
 		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Solid", icon="SOLID").mode = "SOLID"
 		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Texture", icon="POTATO").mode = "TEXTURED"
-		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Wire frame", icon="WIRE").mode = "WIREFRAME"
+		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Wire Frame", icon="WIRE").mode = "WIREFRAME"
 		self.layout.menu_pie().operator(SetViewportShade.bl_idname, text="Material", icon="MATERIAL").mode = "MATERIAL"
 class SetViewportShade(bpy.types.Operator): #
 	bl_idname = "view3d.set_viewport_shade"
 	bl_label = "Shading Switch"
-	bl_description = "Toggle shading"
+	bl_description = "Toggle Shading"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	mode = bpy.props.StringProperty(name="Shading", default="SOLID")
@@ -274,9 +274,9 @@ class LayerPieRun(bpy.types.Operator): #
 	bl_description = "Shows or hides layer (shift + add choice + CTRL semi-selection + ALT half-clear)"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	nr = bpy.props.IntProperty(name="Layer number")
-	extend = bpy.props.BoolProperty(name="Select extension", default=False)
-	half = bpy.props.BoolProperty(name="Half select", default=False)
+	nr = bpy.props.IntProperty(name="Layer Number")
+	extend = bpy.props.BoolProperty(name="Select Extension", default=False)
+	half = bpy.props.BoolProperty(name="Half Select", default=False)
 	unhalf = bpy.props.BoolProperty(name="Half-Unselect", default=False)
 	
 	def execute(self, context):
@@ -336,7 +336,7 @@ class PanelPie(bpy.types.Menu): #
 	def draw(self, context):
 		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Only tool shelf", icon='TRIA_LEFT')
 		op.properties, op.toolshelf = False, True
-		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Only properties", icon='TRIA_RIGHT')
+		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Only Properties", icon='TRIA_RIGHT')
 		op.properties, op.toolshelf = True, False
 		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Double Sided", icon='ARROW_LEFTRIGHT')
 		op.properties, op.toolshelf = True, True
@@ -375,7 +375,7 @@ class RunPanelPie(bpy.types.Operator): #
 
 class ShortcutsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_view_shortcuts"
-	bl_label = "by Shortcuts"
+	bl_label = "By Shortcuts"
 	bl_description = "Registering shortcut feature that might come in handy"
 	
 	def draw(self, context):
@@ -389,14 +389,14 @@ class ShortcutsMenu(bpy.types.Menu):
 
 class PieMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_view_pie"
-	bl_label = "Pie menu"
+	bl_label = "Pie Menu"
 	bl_description = "Is pie between 3D view"
 	
 	def draw(self, context):
 		self.layout.operator(ViewNumpadPieOperator.bl_idname, icon='PLUGIN')
 		self.layout.operator(ViewportShadePieOperator.bl_idname, icon='PLUGIN')
 		self.layout.operator(LayerPieOperator.bl_idname, text="Layer", icon='PLUGIN')
-		self.layout.operator(PanelPieOperator.bl_idname, text="Panel switch", icon='PLUGIN')
+		self.layout.operator(PanelPieOperator.bl_idname, text="Panel Switch", icon='PLUGIN')
 
 ################
 # メニュー追加 #

@@ -26,7 +26,7 @@ class CopyPie(bpy.types.Menu):
 
 class ObjectModePieOperator(bpy.types.Operator):
 	bl_idname = "object.object_mode_pie_operator"
-	bl_label = "object modes"
+	bl_label = "Object Modes"
 	bl_description = "Is pie menu objects in interactive mode"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -35,25 +35,25 @@ class ObjectModePieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class ObjectModePie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_object_mode"
-	bl_label = "object modes"
+	bl_label = "Object Modes"
 	bl_description = "Is pie menu objects in interactive mode"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Pose", icon="POSE_HLT").mode = "POSE"
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Sculpt", icon="SCULPTMODE_HLT").mode = "SCULPT"
-		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Weight paint", icon="WPAINT_HLT").mode = "WEIGHT_PAINT"
+		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Weight Paint", icon="WPAINT_HLT").mode = "WEIGHT_PAINT"
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Object", icon="OBJECT_DATAMODE").mode = "OBJECT"
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Particle Edit", icon="PARTICLEMODE").mode = "PARTICLE_EDIT"
 		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Edit", icon="EDITMODE_HLT").mode = "EDIT"
-		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Texture paint", icon="TPAINT_HLT").mode = "TEXTURE_PAINT"
-		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Vertex paint", icon="VPAINT_HLT").mode = "VERTEX_PAINT"
+		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Texture Paint", icon="TPAINT_HLT").mode = "TEXTURE_PAINT"
+		self.layout.menu_pie().operator(SetObjectMode.bl_idname, text="Vertex Paint", icon="VPAINT_HLT").mode = "VERTEX_PAINT"
 class SetObjectMode(bpy.types.Operator): #
 	bl_idname = "object.set_object_mode"
 	bl_label = "Set object modes"
 	bl_description = "Sets interactive mode of object"
 	bl_options = {'REGISTER'}
 	
-	mode = bpy.props.StringProperty(name="Interactive mode", default="OBJECT")
+	mode = bpy.props.StringProperty(name="Interactive Mode", default="OBJECT")
 	
 	def execute(self, context):
 		if (context.active_object):
@@ -67,7 +67,7 @@ class SetObjectMode(bpy.types.Operator): #
 
 class SubdivisionSetPieOperator(bpy.types.Operator):
 	bl_idname = "object.subdivision_set_pie_operator"
-	bl_label = "Subsurf setting"
+	bl_label = "Subsurf Setting"
 	bl_description = "Is pie menu to set Subsurf levels"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -76,7 +76,7 @@ class SubdivisionSetPieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class SubdivisionSetPie(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_subdivision_set"
-	bl_label = "Subsurf setting"
+	bl_label = "Subsurf Setting"
 	bl_description = "Is pie menu to set Subsurf levels"
 	
 	def draw(self, context):
@@ -104,7 +104,7 @@ class DrawTypePie(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetDrawType.bl_idname, text="Bound", icon="BBOX").type = "BOUNDS"
-		self.layout.menu_pie().operator(SetDrawType.bl_idname, text="Wire frame", icon="WIRE").type = "WIRE"
+		self.layout.menu_pie().operator(SetDrawType.bl_idname, text="Wire Frame", icon="WIRE").type = "WIRE"
 		self.layout.menu_pie().operator(SetDrawType.bl_idname, text="Solid", icon="SOLID").type = "SOLID"
 		self.layout.menu_pie().operator(SetDrawType.bl_idname, text="Texture", icon="POTATO").type = "TEXTURED"
 class SetDrawType(bpy.types.Operator): #
@@ -113,7 +113,7 @@ class SetDrawType(bpy.types.Operator): #
 	bl_description = "Set maximum drawing type"
 	bl_options = {'REGISTER'}
 	
-	type = bpy.props.StringProperty(name="Drawing type", default="OBJECT")
+	type = bpy.props.StringProperty(name="Drawing Type", default="OBJECT")
 	
 	def execute(self, context):
 		for obj in context.selected_objects:
@@ -130,7 +130,7 @@ class DeleteUnmassage(bpy.types.Operator):
 	bl_description = "Deletes object without displaying confirmation message when deleting"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	use_global = bpy.props.BoolProperty(name="Delete all", default=False)
+	use_global = bpy.props.BoolProperty(name="Delete All", default=False)
 	
 	def execute(self, context):
 		if (context.active_object):
@@ -144,7 +144,7 @@ class DeleteUnmassage(bpy.types.Operator):
 
 class PieMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_pie_menu"
-	bl_label = "Pie menu"
+	bl_label = "Pie Menu"
 	bl_description = "Is pie on object action menu"
 	
 	def draw(self, context):
@@ -155,7 +155,7 @@ class PieMenu(bpy.types.Menu):
 
 class ShortcutMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_shortcut"
-	bl_label = "by Shortcuts"
+	bl_label = "By Shortcuts"
 	bl_description = "Looks useful functions is to register shortcut"
 	
 	def draw(self, context):

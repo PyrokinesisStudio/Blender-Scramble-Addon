@@ -12,7 +12,7 @@ class ChangeContextTab(bpy.types.Operator):
 	bl_description = "Turn switch Properties tab"
 	bl_options = {'REGISTER'}
 	
-	is_left = bpy.props.BoolProperty(name="To left", default=False)
+	is_left = bpy.props.BoolProperty(name="To Left", default=False)
 	
 	def execute(self, context):
 		space_data = None

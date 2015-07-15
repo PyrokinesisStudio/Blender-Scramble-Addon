@@ -64,7 +64,7 @@ class InsertKeyframeAllShapes(bpy.types.Operator):
 
 class SelectShapeTop(bpy.types.Operator):
 	bl_idname = "object.select_shape_top"
-	bl_label = "Select top"
+	bl_label = "Select Top"
 	bl_description = "Select top shape key"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -84,7 +84,7 @@ class SelectShapeTop(bpy.types.Operator):
 
 class SelectShapeBottom(bpy.types.Operator):
 	bl_idname = "object.select_shape_bottom"
-	bl_label = "Select bottom"
+	bl_label = "Select Bottom"
 	bl_description = "Select bottom shape key"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -226,8 +226,8 @@ def menu(self, context):
 		self.layout.operator(SelectShapeTop.bl_idname, icon='PLUGIN')
 		self.layout.operator(SelectShapeBottom.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(mute_all_shape_keys.bl_idname, icon='PLUGIN', text="All disable").mode = 'DISABLE'
-		self.layout.operator(mute_all_shape_keys.bl_idname, icon='PLUGIN', text="All enable").mode = 'ENABLE'
+		self.layout.operator(mute_all_shape_keys.bl_idname, icon='PLUGIN', text="All Disable").mode = 'DISABLE'
+		self.layout.operator(mute_all_shape_keys.bl_idname, icon='PLUGIN', text="All Enable").mode = 'ENABLE'
 		self.layout.separator()
 		self.layout.operator(CopyShape.bl_idname, icon='PLUGIN')
 		self.layout.operator(ShapeKeyApplyRemoveAll.bl_idname, icon='PLUGIN')

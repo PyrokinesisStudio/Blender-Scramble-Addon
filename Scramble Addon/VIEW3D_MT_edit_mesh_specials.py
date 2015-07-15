@@ -78,16 +78,16 @@ class ToggleMirrorModifier(bpy.types.Operator):
 	bl_description = "Delete if not Miller modifier added, Yes"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	use_x = bpy.props.BoolProperty(name="X axis", default=True)
-	use_y = bpy.props.BoolProperty(name="Y axis", default=False)
-	use_z = bpy.props.BoolProperty(name="Z axi", default=False)
+	use_x = bpy.props.BoolProperty(name="X Axis", default=True)
+	use_y = bpy.props.BoolProperty(name="Y Axis", default=False)
+	use_z = bpy.props.BoolProperty(name="Z Axis", default=False)
 	use_mirror_merge = bpy.props.BoolProperty(name="Combine", default=True)
 	use_clip = bpy.props.BoolProperty(name="Clipping", default=False)
 	use_mirror_vertex_groups = bpy.props.BoolProperty(name="Vertex group mirror", default=False)
 	use_mirror_u = bpy.props.BoolProperty(name="Texture U mirror", default=False)
 	use_mirror_v = bpy.props.BoolProperty(name="Texture V mirror", default=False)
-	merge_threshold = bpy.props.FloatProperty(name="Combine distance", default=0.001, min=0, max=1, soft_min=0, soft_max=1, step=0.01, precision=6)
-	is_top = bpy.props.BoolProperty(name="Add top", default=True)
+	merge_threshold = bpy.props.FloatProperty(name="Combine Distance", default=0.001, min=0, max=1, soft_min=0, soft_max=1, step=0.01, precision=6)
+	is_top = bpy.props.BoolProperty(name="Add Top", default=True)
 	
 	def execute(self, context):
 		activeObj = context.active_object
@@ -129,7 +129,7 @@ class SelectedVertexGroupAverage(bpy.types.Operator):
 	bl_description = "Fills selected vertex, vertices weighted average"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	strength = bpy.props.FloatProperty(name="Mix strength", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
+	strength = bpy.props.FloatProperty(name="Mix Strength", default=1, min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3)
 	
 	def invoke(self, context, event):
 		return context.window_manager.invoke_props_dialog(self)

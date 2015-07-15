@@ -132,7 +132,7 @@ class ToggleAllShowExpanded(bpy.types.Operator):
 			for mod in obj.modifiers:
 				mod.show_expanded = not is_close
 		else:
-			self.report(type={'WARNING'}, message="None modifiers")
+			self.report(type={'WARNING'}, message="None Modifiers")
 			return {'CANCELLED'}
 		for area in context.screen.areas:
 			area.tag_redraw()
@@ -145,8 +145,8 @@ class ApplyModifiersAndJoin(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	unapply_subsurf = bpy.props.BoolProperty(name="Except Subsurf", default=True)
-	unapply_armature = bpy.props.BoolProperty(name="Except armature", default=True)
-	unapply_mirror = bpy.props.BoolProperty(name="Except mirror", default=False)
+	unapply_armature = bpy.props.BoolProperty(name="Except Armature", default=True)
+	unapply_mirror = bpy.props.BoolProperty(name="Except Mirror", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -335,11 +335,11 @@ class EqualizeSubsurfLevel(bpy.types.Operator):
 
 class SetSubsurfOptimalDisplay(bpy.types.Operator):
 	bl_idname = "object.set_subsurf_optimal_display"
-	bl_label = "Set optimization"
+	bl_label = "Set Optimization"
 	bl_description = "Sets optimization of subsurfmodifaia of selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	mode =  bpy.props.BoolProperty(name="Optimized view")
+	mode =  bpy.props.BoolProperty(name="Optimized View")
 	
 	@classmethod
 	def poll(cls, context):
@@ -385,11 +385,11 @@ class AddSubsurf(bpy.types.Operator):
 	bl_description = "Add subsurfmodifaia to selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	subdivision_type = bpy.props.EnumProperty(items=[("CATMULL_CLARK", "Catmulclark", "", 1), ("SIMPLE", "Simple", "", 2)], name="Subdivision method")
+	subdivision_type = bpy.props.EnumProperty(items=[("CATMULL_CLARK", "Catmulclark", "", 1), ("SIMPLE", "Simple", "", 2)], name="Subdivision Method")
 	levels = bpy.props.IntProperty(name="Number of view", default=2, min=0, max=6)
 	render_levels = bpy.props.IntProperty(name="Number of render", default=2, min=0, max=6)
 	use_subsurf_uv =  bpy.props.BoolProperty(name="Subdivide UV", default=True)
-	show_only_control_edges =  bpy.props.BoolProperty(name="Optimized view")
+	show_only_control_edges =  bpy.props.BoolProperty(name="Optimized View")
 	
 	@classmethod
 	def poll(cls, context):
@@ -453,8 +453,8 @@ class QuickCurveDeform(bpy.types.Operator):
 		('NEG_Y', "-Y", "", 5),
 		('NEG_Z', "-Z", "", 6),
 		]
-	deform_axis = bpy.props.EnumProperty(items=items, name="Axis deformation")
-	is_apply = bpy.props.BoolProperty(name="Apply modifiers", default=False)
+	deform_axis = bpy.props.EnumProperty(items=items, name="Axis Deformation")
+	is_apply = bpy.props.BoolProperty(name="Apply Modifiers", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -516,9 +516,9 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 		('NEG_Y', "-Y", "", 5),
 		('NEG_Z', "-Z", "", 6),
 		]
-	deform_axis = bpy.props.EnumProperty(items=items, name="Axis deformation")
-	use_merge_vertices = bpy.props.BoolProperty(name="Combine vertices", default=True)
-	is_apply = bpy.props.BoolProperty(name="Apply modifiers", default=False)
+	deform_axis = bpy.props.EnumProperty(items=items, name="Axis Deformation")
+	use_merge_vertices = bpy.props.BoolProperty(name="Combine Vertices", default=True)
+	is_apply = bpy.props.BoolProperty(name="Apply Modifiers", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -594,7 +594,7 @@ class QuickArrayAndCurveDeform(bpy.types.Operator):
 
 class ModifierMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_specials"
-	bl_label = "Modifier actions"
+	bl_label = "Modifier Actions"
 	bl_description = "Modifiers"
 	
 	def draw(self, context):
@@ -621,7 +621,7 @@ class SubsurfMenu(bpy.types.Menu):
 class BooleanMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_boolean"
 	bl_label = "Boolean"
-	bl_description = "Boolean operations"
+	bl_description = "Boolean Operations"
 	
 	def draw(self, context):
 		self.layout.operator(AddBoolean.bl_idname, icon='PLUGIN', text="Boolean Add (Intersect)").mode = "INTERSECT"
@@ -643,7 +643,7 @@ class ArmatureMenu(bpy.types.Menu):
 class CurveMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_modifiers_curve"
 	bl_label = "Curve"
-	bl_description = "Curve operators"
+	bl_description = "Curve Operators"
 	
 	def draw(self, context):
 		self.layout.operator(QuickCurveDeform.bl_idname, icon='PLUGIN')
@@ -668,13 +668,13 @@ def menu(self, context):
 			if (len(context.active_object.modifiers)):
 				col = self.layout.column(align=True)
 				row = col.row(align=True)
-				row.operator(AutoRenameModifiers.bl_idname, icon='SCRIPT', text="Rename all")
-				row.operator(ApplyAllModifiers.bl_idname, icon='IMPORT', text="Apply all")
-				row.operator(DeleteAllModifiers.bl_idname, icon='X', text="Delete all")
+				row.operator(AutoRenameModifiers.bl_idname, icon='SCRIPT', text="Rename All")
+				row.operator(ApplyAllModifiers.bl_idname, icon='IMPORT', text="Apply All")
+				row.operator(DeleteAllModifiers.bl_idname, icon='X', text="Delete All")
 				row = col.row(align=True)
 				row.operator(ToggleApplyModifiersView.bl_idname, icon='RESTRICT_VIEW_OFF', text="View")
 				row.operator(ToggleAllShowExpanded.bl_idname, icon='FULLSCREEN_ENTER', text="Expand / Close")
-				row.operator(SyncShowModifiers.bl_idname, icon='LINKED', text="Use sync")
+				row.operator(SyncShowModifiers.bl_idname, icon='LINKED', text="Use Sync")
 		self.layout.menu(ModifierMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons['Scramble Addon'].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

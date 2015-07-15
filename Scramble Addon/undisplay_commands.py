@@ -8,7 +8,7 @@ import bpy
 
 class ScrollEnd(bpy.types.Operator):
 	bl_idname = "view2d.scroll_end"
-	bl_label = "Scroll end"
+	bl_label = "Scroll End"
 	bl_description = "Scroll to bottom of screen"
 	bl_options = {'UNDO'}
 	

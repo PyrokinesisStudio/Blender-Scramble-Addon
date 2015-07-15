@@ -12,7 +12,7 @@ class GroupLayers(bpy.types.Operator):
 	bl_description = "Switch Show / Hide group has"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	group = bpy.props.StringProperty(name="Group name")
+	group = bpy.props.StringProperty(name="Group Name")
 	
 	def execute(self, context):
 		for obj in bpy.data.objects:
@@ -57,7 +57,7 @@ class ObjectSelectPanel(bpy.types.Panel):
 	def draw(self, context):
 		if (context.object):
 			if (context.object.type == 'ARMATURE'):
-				self.layout.label(text="Bone layer")
+				self.layout.label(text="Bone Layer")
 				col = self.layout.column()
 				col.scale_y = 0.7
 				col.prop(context.object.data, 'layers', text="")
@@ -73,7 +73,7 @@ class ObjectSelectPanel(bpy.types.Panel):
 				if (not group in groups):
 					groups.append(group)
 		row = self.layout.row(align=True)
-		row.operator('object.hide_view_clear', text="Show all", icon='RESTRICT_VIEW_OFF')
+		row.operator('object.hide_view_clear', text="Show All", icon='RESTRICT_VIEW_OFF')
 		row.operator(GroupLayers.bl_idname, text="Non-Group", icon='FILE').group = ''
 		col = self.layout.column(align=True)
 		for group in groups:

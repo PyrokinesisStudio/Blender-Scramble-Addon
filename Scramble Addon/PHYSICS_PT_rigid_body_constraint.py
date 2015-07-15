@@ -62,13 +62,13 @@ class ClearConstraintLimits(bpy.types.Operator):
 	
 	mode = bpy.props.StringProperty(name="Mode", default='', options={'SKIP_SAVE', 'HIDDEN'})
 	
-	is_lin_x = bpy.props.BoolProperty(name="X move", default=True, options={'SKIP_SAVE'})
-	is_lin_y = bpy.props.BoolProperty(name="Y move", default=True, options={'SKIP_SAVE'})
-	is_lin_z = bpy.props.BoolProperty(name="Z move", default=True, options={'SKIP_SAVE'})
+	is_lin_x = bpy.props.BoolProperty(name="X Move", default=True, options={'SKIP_SAVE'})
+	is_lin_y = bpy.props.BoolProperty(name="Y Move", default=True, options={'SKIP_SAVE'})
+	is_lin_z = bpy.props.BoolProperty(name="Z Move", default=True, options={'SKIP_SAVE'})
 	
-	is_ang_x = bpy.props.BoolProperty(name="X rotation", default=True, options={'SKIP_SAVE'})
-	is_ang_y = bpy.props.BoolProperty(name="Y rotation", default=True, options={'SKIP_SAVE'})
-	is_ang_z = bpy.props.BoolProperty(name="Z rotation", default=True, options={'SKIP_SAVE'})
+	is_ang_x = bpy.props.BoolProperty(name="X Rotation", default=True, options={'SKIP_SAVE'})
+	is_ang_y = bpy.props.BoolProperty(name="Y Rotation", default=True, options={'SKIP_SAVE'})
+	is_ang_z = bpy.props.BoolProperty(name="Z Rotation", default=True, options={'SKIP_SAVE'})
 	
 	@classmethod
 	def poll(cls, context):
@@ -113,13 +113,13 @@ class ReverseConstraintLimits(bpy.types.Operator):
 	bl_description = "Minimum limit settings of rigid constraints of active object and reverses maximum"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	is_lin_x = bpy.props.BoolProperty(name="X move", default=False, options={'SKIP_SAVE'})
-	is_lin_y = bpy.props.BoolProperty(name="Y move", default=False, options={'SKIP_SAVE'})
-	is_lin_z = bpy.props.BoolProperty(name="Z move", default=False, options={'SKIP_SAVE'})
+	is_lin_x = bpy.props.BoolProperty(name="X Move", default=False, options={'SKIP_SAVE'})
+	is_lin_y = bpy.props.BoolProperty(name="Y Move", default=False, options={'SKIP_SAVE'})
+	is_lin_z = bpy.props.BoolProperty(name="Z Move", default=False, options={'SKIP_SAVE'})
 	
-	is_ang_x = bpy.props.BoolProperty(name="X rotation", default=False, options={'SKIP_SAVE'})
-	is_ang_y = bpy.props.BoolProperty(name="Y rotation", default=False, options={'SKIP_SAVE'})
-	is_ang_z = bpy.props.BoolProperty(name="Z rotation", default=False, options={'SKIP_SAVE'})
+	is_ang_x = bpy.props.BoolProperty(name="X Rotation", default=False, options={'SKIP_SAVE'})
+	is_ang_y = bpy.props.BoolProperty(name="Y Rotation", default=False, options={'SKIP_SAVE'})
+	is_ang_z = bpy.props.BoolProperty(name="Z Rotation", default=False, options={'SKIP_SAVE'})
 	
 	@classmethod
 	def poll(cls, context):
@@ -177,8 +177,8 @@ def menu(self, context):
 			if context.active_object.rigid_body_constraint:
 				if context.active_object.rigid_body_constraint.type in ['GENERIC', 'GENERIC_SPRING']:
 					row = self.layout.row(align=True)
-					row.operator(ClearConstraintLimits.bl_idname, icon='X', text="Limit clear")
-					row.operator(ReverseConstraintLimits.bl_idname, icon='ARROW_LEFTRIGHT', text="Limit reverse")
+					row.operator(ClearConstraintLimits.bl_idname, icon='X', text="Limit Clear")
+					row.operator(ReverseConstraintLimits.bl_idname, icon='ARROW_LEFTRIGHT', text="Limit Reverse")
 				elif context.active_object.rigid_body_constraint.type == 'FIXED':
 					row = self.layout.row(align=True)
 					row.operator(ClearConstraintLimits.bl_idname, icon='IPO_LINEAR', text="Initialize Generic").mode = 'GENERIC'

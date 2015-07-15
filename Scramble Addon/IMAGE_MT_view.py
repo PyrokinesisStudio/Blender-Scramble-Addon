@@ -15,13 +15,13 @@ class Reset2DCursor(bpy.types.Operator):
 	items = [
 		("C", "Center", "", 1),
 		("U", "Up", "", 2),
-		("RU", "Top right", "", 3),
+		("RU", "Top Right", "", 3),
 		("R", "Right", "", 4),
-		("RD", "Down right", "", 5),
+		("RD", "Down Right", "", 5),
 		("D", "Down", "", 6),
-		("LD", "Down left", "", 7),
+		("LD", "Down Left", "", 7),
 		("L", "Left", "", 8),
-		("LU", "Top left", "", 9),
+		("LU", "Top Left", "", 9),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Location", default="LD")
 	
@@ -127,7 +127,7 @@ class TogglePanelsC(bpy.types.Operator):
 
 class ShortcutsMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_view_shortcuts"
-	bl_label = "by Shortcuts"
+	bl_label = "By Shortcuts"
 	bl_description = "Registering shortcut feature that might come in handy"
 	
 	def draw(self, context):
@@ -146,10 +146,10 @@ class Reset2DCursorMenu(bpy.types.Menu):
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Down").mode = 'D'
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Left").mode = 'L'
 		self.layout.separator()
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Top right").mode = 'RU'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Down right").mode = 'RD'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Down left").mode = 'LD'
-		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Top left").mode = 'LU'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Top Right").mode = 'RU'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Down Right").mode = 'RD'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Down Left").mode = 'LD'
+		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Top Left").mode = 'LU'
 		self.layout.separator()
 		self.layout.operator(Reset2DCursor.bl_idname, icon='PLUGIN', text="Center").mode = 'C'
 

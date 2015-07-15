@@ -63,7 +63,7 @@ class HideParts(bpy.types.Operator):
 	bl_description = "Hides mesh part has selected more than one top"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	unselected = bpy.props.BoolProperty(name="Non-select parts", default=False)
+	unselected = bpy.props.BoolProperty(name="Non-select Parts", default=False)
 	
 	def execute(self, context):
 		isSelecteds = []

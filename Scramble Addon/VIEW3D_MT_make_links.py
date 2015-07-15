@@ -52,15 +52,15 @@ class MakeLinkDisplaySetting(bpy.types.Operator):
 	isSameType = bpy.props.BoolProperty(name="Only objects of same type", default=True)
 	show_name = bpy.props.BoolProperty(name="Name", default=True)
 	show_axis = bpy.props.BoolProperty(name="Axis", default=True)
-	show_wire = bpy.props.BoolProperty(name="Wire frame", default=True)
+	show_wire = bpy.props.BoolProperty(name="Wire Frame", default=True)
 	show_all_edges = bpy.props.BoolProperty(name="Show all edges", default=True)
 	show_bounds = bpy.props.BoolProperty(name="Bound", default=True)
-	show_texture_space = bpy.props.BoolProperty(name="Texture space", default=True)
+	show_texture_space = bpy.props.BoolProperty(name="Texture Space", default=True)
 	show_x_ray = bpy.props.BoolProperty(name="X-ray", default=True)
 	show_transparent = bpy.props.BoolProperty(name="Alpha", default=True)
-	draw_bounds_type = bpy.props.BoolProperty(name="Bound type", default=True)
+	draw_bounds_type = bpy.props.BoolProperty(name="Bound Type", default=True)
 	draw_type = bpy.props.BoolProperty(name="Maximum Draw Type", default=True)
-	color = bpy.props.BoolProperty(name="Object color", default=True)
+	color = bpy.props.BoolProperty(name="Object Color", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -271,7 +271,7 @@ class MakeLinkClothSettings(bpy.types.Operator):
 
 class MakeLinkTransform(bpy.types.Operator):
 	bl_idname = "object.make_link_transform"
-	bl_label = "Link transform"
+	bl_label = "Link Transform"
 	bl_description = "Information of active object copies to other selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -340,12 +340,12 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.menu(TransformMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(MakeLinkObjectName.bl_idname, text="Object name", icon="PLUGIN")
+		self.layout.operator(MakeLinkObjectName.bl_idname, text="Object Name", icon="PLUGIN")
 		self.layout.operator(MakeLinkLayer.bl_idname, text="Layer", icon="PLUGIN")
-		self.layout.operator(MakeLinkDisplaySetting.bl_idname, text="Display setting", icon="PLUGIN")
+		self.layout.operator(MakeLinkDisplaySetting.bl_idname, text="Display Setting", icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="SoftBody setting", icon="PLUGIN")
-		self.layout.operator(MakeLinkClothSettings.bl_idname, text="Cloth setting", icon="PLUGIN")
+		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="SoftBody Setting", icon="PLUGIN")
+		self.layout.operator(MakeLinkClothSettings.bl_idname, text="Cloth Setting", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(MakeLinkUVNames.bl_idname, text="Empty UV", icon="PLUGIN")
 		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="Movement of armature", icon="PLUGIN")

@@ -79,9 +79,9 @@ class ReverseMinMax(bpy.types.Operator):
 	bl_description = "Reverses minimum and maximum angle of IK setup this bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	is_x = bpy.props.BoolProperty(name="X invert", default=False)
-	is_y = bpy.props.BoolProperty(name="Y invert", default=False)
-	is_z = bpy.props.BoolProperty(name="Z invert", default=False)
+	is_x = bpy.props.BoolProperty(name="X Invert", default=False)
+	is_y = bpy.props.BoolProperty(name="Y Invert", default=False)
+	is_z = bpy.props.BoolProperty(name="Z Invert", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -132,11 +132,11 @@ class CopyAxisSetting(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('x', "X axis", "", 1),
-		('y', "Y axis", "", 2),
-		('z', "Z axi", "", 3),
+		('x', "X Axis", "", 1),
+		('y', "Y Axis", "", 2),
+		('z', "Z Axis", "", 3),
 		]
-	source_axis = bpy.props.EnumProperty(items=items, name="Source axis")
+	source_axis = bpy.props.EnumProperty(items=items, name="Source Axis")
 	target_x = bpy.props.BoolProperty(name="To X", default=True)
 	target_y = bpy.props.BoolProperty(name="To Y", default=True)
 	target_z = bpy.props.BoolProperty(name="To Z", default=True)
@@ -170,7 +170,7 @@ class CopyAxisSetting(bpy.types.Operator):
 		row.prop(self, 'target_x')
 		row.prop(self, 'target_y')
 		row.prop(self, 'target_z')
-		self.layout.label("Copy setting")
+		self.layout.label("Copy Setting")
 		row = self.layout.row()
 		row.prop(self, 'lock_ik')
 		row.prop(self, 'ik_stiffness')

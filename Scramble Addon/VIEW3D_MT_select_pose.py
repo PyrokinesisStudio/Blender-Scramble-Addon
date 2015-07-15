@@ -426,7 +426,7 @@ class SelectOneAndPath(bpy.types.Operator):
 	bl_description = "Select path to it, select cursor part bone and"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	mouse_pos = bpy.props.IntVectorProperty(name="Mouse position", size=2, options={'HIDDEN'})
+	mouse_pos = bpy.props.IntVectorProperty(name="Mouse Position", size=2, options={'HIDDEN'})
 	
 	@classmethod
 	def poll(cls, context):
@@ -482,15 +482,15 @@ class SelectGroupedMenu(bpy.types.Menu):
 	def draw(self, context):
 		self.layout.operator('pose.select_grouped', text="Layer", icon='PLUGIN').type = 'LAYER'
 		self.layout.operator('pose.select_grouped', text="Group", icon='PLUGIN').type = 'GROUP'
-		self.layout.operator('pose.select_grouped', text="Keying set", icon='PLUGIN').type = 'KEYINGSET'
+		self.layout.operator('pose.select_grouped', text="Keying Set", icon='PLUGIN').type = 'KEYINGSET'
 		self.layout.separator()
-		self.layout.operator(SelectSameNameBones.bl_idname, text="Bone name", icon='PLUGIN')
-		self.layout.operator(SelectSymmetryNameBones.bl_idname, text="Mirror name", icon='PLUGIN')
+		self.layout.operator(SelectSameNameBones.bl_idname, text="Bone Name", icon='PLUGIN')
+		self.layout.operator(SelectSymmetryNameBones.bl_idname, text="Mirror Name", icon='PLUGIN')
 		self.layout.operator(SelectSameConstraintBone.bl_idname, text="Constraints", icon='PLUGIN')
 
 class ShortcutsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_select_pose_shortcuts"
-	bl_label = "by Shortcuts"
+	bl_label = "By Shortcuts"
 	bl_description = "Registering shortcut feature that might come in handy"
 	
 	def draw(self, context):

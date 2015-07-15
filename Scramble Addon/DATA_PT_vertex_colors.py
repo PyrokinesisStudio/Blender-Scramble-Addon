@@ -1,4 +1,4 @@
-# プロパティ > "Mesh data"タブ > "Vertex color"パネル
+# プロパティ > "Mesh Data"タブ > "Vertex Color"パネル
 
 import bpy
 
@@ -13,7 +13,7 @@ class MoveActiveVertexColor(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('UP', "To up", "", 1),
+		('UP', "To Up", "", 1),
 		('DOWN', "To Down", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Direction", default="UP")
@@ -73,7 +73,7 @@ class VertexColorSet(bpy.types.Operator):
 	bl_description = "Vertex color of active object with specified color fills"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="Vertex color", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=3, precision=10, subtype='COLOR_GAMMA')
+	color = bpy.props.FloatVectorProperty(name="Vertex Color", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=3, precision=10, subtype='COLOR_GAMMA')
 	
 	@classmethod
 	def poll(cls, context):
@@ -117,7 +117,7 @@ class AddVertexColorSelectedObject(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	name = bpy.props.StringProperty(name="Vertex color name", default="Col")
-	color = bpy.props.FloatVectorProperty(name="Vertex color", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
+	color = bpy.props.FloatVectorProperty(name="Vertex Color", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	
 	@classmethod
 	def poll(cls, context):
@@ -174,7 +174,7 @@ def menu(self, context):
 				sub = row.row(align=True)
 				sub.operator(MoveActiveVertexColor.bl_idname, icon='TRIA_UP', text="").mode = 'UP'
 				sub.operator(MoveActiveVertexColor.bl_idname, icon='TRIA_DOWN', text="").mode = 'DOWN'
-				row.operator(VertexColorSet.bl_idname, icon='BRUSH_DATA', text="Paint out")
+				row.operator(VertexColorSet.bl_idname, icon='BRUSH_DATA', text="Paint Out")
 		row.menu(SubMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

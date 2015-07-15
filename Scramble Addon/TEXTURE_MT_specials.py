@@ -12,7 +12,7 @@ class RenameTextureFileName(bpy.types.Operator):
 	bl_description = "file name of external images using name of active texture"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isExt = bpy.props.BoolProperty(name="Include extension", default=True)
+	isExt = bpy.props.BoolProperty(name="Include Extension", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -70,7 +70,7 @@ class RemoveAllTextureSlots(bpy.types.Operator):
 
 class SlotMoveTop(bpy.types.Operator):
 	bl_idname = "texture.slot_move_top"
-	bl_label = "To top"
+	bl_label = "To Top"
 	bl_description = "Move active texture slot at top"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -99,7 +99,7 @@ class SlotMoveTop(bpy.types.Operator):
 
 class SlotMoveBottom(bpy.types.Operator):
 	bl_idname = "texture.slot_move_bottom"
-	bl_label = "To bottom"
+	bl_label = "To Bottom"
 	bl_description = "Move active texture slot to bottom"
 	bl_options = {'REGISTER', 'UNDO'}
 	

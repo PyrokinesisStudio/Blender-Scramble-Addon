@@ -191,7 +191,7 @@ import bpy
 class AddonPreferences(bpy.types.AddonPreferences):
 	bl_idname = __name__
 	
-	disabled_menu = bpy.props.StringProperty(name="Invalid menu", default="")
+	disabled_menu = bpy.props.StringProperty(name="Invalid Menu", default="")
 	use_disabled_menu = bpy.props.BoolProperty(name="\"On/Off additional items\" hidden", default=False)
 	view_savedata = bpy.props.StringProperty(name="View save data", default="")
 	key_config_xml_path = bpy.props.StringProperty(name="XML config path", default="BlenderKeyConfig.xml")

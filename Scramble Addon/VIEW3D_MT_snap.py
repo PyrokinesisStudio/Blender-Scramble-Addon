@@ -12,7 +12,7 @@ class SnapMesh3DCursor(bpy.types.Operator):
 	bl_description = "(Please use shortcuts) mesh surface under mouse move 3D cursor"
 	bl_options = {'REGISTER'}
 	
-	mouse_co = bpy.props.IntVectorProperty(name="Mouse position", size=2)
+	mouse_co = bpy.props.IntVectorProperty(name="Mouse Position", size=2)
 	
 	def execute(self, context):
 		preGp = context.scene.grease_pencil

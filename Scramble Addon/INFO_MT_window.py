@@ -8,7 +8,7 @@ import bpy
 
 class PieMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie"
-	bl_label = "Pie menu"
+	bl_label = "Pie Menu"
 	bl_description = "Window pie menus"
 	
 	def draw(self, context):
@@ -16,7 +16,7 @@ class PieMenu(bpy.types.Menu):
 
 class AreaTypePieOperator(bpy.types.Operator):
 	bl_idname = "wm.area_type_pie_operator"
-	bl_label = "Editor type"
+	bl_label = "Editor Type"
 	bl_description = "Change editor type pie menu is"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -25,16 +25,16 @@ class AreaTypePieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class AreaTypePie(bpy.types.Menu): #
 	bl_idname = "INFO_MT_window_pie_area_type"
-	bl_label = "Editor type"
+	bl_label = "Editor Type"
 	bl_description = "Change editor type pie menu is"
 	
 	def draw(self, context):
-		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Text editor", icon="TEXT").type = "TEXT_EDITOR"
+		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Text Editor", icon="TEXT").type = "TEXT_EDITOR"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Outliner", icon="OOPS").type = "OUTLINER"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Property", icon="BUTS").type = "PROPERTIES"
-		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="3D view", icon="MESH_CUBE").type = "VIEW_3D"
-		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="UV/Image editor", icon="IMAGE_COL").type = "IMAGE_EDITOR"
-		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Node editor", icon="NODETREE").type = "NODE_EDITOR"
+		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="3D View", icon="MESH_CUBE").type = "VIEW_3D"
+		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="UV/Image Editor", icon="IMAGE_COL").type = "IMAGE_EDITOR"
+		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Node Editor", icon="NODETREE").type = "NODE_EDITOR"
 		self.layout.menu_pie().operator("wm.call_menu_pie", text="Anime", icon="ACTION").name = AreaTypePieAnim.bl_idname
 		self.layout.menu_pie().operator("wm.call_menu_pie", text="Other", icon="QUESTION").name = AreaTypePieOther.bl_idname
 		
@@ -46,7 +46,7 @@ class AreaTypePieAnim(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="NLA Editor", icon="NLA").type = "NLA_EDITOR"
-		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Dope sheet", icon="ACTION").type = "DOPESHEET_EDITOR"
+		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="DopeSheet", icon="ACTION").type = "DOPESHEET_EDITOR"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Graph Editor", icon="IPO").type = "GRAPH_EDITOR"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Timeline", icon="TIME").type = "TIMELINE"
 class AreaTypePieOther(bpy.types.Menu):
@@ -58,17 +58,17 @@ class AreaTypePieOther(bpy.types.Menu):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Logic Editor", icon="LOGIC").type = "LOGIC_EDITOR"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Video Sequence Editor", icon="SEQUENCE").type = "SEQUENCE_EDITOR"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Video Clip Editor", icon="RENDER_ANIMATION").type = "CLIP_EDITOR"
-		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="File browser", icon="FILESEL").type = "FILE_BROWSER"
-		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Python console", icon="CONSOLE").type = "CONSOLE"
+		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="File Browser", icon="FILESEL").type = "FILE_BROWSER"
+		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Python Console", icon="CONSOLE").type = "CONSOLE"
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Info", icon="INFO").type = "INFO"
-		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="User setting", icon="PREFERENCES").type = "USER_PREFERENCES"
+		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="User Setting", icon="PREFERENCES").type = "USER_PREFERENCES"
 class SetAreaType(bpy.types.Operator): #
 	bl_idname = "wm.set_area_type"
 	bl_label = "Change editor type"
 	bl_description = "Change editor type"
 	bl_options = {'REGISTER'}
 	
-	type = bpy.props.StringProperty(name="Area type")
+	type = bpy.props.StringProperty(name="Area Type")
 	
 	def execute(self, context):
 		context.area.type = self.type

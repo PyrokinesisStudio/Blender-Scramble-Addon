@@ -15,7 +15,7 @@ class AddSphereOnlySquare(bpy.types.Operator):
 	
 	level = bpy.props.IntProperty(name="Number of divisions", default=2, step=1, min=1, max=6, soft_min=1, soft_max=6)
 	radius = bpy.props.FloatProperty(name="Radius (roughly)", default=1.0, step=10, precision=3, min=0.001, max=100, soft_min=0.001, soft_max=100)
-	view_align = bpy.props.BoolProperty(name="Align view", default=False)
+	view_align = bpy.props.BoolProperty(name="Align View", default=False)
 	location = bpy.props.FloatVectorProperty(name="Location", default=(0.0, 0.0, 0.0), step=10, precision=3, subtype='XYZ', min=-100, max=100, soft_min=-100, soft_max=100)
 	rotation = bpy.props.IntVectorProperty(name="Rotation", default=(0, 0, 0), step=1, subtype='XYZ', min=-360, max=360, soft_min=-360, soft_max=360)
 	enter_editmode = False
@@ -50,7 +50,7 @@ class AddSphereOnlySquare(bpy.types.Operator):
 
 class AddVertexOnlyObject(bpy.types.Operator):
 	bl_idname = "mesh.add_vertex_only_object"
-	bl_label = "Only vertex"
+	bl_label = "Only Vertex"
 	bl_description = "Only 1 vertex meshes 3D adds to position of cursor"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -77,8 +77,8 @@ class CreateVertexGroupSplits(bpy.types.Operator):
 	bl_description = "Create separate each part of vertex groups applied mesh group"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	threshold = bpy.props.FloatProperty(name="Enabled threshold", default=0.5, min=0, max=1, soft_min=0, soft_max=1, step=3, precision=2)
-	delete_source = bpy.props.BoolProperty(name="Delete source", default=False)
+	threshold = bpy.props.FloatProperty(name="Enabled Threshold", default=0.5, min=0, max=1, soft_min=0, soft_max=1, step=3, precision=2)
+	delete_source = bpy.props.BoolProperty(name="Delete Source", default=False)
 	
 	@classmethod
 	def poll(cls, context):

@@ -186,8 +186,8 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(MoveMaterialSlotTop.bl_idname, icon='PLUGIN', text="To top")
-		self.layout.operator(MoveMaterialSlotBottom.bl_idname, icon='PLUGIN', text="To bottom")
+		self.layout.operator(MoveMaterialSlotTop.bl_idname, icon='PLUGIN', text="To Top")
+		self.layout.operator(MoveMaterialSlotBottom.bl_idname, icon='PLUGIN', text="To Bottom")
 		self.layout.separator()
 		self.layout.operator(RemoveAllMaterialSlot.bl_idname, icon='PLUGIN')
 		self.layout.operator(RemoveEmptyMaterialSlot.bl_idname, icon='PLUGIN')

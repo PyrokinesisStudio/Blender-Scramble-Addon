@@ -26,7 +26,7 @@ class Move3DCursor(bpy.types.Operator):
 	bl_description = "Position of relative born tail (even root), bone, 3 D move cursor position"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isTail = bpy.props.BoolProperty(name="Move tail", default=False)
+	isTail = bpy.props.BoolProperty(name="Move Tail", default=False)
 	
 	def execute(self, context):
 		for bone in context.selected_bones:

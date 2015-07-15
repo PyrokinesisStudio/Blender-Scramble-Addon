@@ -50,7 +50,7 @@ class SelectModePie(bpy.types.Menu): #
 
 class ProportionalPieOperator(bpy.types.Operator):
 	bl_idname = "mesh.proportional_pie_operator"
-	bl_label = "Proportional edit"
+	bl_label = "Proportional Edit"
 	bl_description = "Is pie menu proportional edit"
 	bl_options = {'REGISTER'}
 	
@@ -62,7 +62,7 @@ class ProportionalPieOperator(bpy.types.Operator):
 		return {'FINISHED'}
 class ProportionalPie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_edit_mesh_pie_proportional"
-	bl_label = "Proportional edit"
+	bl_label = "Proportional Edit"
 	bl_description = "Is pie menu proportional edit"
 	
 	def draw(self, context):
@@ -87,7 +87,7 @@ class SetProportionalEdit(bpy.types.Operator): #
 
 class PieMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_edit_mesh_pie_menu"
-	bl_label = "Pie menu"
+	bl_label = "Pie Menu"
 	bl_description = "Is pie on mesh editing"
 	
 	def draw(self, context):
@@ -96,7 +96,7 @@ class PieMenu(bpy.types.Menu):
 
 class ShortcutMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_edit_mesh_shortcut"
-	bl_label = "by Shortcuts"
+	bl_label = "By Shortcuts"
 	bl_description = "Looks useful functions is to register shortcut"
 	
 	def draw(self, context):

@@ -13,7 +13,7 @@ class ConstraintIKToLimitRotation(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	isAdd = bpy.props.BoolProperty(name="If not add constraints", default=True)
-	isLocal = bpy.props.BoolProperty(name="Local space", default=True)
+	isLocal = bpy.props.BoolProperty(name="Local Space", default=True)
 	
 	def execute(self, context):
 		for bone in context.selected_pose_bones:

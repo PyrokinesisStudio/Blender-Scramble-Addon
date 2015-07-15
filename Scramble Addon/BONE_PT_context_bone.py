@@ -125,7 +125,7 @@ class AppendActiveBoneName(bpy.types.Operator):
 	bl_description = "Adds string to active bone name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	string = bpy.props.StringProperty(name="Add text")
+	string = bpy.props.StringProperty(name="Add Text")
 	
 	@classmethod
 	def poll(self, context):
@@ -148,7 +148,7 @@ class AppendActiveBoneName(bpy.types.Operator):
 
 class AppendNameMenu(bpy.types.Menu):
 	bl_idname = "BONE_PT_context_bone_append_name"
-	bl_label = "New text"
+	bl_label = "New Text"
 	
 	def draw(self, context):
 		self.layout.operator(AppendActiveBoneName.bl_idname, text=".L").string = '.L'

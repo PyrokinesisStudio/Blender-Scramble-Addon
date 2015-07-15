@@ -70,7 +70,7 @@ class QuickShrinkwrap(bpy.types.Operator):
 	items = [
 		('NEAREST_SURFACEPOINT', "closest surface point", "", 1),
 		('PROJECT', "Projection", "", 2),
-		('NEAREST_VERTEX', "Nearest vertex", "", 3),
+		('NEAREST_VERTEX', "Nearest Vertex", "", 3),
 		]
 	wrap_method = bpy.props.EnumProperty(items=items, name="Mode", default='PROJECT')
 	offset = bpy.props.FloatProperty(name="Offset", default=0.0, min=-10, max=10, soft_min=-10, soft_max=10, step=1, precision=5)
@@ -129,8 +129,8 @@ class SeparateEXMenu(bpy.types.Menu):
 		self.layout.operator(SeparateSelectedEX.bl_idname, icon="PLUGIN")
 		self.layout.operator(DuplicateNewParts.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator("mesh.separate", text="To material").type = 'MATERIAL'
-		self.layout.operator("mesh.separate", text="Isolated parts").type = 'LOOSE'
+		self.layout.operator("mesh.separate", text="To Material").type = 'MATERIAL'
+		self.layout.operator("mesh.separate", text="Isolated Parts").type = 'LOOSE'
 
 # メニューのオン/オフの判定
 def IsMenuEnable(self_id):

@@ -13,7 +13,7 @@ class RenameImageFileName(bpy.types.Operator):
 	bl_description = "External images are using name of active image file name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isExt = bpy.props.BoolProperty(name="Include extension", default=True)
+	isExt = bpy.props.BoolProperty(name="Include Extension", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -41,7 +41,7 @@ class AllRenameImageFileName(bpy.types.Operator):
 	bl_description = "names of all images using external image file name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	isExt = bpy.props.BoolProperty(name="Include extension", default=True)
+	isExt = bpy.props.BoolProperty(name="Include Extension", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -89,11 +89,11 @@ class ReloadAllImage(bpy.types.Operator):
 
 class FillOverrideColor(bpy.types.Operator):
 	bl_idname = "image.fill_override_color"
-	bl_label = "Override color"
+	bl_label = "Override Color"
 	bl_description = "All over colors you specify active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="Color", description="Fill color", default=(1, 1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA', size=4)
+	color = bpy.props.FloatVectorProperty(name="Color", description="Fill Color", default=(1, 1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA', size=4)
 	
 	@classmethod
 	def poll(cls, context):
@@ -124,7 +124,7 @@ class FillColor(bpy.types.Operator):
 	bl_description = "Fill with color image active all"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="Color", description="Fill color", default=(1, 1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA', size=4)
+	color = bpy.props.FloatVectorProperty(name="Color", description="Fill Color", default=(1, 1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA', size=4)
 	
 	@classmethod
 	def poll(cls, context):
@@ -155,11 +155,11 @@ class FillColor(bpy.types.Operator):
 
 class FillTransparency(bpy.types.Operator):
 	bl_idname = "image.fill_transparency"
-	bl_label = "Fill transparent"
+	bl_label = "Fill Transparent"
 	bl_description = "transparent parts of image are active in specified color fills"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	color = bpy.props.FloatVectorProperty(name="Fill color", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
+	color = bpy.props.FloatVectorProperty(name="Fill Color", default=(1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	
 	@classmethod
 	def poll(cls, context):
@@ -195,7 +195,7 @@ class FillTransparency(bpy.types.Operator):
 
 class Normalize(bpy.types.Operator):
 	bl_idname = "image.normalize"
-	bl_label = "Normalize image"
+	bl_label = "Normalize Image"
 	bl_description = "Normalize active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -266,7 +266,7 @@ class BlurImage(bpy.types.Operator):
 	bl_description = "Blur active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	strength = bpy.props.IntProperty(name="Blur strength", default=10, min=1, max=100, soft_min=1, soft_max=100)
+	strength = bpy.props.IntProperty(name="Blur Strength", default=10, min=1, max=100, soft_min=1, soft_max=100)
 	
 	@classmethod
 	def poll(cls, context):
@@ -324,7 +324,7 @@ class BlurImage(bpy.types.Operator):
 
 class ReverseWidthImage(bpy.types.Operator):
 	bl_idname = "image.reverse_width_image"
-	bl_label = "Flip horizontally"
+	bl_label = "Flip Horizontally"
 	bl_description = "Active image flips horizontally"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -354,7 +354,7 @@ class ReverseWidthImage(bpy.types.Operator):
 
 class ReverseHeightImage(bpy.types.Operator):
 	bl_idname = "image.reverse_height_image"
-	bl_label = "Flip vertically"
+	bl_label = "Flip Vertically"
 	bl_description = "Inverts active image in vertical direction"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -503,7 +503,7 @@ class ExternalEditEX(bpy.types.Operator):
 
 class Resize(bpy.types.Operator):
 	bl_idname = "image.resize"
-	bl_label = "Image zoom in/out"
+	bl_label = "Resize Image"
 	bl_description = "Resize active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -524,7 +524,7 @@ class Resize(bpy.types.Operator):
 	
 	width = bpy.props.IntProperty(name="Width", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL', update=width_update)
 	height = bpy.props.IntProperty(name="Height", default=0, min=1, max=8192, soft_min=1, soft_max=8192, step=1, subtype='PIXEL', update=height_update)
-	keep_ratio = bpy.props.BoolProperty(name="Keep ratio", default=True)
+	keep_ratio = bpy.props.BoolProperty(name="Keep Ratio", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -548,7 +548,7 @@ class Resize(bpy.types.Operator):
 
 class Duplicate(bpy.types.Operator):
 	bl_idname = "image.duplicate"
-	bl_label = "Copy image"
+	bl_label = "Copy Image"
 	bl_description = "Duplicate active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -636,7 +636,7 @@ class NewUVChecker(bpy.types.Operator):
 		('UVCheckerMap16-512.png', "16 (512x512)", "", 33),
 		('UVCheckerMap17-512.png', "17 (512x512)", "", 34),
 		]
-	image_name = bpy.props.EnumProperty(items=items, name="Image file")
+	image_name = bpy.props.EnumProperty(items=items, name="Image File")
 	name = bpy.props.StringProperty(name="Name", default="UVCheckerMap")
 	
 	def invoke(self, context, event):
@@ -662,7 +662,7 @@ class NewUVChecker(bpy.types.Operator):
 
 class Tiles(bpy.types.Operator):
 	bl_idname = "image.tiles"
-	bl_label = "Tile image"
+	bl_label = "Tile Image"
 	bl_description = "Arrange active image to reduce"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -706,7 +706,7 @@ class Tiles(bpy.types.Operator):
 
 class ResizeBlur(bpy.types.Operator):
 	bl_idname = "image.resize_blur"
-	bl_label = "Fast image blurring"
+	bl_label = "Blur image fast"
 	bl_description = "active image blur fast do"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -744,7 +744,7 @@ class NewNoise(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	monochrome = bpy.props.BoolProperty(name="Black and White noise", default=False)
-	alpha_noise = bpy.props.BoolProperty(name="Alpha noise", default=False)
+	alpha_noise = bpy.props.BoolProperty(name="Alpha Noise", default=False)
 	name = bpy.props.StringProperty(name="Name", default="Noise")
 	width = bpy.props.IntProperty(name="Width", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
 	height = bpy.props.IntProperty(name="Height", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
@@ -779,7 +779,7 @@ class NewNoise(bpy.types.Operator):
 
 class Decolorization(bpy.types.Operator):
 	bl_idname = "image.decolorization"
-	bl_label = "Decolorization"
+	bl_label = "Decolorize"
 	bl_description = "black and white image of active"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -818,14 +818,14 @@ class Clipping(bpy.types.Operator):
 		('CENTER', "Center", "", 2),
 		('RIGHT', "Right", "", 3),
 		]
-	width_align = bpy.props.EnumProperty(items=items, name="Horizontal position")
+	width_align = bpy.props.EnumProperty(items=items, name="Horizontal Position")
 	items = [
 		('UP', "Up", "", 1),
 		('CENTER', "Center", "", 2),
 		('DOWN', "Down", "", 3),
 		]
-	height_align = bpy.props.EnumProperty(items=items, name="Vertical position")
-	fill_color = bpy.props.FloatVectorProperty(name="Fill color", default=(1, 1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=3, precision=2, subtype='COLOR_GAMMA', size=4)
+	height_align = bpy.props.EnumProperty(items=items, name="Vertical Position")
+	fill_color = bpy.props.FloatVectorProperty(name="Fill Color", default=(1, 1, 1, 1), min=0, max=1, soft_min=0, soft_max=1, step=3, precision=2, subtype='COLOR_GAMMA', size=4)
 	
 	@classmethod
 	def poll(cls, context):
@@ -934,15 +934,15 @@ class FillMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.operator(FillOverrideColor.bl_idname, icon='PLUGIN', text="Override")
-		self.layout.operator(FillColor.bl_idname, icon='PLUGIN', text="Paint out")
-		self.layout.operator(FillTransparency.bl_idname, icon='PLUGIN', text="Fill transparent")
+		self.layout.operator(FillColor.bl_idname, icon='PLUGIN', text="Paint Out")
+		self.layout.operator(FillTransparency.bl_idname, icon='PLUGIN', text="Fill Transparent")
 
 class NewMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_image_new"
 	bl_label = "New images (Extra)"
 	
 	def draw(self, context):
-		self.layout.operator(NewUVChecker.bl_idname, icon='PLUGIN', text="UV grid")
+		self.layout.operator(NewUVChecker.bl_idname, icon='PLUGIN', text="UV Grid")
 		self.layout.operator(NewNoise.bl_idname, icon='PLUGIN', text="Noise")
 
 class ColorMenu(bpy.types.Menu):
@@ -959,7 +959,7 @@ class EditMenu(bpy.types.Menu):
 	
 	def draw(self, context):
 		self.layout.operator(Duplicate.bl_idname, icon='PLUGIN', text="Copy")
-		self.layout.operator(Clipping.bl_idname, icon='PLUGIN', text="Change size")
+		self.layout.operator(Clipping.bl_idname, icon='PLUGIN', text="Change Size")
 		self.layout.operator(Resize.bl_idname, icon='PLUGIN', text="Scale")
 		self.layout.operator(Tiles.bl_idname, icon='PLUGIN', text="Tile")
 

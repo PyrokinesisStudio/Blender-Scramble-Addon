@@ -22,7 +22,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
-		row.operator('view3d.snap_cursor_to_selected', icon='LAYER_ACTIVE', text="To select")
+		row.operator('view3d.snap_cursor_to_selected', icon='LAYER_ACTIVE', text="To Select")
 		row.operator('view3d.snap_cursor_to_center', icon='X', text="Reset")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

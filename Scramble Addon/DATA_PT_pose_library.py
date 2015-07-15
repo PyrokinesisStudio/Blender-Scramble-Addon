@@ -12,7 +12,7 @@ class MoveActivePose(bpy.types.Operator):
 	bl_description = "Sorts by posing for an active pose library"
 	bl_options = {'REGISTER'}
 	
-	is_up = bpy.props.BoolProperty(name="To up", default=False)
+	is_up = bpy.props.BoolProperty(name="To Up", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -53,7 +53,7 @@ class MoveActivePoseMost(bpy.types.Operator):
 	bl_description = "Active pose of pose library moves to top/bottom"
 	bl_options = {'REGISTER'}
 	
-	is_top = bpy.props.BoolProperty(name="To top", default=False)
+	is_top = bpy.props.BoolProperty(name="To Top", default=False)
 	
 	@classmethod
 	def poll(cls, context):
@@ -96,7 +96,7 @@ def menu(self, context):
 					row = self.layout.row(align=True)
 					row.operator(MoveActivePose.bl_idname, icon='TRIA_UP', text="").is_up = True
 					row.operator(MoveActivePose.bl_idname, icon='TRIA_DOWN', text="").is_up = False
-					row.operator(MoveActivePoseMost.bl_idname, icon='TRIA_UP_BAR', text="To top").is_top = True
-					row.operator(MoveActivePoseMost.bl_idname, icon='TRIA_DOWN_BAR', text="To bottom").is_top = False
+					row.operator(MoveActivePoseMost.bl_idname, icon='TRIA_UP_BAR', text="To Top").is_top = True
+					row.operator(MoveActivePoseMost.bl_idname, icon='TRIA_DOWN_BAR', text="To Bottom").is_top = False
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

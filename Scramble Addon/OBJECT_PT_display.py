@@ -14,15 +14,15 @@ class CopyDisplaySetting(bpy.types.Operator):
 	
 	copy_show_name = bpy.props.BoolProperty(name="Name", default=True)
 	copy_show_axis = bpy.props.BoolProperty(name="Axis", default=True)
-	copy_show_wire = bpy.props.BoolProperty(name="Wire frame", default=True)
+	copy_show_wire = bpy.props.BoolProperty(name="Wire Frame", default=True)
 	copy_show_all_edges = bpy.props.BoolProperty(name="Show all edges", default=True)
 	copy_show_bounds = bpy.props.BoolProperty(name="Bound", default=True)
-	copy_draw_bounds_type = bpy.props.BoolProperty(name="Bound type", default=True)
-	copy_show_texture_space = bpy.props.BoolProperty(name="Texture space", default=True)
+	copy_draw_bounds_type = bpy.props.BoolProperty(name="Bound Type", default=True)
+	copy_show_texture_space = bpy.props.BoolProperty(name="Texture Space", default=True)
 	copy_show_x_ray = bpy.props.BoolProperty(name="X-ray", default=True)
 	copy_show_transparent = bpy.props.BoolProperty(name="Alpha", default=True)
 	copy_draw_type = bpy.props.BoolProperty(name="Maximum Draw Type", default=True)
-	copy_color = bpy.props.BoolProperty(name="Object color", default=True)
+	copy_color = bpy.props.BoolProperty(name="Object Color", default=True)
 	
 	@classmethod
 	def poll(cls, context):

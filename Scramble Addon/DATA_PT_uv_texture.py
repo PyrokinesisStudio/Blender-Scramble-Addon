@@ -1,4 +1,4 @@
-# プロパティ > "Mesh data"タブ > "UV maps"パネル
+# プロパティ > "Mesh Data"タブ > "UV Maps"パネル
 
 import bpy
 
@@ -159,7 +159,7 @@ class MoveActiveUV(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('UP', "To up", "", 1),
+		('UP', "To Up", "", 1),
 		('DOWN', "To Down", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Direction", default="UP")
@@ -223,8 +223,8 @@ class MoveActiveUV(bpy.types.Operator):
 
 class UVMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_uv"
-	bl_label = "UV operations"
-	bl_description = "UV operations"
+	bl_label = "UV Operations"
+	bl_description = "UV Operations"
 	
 	def draw(self, context):
 		self.layout.operator(DeleteEmptyUV.bl_idname, icon="PLUGIN")

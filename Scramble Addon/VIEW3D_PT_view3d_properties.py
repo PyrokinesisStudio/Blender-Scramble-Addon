@@ -8,7 +8,7 @@ import bpy
 
 class SaveView(bpy.types.Operator):
 	bl_idname = "view3d.save_view"
-	bl_label = "Save view"
+	bl_label = "Save View"
 	bl_description = "Save current 3D view perspective"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -44,7 +44,7 @@ class SaveView(bpy.types.Operator):
 
 class LoadView(bpy.types.Operator):
 	bl_idname = "view3d.load_view"
-	bl_label = "Load view"
+	bl_label = "Load View"
 	bl_description = "Load to current 3D view perspective"
 	bl_options = {'REGISTER', 'UNDO'}
 	

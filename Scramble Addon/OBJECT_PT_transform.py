@@ -22,11 +22,11 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
-		op = row.operator('object.make_link_transform', icon='MAN_TRANS', text="Copy location")
+		op = row.operator('object.make_link_transform', icon='MAN_TRANS', text="Copy Location")
 		op.copy_location, op.copy_rotation, op.copy_scale = True, False, False
-		op = row.operator('object.make_link_transform', icon='MAN_ROT', text="Copy rotation")
+		op = row.operator('object.make_link_transform', icon='MAN_ROT', text="Copy Rotation")
 		op.copy_location, op.copy_rotation, op.copy_scale = False, True, False
-		op = row.operator('object.make_link_transform', icon='MAN_SCALE', text="Copy scale")
+		op = row.operator('object.make_link_transform', icon='MAN_SCALE', text="Copy Scale")
 		op.copy_location, op.copy_rotation, op.copy_scale = False, False, True
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

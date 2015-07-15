@@ -8,7 +8,7 @@ import bpy, bmesh
 
 class MargeSelectedVertexGroup(bpy.types.Operator):
 	bl_idname = "paint.marge_selected_vertex_group"
-	bl_label = "Combine weights"
+	bl_label = "Combine Weights"
 	bl_description = "Weight of selected bone and same vertex group merges"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -40,7 +40,7 @@ class MargeSelectedVertexGroup(bpy.types.Operator):
 
 class RemoveSelectedVertexGroup(bpy.types.Operator):
 	bl_idname = "paint.remove_selected_vertex_group"
-	bl_label = "Subtraction weights"
+	bl_label = "Subtraction Weights"
 	bl_description = "Subtracts weight of selected bone and same vertex groups"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -118,7 +118,7 @@ class ApplyDynamicPaint(bpy.types.Operator):
 		("SUBTRACT", "Sub", "", 2),
 		("REPLACE", "Replace", "", 3),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="Fill method")
+	mode = bpy.props.EnumProperty(items=items, name="Fill Method")
 	
 	def execute(self, context):
 		activeObj = context.active_object
@@ -166,11 +166,11 @@ class BlurWeight(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('ACTIVE', "Active only", "", 1),
+		('ACTIVE', "Active Only", "", 1),
 		('ALL', "All", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Target", default='ACTIVE')
-	blur_count = bpy.props.IntProperty(name="Repeat count", default=10, min=1, max=100, soft_min=1, soft_max=100, step=1)
+	blur_count = bpy.props.IntProperty(name="Repeat Count", default=10, min=1, max=100, soft_min=1, soft_max=100, step=1)
 	use_clean = bpy.props.BoolProperty(name="Remove weight of 0.0", default=True)
 	
 	
@@ -252,8 +252,8 @@ def menu(self, context):
 		self.layout.operator(MargeSelectedVertexGroup.bl_idname, icon="PLUGIN")
 		self.layout.operator(RemoveSelectedVertexGroup.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(BlurWeight.bl_idname, text="Blur active", icon="PLUGIN").mode = 'ACTIVE'
-		self.layout.operator(BlurWeight.bl_idname, text="Blur all", icon="PLUGIN").mode = 'ALL'
+		self.layout.operator(BlurWeight.bl_idname, text="Blur Active", icon="PLUGIN").mode = 'ACTIVE'
+		self.layout.operator(BlurWeight.bl_idname, text="Blur All", icon="PLUGIN").mode = 'ALL'
 		self.layout.separator()
 		self.layout.operator(VertexGroupAverageAll.bl_idname, icon="PLUGIN")
 		self.layout.separator()

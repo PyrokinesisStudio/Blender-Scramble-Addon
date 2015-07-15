@@ -35,7 +35,7 @@ class SetRenderSlot(bpy.types.Operator):
 
 class ToggleThreadsMode(bpy.types.Operator):
 	bl_idname = "render.toggle_threads_mode"
-	bl_label = "Switch thread numver"
+	bl_label = "Switch use threads"
 	bl_description = "Toggles thread number of CPUS used to render"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -62,10 +62,10 @@ class SetAllSubsurfRenderLevels(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
-		('ABSOLUTE', "Absolute value", "", 1),
-		('RELATIVE', "Relative value", "", 2),
+		('ABSOLUTE', "Absolute Value", "", 1),
+		('RELATIVE', "Relative Value", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="Setting mode")
+	mode = bpy.props.EnumProperty(items=items, name="Setting Mode")
 	levels = bpy.props.IntProperty(name="Level of Subsurf", default=2, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
 	
 	def execute(self, context):
@@ -91,7 +91,7 @@ class SyncAllSubsurfRenderLevels(bpy.types.Operator):
 	bl_description = "Granularity of Subsurf apply when rendering entire object sets level in preview"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	level_offset = bpy.props.IntProperty(name="Subdivision-level offset", default=0, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
+	level_offset = bpy.props.IntProperty(name="Subdivision-level Offset", default=0, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
 	
 	def execute(self, context):
 		for obj in bpy.data.objects:
@@ -150,7 +150,7 @@ class SimplifyRenderMenu(bpy.types.Menu):
 
 class SlotsRenderMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_slots"
-	bl_label = "Render slots"
+	bl_label = "Render Slots"
 	bl_description = "Change slot to save rendering results"
 	
 	def draw(self, context):
@@ -159,8 +159,8 @@ class SlotsRenderMenu(bpy.types.Menu):
 
 class ShadeingMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_shadeing"
-	bl_label = "Used shading"
-	bl_description = "shading on/off"
+	bl_label = "Used Shading"
+	bl_description = "Shading On/off"
 	
 	def draw(self, context):
 		self.layout.prop(context.scene.render, 'use_textures', icon="PLUGIN")
@@ -220,14 +220,14 @@ def menu(self, context):
 			if (img.type == 'RENDER_RESULT'):
 				self.layout.menu(SlotsRenderMenu.bl_idname, text="Render slots (slot:"+str(img.render_slots.active_index+1)+")", icon="PLUGIN")
 				break
-		self.layout.prop_menu_enum(context.scene.render.image_settings, 'file_format', text="File format", icon="PLUGIN")
+		self.layout.prop_menu_enum(context.scene.render.image_settings, 'file_format', text="File Format", icon="PLUGIN")
 		self.layout.separator()
-		self.layout.prop(context.scene, 'frame_start', text="Start frame", icon="PLUGIN")
-		self.layout.prop(context.scene, 'frame_end', text="End frame", icon="PLUGIN")
-		self.layout.prop(context.scene, 'frame_step', text="Frame step", icon="PLUGIN")
+		self.layout.prop(context.scene, 'frame_start', text="Start Frame", icon="PLUGIN")
+		self.layout.prop(context.scene, 'frame_end', text="End Frame", icon="PLUGIN")
+		self.layout.prop(context.scene, 'frame_step', text="Frame Step", icon="PLUGIN")
 		self.layout.prop(context.scene.render, 'fps', text="FPS", icon="PLUGIN")
 		self.layout.separator()
-		self.layout.prop(context.scene.render, 'use_antialiasing', text="Use anti-aliasing", icon="PLUGIN")
+		self.layout.prop(context.scene.render, 'use_antialiasing', text="Use Anti-aliasing", icon="PLUGIN")
 		self.layout.prop(context.scene.world.light_settings, 'use_ambient_occlusion', text="Use AO", icon="PLUGIN")
 		self.layout.prop(context.scene.render, 'use_freestyle', text="Use FreeStyle", icon="PLUGIN")
 		self.layout.menu(ShadeingMenu.bl_idname, icon="PLUGIN")
@@ -239,8 +239,8 @@ def menu(self, context):
 			text = text + " (Current constant value:" + str(context.scene.render.threads) + ")"
 		self.layout.operator(ToggleThreadsMode.bl_idname, text=text, icon="PLUGIN")
 		self.layout.menu(SubsurfMenu.bl_idname, icon="PLUGIN")
-		self.layout.prop_menu_enum(context.scene.render, 'antialiasing_samples', text="Anti-aliasing samples", icon="PLUGIN")
-		self.layout.prop(context.scene.world.light_settings, 'samples', text="AO samples", icon="PLUGIN")
+		self.layout.prop_menu_enum(context.scene.render, 'antialiasing_samples', text="Anti-aliasing Samples", icon="PLUGIN")
+		self.layout.prop(context.scene.world.light_settings, 'samples', text="AO Samples", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.menu(SimplifyRenderMenu.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
