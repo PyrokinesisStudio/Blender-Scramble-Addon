@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「オブジェクト」タブ > 「トランスフォーム」パネル
+# "Propaties" Area > "Object" Tab > "Transform" Panel
 
 import bpy
 

@@ -1,4 +1,5 @@
-# 3Dビュー > オブジェクトモード > 「W」キー
+# 「3Dビュー」エリア > 「オブジェクト」モード > 「W」キー
+# "3D View" Area > "Object" Mode > "W" Key
 
 import bpy, bmesh, mathutils
 import re, random

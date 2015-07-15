@@ -1,4 +1,5 @@
-# 3Dビュー > オブジェクトモード > 「オブジェクト」メニュー
+# 「3Dビュー」エリア > 「オブジェクト」モード > 「オブジェクト」メニュー
+# "3D View" Area > "Object" Mode > "Object" Menu
 
 import bpy, bmesh
 

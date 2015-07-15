@@ -1,4 +1,5 @@
-# 3Dビュー > Shift+S
+# 「3Dビュー」エリア > 「Shift + S」キー
+# "3D View" Area > "Shift + S" Key
 
 import bpy
 

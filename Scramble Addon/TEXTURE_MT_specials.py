@@ -1,4 +1,5 @@
-# プロパティ > 「テクスチャ」タブ > リスト右の▼
+# 「プロパティ」エリア > 「テクスチャ」タブ > リスト右の▼
+# "Propaties" Area > "Texture" Tab > List Right ▼
 
 import bpy
 

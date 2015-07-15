@@ -1,4 +1,5 @@
-# UV/画像エディター > 「画像」メニュー
+# 「UV/画像エディター」エリア > 「画像」メニュー
+# "UV/Image Editor" Area > "Image" Menu
 
 import bpy
 import os, numpy, urllib, math

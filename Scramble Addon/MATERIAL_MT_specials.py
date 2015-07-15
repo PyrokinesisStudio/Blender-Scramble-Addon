@@ -1,4 +1,5 @@
-# プロパティ > 「マテリアル」タブ > リスト右の▼
+# 「プロパティ」エリア > 「マテリアル」タブ > リスト右の▼
+# "Propaties" Area > "Material" Tab > List Right ▼
 
 import bpy
 

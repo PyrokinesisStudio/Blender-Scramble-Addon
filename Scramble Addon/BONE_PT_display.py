@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「ボーン」タブ > 「表示」パネル
+# "Propaties" Area > "Bone" Tab > "Display" Panel
 
 import bpy
 

@@ -1,4 +1,5 @@
-# 3Dビュー > ポーズモード > 「ポーズ」メニュー > 「表示/隠す」メニュー
+# 「3Dビュー」エリア > 「ポーズ」モード > 「ポーズ」メニュー > 「表示/隠す」メニュー
+# "3D View" Area > "Pose" Mode > "Pose" Menu > "Show/Hide" Menu
 
 import bpy
 

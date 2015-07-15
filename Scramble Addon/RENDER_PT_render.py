@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「レンダー」タブ > 「レンダー」パネル
+# "Propaties" Area > "Render" Tab > "Render" Panel
 
 import bpy
 import sys, subprocess

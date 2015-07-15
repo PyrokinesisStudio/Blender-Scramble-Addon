@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「レンダー」タブ > 「ベイク」パネル
+# "Propaties" Area > "Render" Tab > "Bake" Panel
 
 import bpy
 

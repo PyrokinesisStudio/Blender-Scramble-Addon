@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「テクスチャ」タブ > 「画像」パネル
+# "Propaties" Area > "Texture" Tab > "Image" Panel
 
 import bpy
 

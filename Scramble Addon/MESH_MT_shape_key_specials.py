@@ -1,4 +1,5 @@
-# プロパティ > 「オブジェクトデータ」タブ > シェイプキー一覧右の▼
+# 「プロパティ」エリア > 「オブジェクトデータ」タブ > シェイプキーリスト右の▼
+# "Propaties" Area > "Object" Tab > ShapeKeys List Right ▼
 
 import bpy
 

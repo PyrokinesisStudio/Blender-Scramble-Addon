@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「物理演算」タブ > 「剛体」パネル
+# "Propaties" Area > "Physics" Tab > "Rigid Body" Panel
 
 import bpy
 

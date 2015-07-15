@@ -1,4 +1,5 @@
-# ドープシート > 「キー」メニュー
+# 「ドープシート」エリア > 「キー」メニュー
+# "Dope Sheet" Area > "Key" Menu
 
 import bpy
 

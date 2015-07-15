@@ -1,4 +1,5 @@
 # 「ノードエディター」エリア > 「ビュー」メニュー
+# "Node Editor" Area > "View" Menu
 
 import bpy
 

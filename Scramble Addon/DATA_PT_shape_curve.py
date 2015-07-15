@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「カーブデータ」タブ > 「シェイプ」パネル
+# "Propaties" Area > "Armature" Tab > "Shape" Panel
 
 import bpy
 

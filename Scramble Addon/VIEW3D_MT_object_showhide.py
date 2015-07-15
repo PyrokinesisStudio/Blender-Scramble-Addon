@@ -1,4 +1,5 @@
-# 3Dビュー > オブジェクトモード > 「オブジェクト」メニュー > 「表示/隠す」メニュー
+# 「3Dビュー」エリア > 「オブジェクト」モード > 「オブジェクト」メニュー > 「表示/隠す」メニュー
+# "3D View" Area > "Object" Mode > "Object" Menu > "Show/Hide" Menu
 
 import bpy
 

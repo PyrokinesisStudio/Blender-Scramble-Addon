@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「ボーン」タブ > 「インバースキネマティクス (IK)」パネル
+# "Propaties" Area > "Bone" Tab > "Inverse Kinematics" Panel
 
 import bpy
 

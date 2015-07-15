@@ -1,4 +1,5 @@
-# 「3Dビュー」エリア > 「プロパティ」パネル > 「ビュー」パネル
+# 「3Dビュー」エリア > プロパティ > 「ビュー」パネル
+# "3D View" Area > Propaties > "View" Panel
 
 import bpy
 

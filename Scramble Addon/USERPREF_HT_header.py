@@ -1,4 +1,5 @@
-# ユーザー設定 > ヘッダー
+# 「ユーザー設定」エリア > ヘッダー
+# "User Prefences" Area > Header
 
 import bpy
 import zipfile, urllib.request, os, sys, re

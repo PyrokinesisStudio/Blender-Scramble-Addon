@@ -1,4 +1,5 @@
-# 3Dビュー > メッシュ編集モード > 「メッシュ」メニュー
+# 「3Dビュー」エリア > 「メッシュ編集」モード > 「メッシュ」メニュー
+# "3D View" Area > "Mesh Editor" Mode > "Mesh" Menu
 
 import bpy
 

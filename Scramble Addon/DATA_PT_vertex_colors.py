@@ -1,4 +1,5 @@
-# プロパティ > "Mesh Data"タブ > "Vertex Color"パネル
+# 「プロパティ」エリア > 「メッシュデータ」タブ > 「頂点色」パネル
+# "Propaties" Area > "Mesh" Tab > "Vertex Colors" Panel
 
 import bpy
 

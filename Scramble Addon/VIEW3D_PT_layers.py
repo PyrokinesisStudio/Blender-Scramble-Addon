@@ -1,4 +1,5 @@
 # 「3Dビュー」エリア > プロパティ > レイヤーボタンがあるパネル
+# "3D View" Area > Propaties > Layer Buttons Panel
 
 import bpy
 

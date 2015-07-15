@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ボーングループ」パネル
+# "Propaties" Area > "Armature" Tab > "Bone Groups" Panel
 
 import bpy
 

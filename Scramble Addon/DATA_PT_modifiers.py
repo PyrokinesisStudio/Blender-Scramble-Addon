@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「モディファイア」タブ
+# "Propaties" Area > "Modifiers" Tab
 
 import bpy
 

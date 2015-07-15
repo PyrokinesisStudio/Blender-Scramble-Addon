@@ -1,4 +1,5 @@
-# テキストエディター > 「テキスト」メニュー
+# 「テキストエディター」エリア > 「テキスト」メニュー
+# "Text Editor" Area > "Text" Menu
 
 import bpy
 import os, subprocess

@@ -1,4 +1,5 @@
-# 3Dビュー > メッシュ編集モード > 「X」キー
+# 「3Dビュー」エリア > 「メッシュ編集」モード > 「X」キー
+# "3D View" Area > "Mesh Editor" Mode > "X" Key
 
 import bpy
 import bmesh

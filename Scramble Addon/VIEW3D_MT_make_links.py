@@ -1,4 +1,5 @@
-# 3Dビュー > オブジェクトモード > 「Ctrl+L」キー
+# 「3Dビュー」エリア > 「オブジェクト」モード > 「Ctrl + L」キー
+# "3D View" Area > "Object" Mode > "Ctrl + L" Key
 
 import bpy, bmesh
 

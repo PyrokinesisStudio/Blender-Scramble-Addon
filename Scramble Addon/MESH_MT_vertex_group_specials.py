@@ -1,4 +1,5 @@
-# プロパティ > 「オブジェクトデータ」タブ > 頂点グループ一覧右の▼
+# 「プロパティ」エリア > 「オブジェクトデータ」タブ > 頂点グループリスト右の▼
+# "Propaties" Area > "Object" Tab > VertexGroups List Right ▼
 
 import bpy
 import re

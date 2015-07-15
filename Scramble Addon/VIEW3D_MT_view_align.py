@@ -1,4 +1,5 @@
-# 3Dビュー > 「ビュー」メニュー > 「視点を揃える」メニュー
+# 「3Dビュー」エリア > 「視点を揃える」メニュー
+# "3D View" Area > "View" Menu > "Align View" Menu
 
 import bpy
 

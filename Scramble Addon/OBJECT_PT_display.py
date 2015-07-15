@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「オブジェクト」タブ > 「表示」パネル
+# "Propaties" Area > "Object" Tab > "Display" Panel
 
 import bpy
 

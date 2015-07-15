@@ -1,4 +1,5 @@
-# 情報 > 「ファイル」メニュー > 「外部データ」メニュー
+# 「情報」エリア > 「ファイル」メニュー > 「外部データ」メニュー
+# "Info" Area > "File" Menu > "External Data" Menu
 
 import bpy
 import os, shutil

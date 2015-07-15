@@ -1,4 +1,5 @@
-# ノードエディター > 「ノード」メニュー
+# 「ノードエディター」エリア > 「ノード」メニュー
+# "Node Editor" Area > "Node" Menu
 
 import bpy
 

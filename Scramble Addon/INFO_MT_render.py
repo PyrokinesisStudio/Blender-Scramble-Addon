@@ -1,4 +1,5 @@
-# 情報 > 「レンダー」メニュー
+# 「情報」エリア > 「レンダー」メニュー
+# "Info" Area > "Render" Menu
 
 import bpy
 import sys, subprocess

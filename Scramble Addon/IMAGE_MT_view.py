@@ -1,4 +1,5 @@
-# UV/画像エディター > 「ビュー」メニュー
+# 「UV/画像エディター」エリア > 「ビュー」メニュー
+# "UV/Image Editor" Area > "View" Menu
 
 import bpy
 

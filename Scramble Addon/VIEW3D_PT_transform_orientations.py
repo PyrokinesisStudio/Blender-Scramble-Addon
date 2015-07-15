@@ -1,4 +1,5 @@
 # 「3Dビュー」エリア > プロパティ > 「トランスフォーム座標系」パネル
+# "3D View" Area > Propaties > "Transform Orientations" Panel
 
 import bpy
 

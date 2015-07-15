@@ -1,4 +1,5 @@
-# 3Dビュー > 「ビュー」メニュー
+# 「3Dビュー」エリア > 「ビュー」メニュー
+# "3D View" Area > "View" Menu
 
 import bpy, mathutils
 import os, csv

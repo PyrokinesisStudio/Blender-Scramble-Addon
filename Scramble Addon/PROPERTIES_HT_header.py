@@ -1,4 +1,5 @@
-# プロパティ > ヘッダー
+# 「プロパティ」エリア > ヘッダー
+# "Propaties" Area > Header
 
 import bpy
 

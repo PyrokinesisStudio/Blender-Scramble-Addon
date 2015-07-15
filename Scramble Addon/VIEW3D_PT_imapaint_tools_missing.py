@@ -1,4 +1,5 @@
-# 「3Dビュー」エリア > テクスチャペイント > ツールシェルフ > 「データなし」パネル
+# 「3Dビュー」エリア > 「テクスチャペイント」モード > ツールシェルフ > 「データなし」パネル
+# "3D View" Area > "Texture Paint" Mode > Tool Shelf > "Missing Data" Panel
 
 import bpy
 

@@ -1,4 +1,5 @@
-# 3Dビュー > ポーズモード > 「W」キー
+# 「3Dビュー」エリア > 「ポーズ」モード > 「W」キー
+# "3D View" Area > "Pose" Mode > "W" Key
 
 import bpy
 import re, math

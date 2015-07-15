@@ -32,7 +32,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 
 ## 機能一覧 (List of functions)
 * **「プロパティ」エリア > 「ボーン」タブ**
-* **―('Properties' area > see bones tab)**
+* **―("Propaties" Area > "Bone" Tab)**
     * **ボーン名をクリップボードにコピー**
     * **―(Bone name to Clipboard)**
         * ボーン名をクリップボードにコピーします
@@ -47,7 +47,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Adds string to active bone name)
   
 * **「プロパティ」エリア > 「ボーン」タブ > 「インバースキネマティクス (IK)」パネル**
-* **―("Properties" areas ""Bourne"tab >"inverse kinematics (IK)"Panel)**
+* **―("Propaties" Area > "Bone" Tab > "Inverse Kinematics" Panel)**
     * **このIK設定をコピー**
     * **―(Copy IK Setting)**
         * アクティブなボーンのIK設定を、他の選択ボーンにコピーします
@@ -62,14 +62,14 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Copy other axis on one axis)
   
 * **「プロパティ」エリア > 「ボーン」タブ > 「トランスフォーム」パネル**
-* **―(Area "Properties" > "Bourne" tab > "transform" Panel)**
+* **―("Propaties" Area > "Bone" Tab > "Transform" Panel)**
     * **ボーンの変形をコピー**
     * **―(Copy Bone Transform)**
         * アクティブなボーンの変形情報を、他の選択ボーンにコピーします
         * ―(Copy selected bones of other active bone deformation information)
   
 * **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ボーングループ」パネル**
-* **―('Properties' area > armature data tab > bone groups Panel)**
+* **―("Propaties" Area > "Armature" Tab > "Bone Groups" Panel)**
     * **このボーングループのボーンのみ表示**
     * **―(Show only bone bones group)**
         * アクティブなボーングループのみを表示し、その他のボーンを隠します
@@ -80,7 +80,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Active bone group show or hide)
   
 * **「プロパティ」エリア > 「カーブデータ」タブ > 「ジオメトリ」パネル**
-* **―('Properties' area > see these curves"tab >"geometry"Panel)**
+* **―("Propaties" Area > "Curve" Tab > "Geometry" Panel)**
     * **ジオメトリ設定をコピー**
     * **―(Copy Geometry Settings)**
         * アクティブなカーブオブジェクトのジオメトリパネルの設定を、他の選択カーブにコピーします
@@ -103,7 +103,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Activates curve as beveled objects using this curve)
   
 * **「プロパティ」エリア > 「モディファイア」タブ**
-* **―(Area properties > tab "modifiers")**
+* **―("Propaties" Area > "Modifiers" Tab)**
     * **全モディファイア適用**
     * **―(Apply All Modifiers)**
         * 選択オブジェクトの全てのモディファイアを適用します
@@ -174,7 +174,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Quickly apply curve modifier with modifiers array replication)
   
 * **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ポーズライブラリ」パネル**
-* **―('Properties' area > armature data tab > pose library panel)**
+* **―("Propaties" Area > "Armature" Tab > "Pose Library" Panel)**
     * **ポーズライブラリを並び替え**
     * **―(Pose Library Sort)**
         * アクティブなポーズライブラリのポーズを並び替えます
@@ -185,28 +185,28 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Active pose of pose library moves to top/bottom)
   
 * **「プロパティ」エリア > 「カーブデータ」タブ > 「シェイプ」パネル**
-* **―('Properties' area > see these curves"tab >"shapes"Panel)**
+* **―("Propaties" Area > "Armature" Tab > "Shape" Panel)**
     * **シェイプ設定をコピー**
     * **―(Copy shape settings)**
         * アクティブなカーブのシェイプ設定を、他の選択カーブにコピーします
         * ―(Copy selected curve other active curve shape settings)
   
 * **「プロパティ」エリア > 「オブジェクト」タブ > 「トランスフォーム」パネル**
-* **―(Area "Properties" > "object" tab > "transform" Panel)**
+* **―("Propaties" Area > "Object" Tab > "Transform" Panel)**
     * **シェイプキー名をオブジェクト名に**
     * **―(Shape key name from object name)**
         * シェイプキーの名前をオブジェクト名と同じにします
         * ―(Same as object name name of shape key)
   
 * **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「スケルトン」パネル**
-* **―('Properties' area > armature data tab > "skeleton" Panel)**
+* **―("Propaties" Area > "Armature" Tab > "Skeleton" Panel)**
     * **全ボーンレイヤーを表示**
     * **―(View all bone layer)**
         * 全てのボーンレイヤーをオンにして表示します
         * ―(All bone layer and then displays the)
   
-* **プロパティ > "メッシュデータ"タブ > "UVマップ"パネル**
-* **―(Properties > "data mesh" tab > "UV map" Panel)**
+* **「プロパティ」エリア > 「メッシュデータ」タブ > 「UVマップ」パネル**
+* **―("Propaties" Area > "Mesh" Tab > "UV Maps" Panel)**
     * **まとめてUVをリネーム**
     * **―(Altogether Rename UV)**
         * 選択オブジェクト内の指定UVをまとめて改名します
@@ -228,8 +228,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなオブジェクトのUVを移動して並び替えます
         * ―(Sorts, by moving active object's UV)
   
-* **プロパティ > "メッシュデータ"タブ > "頂点色"パネル**
-* **―(Properties > "data mesh" tab > "vertex color Panel)**
+* **「プロパティ」エリア > 「メッシュデータ」タブ > 「頂点色」パネル**
+* **―("Propaties" Area > "Mesh" Tab > "Vertex Colors" Panel)**
     * **頂点色を移動**
     * **―(Move Vertex Color)**
         * アクティブなオブジェクトの頂点色を移動して並び替えます
@@ -243,8 +243,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中のメッシュオブジェクト全てに色と名前を指定して頂点カラーを追加します
         * ―(Specify color and name all selected mesh object, adds vertex color)
   
-* **ドープシート > 「キー」メニュー**
-* **―(Dope sheet "menu"key")**
+* **「ドープシート」エリア > 「キー」メニュー**
+* **―("Dope Sheet" Area > "Key" Menu)**
     * **キーフレームを削除 (確認しない)**
     * **―(Delete keyframes (not verified))**
         * 選択した全てのキーフレームを確認せずに削除します
@@ -254,8 +254,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 全てのアクションの重複したキーフレームを削除します
         * ―(Remove keyframe duplicates for all actions)
   
-* **UV/画像エディター > 「画像」メニュー**
-* **―(UV / image editor > image menu)**
+* **「UV/画像エディター」エリア > 「画像」メニュー**
+* **―("UV/Image Editor" Area > "Image" Menu)**
     * **画像名を使用するファイル名に**
     * **―(Image name from file name)**
         * アクティブな画像の名前を、使用している外部画像のファイル名にします
@@ -349,22 +349,22 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブな画像のサイズを変更します
         * ―(Change size of active image)
   
-* **UV/画像エディター > 「選択」メニュー**
-* **―(UV / image editor > select menu)**
+* **「UV/画像エディター」エリア > 「選択」メニュー**
+* **―("UV/Image Editor" Area > "Select" Menu)**
     * **分離している頂点を選択**
     * **―(Select Vertex Isolated)**
         * シームによって分離している頂点を選択します
         * ―(Select vertices are isolated by seam)
   
-* **UV/画像エディター > 「UV」メニュー**
-* **―(UV / image editor > "UV" menu)**
+* **「UV/画像エディター」エリア > 「UV」メニュー**
+* **―("UV/Image Editor" Area > "UV" Menu)**
     * **UVをメッシュに変換**
     * **―(Convert UV to mesh)**
         * アクティブなUVを新規メッシュに変換します
         * ―(Converts new mesh to UV active)
   
-* **UV/画像エディター > 「ビュー」メニュー**
-* **―(UV / image editor > View menu)**
+* **「UV/画像エディター」エリア > 「ビュー」メニュー**
+* **―("UV/Image Editor" Area > "View" Menu)**
     * **カーソルの位置をリセット**
     * **―(Reset Cursor Position)**
         * 2Dカーソルの位置を左下に移動させます
@@ -383,7 +383,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―("Panel both hide" => "show only tool shelf => show only properties. toggle)
   
 * **「情報」エリア > 「ファイル」メニュー**
-* **―(Area information">"file"menu)**
+* **―("Info" Area > "File" Menu)**
     * **再起動**
     * **―(Restart)**
         * Blenderを再起動します
@@ -453,8 +453,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 物理演算などの開始/終了フレームを設定する部分にレンダリング開始/終了フレーム数を割り当てます
         * ―(Assign render start / end frames portions to set start / end frames, such as physics)
   
-* **情報 > 「ファイル」メニュー > 「外部データ」メニュー**
-* **―(Information > "file" menu > "external data" menu)**
+* **「情報」エリア > 「ファイル」メニュー > 「外部データ」メニュー**
+* **―("Info" Area > "File" Menu > "External Data" Menu)**
     * **全ての画像をtexturesフォルダに保存し直す**
     * **―(Resave textures folder, all images)**
         * 外部ファイルを参照している画像データを全てtexturesフォルダに保存し直します
@@ -472,8 +472,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ファイルブラウザのブックマークをBlenderのテキストエディタで開きます
         * ―(Blender text editor open file browser bookmarks)
   
-* **3Dビュー > オブジェクト/メッシュ編集モード > 「追加」メニュー > 「メッシュ」メニュー**
-* **―(3D view > object / mesh edit mode > "add" menu > "mesh" menu)**
+* **「3Dビュー」エリア > 「追加」メニュー > 「メッシュ」メニュー**
+* **―("3D View" Area > "Add" Menu > "Mesh" Menu)**
     * **四角ポリゴン球**
     * **―(Square Polygon Sphere)**
         * 四角ポリゴンのみで構成された球体メッシュを追加します
@@ -487,8 +487,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 頂点グループの適用されている部分ごとに分離したメッシュ群を作成します
         * ―(Create separate each part of vertex groups applied mesh group)
   
-* **情報 > 「レンダー」メニュー**
-* **―(Information > "render" menu)**
+* **「情報」エリア > 「レンダー」メニュー**
+* **―("Info" Area > "Render" Menu)**
     * **解像度の倍率を設定**
     * **―(Set multi of resolution)**
         * 設定解像度の何パーセントの大きさでレンダリングするか設定します
@@ -510,8 +510,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 全オブジェクトのレンダリング時に適用するサブサーフの細分化レベルを、プレビューでのレベルへと設定します
         * ―(Granularity of Subsurf apply when rendering entire object sets level in preview)
   
-* **情報 > 「ウィンドウ」メニュー**
-* **―(Information > window menu)**
+* **「情報」エリア > 「ウィンドウ」メニュー**
+* **―("Info" Area > "Window" Menu)**
     * **エディタータイプ**
     * **―(Editor Type)**
         * エディタータイプ変更のパイメニューです
@@ -521,8 +521,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * インターフェイスの英語と日本語を切り替えます
         * ―(Switch interface English, Japan,)
   
-* **プロパティ > 「マテリアル」タブ > リスト右の▼**
-* **―(Properties > materials"tab > list right down:)**
+* **「プロパティ」エリア > 「マテリアル」タブ > リスト右の▼**
+* **―("Propaties" Area > "Material" Tab > List Right ▼)**
     * **割り当てのないマテリアルを削除**
     * **―(Delete Non-assignment Material)**
         * 面に一つも割り当てられてないマテリアルを全て削除します
@@ -548,8 +548,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなマテリアルスロットを一番下に移動させます
         * ―(Move active material slot at bottom)
   
-* **プロパティ > 「オブジェクトデータ」タブ > シェイプキー一覧右の▼**
-* **―(Properties > object data tab > the right shape key list ▼)**
+* **「プロパティ」エリア > 「オブジェクトデータ」タブ > シェイプキーリスト右の▼**
+* **―("Propaties" Area > "Object" Tab > ShapeKeys List Right ▼)**
     * **シェイプキーを複製**
     * **―(Duplicate Shape Key)**
         * アクティブなシェイプキーを複製します
@@ -579,8 +579,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 全てのシェイプキーを無効化、もしくは有効化します
         * ―(All shape key to disable or enable the)
   
-* **プロパティ > 「オブジェクトデータ」タブ > 頂点グループ一覧右の▼**
-* **―(Properties > object data tab > vertex group list right down:)**
+* **「プロパティ」エリア > 「オブジェクトデータ」タブ > 頂点グループリスト右の▼**
+* **―("Propaties" Area > "Object" Tab > VertexGroups List Right ▼)**
     * **空の頂点グループを削除**
     * **―(Delete empty vertex groups)**
         * メッシュにウェイトが割り当てられていない頂点グループを削除します
@@ -610,15 +610,15 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 指定した文字列が名前に含まれている頂点グループを全て削除します
         * ―(Removes all vertex group names contains specified string)
   
-* **ノードエディター > 「ノード」メニュー**
-* **―(Nordeditor > 'nodes' menu)**
+* **「ノードエディター」エリア > 「ノード」メニュー**
+* **―("Node Editor" Area > "Node" Menu)**
     * **このシェーダーノードを他マテリアルにコピー**
     * **―(Copy to other material shader node)**
         * 表示しているシェーダーノードを他のマテリアルにコピーします
         * ―(Copies of other material shader nodes are displayed)
   
 * **「ノードエディター」エリア > 「ビュー」メニュー**
-* **―(Area "nordeditor" > "view" menu)**
+* **―("Node Editor" Area > "View" Menu)**
     * **パネル表示切り替え(モードA)**
     * **―(Toggle Panel (mode A))**
         * プロパティ/ツールシェルフの「両方表示」/「両方非表示」をトグルします
@@ -633,7 +633,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―("Panel both hide" => "show only tool shelf => show only properties. toggle)
   
 * **「プロパティ」エリア > 「オブジェクト」タブ**
-* **―(Area 'properties' > 'objects' tab)**
+* **―("Propaties" Area > "Object" Tab)**
     * **オブジェクト名をデータ名に**
     * **―(Object name to data name)**
         * オブジェクト名をリンクしているデータ名に設定します
@@ -652,21 +652,21 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Copies data to Clipboard)
   
 * **「プロパティ」エリア > 「オブジェクト」タブ > 「表示」パネル**
-* **―(Area "Properties" > "object" tab > "Panel")**
+* **―("Propaties" Area > "Object" Tab > "Display" Panel)**
     * **表示設定をコピー**
     * **―(Copy Display Setting)**
         * この表示設定を他の選択オブジェクトにコピーします
         * ―(Copy selected objects of other display settings)
   
 * **「プロパティ」エリア > 「物理演算」タブ > 「剛体」パネル**
-* **―("Properties" area: "Physics" tab > "rigid" Panel)**
+* **―("Propaties" Area > "Physics" Tab > "Rigid Body" Panel)**
     * **剛体設定をコピー**
     * **―(Copy rigid body setting)**
         * アクティブなオブジェクトの剛体設定を、他の選択オブジェクトにコピーします
         * ―(Copy selected objects of other rigid set of active objects)
   
 * **「プロパティ」エリア > 「物理演算」タブ > 「剛体コンストレイント」パネル**
-* **―("Properties" area: "Physics" tab > rigid constraints Panel)**
+* **―("Propaties" Area > "Physics" Tab > "Rigid Body Constraint" Panel)**
     * **剛体コンストレイント設定をコピー**
     * **―(Copy rigidbody constraints settings)**
         * アクティブなオブジェクトの剛体コンストレイント設定を、他の選択オブジェクトにコピーします
@@ -680,29 +680,29 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなオブジェクトの剛体コンストレイントの制限設定の最小と最大を反転させます
         * ―(Minimum limit settings of rigid constraints of active object and reverses maximum)
   
-* **プロパティ > ヘッダー**
-* **―(Properties > header)**
+* **「プロパティ」エリア > ヘッダー**
+* **―("Propaties" Area > Header)**
     * **プロパティタブを切り替え**
     * **―(Switch Properties Tab)**
         * プロパティのタブを順番に切り替えます
         * ―(Turn switch Properties tab)
   
 * **「プロパティ」エリア > 「レンダー」タブ > 「ベイク」パネル**
-* **―("Properties" area: "render" tab > "bake" Panel)**
+* **―("Propaties" Area > "Render" Tab > "Bake" Panel)**
     * **ベイク用の画像を作成**
     * **―(New image for bake)**
         * ベイクに使う新規画像を素早く用意可能です
         * ―(New images used to bake quickly, is available)
   
 * **「プロパティ」エリア > 「レンダー」タブ > 「レンダー」パネル**
-* **―("Properties" area: "render" tab > "render" Panel)**
+* **―("Propaties" Area > "Render" Tab > "Render" Panel)**
     * **バックグラウンドでレンダリング**
     * **―(Background Rendering)**
         * コマンドラインから現在のblendファイルをレンダリングします
         * ―(Renders current blend file from command line)
   
 * **「プロパティ」エリア > 「シーン」タブ > 「剛体ワールド」パネル**
-* **―(Area "Properties" > "scenes" tab > rigid World Panel)**
+* **―("Propaties" Area > "Scene" Tab > "Rigid Body World" Panel)**
     * **剛体ワールドを作り直す**
     * **―(Recreate RigidBody World)**
         * 設定は維持して剛体ワールドを作り直します
@@ -712,8 +712,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 剛体ワールドの開始/終了フレームをレンダリングの開始/終了フレームへと設定します
         * ―(Start / end frame rigid world of sets to start / end frame rendering)
   
-* **プロパティ > 「テクスチャ」タブ > リスト右の▼**
-* **―(Properties > "texture" tab > the list right down:)**
+* **「プロパティ」エリア > 「テクスチャ」タブ > リスト右の▼**
+* **―("Propaties" Area > "Texture" Tab > List Right ▼)**
     * **テクスチャ名を使用する画像ファイル名に**
     * **―(Image file names using texture name)**
         * アクティブなテクスチャの名前を使用している外部画像のファイル名にします
@@ -744,7 +744,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Remove all active texture slot below)
   
 * **「プロパティ」エリア > 「テクスチャ」タブ > 「画像」パネル**
-* **―(Area "Properties" > "texture" tab > "images" Panel)**
+* **―("Propaties" Area > "Texture" Tab > "Image" Panel)**
     * **テクスチャ画像をUV/画像エディターに表示**
     * **―(Texture images show in UV / image editor)**
         * アクティブなテクスチャに使われている画像を「UV/画像エディター」に表示します
@@ -755,28 +755,28 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Active texture provides texture paint)
   
 * **「プロパティ」エリア > 「テクスチャ」タブ > 「マッピング」パネル**
-* **―(Area "Properties" > "texture" tab > "mapping Panel)**
+* **―("Propaties" Area > "Texture" Tab > "Mapping" Panel)**
     * **アクティブなUVを使う**
     * **―(Use Active UV)**
         * メッシュのアクティブなUVを、このスロットで使います
         * ―(Active UV mesh used in this slot)
   
-* **テキストエディター > 「テキスト」メニュー**
-* **―(Text editor > text menu)**
+* **「テキストエディター」エリア > 「テキスト」メニュー**
+* **―("Text Editor" Area > "Text" Menu)**
     * **外部エディターで編集**
     * **―(Edit with external editor)**
         * ユーザー設定のファイルタブで設定した外部エディターでテキストを開きます
         * ―(Open text in an external editor you set on files page of custom)
   
 * **メニューに表示されないコマンド**
-* **―(Missing menu commands)**
+* **―(Undisplay Commands)**
     * **最後までスクロール**
     * **―(Scroll End)**
         * 画面の一番下までスクロールします
         * ―(Scroll to bottom of screen)
   
-* **ユーザー設定 > ヘッダー**
-* **―(User settings > header)**
+* **「ユーザー設定」エリア > ヘッダー**
+* **―("User Prefences" Area > Header)**
     * **ユーザー設定タブを切り替え**
     * **―(Switch user prefences tab)**
         * ユーザー設定のタブを順番に切り替えます
@@ -827,7 +827,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ―(Show or hide turn on/off additional items button at end of menu by ScrambleAddon)
   
 * **「ユーザー設定」エリア > 「ファイル」タブ**
-* **―("User settings" > "files" tab)**
+* **―("User Prefences" Area > "File" Tab)**
     * **.blendファイルをこのバージョンに関連付け**
     * **―(.blend file associated with this version)**
         * .blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
@@ -837,8 +837,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * .blend1 .blend2 などのバックアップファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
         * ―(associates with Blender running file backup file, such as.blend1.blend2 (WindowsOS only))
   
-* **3Dビュー > アーマチュア編集モード > 「W」キー**
-* **―(3D view > armature edit mode > 'W' key)**
+* **「3Dビュー」エリア > 「アーマチュア編集」モード > 「W」キー**
+* **―("3D View" Area > "Armature Editor" Mode > "W" Key)**
     * **選択ボーンをミラーリング**
     * **―(Select Bones Mirroring)**
         * 選択中のボーンを任意の軸でミラーリングします
@@ -856,8 +856,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中ボーンのX軸反対側の位置にあるボーンを「○.R ○.L」のように対にします
         * ―(Bone is located opposite X axis selection in bone "1.R longs 1.L ' of so versus the)
   
-* **3Dビュー > アーマチュア編集モード > 「Shift+W」キー**
-* **―(3D view > armature edit mode > Shift + W key)**
+* **「3Dビュー」エリア > 「アーマチュア編集」モード > 「Shift + W」キー**
+* **―("3D View" Area > "Armature Editor" Mode > "Shift + W" Key)**
     * **ボーン名をまとめて設定**
     * **―(Set Bone Names)**
         * 選択中のボーンの名前をまとめて設定します
@@ -883,8 +883,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなボーンのIKのチェーンの長さを第二選択ボーンへの長さへと設定します
         * ―(Chose second length of active bone IK chain to length to bones and set the)
   
-* **3Dビュー > アーマチュア編集モード > 「アーマチュア」メニュー**
-* **―(3D view > armature edit mode > "armature" menu)**
+* **「3Dビュー」エリア > 「アーマチュア編集」モード > 「アーマチュア」メニュー**
+* **―("3D View" Area > "Armature Editor" Mode > "Armature" Menu)**
     * **確認無しでボーンを削除**
     * **―(Delete bone without confirm)**
         * ボーンを確認無しで削除します
@@ -894,8 +894,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 相対的なボーンの尾(根本でも可)の位置をそのままに、ボーンを3Dカーソルの位置へ移動させます
         * ―(Position of relative born tail (even root), bone, 3 D move cursor position)
   
-* **3Dビュー > メッシュ編集モード > 「メッシュ」メニュー**
-* **―(3D view > mesh edit mode > mesh menu)**
+* **「3Dビュー」エリア > 「メッシュ編集」モード > 「メッシュ」メニュー**
+* **―("3D View" Area > "Mesh Editor" Mode > "Mesh" Menu)**
     * **メッシュ選択モードの切り替え**
     * **―(Switch mesh select mode)**
         * メッシュ選択モードを頂点→辺→面…と切り替えます
@@ -909,8 +909,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * プロポーショナル編集のパイメニューです
         * ―(Is pie menu proportional edit)
   
-* **3Dビュー > メッシュ編集モード > 「X」キー**
-* **―(3D view > mesh edit mode > 'X' key)**
+* **「3Dビュー」エリア > 「メッシュ編集」モード > 「X」キー**
+* **―("3D View" Area > "Mesh Editor" Mode > "X" Key)**
     * **選択モードと同じ要素を削除**
     * **―(Remove same element to selection mode)**
         * 現在のメッシュ選択モードと同じ要素(頂点・辺・面)を削除します
@@ -920,8 +920,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 隠している状態のメッシュを全て削除します
         * ―(Delete all are mesh)
   
-* **3Dビュー > メッシュ編集モード > 「メッシュ」メニュー > 「表示/隠す」メニュー**
-* **―(3D view > mesh edit mode > mesh menu > show / hide menu)**
+* **「3Dビュー」エリア > 「メッシュ編集」モード > 「メッシュ」メニュー > 「表示/隠す」メニュー**
+* **―("3D View" Area > "Mesh Editor" Mode > "Mesh" Menu > "Show/Hide" Menu)**
     * **表示/隠すを反転**
     * **―(Invert Show/Hide)**
         * 表示状態と非表示状態を反転させます
@@ -935,8 +935,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 1頂点以上を選択しているメッシュパーツを隠します
         * ―(Hides mesh part has selected more than one top)
   
-* **3Dビュー > メッシュ編集モード > 「W」キー**
-* **―(3D view > mesh edit mode > 'W' key)**
+* **「3Dビュー」エリア > 「メッシュ編集」モード > 「W」キー**
+* **―("3D View" Area > "Mesh Editor" Mode > "W" Key)**
     * **選択頂点の頂点カラーを塗り潰す**
     * **―(Paint out selected vertex color)**
         * 選択中の頂点のアクティブ頂点カラーを指定色で塗り潰します
@@ -958,8 +958,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択頂点のウェイトの平均で、選択頂点を塗り潰します
         * ―(Fills selected vertex, vertices weighted average)
   
-* **3Dビュー > メッシュ編集モード > 「Ctrl+V」キー**
-* **―(3D view > mesh edit mode > Ctrl + V keys)**
+* **「3Dビュー」エリア > 「メッシュ編集」モード > 「Ctrl + V」キー**
+* **―("3D View" Area > "Mesh Editor" Mode > "Ctrl + V" Key)**
     * **別オブジェクトに分離 (拡張)**
     * **―(Separate (Advance))**
         * 「別オブジェクトに分離」の拡張メニューを呼び出します
@@ -977,8 +977,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * もう1つの選択メッシュに、選択頂点をぺったりとくっつけます
         * ―(Another one you mesh selected vertices pettanko!, glue)
   
-* **3Dビュー > オブジェクトモード > 「Ctrl+L」キー**
-* **―(3D view > mode > Ctrl + L key)**
+* **「3Dビュー」エリア > 「オブジェクト」モード > 「Ctrl + L」キー**
+* **―("3D View" Area > "Object" Mode > "Ctrl + L" Key)**
     * **オブジェクト名を同じに**
     * **―(Sync Object Name)**
         * 他の選択オブジェクトにアクティブオブジェクトの名前をリンクします
@@ -1012,8 +1012,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブオブジェクトの変形情報を、他の選択オブジェクトにコピーします
         * ―(Information of active object copies to other selected objects)
   
-* **3Dビュー > オブジェクトモード > 「オブジェクト」メニュー**
-* **―(3D view > mode > object menu)**
+* **「3Dビュー」エリア > 「オブジェクト」モード > 「オブジェクト」メニュー**
+* **―("3D View" Area > "Object" Mode > "Object" Menu)**
     * **コピー**
     * **―(Copy)**
         * オブジェクトに関するコピーのパイメニューです
@@ -1035,15 +1035,15 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 削除する時の確認メッセージを表示せずにオブジェクトを削除します
         * ―(Deletes object without displaying confirmation message when deleting)
   
-* **3Dビュー > オブジェクトモード > Ctrl+Aキー**
-* **―(3D view > mode > CTRL + A)**
+* **「3Dビュー」エリア > 「オブジェクト」モード > 「Ctrl + A」キー**
+* **―("3D View" Area > "Object" Mode > "Ctrl + A" Key)**
     * **位置/回転/拡縮を適用**
     * **―(Apply Location/Rotation/Scale)**
         * オブジェクトの位置/回転/拡縮を適用します
         * ―(Applies to object position / rotation / Pan)
   
-* **3Dビュー > オブジェクトモード > 「オブジェクト」メニュー > 「表示/隠す」メニュー**
-* **―(3D view > mode > object menu > show / hide menu)**
+* **「3Dビュー」エリア > 「オブジェクト」モード > 「オブジェクト」メニュー > 「表示/隠す」メニュー**
+* **―("3D View" Area > "Object" Mode > "Object" Menu > "Show/Hide" Menu)**
     * **隠したものを表示 (非選択)**
     * **―(Show Hidden (non-select))**
         * 隠していたオブジェクトを再び表示します、選択はしません
@@ -1061,8 +1061,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 表示されている特定タイプのオブジェクト以外を隠します
         * ―(Hides object non-specific type that is displayed)
   
-* **3Dビュー > オブジェクトモード > 「W」キー**
-* **―(3D view > mode > 'W' key)**
+* **「3Dビュー」エリア > 「オブジェクト」モード > 「W」キー**
+* **―("3D View" Area > "Object" Mode > "W" Key)**
     * **ウェイト転送**
     * **―(Weight Transfer)**
         * 他の選択中のメッシュからアクティブにウェイトペイントを転送します
@@ -1148,8 +1148,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * カーブに設定されているベベルオブジェクトを選択カーブの断面へと移動させます
         * ―(Curve beveled objects that move and selection curve section)
   
-* **3Dビュー > ウェイトペイントモード > 「ウェイト」メニュー**
-* **―(3D view > weight paint mode > "weight" menu)**
+* **「3Dビュー」エリア > 「ウェイトペイント」モード > 「ウェイト」メニュー**
+* **―("3D View" Area > "Weight Paint" Mode > "Weights" Menu)**
     * **ウェイト同士の合成**
     * **―(Combine Weights)**
         * 選択中のボーンと同じ頂点グループのウェイトを合成します
@@ -1171,15 +1171,15 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブ、もしくは全ての頂点グループをぼかします
         * ―(Blurs active or all vertex groups)
   
-* **3Dビュー > ポーズモード > 「ポーズ」メニュー > 「コンストレイント」メニュー**
-* **―(3D view "pause mode" "pause" menu > "constraint" menu)**
+* **「3Dビュー」エリア > 「ポーズ」モード > 「ポーズ」メニュー > 「コンストレイント」メニュー**
+* **―("3D View" Area > "Pose" Mode > "Pose" Menu > "Constraints" Menu)**
     * **IK回転制限をコンストレイント化**
     * **―(IK Rotation Limit to Constraints)**
         * IKの回転制限設定をコンストレイントの回転制限設定にコピー
         * ―(Copy rotation constraint restrictions IK rotation restriction settings)
   
-* **3Dビュー > ポーズモード > 「ポーズ」メニュー > 「表示/隠す」メニュー**
-* **―(3D view "pause mode" "pause" menu > show / hide menu)**
+* **「3Dビュー」エリア > 「ポーズ」モード > 「ポーズ」メニュー > 「表示/隠す」メニュー**
+* **―("3D View" Area > "Pose" Mode > "Pose" Menu > "Show/Hide" Menu)**
     * **選択しているものを選択不可に**
     * **―(Selected To Unselectible)**
         * 選択しているボーンを選択不可能にします
@@ -1189,8 +1189,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 全ての選択不可設定のボーンを選択可能にします
         * ―(non-selection of all bone)
   
-* **3Dビュー > ポーズモード > 「W」キー**
-* **―(3D view > pause mode > 'W' key)**
+* **「3Dビュー」エリア > 「ポーズ」モード > 「W」キー**
+* **―("3D View" Area > "Pose" Mode > "W" Key)**
     * **カスタムシェイプを作成**
     * **―(Create CustomShape)**
         * 選択ボーンのカスタムシェイプを作成します
@@ -1244,8 +1244,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 現在のボーンの回転状態を、IKやコンストレイントの回転制限へと設定します
         * ―(Current bone rotation sets to rotation limit constraints and IK)
   
-* **3Dビュー > メッシュ編集モード > 「選択」メニュー**
-* **―(3D view > mesh edit mode > select menu)**
+* **「3Dビュー」エリア > 「メッシュ編集」モード > 「選択」メニュー**
+* **―("3D View" Area > "Mesh Edit" Mode > "Select" Menu)**
     * **X=0の頂点を選択**
     * **―(Select Vertex X=0)**
         * X=0の頂点を選択する
@@ -1255,8 +1255,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * メッシュの右半分を選択します(その他設定も有)
         * ―(Select right half of mesh (other settings too))
   
-* **3Dビュー > オブジェクトモード > 「選択」メニュー**
-* **―(3D view > mode > select menu)**
+* **「3Dビュー」エリア > 「オブジェクト」モード > 「選択」メニュー**
+* **―("3D View" Area > "Object" Mode > "Select" Menu)**
     * **サイズで比較してオブジェクトを選択**
     * **―(In size compared to object)**
         * 最大オブジェクトに対して大きい、もしくは小さいオブジェクトを選択します
@@ -1306,8 +1306,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 面と辺と頂点が無い空のメッシュオブジェクトを選択します
         * ―(Surface and edge and select mesh object vertex is not empty)
   
-* **3Dビュー > ポーズモード > 「選択」メニュー**
-* **―(3D view > pause mode > select menu)**
+* **「3Dビュー」エリア > 「ポーズ」モード > 「選択」メニュー**
+* **―("3D View" Area > "Pose" Mode > "Select" Menu)**
     * **連番の付いたボーンを選択**
     * **―(Select Numbered Bone)**
         * X.001 のように番号の付いた名前のボーンを選択します
@@ -1349,8 +1349,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * カーソル部分のボーンを選択し、そこまでの経路も選択します
         * ―(Select path to it, select cursor part bone and)
   
-* **3Dビュー > Shift+S**
-* **―(3Dビュー > Shift+S)**
+* **「3Dビュー」エリア > 「Shift + S」キー**
+* **―("3D View" Area > "Shift + S" Key)**
     * **メッシュに3Dカーソルをスナップ**
     * **―(3D Cursor Snap to Mesh)**
         * マウス下のメッシュ面上に3Dカーソルを移動させます(ショートカットに登録してお使い下さい)
@@ -1364,15 +1364,15 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 3Dカーソルを遥か遠くに移動させて非表示のように見せかけます
         * ―(Pretend to hide 3D cursor to move far far away)
   
-* **3Dビュー > メッシュ編集モード > 「U」キー**
-* **―(3D view > mesh edit mode > "U" key)**
+* **「3Dビュー」エリア > 「メッシュ編集」モード > 「U」キー**
+* **―("3D View" Area > "Mesh Edit" Mode > "U" Key)**
     * **他のUVからコピー**
     * **―(Copy from other UV)**
         * 選択部分のアクティブなUV展開を、他のUVからコピーしてきます
         * ―(Active UV unwrapping of selection can be copied from other UV)
   
-* **3Dビュー > 「ビュー」メニュー**
-* **―(3D view > View menu)**
+* **「3Dビュー」エリア > 「ビュー」メニュー**
+* **―("3D View" Area > "View" Menu)**
     * **グローバルビュー/ローカルビュー(非ズーム)**
     * **―(Global / local view (non-zoom))**
         * 選択したオブジェクトのみを表示し、視点の中央に配置します(ズームはしません)
@@ -1410,8 +1410,8 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * パネル表示切り替えのパイメニューです
         * ―(Is pie menu toggle Panel)
   
-* **3Dビュー > 「ビュー」メニュー > 「視点を揃える」メニュー**
-* **―(3D view > View menu > align View menu)**
+* **「3Dビュー」エリア > 「視点を揃える」メニュー**
+* **―("3D View" Area > "View" Menu > "Align View" Menu)**
     * **選択部分を表示 (非ズーム)**
     * **―(Show Selected (non-zoom))**
         * 選択中の物に3D視点の中心を合わせます(ズームはしません)
@@ -1441,36 +1441,36 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * マウス下のメッシュ面上に視点と3Dカーソルを移動させます (ショートカットに登録してお使い下さい)
         * ―((Please use shortcuts) move viewpoint and 3D cursor mesh surface under mouse)
   
-* **3Dビュー > 「ビュー」メニュー > 「視点を揃える」メニュー > 「アクティブに視点を揃える」メニュー**
-* **―(3D view > View menu > align View menu > menu align view active)**
+* **「3Dビュー」エリア > 「視点を揃える」メニュー > 「アクティブに視点を揃える」メニュー**
+* **―("3D View" Area > "View" Menu > "Align View" Menu > "Align View to Active" Menu)**
     * **面を正面から見る**
     * **―(View Front)**
         * 選択中の面の法線方向から面を注視します
         * ―(watch face from selected surface normal direction)
   
 * **「3Dビュー」エリア > プロパティ > レイヤーボタンがあるパネル**
-* **―(3D view area > properties > the layer button panel)**
+* **―("3D View" Area > Propaties > Layer Buttons Panel)**
     * **グループで表示/非表示を切り替え**
     * **―(Toggle show / hide groups)**
         * 所属しているグループで表示/非表示を切り替えます
         * ―(Switch Show / Hide group has)
   
-* **「3Dビュー」エリア > テクスチャペイント > ツールシェルフ > 「スロット」パネル**
-* **―(3D view area > texture paint > tool shelf > see slot Panel)**
+* **「3Dビュー」エリア > 「テクスチャペイント」モード > ツールシェルフ > 「スロット」パネル**
+* **―("3D View" Area > "Texture Paint" Mode > Tool Shelf > "Slots" Panel)**
     * **アクティブなテクスチャスロットを塗る**
     * **―(Apply active texture slot)**
         * アクティブなペイントスロットをアクティブなテクスチャスロットにします
         * ―(active texture slot slot active paint)
   
-* **UV/画像エディター > 「画像」メニュー**
-* **―(UV / image editor > image menu)**
+* **「UV/画像エディター」エリア > 「画像」メニュー**
+* **―("UV/Image Editor" Area > "Image" Menu)**
     * **クイック編集 (拡張)**
     * **―(Quick Edit (Advance))**
         * ユーザー設定のファイルタブで設定した追加の外部エディターでクイック編集を行います
         * ―(Do quick editing in an external editor of additional files page of custom)
   
-* **「3Dビュー」エリア > 「プロパティ」パネル > 「ビュー」パネル**
-* **―(Area 3D view > properties panel > "view" Panel)**
+* **「3Dビュー」エリア > プロパティ > 「ビュー」パネル**
+* **―("3D View" Area > Propaties > "View" Panel)**
     * **視点のセーブ**
     * **―(Save View)**
         * 現在の3Dビューの視点をセーブします

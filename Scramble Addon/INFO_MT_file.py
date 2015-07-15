@@ -1,4 +1,5 @@
 # 「情報」エリア > 「ファイル」メニュー
+# "Info" Area > "File" Menu
 
 import bpy
 import mathutils

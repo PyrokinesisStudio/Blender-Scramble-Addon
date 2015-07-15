@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ポーズライブラリ」パネル
+# "Propaties" Area > "Armature" Tab > "Pose Library" Panel
 
 import bpy
 

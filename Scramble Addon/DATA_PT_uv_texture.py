@@ -1,4 +1,5 @@
-# プロパティ > "Mesh Data"タブ > "UV Maps"パネル
+# 「プロパティ」エリア > 「メッシュデータ」タブ > 「UVマップ」パネル
+# "Propaties" Area > "Mesh" Tab > "UV Maps" Panel
 
 import bpy
 

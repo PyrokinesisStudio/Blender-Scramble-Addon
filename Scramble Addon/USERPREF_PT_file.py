@@ -1,4 +1,5 @@
 # 「ユーザー設定」エリア > 「ファイル」タブ
+# "User Prefences" Area > "File" Tab
 
 import bpy
 import sys, platform

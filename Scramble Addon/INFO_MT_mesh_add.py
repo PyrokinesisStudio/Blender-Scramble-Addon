@@ -1,4 +1,5 @@
-# 3Dビュー > オブジェクト/メッシュ編集モード > 「追加」メニュー > 「メッシュ」メニュー
+# 「3Dビュー」エリア > 「追加」メニュー > 「メッシュ」メニュー
+# "3D View" Area > "Add" Menu > "Mesh" Menu
 
 import bpy, bmesh
 import math

@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「カーブデータ」タブ > 「ジオメトリ」パネル
+# "Propaties" Area > "Curve" Tab > "Geometry" Panel
 
 import bpy
 

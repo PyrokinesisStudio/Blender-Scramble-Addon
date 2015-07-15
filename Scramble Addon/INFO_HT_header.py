@@ -1,4 +1,5 @@
 # 「情報」エリア > ヘッダー
+# "Info" Area > Header
 
 import bpy
 

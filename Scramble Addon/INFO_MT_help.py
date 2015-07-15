@@ -1,4 +1,5 @@
-# 情報 > 「ヘルプ」メニュー
+# 「情報」エリア > 「ヘルプ」メニュー
+# "Info" Area > "Help" Menu
 
 import bpy
 

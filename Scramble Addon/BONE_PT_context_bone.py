@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「ボーン」タブ
+# "Propaties" Area > "Bone" Tab
 
 import bpy
 import re

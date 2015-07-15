@@ -1,4 +1,5 @@
-# UV/画像エディター > 「UV」メニュー
+# 「UV/画像エディター」エリア > 「UV」メニュー
+# "UV/Image Editor" Area > "UV" Menu
 
 import bpy, bmesh
 

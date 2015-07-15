@@ -1,4 +1,5 @@
-# 3Dビュー > メッシュ編集モード > 「Ctrl+V」キー
+# 「3Dビュー」エリア > 「メッシュ編集」モード > 「Ctrl + V」キー
+# "3D View" Area > "Mesh Editor" Mode > "Ctrl + V" Key
 
 import bpy
 

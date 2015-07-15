@@ -1,4 +1,5 @@
-# 3Dビュー > ポーズモード > 「選択」メニュー
+# 「3Dビュー」エリア > 「ポーズ」モード > 「選択」メニュー
+# "3D View" Area > "Pose" Mode > "Select" Menu
 
 import bpy
 import re

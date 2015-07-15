@@ -1,4 +1,5 @@
-# 3Dビュー > メッシュ編集モード > 「U」キー
+# 「3Dビュー」エリア > 「メッシュ編集」モード > 「U」キー
+# "3D View" Area > "Mesh Edit" Mode > "U" Key
 
 import bpy
 

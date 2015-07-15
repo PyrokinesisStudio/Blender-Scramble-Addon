@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「テクスチャ」タブ > 「マッピング」パネル
+# "Propaties" Area > "Texture" Tab > "Mapping" Panel
 
 import bpy
 

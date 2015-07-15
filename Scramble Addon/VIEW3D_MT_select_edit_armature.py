@@ -1,4 +1,5 @@
-# 3Dビュー > アーマチュア編集モード > 「選択」メニュー
+# 「3Dビュー」エリア > 「アーマチュア編集」モード > 「選択」メニュー
+# "3D View" Area > "Armature Edit" Mode > "Select" Menu
 
 import bpy
 

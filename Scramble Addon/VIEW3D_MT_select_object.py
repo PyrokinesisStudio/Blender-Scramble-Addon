@@ -1,4 +1,5 @@
-# 3Dビュー > オブジェクトモード > 「選択」メニュー
+# 「3Dビュー」エリア > 「オブジェクト」モード > 「選択」メニュー
+# "3D View" Area > "Object" Mode > "Select" Menu
 
 import bpy, mathutils
 import re

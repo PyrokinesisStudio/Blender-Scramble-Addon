@@ -1,4 +1,5 @@
-# 3Dビュー > ポーズモード > 「ポーズ」メニュー > 「コンストレイント」メニュー
+# 「3Dビュー」エリア > 「ポーズ」モード > 「ポーズ」メニュー > 「コンストレイント」メニュー
+# "3D View" Area > "Pose" Mode > "Pose" Menu > "Constraints" Menu
 
 import bpy
 

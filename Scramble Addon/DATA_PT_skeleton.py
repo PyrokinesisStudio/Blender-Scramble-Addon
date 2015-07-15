@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「アーマチュアデータ」タブ > 「スケルトン」パネル
+# "Propaties" Area > "Armature" Tab > "Skeleton" Panel
 
 import bpy
 

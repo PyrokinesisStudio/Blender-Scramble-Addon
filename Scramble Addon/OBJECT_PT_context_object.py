@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「オブジェクト」タブ
+# "Propaties" Area > "Object" Tab
 
 import bpy
 

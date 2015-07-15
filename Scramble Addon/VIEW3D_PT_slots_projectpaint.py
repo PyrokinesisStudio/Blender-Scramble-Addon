@@ -1,4 +1,5 @@
-# 「3Dビュー」エリア > テクスチャペイント > ツールシェルフ > 「スロット」パネル
+# 「3Dビュー」エリア > 「テクスチャペイント」モード > ツールシェルフ > 「スロット」パネル
+# "3D View" Area > "Texture Paint" Mode > Tool Shelf > "Slots" Panel
 
 import bpy
 

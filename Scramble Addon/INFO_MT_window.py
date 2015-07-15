@@ -1,4 +1,5 @@
-# 情報 > 「ウィンドウ」メニュー
+# 「情報」エリア > 「ウィンドウ」メニュー
+# "Info" Area > "Window" Menu
 
 import bpy
 

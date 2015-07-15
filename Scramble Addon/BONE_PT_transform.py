@@ -1,4 +1,5 @@
 # 「プロパティ」エリア > 「ボーン」タブ > 「トランスフォーム」パネル
+# "Propaties" Area > "Bone" Tab > "Transform" Panel
 
 import bpy
 

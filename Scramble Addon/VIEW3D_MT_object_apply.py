@@ -1,4 +1,5 @@
-# 3Dビュー > オブジェクトモード > Ctrl+Aキー
+# 「3Dビュー」エリア > 「オブジェクト」モード > 「Ctrl + A」キー
+# "3D View" Area > "Object" Mode > "Ctrl + A" Key
 
 import bpy
 

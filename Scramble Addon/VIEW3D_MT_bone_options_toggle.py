@@ -1,4 +1,5 @@
-# 3Dビュー > アーマチュア編集モード > 「Shift+W」キー
+# 「3Dビュー」エリア > 「アーマチュア編集」モード > 「Shift + W」キー
+# "3D View" Area > "Armature Editor" Mode > "Shift + W" Key
 
 import bpy
 
