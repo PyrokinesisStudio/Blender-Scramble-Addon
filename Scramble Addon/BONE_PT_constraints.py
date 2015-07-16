@@ -16,7 +16,7 @@ class quick_child_constraint(bpy.types.Operator):
 	@classmethod
 	def poll(cls, context):
 		if 'selected_pose_bones' in dir(context):
-			if 2 <= len(context.selected_pose_bones):
+			if 2 == len(context.selected_pose_bones):
 				return True
 		return False
 	
