@@ -29,9 +29,8 @@ class quick_child_constraint(bpy.types.Operator):
 		const = active_bone.constraints.new('CHILD_OF')
 		const.target = active_ob
 		const.subtarget = target_bone.name
+		override = context.copy()
 		override = {'constraint':const}
-		for value_name in dir(context):
-			override[value_name] = getattr(context, value_name)
 		bpy.ops.constraint.childof_clear_inverse(override, constraint=const.name, owner='BONE')
 		bpy.ops.constraint.childof_set_inverse(override, constraint=const.name, owner='BONE')
 		return {'FINISHED'}
