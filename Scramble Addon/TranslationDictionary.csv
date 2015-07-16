@@ -1057,6 +1057,8 @@
 "IK回転制限をコンストレイント化","IK Rotation Limit to Constraints"
 "メッシュに3Dカーソルをスナップ","3D Cursor Snap to Mesh"
 "カーソル → 非表示 (遠くへ)","Hide Cursor (Move Far)"
+"クイック・チャイルドコンストレイント","Quick-child constraints"
+"素早くチャイルドコンストレイントを追加します","Quickly add child constraint"
 "ボーン名をクリップボードにコピーします","To Clipboard copies bone name"
 "アクティブなボーン名を左右反転します","bone name Active Flip"
 "名前に変化がありません、失敗しました","No name change failed,"

@@ -31,6 +31,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 > Please look because items have been added to the various places.  
 
 ## 機能一覧 (List of functions)
+* **「プロパティ」エリア > 「ボーンコンストレイント」タブ**
+* **―("Propaties" Area > "Bone Constraints" Tab)**
+    * **クイック・チャイルドコンストレイント**
+    * **―(Quick-child constraints)**
+        * 素早くチャイルドコンストレイントを追加します
+        * ―(Quickly add child constraint)
+  
 * **「プロパティ」エリア > 「ボーン」タブ**
 * **―("Propaties" Area > "Bone" Tab)**
     * **ボーン名をクリップボードにコピー**
