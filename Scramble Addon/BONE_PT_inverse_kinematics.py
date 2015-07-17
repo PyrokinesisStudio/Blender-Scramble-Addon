@@ -216,7 +216,19 @@ class reset_ik_settings(bpy.types.Operator):
 	def poll(cls, context):
 		bone = context.active_pose_bone
 		if bone:
-			return True
+			for axis in ['x', 'y', 'z']:
+				if getattr(bone, 'lock_ik_' + axis) != False:
+					return True
+				if getattr(bone, 'ik_stiffness_' + axis) != 0.0:
+					return True
+				if getattr(bone, 'use_ik_limit_' + axis) != False:
+					return True
+				if -3.1415927410125 <= getattr(bone, 'ik_min_' + axis):
+					return True
+				if getattr(bone, 'ik_max_' + axis) <= 3.1415927410125:
+					return True
+			if bone.ik_stretch != 0.0:
+				return True
 		return False
 	
 	def execute(self, context):
@@ -225,8 +237,8 @@ class reset_ik_settings(bpy.types.Operator):
 			setattr(bone, 'lock_ik_' + axis, False)
 			setattr(bone, 'ik_stiffness_' + axis, 0.0)
 			setattr(bone, 'use_ik_limit_' + axis, False)
-			setattr(bone, 'ik_min_' + axis, -3.14159)
-			setattr(bone, 'ik_max_' + axis, 3.14159)
+			setattr(bone, 'ik_min_' + axis, -3.1415927410125732)
+			setattr(bone, 'ik_max_' + axis, 3.1415927410125732)
 		bone.ik_stretch = 0.0
 		for area in context.screen.areas:
 			area.tag_redraw()
