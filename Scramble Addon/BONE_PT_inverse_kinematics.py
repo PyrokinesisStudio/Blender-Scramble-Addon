@@ -7,7 +7,7 @@ import bpy
 # オペレーター #
 ################
 
-class CopyIKSettings(bpy.types.Operator):
+class copy_ik_settings(bpy.types.Operator):
 	bl_idname = "pose.copy_ik_settings"
 	bl_label = "Copy IK Setting"
 	bl_description = "Copies of other selected bone IK settings Active"
@@ -74,8 +74,8 @@ class CopyIKSettings(bpy.types.Operator):
 					target.ik_stretch = source.ik_stretch
 		return {'FINISHED'}
 
-class ReverseMinMax(bpy.types.Operator):
-	bl_idname = "pose.reverse_min_max"
+class reverse_ik_min_max(bpy.types.Operator):
+	bl_idname = "pose.reverse_ik_min_max"
 	bl_label = "Invert Minimum/maximum Angle"
 	bl_description = "Reverses minimum and maximum angle of IK setup this bone"
 	bl_options = {'REGISTER', 'UNDO'}
@@ -126,8 +126,8 @@ class ReverseMinMax(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
-class CopyAxisSetting(bpy.types.Operator):
-	bl_idname = "pose.copy_axis_setting"
+class copy_ik_axis_setting(bpy.types.Operator):
+	bl_idname = "pose.copy_ik_axis_setting"
 	bl_label = "Copy axis-setting to other axis"
 	bl_description = "Copy other axis on one axis"
 	bl_options = {'REGISTER', 'UNDO'}
@@ -206,6 +206,32 @@ class CopyAxisSetting(bpy.types.Operator):
 			area.tag_redraw()
 		return {'FINISHED'}
 
+class reset_ik_settings(bpy.types.Operator):
+	bl_idname = "pose.reset_ik_settings"
+	bl_label = "Reset IK"
+	bl_description = "Initializes settings of this bone IK"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		bone = context.active_pose_bone
+		if bone:
+			return True
+		return False
+	
+	def execute(self, context):
+		bone = context.active_pose_bone
+		for axis in ['x', 'y', 'z']:
+			setattr(bone, 'lock_ik_' + axis, False)
+			setattr(bone, 'ik_stiffness_' + axis, 0.0)
+			setattr(bone, 'use_ik_limit_' + axis, False)
+			setattr(bone, 'ik_min_' + axis, -3.14159)
+			setattr(bone, 'ik_max_' + axis, 3.14159)
+		bone.ik_stretch = 0.0
+		for area in context.screen.areas:
+			area.tag_redraw()
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -222,8 +248,9 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
-		row.operator(CopyIKSettings.bl_idname, icon='COPY_ID', text="Copy IK Setting")
-		row.operator(ReverseMinMax.bl_idname, icon='ARROW_LEFTRIGHT', text="Invert Angle Limit")
-		row.operator(CopyAxisSetting.bl_idname, icon='LINKED', text="Axis Config Copy")
+		row.operator(copy_ik_settings.bl_idname, icon='COPY_ID', text="Copy IK Setting")
+		row.operator(reverse_ik_min_max.bl_idname, icon='ARROW_LEFTRIGHT', text="Invert Angle Limit")
+		row.operator(copy_ik_axis_setting.bl_idname, icon='LINKED', text="Axis Config Copy")
+		row.operator(reset_ik_settings.bl_idname, icon='X', text="")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

@@ -1066,6 +1066,8 @@
 "アクティブなボーンのIK設定を、他の選択ボーンにコピーします","Copies of other selected bone IK settings Active"
 "このボーンのIK設定の最小角と最大角を反転させます","Reverses minimum and maximum angle of IK setup this bone"
 "1つの軸の設定を、他の軸にコピーします","Copy other axis on one axis"
+"IK設定をリセット","Reset IK"
+"このボーンのIK設定を初期化します","Initializes settings of this bone IK"
 "アクティブなボーンの変形情報を、他の選択ボーンにコピーします","Copy selected bones of other active bone deformation information"
 "このボーングループのボーンのみ表示","Show only bone bones group"
 "アクティブなボーングループのみを表示し、その他のボーンを隠します","Group active on bones and bones of other hide"
