@@ -260,9 +260,10 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row(align=True)
-		row.operator(copy_ik_settings.bl_idname, icon='COPY_ID', text="Copy IK Setting")
 		row.operator(reverse_ik_min_max.bl_idname, icon='ARROW_LEFTRIGHT', text="Invert Angle Limit")
 		row.operator(copy_ik_axis_setting.bl_idname, icon='LINKED', text="Axis Config Copy")
 		row.operator(reset_ik_settings.bl_idname, icon='X', text="")
+		if 2 <= len(context.selected_pose_bones):
+			self.layout.operator(copy_ik_settings.bl_idname, icon='COPY_ID', text="Copy IK Setting")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
