@@ -1265,6 +1265,8 @@
 "この表示設定を他の選択オブジェクトにコピーします","Copy selected objects of other display settings"
 "ダイナミックペイント設定をコピー","Copy dynamic paint"
 "アクティブなオブジェクトのダイナミックペイント設定を、他の選択オブジェクトにコピーします","Dynamic paint on an active object copies to other selected objects"
+"フォースフィールド設定をコピー","Copy force field settings"
+"アクティブなオブジェクトのフォースフィールド設定を、他の選択オブジェクトにコピーします","Copy selection of other force field for active object"
 "アクティブなオブジェクトの剛体設定を、他の選択オブジェクトにコピーします","Copy selected objects of other rigid set of active objects"
 "アクティブなオブジェクトの剛体コンストレイント設定を、他の選択オブジェクトにコピーします","Copies selected objects for other rigid constraints on active object"
 "剛体コンストレイントの制限を初期化","Initializes rigid constraint limits"

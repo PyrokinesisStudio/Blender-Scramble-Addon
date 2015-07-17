@@ -104,6 +104,7 @@ if "bpy" in locals():
 	imp.reload(DATA_PT_shape_curve)
 	imp.reload(BONE_PT_constraints)
 	imp.reload(PHYSICS_PT_dynamic_paint)
+	imp.reload(PHYSICS_PT_field)
 	#imp.reload(***)
 else:
 	from . import BONE_PT_context_bone
@@ -190,6 +191,7 @@ else:
 	from . import DATA_PT_shape_curve
 	from . import BONE_PT_constraints
 	from . import PHYSICS_PT_dynamic_paint
+	from . import PHYSICS_PT_field
 	#from . import ***
 import bpy
 
@@ -364,6 +366,7 @@ def register():
 	bpy.types.DATA_PT_shape_curve.append(DATA_PT_shape_curve.menu)
 	bpy.types.BONE_PT_constraints.append(BONE_PT_constraints.menu)
 	bpy.types.PHYSICS_PT_dynamic_paint.append(PHYSICS_PT_dynamic_paint.menu)
+	bpy.types.PHYSICS_PT_field.append(PHYSICS_PT_field.menu)
 	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
@@ -454,6 +457,7 @@ def unregister():
 	bpy.types.DATA_PT_shape_curve.remove(DATA_PT_shape_curve.menu)
 	bpy.types.BONE_PT_constraints.remove(BONE_PT_constraints.menu)
 	bpy.types.PHYSICS_PT_dynamic_paint.remove(PHYSICS_PT_dynamic_paint.menu)
+	bpy.types.PHYSICS_PT_field.remove(PHYSICS_PT_field.menu)
 	#bpy.types.***.remove(***.menu)
 
 # メイン関数
