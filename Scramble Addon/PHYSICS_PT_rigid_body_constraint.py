@@ -57,7 +57,7 @@ class CopyConstraintSetting(bpy.types.Operator):
 
 class ClearConstraintLimits(bpy.types.Operator):
 	bl_idname = "rigidbody.clear_constraint_limits"
-	bl_label = "Initializes rigid constraint limits"
+	bl_label = "Reset rigid body constraint limits"
 	bl_description = "Initializes rigid constraints of active object limit settings group"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -67,9 +67,9 @@ class ClearConstraintLimits(bpy.types.Operator):
 	is_lin_y = bpy.props.BoolProperty(name="Y Move", default=True, options={'SKIP_SAVE'})
 	is_lin_z = bpy.props.BoolProperty(name="Z Move", default=True, options={'SKIP_SAVE'})
 	
-	is_ang_x = bpy.props.BoolProperty(name="X Rotation", default=True, options={'SKIP_SAVE'})
-	is_ang_y = bpy.props.BoolProperty(name="Y Rotation", default=True, options={'SKIP_SAVE'})
-	is_ang_z = bpy.props.BoolProperty(name="Z Rotation", default=True, options={'SKIP_SAVE'})
+	is_ang_x = bpy.props.BoolProperty(name="X Rot", default=True, options={'SKIP_SAVE'})
+	is_ang_y = bpy.props.BoolProperty(name="Y Rot", default=True, options={'SKIP_SAVE'})
+	is_ang_z = bpy.props.BoolProperty(name="Z Rot", default=True, options={'SKIP_SAVE'})
 	
 	@classmethod
 	def poll(cls, context):
@@ -118,9 +118,9 @@ class ReverseConstraintLimits(bpy.types.Operator):
 	is_lin_y = bpy.props.BoolProperty(name="Y Move", default=False, options={'SKIP_SAVE'})
 	is_lin_z = bpy.props.BoolProperty(name="Z Move", default=False, options={'SKIP_SAVE'})
 	
-	is_ang_x = bpy.props.BoolProperty(name="X Rotation", default=False, options={'SKIP_SAVE'})
-	is_ang_y = bpy.props.BoolProperty(name="Y Rotation", default=False, options={'SKIP_SAVE'})
-	is_ang_z = bpy.props.BoolProperty(name="Z Rotation", default=False, options={'SKIP_SAVE'})
+	is_ang_x = bpy.props.BoolProperty(name="X Rot", default=False, options={'SKIP_SAVE'})
+	is_ang_y = bpy.props.BoolProperty(name="Y Rot", default=False, options={'SKIP_SAVE'})
+	is_ang_z = bpy.props.BoolProperty(name="Z Rot", default=False, options={'SKIP_SAVE'})
 	
 	@classmethod
 	def poll(cls, context):

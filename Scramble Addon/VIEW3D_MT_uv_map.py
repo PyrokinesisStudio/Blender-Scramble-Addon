@@ -19,7 +19,7 @@ class CopyOtherUVMenuOperator(bpy.types.Operator): #
 			self.report(type={"ERROR"}, message="Try on mesh object")
 			return {"CANCELLED"}
 		if (len(obj.data.uv_layers) < 2):
-			self.report(type={"ERROR"}, message="UV number is run in two or more")
+			self.report(type={"ERROR"}, message="After add 2 or more UVs, please run")
 			return {"CANCELLED"}
 		bpy.ops.wm.call_menu(name=CopyOtherUVMenu.bl_idname)
 		return {'FINISHED'}

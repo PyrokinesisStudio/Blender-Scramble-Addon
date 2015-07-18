@@ -412,7 +412,7 @@ class CreateVertexGroupsArmature(bpy.types.Operator):
 
 class CreateSolidifyEdge(bpy.types.Operator):
 	bl_idname = "object.create_solidify_edge"
-	bl_label = "Contour line generation in thickness with modifiers"
+	bl_label = "Create line drawing by solidify modifier"
 	bl_description = "Add to thicken modi contour drawing selection"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -620,7 +620,7 @@ class RenameObjectRegularExpression(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	pattern = bpy.props.StringProperty(name="Before replace (regular expressions)", default="")
-	repl = bpy.props.StringProperty(name="After Replace", default="")
+	repl = bpy.props.StringProperty(name="After", default="")
 	
 	@classmethod
 	def poll(cls, context):
@@ -659,7 +659,7 @@ class EqualizeObjectNameAndDataName(bpy.types.Operator):
 
 class ApplyObjectColor(bpy.types.Operator):
 	bl_idname = "object.apply_object_color"
-	bl_label = "Enable object color + color"
+	bl_label = "Enable object color + set color"
 	bl_description = "Object color of selected object and sets color,"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -688,7 +688,7 @@ class ApplyObjectColor(bpy.types.Operator):
 
 class ClearObjectColor(bpy.types.Operator):
 	bl_idname = "object.clear_object_color"
-	bl_label = "Invalid object color + color settings"
+	bl_label = "Disable object color + set color"
 	bl_description = "To disable object color of selected object, sets color"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -782,7 +782,7 @@ class ParentSetApplyModifiers(bpy.types.Operator):
 
 class CreateRopeMesh(bpy.types.Operator):
 	bl_idname = "object.create_rope_mesh"
-	bl_label = "Rope-shaped mesh created from curves"
+	bl_label = "Create rope-shaped mesh from curves"
 	bl_description = "Creates mesh like rope along curve object is active or snake new"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -857,7 +857,7 @@ class MoveBevelObject(bpy.types.Operator):
 		delete_objects = []
 		for obj in selected_objects:
 			if (obj.type != 'CURVE'):
-				self.report(type={'WARNING'}, message=obj.name+"Curve, Ignore")
+				self.report(type={'WARNING'}, message=obj.name+" is not curve, ignored")
 				continue
 			curve = obj.data
 			if (not curve.bevel_object):

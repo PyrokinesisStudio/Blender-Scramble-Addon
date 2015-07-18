@@ -105,7 +105,7 @@ class RenameUV(bpy.types.Operator):
 										self.report(type={"INFO"}, message="Mesh 「"+me2.name+"] target UV fixed")
 									except KeyError: pass
 		else:
-			self.report(type={'ERROR'}, message="Mesh objects are not")
+			self.report(type={'ERROR'}, message="This is not mesh object")
 			return {'CANCELLED'}
 		return {'FINISHED'}
 	def invoke(self, context, event):

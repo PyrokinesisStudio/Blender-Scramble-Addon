@@ -172,7 +172,7 @@ class SelectedVertexGroupAverage(bpy.types.Operator):
 				i += 1
 			bpy.ops.object.mode_set(mode=pre_mode)
 		else:
-			self.report(type={"ERROR"}, message="Mesh objects are not")
+			self.report(type={"ERROR"}, message="This is not mesh object")
 			return {'CANCELLED'}
 		return {'FINISHED'}
 

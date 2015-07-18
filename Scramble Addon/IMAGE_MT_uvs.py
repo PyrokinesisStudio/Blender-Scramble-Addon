@@ -19,7 +19,7 @@ class ConvertMesh(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="An active object is not found")
 			return {'CANCELLED'}
 		if (obj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="Mesh objects are not")
+			self.report(type={'ERROR'}, message="This is not mesh object")
 			return {'CANCELLED'}
 		me = obj.data
 		if (not me.uv_layers.active):

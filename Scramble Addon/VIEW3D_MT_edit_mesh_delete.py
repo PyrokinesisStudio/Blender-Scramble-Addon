@@ -33,7 +33,7 @@ class DeleteHideMesh(bpy.types.Operator):
 	def execute(self, context):
 		obj = context.active_object
 		if (obj.type != 'MESH'):
-			self.report(type={"ERROR"}, message="Mesh objects are not")
+			self.report(type={"ERROR"}, message="This is not mesh object")
 			return {"CANCELLED"}
 		me = obj.data
 		bm = bmesh.from_edit_mesh(me)

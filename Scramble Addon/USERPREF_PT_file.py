@@ -35,7 +35,7 @@ class RegisterBlendBackupFiles(bpy.types.Operator):
 	bl_description = "associates with Blender running file backup file, such as.blend1.blend2 (WindowsOS only)"
 	bl_options = {'REGISTER'}
 	
-	max = bpy.props.IntProperty(name="By.blend1~.blendN", default=10, min=1, max=1000, soft_min=1, soft_max=1000)
+	max = bpy.props.IntProperty(name=".blend1 ~ .blendN", default=10, min=1, max=1000, soft_min=1, soft_max=1000)
 	
 	@classmethod
 	def poll(cls, context):

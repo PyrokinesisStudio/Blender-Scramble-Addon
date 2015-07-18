@@ -72,7 +72,7 @@ class ProportionalPie(bpy.types.Menu): #
 		self.layout.menu_pie().operator(SetProportionalEdit.bl_idname, text="Connection", icon="PROP_CON").mode = "CONNECTED"
 class SetProportionalEdit(bpy.types.Operator): #
 	bl_idname = "mesh.set_proportional_edit"
-	bl_label = "Set proportional editing modes"
+	bl_label = "Set proportional edit mode"
 	bl_description = "Set proportional editing modes"
 	bl_options = {'REGISTER'}
 	

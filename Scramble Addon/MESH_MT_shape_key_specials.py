@@ -43,7 +43,7 @@ class CopyShape(bpy.types.Operator):
 
 class InsertKeyframeAllShapes(bpy.types.Operator):
 	bl_idname = "mesh.insert_keyframe_all_shapes"
-	bl_label = "Hit keyframes of all shapes"
+	bl_label = "Insert keyframes to all shapes"
 	bl_description = "Inserts keyframe for all shapes on current frame"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -105,7 +105,7 @@ class SelectShapeBottom(bpy.types.Operator):
 
 class ShapeKeyApplyRemoveAll(bpy.types.Operator):
 	bl_idname = "object.shape_key_apply_remove_all"
-	bl_label = "Remove all shape and holds shape of current"
+	bl_label = "Remove all shapes and hold current configuration"
 	bl_description = "Remove all shape key while maintaining shape of current mesh"
 	bl_options = {'REGISTER', 'UNDO'}
 	

@@ -42,7 +42,7 @@ class AreaTypePie(bpy.types.Menu): #
 
 class AreaTypePieAnim(bpy.types.Menu):
 	bl_idname = "INFO_MT_window_pie_area_type_anim"
-	bl_label = "Editor type (animation)"
+	bl_label = "Editor Type (Animation)"
 	bl_description = "Is pie menu change editor type (animation related)"
 	
 	def draw(self, context):

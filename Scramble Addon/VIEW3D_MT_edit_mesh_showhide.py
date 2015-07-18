@@ -10,7 +10,7 @@ import bpy
 class InvertHide(bpy.types.Operator):
 	bl_idname = "mesh.invert_hide"
 	bl_label = "Invert Show/Hide"
-	bl_description = "Flip display and non-display state"
+	bl_description = "Invert show or non-show state"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):

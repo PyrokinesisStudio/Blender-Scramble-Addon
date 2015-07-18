@@ -38,7 +38,7 @@ class RenameImageFileName(bpy.types.Operator):
 
 class AllRenameImageFileName(bpy.types.Operator):
 	bl_idname = "image.all_rename_image_file_name"
-	bl_label = "In file name to use for all image names"
+	bl_label = "Change all image names to used file name"
 	bl_description = "names of all images using external image file name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -384,7 +384,7 @@ class ReverseHeightImage(bpy.types.Operator):
 class Rotate90Image(bpy.types.Operator):
 	bl_idname = "image.rotate_90_image"
 	bl_label = "Rotate 90 Degrees"
-	bl_description = "Active image rotates 90 °"
+	bl_description = "Rotate active image 90 degrees"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -744,7 +744,7 @@ class NewNoise(bpy.types.Operator):
 	bl_description = "Add as new picture noise picture"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	monochrome = bpy.props.BoolProperty(name="Black and White noise", default=False)
+	monochrome = bpy.props.BoolProperty(name="Decolor Noise", default=False)
 	alpha_noise = bpy.props.BoolProperty(name="Alpha Noise", default=False)
 	name = bpy.props.StringProperty(name="Name", default="Noise")
 	width = bpy.props.IntProperty(name="Width", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)
@@ -781,7 +781,7 @@ class NewNoise(bpy.types.Operator):
 class Decolorization(bpy.types.Operator):
 	bl_idname = "image.decolorization"
 	bl_label = "Decolorize"
-	bl_description = "black and white image of active"
+	bl_description = "This decolor active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

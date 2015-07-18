@@ -161,7 +161,7 @@ class SlotsRenderMenu(bpy.types.Menu):
 class ShadeingMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_shadeing"
 	bl_label = "Used Shading"
-	bl_description = "Shading On/off"
+	bl_description = "Oon/Off shading"
 	
 	def draw(self, context):
 		self.layout.prop(context.scene.render, 'use_textures', icon="PLUGIN")
@@ -219,7 +219,7 @@ def menu(self, context):
 		self.layout.menu(RenderResolutionPercentageMenu.bl_idname, text="RenderSize (Now:"+str(context.scene.render.resolution_percentage)+"%)", icon="PLUGIN")
 		for img in bpy.data.images:
 			if (img.type == 'RENDER_RESULT'):
-				self.layout.menu(SlotsRenderMenu.bl_idname, text="Render slots (slot:"+str(img.render_slots.active_index+1)+")", icon="PLUGIN")
+				self.layout.menu(SlotsRenderMenu.bl_idname, text="RenderSlot (Now: slot"+str(img.render_slots.active_index+1)+")", icon="PLUGIN")
 				break
 		self.layout.prop_menu_enum(context.scene.render.image_settings, 'file_format', text="File Format", icon="PLUGIN")
 		self.layout.separator()

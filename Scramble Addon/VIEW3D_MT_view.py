@@ -391,7 +391,7 @@ class ShortcutsMenu(bpy.types.Menu):
 class PieMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_view_pie"
 	bl_label = "Pie Menu"
-	bl_description = "Is pie between 3D view"
+	bl_description = "This is pie menu of 3D view"
 	
 	def draw(self, context):
 		self.layout.operator(ViewNumpadPieOperator.bl_idname, icon='PLUGIN')

@@ -165,7 +165,7 @@ class RemoveUnenabledSlots(bpy.types.Operator):
 
 class TruncateEmptySlots(bpy.types.Operator):
 	bl_idname = "texture.truncate_empty_slots"
-	bl_label = "Cut texture slot empty"
+	bl_label = "Cut empty texture slots"
 	bl_description = "No texture is assigned an empty texture slots will be filled, truncated"
 	bl_options = {'REGISTER', 'UNDO'}
 	

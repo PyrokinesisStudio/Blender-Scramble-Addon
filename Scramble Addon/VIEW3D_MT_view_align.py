@@ -109,7 +109,7 @@ class SnapMeshView(bpy.types.Operator):
 class ReverseView(bpy.types.Operator):
 	bl_idname = "view3d.reverse_view"
 	bl_label = "Invert View"
-	bl_description = "Orbit to reverse side of current view"
+	bl_description = "This reverses present view"
 	bl_options = {'REGISTER'}
 	
 	def execute(self, context):

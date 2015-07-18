@@ -9,7 +9,7 @@ import bpy
 
 class BoneGroupOnlyShow(bpy.types.Operator):
 	bl_idname = "pose.bone_group_only_show"
-	bl_label = "Show only bone bones group"
+	bl_label = "Show only bone in this bones group"
 	bl_description = "Group active on bones and bones of other hide"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -97,10 +97,10 @@ def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		row = self.layout.row()
 		sub = row.row(align=True)
-		sub.operator(BoneGroupShow.bl_idname, icon='RESTRICT_VIEW_OFF', text="View").reverse = False
+		sub.operator(BoneGroupShow.bl_idname, icon='RESTRICT_VIEW_OFF', text="Show").reverse = False
 		sub.operator(BoneGroupShow.bl_idname, icon='RESTRICT_VIEW_ON', text="Hide").reverse = True
 		sub = row.row(align=True)
-		sub.operator(BoneGroupOnlyShow.bl_idname, icon='RESTRICT_VIEW_OFF', text="Only View").reverse = False
+		sub.operator(BoneGroupOnlyShow.bl_idname, icon='RESTRICT_VIEW_OFF', text="Only Show").reverse = False
 		sub.operator(BoneGroupOnlyShow.bl_idname, icon='RESTRICT_VIEW_ON', text="Only Hide").reverse = True
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

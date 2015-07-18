@@ -9,7 +9,7 @@ import bpy
 
 class DeleteUnmessage(bpy.types.Operator):
 	bl_idname = "action.delete_unmessage"
-	bl_label = "Delete keyframes (not verified)"
+	bl_label = "Delete KeyFrames (Non-Confirm)"
 	bl_description = "Delete without checking all selected keyframes"
 	bl_options = {'REGISTER', 'UNDO'}
 	

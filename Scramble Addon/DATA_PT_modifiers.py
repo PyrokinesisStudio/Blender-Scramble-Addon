@@ -360,7 +360,7 @@ class SetSubsurfOptimalDisplay(bpy.types.Operator):
 
 class DeleteSubsurf(bpy.types.Operator):
 	bl_idname = "object.delete_subsurf"
-	bl_label = "Delete objects select Subsurf"
+	bl_label = "Delete Subsurfs selected objects"
 	bl_description = "Removes selected object subsurfmodifaia"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -382,7 +382,7 @@ class DeleteSubsurf(bpy.types.Operator):
 
 class AddSubsurf(bpy.types.Operator):
 	bl_idname = "object.add_subsurf"
-	bl_label = "Add Subsurf on selected objects"
+	bl_label = "Add Subsurfs selected objects"
 	bl_description = "Add subsurfmodifaia to selected object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -674,7 +674,7 @@ def menu(self, context):
 				row.operator(DeleteAllModifiers.bl_idname, icon='X', text="Delete All")
 				row = col.row(align=True)
 				row.operator(ToggleApplyModifiersView.bl_idname, icon='RESTRICT_VIEW_OFF', text="View")
-				row.operator(ToggleAllShowExpanded.bl_idname, icon='FULLSCREEN_ENTER', text="Expand / Close")
+				row.operator(ToggleAllShowExpanded.bl_idname, icon='FULLSCREEN_ENTER', text="Expand/Close")
 				row.operator(SyncShowModifiers.bl_idname, icon='LINKED', text="Use Sync")
 		self.layout.menu(ModifierMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons['Scramble Addon'].preferences.use_disabled_menu):

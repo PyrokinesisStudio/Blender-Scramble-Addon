@@ -52,7 +52,7 @@ class SetCurvedBones(bpy.types.Operator):
 class SetBoneRoll(bpy.types.Operator):
 	bl_idname = "pose.set_bone_roll"
 	bl_label = "Set Rolls"
-	bl_description = "Sets selected bone roll"
+	bl_description = "Set selected bone rolls"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	roll = bpy.props.FloatProperty(name="Roll", default=0, step=10, precision=3)

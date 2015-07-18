@@ -78,7 +78,7 @@ class SaveMainfileUnmassage(bpy.types.Operator):
 			bpy.ops.wm.save_mainfile()
 			self.report(type={"INFO"}, message=bpy.path.basename(bpy.data.filepath)+" Saved")
 		else:
-			self.report(type={"ERROR"}, message="To save your find")
+			self.report(type={"ERROR"}, message="Do \"Save As\" beforehand")
 		return {'FINISHED'}
 
 class LoadLastFile(bpy.types.Operator):
@@ -158,11 +158,11 @@ class RenameDataBlocks(bpy.types.Operator):
 	bones = bpy.props.BoolProperty(name="Bone", default=False)
 	bone_constraints = bpy.props.BoolProperty(name="Bone Constraints", default=False)
 	
-	prefix = bpy.props.StringProperty(name="Add Top", default="")
-	suffix = bpy.props.StringProperty(name="Add End", default="")
+	prefix = bpy.props.StringProperty(name="Top", default="")
+	suffix = bpy.props.StringProperty(name="End", default="")
 	
-	source = bpy.props.StringProperty(name="Before Replace", default="")
-	replace = bpy.props.StringProperty(name="After Replace", default="")
+	source = bpy.props.StringProperty(name="Before", default="")
+	replace = bpy.props.StringProperty(name="After", default="")
 	
 	selected_only = bpy.props.BoolProperty(name="Selected Object Only", default=False)
 	show_log = bpy.props.BoolProperty(name="Show Log", default=True)

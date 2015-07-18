@@ -139,7 +139,7 @@ class copy_geometry_settings(bpy.types.Operator):
 
 class ActivateTaperObject(bpy.types.Operator):
 	bl_idname = "curve.activate_taper_object"
-	bl_label = "Tapered object, activate"
+	bl_label = "Activate taper object"
 	bl_description = "curve is specified as tapered object"
 	bl_options = {'REGISTER', 'UNDO'}
 	

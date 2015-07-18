@@ -116,7 +116,7 @@ class CloseKeyMapItems(bpy.types.Operator):
 
 class ShowShortcutHtml(bpy.types.Operator):
 	bl_idname = "system.show_shortcut_html"
-	bl_label = "View in browser shortcut list"
+	bl_label = "Show shortcut list by browser"
 	bl_description = "Can confirm Blender all shortcuts in browser"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -568,7 +568,7 @@ class ShowEmptyShortcuts(bpy.types.Operator):
 
 class ImportKeyConfigXml(bpy.types.Operator):
 	bl_idname = "file.import_key_config_xml"
-	bl_label = "Import XML in game"
+	bl_label = "Import Key Config XML"
 	bl_description = "game reads in XML format"
 	bl_options = {'REGISTER'}
 	
@@ -671,7 +671,7 @@ class ImportKeyConfigXml(bpy.types.Operator):
 
 class ExportKeyConfigXml(bpy.types.Operator):
 	bl_idname = "file.export_key_config_xml"
-	bl_label = "Export XML in game"
+	bl_label = "Export Key Config XML"
 	bl_description = "Game save in XML format"
 	bl_options = {'REGISTER'}
 	

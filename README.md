@@ -82,7 +82,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ボーングループ」パネル**
 * **―("Propaties" Area > "Armature" Tab > "Bone Groups" Panel)**
     * **このボーングループのボーンのみ表示**
-    * **―(Show only bone bones group)**
+    * **―(Show only bone in this bones group)**
         * アクティブなボーングループのみを表示し、その他のボーンを隠します
         * ―(Group active on bones and bones of other hide)
     * **このボーングループのボーンを表示**
@@ -97,7 +97,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなカーブオブジェクトのジオメトリパネルの設定を、他の選択カーブにコピーします
         * ―(Copy selection curve of other settings panel geometry of curve object is active)
     * **テーパーオブジェクトをアクティブに**
-    * **―(Tapered object, activate)**
+    * **―(Activate taper object)**
         * テーパーオブジェクトとして指定されているカーブをアクティブにします
         * ―(curve is specified as tapered object)
     * **ベベルオブジェクトをアクティブに**
@@ -164,11 +164,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択したオブジェクトのサブサーフモディファイアの最適化表示を設定します
         * ―(Sets optimization of subsurfmodifaia of selected object)
     * **選択オブジェクトのサブサーフを削除**
-    * **―(Delete objects select Subsurf)**
+    * **―(Delete Subsurfs selected objects)**
         * 選択したオブジェクトのサブサーフモディファイアを削除します
         * ―(Removes selected object subsurfmodifaia)
     * **選択オブジェクトにサブサーフを追加**
-    * **―(Add Subsurf on selected objects)**
+    * **―(Add Subsurfs selected objects)**
         * 選択したオブジェクトにサブサーフモディファイアを追加します
         * ―(Add subsurfmodifaia to selected object)
     * **アーマチュアの「体積を維持」をまとめて設定**
@@ -257,7 +257,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「ドープシート」エリア > 「キー」メニュー**
 * **―("Dope Sheet" Area > "Key" Menu)**
     * **キーフレームを削除 (確認しない)**
-    * **―(Delete keyframes (not verified))**
+    * **―(Delete KeyFrames (Non-Confirm))**
         * 選択した全てのキーフレームを確認せずに削除します
         * ―(Delete without checking all selected keyframes)
     * **全キーフレームを大掃除**
@@ -272,7 +272,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブな画像の名前を、使用している外部画像のファイル名にします
         * ―(External images are using name of active image file name)
     * **全ての画像名を使用するファイル名に**
-    * **―(In file name to use for all image names)**
+    * **―(Change all image names to used file name)**
         * 全ての画像の名前を、使用している外部画像のファイル名にします
         * ―(names of all images using external image file name)
     * **全ての画像を再読み込み**
@@ -314,7 +314,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **90°回転**
     * **―(Rotate 90 Degrees)**
         * アクティブな画像を90°回転します
-        * ―(Active image rotates 90 °)
+        * ―(Rotate active image 90 degrees)
     * **180°回転**
     * **―(Rotate 180 Degrees)**
         * アクティブな画像を180°回転します
@@ -354,7 +354,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **画像を脱色**
     * **―(Decolorize)**
         * アクティブな画像をモノクロにします
-        * ―(black and white image of active)
+        * ―(This decolor active image)
     * **画像のサイズ変更**
     * **―(Change size of image)**
         * アクティブな画像のサイズを変更します
@@ -566,7 +566,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなシェイプキーを複製します
         * ―(Duplicate active shape key)
     * **全てのシェイプにキーフレームを打つ**
-    * **―(Hit keyframes of all shapes)**
+    * **―(Insert keyframes to all shapes)**
         * 現在のフレームに、全てのシェイプのキーフレームを挿入します
         * ―(Inserts keyframe for all shapes on current frame)
     * **最上段を選択**
@@ -578,7 +578,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 一番下のシェイプキーを選択します
         * ―(Select bottom shape key)
     * **現在の形状を保持して全シェイプ削除**
-    * **―(Remove all shape and holds shape of current)**
+    * **―(Remove all shapes and hold current configuration)**
         * 現在のメッシュの形状を保持しながら全シェイプキーを削除します
         * ―(Remove all shape key while maintaining shape of current mesh)
     * **同名のシェイプキー同士をドライバでリンク**
@@ -697,7 +697,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなオブジェクトの剛体コンストレイント設定を、他の選択オブジェクトにコピーします
         * ―(Copies selected objects for other rigid constraints on active object)
     * **剛体コンストレイントの制限を初期化**
-    * **―(Initializes rigid constraint limits)**
+    * **―(Reset rigid body constraint limits)**
         * アクティブなオブジェクトの剛体コンストレイントの制限設定群を初期化します
         * ―(Initializes rigid constraints of active object limit settings group)
     * **剛体コンストレイントの制限を反転**
@@ -760,7 +760,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 無効にしているテクスチャを全て削除します
         * ―(Removes all textures have turned off)
     * **空のテクスチャスロットを切り詰める**
-    * **―(Cut texture slot empty)**
+    * **―(Cut empty texture slots)**
         * テクスチャが割り当てられていない空のテクスチャスロットを埋め、切り詰めます
         * ―(No texture is assigned an empty texture slots will be filled, truncated)
     * **ここより下を削除**
@@ -775,7 +775,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなテクスチャに使われている画像を「UV/画像エディター」に表示します
         * ―(Image is used in active texture shows UV / image editor)
     * **このテクスチャでテクスチャペイント**
-    * **―(This texture is texture paint)**
+    * **―(Texture paint by this texture)**
         * アクティブなテクスチャでテクスチャペイントを行います
         * ―(Active texture provides texture paint)
   
@@ -819,7 +819,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * キーコンフィグのメニューを全て折りたたみます
         * ―(Collapses all game menu)
     * **ショートカット一覧をブラウザで閲覧**
-    * **―(View in browser shortcut list)**
+    * **―(Show shortcut list by browser)**
         * Blenderの全てのショートカットをブラウザで確認出来ます
         * ―(Can confirm Blender all shortcuts in browser)
     * **最後のコマンドをショートカットに登録**
@@ -831,11 +831,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 現在の編集モードでの割り当ての無いキーを「情報」エリアに表示します
         * ―(Information area shows key assignments in current editing mode without)
     * **キーコンフィグをXMLでインポート**
-    * **―(Import XML in game)**
+    * **―(Import Key Config XML)**
         * キーコンフィグをXML形式で読み込みます
         * ―(game reads in XML format)
     * **キーコンフィグをXMLでエクスポート**
-    * **―(Export XML in game)**
+    * **―(Export Key Config XML)**
         * キーコンフィグをXML形式で保存します
         * ―(Game save in XML format)
     * **展開しているキー割り当てのカテゴリを移動**
@@ -894,7 +894,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **ロールをまとめて設定**
     * **―(Set Rolls)**
         * 選択中のボーンのロールを設定します
-        * ―(Sets selected bone roll)
+        * ―(Set selected bone rolls)
     * **アクティブのIK設定(回転制限等)をコピー**
     * **―(Copy of active IK settings (rotation limits, etc.))**
         * アクティブなボーンのIK設定(回転制限など)を他の選択ボーンにコピーします
@@ -950,7 +950,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **表示/隠すを反転**
     * **―(Invert Show/Hide)**
         * 表示状態と非表示状態を反転させます
-        * ―(Flip display and non-display state)
+        * ―(Invert show or non-show state)
     * **頂点のみを隠す**
     * **―(Hide Only Vertex)**
         * 選択状態の頂点のみを隠して固定します
@@ -1078,11 +1078,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * オブジェクトの表示状態と非表示状態を反転させます
         * ―(Flips object's view state and non-State)
     * **特定の種類のオブジェクトのみを隠す**
-    * **―(Hide only specific types of objects)**
+    * **―(Hide only type of objects)**
         * 表示されている特定タイプのオブジェクトを隠します
         * ―(Hides object of specific type are displayed)
     * **特定の種類のオブジェクト以外を隠す**
-    * **―(Non-specific types of objects to hide)**
+    * **―(Hide except type of objects)**
         * 表示されている特定タイプのオブジェクト以外を隠します
         * ―(Hides object non-specific type that is displayed)
   
@@ -1121,7 +1121,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択オブジェクトの頂点グループが割り当てられている頂点位置に、その頂点グループ名のボーンを作成します
         * ―(Create vertex group names bone vertices where vertex group of selected objects that are assigned)
     * **厚み付けモディファイアで輪郭線生成**
-    * **―(Contour line generation in thickness with modifiers)**
+    * **―(Create line drawing by solidify modifier)**
         * 選択オブジェクトに「厚み付けモディファイア」による輪郭描画を追加します
         * ―(Add to thicken modi contour drawing selection)
     * **選択物のレンダリングを制限**
@@ -1153,11 +1153,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中のオブジェクトのオブジェクト名とデータ名を同じにします
         * ―(same object and data names for selected objects)
     * **オブジェクトカラー有効 + 色設定**
-    * **―(Enable object color + color)**
+    * **―(Enable object color + set color)**
         * 選択オブジェクトのオブジェクトカラーを有効にし、色を設定します
         * ―(Object color of selected object and sets color,)
     * **オブジェクトカラー無効 + 色設定**
-    * **―(Invalid object color + color settings)**
+    * **―(Disable object color + set color)**
         * 選択オブジェクトのオブジェクトカラーを無効にし、色を設定します
         * ―(To disable object color of selected object, sets color)
     * **モディファイア適用してペアレント作成**
@@ -1165,7 +1165,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 親オブジェクトのモディファイアを適用してから、親子関係を作成します
         * ―(Create parent/child relationship after applying modifiers of parent object)
     * **カーブからロープ状のメッシュを作成**
-    * **―(Rope-shaped mesh created from curves)**
+    * **―(Create rope-shaped mesh from curves)**
         * アクティブなカーブオブジェクトに沿ったロープや蛇のようなメッシュを新規作成します
         * ―(Creates mesh like rope along curve object is active or snake new)
     * **ベベルオブジェクトを断面に移動**
@@ -1456,7 +1456,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **ビューの反対側に**
     * **―(Invert View)**
         * 現在のビューの逆側へ回りこみます
-        * ―(Orbit to reverse side of current view)
+        * ―(This reverses present view)
     * **視点と3Dカーソルを原点に**
     * **―(3D cursor with viewpoint at origin)**
         * 視点と3Dカーソルの位置を原点(XYZ=0.0)に移動させます
@@ -1476,7 +1476,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「3Dビュー」エリア > プロパティ > レイヤーボタンがあるパネル**
 * **―("3D View" Area > Propaties > Layer Buttons Panel)**
     * **グループで表示/非表示を切り替え**
-    * **―(Toggle show / hide groups)**
+    * **―(Toggle Show/Hide Groups)**
         * 所属しているグループで表示/非表示を切り替えます
         * ―(Switch Show / Hide group has)
   

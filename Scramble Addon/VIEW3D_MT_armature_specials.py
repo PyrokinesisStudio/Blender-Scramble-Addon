@@ -83,7 +83,7 @@ class RenameBoneRegularExpression(bpy.types.Operator):
 	
 	isAll = bpy.props.BoolProperty(name="Include Non-select", default=False)
 	pattern = bpy.props.StringProperty(name="Before replace (regular expressions)", default="^")
-	repl = bpy.props.StringProperty(name="After Replace", default="@")
+	repl = bpy.props.StringProperty(name="After", default="@")
 	
 	def execute(self, context):
 		obj = context.active_object

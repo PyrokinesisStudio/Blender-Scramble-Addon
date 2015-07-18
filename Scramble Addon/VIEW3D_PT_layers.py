@@ -9,7 +9,7 @@ import bpy
 
 class GroupLayers(bpy.types.Operator):
 	bl_idname = "object.group_layers"
-	bl_label = "Toggle show / hide groups"
+	bl_label = "Toggle Show/Hide Groups"
 	bl_description = "Switch Show / Hide group has"
 	bl_options = {'REGISTER', 'UNDO'}
 	
