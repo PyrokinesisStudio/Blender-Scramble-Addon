@@ -818,7 +818,7 @@ class BoneNameMenu(bpy.types.Menu):
 class SpecialsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_pose_specials_specials"
 	bl_label = "Special Processing"
-	bl_description = "Handling special functions menu"
+	bl_description = "Special manage menu"
 	
 	def draw(self, context):
 		self.layout.operator(SplineGreasePencil.bl_idname, icon="PLUGIN")

@@ -104,7 +104,7 @@ class OpenRecentFiles(bpy.types.Operator):
 
 class OpenBookmarkText(bpy.types.Operator):
 	bl_idname = "wm.open_bookmark_text"
-	bl_label = "Open Text \"Bookmarks"
+	bl_label = "Open Text \"Bookmarks\""
 	bl_description = "Blender text editor open file browser bookmarks"
 	bl_options = {'REGISTER', 'UNDO'}
 	

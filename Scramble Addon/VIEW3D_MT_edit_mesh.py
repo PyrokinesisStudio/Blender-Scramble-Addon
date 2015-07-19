@@ -89,7 +89,7 @@ class SetProportionalEdit(bpy.types.Operator): #
 class PieMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_edit_mesh_pie_menu"
 	bl_label = "Pie Menu"
-	bl_description = "Is pie on mesh editing"
+	bl_description = "This mesh edit pie"
 	
 	def draw(self, context):
 		self.layout.operator(SelectModePieOperator.bl_idname, icon="PLUGIN")

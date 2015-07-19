@@ -10,7 +10,7 @@ import bpy
 class ChangeContextTab(bpy.types.Operator):
 	bl_idname = "buttons.change_context_tab"
 	bl_label = "Switch Properties Tab"
-	bl_description = "Turn switch Properties tab"
+	bl_description = "Switch properties tab in turn"
 	bl_options = {'REGISTER'}
 	
 	is_left = bpy.props.BoolProperty(name="To Left", default=False)

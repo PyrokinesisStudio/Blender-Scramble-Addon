@@ -51,7 +51,7 @@ class ObjectModePie(bpy.types.Menu):
 class SetObjectMode(bpy.types.Operator): #
 	bl_idname = "object.set_object_mode"
 	bl_label = "Set Object Modes"
-	bl_description = "Sets interactive mode of object"
+	bl_description = "Set interactive mode of object"
 	bl_options = {'REGISTER'}
 	
 	mode = bpy.props.StringProperty(name="Interactive Mode", default="OBJECT")

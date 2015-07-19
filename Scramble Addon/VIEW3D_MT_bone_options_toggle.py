@@ -109,7 +109,7 @@ class SetIKPoleTarget(bpy.types.Operator):
 		activeObj = context.active_object
 		activeBone = context.active_pose_bone
 		if (len(context.selected_pose_bones) != 2):
-			self.report(type={"ERROR"}, message="Select two different bones and try")
+			self.report(type={"ERROR"}, message="Select two bones and try again")
 			return {"CANCELLED"}
 		for bone in context.selected_pose_bones:
 			if (activeBone.name != bone.name):
@@ -133,7 +133,7 @@ class SetIKChainLength(bpy.types.Operator):
 	def execute(self, context):
 		activeBone = context.active_pose_bone
 		if (len(context.selected_pose_bones) != 2):
-			self.report(type={"ERROR"}, message="Select two different bones and try")
+			self.report(type={"ERROR"}, message="Select two bones and try again")
 			return {"CANCELLED"}
 		targetBone = None
 		for bone in context.selected_pose_bones:

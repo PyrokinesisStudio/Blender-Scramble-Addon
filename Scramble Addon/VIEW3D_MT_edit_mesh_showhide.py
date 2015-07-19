@@ -42,7 +42,7 @@ class InvertHide(bpy.types.Operator):
 class HideVertexOnly(bpy.types.Operator):
 	bl_idname = "mesh.hide_vertex_only"
 	bl_label = "Hide Only Vertex"
-	bl_description = "To hide selected vertices,"
+	bl_description = "Hide and Fix Selected vertices"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):

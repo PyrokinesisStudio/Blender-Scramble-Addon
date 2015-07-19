@@ -994,7 +994,7 @@ class ObjectNameMenu(bpy.types.Menu):
 class ObjectColorMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_object_color"
 	bl_label = "Object Color"
-	bl_description = "Relationship between object color menu"
+	bl_description = "Object color operators menu"
 	
 	def draw(self, context):
 		self.layout.operator(ApplyObjectColor.bl_idname, icon="PLUGIN")

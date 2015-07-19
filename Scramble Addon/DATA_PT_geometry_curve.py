@@ -299,11 +299,11 @@ def menu(self, context):
 		if any(flag):
 			row = self.layout.split(percentage=0.5)
 			if flag[0]:
-				row.operator(activate_taper_parent_object.bl_idname, icon='PARTICLE_PATH', text="Active parent taper")
+				row.operator(activate_taper_parent_object.bl_idname, icon='PARTICLE_PATH', text="Active Parent Taper")
 			else:
 				row.label("")
 			if flag[1]:
-				row.operator(activate_bevel_parent_object.bl_idname, icon='OUTLINER_OB_SURFACE', text="Active parent bevel")
+				row.operator(activate_bevel_parent_object.bl_idname, icon='OUTLINER_OB_SURFACE', text="Active Parent Bevel")
 			else:
 				row.label("")
 		

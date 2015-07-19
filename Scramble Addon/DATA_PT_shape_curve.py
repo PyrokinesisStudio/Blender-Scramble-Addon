@@ -9,20 +9,20 @@ import bpy
 
 class copy_curve_shape_setting(bpy.types.Operator):
 	bl_idname = "curve.copy_curve_shape_setting"
-	bl_label = "Copy shape settings"
+	bl_label = "Copy Shape Settings"
 	bl_description = "Copy selected curve other active curve shape settings"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	dimensions = bpy.props.BoolProperty(name="2D/3D", default=True)
 	resolution_u = bpy.props.BoolProperty(name="Preview U", default=True)
-	render_resolution_u = bpy.props.BoolProperty(name="Rendered U", default=True)
-	fill_mode = bpy.props.BoolProperty(name="Fill method", default=True)
-	use_fill_deform = bpy.props.BoolProperty(name="After Phil", default=True)
-	twist_mode = bpy.props.BoolProperty(name="-Twist", default=True)
+	render_resolution_u = bpy.props.BoolProperty(name="Render U", default=True)
+	fill_mode = bpy.props.BoolProperty(name="Fill Method", default=True)
+	use_fill_deform = bpy.props.BoolProperty(name="Fill Deformed", default=True)
+	twist_mode = bpy.props.BoolProperty(name="Twist Method", default=True)
 	use_radius = bpy.props.BoolProperty(name="Radius", default=True)
 	use_stretch = bpy.props.BoolProperty(name="Stretch", default=True)
 	twist_smooth = bpy.props.BoolProperty(name="Smooth", default=True)
-	use_deform_bounds = bpy.props.BoolProperty(name="Fix", default=True)
+	use_deform_bounds = bpy.props.BoolProperty(name="Fix Border", default=True)
 	
 	@classmethod
 	def poll(cls, context):
@@ -43,7 +43,7 @@ class copy_curve_shape_setting(bpy.types.Operator):
 		self.layout.prop(self, 'dimensions')
 		row = self.layout.row()
 		row.label("Resolution:")
-		row.label("Phil:")
+		row.label("Fill:")
 		row = self.layout.row()
 		row.prop(self, 'resolution_u')
 		row.prop(self, 'fill_mode')
@@ -51,8 +51,8 @@ class copy_curve_shape_setting(bpy.types.Operator):
 		row.prop(self, 'render_resolution_u')
 		row.prop(self, 'use_fill_deform')
 		row = self.layout.row()
-		row.label("Twist:")
-		row.label("Deformation paths / curve:")
+		row.label("Twisting:")
+		row.label("Path / Curve-Deform:")
 		row = self.layout.row()
 		row.prop(self, 'twist_mode')
 		row.prop(self, 'use_radius')

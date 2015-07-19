@@ -11,7 +11,7 @@ import re
 class CopyBoneName(bpy.types.Operator):
 	bl_idname = "object.copy_bone_name"
 	bl_label = "Bone name to Clipboard"
-	bl_description = "To Clipboard copies bone name"
+	bl_description = "Bone Name to Clipboard"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

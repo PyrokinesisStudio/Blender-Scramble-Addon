@@ -310,7 +310,7 @@ class MakeLinkTransform(bpy.types.Operator):
 class TransformMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_make_links_transform"
 	bl_label = "Transform"
-	bl_description = "Links to information about transform objects"
+	bl_description = "Link object transforms"
 	
 	def draw(self, context):
 		op = self.layout.operator(MakeLinkTransform.bl_idname, text="Transform", icon='PLUGIN')

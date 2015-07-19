@@ -392,7 +392,7 @@ class RenameDataBlocks(bpy.types.Operator):
 
 class AllOnShowAllEdges(bpy.types.Operator):
 	bl_idname = "object.all_on_show_all_edges"
-	bl_label = "All on \"Draw All Edges"
+	bl_label = "All on \"Draw All Edges\""
 	bl_description = "Show all sides of all objects (can be off) turn display settings"
 	bl_options = {'REGISTER', 'UNDO'}
 	

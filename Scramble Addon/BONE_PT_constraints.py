@@ -9,7 +9,7 @@ import bpy
 
 class quick_child_constraint(bpy.types.Operator):
 	bl_idname = "constraint.quick_child_constraint"
-	bl_label = "Quick-child constraints"
+	bl_label = "Quick Child Constraints"
 	bl_description = "Quickly add child constraint"
 	bl_options = {'REGISTER', 'UNDO'}
 	

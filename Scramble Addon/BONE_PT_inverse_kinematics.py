@@ -129,7 +129,7 @@ class reverse_ik_min_max(bpy.types.Operator):
 class copy_ik_axis_setting(bpy.types.Operator):
 	bl_idname = "pose.copy_ik_axis_setting"
 	bl_label = "Copy axis-setting to other axis"
-	bl_description = "Copy other axis on one axis"
+	bl_description = "Copy settings other axis from one axis"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [
@@ -208,8 +208,8 @@ class copy_ik_axis_setting(bpy.types.Operator):
 
 class reset_ik_settings(bpy.types.Operator):
 	bl_idname = "pose.reset_ik_settings"
-	bl_label = "Reset IK"
-	bl_description = "Initializes settings of this bone IK"
+	bl_label = "Reset IK Settings"
+	bl_description = "Reset this bone IK settings"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

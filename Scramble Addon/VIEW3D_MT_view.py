@@ -323,7 +323,7 @@ class LayerPieRun(bpy.types.Operator): #
 class PanelPieOperator(bpy.types.Operator):
 	bl_idname = "view3d.panel_pie_operator"
 	bl_label = "Switch panel pie menu"
-	bl_description = "Is pie menu toggle Panel"
+	bl_description = "Toggle panel pie menu"
 	bl_options = {'MACRO'}
 	
 	def execute(self, context):
@@ -332,7 +332,7 @@ class PanelPieOperator(bpy.types.Operator):
 class PanelPie(bpy.types.Menu): #
 	bl_idname = "VIEW3D_MT_view_pie_panel"
 	bl_label = "Switch panel pie menu"
-	bl_description = "Is pie menu toggle Panel"
+	bl_description = "Toggle panel pie menu"
 	
 	def draw(self, context):
 		op = self.layout.menu_pie().operator(RunPanelPie.bl_idname, text="Only Tool Shelf", icon='TRIA_LEFT')
@@ -346,7 +346,7 @@ class PanelPie(bpy.types.Menu): #
 class RunPanelPie(bpy.types.Operator): #
 	bl_idname = "view3d.run_panel_pie"
 	bl_label = "Switch panel pie menu"
-	bl_description = "Is pie menu toggle Panel"
+	bl_description = "Toggle panel pie menu"
 	bl_options = {'MACRO'}
 	
 	properties = bpy.props.BoolProperty(name="Property")
