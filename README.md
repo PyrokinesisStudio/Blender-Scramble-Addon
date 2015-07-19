@@ -47,7 +47,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **ボーン名を左右反転**
     * **―(Mirror Bone Name)**
         * アクティブなボーン名を左右反転します
-        * ―(bone name Active Flip)
+        * ―(Flip active mirror bone name)
     * **ボーン名に文字列を追加**
     * **―(Add text bone name)**
         * アクティブなボーン名に文字列を追加します
@@ -124,7 +124,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択オブジェクトの全てのモディファイアを削除します
         * ―(Remove all modifiers of selected object)
     * **ビューへのモディファイア適用を切り替え**
-    * **―(Modifiers apply to view switching)**
+    * **―(Switch Modifiers Apply/Unapply to View)**
         * 選択オブジェクトの全てのモディファイアのビューへの適用を切り替えます
         * ―(Shows or hides application to view all modifiers of selected object)
     * **モディファイア使用を同期**
@@ -132,7 +132,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択オブジェクトのレンダリング時/ビュー時のモディファイア使用を同期します
         * ―(synchronized modifier used when rendering selection / view)
     * **全モディファイアの展開/閉じるを切り替え**
-    * **―(All modifiers expand / collapse toggle)**
+    * **―(Toggle all modifiers expand/close)**
         * アクティブオブジェクトの全モディファイアを展開/閉じるを切り替え(トグル)します
         * ―(Expand / collapse all modifiers of active objects to switch (toggle))
     * **モディファイア適用+統合**
@@ -156,7 +156,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択したオブジェクトのサブサーフモディファイアのレンダリング時の細分化数を設定します
         * ―(Sets number of subdivisions during rendering of selected object subsurfmodifaia)
     * **プレビュー・レンダリングの細分化数を同じに**
-    * **―(Equivalent to subdivision of preview rendering)**
+    * **―(Sync subsurf level preview or rendering)**
         * 選択したオブジェクトのサブサーフモディファイアのプレビュー時とレンダリング時の細分化数を同じに設定します
         * ―(Set in same subdivision of subsurfmodifaia of selected object when you preview and rendering time)
     * **最適化表示を設定**
@@ -172,7 +172,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択したオブジェクトにサブサーフモディファイアを追加します
         * ―(Add subsurfmodifaia to selected object)
     * **アーマチュアの「体積を維持」をまとめて設定**
-    * **―(Keep volume armature together set)**
+    * **―(Set armature "Preserve Volume")**
         * 選択したオブジェクトのアーマチュアモディファイアの「体積を維持」をまとめてオン/オフします
         * ―(Armtuamodifaia selected objects keep volume together off and on the)
     * **クイックカーブ変形**
@@ -318,11 +318,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **180°回転**
     * **―(Rotate 180 Degrees)**
         * アクティブな画像を180°回転します
-        * ―(Active image rotates 180 °)
+        * ―(Rotate active image 180 degrees)
     * **270°回転**
     * **―(Rotate 270 Degrees)**
         * アクティブな画像を270°回転します
-        * ―(Active image rotates 270 degrees)
+        * ―(Rotate active image 270 degrees)
     * **外部エディターで編集 (拡張)**
     * **―(Edit by external editor (Advance))**
         * ユーザー設定のファイルタブで設定した追加の外部エディターで画像を開きます
@@ -342,7 +342,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **画像を並べる**
     * **―(Tile Image)**
         * アクティブな画像を小さくして並べます
-        * ―(Arrange active image to reduce)
+        * ―(Array and scale-down active image)
     * **画像の高速ぼかし**
     * **―(Blur Image Fast)**
         * アクティブな画像に高速なぼかし処理を行います
@@ -350,7 +350,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **ノイズ画像を新規作成**
     * **―(Create new noise image)**
         * ノイズ画像を新規画像として追加します
-        * ―(Add as new picture noise picture)
+        * ―(Add new noise image)
     * **画像を脱色**
     * **―(Decolorize)**
         * アクティブな画像をモノクロにします
@@ -358,7 +358,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **画像のサイズ変更**
     * **―(Change size of image)**
         * アクティブな画像のサイズを変更します
-        * ―(Change size of active image)
+        * ―(Change size active image)
   
 * **「UV/画像エディター」エリア > 「選択」メニュー**
 * **―("UV/Image Editor" Area > "Select" Menu)**
@@ -444,7 +444,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 全マテリアル(選択オブジェクトのみも可)のFreeStyleライン色をそのマテリアルのディフューズ色+ブレンドした色に置換します
         * ―(All material (only selected objects are allowed) for FreeStyle line color of material diffuse color + blend to replace)
     * **全マテリアルのオブジェクトカラーを有効に**
-    * **―(Enable color of all material objects)**
+    * **―(Enable object colors all material)**
         * 全マテリアルのオブジェクトカラーの設定をオンもしくはオフにします
         * ―(Sets color of all material objects or off the)
     * **全てのバンプマップの品質を設定**
@@ -452,7 +452,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 全てのテクスチャのバンプマップの品質を一括で設定します
         * ―(Bump-map texture of all quality sets in bulk)
     * **全テクスチャ名を使用する画像ファイル名に**
-    * **―(All image file names using texture name)**
+    * **―(All image file names to texture names)**
         * 全てのテクスチャの名前を、使用している外部画像のファイル名にします
         * ―(names of all textures use external image file name)
     * **UV指定が空欄な場合アクティブUVで埋める**
@@ -460,7 +460,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * テクスチャのUV指定欄が空欄の場合、リンクしているメッシュオブジェクトのアクティブなUV名で埋めます
         * ―(Under active UV texture UV specified fields is linked to an empty mesh object fills)
     * **物理演算の開始/終了フレームを一括設定**
-    * **―(Set start / end frame of physics at once)**
+    * **―(Set start/end frame of physics)**
         * 物理演算などの開始/終了フレームを設定する部分にレンダリング開始/終了フレーム数を割り当てます
         * ―(Assign render start / end frames portions to set start / end frames, such as physics)
   
@@ -475,7 +475,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * このBlendファイルのあるフォルダのtextures内で、使用していないファイルをbackupフォルダに隔離します
         * ―(Files in textures folder with Blend files, do not use isolates them in backup folder)
     * **「最近使ったファイル」をテキストで開く**
-    * **―(Open text in "recent files)**
+    * **―(Open Text "Recent Files")**
         * 「最近使ったファイル」をBlenderのテキストエディタで開きます
         * ―(Open "recent files" in Blender text editor)
     * **「ブックマーク」をテキストで開く**
@@ -582,7 +582,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 現在のメッシュの形状を保持しながら全シェイプキーを削除します
         * ―(Remove all shape key while maintaining shape of current mesh)
     * **同名のシェイプキー同士をドライバでリンク**
-    * **―(Shape key together with same name in driver link)**
+    * **―(Link shape keys same name by driver)**
         * 他の選択オブジェクトのシェイプキーの動作を、アクティブなオブジェクトにドライバでリンクします
         * ―(Behavior of selection of other shape key drivers link active object)
     * **全シェイプを無効化/有効化**
@@ -597,7 +597,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * メッシュにウェイトが割り当てられていない頂点グループを削除します
         * ―(Remove weights assigned to mesh vertex groups)
     * **ミラーの対になる空頂点グループを追加**
-    * **―(Add empty vertex group versus mirror)**
+    * **―(Add empty mirroring vertex group)**
         * .L .R などミラーの命令規則に従って付けられたボーンの対になる空の新規ボーンを追加します
         * ―(. L... R, add an empty pair of bones according to mandate rule in Miller's new born)
     * **一番上を選択**
@@ -617,7 +617,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブな頂点グループを一番下へ移動させます
         * ―(Move to bottom vertex group active)
     * **特定文字列が含まれる頂点グループ削除**
-    * **―(Delete vertex groups that contain specific text)**
+    * **―(Delete vertex groups contain specific text)**
         * 指定した文字列が名前に含まれている頂点グループを全て削除します
         * ―(Removes all vertex group names contains specified string)
   
@@ -733,14 +733,14 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 設定は維持して剛体ワールドを作り直します
         * ―(Keep setting, recreate rigid world)
     * **剛体ワールドの開始/終了フレームをセット**
-    * **―(Set start / end frames rigid world)**
+    * **―(Set start/end frames rigid body world)**
         * 剛体ワールドの開始/終了フレームをレンダリングの開始/終了フレームへと設定します
         * ―(Start / end frame rigid world of sets to start / end frame rendering)
   
 * **「プロパティ」エリア > 「テクスチャ」タブ > リスト右の▼**
 * **―("Propaties" Area > "Texture" Tab > List Right ▼)**
     * **テクスチャ名を使用する画像ファイル名に**
-    * **―(Image file names using texture name)**
+    * **―(Image File name to Texture Name)**
         * アクティブなテクスチャの名前を使用している外部画像のファイル名にします
         * ―(file name of external images using name of active texture)
     * **テクスチャスロットを全て空に**
@@ -823,7 +823,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * Blenderの全てのショートカットをブラウザで確認出来ます
         * ―(Can confirm Blender all shortcuts in browser)
     * **最後のコマンドをショートカットに登録**
-    * **―(last command create shortcut)**
+    * **―(Create Shortcut by Last Command)**
         * 最後に実行したコマンドをショートカットに登録します
         * ―(Last command create shortcut)
     * **割り当ての無いショートカット一覧**
@@ -839,7 +839,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * キーコンフィグをXML形式で保存します
         * ―(Game save in XML format)
     * **展開しているキー割り当てのカテゴリを移動**
-    * **―(Move key assignments that expand categories)**
+    * **―(Move shortcut expanded to other categories)**
         * 展開しているキー割り当てを、他のカテゴリに移動します
         * ―(Move key assignments that expand into other categories)
     * **Blender-Scramble-Addonを更新**
@@ -847,7 +847,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * Blender-Scramble-Addonをダウンロード・更新を済ませます
         * ―(Downloads, updates and check out Blender-Scramble-Addon)
     * **「追加項目のオン/オフ」の表示切り替え**
-    * **―(Toggle on/off additional items)**
+    * **―(Toggle "On/Off Additional Items")**
         * ScrambleAddonによるメニューの末尾の「追加項目のオン/オフ」ボタンの表示/非表示を切り替えます
         * ―(Show or hide turn on/off additional items button at end of menu by ScrambleAddon)
   
@@ -858,7 +858,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * .blendファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
         * ―((WindowsOS only) associated with Blender running file.blend file)
     * **バックアップをこのバージョンに関連付け**
-    * **―(Backup with this version)**
+    * **―(Backup Files with This Blender Version)**
         * .blend1 .blend2 などのバックアップファイルをこのBlender実行ファイルに関連付けます (WindowsOSのみ)
         * ―(associates with Blender running file backup file, such as.blend1.blend2 (WindowsOS only))
   
@@ -915,7 +915,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * ボーンを確認無しで削除します
         * ―(Remove bones without confirm)
     * **ボーンをそのまま3Dカーソルの位置へ**
-    * **―(Bones intact to position of 3D cursor)**
+    * **―(Move bone to 3D cursor intact)**
         * 相対的なボーンの尾(根本でも可)の位置をそのままに、ボーンを3Dカーソルの位置へ移動させます
         * ―(Position of relative born tail (even root), bone, 3 D move cursor position)
   
@@ -1117,7 +1117,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブメッシュオブジェクトの変形に追従するアーマチュアを新規作成します
         * ―(Creates new armature to follow active mesh objects)
     * **頂点グループがある頂点位置にボーン作成**
-    * **―(Create bone vertices where vertex groups)**
+    * **―(Create bone to vertices of vertex groups)**
         * 選択オブジェクトの頂点グループが割り当てられている頂点位置に、その頂点グループ名のボーンを作成します
         * ―(Create vertex group names bone vertices where vertex group of selected objects that are assigned)
     * **厚み付けモディファイアで輪郭線生成**
@@ -1149,7 +1149,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中のオブジェクトの名前を正規表現で置換します
         * ―(Name of currently selected object replace with regular expressions)
     * **オブジェクト名とデータ名を同じにする**
-    * **―(To same object names and data names)**
+    * **―(Sync object name and data name)**
         * 選択中のオブジェクトのオブジェクト名とデータ名を同じにします
         * ―(same object and data names for selected objects)
     * **オブジェクトカラー有効 + 色設定**
@@ -1161,7 +1161,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択オブジェクトのオブジェクトカラーを無効にし、色を設定します
         * ―(To disable object color of selected object, sets color)
     * **モディファイア適用してペアレント作成**
-    * **―(Applying modifiers, create parent)**
+    * **―(Applied Modifiers and Create Parent)**
         * 親オブジェクトのモディファイアを適用してから、親子関係を作成します
         * ―(Create parent/child relationship after applying modifiers of parent object)
     * **カーブからロープ状のメッシュを作成**
@@ -1253,7 +1253,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アーマチュアのポーズ位置/レスト位置を切り替えます
         * ―(Toggles pose/rest position of armature)
     * **対のボーンにコンストレイントをコピー**
-    * **―(Copy constraints vs. Vaughan)**
+    * **―(Copy constraints to mirror bone)**
         * 「X.L」なら「X.R」、「X.R」なら「X.L」の名前のボーンへとコンストレイントをコピーします
         * ―("X.L" If "X.R", "X.R" bone "X.L" name copy constraints)
     * **ボーン名の連番を削除**
@@ -1283,7 +1283,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「3Dビュー」エリア > 「オブジェクト」モード > 「選択」メニュー**
 * **―("3D View" Area > "Object" Mode > "Select" Menu)**
     * **サイズで比較してオブジェクトを選択**
-    * **―(In size compared to object)**
+    * **―(Compare size and select objects)**
         * 最大オブジェクトに対して大きい、もしくは小さいオブジェクトを選択します
         * ―(Select maximum objects larger or smaller objects)
     * **アクティブ以外を非選択に**
@@ -1295,7 +1295,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなオブジェクトと同じ名前 (X X.001 X.002など) の可視オブジェクトを選択します
         * ―(Select visible object of active object with same name, such as (X.001 X X.002))
     * **同じマテリアル構造のオブジェクトを選択**
-    * **―(Select an object of same material)**
+    * **―(Select objects of same material structure)**
         * アクティブなオブジェクトのマテリアル構造と同じ可視オブジェクトを選択します
         * ―(Select active object material structure and same visible objects)
     * **同じモディファイア構造のオブジェクトを選択**
@@ -1303,7 +1303,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなオブジェクトのモディファイア構造が同じ可視オブジェクトを選択します
         * ―(Select same modifier of active objects visible objects)
     * **同じサブサーフレベルのオブジェクトを選択**
-    * **―(Select Subsurf levels same object)**
+    * **―(Select same subsurf level object)**
         * アクティブなオブジェクトのサブサーフレベルが同じ可視オブジェクトを選択します
         * ―(Select Subsurf levels of active objects have same visible objects)
     * **同じアーマチュアで変形しているオブジェクトを選択**
@@ -1311,7 +1311,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなオブジェクトと同じアーマチュアで変形している可視オブジェクトを選択します
         * ―(Select visible objects are transformed in an active object with same armature)
     * **サイズで比較してオブジェクトを選択**
-    * **―(In size compared to object)**
+    * **―(Compare size and select objects)**
         * アクティブオブジェクトより大きい、もしくは小さいオブジェクトを追加選択します
         * ―(Greater than active object, or select additional small objects)
     * **面のあるメッシュを選択**
@@ -1364,7 +1364,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **ボーンの経路を選択**
     * **―(Select path of bones)**
         * 2つの選択ボーンの経路を選択します
-        * ―(Select select bones of two paths)
+        * ―(Select bones path)
     * **右半分を選択**
     * **―(Select Right Half)**
         * ボーン群の右半分を選択します(その他設定も有り)
@@ -1385,7 +1385,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 視点の中心位置に3Dカーソルを移動させます
         * ―(Move 3D cursor to location of center point of)
     * **3Dカーソルを非表示に(遥か遠くに)**
-    * **―(3D cursor invisible in (distant))**
+    * **―(Hide 3D Cursor (move far))**
         * 3Dカーソルを遥か遠くに移動させて非表示のように見せかけます
         * ―(Pretend to hide 3D cursor to move far far away)
   
@@ -1415,7 +1415,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 「パネル両方非表示」→「ツールシェルフのみ表示」→「プロパティのみ表示」... のトグル
         * ―("Panel both hide" => "show only tool shelf => show only properties. toggle)
     * **シェーディング切り替え(モードA)**
-    * **―(Shading switch (mode A))**
+    * **―(Shading Switch (Mode A))**
         * シェーディングを 「ワイヤーフレーム」→「ソリッド」→「テクスチャ」... と切り替えていきます
         * ―("Wireframe", "solid" => "texture" shading... We will switch)
     * **プリセットビュー**
@@ -1462,7 +1462,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 視点と3Dカーソルの位置を原点(XYZ=0.0)に移動させます
         * ―(Perspective and 3D cursor position move to starting point (XYZ=0.0))
     * **メッシュに視点と3Dカーソルをスナップ**
-    * **―(Perspective and 3D cursor snap to mesh)**
+    * **―(Snap mesh view and 3D cursor)**
         * マウス下のメッシュ面上に視点と3Dカーソルを移動させます (ショートカットに登録してお使い下さい)
         * ―((Please use shortcuts) move viewpoint and 3D cursor mesh surface under mouse)
   
@@ -1483,7 +1483,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「3Dビュー」エリア > 「テクスチャペイント」モード > ツールシェルフ > 「スロット」パネル**
 * **―("3D View" Area > "Texture Paint" Mode > Tool Shelf > "Slots" Panel)**
     * **アクティブなテクスチャスロットを塗る**
-    * **―(Apply active texture slot)**
+    * **―(Paint Active Texture Slot)**
         * アクティブなペイントスロットをアクティブなテクスチャスロットにします
         * ―(active texture slot slot active paint)
   

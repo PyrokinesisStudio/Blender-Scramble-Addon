@@ -323,7 +323,7 @@ class SelectParentEnd(bpy.types.Operator):
 class SelectPath(bpy.types.Operator):
 	bl_idname = "pose.select_path"
 	bl_label = "Select path of bones"
-	bl_description = "Select select bones of two paths"
+	bl_description = "Select bones path"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

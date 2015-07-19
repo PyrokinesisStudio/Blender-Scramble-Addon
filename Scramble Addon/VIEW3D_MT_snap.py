@@ -52,7 +52,7 @@ class Move3DCursorToViewLocation(bpy.types.Operator):
 
 class Move3DCursorFar(bpy.types.Operator):
 	bl_idname = "view3d.move_3d_cursor_far"
-	bl_label = "3D cursor invisible in (distant)"
+	bl_label = "Hide 3D Cursor (move far)"
 	bl_description = "Pretend to hide 3D cursor to move far far away"
 	bl_options = {'REGISTER'}
 	

@@ -181,7 +181,7 @@ class BlurWeight(bpy.types.Operator):
 			self.report(type={'ERROR'}, message="There is no active object")
 			return {'CANCELLED'}
 		if (activeObj.type != 'MESH'):
-			self.report(type={'ERROR'}, message="Try on mesh object")
+			self.report(type={'ERROR'}, message="Try run on mesh object")
 			return {'CANCELLED'}
 		pre_mode = activeObj.mode
 		bpy.ops.object.mode_set(mode='OBJECT')

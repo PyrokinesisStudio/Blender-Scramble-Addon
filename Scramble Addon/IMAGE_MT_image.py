@@ -412,7 +412,7 @@ class Rotate90Image(bpy.types.Operator):
 class Rotate180Image(bpy.types.Operator):
 	bl_idname = "image.rotate_180_image"
 	bl_label = "Rotate 180 Degrees"
-	bl_description = "Active image rotates 180 °"
+	bl_description = "Rotate active image 180 degrees"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -441,7 +441,7 @@ class Rotate180Image(bpy.types.Operator):
 class Rotate270Image(bpy.types.Operator):
 	bl_idname = "image.rotate_270_image"
 	bl_label = "Rotate 270 Degrees"
-	bl_description = "Active image rotates 270 degrees"
+	bl_description = "Rotate active image 270 degrees"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -664,7 +664,7 @@ class NewUVChecker(bpy.types.Operator):
 class Tiles(bpy.types.Operator):
 	bl_idname = "image.tiles"
 	bl_label = "Tile Image"
-	bl_description = "Arrange active image to reduce"
+	bl_description = "Array and scale-down active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	count = bpy.props.IntProperty(name="Number Of Tile", default=2, min=2, max=8, soft_min=2, soft_max=8)
@@ -741,7 +741,7 @@ class ResizeBlur(bpy.types.Operator):
 class NewNoise(bpy.types.Operator):
 	bl_idname = "image.new_noise"
 	bl_label = "Create new noise image"
-	bl_description = "Add as new picture noise picture"
+	bl_description = "Add new noise image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	monochrome = bpy.props.BoolProperty(name="Decolor Noise", default=False)
@@ -809,7 +809,7 @@ class Decolorization(bpy.types.Operator):
 class Clipping(bpy.types.Operator):
 	bl_idname = "image.clipping"
 	bl_label = "Change size of image"
-	bl_description = "Change size of active image"
+	bl_description = "Change size active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	width = bpy.props.IntProperty(name="Width", default=1024, min=1, max=8192, soft_min=1, soft_max=8192)

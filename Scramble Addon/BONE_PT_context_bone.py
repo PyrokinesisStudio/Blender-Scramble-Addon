@@ -36,7 +36,7 @@ class CopyBoneName(bpy.types.Operator):
 class RenameMirrorActiveBone(bpy.types.Operator):
 	bl_idname = "pose.rename_mirror_active_bone"
 	bl_label = "Mirror Bone Name"
-	bl_description = "bone name Active Flip"
+	bl_description = "Flip active mirror bone name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def CheckIsMirror(name):
@@ -116,7 +116,7 @@ class RenameMirrorActiveBone(bpy.types.Operator):
 			else:
 				self.report(type={'WARNING'}, message=pre_name + " => " + bone.name)
 		else:
-			self.report(type={'ERROR'}, message="No name change failed,")
+			self.report(type={'ERROR'}, message="No name changed, failed")
 			return {'CANCELLED'}
 		return {'FINISHED'}
 

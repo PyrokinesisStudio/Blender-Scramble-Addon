@@ -131,7 +131,7 @@ class ResetViewAndCursor(bpy.types.Operator):
 
 class SnapMeshViewAndCursor(bpy.types.Operator):
 	bl_idname = "view3d.snap_mesh_view_and_cursor"
-	bl_label = "Perspective and 3D cursor snap to mesh"
+	bl_label = "Snap mesh view and 3D cursor"
 	bl_description = "(Please use shortcuts) move viewpoint and 3D cursor mesh surface under mouse"
 	bl_options = {'REGISTER'}
 	

@@ -106,7 +106,7 @@ class TogglePanelsC(bpy.types.Operator):
 
 class ToggleViewportShadeA(bpy.types.Operator):
 	bl_idname = "view3d.toggle_viewport_shade_a"
-	bl_label = "Shading switch (mode A)"
+	bl_label = "Shading Switch (Mode A)"
 	bl_description = "\"Wireframe\", \"solid\" => \"texture\" shading... We will switch"
 	bl_options = {'REGISTER'}
 	

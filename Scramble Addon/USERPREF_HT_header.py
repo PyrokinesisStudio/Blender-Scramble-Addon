@@ -209,7 +209,7 @@ class ShowShortcutHtml(bpy.types.Operator):
 
 class RegisterLastCommandKeyconfig(bpy.types.Operator):
 	bl_idname = "wm.register_last_command_keyconfig"
-	bl_label = "last command create shortcut"
+	bl_label = "Create Shortcut by Last Command"
 	bl_description = "Last command create shortcut"
 	bl_options = {'REGISTER'}
 	
@@ -227,7 +227,7 @@ class RegisterLastCommandKeyconfig(bpy.types.Operator):
 		('Property Editor', "Property Editor", "", 8),
 		('3D View Generic', "3D View General", "", 9),
 		('Grease Pencil', "Grease Pencil", "", 10),
-		('Grease Pencil Stroke Edit Mode', "Grease pencil stroke edit mode", "", 11),
+		('Grease Pencil Stroke Edit Mode', "Grease Pencil Stroke Edit Mode", "", 11),
 		('Face Mask', "Face Mask", "", 12),
 		('Weight Paint Vertex Selection', "Select weight painting vertex", "", 13),
 		('Pose', "Pose", "", 14),
@@ -739,7 +739,7 @@ class ExportKeyConfigXml(bpy.types.Operator):
 
 class MoveKeyBindCategory(bpy.types.Operator):
 	bl_idname = "ui.move_key_bind_category"
-	bl_label = "Move key assignments that expand categories"
+	bl_label = "Move shortcut expanded to other categories"
 	bl_description = "Move key assignments that expand into other categories"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -754,7 +754,7 @@ class MoveKeyBindCategory(bpy.types.Operator):
 		('Property Editor', "Property Editor", "", 8),
 		('3D View Generic', "3D View General", "", 9),
 		('Grease Pencil', "Grease Pencil", "", 10),
-		('Grease Pencil Stroke Edit Mode', "Grease pencil stroke edit mode", "", 11),
+		('Grease Pencil Stroke Edit Mode', "Grease Pencil Stroke Edit Mode", "", 11),
 		('Face Mask', "Face Mask", "", 12),
 		('Weight Paint Vertex Selection', "Select weight painting vertex", "", 13),
 		('Pose', "Pose", "", 14),
@@ -910,7 +910,7 @@ class UpdateScrambleAddon(bpy.types.Operator):
 
 class ToggleDisabledMenu(bpy.types.Operator):
 	bl_idname = "wm.toggle_disabled_menu"
-	bl_label = "Toggle on/off additional items"
+	bl_label = "Toggle \"On/Off Additional Items\""
 	bl_description = "Show or hide turn on/off additional items button at end of menu by ScrambleAddon"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -933,7 +933,7 @@ class InputMenu(bpy.types.Menu):
 		self.layout.operator(ShowShortcutHtml.bl_idname, icon="PLUGIN")
 		self.layout.operator(ShowEmptyShortcuts.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="last command create shortcut", icon="PLUGIN").is_clipboard = False
+		self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="Create Shortcut by Last Command", icon="PLUGIN").is_clipboard = False
 		self.layout.operator(RegisterLastCommandKeyconfig.bl_idname, text="Clipboard command create shortcut", icon="PLUGIN").is_clipboard = True
 		self.layout.separator()
 		self.layout.operator(ImportKeyConfigXml.bl_idname, icon="PLUGIN")

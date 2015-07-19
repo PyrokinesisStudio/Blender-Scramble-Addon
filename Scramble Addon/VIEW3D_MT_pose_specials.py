@@ -425,7 +425,7 @@ class TogglePosePosition(bpy.types.Operator):
 
 class CopyConstraintsMirror(bpy.types.Operator):
 	bl_idname = "pose.copy_constraints_mirror"
-	bl_label = "Copy constraints vs. Vaughan"
+	bl_label = "Copy constraints to mirror bone"
 	bl_description = "\"X.L\" If \"X.R\", \"X.R\" bone \"X.L\" name copy constraints"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -528,7 +528,7 @@ class SetRigidBodyBone(bpy.types.Operator):
 		('IMAGE', "Image", "", 8),
 		]
 	empty_draw_type = bpy.props.EnumProperty(items=items, name="Show RigidConstraints", default='SPHERE')
-	is_parent_shape = bpy.props.BoolProperty(name="Track shape rigid constraints", default=False)
+	is_parent_shape = bpy.props.BoolProperty(name="Track shape rigid body constraints", default=False)
 	rot_limit = bpy.props.FloatProperty(name="Rotation Limit", default=90, min=0, max=360, soft_min=0, soft_max=360, step=1, precision=3)
 	linear_damping = bpy.props.FloatProperty(name="Damping: Move", default=0.04, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
 	angular_damping = bpy.props.FloatProperty(name="Damping: Rotate", default=0.1, min=0, max=1, soft_min=0, soft_max=1, step=1, precision=3)
@@ -801,7 +801,7 @@ class SetIKRotationLimitByPose(bpy.types.Operator):
 class BoneNameMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_pose_specials_bone_name"
 	bl_label = "Bone Name"
-	bl_description = "Feature on bone name menu"
+	bl_description = "Bone name operators menu"
 	
 	def draw(self, context):
 		self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")

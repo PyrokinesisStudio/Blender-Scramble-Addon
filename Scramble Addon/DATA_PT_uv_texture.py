@@ -150,7 +150,7 @@ class DeleteEmptyUV(bpy.types.Operator):
 						bpy.ops.mesh.uv_texture_remove()
 				me.uv_layers.active = preUV
 			else:
-				self.report(type={"WARNING"}, message=obj.name+"A mesh object is not")
+				self.report(type={"WARNING"}, message=obj.name+" is not mesh object")
 		return {'FINISHED'}
 
 class MoveActiveUV(bpy.types.Operator):

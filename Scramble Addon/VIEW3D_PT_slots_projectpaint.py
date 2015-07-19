@@ -9,7 +9,7 @@ import bpy
 
 class ActiveTextureSlotToActivePaintSlot(bpy.types.Operator):
 	bl_idname = "texture.active_texture_slot_to_active_paint_slot"
-	bl_label = "Apply active texture slot"
+	bl_label = "Paint Active Texture Slot"
 	bl_description = "active texture slot slot active paint"
 	bl_options = {'REGISTER'}
 	

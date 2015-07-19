@@ -650,7 +650,7 @@ class AllSetMaterialFreestyleColorByDiffuse(bpy.types.Operator):
 
 class AllSetMaterialObjectColor(bpy.types.Operator):
 	bl_idname = "material.all_set_material_object_color"
-	bl_label = "Enable color of all material objects"
+	bl_label = "Enable object colors all material"
 	bl_description = "Sets color of all material objects or off the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -719,7 +719,7 @@ class AllSetBumpMethod(bpy.types.Operator):
 
 class AllRenameTextureFileName(bpy.types.Operator):
 	bl_idname = "texture.all_rename_texture_file_name"
-	bl_label = "All image file names using texture name"
+	bl_label = "All image file names to texture names"
 	bl_description = "names of all textures use external image file name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -796,7 +796,7 @@ class FixEmptyTextureUVLayer(bpy.types.Operator):
 
 class AllSetPhysicsFrames(bpy.types.Operator):
 	bl_idname = "scene.all_set_physics_frames"
-	bl_label = "Set start / end frame of physics at once"
+	bl_label = "Set start/end frame of physics"
 	bl_description = "Assign render start / end frames portions to set start / end frames, such as physics"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -881,7 +881,7 @@ class EntireProcessObjectMenu(bpy.types.Menu):
 class EntireProcessMaterialMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_material"
 	bl_label = "Material"
-	bl_description = "Is all material processing functions"
+	bl_description = "This is all materials manage functions"
 	
 	def draw(self, context):
 		self.layout.operator(AllSetMaterialReceiveTransparent.bl_idname, icon='PLUGIN')
@@ -893,7 +893,7 @@ class EntireProcessMaterialMenu(bpy.types.Menu):
 class EntireProcessTextureMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_texture"
 	bl_label = "Texture"
-	bl_description = "All is set of batch processing and texture feature"
+	bl_description = "This is all textures manage functions"
 	
 	def draw(self, context):
 		self.layout.operator(AllRenameTextureFileName.bl_idname, icon='PLUGIN')

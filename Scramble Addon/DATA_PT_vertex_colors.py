@@ -149,7 +149,7 @@ class AddVertexColorSelectedObject(bpy.types.Operator):
 class SubMenu(bpy.types.Menu):
 	bl_idname = "DATA_PT_vertex_colors_sub_menu"
 	bl_label = "Vertex Color Operation"
-	bl_description = "About working with vertex colors menu"
+	bl_description = "Vertex color operators menu"
 	
 	def draw(self, context):
 		self.layout.operator(AddVertexColorSelectedObject.bl_idname, icon='PLUGIN')

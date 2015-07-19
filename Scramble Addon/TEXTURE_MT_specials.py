@@ -9,7 +9,7 @@ import bpy
 
 class RenameTextureFileName(bpy.types.Operator):
 	bl_idname = "texture.rename_texture_file_name"
-	bl_label = "Image file names using texture name"
+	bl_label = "Image File name to Texture Name"
 	bl_description = "file name of external images using name of active texture"
 	bl_options = {'REGISTER', 'UNDO'}
 	

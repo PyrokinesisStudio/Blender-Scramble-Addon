@@ -358,7 +358,7 @@ class CreateMeshImitateArmature(bpy.types.Operator):
 
 class CreateVertexGroupsArmature(bpy.types.Operator):
 	bl_idname = "object.create_vertex_groups_armature"
-	bl_label = "Create bone vertices where vertex groups"
+	bl_label = "Create bone to vertices of vertex groups"
 	bl_description = "Create vertex group names bone vertices where vertex group of selected objects that are assigned"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -638,7 +638,7 @@ class RenameObjectRegularExpression(bpy.types.Operator):
 
 class EqualizeObjectNameAndDataName(bpy.types.Operator):
 	bl_idname = "object.equalize_objectname_and_dataname"
-	bl_label = "To same object names and data names"
+	bl_label = "Sync object name and data name"
 	bl_description = "same object and data names for selected objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -715,7 +715,7 @@ class ClearObjectColor(bpy.types.Operator):
 
 class ParentSetApplyModifiers(bpy.types.Operator):
 	bl_idname = "object.parent_set_apply_modifiers"
-	bl_label = "Applying modifiers, create parent"
+	bl_label = "Applied Modifiers and Create Parent"
 	bl_description = "Create parent/child relationship after applying modifiers of parent object"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -1020,7 +1020,7 @@ class CurveMenu(bpy.types.Menu):
 class SpecialsMenu(bpy.types.Menu):
 	bl_idname = "VIEW3D_MT_object_specials_specials"
 	bl_label = "Special Processing"
-	bl_description = "Processing special action menu"
+	bl_description = "Special actions menu"
 	
 	def draw(self, context):
 		self.layout.operator(CreateVertexToMetaball.bl_idname, icon="PLUGIN")

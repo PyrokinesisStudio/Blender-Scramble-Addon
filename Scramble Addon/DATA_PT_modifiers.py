@@ -48,7 +48,7 @@ class DeleteAllModifiers(bpy.types.Operator):
 
 class ToggleApplyModifiersView(bpy.types.Operator):
 	bl_idname = "object.toggle_apply_modifiers_view"
-	bl_label = "Modifiers apply to view switching"
+	bl_label = "Switch Modifiers Apply/Unapply to View"
 	bl_description = "Shows or hides application to view all modifiers of selected object"
 	bl_options = {'REGISTER'}
 	
@@ -69,7 +69,7 @@ class ToggleApplyModifiersView(bpy.types.Operator):
 			for mod in obj.modifiers:
 				mod.show_viewport = is_apply
 		if is_apply:
-			self.report(type={"INFO"}, message="Applying modifiers to view")
+			self.report(type={"INFO"}, message="Applied modifiers to view")
 		else:
 			self.report(type={"INFO"}, message="Unregistered modifiers apply to view")
 		return {'FINISHED'}
@@ -107,7 +107,7 @@ class SyncShowModifiers(bpy.types.Operator):
 
 class ToggleAllShowExpanded(bpy.types.Operator):
 	bl_idname = "wm.toggle_all_show_expanded"
-	bl_label = "All modifiers expand / collapse toggle"
+	bl_label = "Toggle all modifiers expand/close"
 	bl_description = "Expand / collapse all modifiers of active objects to switch (toggle)"
 	bl_options = {'REGISTER'}
 	
@@ -305,7 +305,7 @@ class SetRenderSubsurfLevel(bpy.types.Operator):
 
 class EqualizeSubsurfLevel(bpy.types.Operator):
 	bl_idname = "object.equalize_subsurf_level"
-	bl_label = "Equivalent to subdivision of preview rendering"
+	bl_label = "Sync subsurf level preview or rendering"
 	bl_description = "Set in same subdivision of subsurfmodifaia of selected object when you preview and rendering time"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -415,7 +415,7 @@ class AddSubsurf(bpy.types.Operator):
 
 class SetArmatureDeformPreserveVolume(bpy.types.Operator):
 	bl_idname = "object.set_armature_deform_preserve_volume"
-	bl_label = "Keep volume armature together set"
+	bl_label = "Set armature \"Preserve Volume\""
 	bl_description = "Armtuamodifaia selected objects keep volume together off and on the"
 	bl_options = {'REGISTER', 'UNDO'}
 	

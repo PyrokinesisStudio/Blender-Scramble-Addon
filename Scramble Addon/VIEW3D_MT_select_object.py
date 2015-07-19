@@ -10,7 +10,7 @@ import re
 
 class SelectBoundBoxSize(bpy.types.Operator):
 	bl_idname = "object.select_bound_box_size"
-	bl_label = "In size compared to object"
+	bl_label = "Compare size and select objects"
 	bl_description = "Select maximum objects larger or smaller objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -120,7 +120,7 @@ class SelectGroupedName(bpy.types.Operator):
 
 class SelectGroupedMaterial(bpy.types.Operator):
 	bl_idname = "object.select_grouped_material"
-	bl_label = "Select an object of same material"
+	bl_label = "Select objects of same material structure"
 	bl_description = "Select active object material structure and same visible objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -171,7 +171,7 @@ class SelectGroupedModifiers(bpy.types.Operator):
 
 class SelectGroupedSubsurfLevel(bpy.types.Operator):
 	bl_idname = "object.select_grouped_subsurf_level"
-	bl_label = "Select Subsurf levels same object"
+	bl_label = "Select same subsurf level object"
 	bl_description = "Select Subsurf levels of active objects have same visible objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -229,7 +229,7 @@ class SelectGroupedArmatureTarget(bpy.types.Operator):
 
 class SelectGroupedSizeThan(bpy.types.Operator):
 	bl_idname = "object.select_grouped_size_than"
-	bl_label = "In size compared to object"
+	bl_label = "Compare size and select objects"
 	bl_description = "Greater than active object, or select additional small objects"
 	bl_options = {'REGISTER', 'UNDO'}
 	

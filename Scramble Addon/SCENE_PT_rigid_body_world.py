@@ -43,7 +43,7 @@ class WorldReset(bpy.types.Operator):
 
 class SyncFrames(bpy.types.Operator):
 	bl_idname = "rigidbody.sync_frames"
-	bl_label = "Set start / end frames rigid world"
+	bl_label = "Set start/end frames rigid body world"
 	bl_description = "Start / end frame rigid world of sets to start / end frame rendering"
 	bl_options = {'REGISTER', 'UNDO'}
 	

@@ -72,7 +72,7 @@ class IsolationTexturesUnusedFiles(bpy.types.Operator):
 
 class OpenRecentFiles(bpy.types.Operator):
 	bl_idname = "wm.open_recent_files"
-	bl_label = "Open text in \"recent files"
+	bl_label = "Open Text \"Recent Files\""
 	bl_description = "Open \"recent files\" in Blender text editor"
 	bl_options = {'REGISTER', 'UNDO'}
 	

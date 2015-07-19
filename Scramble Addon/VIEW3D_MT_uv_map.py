@@ -16,7 +16,7 @@ class CopyOtherUVMenuOperator(bpy.types.Operator): #
 	def execute(self, context):
 		obj = context.active_object
 		if (obj.type != 'MESH'):
-			self.report(type={"ERROR"}, message="Try on mesh object")
+			self.report(type={"ERROR"}, message="Try run on mesh object")
 			return {"CANCELLED"}
 		if (len(obj.data.uv_layers) < 2):
 			self.report(type={"ERROR"}, message="After add 2 or more UVs, please run")

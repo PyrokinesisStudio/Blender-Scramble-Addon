@@ -129,7 +129,7 @@ class ShapeKeyApplyRemoveAll(bpy.types.Operator):
 
 class AddLinkDriverShapeKeys(bpy.types.Operator):
 	bl_idname = "object.add_link_driver_shape_keys"
-	bl_label = "Shape key together with same name in driver link"
+	bl_label = "Link shape keys same name by driver"
 	bl_description = "Behavior of selection of other shape key drivers link active object"
 	bl_options = {'REGISTER', 'UNDO'}
 	

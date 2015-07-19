@@ -31,7 +31,7 @@ class RegisterBlendFile(bpy.types.Operator):
 
 class RegisterBlendBackupFiles(bpy.types.Operator):
 	bl_idname = "system.register_blend_backup_files"
-	bl_label = "Backup with this version"
+	bl_label = "Backup Files with This Blender Version"
 	bl_description = "associates with Blender running file backup file, such as.blend1.blend2 (WindowsOS only)"
 	bl_options = {'REGISTER'}
 	
