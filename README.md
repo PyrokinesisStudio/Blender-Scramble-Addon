@@ -79,6 +79,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなボーンの変形情報を、他の選択ボーンにコピーします
         * ―(Copy selected bones of other active bone deformation information)
   
+* **「プロパティ」エリア > 「ボーン」タブ > 「トランスフォームのロック」パネル**
+* **―("Propaties" Area > "Bone" Tab > "Transform Locks" Panel)**
+    * **トランスフォームのロック設定をコピー**
+    * **―(Copy transform lock settings)**
+        * アクティブなボーンのトランスフォームのロック設定を、他の選択ボーンにコピーします
+        * ―(Copies of other selected bone lock setting active bone transform)
+  
 * **「プロパティ」エリア > 「アーマチュアデータ」タブ > 「ボーングループ」パネル**
 * **―("Propaties" Area > "Armature" Tab > "Bone Groups" Panel)**
     * **このボーングループのボーンのみ表示**
