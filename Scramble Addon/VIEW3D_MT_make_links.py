@@ -164,108 +164,6 @@ class MakeLinkArmaturePose(bpy.types.Operator):
 				const.subtarget = bone.name
 		return {'FINISHED'}
 
-class MakeLinkSoftbodySettings(bpy.types.Operator):
-	bl_idname = "object.make_link_softbody_settings"
-	bl_label = "Link Softbody Setting"
-	bl_description = "Sets active object soft copies to other selected objects"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	@classmethod
-	def poll(cls, context):
-		if (len(context.selected_objects) < 2):
-			return False
-		for mod in context.object.modifiers:
-			if (mod.type == 'SOFT_BODY'):
-				break
-		else:
-			return False
-		return True
-	def execute(self, context):
-		active_obj = context.active_object
-		active_softbody = None
-		for mod in active_obj.modifiers:
-			if (mod.type == 'SOFT_BODY'):
-				active_softbody = mod
-				break
-		target_objs = []
-		for obj in context.selected_objects:
-			if (active_obj.name != obj.name):
-				target_objs.append(obj)
-		for obj in target_objs:
-			target_softbody = None
-			for mod in obj.modifiers:
-				if (mod.type == 'SOFT_BODY'):
-					target_softbody = mod
-					break
-			else:
-				target_softbody = obj.modifiers.new("Softbody", 'SOFT_BODY')
-			for name in dir(active_softbody.settings):
-				if (name[0] != '_'):
-					try:
-						value = active_softbody.settings.__getattribute__(name)
-						target_softbody.settings.__setattr__(name, value)
-					except AttributeError:
-						pass
-			for name in dir(active_softbody.point_cache):
-				if (name[0] != '_'):
-					try:
-						value = active_softbody.point_cache.__getattribute__(name)
-						target_softbody.point_cache.__setattr__(name, value)
-					except AttributeError:
-						pass
-		return {'FINISHED'}
-
-class MakeLinkClothSettings(bpy.types.Operator):
-	bl_idname = "object.make_link_cloth_settings"
-	bl_label = "Link Cloth Setting"
-	bl_description = "Cloth simulation for active object copies to other selected objects"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	@classmethod
-	def poll(cls, context):
-		if (len(context.selected_objects) < 2):
-			return False
-		for mod in context.object.modifiers:
-			if (mod.type == 'CLOTH'):
-				break
-		else:
-			return False
-		return True
-	def execute(self, context):
-		active_obj = context.active_object
-		active_cloth = None
-		for mod in active_obj.modifiers:
-			if (mod.type == 'CLOTH'):
-				active_cloth = mod
-				break
-		target_objs = []
-		for obj in context.selected_objects:
-			if (active_obj.name != obj.name):
-				target_objs.append(obj)
-		for obj in target_objs:
-			target_cloth = None
-			for mod in obj.modifiers:
-				if (mod.type == 'CLOTH'):
-					target_cloth = mod
-					break
-			else:
-				target_cloth = obj.modifiers.new("Cloth", 'CLOTH')
-			for name in dir(active_cloth.settings):
-				if (name[0] != '_'):
-					try:
-						value = active_cloth.settings.__getattribute__(name)
-						target_cloth.settings.__setattr__(name, value)
-					except AttributeError:
-						pass
-			for name in dir(active_cloth.point_cache):
-				if (name[0] != '_'):
-					try:
-						value = active_cloth.point_cache.__getattribute__(name)
-						target_cloth.point_cache.__setattr__(name, value)
-					except AttributeError:
-						pass
-		return {'FINISHED'}
-
 ######################
 # オペレーター(変形) #
 ######################
@@ -344,9 +242,6 @@ def menu(self, context):
 		self.layout.operator(MakeLinkObjectName.bl_idname, text="Object Name", icon="PLUGIN")
 		self.layout.operator(MakeLinkLayer.bl_idname, text="Layer", icon="PLUGIN")
 		self.layout.operator(MakeLinkDisplaySetting.bl_idname, text="Display Setting", icon="PLUGIN")
-		self.layout.separator()
-		self.layout.operator(MakeLinkSoftbodySettings.bl_idname, text="SoftBody Setting", icon="PLUGIN")
-		self.layout.operator(MakeLinkClothSettings.bl_idname, text="Cloth Setting", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(MakeLinkUVNames.bl_idname, text="Empty UV", icon="PLUGIN")
 		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="Movement of Armature", icon="PLUGIN")

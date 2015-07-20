@@ -673,6 +673,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * この表示設定を他の選択オブジェクトにコピーします
         * ―(Copy selected objects of other display settings)
   
+* **「プロパティ」エリア > 「物理演算」タブ > 「クロス」パネル**
+* **―("Propaties" Area > "Physics" Tab > "Cloth" Panel)**
+    * **クロスの設定をリンク**
+    * **―(Link Cloth Setting)**
+        * アクティブオブジェクトのクロスシミュレーション設定を、他の選択オブジェクトにコピーします
+        * ―(Cloth simulation for active object copies to other selected objects)
+  
 * **「プロパティ」エリア > 「物理演算」タブ > 「ダイナミックペイント」パネル**
 * **―("Propaties" Area > "Physics" Tab > "Dinamic Paint" Panel)**
     * **ダイナミックペイント設定をコピー**
@@ -708,6 +715,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Invert rigidbody constraints limits)**
         * アクティブなオブジェクトの剛体コンストレイントの制限設定の最小と最大を反転させます
         * ―(Minimum limit settings of rigid constraints of active object and reverses maximum)
+  
+* **「プロパティ」エリア > 「物理演算」タブ > 「ソフトボディ」パネル**
+* **―("Propaties" Area > "Physics" Tab > "Soft Body" Panel)**
+    * **ソフトボディ設定をコピー**
+    * **―(Copy soft settings)**
+        * アクティブオブジェクトのソフトボディの設定を、他の選択オブジェクトにコピーします
+        * ―(Sets active object soft copies to other selected objects)
   
 * **「プロパティ」エリア > ヘッダー**
 * **―("Propaties" Area > Header)**
@@ -1028,14 +1042,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Link motion of armature)**
         * コンストレイントによって、他の選択アーマチュアにアクティブアーマチュアの動きを真似させます
         * ―(By constraints on other selected armature mimic active armature movement)
-    * **ソフトボディの設定をリンク**
-    * **―(Link Softbody Setting)**
-        * アクティブオブジェクトのソフトボディの設定を、他の選択オブジェクトにコピーします
-        * ―(Sets active object soft copies to other selected objects)
-    * **クロスの設定をリンク**
-    * **―(Link Cloth Setting)**
-        * アクティブオブジェクトのクロスシミュレーション設定を、他の選択オブジェクトにコピーします
-        * ―(Cloth simulation for active object copies to other selected objects)
     * **変形をリンク**
     * **―(Link Transform)**
         * アクティブオブジェクトの変形情報を、他の選択オブジェクトにコピーします
