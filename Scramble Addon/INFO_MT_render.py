@@ -40,7 +40,7 @@ class ToggleThreadsMode(bpy.types.Operator):
 	bl_description = "Toggles thread number of CPUS used to render"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	threads = bpy.props.IntProperty(name="Number Of Threads", default=1, min=1, max=16, soft_min=1, soft_max=16, step=1)
+	threads = bpy.props.IntProperty(name="Number of Threads", default=1, min=1, max=16, soft_min=1, soft_max=16, step=1)
 	
 	def execute(self, context):
 		if (context.scene.render.threads_mode == 'AUTO'):
@@ -67,7 +67,7 @@ class SetAllSubsurfRenderLevels(bpy.types.Operator):
 		('RELATIVE', "Relative Value", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Setting Mode")
-	levels = bpy.props.IntProperty(name="Level Of Subsurf", default=2, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
+	levels = bpy.props.IntProperty(name="Level of Subsurf", default=2, min=-20, max=20, soft_min=-20, soft_max=20, step=1)
 	
 	def execute(self, context):
 		for obj in bpy.data.objects:
@@ -137,7 +137,7 @@ class RenderResolutionPercentageMenu(bpy.types.Menu):
 
 class SimplifyRenderMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_render_simplify"
-	bl_label = "Simplification Of Render"
+	bl_label = "Simplification of Render"
 	bl_description = "Simplify Rendering Settings"
 	
 	def draw(self, context):

@@ -32,7 +32,7 @@ class ViewSelectedEX(bpy.types.Operator):
 
 class ResetView(bpy.types.Operator):
 	bl_idname = "view3d.reset_view"
-	bl_label = "Viewpoint At Origin"
+	bl_label = "Viewpoint at Origin"
 	bl_description = "3D view perspective moves in center of coordinates"
 	bl_options = {'REGISTER', 'UNDO'}
 	

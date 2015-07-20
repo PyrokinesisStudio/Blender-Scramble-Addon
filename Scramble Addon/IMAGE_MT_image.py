@@ -472,7 +472,7 @@ class ExternalEditEX(bpy.types.Operator):
 	bl_description = "Open image in an external editor of additional files page of custom"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	index = bpy.props.IntProperty(name="Number Of Use", default=1, min=1, max=3, soft_min=1, soft_max=3)
+	index = bpy.props.IntProperty(name="Number of Use", default=1, min=1, max=3, soft_min=1, soft_max=3)
 	
 	@classmethod
 	def poll(cls, context):
@@ -667,7 +667,7 @@ class Tiles(bpy.types.Operator):
 	bl_description = "Array and scale-down active image"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	count = bpy.props.IntProperty(name="Number Of Tile", default=2, min=2, max=8, soft_min=2, soft_max=8)
+	count = bpy.props.IntProperty(name="Number of Tile", default=2, min=2, max=8, soft_min=2, soft_max=8)
 	
 	@classmethod
 	def poll(cls, context):

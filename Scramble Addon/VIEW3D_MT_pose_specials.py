@@ -87,7 +87,7 @@ class CreateWeightCopyMesh(bpy.types.Operator):
 		('TAIL', "End", "", 1),
 		('HEAD', "Root", "", 2),
 		]
-	mode = bpy.props.EnumProperty(items=items, name="Position Of Weight")
+	mode = bpy.props.EnumProperty(items=items, name="Position of Weight")
 	
 	@classmethod
 	def poll(cls, context):
@@ -809,8 +809,8 @@ class BoneNameMenu(bpy.types.Menu):
 		self.layout.separator()
 		self.layout.operator(RemoveBoneNameSerialNumbers.bl_idname, icon="PLUGIN")
 		self.layout.separator()
-		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Filename substitution bone \"XXX_R => XXX. R ", icon="PLUGIN").reverse = False
-		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Bone name replace \"XXX. R => XXX_R ", icon="PLUGIN").reverse = True
+		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Replace Bone Names \"XXX_R => XXX.R\"", icon="PLUGIN").reverse = False
+		self.layout.operator(RenameBoneNameEnd.bl_idname, text="Replace Bone Names \"XXX.R => XXX_R\"", icon="PLUGIN").reverse = True
 		self.layout.separator()
 		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Replace bone name \"XXX_R => 右XXX", icon="PLUGIN").reverse = False
 		self.layout.operator(RenameBoneNameEndJapanese.bl_idname, text="Replace bone name \"右XXX => XXX_R", icon="PLUGIN").reverse = True

@@ -20,7 +20,7 @@ class RenderBackground(bpy.types.Operator):
 		('ANIME', "Animation", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Setting Mode", default='IMAGE')
-	thread = bpy.props.IntProperty(name="Number Of Threads", default=2, min=1, max=16, soft_min=1, soft_max=16)
+	thread = bpy.props.IntProperty(name="Number of Threads", default=2, min=1, max=16, soft_min=1, soft_max=16)
 	
 	@classmethod
 	def poll(cls, context):

@@ -349,7 +349,7 @@ def menu(self, context):
 		self.layout.operator(MakeLinkClothSettings.bl_idname, text="Cloth Setting", icon="PLUGIN")
 		self.layout.separator()
 		self.layout.operator(MakeLinkUVNames.bl_idname, text="Empty UV", icon="PLUGIN")
-		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="Movement Of Armature", icon="PLUGIN")
+		self.layout.operator(MakeLinkArmaturePose.bl_idname, text="Movement of Armature", icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

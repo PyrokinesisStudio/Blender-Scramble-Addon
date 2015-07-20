@@ -128,7 +128,7 @@ class SetTransparentBackSide(bpy.types.Operator):
 
 class MoveMaterialSlotTop(bpy.types.Operator):
 	bl_idname = "material.move_material_slot_top"
-	bl_label = "Slot To Top"
+	bl_label = "Slot to Top"
 	bl_description = "Active material slots on top moves"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -150,7 +150,7 @@ class MoveMaterialSlotTop(bpy.types.Operator):
 
 class MoveMaterialSlotBottom(bpy.types.Operator):
 	bl_idname = "material.move_material_slot_bottom"
-	bl_label = "Slot To Bottom"
+	bl_label = "Slot to Bottom"
 	bl_description = "Move active material slot at bottom"
 	bl_options = {'REGISTER', 'UNDO'}
 	

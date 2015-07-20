@@ -109,7 +109,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * このカーブをテーパーオブジェクトとして使っているカーブをアクティブにします
         * ―(Activates curve as tapered object using this curve)
     * **ベベルとして使っているカーブをアクティブに**
-    * **―(As bevel curve to activate)**
+    * **―(Activate bevel curve object)**
         * このカーブをベベルオブジェクトとして使っているカーブをアクティブにします
         * ―(Activates curve as beveled objects using this curve)
   
@@ -373,6 +373,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Convert UV to mesh)**
         * アクティブなUVを新規メッシュに変換します
         * ―(Converts new mesh to UV active)
+    * **UVを島ごとにリサイズ**
+    * **―(UV Island to resize)**
+        * UVを島ごとに中心位置を変えてリサイズします
+        * ―(UV island into central position and resize)
   
 * **「UV/画像エディター」エリア > 「ビュー」メニュー**
 * **―("UV/Image Editor" Area > "View" Menu)**
@@ -424,11 +428,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 全てのオブジェクトの「最高描画タイプ」を一括で設定します
         * ―(Best drawing types for all objects in bulk set)
     * **全てのデータ名をオブジェクト名と同じにする**
-    * **―(All data name to same as object name)**
+    * **―(All object name to data name)**
         * 全てのオブジェクトのデータ(メッシュデータなど)の名前を、リンクしているオブジェクト名に置換します
         * ―(Replaces object name that linked all object data (mesh data, etc.) name)
     * **全てのマテリアルの「半透明影の受信」をオン**
-    * **―(Select Semitransparent Shadow received all material)**
+    * **―(On all material "Receive Transparent")**
         * 全てのマテリアルの「半透明影を受信するかどうか」についての設定をオン(オフ)にします
         * ―(You to receive semi-transparent shadow? "about whether all material (off) on the)
     * **マテリアルのカラーランプ設定を他にコピー**
@@ -456,7 +460,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 全てのテクスチャの名前を、使用している外部画像のファイル名にします
         * ―(names of all textures use external image file name)
     * **UV指定が空欄な場合アクティブUVで埋める**
-    * **―(UV is blank if you fill active UV)**
+    * **―(Fill active UV if blanks)**
         * テクスチャのUV指定欄が空欄の場合、リンクしているメッシュオブジェクトのアクティブなUV名で埋めます
         * ―(Under active UV texture UV specified fields is linked to an empty mesh object fills)
     * **物理演算の開始/終了フレームを一括設定**
@@ -551,11 +555,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * メッシュの裏側が透明になるようにシェーダーノードを設定します
         * ―(Sets shader nodes transparently mesh back)
     * **スロットを一番上へ**
-    * **―(Slot To Top)**
+    * **―(Slot to Top)**
         * アクティブなマテリアルスロットを一番上に移動させます
         * ―(Active material slots on top moves)
     * **スロットを一番下へ**
-    * **―(Slot To Bottom)**
+    * **―(Slot to Bottom)**
         * アクティブなマテリアルスロットを一番下に移動させます
         * ―(Move active material slot at bottom)
   
@@ -1206,7 +1210,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「3Dビュー」エリア > 「ポーズ」モード > 「ポーズ」メニュー > 「表示/隠す」メニュー**
 * **―("3D View" Area > "Pose" Mode > "Pose" Menu > "Show/Hide" Menu)**
     * **選択しているものを選択不可に**
-    * **―(Selected To Unselectible)**
+    * **―(Selected to Unselectible)**
         * 選択しているボーンを選択不可能にします
         * ―(Choose bone has selected impossible)
     * **全ての選択不可を解除**
@@ -1287,7 +1291,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 最大オブジェクトに対して大きい、もしくは小さいオブジェクトを選択します
         * ―(Select maximum objects larger or smaller objects)
     * **アクティブ以外を非選択に**
-    * **―(Non-active To Non-select)**
+    * **―(Non-active to Non-select)**
         * アクティブオブジェクト以外の全てを非選択にします
         * ―(Uncheck everything except for active object)
     * **同じ名前のオブジェクトを選択**
@@ -1442,7 +1446,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中の物に3D視点の中心を合わせます(ズームはしません)
         * ―(Selected ones over center of 3D perspective not (zoom))
     * **視点を原点に**
-    * **―(Viewpoint At Origin)**
+    * **―(Viewpoint at Origin)**
         * 3Dビューの視点を座標の中心に移動します
         * ―(3D view perspective moves in center of coordinates)
     * **選択+視点の中心に**

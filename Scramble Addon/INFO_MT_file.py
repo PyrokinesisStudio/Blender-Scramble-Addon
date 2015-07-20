@@ -452,7 +452,7 @@ class AllSetDrawType(bpy.types.Operator):
 
 class AllRenameObjectData(bpy.types.Operator):
 	bl_idname = "object.all_rename_object_data"
-	bl_label = "All data name to same as object name"
+	bl_label = "All object name to data name"
 	bl_description = "Replaces object name that linked all object data (mesh data, etc.) name"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -480,7 +480,7 @@ class AllRenameObjectData(bpy.types.Operator):
 
 class AllSetMaterialReceiveTransparent(bpy.types.Operator):
 	bl_idname = "material.all_set_material_receive_transparent"
-	bl_label = "Select Semitransparent Shadow received all material"
+	bl_label = "On all material \"Receive Transparent\""
 	bl_description = "You to receive semi-transparent shadow? \"about whether all material (off) on the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -751,7 +751,7 @@ class AllRenameTextureFileName(bpy.types.Operator):
 
 class FixEmptyTextureUVLayer(bpy.types.Operator):
 	bl_idname = "texture.fix_empty_texture_uv_layer"
-	bl_label = "UV is blank if you fill active UV"
+	bl_label = "Fill active UV if blanks"
 	bl_description = "Under active UV texture UV specified fields is linked to an empty mesh object fills"
 	bl_options = {'REGISTER', 'UNDO'}
 	

@@ -14,7 +14,7 @@ class ExternalEdit(bpy.types.Operator):
 	bl_description = "Open text in an external editor you set on files page of custom"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	index = bpy.props.IntProperty(name="Number Of Use", default=1, min=1, max=3, soft_min=1, soft_max=3)
+	index = bpy.props.IntProperty(name="Number of Use", default=1, min=1, max=3, soft_min=1, soft_max=3)
 	
 	@classmethod
 	def poll(cls, context):

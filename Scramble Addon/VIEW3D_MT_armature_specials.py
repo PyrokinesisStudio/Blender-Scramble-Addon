@@ -110,7 +110,7 @@ class RenameOppositeBone(bpy.types.Operator):
 	bl_description = "Bone is located opposite X axis selection in bone \"1.R longs 1.L \' of so versus the"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	threshold = bpy.props.FloatProperty(name="Position Of Threshold", default=0.00001, min=0, soft_min=0, step=0.001, precision=5)
+	threshold = bpy.props.FloatProperty(name="Position of Threshold", default=0.00001, min=0, soft_min=0, step=0.001, precision=5)
 	
 	def execute(self, context):
 		obj = context.active_object

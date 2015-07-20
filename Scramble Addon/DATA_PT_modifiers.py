@@ -285,7 +285,7 @@ class SetRenderSubsurfLevel(bpy.types.Operator):
 	bl_description = "Sets number of subdivisions during rendering of selected object subsurfmodifaia"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	level = bpy.props.IntProperty(name="Number Of Divisions", default=2, min=0, max=6)
+	level = bpy.props.IntProperty(name="Number of Divisions", default=2, min=0, max=6)
 	
 	@classmethod
 	def poll(cls, context):
@@ -387,8 +387,8 @@ class AddSubsurf(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	subdivision_type = bpy.props.EnumProperty(items=[("CATMULL_CLARK", "Catmulclark", "", 1), ("SIMPLE", "Simple", "", 2)], name="Subdivision Method")
-	levels = bpy.props.IntProperty(name="Number Of View", default=2, min=0, max=6)
-	render_levels = bpy.props.IntProperty(name="Number Of Render", default=2, min=0, max=6)
+	levels = bpy.props.IntProperty(name="Number of View", default=2, min=0, max=6)
+	render_levels = bpy.props.IntProperty(name="Number of Render", default=2, min=0, max=6)
 	use_subsurf_uv =  bpy.props.BoolProperty(name="Subdivide UV", default=True)
 	show_only_control_edges =  bpy.props.BoolProperty(name="Optimized View")
 	

@@ -16,7 +16,7 @@ class VertexGroupTransferWeightObjmode(bpy.types.Operator):
 	
 	isDeleteWeights = bpy.props.BoolProperty(name="Befere delete all weights", default=True)
 	items = [
-		('WT_BY_INDEX', "Index Of Vertex", "", 1),
+		('WT_BY_INDEX', "Index of Vertex", "", 1),
 		('WT_BY_NEAREST_VERTEX', "Nearest Vertex", "", 2),
 		('WT_BY_NEAREST_FACE', "Recently Face", "", 3),
 		('WT_BY_NEAREST_VERTEX_IN_FACE', "In-Face Nearest Vertex", "", 4),
@@ -417,7 +417,7 @@ class CreateSolidifyEdge(bpy.types.Operator):
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	use_render = bpy.props.BoolProperty(name="Apply Render", default=False)
-	thickness = bpy.props.FloatProperty(name="Thickness Of Lines", default=0.01, min=0, max=1, soft_min=0, soft_max=1, step=0.1, precision=3)
+	thickness = bpy.props.FloatProperty(name="Thickness of Lines", default=0.01, min=0, max=1, soft_min=0, soft_max=1, step=0.1, precision=3)
 	color = bpy.props.FloatVectorProperty(name="Line Color", default=(0.0, 0.0, 0.0), min=0, max=1, soft_min=0, soft_max=1, step=10, precision=3, subtype='COLOR_GAMMA')
 	use_rim = bpy.props.BoolProperty(name="Fill face to edge", default=False)
 	show_backface_culling = bpy.props.BoolProperty(name="On Backface Culling", default=True)
@@ -786,10 +786,10 @@ class CreateRopeMesh(bpy.types.Operator):
 	bl_description = "Creates mesh like rope along curve object is active or snake new"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	vertices = bpy.props.IntProperty(name="Number Of Vertices", default=32, min=3, soft_min=3, max=999, soft_max=999, step=1)
+	vertices = bpy.props.IntProperty(name="Number of Vertices", default=32, min=3, soft_min=3, max=999, soft_max=999, step=1)
 	radius = bpy.props.FloatProperty(name="Radius", default=0.1, step=1, precision=3, min=0, soft_min=0, max=99, soft_max=99)
-	number_cuts = bpy.props.IntProperty(name="Number Of Divisions", default=32, min=2, soft_min=2, max=999, soft_max=999, step=1)
-	resolution_u = bpy.props.IntProperty(name="Resolution Of Curve", default=64, min=1, soft_min=1, max=999, soft_max=999, step=1)
+	number_cuts = bpy.props.IntProperty(name="Number of Divisions", default=32, min=2, soft_min=2, max=999, soft_max=999, step=1)
+	resolution_u = bpy.props.IntProperty(name="Resolution of Curve", default=64, min=1, soft_min=1, max=999, soft_max=999, step=1)
 	
 	@classmethod
 	def poll(cls, context):

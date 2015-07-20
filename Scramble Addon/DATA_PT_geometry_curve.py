@@ -221,7 +221,7 @@ class activate_taper_parent_object(bpy.types.Operator):
 
 class activate_bevel_parent_object(bpy.types.Operator):
 	bl_idname = "curve.activate_bevel_parent_object"
-	bl_label = "As bevel curve to activate"
+	bl_label = "Activate bevel curve object"
 	bl_description = "Activates curve as beveled objects using this curve"
 	bl_options = {'REGISTER', 'UNDO'}
 	

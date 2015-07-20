@@ -110,6 +110,53 @@ class ConvertMesh(bpy.types.Operator):
 		context.scene.objects.active = new_obj
 		return {'FINISHED'}
 
+class scale_uv_parts(bpy.types.Operator):
+	bl_idname = "uv.scale_uv_parts"
+	bl_label = "UV Island to resize"
+	bl_description = "UV island into central position and resize"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	scale = bpy.props.FloatProperty(name="Size", default=0.9, min=0, max=10, soft_min=0, soft_max=10, step=3, precision=2)
+	items = [
+		('MEDIAN', "Centre mark", "", 1),
+		('CENTER', "Center of bounding box", "", 2),
+		]
+	mode = bpy.props.EnumProperty(items=items, name="Center")
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def execute(self, context):
+		pre_pivot_point = context.space_data.pivot_point
+		context.space_data.pivot_point = self.mode
+		ob = context.active_object
+		me = ob.data
+		bpy.ops.uv.select_all(action='DESELECT')
+		bm = bmesh.from_edit_mesh(me)
+		uv_lay = bm.loops.layers.uv.active
+		alreadys = []
+		for face in bm.faces:
+			for loop in face.loops:
+				uv = loop[uv_lay].uv
+				vert = loop.vert
+				id = (vert.index, uv.x, uv.y)
+				if id not in alreadys:
+					alreadys.append(id)
+					loop[uv_lay].select = True
+					bpy.ops.uv.select_linked(extend=False)
+					bpy.ops.transform.resize(value=(self.scale, self.scale, self.scale))
+					for f in bm.faces:
+						for l in f.loops:
+							if l[uv_lay].select:
+								u = l[uv_lay].uv
+								v = l.vert
+								i = (v.index, u.x, u.y)
+								alreadys.append(i)
+					bpy.ops.uv.select_all(action='DESELECT')
+		bmesh.update_edit_mesh(me)
+		context.space_data.pivot_point = pre_pivot_point
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -126,7 +173,9 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(ConvertMesh.bl_idname, icon="PLUGIN")
+		self.layout.operator(scale_uv_parts.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator(ConvertMesh.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
