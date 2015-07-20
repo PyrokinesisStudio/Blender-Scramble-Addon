@@ -72,6 +72,13 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * このボーンのIK設定を初期化します
         * ―(Reset this bone IK settings)
   
+* **「プロパティ」エリア > 「ボーン」タブ > 「関係」パネル**
+* **―("Propaties" Area > "Bone" Tab > "Relations" Panel)**
+    * **関係設定をコピー**
+    * **―(Copy connection settings)**
+        * アクティブなボーンの関係設定を、他の選択ボーンにコピーします
+        * ―(Copies of other selected bone affinity of active bone)
+  
 * **「プロパティ」エリア > 「ボーン」タブ > 「トランスフォーム」パネル**
 * **―("Propaties" Area > "Bone" Tab > "Transform" Panel)**
     * **ボーンの変形をコピー**

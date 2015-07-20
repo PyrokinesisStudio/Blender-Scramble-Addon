@@ -108,6 +108,7 @@ if "bpy" in locals():
 	imp.reload(PHYSICS_PT_softbody)
 	imp.reload(PHYSICS_PT_cloth)
 	imp.reload(BONE_PT_transform_locks)
+	imp.reload(BONE_PT_relations)
 	#imp.reload(***)
 else:
 	from . import BONE_PT_context_bone
@@ -198,6 +199,7 @@ else:
 	from . import PHYSICS_PT_softbody
 	from . import PHYSICS_PT_cloth
 	from . import BONE_PT_transform_locks
+	from . import BONE_PT_relations
 	#from . import ***
 import bpy
 
@@ -376,6 +378,7 @@ def register():
 	bpy.types.PHYSICS_PT_softbody.append(PHYSICS_PT_softbody.menu)
 	bpy.types.PHYSICS_PT_cloth.append(PHYSICS_PT_cloth.menu)
 	bpy.types.BONE_PT_transform_locks.append(BONE_PT_transform_locks.menu)
+	bpy.types.BONE_PT_relations.append(BONE_PT_relations.menu)
 	#bpy.types.***.append(***.menu)
 
 # プラグインをアンインストールしたときの処理
@@ -470,6 +473,7 @@ def unregister():
 	bpy.types.PHYSICS_PT_softbody.remove(PHYSICS_PT_softbody.menu)
 	bpy.types.PHYSICS_PT_cloth.remove(PHYSICS_PT_cloth.menu)
 	bpy.types.BONE_PT_transform_locks.remove(BONE_PT_transform_locks.menu)
+	bpy.types.BONE_PT_relations.remove(BONE_PT_relations.menu)
 	#bpy.types.***.remove(***.menu)
 
 # メイン関数
