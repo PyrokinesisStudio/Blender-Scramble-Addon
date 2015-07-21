@@ -112,14 +112,14 @@ class ConvertMesh(bpy.types.Operator):
 
 class scale_uv_parts(bpy.types.Operator):
 	bl_idname = "uv.scale_uv_parts"
-	bl_label = "UV Island to resize"
+	bl_label = "Resize UV Islands"
 	bl_description = "UV island into central position and resize"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	scale = bpy.props.FloatProperty(name="Size", default=0.9, min=0, max=10, soft_min=0, soft_max=10, step=3, precision=2)
 	items = [
-		('MEDIAN', "Centre mark", "", 1),
-		('CENTER', "Center of bounding box", "", 2),
+		('MEDIAN', "Median Point", "", 1),
+		('CENTER', "Bounding Box Center", "", 2),
 		]
 	mode = bpy.props.EnumProperty(items=items, name="Center")
 	

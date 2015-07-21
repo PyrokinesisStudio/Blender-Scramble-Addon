@@ -75,7 +75,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「プロパティ」エリア > 「ボーン」タブ > 「関係」パネル**
 * **―("Propaties" Area > "Bone" Tab > "Relations" Panel)**
     * **関係設定をコピー**
-    * **―(Copy connection settings)**
+    * **―(Copy Relations Settings)**
         * アクティブなボーンの関係設定を、他の選択ボーンにコピーします
         * ―(Copies of other selected bone affinity of active bone)
   
@@ -89,7 +89,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「プロパティ」エリア > 「ボーン」タブ > 「トランスフォームのロック」パネル**
 * **―("Propaties" Area > "Bone" Tab > "Transform Locks" Panel)**
     * **トランスフォームのロック設定をコピー**
-    * **―(Copy transform lock settings)**
+    * **―(Copy Transform Locks Settings)**
         * アクティブなボーンのトランスフォームのロック設定を、他の選択ボーンにコピーします
         * ―(Copies of other selected bone lock setting active bone transform)
   
@@ -388,7 +388,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * アクティブなUVを新規メッシュに変換します
         * ―(Converts new mesh to UV active)
     * **UVを島ごとにリサイズ**
-    * **―(UV Island to resize)**
+    * **―(Resize UV Islands)**
         * UVを島ごとに中心位置を変えてリサイズします
         * ―(UV island into central position and resize)
   
@@ -737,7 +737,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
 * **「プロパティ」エリア > 「物理演算」タブ > 「ソフトボディ」パネル**
 * **―("Propaties" Area > "Physics" Tab > "Soft Body" Panel)**
     * **ソフトボディ設定をコピー**
-    * **―(Copy soft settings)**
+    * **―(Copy Soft Body Settings)**
         * アクティブオブジェクトのソフトボディの設定を、他の選択オブジェクトにコピーします
         * ―(Sets active object soft copies to other selected objects)
   

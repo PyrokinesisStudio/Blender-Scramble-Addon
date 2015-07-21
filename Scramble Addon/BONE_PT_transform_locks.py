@@ -9,24 +9,24 @@ import bpy
 
 class copy_transform_lock_settings(bpy.types.Operator):
 	bl_idname = "pose.copy_transform_lock_settings"
-	bl_label = "Copy transform lock settings"
+	bl_label = "Copy Transform Locks Settings"
 	bl_description = "Copies of other selected bone lock setting active bone transform"
 	bl_options = {'REGISTER', 'UNDO'}
 	
-	lock_location_x = bpy.props.BoolProperty(name="Position x", default=True)
-	lock_location_y = bpy.props.BoolProperty(name="Locations y", default=True)
-	lock_location_z = bpy.props.BoolProperty(name="Position z", default=True)
+	lock_location_x = bpy.props.BoolProperty(name="Loc X", default=True)
+	lock_location_y = bpy.props.BoolProperty(name="Loc Y", default=True)
+	lock_location_z = bpy.props.BoolProperty(name="Loc Z", default=True)
 	
-	lock_rotation_x = bpy.props.BoolProperty(name="Rotation X", default=True)
-	lock_rotation_y = bpy.props.BoolProperty(name="Rotate Y", default=True)
-	lock_rotation_z = bpy.props.BoolProperty(name="Rotate Z", default=True)
+	lock_rotation_x = bpy.props.BoolProperty(name="Rot X", default=True)
+	lock_rotation_y = bpy.props.BoolProperty(name="Rot Y", default=True)
+	lock_rotation_z = bpy.props.BoolProperty(name="Rot Z", default=True)
 	
-	lock_scale_x = bpy.props.BoolProperty(name="Expansion of X", default=True)
-	lock_scale_y = bpy.props.BoolProperty(name="Expansion of Y", default=True)
-	lock_scale_z = bpy.props.BoolProperty(name="Expansion of Z", default=True)
+	lock_scale_x = bpy.props.BoolProperty(name="Scale X", default=True)
+	lock_scale_y = bpy.props.BoolProperty(name="Scale Y", default=True)
+	lock_scale_z = bpy.props.BoolProperty(name="Scale Z", default=True)
 	
-	lock_rotations_4d = bpy.props.BoolProperty(name="Lock rotation", default=True)
-	lock_rotation_w = bpy.props.BoolProperty(name="Turning W", default=True)
+	lock_rotations_4d = bpy.props.BoolProperty(name="Lock Rotation", default=True)
+	lock_rotation_w = bpy.props.BoolProperty(name="Rot W", default=True)
 	
 	@classmethod
 	def poll(cls, context):

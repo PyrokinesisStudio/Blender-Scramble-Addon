@@ -9,7 +9,7 @@ import bpy
 
 class copy_bone_relations_settings(bpy.types.Operator):
 	bl_idname = "pose.copy_bone_relations_settings"
-	bl_label = "Copy connection settings"
+	bl_label = "Copy Relations Settings"
 	bl_description = "Copies of other selected bone affinity of active bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
@@ -17,12 +17,12 @@ class copy_bone_relations_settings(bpy.types.Operator):
 	
 	parent = bpy.props.BoolProperty(name="Parent", default=True)
 	use_connect = bpy.props.BoolProperty(name="Connection", default=True)
-	use_inherit_rotation = bpy.props.BoolProperty(name="Inherit rotation", default=True)
-	use_inherit_scale = bpy.props.BoolProperty(name="Inherit scale", default=True)
-	use_local_location = bpy.props.BoolProperty(name="Local position", default=True)
+	use_inherit_rotation = bpy.props.BoolProperty(name="Inherit Rotation", default=True)
+	use_inherit_scale = bpy.props.BoolProperty(name="Inherit Scale", default=True)
+	use_local_location = bpy.props.BoolProperty(name="Local Location", default=True)
 	
-	bone_group = bpy.props.BoolProperty(name="Vaughan group", default=True)
-	use_relative_parent = bpy.props.BoolProperty(name="Relative parent", default=True)
+	bone_group = bpy.props.BoolProperty(name="Bone Group", default=True)
+	use_relative_parent = bpy.props.BoolProperty(name="Relative Parenting", default=True)
 	
 	@classmethod
 	def poll(cls, context):
