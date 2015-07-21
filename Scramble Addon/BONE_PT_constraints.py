@@ -140,18 +140,17 @@ class set_ik_pole_angle(bpy.types.Operator):
 				continue
 			bone = arm.bones[pose_bone.name]
 			ik.pole_angle = -3.1415926535897932384626433832795028841971
-			pre_score = 9999999
+			min_score = (ik.pole_angle, 9999999)
 			for i in range(9999):
 				ik.pole_angle += 0.001
 				context.scene.update()
 				co = ( pose_bone.matrix.to_translation() - bone.head_local ).length
 				rot = pose_bone.matrix.to_quaternion().rotation_difference(bone.matrix_local.to_quaternion()).angle
 				score = co * rot
-				print(pre_score, score)
-				if score <= pre_score:
-					pre_score = score
-				else:
-					break
+				if score <= min_score[1]:
+					min_score = (ik.pole_angle, score)
+			ik.pole_angle = min_score[0]
+			context.scene.update()
 		return {'FINISHED'}
 
 ################
