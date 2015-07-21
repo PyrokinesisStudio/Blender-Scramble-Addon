@@ -141,6 +141,7 @@ class set_ik_pole_angle(bpy.types.Operator):
 			bone = arm.bones[pose_bone.name]
 			ik.pole_angle = -3.1415926535897932384626433832795028841971
 			min_score = (ik.pole_angle, 9999999)
+			pre_angle = ik.pole_angle
 			for i in range(9999):
 				ik.pole_angle += 0.001
 				context.scene.update()
@@ -149,6 +150,9 @@ class set_ik_pole_angle(bpy.types.Operator):
 				score = co * rot
 				if score <= min_score[1]:
 					min_score = (ik.pole_angle, score)
+				if pre_angle == ik.pole_angle:
+					break
+				pre_angle = ik.pole_angle
 			ik.pole_angle = min_score[0]
 			context.scene.update()
 		return {'FINISHED'}
