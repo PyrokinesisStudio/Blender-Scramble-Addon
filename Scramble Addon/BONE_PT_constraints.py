@@ -123,7 +123,8 @@ class set_ik_pole_angle(bpy.types.Operator):
 					if 1 <= len(context.selected_pose_bones):
 						for const in context.active_pose_bone.constraints:
 							if const.type == 'IK':
-								return True
+								if const.pole_target:
+									return True
 		return False
 	
 	def execute(self, context):
@@ -132,8 +133,9 @@ class set_ik_pole_angle(bpy.types.Operator):
 		for pose_bone in context.selected_pose_bones:
 			for const in pose_bone.constraints:
 				if const.type == 'IK':
-					ik = const
-					break
+					if const.pole_target:
+						ik = const
+						break
 			else:
 				continue
 			bone = arm.bones[pose_bone.name]
