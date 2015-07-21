@@ -122,6 +122,56 @@ class TogglePanelsC(bpy.types.Operator):
 			bpy.ops.image.properties()
 		return {'FINISHED'}
 
+class panel_pie_operator(bpy.types.Operator):
+	bl_idname = "image.panel_pie_operator"
+	bl_label = "Switch panel pie menu"
+	bl_description = "Toggle panel pie menu"
+	bl_options = {'MACRO'}
+	
+	def execute(self, context):
+		bpy.ops.wm.call_menu_pie(name=PanelPie.bl_idname)
+		return {'FINISHED'}
+class PanelPie(bpy.types.Menu): #
+	bl_idname = "IMAGE_MT_view_pie_panel"
+	bl_label = "Switch panel pie menu"
+	bl_description = "Toggle panel pie menu"
+	
+	def draw(self, context):
+		op = self.layout.menu_pie().operator(run_panel_pie.bl_idname, text="Only Tool Shelf", icon='TRIA_LEFT')
+		op.properties, op.toolshelf = False, True
+		op = self.layout.menu_pie().operator(run_panel_pie.bl_idname, text="Only Properties", icon='TRIA_RIGHT')
+		op.properties, op.toolshelf = True, False
+		op = self.layout.menu_pie().operator(run_panel_pie.bl_idname, text="Double Sided", icon='ARROW_LEFTRIGHT')
+		op.properties, op.toolshelf = True, True
+		op = self.layout.menu_pie().operator(run_panel_pie.bl_idname, text="Hide", icon='RESTRICT_VIEW_ON')
+		op.properties, op.toolshelf = False, False
+class run_panel_pie(bpy.types.Operator): #
+	bl_idname = "image.run_panel_pie"
+	bl_label = "Switch panel pie menu"
+	bl_description = "Toggle panel pie menu"
+	bl_options = {'MACRO'}
+	
+	properties = bpy.props.BoolProperty(name="Property")
+	toolshelf = bpy.props.BoolProperty(name="Tool Shelf")
+	
+	def execute(self, context):
+		properties = self.properties
+		toolshelf = self.toolshelf
+		for region in context.area.regions:
+			if (region.type == 'UI'):
+				properties = False
+				if (1 < region.width):
+					properties = True
+			if (region.type == 'TOOLS'):
+				toolshelf = False
+				if (1 < region.width):
+					toolshelf = True
+		if (properties != self.properties):
+			bpy.ops.image.properties()
+		if (toolshelf != self.toolshelf):
+			bpy.ops.image.toolshelf()
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -132,9 +182,11 @@ class ShortcutsMenu(bpy.types.Menu):
 	bl_description = "Registering shortcut feature that might come in handy"
 	
 	def draw(self, context):
-		self.layout.operator(TogglePanelsA.bl_idname, icon="PLUGIN")
-		self.layout.operator(TogglePanelsB.bl_idname, icon="PLUGIN")
-		self.layout.operator(TogglePanelsC.bl_idname, icon="PLUGIN")
+		self.layout.operator(TogglePanelsA.bl_idname, icon='PLUGIN')
+		self.layout.operator(TogglePanelsB.bl_idname, icon='PLUGIN')
+		self.layout.operator(TogglePanelsC.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator(panel_pie_operator.bl_idname, icon='PLUGIN')
 
 class Reset2DCursorMenu(bpy.types.Menu):
 	bl_idname = "IMAGE_MT_view_reset_2d_cursor"
@@ -172,7 +224,7 @@ def menu(self, context):
 		self.layout.separator()
 		self.layout.menu(Reset2DCursorMenu.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.menu(ShortcutsMenu.bl_idname, icon="PLUGIN")
+		self.layout.menu(ShortcutsMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
