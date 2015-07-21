@@ -57,108 +57,36 @@ class SetBoneRoll(bpy.types.Operator):
 	
 	roll = bpy.props.FloatProperty(name="Roll", default=0, step=10, precision=3)
 	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'ARMATURE':
+				if 'selected_bones' in dir(context):
+					if context.selected_bones:
+						if 1 <= len(context.selected_bones):
+							return True
+				if 'selected_pose_bones' in dir(context):
+					if context.selected_pose_bones:
+						if 1 <= len(context.selected_pose_bones):
+							return True
+		return False
+	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
 	def execute(self, context):
-		for bone in context.selected_bones:
+		ob = context.active_object
+		arm = ob.data
+		bones = []
+		if 'selected_bones' in dir(context):
+			if context.selected_bones:
+				bones = context.selected_bones[:]
+		if bones == []:
+			for bone in context.selected_pose_bones:
+				bones.append(arm.bones[bone.name])
+		for bone in bones:
 			bone.roll = self.roll
-		return {'FINISHED'}
-
-class LinkIKSetting(bpy.types.Operator):
-	bl_idname = "pose.link_ik_setting"
-	bl_label = "Copy of active IK settings (rotation limits, etc.)"
-	bl_description = "Copies to other selected bone bone active IK settings (rotation limits, etc)"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	isX = bpy.props.BoolProperty(name="X Axis Setting", default=True)
-	isY = bpy.props.BoolProperty(name="Y Axis Setting", default=True)
-	isZ = bpy.props.BoolProperty(name="Z Axis Setting", default=True)
-	isStretch = bpy.props.BoolProperty(name="Stretch Setting", default=True)
-	
-	def execute(self, context):
-		activeBone = context.active_pose_bone
-		for bone in context.selected_pose_bones:
-			if (activeBone.name != bone.name):
-				if (self.isX):
-					bone.lock_ik_x = activeBone.lock_ik_x
-					bone.use_ik_limit_x = activeBone.use_ik_limit_x
-					bone.ik_stiffness_x = activeBone.ik_stiffness_x
-					bone.ik_min_x = activeBone.ik_min_x
-					bone.ik_max_x = activeBone.ik_max_x
-				if (self.isY):
-					bone.lock_ik_y = activeBone.lock_ik_y
-					bone.use_ik_limit_y = activeBone.use_ik_limit_y
-					bone.ik_stiffness_y = activeBone.ik_stiffness_y
-					bone.ik_min_y = activeBone.ik_min_y
-					bone.ik_max_y = activeBone.ik_max_y
-				if (self.isZ):
-					bone.lock_ik_z = activeBone.lock_ik_z
-					bone.use_ik_limit_z = activeBone.use_ik_limit_z
-					bone.ik_stiffness_z = activeBone.ik_stiffness_z
-					bone.ik_min_z = activeBone.ik_min_z
-					bone.ik_max_z = activeBone.ik_max_z
-				if (self.isStretch):
-					bone.ik_stretch = activeBone.ik_stretch
-		return {'FINISHED'}
-
-class SetIKPoleTarget(bpy.types.Operator):
-	bl_idname = "pose.set_ik_pole_target"
-	bl_label = "Set pole target of IK"
-	bl_description = "Chose second Paul target of active bone IK bones sets"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	def execute(self, context):
-		activeObj = context.active_object
-		activeBone = context.active_pose_bone
-		if (len(context.selected_pose_bones) != 2):
-			self.report(type={"ERROR"}, message="Select two bones and try again")
-			return {"CANCELLED"}
-		for bone in context.selected_pose_bones:
-			if (activeBone.name != bone.name):
-				ik = None
-				for const in activeBone.constraints:
-					if (const.type == "IK"):
-						ik = const
-				if (ik == None):
-					self.report(type={"ERROR"}, message="IK has no active bone")
-					return {"CANCELLED"}
-				ik.pole_target = activeObj
-				ik.pole_subtarget = bone.name
-		return {'FINISHED'}
-
-class SetIKChainLength(bpy.types.Operator):
-	bl_idname = "pose.set_ik_chain_length"
-	bl_label = "Set length of IK chain"
-	bl_description = "Chose second length of active bone IK chain to length to bones and set the"
-	bl_options = {'REGISTER', 'UNDO'}
-	
-	def execute(self, context):
-		activeBone = context.active_pose_bone
-		if (len(context.selected_pose_bones) != 2):
-			self.report(type={"ERROR"}, message="Select two bones and try again")
-			return {"CANCELLED"}
-		targetBone = None
-		for bone in context.selected_pose_bones:
-			if (activeBone.name != bone.name):
-				targetBone = bone
-		tempBone = activeBone
-		i = 0
-		while True:
-			if (tempBone.parent):
-				if (tempBone.name == targetBone.name):
-					i += 1
-					break
-				tempBone = tempBone.parent
-				i += 1
-			else:
-				i = 0
-				break
-		if (i == 0):
-			self.report(type={"ERROR"}, message="Could not get chain well")
-			return {"CANCELLED"}
-		ik = None
-		for const in activeBone.constraints:
-			if (const.type == "IK"):
-				ik = const
-		ik.chain_count = i
 		return {'FINISHED'}
 
 ################
@@ -180,10 +108,6 @@ def menu(self, context):
 		self.layout.operator(SetBoneNames.bl_idname, icon="PLUGIN")
 		self.layout.operator(SetBoneRoll.bl_idname, icon="PLUGIN")
 		self.layout.operator(SetCurvedBones.bl_idname, icon="PLUGIN")
-		self.layout.separator()
-		self.layout.operator(SetIKPoleTarget.bl_idname, icon="PLUGIN")
-		self.layout.operator(SetIKChainLength.bl_idname, icon="PLUGIN")
-		self.layout.operator(LinkIKSetting.bl_idname, icon="PLUGIN")
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]
