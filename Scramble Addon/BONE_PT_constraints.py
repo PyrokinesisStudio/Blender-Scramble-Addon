@@ -16,8 +16,9 @@ class quick_child_constraint(bpy.types.Operator):
 	@classmethod
 	def poll(cls, context):
 		if 'selected_pose_bones' in dir(context):
-			if 2 == len(context.selected_pose_bones):
-				return True
+			if context.selected_pose_bones:
+				if 2 == len(context.selected_pose_bones):
+					return True
 		return False
 	
 	def execute(self, context):
@@ -107,6 +108,50 @@ class set_ik_pole_target(bpy.types.Operator):
 				ik.pole_subtarget = bone.name
 		return {'FINISHED'}
 
+class set_ik_pole_angle(bpy.types.Operator):
+	bl_idname = "pose.set_ik_pole_angle"
+	bl_label = "Setting IK Paul angles"
+	bl_description = "Set auto-choice bone IK Paul angles"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'ARMATURE':
+				if context.selected_pose_bones:
+					if 1 <= len(context.selected_pose_bones):
+						for const in context.active_pose_bone.constraints:
+							if const.type == 'IK':
+								return True
+		return False
+	
+	def execute(self, context):
+		ob = context.active_object
+		arm = ob.data
+		for pose_bone in context.selected_pose_bones:
+			for const in pose_bone.constraints:
+				if const.type == 'IK':
+					ik = const
+					break
+			else:
+				continue
+			bone = arm.bones[pose_bone.name]
+			ik.pole_angle = -3.1415926535897932384626433832795028841971
+			pre_score = 9999999
+			for i in range(9999):
+				ik.pole_angle += 0.001
+				context.scene.update()
+				co = ( pose_bone.matrix.to_translation() - bone.head_local ).length
+				rot = pose_bone.matrix.to_quaternion().rotation_difference(bone.matrix_local.to_quaternion()).angle
+				score = co * rot
+				print(pre_score, score)
+				if score <= pre_score:
+					pre_score = score
+				else:
+					break
+		return {'FINISHED'}
+
 ################
 # サブメニュー #
 ################
@@ -125,6 +170,7 @@ class IKMenu(bpy.types.Menu):
 	def draw(self, context):
 		self.layout.operator(set_ik_chain_length.bl_idname, icon='PLUGIN')
 		self.layout.operator(set_ik_pole_target.bl_idname, icon='PLUGIN')
+		self.layout.operator(set_ik_pole_angle.bl_idname, icon='PLUGIN')
 
 ################
 # メニュー追加 #

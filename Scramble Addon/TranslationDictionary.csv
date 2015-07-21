@@ -1214,6 +1214,8 @@
 "アクティブなボーンのIKのチェーンの長さを第二選択ボーンへの長さへと設定します","Chose second length of active bone IK chain to length to bones and set the"
 "上手くチェーン数を取得出来ませんでした","Could not get chain well"
 "アクティブなボーンのIKのポールターゲットを第二選択ボーンに設定します","Chose second Paul target of active bone IK bones sets"
+"IKのポール角度を設定","Setting IK Paul angles"
+"選択ボーンのIKのポール角度を自動で設定します","Set auto-choice bone IK Paul angles"
 "個別処理","Individual processing"
 "アクティブなボーン名に文字列を追加します","Adds string to active bone name"
 "アクティブなボーンのIK設定を、他の選択ボーンにコピーします","Copies of other selected bone IK settings Active"
