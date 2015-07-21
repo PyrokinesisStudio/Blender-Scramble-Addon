@@ -1,7 +1,7 @@
 # 「3Dビュー」エリア > 「アーマチュア編集」モード > 「W」キー
 # "3D View" Area > "Armature Editor" Mode > "W" Key
 
-import bpy
+import bpy, mathutils
 import re
 
 ################
@@ -147,6 +147,53 @@ class RenameOppositeBone(bpy.types.Operator):
 		return {'FINISHED'}
 		return {'FINISHED'}
 
+class extend_bone(bpy.types.Operator):
+	bl_idname = "armature.extend_bone"
+	bl_label = "Extend bone"
+	bl_description = "Stretch new bone in direction of selected bone"
+	bl_options = {'REGISTER', 'UNDO'}
+	
+	length = bpy.props.FloatProperty(name="Length", default=0.1, min=-10, max=10, soft_min=-10, soft_max=10, step=10, precision=3)
+	is_parent = bpy.props.BoolProperty(name="Where parent", default=True)
+	is_connect = bpy.props.BoolProperty(name="Connection", default=True)
+	
+	@classmethod
+	def poll(cls, context):
+		ob = context.active_object
+		if ob:
+			if ob.type == 'ARMATURE':
+				if 'selected_bones' in dir(context):
+					if context.selected_bones:
+						if 1 <= len(context.selected_bones):
+							return True
+		return False
+	
+	def execute(self, context):
+		ob = context.active_object
+		arm = ob.data
+		for bone in context.selected_bones[:]:
+			new_bone = arm.edit_bones.new(bone.name)
+			new_bone.head = bone.tail[:]
+			rot = bone.matrix.to_quaternion()
+			tail = mathutils.Vector((0, 1, 0)) * self.length
+			tail.rotate(rot)
+			new_bone.tail = bone.tail + tail
+			new_bone.roll = bone.roll
+			if self.is_parent:
+				new_bone.parent = bone
+			if self.is_connect:
+				new_bone.use_connect = True
+			bone.select = False
+			bone.select_head = False
+			if bone.use_connect:
+				bone.parent.select_tail = False
+			if self.is_connect:
+				bone.select_tail = True
+			new_bone.select = True
+			new_bone.select_head = True
+			new_bone.select_tail = True
+		return {'FINISHED'}
+
 ################
 # メニュー追加 #
 ################
@@ -163,12 +210,14 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.prop(context.object.data, "use_mirror_x", icon="PLUGIN", text="X axis mirror edit")
-		self.layout.operator(CreateMirror.bl_idname, icon="PLUGIN")
-		self.layout.operator(RenameOppositeBone.bl_idname, icon="PLUGIN")
+		self.layout.operator(extend_bone.bl_idname, icon='PLUGIN')
 		self.layout.separator()
-		self.layout.operator(CopyBoneName.bl_idname, icon="PLUGIN")
-		self.layout.operator(RenameBoneRegularExpression.bl_idname, icon="PLUGIN")
+		self.layout.prop(context.object.data, 'use_mirror_x', icon='PLUGIN', text="X axis mirror edit")
+		self.layout.operator(CreateMirror.bl_idname, icon='PLUGIN')
+		self.layout.operator(RenameOppositeBone.bl_idname, icon='PLUGIN')
+		self.layout.separator()
+		self.layout.operator(CopyBoneName.bl_idname, icon='PLUGIN')
+		self.layout.operator(RenameBoneRegularExpression.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

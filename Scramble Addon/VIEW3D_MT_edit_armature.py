@@ -21,25 +21,16 @@ class DeleteUnmassage(bpy.types.Operator):
 		bpy.ops.armature.delete()
 		return {'FINISHED'}
 
-class Move3DCursor(bpy.types.Operator):
-	bl_idname = "armature.move_3d_cursor"
-	bl_label = "Move bone to 3D cursor intact"
-	bl_description = "Position of relative born tail (even root), bone, 3 D move cursor position"
-	bl_options = {'REGISTER', 'UNDO'}
+################
+# サブメニュー #
+################
+
+class ShortcutMenu(bpy.types.Menu):
+	bl_idname = "VIEW3D_MT_edit_armature_shortcut"
+	bl_label = "By Shortcuts"
 	
-	isTail = bpy.props.BoolProperty(name="Move Tail", default=False)
-	
-	def execute(self, context):
-		for bone in context.selected_bones:
-			if (not self.isTail):
-				co = bone.tail - bone.head
-				bone.head = context.space_data.cursor_location
-				bone.tail = context.space_data.cursor_location + co
-			else:
-				co = bone.head - bone.tail
-				bone.head = context.space_data.cursor_location + co
-				bone.tail = context.space_data.cursor_location
-		return {'FINISHED'}
+	def draw(self, context):
+		self.layout.operator(DeleteUnmassage.bl_idname, icon='PLUGIN')
 
 ################
 # メニュー追加 #
@@ -57,9 +48,7 @@ def IsMenuEnable(self_id):
 def menu(self, context):
 	if (IsMenuEnable(__name__.split('.')[-1])):
 		self.layout.separator()
-		self.layout.operator(DeleteUnmassage.bl_idname, icon="PLUGIN")
-		self.layout.separator()
-		self.layout.operator(Move3DCursor.bl_idname, icon="PLUGIN")
+		self.layout.menu(ShortcutMenu.bl_idname, icon='PLUGIN')
 	if (context.user_preferences.addons["Scramble Addon"].preferences.use_disabled_menu):
 		self.layout.separator()
 		self.layout.operator('wm.toggle_menu_enable', icon='CANCEL').id = __name__.split('.')[-1]

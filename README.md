@@ -928,6 +928,10 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Rename bone symmetry position)**
         * 選択中ボーンのX軸反対側の位置にあるボーンを「○.R ○.L」のように対にします
         * ―(Bone is located opposite X axis selection in bone "1.R longs 1.L ' of so versus the)
+    * **ボーンを延長**
+    * **―(Extend bone)**
+        * 選択ボーンの方向に新規ボーンを伸ばします
+        * ―(Stretch new bone in direction of selected bone)
   
 * **「3Dビュー」エリア > 「アーマチュア編集」モード > 「Shift + W」キー**
 * **―("3D View" Area > "Armature Editor" Mode > "Shift + W" Key)**
@@ -950,10 +954,6 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **―(Delete bone without confirm)**
         * ボーンを確認無しで削除します
         * ―(Remove bones without confirm)
-    * **ボーンをそのまま3Dカーソルの位置へ**
-    * **―(Move bone to 3D cursor intact)**
-        * 相対的なボーンの尾(根本でも可)の位置をそのままに、ボーンを3Dカーソルの位置へ移動させます
-        * ―(Position of relative born tail (even root), bone, 3 D move cursor position)
   
 * **「3Dビュー」エリア > 「メッシュ編集」モード > 「メッシュ」メニュー**
 * **―("3D View" Area > "Mesh Editor" Mode > "Mesh" Menu)**
