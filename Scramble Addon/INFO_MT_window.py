@@ -18,7 +18,7 @@ class PieMenu(bpy.types.Menu):
 class AreaTypePieOperator(bpy.types.Operator):
 	bl_idname = "wm.area_type_pie_operator"
 	bl_label = "Editor Type"
-	bl_description = "Change editor type pie menu is"
+	bl_description = "This is pie menu of editor type change"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	def execute(self, context):
@@ -27,7 +27,7 @@ class AreaTypePieOperator(bpy.types.Operator):
 class AreaTypePie(bpy.types.Menu): #
 	bl_idname = "INFO_MT_window_pie_area_type"
 	bl_label = "Editor Type"
-	bl_description = "Change editor type pie menu is"
+	bl_description = "This is pie menu of editor type change"
 	
 	def draw(self, context):
 		self.layout.menu_pie().operator(SetAreaType.bl_idname, text="Text Editor", icon="TEXT").type = "TEXT_EDITOR"

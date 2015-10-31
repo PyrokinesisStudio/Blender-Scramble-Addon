@@ -149,12 +149,12 @@ class RenameOppositeBone(bpy.types.Operator):
 
 class extend_bone(bpy.types.Operator):
 	bl_idname = "armature.extend_bone"
-	bl_label = "Extend bone"
+	bl_label = "Extend Bone"
 	bl_description = "Stretch new bone in direction of selected bone"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	length = bpy.props.FloatProperty(name="Length", default=0.1, min=-10, max=10, soft_min=-10, soft_max=10, step=10, precision=3)
-	is_parent = bpy.props.BoolProperty(name="Where parent", default=True)
+	is_parent = bpy.props.BoolProperty(name="Source Parent", default=True)
 	is_connect = bpy.props.BoolProperty(name="Connection", default=True)
 	
 	@classmethod

@@ -58,7 +58,7 @@ class RecoverLatestAutoSave(bpy.types.Operator):
 				lastFile = path
 				lastTime = os.stat(path).st_mtime
 		bpy.ops.wm.recover_auto_save(filepath=lastFile)
-		self.report(type={'INFO'}, message="Load last AutoSave file")
+		self.report(type={'INFO'}, message="Loaded last auto-save file")
 		return {'FINISHED'}
 
 class SaveMainfileUnmassage(bpy.types.Operator):
@@ -871,7 +871,7 @@ class EntireProcessMenu(bpy.types.Menu):
 class EntireProcessObjectMenu(bpy.types.Menu):
 	bl_idname = "INFO_MT_entire_process_object"
 	bl_label = "Object"
-	bl_description = "Is set of batch processing all objects and features"
+	bl_description = "This is group of functions to batch processing all objects"
 	
 	def draw(self, context):
 		self.layout.operator(AllOnShowAllEdges.bl_idname, icon='PLUGIN')

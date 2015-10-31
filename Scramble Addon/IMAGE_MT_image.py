@@ -245,7 +245,7 @@ class RenameImageFile(bpy.types.Operator):
 	def invoke(self, context, event):
 		self.new_name = bpy.path.basename(context.edit_image.filepath_raw)
 		if (self.new_name == ""):
-			self.report(type={"ERROR"}, message="External file does not exist on this image")
+			self.report(type={"ERROR"}, message="External file does not exist in this image")
 			return {"CANCELLED"}
 		return context.window_manager.invoke_props_dialog(self)
 	def execute(self, context):
@@ -326,7 +326,7 @@ class BlurImage(bpy.types.Operator):
 class ReverseWidthImage(bpy.types.Operator):
 	bl_idname = "image.reverse_width_image"
 	bl_label = "Flip Horizontally"
-	bl_description = "Active image flips horizontally"
+	bl_description = "Reverse this image horizontally"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod
@@ -356,7 +356,7 @@ class ReverseWidthImage(bpy.types.Operator):
 class ReverseHeightImage(bpy.types.Operator):
 	bl_idname = "image.reverse_height_image"
 	bl_label = "Flip Vertically"
-	bl_description = "Inverts active image in vertical direction"
+	bl_description = "Reverse this image verticaliy"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	@classmethod

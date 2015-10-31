@@ -404,7 +404,7 @@ def unregister():
 	bpy.types.IMAGE_MT_select.remove(IMAGE_MT_select.menu)
 	bpy.types.IMAGE_MT_uvs.remove(IMAGE_MT_uvs.menu)
 	bpy.types.IMAGE_MT_view.remove(IMAGE_MT_view.menu)
-	bpy.types.INFO_HT_header.remove(INFO_HT_header.menu)
+	bpy.types.INFO_HT_header.remove(INFO_HT_header.menu_prepend)
 	bpy.types.INFO_MT_file.remove(INFO_MT_file.menu)
 	bpy.types.INFO_MT_file_external_data.remove(INFO_MT_file_external_data.menu)
 	bpy.types.INFO_MT_help.remove(INFO_MT_help.menu)

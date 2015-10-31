@@ -10,7 +10,7 @@ import bpy
 class Reset2DCursor(bpy.types.Operator):
 	bl_idname = "image.reset_2d_cursor"
 	bl_label = "Reset Cursor Position"
-	bl_description = "2D cursor moves to lower-left corner"
+	bl_description = "Move 2D cursor in lower left"
 	bl_options = {'REGISTER', 'UNDO'}
 	
 	items = [

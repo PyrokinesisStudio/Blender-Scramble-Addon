@@ -332,11 +332,11 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **水平反転**
     * **―(Flip Horizontally)**
         * アクティブな画像を水平方向に反転します
-        * ―(Active image flips horizontally)
+        * ―(Reverse this image horizontally)
     * **垂直反転**
     * **―(Flip Vertically)**
         * アクティブな画像を垂直方向に反転します
-        * ―(Inverts active image in vertical direction)
+        * ―(Reverse this image verticaliy)
     * **90°回転**
     * **―(Rotate 90 Degrees)**
         * アクティブな画像を90°回転します
@@ -409,7 +409,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **カーソルの位置をリセット**
     * **―(Reset Cursor Position)**
         * 2Dカーソルの位置を左下に移動させます
-        * ―(2D cursor moves to lower-left corner)
+        * ―(Move 2D cursor in the lower left)
     * **パネル表示切り替え(モードA)**
     * **―(Toggle Panel (mode A))**
         * プロパティ/ツールシェルフの「両方表示」/「両方非表示」をトグルします
@@ -560,7 +560,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
     * **エディタータイプ**
     * **―(Editor Type)**
         * エディタータイプ変更のパイメニューです
-        * ―(Change editor type pie menu is)
+        * ―(This is a pie menu of editor type change)
     * **UIの英語・日本語 切り替え**
     * **―(Switch UI English/Japanese)**
         * インターフェイスの英語と日本語を切り替えます
@@ -929,7 +929,7 @@ Blenderを起動しユーザー設定のアドオンタブで「Scramble」等�
         * 選択中ボーンのX軸反対側の位置にあるボーンを「○.R ○.L」のように対にします
         * ―(Bone is located opposite X axis selection in bone "1.R longs 1.L ' of so versus the)
     * **ボーンを延長**
-    * **―(Extend bone)**
+    * **―(Extend Bone)**
         * 選択ボーンの方向に新規ボーンを伸ばします
         * ―(Stretch new bone in direction of selected bone)
   
