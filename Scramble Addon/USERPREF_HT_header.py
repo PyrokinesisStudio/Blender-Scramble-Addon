@@ -887,6 +887,12 @@ class UpdateScrambleAddon(bpy.types.Operator):
 	bl_description = "Downloads, updates and check out Blender-Scramble-Addon"
 	bl_options = {'REGISTER'}
 	
+	def invoke(self, context, event):
+		return context.window_manager.invoke_props_dialog(self)
+	
+	def draw(self, context):
+		pass
+	
 	def execute(self, context):
 		response = urllib.request.urlopen("https://github.com/saidenka/Blender-Scramble-Addon/archive/master.zip")
 		tempDir = bpy.app.tempdir

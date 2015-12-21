@@ -82,6 +82,7 @@ class SnapMeshView(bpy.types.Operator):
 		preGp = context.scene.grease_pencil
 		preGpSource = context.scene.tool_settings.grease_pencil_source
 		preCursorCo = bpy.context.space_data.cursor_location[:]
+		context.space_data.cursor_location = context.region_data.view_location[:]
 		context.scene.tool_settings.grease_pencil_source = 'SCENE'
 		if (preGp):
 			tempGp = preGp
@@ -98,6 +99,8 @@ class SnapMeshView(bpy.types.Operator):
 		bpy.ops.view3d.view_center_cursor()
 		bpy.context.space_data.cursor_location = preCursorCo
 		tempGp.layers.remove(tempLayer)
+		tempGp.user_clear()
+		bpy.data.grease_pencil.remove(tempGp)
 		context.scene.grease_pencil = preGp
 		context.scene.tool_settings.grease_pencil_source = preGpSource
 		return {'FINISHED'}
